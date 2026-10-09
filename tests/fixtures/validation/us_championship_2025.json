@@ -1,0 +1,1401 @@
+{
+ "source": "FIDE's tournament report and published per-player calculations for the 2025 US Championship, with single values quoted from FIDE's October and November 2025 standard lists",
+ "fetched": "2026-10-09, one request at a time, at least 6 s apart",
+ "report_url": "https://ratings.fide.com/report.phtml?event=432532&t=0",
+ "report_fetched_utc": "2026-10-09T19:10:14Z",
+ "event": {
+  "event_id": 432532,
+  "event": "2025 US Championship",
+  "place": "St. Louis, MO USA",
+  "start": "2025-10-12",
+  "end": "2025-10-24",
+  "rating_period": "2025-11",
+  "chapter": "standard",
+  "system": "12-player round robin"
+ },
+ "round_note": "FIDE's per-player pages list the games in the same order for all twelve players (each pairing at the same position for both players, with opposite colours); that position is taken as the round",
+ "privacy_note": "players are identified by FIDE ID as in FIDE's report; no names or birth data are recorded",
+ "list_values_note": "list_2025_10 and list_2025_11 are single values quoted from FIDE's monthly standard lists for verification; the lists themselves are not redistributed",
+ "players": [
+  {
+   "fide_id": 2020009,
+   "calculation_url": "https://ratings.fide.com/a_indv_calculation.php?id_number=2020009&rating_period=2025-11-01&t=0",
+   "calculation_fetched_utc": "2026-10-09T19:10:21Z",
+   "list_2025_10": {
+    "rating": 2789,
+    "k": 10
+   },
+   "list_2025_11": {
+    "rating": 2795,
+    "games": 15,
+    "k": 10
+   },
+   "fide_tournament": {
+    "Rc": "2675",
+    "Ro": "2789",
+    "w": "8.00",
+    "n": "11",
+    "chg": "0.83",
+    "K": "10",
+    "K_chg": "8.30"
+   },
+   "fide_other_events_in_period": [
+    {
+     "event_id": 438945,
+     "event": "2025 Grand Chess Tour Finals - Standard",
+     "start": "2025-09-28",
+     "end": "2025-10-02",
+     "Ro": "2789",
+     "n": "4",
+     "K": "10",
+     "K_chg": "-2.60"
+    }
+   ],
+   "fide_total_change_shown": "5.70"
+  },
+  {
+   "fide_id": 5202213,
+   "calculation_url": "https://ratings.fide.com/a_indv_calculation.php?id_number=5202213&rating_period=2025-11-01&t=0",
+   "calculation_fetched_utc": "2026-10-09T19:09:52Z",
+   "list_2025_10": {
+    "rating": 2756,
+    "k": 10
+   },
+   "list_2025_11": {
+    "rating": 2764,
+    "games": 11,
+    "k": 10
+   },
+   "fide_tournament": {
+    "Rc": "2678",
+    "Ro": "2756",
+    "w": "7.50",
+    "n": "11",
+    "chg": "0.84",
+    "K": "10",
+    "K_chg": "8.40"
+   },
+   "fide_other_events_in_period": [],
+   "fide_total_change_shown": "8.40"
+  },
+  {
+   "fide_id": 2093596,
+   "calculation_url": "https://ratings.fide.com/a_indv_calculation.php?id_number=2093596&rating_period=2025-11-01&t=0",
+   "calculation_fetched_utc": "2026-10-09T19:10:48Z",
+   "list_2025_10": {
+    "rating": 2738,
+    "k": 10
+   },
+   "list_2025_11": {
+    "rating": 2729,
+    "games": 11,
+    "k": 10
+   },
+   "fide_tournament": {
+    "Rc": "2679",
+    "Ro": "2738",
+    "w": "5.50",
+    "n": "11",
+    "chg": "-0.88",
+    "K": "10",
+    "K_chg": "-8.80"
+   },
+   "fide_other_events_in_period": [],
+   "fide_total_change_shown": "-8.80"
+  },
+  {
+   "fide_id": 13300474,
+   "calculation_url": "https://ratings.fide.com/a_indv_calculation.php?id_number=13300474&rating_period=2025-11-01&t=0",
+   "calculation_fetched_utc": "2026-10-09T19:10:28Z",
+   "list_2025_10": {
+    "rating": 2722,
+    "k": 10
+   },
+   "list_2025_11": {
+    "rating": 2728,
+    "games": 15,
+    "k": 10
+   },
+   "fide_tournament": {
+    "Rc": "2681",
+    "Ro": "2722",
+    "w": "6.50",
+    "n": "11",
+    "chg": "0.39",
+    "K": "10",
+    "K_chg": "3.90"
+   },
+   "fide_other_events_in_period": [
+    {
+     "event_id": 438945,
+     "event": "2025 Grand Chess Tour Finals - Standard",
+     "start": "2025-09-28",
+     "end": "2025-10-02",
+     "Ro": "2744",
+     "n": "4",
+     "K": "10",
+     "K_chg": "2.40"
+    }
+   ],
+   "fide_total_change_shown": "6.30"
+  },
+  {
+   "fide_id": 2056437,
+   "calculation_url": "https://ratings.fide.com/a_indv_calculation.php?id_number=2056437&rating_period=2025-11-01&t=0",
+   "calculation_fetched_utc": "2026-10-09T19:11:01Z",
+   "list_2025_10": {
+    "rating": 2710,
+    "k": 10
+   },
+   "list_2025_11": {
+    "rating": 2701,
+    "games": 11,
+    "k": 10
+   },
+   "fide_tournament": {
+    "Rc": "2682",
+    "Ro": "2710",
+    "w": "5.00",
+    "n": "11",
+    "chg": "-0.92",
+    "K": "10",
+    "K_chg": "-9.20"
+   },
+   "fide_other_events_in_period": [],
+   "fide_total_change_shown": "-9.20"
+  },
+  {
+   "fide_id": 2040506,
+   "calculation_url": "https://ratings.fide.com/a_indv_calculation.php?id_number=2040506&rating_period=2025-11-01&t=0",
+   "calculation_fetched_utc": "2026-10-09T19:10:34Z",
+   "list_2025_10": {
+    "rating": 2698,
+    "k": 10
+   },
+   "list_2025_11": {
+    "rating": 2701,
+    "games": 11,
+    "k": 10
+   },
+   "fide_tournament": {
+    "Rc": "2683",
+    "Ro": "2698",
+    "w": "6.00",
+    "n": "11",
+    "chg": "0.28",
+    "K": "10",
+    "K_chg": "2.80"
+   },
+   "fide_other_events_in_period": [],
+   "fide_total_change_shown": "2.80"
+  },
+  {
+   "fide_id": 2023970,
+   "calculation_url": "https://ratings.fide.com/a_indv_calculation.php?id_number=2023970&rating_period=2025-11-01&t=0",
+   "calculation_fetched_utc": "2026-10-09T19:11:15Z",
+   "list_2025_10": {
+    "rating": 2664,
+    "k": 10
+   },
+   "list_2025_11": {
+    "rating": 2657,
+    "games": 11,
+    "k": 10
+   },
+   "fide_tournament": {
+    "Rc": "2686",
+    "Ro": "2664",
+    "w": "4.50",
+    "n": "11",
+    "chg": "-0.66",
+    "K": "10",
+    "K_chg": "-6.60"
+   },
+   "fide_other_events_in_period": [],
+   "fide_total_change_shown": "-6.60"
+  },
+  {
+   "fide_id": 24125890,
+   "calculation_url": "https://ratings.fide.com/a_indv_calculation.php?id_number=24125890&rating_period=2025-11-01&t=0",
+   "calculation_fetched_utc": "2026-10-09T19:10:54Z",
+   "list_2025_10": {
+    "rating": 2661,
+    "k": 10
+   },
+   "list_2025_11": {
+    "rating": 2660,
+    "games": 11,
+    "k": 10
+   },
+   "fide_tournament": {
+    "Rc": "2686",
+    "Ro": "2661",
+    "w": "5.00",
+    "n": "11",
+    "chg": "-0.13",
+    "K": "10",
+    "K_chg": "-1.30"
+   },
+   "fide_other_events_in_period": [],
+   "fide_total_change_shown": "-1.30"
+  },
+  {
+   "fide_id": 2004887,
+   "calculation_url": "https://ratings.fide.com/a_indv_calculation.php?id_number=2004887&rating_period=2025-11-01&t=0",
+   "calculation_fetched_utc": "2026-10-09T19:11:08Z",
+   "list_2025_10": {
+    "rating": 2654,
+    "k": 10
+   },
+   "list_2025_11": {
+    "rating": 2649,
+    "games": 11,
+    "k": 10
+   },
+   "fide_tournament": {
+    "Rc": "2687",
+    "Ro": "2654",
+    "w": "4.50",
+    "n": "11",
+    "chg": "-0.51",
+    "K": "10",
+    "K_chg": "-5.10"
+   },
+   "fide_other_events_in_period": [],
+   "fide_total_change_shown": "-5.10"
+  },
+  {
+   "fide_id": 30920019,
+   "calculation_url": "https://ratings.fide.com/a_indv_calculation.php?id_number=30920019&rating_period=2025-11-01&t=0",
+   "calculation_fetched_utc": "2026-10-09T19:11:28Z",
+   "list_2025_10": {
+    "rating": 2652,
+    "k": 10
+   },
+   "list_2025_11": {
+    "rating": 2642,
+    "games": 11,
+    "k": 10
+   },
+   "fide_tournament": {
+    "Rc": "2687",
+    "Ro": "2652",
+    "w": "4.00",
+    "n": "11",
+    "chg": "-0.98",
+    "K": "10",
+    "K_chg": "-9.80"
+   },
+   "fide_other_events_in_period": [],
+   "fide_total_change_shown": "-9.80"
+  },
+  {
+   "fide_id": 30953499,
+   "calculation_url": "https://ratings.fide.com/a_indv_calculation.php?id_number=30953499&rating_period=2025-11-01&t=0",
+   "calculation_fetched_utc": "2026-10-09T19:10:41Z",
+   "list_2025_10": {
+    "rating": 2590,
+    "k": 10
+   },
+   "list_2025_11": {
+    "rating": 2605,
+    "games": 11,
+    "k": 10
+   },
+   "fide_tournament": {
+    "Rc": "2693",
+    "Ro": "2590",
+    "w": "5.50",
+    "n": "11",
+    "chg": "1.53",
+    "K": "10",
+    "K_chg": "15.30"
+   },
+   "fide_other_events_in_period": [],
+   "fide_total_change_shown": "15.30"
+  },
+  {
+   "fide_id": 1126881,
+   "calculation_url": "https://ratings.fide.com/a_indv_calculation.php?id_number=1126881&rating_period=2025-11-01&t=0",
+   "calculation_fetched_utc": "2026-10-09T19:11:21Z",
+   "list_2025_10": {
+    "rating": 2577,
+    "k": 10
+   },
+   "list_2025_11": {
+    "rating": 2579,
+    "games": 11,
+    "k": 10
+   },
+   "fide_tournament": {
+    "Rc": "2694",
+    "Ro": "2577",
+    "w": "4.00",
+    "n": "11",
+    "chg": "0.21",
+    "K": "10",
+    "K_chg": "2.10"
+   },
+   "fide_other_events_in_period": [],
+   "fide_total_change_shown": "2.10"
+  }
+ ],
+ "games": [
+  {
+   "round": 1,
+   "white": 1126881,
+   "black": 2023970,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2664,
+    "chg": "0.12",
+    "K_chg": "1.20"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2577,
+    "chg": "-0.12",
+    "K_chg": "-1.20"
+   }
+  },
+  {
+   "round": 1,
+   "white": 2020009,
+   "black": 24125890,
+   "result": "1-0",
+   "fide_white": {
+    "opponent_rating_used": 2661,
+    "chg": "0.33",
+    "K_chg": "3.30"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2789,
+    "chg": "-0.33",
+    "K_chg": "-3.30"
+   }
+  },
+  {
+   "round": 1,
+   "white": 2040506,
+   "black": 2004887,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2654,
+    "chg": "-0.06",
+    "K_chg": "-0.60"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2698,
+    "chg": "0.06",
+    "K_chg": "0.60"
+   }
+  },
+  {
+   "round": 1,
+   "white": 2056437,
+   "black": 30920019,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2652,
+    "chg": "-0.08",
+    "K_chg": "-0.80"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2710,
+    "chg": "0.08",
+    "K_chg": "0.80"
+   }
+  },
+  {
+   "round": 1,
+   "white": 5202213,
+   "black": 2093596,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2738,
+    "chg": "-0.03",
+    "K_chg": "-0.30"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2756,
+    "chg": "0.03",
+    "K_chg": "0.30"
+   }
+  },
+  {
+   "round": 1,
+   "white": 30953499,
+   "black": 13300474,
+   "result": "0-1",
+   "fide_white": {
+    "opponent_rating_used": 2722,
+    "chg": "-0.32",
+    "K_chg": "-3.20"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2590,
+    "chg": "0.32",
+    "K_chg": "3.20"
+   }
+  },
+  {
+   "round": 2,
+   "white": 2004887,
+   "black": 1126881,
+   "result": "1-0",
+   "fide_white": {
+    "opponent_rating_used": 2577,
+    "chg": "0.39",
+    "K_chg": "3.90"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2654,
+    "chg": "-0.39",
+    "K_chg": "-3.90"
+   }
+  },
+  {
+   "round": 2,
+   "white": 2020009,
+   "black": 30953499,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2590,
+    "chg": "-0.26",
+    "K_chg": "-2.60"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2789,
+    "chg": "0.26",
+    "K_chg": "2.60"
+   }
+  },
+  {
+   "round": 2,
+   "white": 2023970,
+   "black": 5202213,
+   "result": "0-1",
+   "fide_white": {
+    "opponent_rating_used": 2756,
+    "chg": "-0.37",
+    "K_chg": "-3.70"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2664,
+    "chg": "0.37",
+    "K_chg": "3.70"
+   }
+  },
+  {
+   "round": 2,
+   "white": 13300474,
+   "black": 2056437,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2710,
+    "chg": "-0.02",
+    "K_chg": "-0.20"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2722,
+    "chg": "0.02",
+    "K_chg": "0.20"
+   }
+  },
+  {
+   "round": 2,
+   "white": 24125890,
+   "black": 2093596,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2738,
+    "chg": "0.11",
+    "K_chg": "1.10"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2661,
+    "chg": "-0.11",
+    "K_chg": "-1.10"
+   }
+  },
+  {
+   "round": 2,
+   "white": 30920019,
+   "black": 2040506,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2698,
+    "chg": "0.06",
+    "K_chg": "0.60"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2652,
+    "chg": "-0.06",
+    "K_chg": "-0.60"
+   }
+  },
+  {
+   "round": 3,
+   "white": 1126881,
+   "black": 30920019,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2652,
+    "chg": "0.10",
+    "K_chg": "1.00"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2577,
+    "chg": "-0.10",
+    "K_chg": "-1.00"
+   }
+  },
+  {
+   "round": 3,
+   "white": 2040506,
+   "black": 13300474,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2722,
+    "chg": "0.03",
+    "K_chg": "0.30"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2698,
+    "chg": "-0.03",
+    "K_chg": "-0.30"
+   }
+  },
+  {
+   "round": 3,
+   "white": 2056437,
+   "black": 2020009,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2789,
+    "chg": "0.11",
+    "K_chg": "1.10"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2710,
+    "chg": "-0.11",
+    "K_chg": "-1.10"
+   }
+  },
+  {
+   "round": 3,
+   "white": 2093596,
+   "black": 2023970,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2664,
+    "chg": "-0.10",
+    "K_chg": "-1.00"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2738,
+    "chg": "0.10",
+    "K_chg": "1.00"
+   }
+  },
+  {
+   "round": 3,
+   "white": 5202213,
+   "black": 2004887,
+   "result": "1-0",
+   "fide_white": {
+    "opponent_rating_used": 2654,
+    "chg": "0.36",
+    "K_chg": "3.60"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2756,
+    "chg": "-0.36",
+    "K_chg": "-3.60"
+   }
+  },
+  {
+   "round": 3,
+   "white": 30953499,
+   "black": 24125890,
+   "result": "0-1",
+   "fide_white": {
+    "opponent_rating_used": 2661,
+    "chg": "-0.40",
+    "K_chg": "-4.00"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2590,
+    "chg": "0.40",
+    "K_chg": "4.00"
+   }
+  },
+  {
+   "round": 4,
+   "white": 2004887,
+   "black": 2093596,
+   "result": "0-1",
+   "fide_white": {
+    "opponent_rating_used": 2738,
+    "chg": "-0.38",
+    "K_chg": "-3.80"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2654,
+    "chg": "0.38",
+    "K_chg": "3.80"
+   }
+  },
+  {
+   "round": 4,
+   "white": 2020009,
+   "black": 2040506,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2698,
+    "chg": "-0.12",
+    "K_chg": "-1.20"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2789,
+    "chg": "0.12",
+    "K_chg": "1.20"
+   }
+  },
+  {
+   "round": 4,
+   "white": 13300474,
+   "black": 1126881,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2577,
+    "chg": "-0.19",
+    "K_chg": "-1.90"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2722,
+    "chg": "0.19",
+    "K_chg": "1.90"
+   }
+  },
+  {
+   "round": 4,
+   "white": 24125890,
+   "black": 2023970,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2664,
+    "chg": "0.00",
+    "K_chg": "0.00"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2661,
+    "chg": "0.00",
+    "K_chg": "0.00"
+   }
+  },
+  {
+   "round": 4,
+   "white": 30920019,
+   "black": 5202213,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2756,
+    "chg": "0.14",
+    "K_chg": "1.40"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2652,
+    "chg": "-0.14",
+    "K_chg": "-1.40"
+   }
+  },
+  {
+   "round": 4,
+   "white": 30953499,
+   "black": 2056437,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2710,
+    "chg": "0.16",
+    "K_chg": "1.60"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2590,
+    "chg": "-0.16",
+    "K_chg": "-1.60"
+   }
+  },
+  {
+   "round": 5,
+   "white": 1126881,
+   "black": 2020009,
+   "result": "0-1",
+   "fide_white": {
+    "opponent_rating_used": 2789,
+    "chg": "-0.23",
+    "K_chg": "-2.30"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2577,
+    "chg": "0.23",
+    "K_chg": "2.30"
+   }
+  },
+  {
+   "round": 5,
+   "white": 2023970,
+   "black": 2004887,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2654,
+    "chg": "-0.01",
+    "K_chg": "-0.10"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2664,
+    "chg": "0.01",
+    "K_chg": "0.10"
+   }
+  },
+  {
+   "round": 5,
+   "white": 2040506,
+   "black": 30953499,
+   "result": "0-1",
+   "fide_white": {
+    "opponent_rating_used": 2590,
+    "chg": "-0.65",
+    "K_chg": "-6.50"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2698,
+    "chg": "0.65",
+    "K_chg": "6.50"
+   }
+  },
+  {
+   "round": 5,
+   "white": 2056437,
+   "black": 24125890,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2661,
+    "chg": "-0.07",
+    "K_chg": "-0.70"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2710,
+    "chg": "0.07",
+    "K_chg": "0.70"
+   }
+  },
+  {
+   "round": 5,
+   "white": 2093596,
+   "black": 30920019,
+   "result": "1-0",
+   "fide_white": {
+    "opponent_rating_used": 2652,
+    "chg": "0.38",
+    "K_chg": "3.80"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2738,
+    "chg": "-0.38",
+    "K_chg": "-3.80"
+   }
+  },
+  {
+   "round": 5,
+   "white": 5202213,
+   "black": 13300474,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2722,
+    "chg": "-0.05",
+    "K_chg": "-0.50"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2756,
+    "chg": "0.05",
+    "K_chg": "0.50"
+   }
+  },
+  {
+   "round": 6,
+   "white": 2020009,
+   "black": 5202213,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2756,
+    "chg": "-0.05",
+    "K_chg": "-0.50"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2789,
+    "chg": "0.05",
+    "K_chg": "0.50"
+   }
+  },
+  {
+   "round": 6,
+   "white": 2056437,
+   "black": 2040506,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2698,
+    "chg": "-0.02",
+    "K_chg": "-0.20"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2710,
+    "chg": "0.02",
+    "K_chg": "0.20"
+   }
+  },
+  {
+   "round": 6,
+   "white": 13300474,
+   "black": 2093596,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2738,
+    "chg": "0.02",
+    "K_chg": "0.20"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2722,
+    "chg": "-0.02",
+    "K_chg": "-0.20"
+   }
+  },
+  {
+   "round": 6,
+   "white": 24125890,
+   "black": 2004887,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2654,
+    "chg": "-0.01",
+    "K_chg": "-0.10"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2661,
+    "chg": "0.01",
+    "K_chg": "0.10"
+   }
+  },
+  {
+   "round": 6,
+   "white": 30920019,
+   "black": 2023970,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2664,
+    "chg": "0.02",
+    "K_chg": "0.20"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2652,
+    "chg": "-0.02",
+    "K_chg": "-0.20"
+   }
+  },
+  {
+   "round": 6,
+   "white": 30953499,
+   "black": 1126881,
+   "result": "1-0",
+   "fide_white": {
+    "opponent_rating_used": 2577,
+    "chg": "0.48",
+    "K_chg": "4.80"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2590,
+    "chg": "-0.48",
+    "K_chg": "-4.80"
+   }
+  },
+  {
+   "round": 7,
+   "white": 1126881,
+   "black": 2056437,
+   "result": "1-0",
+   "fide_white": {
+    "opponent_rating_used": 2710,
+    "chg": "0.68",
+    "K_chg": "6.80"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2577,
+    "chg": "-0.68",
+    "K_chg": "-6.80"
+   }
+  },
+  {
+   "round": 7,
+   "white": 2004887,
+   "black": 30920019,
+   "result": "1-0",
+   "fide_white": {
+    "opponent_rating_used": 2652,
+    "chg": "0.50",
+    "K_chg": "5.00"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2654,
+    "chg": "-0.50",
+    "K_chg": "-5.00"
+   }
+  },
+  {
+   "round": 7,
+   "white": 2023970,
+   "black": 13300474,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2722,
+    "chg": "0.08",
+    "K_chg": "0.80"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2664,
+    "chg": "-0.08",
+    "K_chg": "-0.80"
+   }
+  },
+  {
+   "round": 7,
+   "white": 2040506,
+   "black": 24125890,
+   "result": "1-0",
+   "fide_white": {
+    "opponent_rating_used": 2661,
+    "chg": "0.45",
+    "K_chg": "4.50"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2698,
+    "chg": "-0.45",
+    "K_chg": "-4.50"
+   }
+  },
+  {
+   "round": 7,
+   "white": 2093596,
+   "black": 2020009,
+   "result": "0-1",
+   "fide_white": {
+    "opponent_rating_used": 2789,
+    "chg": "-0.43",
+    "K_chg": "-4.30"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2738,
+    "chg": "0.43",
+    "K_chg": "4.30"
+   }
+  },
+  {
+   "round": 7,
+   "white": 5202213,
+   "black": 30953499,
+   "result": "1-0",
+   "fide_white": {
+    "opponent_rating_used": 2590,
+    "chg": "0.28",
+    "K_chg": "2.80"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2756,
+    "chg": "-0.28",
+    "K_chg": "-2.80"
+   }
+  },
+  {
+   "round": 8,
+   "white": 2020009,
+   "black": 2023970,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2664,
+    "chg": "-0.17",
+    "K_chg": "-1.70"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2789,
+    "chg": "0.17",
+    "K_chg": "1.70"
+   }
+  },
+  {
+   "round": 8,
+   "white": 2040506,
+   "black": 1126881,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2577,
+    "chg": "-0.16",
+    "K_chg": "-1.60"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2698,
+    "chg": "0.16",
+    "K_chg": "1.60"
+   }
+  },
+  {
+   "round": 8,
+   "white": 2056437,
+   "black": 5202213,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2756,
+    "chg": "0.06",
+    "K_chg": "0.60"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2710,
+    "chg": "-0.06",
+    "K_chg": "-0.60"
+   }
+  },
+  {
+   "round": 8,
+   "white": 13300474,
+   "black": 2004887,
+   "result": "1-0",
+   "fide_white": {
+    "opponent_rating_used": 2654,
+    "chg": "0.41",
+    "K_chg": "4.10"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2722,
+    "chg": "-0.41",
+    "K_chg": "-4.10"
+   }
+  },
+  {
+   "round": 8,
+   "white": 24125890,
+   "black": 30920019,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2652,
+    "chg": "-0.01",
+    "K_chg": "-0.10"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2661,
+    "chg": "0.01",
+    "K_chg": "0.10"
+   }
+  },
+  {
+   "round": 8,
+   "white": 30953499,
+   "black": 2093596,
+   "result": "1-0",
+   "fide_white": {
+    "opponent_rating_used": 2738,
+    "chg": "0.70",
+    "K_chg": "7.00"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2590,
+    "chg": "-0.70",
+    "K_chg": "-7.00"
+   }
+  },
+  {
+   "round": 9,
+   "white": 1126881,
+   "black": 24125890,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2661,
+    "chg": "0.12",
+    "K_chg": "1.20"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2577,
+    "chg": "-0.12",
+    "K_chg": "-1.20"
+   }
+  },
+  {
+   "round": 9,
+   "white": 2004887,
+   "black": 2020009,
+   "result": "0-1",
+   "fide_white": {
+    "opponent_rating_used": 2789,
+    "chg": "-0.32",
+    "K_chg": "-3.20"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2654,
+    "chg": "0.32",
+    "K_chg": "3.20"
+   }
+  },
+  {
+   "round": 9,
+   "white": 2023970,
+   "black": 30953499,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2590,
+    "chg": "-0.10",
+    "K_chg": "-1.00"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2664,
+    "chg": "0.10",
+    "K_chg": "1.00"
+   }
+  },
+  {
+   "round": 9,
+   "white": 2093596,
+   "black": 2056437,
+   "result": "1-0",
+   "fide_white": {
+    "opponent_rating_used": 2710,
+    "chg": "0.46",
+    "K_chg": "4.60"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2738,
+    "chg": "-0.46",
+    "K_chg": "-4.60"
+   }
+  },
+  {
+   "round": 9,
+   "white": 5202213,
+   "black": 2040506,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2698,
+    "chg": "-0.08",
+    "K_chg": "-0.80"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2756,
+    "chg": "0.08",
+    "K_chg": "0.80"
+   }
+  },
+  {
+   "round": 9,
+   "white": 30920019,
+   "black": 13300474,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2722,
+    "chg": "0.10",
+    "K_chg": "1.00"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2652,
+    "chg": "-0.10",
+    "K_chg": "-1.00"
+   }
+  },
+  {
+   "round": 10,
+   "white": 1126881,
+   "black": 5202213,
+   "result": "0-1",
+   "fide_white": {
+    "opponent_rating_used": 2756,
+    "chg": "-0.27",
+    "K_chg": "-2.70"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2577,
+    "chg": "0.27",
+    "K_chg": "2.70"
+   }
+  },
+  {
+   "round": 10,
+   "white": 2020009,
+   "black": 30920019,
+   "result": "1-0",
+   "fide_white": {
+    "opponent_rating_used": 2652,
+    "chg": "0.32",
+    "K_chg": "3.20"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2789,
+    "chg": "-0.32",
+    "K_chg": "-3.20"
+   }
+  },
+  {
+   "round": 10,
+   "white": 2040506,
+   "black": 2093596,
+   "result": "1-0",
+   "fide_white": {
+    "opponent_rating_used": 2738,
+    "chg": "0.56",
+    "K_chg": "5.60"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2698,
+    "chg": "-0.56",
+    "K_chg": "-5.60"
+   }
+  },
+  {
+   "round": 10,
+   "white": 2056437,
+   "black": 2023970,
+   "result": "1-0",
+   "fide_white": {
+    "opponent_rating_used": 2664,
+    "chg": "0.44",
+    "K_chg": "4.40"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2710,
+    "chg": "-0.44",
+    "K_chg": "-4.40"
+   }
+  },
+  {
+   "round": 10,
+   "white": 24125890,
+   "black": 13300474,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2722,
+    "chg": "0.08",
+    "K_chg": "0.80"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2661,
+    "chg": "-0.08",
+    "K_chg": "-0.80"
+   }
+  },
+  {
+   "round": 10,
+   "white": 30953499,
+   "black": 2004887,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2654,
+    "chg": "0.09",
+    "K_chg": "0.90"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2590,
+    "chg": "-0.09",
+    "K_chg": "-0.90"
+   }
+  },
+  {
+   "round": 11,
+   "white": 2004887,
+   "black": 2056437,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2710,
+    "chg": "0.08",
+    "K_chg": "0.80"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2654,
+    "chg": "-0.08",
+    "K_chg": "-0.80"
+   }
+  },
+  {
+   "round": 11,
+   "white": 2023970,
+   "black": 2040506,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2698,
+    "chg": "0.05",
+    "K_chg": "0.50"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2664,
+    "chg": "-0.05",
+    "K_chg": "-0.50"
+   }
+  },
+  {
+   "round": 11,
+   "white": 2093596,
+   "black": 1126881,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2577,
+    "chg": "-0.21",
+    "K_chg": "-2.10"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2738,
+    "chg": "0.21",
+    "K_chg": "2.10"
+   }
+  },
+  {
+   "round": 11,
+   "white": 5202213,
+   "black": 24125890,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2661,
+    "chg": "-0.13",
+    "K_chg": "-1.30"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2756,
+    "chg": "0.13",
+    "K_chg": "1.30"
+   }
+  },
+  {
+   "round": 11,
+   "white": 13300474,
+   "black": 2020009,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2789,
+    "chg": "0.09",
+    "K_chg": "0.90"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2722,
+    "chg": "-0.09",
+    "K_chg": "-0.90"
+   }
+  },
+  {
+   "round": 11,
+   "white": 30920019,
+   "black": 30953499,
+   "result": "1/2-1/2",
+   "fide_white": {
+    "opponent_rating_used": 2590,
+    "chg": "-0.09",
+    "K_chg": "-0.90"
+   },
+   "fide_black": {
+    "opponent_rating_used": 2652,
+    "chg": "0.09",
+    "K_chg": "0.90"
+   }
+  }
+ ]
+}
