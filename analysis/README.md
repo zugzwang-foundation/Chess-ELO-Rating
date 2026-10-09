@@ -24,6 +24,8 @@ These scripts are **not the rating engine**: the engine is the package `src/laye
 | `aggregates/E2_broadcast.json` | Its output |
 | `e2_broadcast_report.py` | Applies the decision rules of annex T8 and writes `docs/evidence/E2_broadcast-calibration.md` and, with `--yaml`, `params/table_fit_2026-10.yaml` |
 | `e3_us_championships.py` | Runs `tools/compare_event.py` on the 2025 and 2026 U.S. Championship event files and writes the evidence page `docs/evidence/E3_us-championship-2026.md` |
+| `community/register.json` | The community register (session ELO-4, Phase 2): every item read, January 2023 to September 2026, with its themes, paraphrases, stances and author counts; every fetch attempted, including refusals; and the disposition of each theme. Compiled from the reading, not from `data/` |
+| `e4_community_report.py` | Counts the register and writes the evidence page `docs/evidence/E4_community-register.md` |
 | `fide_panel.py` | A module (registered under "modules"): FIDE's monthly lists as per-month arrays indexed by player, and the April 2026 batch of D-0008 R11; reads `data/`, writes nothing |
 | `e5_deflation_extract.py` | Needs `data/`: the deflation question (session ELO-4, Phase 1): per-player and cross-sectional change of published ratings by group, band and age, the composition of the active list, Ghita's measures as his book defines them, the top and the spread, and the drain implied by the favourite's over-prediction on broadcast games; counts, medians, percentiles and sums only; enforces the ELO-4 data cutoff (no broadcast game after 2026-09-30) |
 | `aggregates/E5_deflation.json` | Its output |
