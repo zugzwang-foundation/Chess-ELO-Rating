@@ -1,134 +1,186 @@
-# SPEC-L0 — FIDE reference rating engine, specification v0.1 (skeleton)
+# SPEC-L0 — FIDE reference rating engine, specification v1.0
 
-**Status: DRAFT v0.1 — skeleton with TODOs; not ratified. No engine code is written until this document carries status RATIFIED.**
-Author: The Zugzwang Authors · Licence: CC BY 4.0 (`docs/LICENSE-docs.md`) · Date: 2026-10-09
-Language: Python 3.12 (decision D-0001). Tooling: TODO (see §10).
+**Status: READY. Every rule below carries a verbatim citation of the FIDE text or a fixture of FIDE's own output. Under the pre-agreed rule of the ELO-3 brief, the specification is ratified when every acceptance criterion of §7 is an executable test; ratification is recorded in a decision record and changes this line to RATIFIED. No engine code is written before then (CLAUDE.md, hard rule 1).**
+Author: The Zugzwang Authors · Licence: CC BY 4.0 (`docs/LICENSE-docs.md`) · Date: 2026-10-09 · v0.1, the skeleton, is in git history
+Language: Python 3.12 (decision D-0001).
 
-Citations: `[V k]` = item k of `docs/research/VERIFICATION_2026-10-09.md` (the Phase 1 transcription of the FIDE regulations); `[P §x]` = section x of the proposal (written against v0.1, kept in git history; the current version is `docs/proposal/ELO-PROPOSAL_v0_3.md`, whose §4 and §10 cover the ground of v0.1's §4 and §8). Every rule below is enumerated from the transcription; where the transcription is silent the rule is marked TODO and must be settled by a test vector, never from memory.
+Citations: `[V k]` = item k of `docs/research/VERIFICATION_2026-10-09.md` ([V 1] the FIDE Rating Regulations effective 1 March 2024 as amended 1 October 2025, [V 2] the Rapid and Blitz Rating Regulations effective 1 March 2024, [V 3] the list downloads); `[VT k]` = item k of `docs/research/VERIFICATION_TITLES.md` ([VT 1] the Title Regulations effective 1 January 2024, [VT 2] the archived Rating Regulations of 1 January 2022 till 29 February 2024); `F-xnn` = a fixture in `tests/fixtures/fide_calculator/` (method and findings in its README), every value recomputed in `analysis/OUTPUT_L0_fixtures.md`; the evidence from the monthly lists on K is `analysis/OUTPUT_L0_k_rules.md`; `[P §x]` = section x of `docs/proposal/ELO-PROPOSAL_v0_3.md`.
+
+Evidence classes used in §3: **CIT** — the rule is the quoted FIDE text; **FIX** — a fixture shows FIDE's own output following the rule; **DATA** — aggregates of the published lists agree with the rule; **READ** — the text is silent and the stated reading is adopted. A READ without a fixture is marked **NOT VERIFIED** and listed in §8.
 
 ## 1 Purpose
 
-Layer 0 is an exact, deterministic, open-source implementation of the FIDE Rating Regulations effective 1 March 2024 as amended 1 October 2025 [V 1] and of the FIDE Rapid and Blitz Rating Regulations effective 1 March 2024 [V 2]. Given the same inputs FIDE uses (tournament reports and the previous monthly list), it must reproduce FIDE's published rating changes, initial ratings and list status to the point. It is the baseline for every comparison in the proposal [P §4, §8] and the credibility anchor with FIDE. It contains no correction layer and no model.
+Layer 0 is an exact, deterministic, open-source implementation of the FIDE Rating Regulations effective 1 March 2024 as amended 1 October 2025 [V 1] and of the FIDE Rapid and Blitz Rating Regulations effective 1 March 2024 [V 2]. Given the inputs FIDE uses (tournament results and the monthly lists), it reproduces FIDE's rating changes, initial ratings, K and list status. It is rung 1 of the adoption ladder and the baseline for every comparison in the proposal [P §4, §9, §10]. It contains no model and no correction.
 
-Out of scope for Layer 0: norms and titles; the pre-2024 regulations (archived versions exist [V 1] and may be added later as separate rule sets for historical backtests); anything in Layers 1 and 2.
+Out of scope: norms and titles (the Title Regulations use table 1.4.9, which equals table 8.1.1 entry by entry [VT 3], and are not implemented); the regulations before 1 March 2024 (separate rule sets may be added for backtests, §8 Q-10); reading TRF files (a separate adapter, §2.1); Layers 1 and 2.
+
+**Changes from v0.1.** R-14 settled (own rating) by FIDE's published calculations; R-22 settled (the precedence of the K lines) by the published lists; R-11a (the list whose ratings a tournament uses), R-11b (base corrections), R-14a (the 1 October 2025 boundary) and R-22b (which list's K applies) added; R-23, R-25, R-29 and R-30 backed by fixtures; R-26, R-30 (ties) and the granularity of R-25 recorded as readings, NOT VERIFIED; FIDE's online calculator found to be out of date (§6.1); acceptance criteria rewritten as executable tests (§7).
 
 ## 2 Inputs
 
-### 2.1 Game records (TRF-style)
-One record per rated game, derived from the tournament report file (TRF) that arbiters submit under §9.1 [V 1]:
-- `tournament_id`, `start_date`, `end_date`, `time_control_class` ∈ {standard, rapid, blitz} with the declared time control (base minutes, increment seconds, moves in the first control if any) so that the classifier (§3.1) can be checked;
-- `round`, `white_id`, `black_id` (FIDE ID numbers), `result` ∈ {1-0, ½-½, 0-1, unplayed/forfeit}, `played` flag (§5.1 [V 1]: both players made at least one move);
-- `rating_period` the list the tournament is registered for (§7.1.3, §9.1 [V 1]).
-TODO: exact TRF field mapping (the TRF format is not in the transcription; the engine reads an internal, documented record format, with a TRF adapter as a separate utility).
+### 2.1 Game records
 
-### 2.2 Monthly list snapshot
-For each player on the list in force for the rating period, per time control: `id`, `rating` (or unrated), `K`, `games_in_period`, `year_of_birth`, `federation`, `sex`, `title`, `inactive_flag`; these are the published fields (§7.1.2 [V 1]) and match the download-list legend (SRTNG/RRTNG/BRTNG, SK/RK/BK, SGM/RGM/BGM, B-day, FED, FLAG) [V 3]. Also required per player: the "games since first listed" count used by the K rule (§8.3.3) and the "has ever been published at 2400+" flag; TODO: neither is a published field, so the engine must carry its own state derived from history (§4.3) and the test-vector plan must confirm FIDE's behaviour.
+One record per game of a FIDE-rated tournament, in the engine's own documented format (a TRF adapter is a separate utility; the TRF layout is not transcribed, §8 Q-6):
+- tournament: `tournament_id`, `start_date`, `end_date`, `rating_period` (the list, YYYY-MM, on which FIDE rates the tournament), `chapter` ∈ {standard, rapid, blitz} and the declared time control (`base_minutes`, `increment_seconds`, `moves_first_control` if any);
+- game: `round`, `white_id`, `black_id` (FIDE ID numbers; the colour is the side each ID is on), `result` ∈ {1-0, ½-½, 0-1}, `played` (false for a forfeit or any unplayed game, R-05), `excluded` (true when an arbiter or the Fair Play regulations exclude a played game, R-05);
+- for matches (R-06): `match_id` and the scheduled number of games.
 
-### 2.3 Newcomer pool
-For each unrated player: the pooled results against rated opponents over consecutive rating periods of not more than 26 months (§7.1.4 [V 1]), with dates, so that the pooling window can be applied.
+### 2.2 Monthly list snapshots
 
-## 3 Rules to implement (enumerated from the transcription)
+For each month and chapter, the published fields [V 3] (§7.1.2 [V 1]): `id`, `rating` (absent if unrated), `k`, `games` (rated in the period), `birth_year`, `sex`, `federation`, `flag` (inactive), `title`. Layer 0 needs every list from the start of the period it computes back to the list in force when the earliest of its tournaments started (R-11a).
 
-### 3.1 Game eligibility and time-control class
-- R-01 Standard: a game is rateable as standard only if each player has at least 120 minutes (either player rated 2400+), 90 minutes (either player 1800+) or 60 minutes (both below 1800) for 60 moves; a first time control, if any, is at least 30 moves (§1.1, §1.2 [V 1]). TODO: how "time for 60 moves" is computed with increments (the standard chapter does not state the "+ 60 × increment" formula; the rapid/blitz chapter does).
-- R-02 Rapid: fixed time, or time plus 60 times the increment, more than 10 and less than 60 minutes per player (§1.1.1 [V 2]).
-- R-03 Blitz: more than 3 and not more than 10 minutes per player, same formula (§1.1.2 [V 2]).
-- R-04 Games where the players have different playing times are not rated (rapid/blitz §1.2 [V 2]).
-- R-05 Unplayed games (forfeit or any other reason) are not counted; a game where both players made at least one move is rated unless force majeure or Fair Play regulations say otherwise (§5.1 [V 1], §4.1 [V 2]).
-- R-06 Matches with an unrated player are not rated; in a match over a fixed number of games, games after one player has won are not rated unless waived (§6 [V 1], §5 [V 2]). TODO: match detection from the record format.
-- R-07 Rapid/blitz: games with a rating difference of 600 points or more are not rated if at least one player is rated above 2600 on the relevant list, effective 1 December 2024 (§7.3.1 [V 2]). No such rule in standard.
+### 2.3 Engine state not on the list (§4.3)
 
-### 3.2 Period handling
-- R-08 One list per month; the list incorporates all rated play of the rating period into the previous list (§7.1 [V 1]).
-- R-09 Closing date: tournaments ending on or before 3 days before the list date may be rated on that list; official FIDE events may be rated even if they end on the last day before the list date (§7.1.3 [V 1]).
-- R-10 A tournament not submitted in time for the third list after it ends is not rated (§9.1 [V 1]).
-- R-11 Within a period, a player's rating is fixed at the list value for all games of the period; all changes are summed per period and applied once (§8.3.2 c–d, §8.3.4 [V 1]).
-- R-12 A player who receives a published rating before a tournament they played in is rated is rated as a rated player with their current rating, but counts as unrated in their opponents' calculations (§8.2.4 [V 1], §7.2.5 [V 2]). TODO: test vector.
+Per player and chapter: `games_count` (rated games counted towards the 30 of R-18), `ever_2400` (a published rating of 2400 or more), `ever_2300` (a published rating of 2300 or more), the newcomer pool (results against rated opponents with their periods, R-27) and the period of the last rated game (R-33).
+
+### 2.4 Overrides
+
+Optional, per player and tournament: `base_rating`, FIDE's starting rating Ro where it differs from the list (R-11b). Overrides are inputs, never inferred; every use is printed in the output.
+
+## 3 Rules
+
+### 3.1 Games that count, and their chapter
+
+- **R-01 Standard rate of play.** CIT §1.1–1.2 [V 1]: "For a game to be rated each player must at the start of the game have the following minimum periods in which to complete all the moves, assuming the game lasts 60 moves." 120 minutes "Where at least one of the players in the game has a rating of 2400 or higher", 90 minutes "Where at least one of the players in the game has a rating 1800 or higher", 60 minutes "Where both of the players in the game are rated below 1800"; "Where a certain number of moves is specified in the first time control, it shall be at least 30 moves." READ, NOT VERIFIED: the time for 60 moves is the base time plus 60 times the increment, the formula of the rapid and blitz chapter (R-02); the ratings are those of R-11a.
+- **R-02 Rapid.** CIT §1.1.1 [V 2]: "for a rapid game all the moves must be made in a fixed time of more than 10 minutes but less than 60 minutes for each player; or the time allotted + 60 times any increment must be more than 10 minutes but less than 60 minutes for each player".
+- **R-03 Blitz.** CIT §1.1.2 [V 2]: "for a blitz game all the moves must be made in a fixed time of more than 3 minutes but not more than 10 minutes for each player; or the time allotted + 60 times any increment must be more than 3 minutes but not more than 10 minutes for each player."
+- **R-04 Unequal times (rapid and blitz).** CIT §1.2 [V 2]: "Games where the players have different playing times are not rated."
+- **R-05 Unplayed games.** CIT §5.1 [V 1] (the same in [V 2]): "Whether these occur because of forfeiture or any other reason, they are not counted. Except in case of force majeure, any game where both players have made at least one move will be rated, unless the regulations relating to Fair Play require otherwise." Force majeure and Fair Play decisions arrive as the `excluded` flag (§2.1).
+- **R-06 Matches.** CIT §6.1–6.2 [V 1]: "Matches in which one player is unrated shall not be rated." "Where a match is over a specific number of games, those played after one player has won shall not be rated. This requirement may be waived by prior request." A waiver arrives as an input.
+- **R-07 Rapid and blitz, 600 points.** CIT §7.3.1 [V 2]: "Effective from 1 December 2024: Games played between players with a rating difference of 600 points or more shall not be rated if at least one of the players is rated above 2600 on the relevant list." READ, NOT VERIFIED: "the relevant list" is the list of R-11a. There is no such rule in standard.
+
+### 3.2 Periods and the ratings used
+
+- **R-08 One list a month.** CIT §7.1 [V 1]: "On the first day of each month, FIDE shall prepare a list which incorporates all rated play during the rating period into the previous list. This shall be done using the rating system formula."
+- **R-09 Closing date.** CIT §7.1.3 [V 1]: "The closing date for tournaments for a list is 3 days before the date of the list; tournaments ending before or on that day may be rated on the list. Official FIDE events may be rated on the list even if they end on the last day before the list date." The engine takes `rating_period` from FIDE's records and rejects a record whose period is earlier than this rule allows.
+- **R-10 Late reports.** CIT §9.1 [V 1]: "If the tournament report is not submitted in time to be included in the third rating list after it ends, the tournament will not be rated." A record whose `rating_period` is later than the third list after `end_date` is rejected.
+- **R-11 The period's change.** CIT §8.3.2 c–d [V 1]: "Sigma Delta R = the sum of Delta Rs for a tournament or Rating Period." "Sigma Delta R x K = the Rating Change for a tournament or Rating Period." The new rating is the rating on the previous list plus the period's change, rounded (R-25).
+- **R-11a Ratings used for a tournament.** Each tournament uses, for the player and for every opponent, the ratings of the list in force on its start date (the list dated the first day of that month), also when it is rated on a later list. CIT §7.1.1 [V 1]: "The rating period (for new players, see 7.1.4) is the period where a certain rating list is valid."; the Title Regulations state the rule for norms, §1.4.6 a) [VT 1]: "The Rating List in effect at the start of the tournament shall be used". FIX F-P02, F-P03: an event from 31 October to 2 November 2025, rated on the December 2025 list, used the October list. READ, NOT VERIFIED: a tournament longer than 30 days uses, for each game, the list in force when it was played, by analogy with §1.1.4 [VT 1].
+- **R-11b Base corrections.** FIX F-P04: FIDE's starting rating can differ from the previously published list (Ro 2053 against 2052 on the November 2025 list; the December rating, 2053, follows from 2053). Without an override (§2.4) the engine starts from the published list; the frequency and cause of corrections are open (§8 Q-2).
+- **R-12 A newcomer rated before an earlier event.** CIT §8.2.4 [V 1]: "If an unrated player receives a published rating before a particular tournament in which they have played is rated, then they are rated as a rated player with their current rating, but in the rating of their opponents they are counted as an unrated player."
 
 ### 3.3 Expected score
-- R-13 For each game against a rated player compute D = own rating − opponent rating (§8.3.1 [V 1]).
-- R-14 Standard, effective 1 October 2025: if the player is rated below 2650, |D| greater than 400 is treated as 400; if the player is rated 2650 or above, D is used as is (§8.3.1 [V 1]). The rule is evaluated per player (each side of a game may fall under a different branch). TODO: confirm with a test vector whether "players rated 2650 and above" refers to the player whose change is computed (as drafted here) or to either player.
-- R-15 Rapid and blitz: |D| greater than 400 is treated as 400 for everyone; no 2650 exemption (§7.3.1 [V 2]).
-- R-16 PD is read from table 8.1.2 (§8.3.2 a [V 1]): for D ≥ 0 the H column, for D < 0 the L column of the row containing |D|; |D| above 735 gives 1.0 / .00. The full table is reproduced in §9 and must be encoded verbatim.
-- R-17 Per game ΔR = score − PD with score ∈ {1, 0.5, 0} (§8.3.2 b [V 1]).
 
-### 3.4 K (development coefficient), §8.3.3 [V 1] (identical in rapid/blitz §7.3.3 [V 2])
-- R-18 K = 40 for a player new to the rating list until they have completed events with at least 30 games.
-- R-19 K = 20 as long as the rating remains under 2400.
-- R-20 K = 10 once a published rating has reached 2400 and remains at that level subsequently, even if the rating later drops below 2400.
-- R-21 K = 40 for all players until the end of the year of their 18th birthday, as long as their rating remains under 2300.
-- R-22 Precedence when several lines apply: TODO. The transcription lists the four lines without an explicit order; the engine must reproduce the published K field on the monthly list (test vectors §6.2), and the chosen precedence must be written here before ratification.
-- R-23 Cap: if K × n > 700 for a player in a period (n = number of games rated for the player on that list), K is the largest whole number such that K × n ≤ 700.
-- R-24 Period change = K × Σ ΔR over the period (§8.3.2 d), using the K after R-23.
+- **R-13 Difference.** CIT §8.3.1 [V 1]: "For each game played against a rated player, determine the difference in rating between the player and their opponent, D."
+- **R-14 The 400-point rule, standard.** CIT §8.3.1 [V 1]: "Effective from 1 October 2025: A difference in rating of more than 400 points shall be counted for rating purposes as though it were a difference of 400 points for players rated below 2650. For players rated 2650 and above, the difference between ratings shall be used in all cases". Settled: "players rated" refers to the player whose change is computed, on the list of R-11a. FIX F-P01 and F-P02, two sides of one game: the player rated 2813 uses D = 413 (PD .93); the opponent rated 2400 sees "2800 *", the capped value. Every game with a gap over 400 is capped for a player below 2650, several in one event (F-P02: three); the archived text allowed "only one upgrade" per tournament [VT 2], the current text does not.
+- **R-14a Before 1 October 2025.** READ, NOT VERIFIED: tournaments starting before 1 October 2025 use the cap for every player, as R-15; the boundary (start date, game date or rating period) was not probed (§8 Q-7).
+- **R-15 The 400-point rule, rapid and blitz.** CIT §7.3.1 [V 2]: "A difference in rating of more than 400 points shall be counted for rating purposes as though it were a difference of 400 points." No 2650 exemption.
+- **R-16 PD.** CIT §8.3.2 a) [V 1]: "Use table 8.1.2 to determine the player's score probability PD for each game." For D ≥ 0 the H column, for D < 0 the L column, of the row containing |D|; above 735, 1.0 and .00 (§9). FIX F-C01 to F-C13 (row edges on both sides of D) and every game of F-P01 to F-P05 (79 games, each reproduced, `analysis/OUTPUT_L0_fixtures.md` §4).
+- **R-17 Per game.** CIT §8.3.2 b) [V 1]: "Delta R = score - PD. For each game, the score is 1, 0.5 or 0."
+
+### 3.4 K
+
+- **R-18 to R-21.** CIT §8.3.3 [V 1], identical in [V 2]: "K = 40 for a player new to the rating list until they have completed events with at least 30 games." "K = 20 as long as a player's rating remains under 2400." "K = 10 once a player's published rating has reached 2400 and remains at that level subsequently, even if the rating drops below 2400." "K = 40 for all players until the end of the year of their 18th birthday, as long as their rating remains under 2300."
+- **R-22 Precedence.** Settled on FIDE's published K (DATA): (1) a published rating of 2400 or more at any time → 10; (2) a junior (list year minus year of birth at most 18) never rated 2300 or more → 40; (3) fewer than 30 games counted → 40; (4) otherwise 20. Against the K published for 19,631,361 player-months (players first listed from February 2016, lists from January 2017) this order agrees in 99.21 %; the order junior below 2300, then fewer than 30 games, then 2400, agrees in 99.17 % (`analysis/OUTPUT_L0_k_rules.md` §1). Each step shows in the cells (§4 there): juniors below 2300 with 30 games or more, never rated 2300, K 40 in 2,689,889 player-months and K 20 in 30; juniors below 2300 once rated 2300, K 20 in 6,166 and K 40 in 17; players rated 2400 or more with fewer than 30 games, K 10 in all 1,117. At the turn of the year, juniors in the year after their 18th birthday drop from 40 to 20 on the January list (5,848 against 131 staying at 40 in January 2026, §3 there). READ, NOT VERIFIED: the 30 games include games played before the first published rating. Most disagreements are players published with K 20 while the lists show at most 4 games since their first listing (116,020 of 154,963 player-months); with fewer than 25 games the group (125,080) grows from 250–854 player-months a year in 2017–2023 to 34,365–48,856 a year in 2024–2026 (§2 there), after the floor rose from 1000 to 1400 in March 2024 [R §2]; the lists cannot show games played before a first rating (§8 Q-8).
+- **R-22b Which K applies.** The K for the games rated on list t is the K published on list t − 1, "the current value of K for the player" (§7.1.2 [V 1]), reduced under R-23. FIX F-P01 to F-P05 (`analysis/OUTPUT_L0_fixtures.md` §4). READ, NOT VERIFIED where the K changes inside a period (30 games reached, 2400 reached).
+- **R-23 Cap.** CIT §8.3.3 [V 1]: "If the number of games (n) for a player on any list for a rating period multiplied by K (as defined above) exceeds 700, then K shall be the largest whole number such that K x n does not exceed 700." FIX F-P05: n = 39, K 20 → 17.
+- **R-24 Change.** CIT §8.3.2 d) [V 1] (R-11), with the K of R-22b and R-23.
 
 ### 3.5 Rounding
-- R-25 The period change is rounded to the nearest whole number; 0.5 is rounded away from zero (§8.3.4 [V 1], §7.3.4 [V 2]). Implementation note: use decimal arithmetic with an explicit rounding mode; never binary floating point for the final rounding.
-- R-26 Ru (initial rating) is rounded to the nearest whole number (§8.2.3 [V 1]). TODO: whether 0.5 rounds away from zero here too (the text says only "nearest whole number"); settle by test vector.
 
-### 3.6 Newcomers (initial rating), §7.1.4 and §8.2 [V 1]
-- R-27 Publish a rating only when based on at least 5 games against rated opponents, pooled over consecutive rating periods of not more than 26 months; the rating must be at least 1400.
-- R-28 A zero score in the player's first event is disregarded (§8.2.1).
-- R-29 Ra = average rating of the rated opponents plus two hypothetical opponents rated 1800, scored as draws (§8.2.2): Ra = (Σ opponent ratings + 3600) / (n + 2); p = (score + 1) / (n + 2).
-- R-30 Ru = Ra + dp with dp from table 8.1.1 (§8.2.3); maximum initial rating 2200; Ru rounded (R-26). TODO: rounding of p to two decimals before the lookup (the table is indexed by two-decimal p; the rule for p values between entries is not stated; settle by test vector; the v0.1 Appendix E.2 case is reproduced in `analysis/OUTPUT_v0_3.md` §11).
-- R-31 Rapid/blitz: an unrated player who has a standard rating at the start of a rapid or blitz tournament uses that standard rating and is treated as rated; R-27 to R-30 do not apply to them (§7.2.1 [V 2]).
+- **R-25 The period's change.** CIT §8.3.4 [V 1], identical in [V 2]: "The Rating Change for a Rating Period is rounded to the nearest whole number. 0.5 is rounded away from zero." FIX F-P01: −2.50 is published as −3. Granularity NOT VERIFIED: F-P05 is reproduced only by rounding the period's change once, as written; F-P02 only by rounding each tournament's change (`analysis/OUTPUT_L0_fixtures.md` §4). The engine rounds per period and also reports the per-tournament result (§4), so that every validation shows which one FIDE's list follows (§8 Q-1).
+- **R-26 The initial rating.** CIT §8.2.3 [V 1]: "Ru is rounded to the nearest whole number." READ, NOT VERIFIED: 0.5 is rounded up, as the Title Regulations round the opponents' average (§1.4.7 b) [VT 1]: "The fraction 0.5 is rounded upward."). No fixture falls on a half (F-N01: 1922.43).
 
-### 3.7 Floor and inactivity, §7.2 [V 1] (identical in §6.2 [V 2])
-- R-32 A player whose rating drops below 1400 is shown as unrated on the next list and is thereafter treated as any other unrated player (§7.2.1). TODO: whether the sub-1400 value is retained anywhere (not stated; assume discarded; test vector).
-- R-33 A player commences inactivity after no rated games in a one-year period; regains activity after at least one rated game in a period and is listed as active on the next list (§7.2.2). Ratings do not change on inactivity.
-- R-34 Published fields for a player whose rating is at least 1400 (§7.1.2).
+### 3.6 Newcomers
 
-### 3.8 Rapid and blitz differences (summary of the diff in [V 2])
-Same tables, same K rules, same rounding and same newcomer arithmetic as standard; differences are R-02, R-03, R-04 (time control), R-07 (600-point exclusion), R-15 (plain 400 cap), R-31 (standard-rating seed), plus registration and rounds-per-day rules that do not affect the arithmetic.
+- **R-27 Publication.** CIT §7.1.4 [V 1]: "A rating for a player new to the list shall be published when it is based on at least 5 games against rated opponents. This need not be met in one tournament. Results from other tournaments played within consecutive rating periods of not more than 26 months are pooled to obtain the initial rating. The rating must be at least 1400."
+- **R-28 A zero start.** CIT §8.2.1 [V 1]: "If an unrated player scores zero in their first event this score is disregarded. Otherwise, their rating is calculated using all their results as in 7.1.4."
+- **R-29 Ra.** CIT §8.2.2 [V 1]: "Ra is the average rating of the player's rated opponents plus two hypothetical opponents rated 1800. The result against these two hypothetical opponents is considered as a draw." So Ra = (sum of the opponents' ratings + 3600) / (n + 2), and the score is W + 1 out of n + 2. FIX F-N01: 5 games, 3 points, opponents summing to 9507: Ra = 13107 / 7 = 1872.43.
+- **R-30 Ru.** CIT §8.2.3 [V 1]: "Ru = Ra + dp" … "The maximum initial rating is 2200." with dp from table 8.1.1 at p = (W + 1) / (n + 2). FIX F-N01: p = 4/7 → .57, dp = 50, Ru = 1922.43 → 1922, the published first rating. READ, NOT VERIFIED: p is rounded to the nearest hundredth with .005 rounded up, as the Title Regulations round percentages before the same table ("All percentages are rounded to the nearest whole number. 0.5% is rounded up." [VT 1]); Ru is rounded (R-26), then limited to 2200, then published only if at least 1400 (R-27). Not references for this rule: FIDE's online calculator, which applies the archived rule [VT 2] (F-I01 to F-I08), and the "Rp" FIDE prints beside a newcomer's result, which does the same (F-N01: 1921).
+- **R-31 Rapid and blitz seed.** CIT §7.2.1 [V 2]: "If an unrated player has a standard rating at the beginning of a rapid or blitz tournament, their standard rating is used for rating calculation. Such a player is considered to be rated, and 7.2.2 to 7.2.5 below do not apply."
 
-## 4 Interfaces (pure, deterministic functions; signatures only, no bodies)
+### 3.7 Floor, inactivity and the published fields
 
-All functions are pure: no I/O, no global state, no randomness, no wall-clock. Money-style decimal arithmetic (`decimal.Decimal`) for every quantity that is rounded. Each function is documented with the rule ids it implements.
+- **R-32 Floor.** CIT §7.2.1 [V 1]: "Players whose ratings drop below 1400 are shown as unrated on the next list. Thereafter they are treated in the same manner as any other unrated player." READ, NOT VERIFIED: the sub-1400 value is not used again, and only results obtained while unrated enter the new pool (§8 Q-9).
+- **R-33 Inactivity.** CIT §7.2.2 [V 1]: "A player is considered to commence inactivity if they play no rated games in a one-year period." "A player regains their activity if they play at least one rated game in a period. They are then listed as active on the next list." Ratings do not change with inactivity.
+- **R-34 Published fields.** CIT §7.1.2 [V 1]: "The following data will be published concerning each player whose rating is at least 1400 as of the current list: FIDE title, Federation, Current Rating, ID Number, Number of games rated in the rating period, Year of Birth, Gender and the current value of K for the player."
+
+### 3.8 Rapid and blitz
+
+The same tables (verified identical [V 2]), K rules, rounding and newcomer arithmetic as standard; the differences are R-02 to R-04, R-07, R-15 and R-31.
+
+## 4 Interfaces
+
+All functions are pure: no I/O, no global state, no randomness, no clock. Every rounded quantity is a `decimal.Decimal`; PD, dp and K are exact table or integer values, so only R-25, R-26 and R-30 round. Each function names the rules it implements.
 
 ```
-classify_time_control(base_minutes, increment_seconds, moves_first_control, rating_a, rating_b) -> TimeControlClass | NotRateable        # R-01..R-04
-is_rateable_game(record, list_snapshot) -> bool                                                                                       # R-05..R-07
-effective_difference(own_rating, opponent_rating, time_control_class) -> int                                                         # R-13..R-15
-expected_score(effective_difference) -> Decimal                                                                                      # R-16 (table 8.1.2)
-dp_from_p(p) -> int                                                                                                                  # table 8.1.1 (R-30)
-k_factor(player_state, rating, games_in_period) -> int                                                                               # R-18..R-23
-period_change(player_state, games_in_period: list[GameVsRated]) -> Decimal                                                           # R-11, R-17, R-24
-round_period_change(x: Decimal) -> int                                                                                                # R-25
-initial_rating(pooled_games: list[GameVsRated]) -> int | NotYetPublishable                                                           # R-27..R-30
-next_list(previous_list, games_of_period, newcomer_pool, list_date) -> ListSnapshot                                                  # R-08..R-12, R-32..R-34
+classify(time_control, rating_white, rating_black, chapter)          -> chapter | NOT_RATEABLE        # R-01..R-04
+rateable(game, ratings_in_force)                                      -> bool                          # R-05..R-07, R-12
+list_in_force(start_date)                                             -> "YYYY-MM"                     # R-11a
+effective_difference(own, opponent, chapter, start_date)              -> int                           # R-13..R-15, R-14a
+expected_score(d)                                                     -> Decimal                       # R-16
+game_delta(own, opponent, score, chapter, start_date)                 -> Decimal                       # R-17
+published_k(state, rating, list_month)                                -> int                           # R-18..R-22
+k_for_period(previous_list_k, n)                                      -> int                           # R-22b, R-23
+period_change(games, k)                                               -> PeriodChange                  # R-11, R-24, R-25
+initial_rating(pool)                                                  -> int | NOT_PUBLISHED           # R-26..R-30
+next_list(previous_list, lists_in_force, records, state, overrides)   -> (list, state, breakdown)      # R-08..R-12, R-31..R-34
 ```
 
-### 4.3 Player state carried by the engine (not on the published list)
-`games_since_first_listed`, `ever_published_at_2400_plus`, `first_event_zero_disregarded`, `pool_of_unrated_results` (with dates), `last_rated_game_period`. TODO: define how this state is reconstructed from a historical sequence of monthly lists when bootstrapping.
+`PeriodChange` carries the unrounded change of each tournament and of the period, the rounded period change (R-25) and the per-tournament alternative. `breakdown` carries, for every player and game, the list used, D, the capped D, PD, Delta R, K, the sums and the rounding, so that every number can be checked by hand against the regulations.
+
+### 4.3 State and bootstrapping
+
+The state of §2.3 is carried from list to list. To start from history, the engine derives it from the published lists alone: `games_count` is the sum of the games column since the player's first listing, `ever_2400` and `ever_2300` from the published ratings. This reproduces the published K in 99.21 % of player-months (R-22); the residual, games played before a first rating, cannot be recovered from the lists.
 
 ## 5 Determinism and precision
-- Identical inputs → identical outputs, byte for byte, on any platform; no dependence on dictionary order, locale, time zone or hardware floating point.
-- All rating arithmetic in `Decimal` with a declared context; PD and dp are exact table constants; the only rounding steps are R-25 and R-26.
-- Every output row carries a per-game breakdown (D, effective D, PD, ΔR, K, sum, rounded change) so that any change can be checked by hand against the regulations.
 
-## 6 Test-vector plan
-### 6.1 FIDE calculator
-Source: https://ratings.fide.com/calc.phtml?page=change (reachable at 2026-10-09T14:30:34Z, content not yet transcribed [V +]). Plan: for a grid of (own rating, opponent rating, result, K) covering every row boundary of table 8.1.2 (0–3, 4–10, …, 620–735, >735), both signs of D, the 400 cap on both sides of 2650, and the K × n ≤ 700 cap, record the calculator's output as fixtures. TODO: confirm the calculator implements the 1 October 2025 rule, and capture the initial-rating calculator for R-27..R-30 (including the p-rounding question).
-### 6.2 Sampled players across monthly lists
-Source: the monthly list archive, February 2015 to date [V 3] (downloaded, never redistributed; see `.gitignore`). Plan: sample players across rating bands, ages (juniors crossing the year of their 18th birthday), the 2300/2400 thresholds, newcomers, players at the floor and returning inactive players; reconstruct each player's games for a period from their public tournament records (TODO: source and terms for per-game data; the TRF archive is the formal request [P §8]); assert that `next_list` reproduces the published rating, K and games fields. Acceptance uses the thresholds in §7.
-### 6.3 Regression and property tests
-Mirror-image property of the two tables (§8.1 [V 1]); monotonicity of PD in D; K × n ≤ 700 after R-23; rounding symmetry of R-25; rapid/blitz tables identical to standard (verified [V 2]).
+- Identical inputs give identical outputs, byte for byte, on any platform: no dependence on dictionary or set order, locale, time zone or hardware floating point; outputs are sorted by FIDE ID, then by tournament start date and ID, then by round.
+- Rating arithmetic in `Decimal` with the default context (28 significant digits); binary floating point is never used.
+- Every output row carries its per-game breakdown (§4).
+
+## 6 Evidence
+
+### 6.1 FIDE's online calculator: out of date
+
+Fixtures F-C01 to F-C24 and F-I01 to F-I08 (`https://ratings.fide.com/calc.phtml`, 2026-10-09). The rating-change calculator reproduces table 8.1.2 at every row edge probed and the multiplication by K, but applies the 400-point cap to everyone: it agrees with §8.3.1 as written from 1 October 2025 in 20 of 24 cases and with a plain cap in 24 of 24; the four differences are players rated 2650 or above with a gap over 400. The initial-rating calculator follows the archived rule of 2022–24 [VT 2] in 8 of 8 cases and the current rule in 1 of 8, by coincidence (`analysis/OUTPUT_L0_fixtures.md` §2–3). The calculator is therefore a reference for R-16 and R-17 only.
+
+### 6.2 FIDE's published calculations
+
+Fixtures F-P01 to F-P05 (five adults, 13 tournament calculations, 79 games, December 2025 and October 2026 lists) and F-N01 (a first rating). Every game, tournament sum and K × sum is reproduced from table 8.1.2 (`analysis/OUTPUT_L0_fixtures.md` §4). They settle R-11a, R-14, R-22b, R-23, R-25 (the half), R-29 and R-30, and leave open the granularity of R-25 and the base corrections of R-11b.
+
+### 6.3 The published lists
+
+The K rules against 141 standard lists, February 2015 to October 2026 (`analysis/OUTPUT_L0_k_rules.md`, from `analysis/l0_k_rules_extract.py`; the lists are never committed).
+
+### 6.4 Validation events
+
+A complete event, rated on one list, compared player by player with FIDE's per-tournament calculation and with the next list: the 2025 U.S. Championship first (session ELO-3, Phase 3, reported under docs/evidence). Each validation reports the rounding (R-25) and base (R-11b) questions separately from the rule checks.
 
 ## 7 Acceptance criteria
-- A-1 Table 8.1.1 and 8.1.2 encoded exactly as transcribed (§9) and unit-tested entry by entry (101 + 51 entries).
-- A-2 100 % agreement with FIDE calculator fixtures (§6.1) on rating change, including rounding.
-- A-3 100 % agreement on published rating, K and games fields for the sampled players (§6.2), or a documented FIDE-side anomaly for every disagreement.
-- A-4 Deterministic: two runs on two platforms produce identical output files (hash-equal).
-- A-5 Every TODO in this document resolved and recorded, or moved to a numbered open question with an owner, before status RATIFIED.
-- A-6 No function performs I/O; adapters (TRF reader, list parser) are separate and tested separately.
 
-## 8 Open questions for ratification
-1. R-14: to whom "players rated 2650 and above" refers (own rating as drafted, or either player).
-2. R-22: precedence among the four K lines.
-3. R-26, R-30: rounding of Ru and of p.
-4. R-32: fate of the sub-1400 value.
-5. R-01: increment handling in the standard chapter.
-6. §2.1: TRF field mapping and the source of per-game data for §6.2.
-7. Whether to implement the archived 2022 and 2017 regulations as additional rule sets for backtests over earlier periods.
+Each criterion is one executable test module under `tests/`, written before the engine; the specification is ratified when all of them exist (status line). Raw data are never needed: every test reads committed fixtures or constructs its inputs.
+
+| # | Criterion | Test module |
+|---|---|---|
+| A-1 | Tables 8.1.1 and 8.1.2 in the engine equal the transcription [V 1] entry by entry (101 and 51 entries, read from the transcription file at test time), with the mirror properties; table 1.4.9 equals 8.1.1 | tests/test_l0_tables.py |
+| A-2 | Every rating-change calculator fixture: the engine's single-game change equals the calculator's under the plain cap (R-15), and under R-14 equals the calculator's except exactly F-C16, F-C17, F-C20 and F-C21 | tests/test_l0_calculator.py |
+| A-3 | Every published calculation: each game's Delta R, each tournament's sum, K and K × sum equal FIDE's; R-14 on both sides of F-P01/F-P02; K from R-22b and R-23; the new rating equals the published list under R-25 per period for F-P01, F-P03, F-P04 (with its base override) and F-P05, and under the per-tournament alternative for F-P02 | tests/test_l0_published.py |
+| A-4 | Initial rating: F-N01 gives 1922; fewer than 5 games, a result below 1400, a result above 2200 and a zero first event behave as R-27 to R-30; the archived-rule fixtures F-I01 to F-I08 are not reproduced except F-I04 | tests/test_l0_initial.py |
+| A-5 | K: each line of R-18 to R-21, the precedence of R-22 on every combination of its four conditions, the turn of the year, R-22b and R-23 at n = 35, 36 and 39 | tests/test_l0_k.py |
+| A-6 | Rounding: R-25 at ±0.5, ±1.5, ±2.5 and ±2.49; R-26 at x.5 | tests/test_l0_rounding.py |
+| A-7 | Eligibility and chapters: R-01 to R-07 at each boundary (60/90/120 minutes, 30 moves, 10/60 and 3/10 minutes with increments, 600 points with a player above 2600, before and after 1 December 2024) | tests/test_l0_eligibility.py |
+| A-8 | Periods: R-09 and R-10 limits, R-11a (31 October → October list), R-11b override, R-12 one-sided rating, R-14a boundary, R-32 and R-33 list status | tests/test_l0_periods.py |
+| A-9 | Determinism and purity: two runs with different hash seeds give byte-identical output; the engine package performs no I/O | tests/test_l0_determinism.py |
+| A-10 | Validation event: the 2025 U.S. Championship reproduced player by player from a committed fixture of FIDE's per-tournament calculation | tests/test_l0_validation.py |
+
+## 8 Open questions
+
+Resolved since v0.1: R-14 (own rating, F-P01/F-P02); R-22 (precedence, DATA); R-23 and the half of R-25 (fixtures).
+
+| # | Question | Rules | Default in v1.0 | Owner |
+|---|---|---|---|---|
+| Q-1 | Is the change rounded once per period, as written, or per tournament? Fixtures disagree (F-P02, F-P05) | R-25 | per period, with the alternative reported | architect; more published calculations or FIDE's answer |
+| Q-2 | How often, and why, does FIDE's starting rating differ from the previous list? | R-11b | the published list; override as input | executor, next validation |
+| Q-3 | Ties in Ru and in p (no fixture falls on a half) | R-26, R-30 | half up | open; a newcomer fixture at a tie |
+| Q-4 | Increments in the standard chapter | R-01 | base + 60 × increment | open |
+| Q-5 | Tournaments longer than 30 days | R-11a | list in force at each game | open |
+| Q-6 | TRF field mapping (the TRF layout is not transcribed) | §2.1 | own record format; adapter separate | executor, when a TRF source exists |
+| Q-7 | The boundary of the 1 October 2025 amendment | R-14a | tournament start date | open |
+| Q-8 | Do the 30 games of R-18 include games played before the first rating? | R-18, R-22 | as published (lists cannot show them) | open |
+| Q-9 | After a drop below 1400, is anything of the old rating or results kept? | R-32 | nothing | open |
+| Q-10 | Rule sets for the archived regulations (2022–24, 2017–21) for backtests | §1 | not implemented | architect |
+| Q-11 | FIDE's online calculator is out of date (§6.1); whether to tell FIDE | §6.1 | recorded only; no contact | operator |
 
 ## 9 The tables (encoded verbatim)
 
@@ -293,6 +345,6 @@ Mirror-image property of the two tables (§8.1 [V 1]); monotonicity of PD in D; 
 | 560-619 | .98 | .02 |
 | 620-735 | .99 | .01 |
 | > 735 | 1.0 | .00 |
+## 10 Tooling
 
-## 10 Tooling (TODO)
-Python 3.12; package layout, test runner, lint/type-check configuration, fixture format and CI are TODO and will be decided in the first implementation session after ratification. Nothing in this section authorises writing engine code before then.
+Python 3.12, standard library only at run time (`decimal`, `dataclasses`, `datetime`); package layer0 under src, Apache-2.0; tests with pytest under `tests/`, configured in pyproject.toml; the automated check (`.github/workflows/check.yml`) runs them on every pull request (D-0004). Fixtures are JSON under `tests/fixtures/`. Nothing in this section authorises engine code before ratification.
