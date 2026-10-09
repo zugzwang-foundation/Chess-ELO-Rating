@@ -1,20 +1,21 @@
 # Modernising the FIDE Elo Rating System: an exact reference implementation plus an explainable correction layer
 
-**Status: DRAFT v0.1 — not for publication**
+**Status: DRAFT v0.2 — not for publication**
 Author: The Zugzwang Authors · Licence: CC BY 4.0 (`docs/LICENSE-docs.md`) · Date: 2026-10-09
-Audience: FIDE's Qualification Commission (QC) and the chess public. Plain language first; the mathematics is in Appendix A.
+Audience: FIDE's Qualification Commission (QC) and the chess public. Plain language first; the mathematics is in the technical annex.
+Companion document: the technical annex `docs/proposal/ELO-TECHNICAL-ANNEX_v0_2.md` (sections T1–T11) holds every formula, proof sketch and worked example; this document cross-references it as [T n].
 
-How to read the citations. `[R §x]` points to a section of the research report `docs/research/ELO-RESEARCH_v1_0.md`; `[R n]` to the report's numbered source n; `[V k]` to item k of the primary-source verification sweep `docs/research/VERIFICATION_2026-10-09.md`. Every number in this document traces to one of those two files. Every parameter value is marked PROVISIONAL: it is a placeholder to be replaced by an estimate from data.
+How to read the citations. `[R §x]` points to a section of the research report `docs/research/ELO-RESEARCH_v1_0.md`; `[R n]` to the report's numbered source n; `[V k]` to item k of the primary-source verification sweep `docs/research/VERIFICATION_2026-10-09.md`; `[T n]` to section n of the technical annex. Every FIDE rule quoted here is transcribed from [V 1] (standard) or [V 2] (rapid and blitz). Every parameter value is PROVISIONAL: a placeholder to be replaced by an estimate from data.
 
 ---
 
 ## 1 Summary
 
-**The problem.** The FIDE rating is the world's reference number for chess strength, and it is drifting. After the March 2024 reset the median active player still loses about 16 points a year [R 5]. The same number means different strengths in different countries: one study finds offsets from about +101 (Vietnam) to about −64 (Switzerland, Austria) [R 6]. The 400-point cap created an arbitrage at the top that FIDE patched in October 2025 [R 7] [V 1], and the expectancy table over-predicts favourites at large gaps [R 44]. Every fix so far has been a one-off patch.
+**The problem.** The FIDE rating is the world's reference number for chess strength, and it is drifting. After the March 2024 reset the median active player still loses about 16 points a year [R 5]. The same number means different strengths in different countries: one independent, not peer-reviewed study estimates that comparable players in different federations can differ by on the order of 100 points [R 6]. The 400-point cap created an incentive at the top that FIDE corrected by targeted amendment in October 2025 [R 7] [V 1], and the expectancy table over-predicts favourites at large gaps [R 44]. Each correction so far has been a separate amendment; this proposal offers one framework so that further ones become unnecessary.
 
-**The proposal, in three sentences.** Publish an exact, open-source reference implementation of FIDE's current rules, so anyone can reproduce every list exactly. Run behind it a dynamic statistical model, re-estimated monthly from the last 36 months of games, which learns what Elo assumes away: how fast juniors improve, how far federations have drifted apart, how large White's edge is, how often strong players draw. Keep the published rating a forward-only, Elo-style number on today's scale, updated per game by a formula a player can check by hand, with the model influencing it only through four named, capped, published channels.
+**The proposal, in three sentences.** Publish an exact, open-source reference implementation of FIDE's current rules, so anyone can reproduce every list exactly. Run behind it a statistical model, re-estimated monthly from the last 36 months of games, which learns what Elo assumes away: junior improvement, federation drift, White's edge, draw rates. Keep the published rating a forward-only, Elo-style number on today's scale, updated per game by a hand-checkable formula from a published table; the model influences it only through six named, capped, published channels and a monthly points ledger.
 
-**The ask of FIDE.** Review this design through the QC with public comment, as in 2023; provide the tournament-report (TRF) game archive under a data agreement for backtesting; and pilot the correction layer in parallel with one federation's list. Nothing here edits a published rating retroactively, and nothing is a black box.
+**The ask of FIDE.** Review this design through the QC with public comment, as in 2023; provide the tournament-report (TRF) game archive under a data agreement for backtesting; and run a shadow list for twelve months before any pilot. Nothing here edits a published rating retroactively or touches the title and norm regulations, and nothing is a black box.
 
 ---
 
@@ -25,7 +26,7 @@ The research report ranks the complaints by community demand, strength of eviden
 | Rank | Target | What the evidence says | Pointer |
 |---|---|---|---|
 | 1 | **Deflation and junior lag** | Sonas (2023, hosted by FIDE) found "extreme rating deflation": players rated 1000 to 2400 spanned only about 1000 points of real strength, because newcomers and juniors enter below their strength and drain points from established players. After the 2024 reform the average rating still fell about 1 point a month, the median active player lost 16 points a year instead of 26, and players pile up at the 1400 floor. FIDE acknowledged the problem in the 2023 consultation and the 2024 reform. | [R §3.1] [R §3.3] [R 3] [R 4] [R 5] [R 37] [R 39] |
-| 2 | **Federation isolation** | Most games are domestic, so pools drift apart. Ghita's 2026 study of cross-border games estimates offsets from about +101 (Vietnam) to about −64 (Switzerland, Austria), with gaps that "can exceed 160 Elo"; there is no official fix. Caveat: independent, not peer-reviewed; the "over 80 % domestic" figure is unverified. | [R §3.2] [R 5] [R 6] |
+| 2 | **Federation isolation** | Most games are domestic, so pools drift apart. Ghita's 2026 study of cross-border games estimates offsets between federations of the order of plus 100 to minus 60 points, with gaps that "can exceed 160 Elo"; there is no official fix. Caveat: independent, not peer-reviewed; the "over 80 % domestic" figure is unverified. | [R §3.2] [R 5] [R 6] |
 | 3 | **Top-level protection, farming and inactivity** | The 400-point cap let a 2800 player bank points against 2250 opponents; FIDE lifted the cap for 2650+ players from 1 October 2025. Ratings never decay, about 40 % of listed players have not played since before the pandemic, and FIDE's then-president called inactivity the next long-term issue. | [R §3.8] [R §3.9] [R §3.10] [R 7] [R 27] [R 55] [R 56] [V 1] |
 | 4 | **Expectancy-curve miscalibration** | On 1.5 million FIDE games, Sonas found results behave as if the gap were about 5/6 of the nominal gap; under the capped table, 700-point favourites scored 98–100 % against an expected 92 %; after the cap was lifted for 2650+ players their expected score "can now be as high as 99 % or even 100 %". | [R §3.5] [R 44] [R 46] [R 47] |
 
@@ -38,16 +39,17 @@ Two things are modelled but are **not headline targets**: the colour advantage (
 ### 3(a) What stays constant across every style of play
 
 1. **One core skill per player.** A player has one underlying strength, θ, shared across standard, rapid and blitz; style-specific differences are offsets from it (section 7).
-2. **A forward-only published number on today's scale.** The rating a player sees moves only forward, only through games, and a 2500 today means what a 2500 meant last month. No retroactive revision, no one-off compressions.
-3. **Every correction explainable and hand-checkable.** Each change decomposes into named terms (expected score, K, colour, the four channels) that a player or arbiter can recompute from published inputs with a calculator.
-4. **Deterministic and open-source.** Same inputs, same outputs, on any machine; code, test vectors and parameter files are public.
-5. **Parameters re-estimated monthly with published annual change caps.** The model is refitted each month, but no published parameter may move by more than a published cap per year.
+2. **A forward-only published number on today's scale.** The rating a player sees moves only forward, only in months in which the player plays, and a 2500 today means what a 2500 meant last month. No retroactive revision, no one-off compressions, no jump at adoption.
+3. **Every change explainable and hand-checkable.** Each change decomposes into named terms (expected score read from a published table, the player's printed K_i, colour, any junior compensation, the month's adjustment) that a player or arbiter can recompute from published inputs with a calculator.
+4. **Deterministic and open-source.** Same inputs, same outputs, on any machine; code, test vectors, the yearly table and the monthly parameter file are public.
+5. **Parameters re-estimated with published annual change caps.** The model is refitted each month, but no published parameter may move by more than a published cap per year.
+6. **Every point accounted for.** A monthly ledger states where rating points were created, destroyed and moved (section 5) [T6].
 
 ### 3(b) What diverges by style
 
 - **Per-time-control offsets** δ_tc: a player's rapid or blitz strength is θ plus a shrunken offset (section 7).
-- **Colour and draw parameters per time control:** White's edge is smaller in rapid than in classical (about 53 % against 54 % [R §3.7] [R 86]); draw propensity differs by level and style [R §3.6].
-- **Volatility per time control:** how fast skill may move month to month is estimated separately for each style.
+- **An expected-score function per time control:** its slope κ_tc, its colour term η_tc and its draw parameters α_tc and β_tc are estimated separately for standard, rapid and blitz, because White's edge is smaller in rapid than in classical (about 53 % against 54 % [R §3.7] [R 86]) and draw propensity differs by level and style [R §3.6] [T3].
+- **Volatility per time control:** how fast skill may move month to month is estimated separately for each style [T2].
 
 ### 3(c) The eight adoptability requirements
 
@@ -55,131 +57,102 @@ The research report sets eight requirements for an official rating [R §7]; this
 
 | # | Requirement | Met by |
 |---|---|---|
-| 1 | Determinism and reproducibility | Fixed-precision arithmetic, today's rounding (§8.3.4 [V 1]), versioned parameters, identical output from identical TRF input |
-| 2 | Transparency | Every parameter in a public, versioned monthly file (section 9) |
-| 3 | Auditability | A per-game breakdown published with every change (section 5) |
-| 4 | Explainability | Corrections enter only through four named channels, each a labelled line on the breakdown |
+| 1 | Determinism and reproducibility | Fixed-point arithmetic in tenths, today's rounding (§8.3.4 [V 1]), versioned parameters, identical output from identical TRF input [T4] |
+| 2 | Transparency | A yearly lookup table and a monthly parameter file, both public and versioned [T7] |
+| 3 | Auditability | A per-game breakdown published with every change, and a monthly points ledger [T6] |
+| 4 | Explainability | Model influence enters only through six named channels (section 4), each a labelled line on the breakdown |
 | 5 | Open-source code with test vectors | Apache-2.0 code, CC BY 4.0 documents, test vectors from FIDE's calculator and monthly lists |
-| 6 | Governance | QC owns the parameters; Council approves; public comment before changes (section 9) |
-| 7 | Fairness and bias monitoring | Residuals by federation, age, sex, rating band and colour reported monthly (section 8) |
-| 8 | Manipulation resistance | No cliffs; uncertainty-weighted K; anomaly monitoring; adversarial simulations (sections 5, 8, 9) |
+| 6 | Governance | The QC signs the parameter file; Council approves changes to caps or formula; public comment before changes (section 9) |
+| 7 | Fairness and bias monitoring | Residuals by federation, age, sex, rating band and colour reported monthly [T8] |
+| 8 | Manipulation resistance | No cliffs; K from uncertainty; adjustments paid per active player, never per game; anomaly monitoring; adversarial simulations [T9] |
 
 ---
 
 ## 4 The system: three layers
 
 ```
-             TRF files from arbiters (monthly, §9.1)              Monthly list snapshot
-                     │                                                  │
-                     ▼                                                  ▼
+             TRF files from arbiters (monthly, §9.1 [V 1])              Monthly list snapshot
+                     │                                                        │
+                     ▼                                                        ▼
    ┌──────────────────────────────────────────────────────────────────────────────┐
-   │  L0  REFERENCE ENGINE  — exact FIDE rules (standard, rapid, blitz)           │
-   │      tables 8.1.1 / 8.1.2, 400-point rule, K rules, rounding, newcomers,     │
+   │  L0  REFERENCE ENGINE   exact FIDE rules (standard, rapid, blitz):           │
+   │      tables 8.1.1 / 8.1.2, 400-point rules, K rules, rounding, newcomers,    │
    │      floor, inactivity. Test-vector verified. Produces today's list exactly. │
    └──────────────────────────────────────────────────────────────────────────────┘
-                     │ games + lists (last 36 months)
+                     │ games and lists (last 36 months)
                      ▼
    ┌──────────────────────────────────────────────────────────────────────────────┐
-   │  L1  MODEL  — Bradley–Terry–Davidson; shared skill θ, offsets δ_tc,          │
-   │      colour term, level-dependent draw term; time-varying skill fitted by    │
-   │      Kalman smoothing or Whole-History Rating; re-estimated monthly.         │
-   │      OUTPUTS: calibrated forecasts · pool and federation offsets ·           │
-   │               junior improvement rates · global drift estimate               │
+   │  L1  MODEL [T2]   shared skill θ, offsets δ_tc; Davidson outcome model with  │
+   │      colour and level-dependent draws; age-dependent drift; rolling 36-month │
+   │      fit, re-estimated monthly.                                              │
+   │      OUTPUTS: posterior mean and SD per player · anchor-cohort drift ·       │
+   │      federation miscalibration with its evidence · junior compensations.     │
    │      It never edits a published rating.                                      │
    └──────────────────────────────────────────────────────────────────────────────┘
-                     │ monthly parameter file (public, versioned, capped)
+                     │ yearly lookup table + monthly parameter file [T7] (public, versioned, capped)
                      ▼
    ┌──────────────────────────────────────────────────────────────────────────────┐
-   │  L2  PUBLISHED RATING  — forward-only, Elo-style, per game:                  │
-   │      R += K_eff × (S − E) [+ pool bonus]                                      │
-   │      Model influence enters ONLY through four channels:                      │
-   │        C1 newcomer seeds   C2 junior-opponent compensation                   │
-   │        C3 capped pool drift correction   C4 federation offsets (via E only)  │
+   │  L2  PUBLISHED RATING [T4]   forward-only, Elo-style, per game:              │
+   │      R_i ← R_i + K_i · (S_i − E(x_i))                                        │
+   │      Channels, each named, capped and published:                             │
+   │        expected score (AR-1)             K from uncertainty (AR-2)           │
+   │        monthly calibration adjustments (AR-3): global ON,                    │
+   │          federation adjustment DISABLED pending evidence                     │
+   │        junior compensation (AR-4)        seeds and inactivity (AR-5)         │
+   │        the points ledger (AR-6)                                              │
    └──────────────────────────────────────────────────────────────────────────────┘
 ```
 
-**Layer 0, the reference engine.** An exact implementation of the FIDE Rating Regulations effective 1 March 2024 as amended 1 October 2025 [V 1] and of the Rapid and Blitz Regulations [V 2], verified against FIDE's calculator and against sampled players across monthly lists. It is the credibility anchor: before proposing a change, we show we can reproduce today's list to the point, which no repository found so far claims to do [R §5]. Its specification is `docs/specs/SPEC-L0_fide-reference-engine_v0_1.md`.
+**Layer 0, the reference engine.** An exact implementation of the FIDE Rating Regulations effective 1 March 2024 as amended 1 October 2025 [V 1] and of the Rapid and Blitz Rating Regulations [V 2], verified against FIDE's calculator and against sampled players across monthly lists. It is the credibility anchor: before proposing a change, we show that we can reproduce today's list to the point, which no repository found so far claims to do [R §5]. Its specification is `docs/specs/SPEC-L0_fide-reference-engine_v0_1.md`.
 
-**Layer 1, the model.** A dynamic paired-comparison model of the Bradley–Terry–Davidson family: each player has a shared skill θ that varies over time and a per-time-control offset δ_tc; the model has a colour term and a draw term whose size depends on the level of the two players. Time-varying skill is fitted by Kalman smoothing or by Whole-History Rating, the method that beat Elo, Glicko and TrueSkill on 10.8 million Go games [R 11] [R 12], on a rolling 36-month window, re-estimated monthly. Outputs: calibrated three-outcome forecasts; pool and federation offsets; junior improvement rates by age; a global drift estimate from an anchor cohort of stable adults, as US Chess does [R 22]. **It never edits a published rating directly.** It is a laptop-scale job: WHR adds a game in under a millisecond, and FIDE rates about 3 to 3.5 million standard games a year [R §7].
+**Layer 1, the model** [T2]. A dynamic paired-comparison model: each player has a shared skill θ that moves over time with an age-dependent drift, and a per-time-control offset δ_tc shrunk towards zero. Outcomes follow a Davidson-type model with a colour term and a draw term whose size depends on the level of the two players. The fit runs on a rolling 36-month window, re-estimated monthly, either by maximum a posteriori with a Laplace approximation in the style of Whole-History Rating, the method that beat Elo, Glicko and TrueSkill on 10.8 million Go games [R 11] [R 12], or by expectation propagation in the style of TrueSkill Through Time [R 10]. The scale is anchored to the published mean of an anchor cohort of stable adults, as US Chess does [R 22]. Outputs: a posterior mean θ̂_i and standard deviation σ_i for every player in every time control; the anchor-cohort drift; federation miscalibration estimates with their evidence; the compensation of each eligible junior. **It never edits a published rating.** It is a laptop-scale job: WHR adds a game in under a millisecond against about 3 to 3.5 million FIDE standard games a year [R §7].
 
-**Layer 2, the published rating.** Forward-only and Elo-style, on today's scale, updated per game by R += K_eff × (S − E). E comes from a calibrated logistic curve with a colour term and one consistent, cliff-free clamp replacing the 400-point rule and its 2650 exemption; K_eff is uncertainty-weighted, with smooth decay replacing the 40/20/10 brackets (section 5). Model influence enters only through four named, published channels:
+**Layer 2, the published rating** [T4]. Forward-only and Elo-style, on today's scale, updated per game by R_i ← R_i + K_i · (S_i − E(x_i)). Model influence enters only through six named channels, each published and capped:
 
-- **C1 Newcomer seeds.** A newcomer's first rating is the model's estimate from their first games, with an age- and pool-informed prior, replacing the two fictitious draws against 1800-rated opponents (§8.2.2 [V 1]).
-- **C2 Junior-opponent compensation.** Against a junior whose published rating lags their strength, your expected score is computed against the model's estimate of the junior. Losing to an under-rated junior stops being a tax on adults.
-- **C3 Capped monthly pool-level drift correction.** A small per-game bonus, set monthly from the drift estimate and capped, holds the level of the pool. Precedent: the US Chess bonus constant, lowered in 2023 and 2025 because ratings "continue[d] to deflate" [R 29] [R 32].
-- **C4 Federation offsets through expectations only.** In a cross-border game each side's expected score uses the other side's rating plus that federation's estimated offset; within a federation the offsets cancel. No rating is ever edited.
+- **Expected score (AR-1).** One calibrated function per time control turns the gap into an expected score, published yearly as a lookup table per level band, the successor to table 8.1.2 [V 1]. Colour is inside the gap. There are no 400- or 600-point caps and no clamps [T3].
+- **K from uncertainty (AR-2).** A player's K_i is set by how uncertain the model is about that player, mapped onto today's range of 10 to 40, and printed beside the rating in the monthly list, which already carries a K column (§7.1.2 [V 1]).
+- **Monthly calibration adjustments (AR-3).** A small, capped global adjustment a_t is paid each month to every player who played at least one rated game in that time control that month, derived from the drift of the anchor cohort. A federation adjustment a_{f,t} uses the same mechanism per federation and ships DISABLED (a_{f,t} = 0) until a backtest on FIDE's own game data shows that federation miscalibration is stable and predictive out of sample.
+- **Junior compensation (AR-4).** Against a junior whom the model rates well above their published number, the opponent's expectation uses a compensated rating. The junior's own update uses published ratings only.
+- **Seeds and inactivity (AR-5).** A newcomer's first rating is the model's estimate from their first games in all three time controls, replacing the two fictitious draws against 1800-rated opponents (§8.2.2 [V 1]). An inactive player's rating never decays; the model's uncertainty grows instead, so K_i is higher on return.
+- **The points ledger (AR-6).** Every month, for each time control, a public statement of where points were created, destroyed and moved [T6].
 
-**The monthly cycle.** (1) Closing date, three days before the list date (§7.1.3 [V 1]): the TRF files are in. (2) Layer 0 produces the official list exactly as today; during the pilot, Layer 2 produces a shadow list from the same input. (3) Layer 1 refits on the last 36 months and writes next month's parameter file, each value within its annual cap. (4) The QC publishes the list, the shadow list, the parameter file and the monitoring report. (5) Next month's games are rated with the published file; any change can be checked by hand from the file and the breakdown.
+**Why adjustments, not offsets inside the expectation.** Version 0.1 put the federation offset inside the expected score: in a cross-border game each side's expectation used the other side's rating plus their federation's estimated offset. The architect's review removed it, because an offset inside the expectation freezes the gap it measures. If the formula already credits an under-rated pool with, say, 100 points, its players are expected to score as if they were 100 points stronger, so they stop gaining from the wins that would otherwise lift them, and the published list never converges. A monthly adjustment to the published ratings of players who actually play closes the measured gap over time, is capped, appears in the ledger and switches itself off as the gap closes. The same logic retired the per-game pool bonus of v0.1: anything paid per game rewards extra or arranged games, so the adjustment is paid per player per active month, never per game.
+
+**The monthly cycle.** (1) Closing date, three days before the list date (§7.1.3 [V 1]): the TRF files are in. (2) Layer 0 produces the official list exactly as today; during the shadow period, Layer 2 produces a shadow list from the same input. (3) Layer 1 refits on the last 36 months and writes next month's parameter file, each value within its annual cap, with the ledger and the monitoring report. (4) The QC signs and publishes the list, the shadow list, the parameter file, the ledger and the report. (5) Next month's games are rated with the published file and the current table, hand-checkable from them.
 
 ---
 
 ## 5 The published rating in practice
 
-**The formula.** For each game, a player's rating changes by
+**The update.** For each game, a player's rating changes by
 
-> ΔR = K_eff × (S − E) + b
+> R_i ← R_i + K_i · (S_i − E(x_i))
 
-where S is the score (1, ½, 0), E the expected score, K_eff the player's current development coefficient and b this month's pool bonus (channel C3, usually a fraction of a point). Changes are summed over the rating period and rounded exactly as today: nearest whole number, 0.5 away from zero (§8.3.4 [V 1]).
+where S_i is the score (1, ½, 0), E(x_i) the expected score read from the published table for the time control and level band, and K_i the player's printed development coefficient. Per-game changes are carried in tenths, summed over the rating period together with the month's adjustment, and rounded exactly as today: nearest whole number, 0.5 away from zero (§8.3.4 [V 1]). The exact rules are in [T4].
 
-The expected score is a logistic curve on a smoothly clamped gap:
+**The gap.** x_i is the player's rating minus the opponent's rating for expectation, plus the colour term η_tc for White and minus it for Black (PROVISIONAL η_tc: 35 points standard, 25 rapid, 25 blitz). Colour is inside the expectation and nowhere else, so a surplus of Whites is charged game by game and never accumulates [T3]. The opponent's rating for expectation is the published rating, plus the published compensation c_j when the opponent is an eligible junior (section 6). There is no cap on the gap, no clamp and no exemption at any level; the function is continuous, and the two players' expectations sum to one whenever no compensation applies [T5].
 
-> D = (my rating + my federation offset + κ if I have White) − (opponent's rating for expectation + their federation offset + κ if they have White)
-> D_eff = D_max × tanh(D / D_max)
-> E = 1 / (1 + 10^(−D_eff / σ))
+**The table arbiters use.** The expected-score function is published once a year as a lookup table per time control, with one block per level band of 200 points (the level being the mean of the two published ratings) and rows for the gap from 0 to 1000 in steps of 10 [T3] [T7]. It is the successor to table 8.1.2 [V 1]: an arbiter who today reads .92 from the row 392–411 will tomorrow read a three-decimal value from the row for the gap and the band. The level bands exist because draws are more frequent among strong players [R §3.6] [R 48], which changes the expected score at a given gap. PROVISIONAL slope κ_tc = 1.00 for all three time controls; the draw parameters α_tc and β_tc are tabulated in [T7].
 
-"Opponent's rating for expectation" is the published rating, except that for a junior whose model estimate is reliable it is the model estimate (channel C2). Federation offsets (channel C4) cancel within a federation. The clamp is the same for every player at every level: almost invisible below 300 points of difference, bending gently above, with no rule that switches on or off (Appendix D compares it with table 8.1.2).
+**K from uncertainty.** K_i maps the model's posterior standard deviation σ_i for the player in that time control onto today's range:
 
-K_eff falls smoothly with experience and rises again with inactivity:
+> K_i = K_min + (K_max − K_min) · min(1, (σ_i / σ_new)²)
 
-> K_eff = K_floor(R) + (K_max − K_floor(R)) × exp(−n_eff / n_0)
-> K_floor(R) = K_top + (K_mid − K_top) / (1 + 10^((R − R_half) / w))
+with PROVISIONAL K_min = 10, K_max = 40 and σ_new = 100 points. A newcomer has K_i = 40; an established, active adult settles near today's 20 (PROVISIONAL σ_i about 55); a player at the top with a long record sits a little above today's 10; a player returning from years away has a higher K_i than when they left, because the model's uncertainty about them has grown. There is no switch at 30 games, at 2300, at 2400 or at age 18. K_i is published to one decimal beside the rating, in the K column the list already carries (§7.1.2 [V 1]). One cap carries over from today: if K_i times the number of games n in the period exceeds 700, K_i is replaced for that period by the largest one-decimal value with K_i × n ≤ 700, in the spirit of today's rule (§8.3.3 [V 1]) [T4].
 
-n_eff is an experience count: each month it is multiplied by λ and the month's games are added (a junior's games count w_junior each), with a cap n_cap. A newcomer starts at K_max; an established player settles near K_mid below the top and near K_top above it; a player who stops playing drifts back toward a higher K, so that a return after years is absorbed quickly, as Glicko-style systems do [R §4] [R 64]. There is no switch at 30 games, at 2300, at 2400 or at age 18 (Appendix D tabulates the values).
+**The monthly adjustment.** Each month, every active player in a time control is credited with the same adjustment a_t for that time control, PROVISIONALLY capped at 1.5 points per month, derived from the gap between the anchor cohort's published mean and the model's estimate of it and closed at a PROVISIONAL gain of one sixth per month [T4] [T7]. The credit is posted to the rating only in a month in which the player plays a rated game, and lapses if the player becomes inactive, so a player who plays twelve games in one month and one who plays one game in each of twelve months receive the same amount. It is paid per player and never per game, so playing more games, or arranging them, earns nothing extra; a_t is computed from the month just closed and published with the list, so it cannot be timed. The federation adjustment a_{f,t} has the same structure and is DISABLED (set to zero) until the evidence test of section 9 is passed. Players who do not play receive nothing, so ratings still change only for players who play.
 
-**Parameter table (every value PROVISIONAL; the Layer 1 fit replaces them).**
+**The ledger.** Rating points are not conserved under Elo as FIDE runs it: unequal K factors, newcomers, the floor and departures all create or destroy points, which is how the scale drifts [R §3.1] [R 5]. Layer 2 therefore publishes each month, per time control, where the points went: moved between players by results; created or destroyed by unequal K; paid as adjustments; created by junior compensation; entering with newcomers; leaving with players who dropped off the active list or below the floor. The analogy is a central bank publishing how much money it created and why. The exact accounting identity, which the published figures must satisfy to the tenth, is [T6].
 
-| Parameter | Meaning | PROVISIONAL value | Comment |
-|---|---|---|---|
-| σ | curve scale | 400 | today's convention; Sonas's 5/6 finding suggests the fit will land near 480 [R 44] |
-| κ | colour term, added to White's rating for the expectation | 35 | Sonas 2002, 266,000 games [R §3.7]; rapid expected smaller |
-| D_max | clamp scale | 800 | replaces the 400-point rule and its 2650 exemption |
-| K_max | K for a brand-new player | 40 | today's value for newcomers and juniors |
-| K_mid, K_top | K floors below and above the top band | 20, 10 | today's 20 and 10 |
-| R_half, w | centre and width of the K transition | 2300, 100 | replaces the permanent switch at 2400 |
-| n_0 | experience scale (games) | 20 | K halfway to its floor after about 14 games |
-| n_cap | experience cap | 60 | keeps a small residual K and lets inactivity matter |
-| λ | monthly retention of experience | 0.97 | one idle year lowers n_eff by about 30 % |
-| w_junior | weight of a junior's game | 0.5 | juniors stay "uncertain" longer; replaces the 2300 and age-18 switches |
-| α | junior compensation weight (C2) | 1.0 | 0 would reproduce today's behaviour |
-| b_max | cap on the pool bonus per game | 0.2 | a few points a year for an active player |
-| φ_max, Δφ_max | cap and annual cap on a federation offset | 100, 25 | Ghita's largest estimate is about 101 [R 6] |
+**Worked example (hand-checkable).** The annex works through four cases [T10]; the first is reproduced here. An established adult, A, rated 1900, has White against a junior, J, whose published rating is 1500 but whom Layer 1 rates at 1850 confidently enough to pass the eligibility test of section 6, so J's rating for A's expectation is 1800 (the 350-point difference is capped at the PROVISIONAL c_cap of 300) while J's own expectation uses the published 1500 and 1900. A's printed K_i is 19.1 and J's is 40.0 (PROVISIONAL, from posterior standard deviations of 55 and 100). Under today's rules [V 1] the difference is 400, which is not "more than 400", so no cap applies; table 8.1.2 gives A an expectation of .92 with K = 20 and J an expectation of .08 with K = 40, and a draw costs A 8.4 points before rounding, the figure Ghita uses to explain how under-rated juniors drain established players [R 5]. The table below sets today's figures beside the Layer 2 figures for each result, computed from the PROVISIONAL parameters by the reference script.
 
-**Worked example (hand-checkable).** An established adult, A, rated 1900 with hundreds of games and continuous activity, has White against a junior, J, whose published rating is 1500 but whom the model estimates at 1850 (age prior plus recent results, low variance). J has played 20 rated games, all as a junior. Both belong to the same federation, so offsets cancel. This month's pool bonus is b = +0.1.
+| Result | A today: 20 × (S − .92) | J today: 40 × (S − .08) | A under Layer 2: 19.1 × (S − 0.656) | J under Layer 2: 40.0 × (S − 0.116) |
+|---|---|---|---|---|
+| A wins | +1.6 → **+2** | −3.2 → **−3** | +6.6 → **+7** | −4.6 → **−5** |
+| Draw | −8.4 → **−8** | +16.8 → **+17** | −3.0 → **−3** | +15.4 → **+15** |
+| J wins | −18.4 → **−18** | +36.8 → **+37** | −12.5 → **−13** | +35.4 → **+35** |
 
-*Under FIDE today (standard list, rules as amended 1 October 2025 [V 1]).* The difference is 400, which is not "more than 400", so no cap applies. Table 8.1.2, row 392–411: H = .92, L = .08. K is 20 for A and 40 for J (junior under 2300, fewer than 30 games).
-
-| Result | A: ΔR = 20 × (S − .92) | J: ΔR = 40 × (S − .08) |
-|---|---|---|
-| A wins | 20 × 0.08 = +1.6 → **+2** | 40 × (−0.08) = −3.2 → **−3** |
-| Draw | 20 × (−0.42) = −8.4 → **−8** | 40 × 0.42 = +16.8 → **+17** |
-| J wins | 20 × (−0.92) = −18.4 → **−18** | 40 × 0.92 = +36.8 → **+37** |
-
-The draw costs the adult 8.4 points, the figure Ghita uses to explain how under-rated juniors drain established players [R 5].
-
-*Under Layer 2 (PROVISIONAL parameters).*
-
-- A's expectation (channel C2 applies: J's rating for expectation is 1850): D = (1900 + 35) − 1850 = 85; D_eff = 800 × tanh(85/800) = 84.7; E_A = 1 / (1 + 10^(−84.7/400)) = 0.620.
-- J's own expectation (J's own published rating is used; A is an adult, so no compensation): D = 1500 − (1900 + 35) = −435; D_eff = 800 × tanh(−435/800) = −396.7; E_J = 1 / (1 + 10^(396.7/400)) = 0.092.
-- K for A: n_eff at the cap, 60; K_floor(1900) = 20.0; K_eff = 20.0 + 20.0 × exp(−3) = 21.0.
-- K for J: n_eff = 20 games × 0.5 = 10; K_floor(1500) = 20.0; K_eff = 20.0 + 20.0 × exp(−0.5) = 32.1.
-
-| Result | A: ΔR = 21.0 × (S − 0.620) + 0.1 | J: ΔR = 32.1 × (S − 0.092) + 0.1 |
-|---|---|---|
-| A wins | +8.0 + 0.1 = +8.1 → **+8** | −3.0 + 0.1 = −2.9 → **−3** |
-| Draw | −2.5 + 0.1 = −2.4 → **−2** | +13.1 + 0.1 = +13.2 → **+13** |
-| J wins | −13.0 + 0.1 = −12.9 → **−13** | +29.2 + 0.1 = +29.3 → **+29** |
-
-Reading the two tables together: the adult is no longer taxed for drawing a junior who is really an 1850 player (−2 instead of −8) and is rewarded for beating one (+8 instead of +2); the junior still climbs quickly (+13 for a draw, +29 for a win), because the junior's own update always uses the junior's published number. The two expectations do not sum to one and points are not conserved in this game; that asymmetry is the point of channel C2, and channel C3 keeps the overall level in check. The breakdown published with A's change would read: "vs J (junior; rated for expectation at 1850 under C2, published 1500) · colour +35 · gap 85 → 84.7 after clamp · expected 0.620 · score ½ · K 21.0 · change −2.5 · pool bonus +0.1 · total −2.4".
+The adult is no longer drained for drawing a junior who is really an 1850 player (−3 instead of −8) and is paid for beating one (+7 instead of +2); the junior still climbs at full speed (+15 for a draw, +35 for a win). The two expectations, 0.656 and 0.116, do not sum to one; the difference is the compensation, and the ledger prints it as 19.1 × (0.884 − 0.656) = 4.4 points created in this game whatever the result [T6] [T10].
 
 ---
 
@@ -187,84 +160,81 @@ Reading the two tables together: the adult is no longer taxed for drawing a juni
 
 | Topic | Today (transcribed [V 1] [V 2]) | Proposed | Why |
 |---|---|---|---|
-| **Newcomers** | Published after at least 5 games against rated opponents, pooled over up to 26 months; Ra = average of rated opponents plus two hypothetical 1800-rated opponents scored as draws; Ru = Ra + dp from table 8.1.1, rounded, maximum 2200; a zero score in the first event is disregarded (§7.1.4, §8.2) | Same 5-game, 26-month threshold. The seed is the model's estimate from those games with an age- and pool-informed prior (C1), rounded, within the floor and the 2200 cap; no phantom opponents. The newcomer starts at K_max and a high model variance. | The two phantom draws pull every newcomer toward 1800 whatever their age or pool and were a one-off repair for deflation [R 35] [R 39]; a prior that knows a 12-year-old from a 40-year-old seeds closer to the truth, which is the first of the three deflation channels [R Recommendations]. |
-| **Juniors** | K = 40 until the end of the year of the 18th birthday while rated under 2300; otherwise standard rules (§8.3.3) | A junior's games count w_junior toward experience, so K_eff stays high smoothly; opponents' expectations use the junior's model estimate when it is reliable (C2); the age-improvement rate is a published model output. | Juniors improve faster than K = 40 can track and were "undervalued by hundreds of points" after the pandemic freeze [R §3.3] [R 4]; the loss to the adult, not the junior's gain, is what deflates the pool [R 5] [R 39]. |
-| **Floor** | Ratings below 1400 are shown as unrated on the next list; the player is thereafter treated as any unrated player (§7.2.1) | 1400 stays the publication floor for v0.1 (decision 11.3). The engine carries the rating below the floor; the list shows the player as "below 1400"; on recovery the carried rating is published again. No re-seeding. | Today's rule splits players into rated and unrated, creates an artificial pile-up at 1400 and makes 1400–1600 ratings "highly unreliable" [R 2] [R 4]; re-entry through the newcomer rule injects points at the bottom. |
-| **Inactivity** | A player commences inactivity after one year without a rated game and regains activity after one game; ratings do not decay; K unchanged (§7.2.2) | The published rating never decays (forward-only). Experience n_eff decays each idle month, so K_eff is higher on return and the first games move the rating faster. The inactive flag stays. Eligibility rules that depend on rating (for example rating-based tournament spots) are FIDE's to set and are outside these regulations; the model's variance is available to them. | About 40 % of listed players have not played since before the pandemic [R 5] [R 56]; a frozen rating with a frozen K misstates both the level and the uncertainty of a returning player; Glicko-style uncertainty growth is the standard remedy [R §6]. |
-| **Retirements** | No rule; a rating stays on the list indefinitely (§7.2.2) | After five years without a rated game (PROVISIONAL), the player moves to an archive list with the rating preserved; return re-activates it. A presentation rule, not a rating change. | Ghost ratings distort pool statistics and the public's reading of the list [R §3.10]; archiving changes no number. |
+| **Newcomers** | Published after at least 5 games against rated opponents, pooled over up to 26 months; Ra = average of rated opponents plus two hypothetical 1800-rated opponents scored as draws; Ru = Ra + dp from table 8.1.1, rounded, maximum 2200; a zero score in the first event is disregarded (§7.1.4, §8.2) | Same 5-game, 26-month threshold. The seed is the Layer 1 posterior mean for the player, drawing on their games in all three time controls, rounded, within the 1400 floor and the 2200 maximum (AR-5) [T4]; no phantom opponents. The newcomer starts with the model's uncertainty, hence K_i near 40, and the ledger records the points that enter with them. | The two phantom draws pull every newcomer towards 1800 whatever their age or pool and were a one-off repair for deflation [R 35] [R 39]; a seed that uses everything known about the player, including rapid and blitz games, enters closer to the truth, which is the first of the three deflation channels [R Recommendations]. |
+| **Juniors** | K = 40 until the end of the year of the 18th birthday while rated under 2300; otherwise standard rules (§8.3.3) | A junior (list year minus year of birth on the FIDE list at most 19) with at least 10 rated games in the time control (PROVISIONAL) whom Layer 1 rates above their published rating by more than τ (PROVISIONAL 50 points) with posterior probability at least 0.90 carries a published compensation c_j, capped at c_cap (PROVISIONAL 300 points); the list prints the compensated rating beside the published one. It enters the opponent's expectation only; the junior's own update uses published ratings, so the junior catches up at full speed. It switches off by itself as the junior's rating catches up (AR-4) [T4]. | Juniors improve faster than K = 40 can track and were "undervalued by hundreds of points" after the pandemic freeze [R §3.3] [R 4]; the loss to the adult, not the junior's gain, is what deflates the pool [R 5] [R 39]. |
+| **Floor** | Ratings below 1400 are shown as unrated on the next list; the player is thereafter treated as any unrated player (§7.2.1) | §7.2.1 is unchanged as a display rule: the list shows the player as unrated and their games are not rated for opponents, as today. Layer 1 keeps estimating the player, so their games still inform the pool, and when the player re-qualifies under §7.1.4 the seed is the Layer 1 estimate, not two phantom draws. The ledger records the points leaving through the floor (AR-5) [T4]. | Today's rule splits players into rated and unrated, creates an artificial pile-up at 1400 and makes 1400–1600 ratings "highly unreliable" [R 2] [R 4]; re-entry through the newcomer rule injects points at the bottom. |
+| **Inactivity** | A player commences inactivity after one year without a rated game and regains activity after one game; ratings do not decay; K unchanged (§7.2.2) | No rating decays. The model's uncertainty about an inactive player grows, so K_i is higher on return and the first games move the rating faster. No adjustment is earned while inactive (AR-5). The inactive flag stays; eligibility rules that depend on rating are FIDE's to set and are outside these regulations. | About 40 % of listed players have not played since before the pandemic [R 5] [R 56]; a frozen rating with a frozen K misstates the uncertainty of a returning player; Glicko-style uncertainty growth is the standard remedy [R §6] [R 64]. |
+| **Monthly adjustments** | No rule; the level of the scale is left to the arithmetic of K factors and seeds | A global adjustment a_t per time control, credited to every active player and posted in a month in which the player plays, capped (PROVISIONAL 1.5 points per month), derived from the anchor cohort's drift and signed in either direction (whether a negative a_t should be allowed is an open policy question for the QC). A federation adjustment a_{f,t} with the same structure, DISABLED until the evidence test of section 9 is passed (AR-3) [T4] [T7]. | The median active player still loses about 16 points a year after the 2024 reform [R 5]; US Chess holds its level with a bonus mechanism it re-tuned in 2023 and 2025 because ratings "continue[d] to deflate" [R 29] [R 32]; a per-player monthly payment does the same job without rewarding extra games. |
 
 ---
 
 ## 7 One framework across time controls
 
-**The structure.** skill_tc = θ + δ_tc. One shared skill per player, θ, plus an offset for each time control, shrunk toward zero with a time-control-specific variance (Appendix A.4). A rapid specialist can be stronger at rapid without the system pretending they are a different person. Each time control keeps its own colour and draw parameters and its own volatility, because White's edge and draw rates differ by style [R §3.7] [R §8].
+**The structure.** skill_tc = θ + δ_tc. One shared skill per player, θ, plus an offset for each time control, shrunk towards zero with a time-control-specific variance [T2]. A rapid specialist can be stronger at rapid without the system pretending they are a different person. Each time control keeps its own expected-score function, colour term, draw parameters and volatility, because White's edge and draw rates differ by style [R §3.7] [R §8].
 
-**Shrinkage.** With few games in a style, δ_tc stays close to zero and the player's strength in that style is essentially θ. With many games, δ_tc is estimated from them. The strength of the shrinkage, ω_tc, is fitted from data; the cross-time-control correlation for FIDE players is one of the first quantities the project will estimate (open question 11.4) [R §8].
+**Shrinkage.** With few games in a style, δ_tc stays near zero and the player's strength there is essentially θ; with many, δ_tc is estimated from them. The strength of the shrinkage, ω_tc, is fitted from data; the cross-time-control correlation for FIDE players is one of the first quantities the project will estimate (open question 11.4) [R §8].
 
-**What a rapid game tells the classical rating.** In Layer 1, every game in every style updates θ, so a rapid game moves the model's view of a player's classical strength a little, and moves δ_rapid more. In Layer 2, the classical published rating is touched by a rapid game only through the four channels: the seed of a newcomer to the classical list draws on their rapid history (C1); the compensation for a junior opponent draws on the junior's θ, which rapid games inform (C2). No rapid result ever enters the classical per-game formula directly, and the three published lists remain separate and forward-only.
+**What a rapid game tells the classical rating.** In Layer 1, every game in every style updates θ, so a rapid game moves the model's view of a player's classical strength a little, and moves δ_rapid more. In Layer 2, the classical published rating is touched by a rapid game only through the channels: the seed of a newcomer to the classical list draws on their rapid history (AR-5); the compensation for a junior opponent draws on the junior's θ, which rapid games inform (AR-4). No rapid result ever enters the classical per-game formula directly, and the three published lists remain separate and forward-only.
 
-**What FIDE does today.** Three independent lists with the same tables, K rules and rounding [V 2]. The only cross-link is the seed rule for rapid and blitz: an unrated player who has a standard rating uses it, and is then treated as rated (§7.2.1 of the rapid and blitz regulations [V 2]). The rapid and blitz chapter keeps the plain 400-point cap, without the 2650 exemption, and since 1 December 2024 does not rate games with a 600-point gap when a player is above 2600 [V 2]; from 2026, 45+30 time controls may be rated as standard for approved events [R 24]. This design replaces those cross-list rules with one shared skill and one consistent formula (decision 11.7).
+**What FIDE does today, and why it argues for one framework.** FIDE keeps three lists under two chapters whose tables, K rules and rounding are identical [V 2]. The chapters have nevertheless drifted apart on the one rule that matters most at the top. The standard chapter reads: "Effective from 1 October 2025: A difference in rating of more than 400 points shall be counted for rating purposes as though it were a difference of 400 points for players rated below 2650. For players rated 2650 and above, the difference between ratings shall be used in all cases" [V 1]. The rapid and blitz chapter reads: "A difference in rating of more than 400 points shall be counted for rating purposes as though it were a difference of 400 points." There is no 2650 exemption in that chapter, and it continues: "Effective from 1 December 2024: Games played between players with a rating difference of 600 points or more shall not be rated if at least one of the players is rated above 2600 on the relevant list." [V 2]. The same top-level pairing is rated on the full gap in standard, on a capped gap in rapid and blitz, and beyond a 600-point gap not at all. Each rule answered a real problem; but three separately patched rule sets drift apart, and every patch adds a cliff. One framework with per-time-control parameters is the remedy: the same expected-score function in all three time controls, with no caps and no exclusions, whose parameters differ by style only where the data say they should [T3]. The one cross-list rule in today's chapters, that an unrated player with a standard rating uses it in rapid and blitz (§7.2.1 of the rapid and blitz chapter [V 2]), becomes a special case of the shared skill θ.
 
 ---
 
 ## 8 Proof plan
 
-**Backtest protocol.** Rolling-origin evaluation: fit on all games up to month t, forecast every game of month t+1, score, roll forward, for every month in the test range. The match schedule is never a feature; Kaggle 2011's winner admitted that schedule information drove much of the edge, which is not legitimate for an official rating [R 9] [R §9]. Layer 0 (today's rules, exactly) is the baseline on every metric.
+**Protocol.** Rolling-origin evaluation: fit on all games up to month t, forecast every game of month t+1, score, roll forward, for every month in the test range. The match schedule is never a feature, since schedule information drove much of the 2011 Kaggle winner's edge, which is not legitimate for an official rating [R 9] [R §9]. Layer 0 (today's rules, exactly) is the baseline on every metric. Metrics, holdout design, anchor-cohort definition and success thresholds are pre-registered in [T8] before any FIDE data is seen.
 
-**Metrics.**
-- Forecast quality: three-outcome log-loss (win, draw, loss, requiring the draw model) and Brier score; calibration plots by rating gap, rating band, colour, time control and federation pair.
-- Drift: the mean rating of a stable anchor cohort over time (adults aged about 25–45 with regular activity), as Glickman does for US Chess [R 22]; the score of fixed rating bands against each other across years; rating velocity by age cohort.
-- Cross-federation comparability: mean residual (actual minus expected) in cross-border games by federation, which should shrink toward zero; the share of games within each federation.
-- Newcomer convergence: games until the error against true strength is below 50 points in simulation; forecast error over a player's first 30 games.
-- Manipulation resistance: points gained per unit of effort by simulated adversaries (farmers, sandbaggers, colluding rings, inactive protectors), compared with Layer 0.
+**Metrics** [T8]. Three-outcome log-loss, ranked probability score and Brier score, with calibration by gap, band, colour, time control and federation pair; anchor-cohort drift, as Glickman does for US Chess [R 22]; cross-federation residuals; newcomer convergence; points gained per unit of effort by simulated adversaries; hand-checkability of published changes; the ledger identity.
 
-**The simulator.** Players with known true strengths: age-dependent improvement curves; federation-clustered pairings with a tunable share of cross-border games; Swiss pairings with top-half-against-bottom-half first rounds, which supply the cross-level mixing that isolated pools lack [R §3.13]; entries and exits with realistic age and pool profiles; colour allocation by pairing rules. Layer 0 and candidate Layer 2 rules run side by side on the same simulated games, so recovery of true strengths, convergence speed and drift can be measured exactly.
+**The simulator** [T9]. Players with known true strengths: age-dependent improvement curves; federation-clustered pairings with a tunable share of cross-border games; Swiss pairings for cross-level mixing [R §3.13]; entries and exits with realistic age and pool profiles; colour allocation by pairing rules. Layer 0 and Layer 2 run side by side on the same simulated games, so recovery of true strengths, convergence speed and drift can be measured exactly, including against adversaries (farmers, sandbaggers, colluding rings, inactive protectors).
 
-**Success criteria (PROVISIONAL thresholds, to be fixed before the Lichess backtest is run).**
+**Success criteria (PROVISIONAL thresholds, fixed in [T8] before the backtest is run).**
 
 | Criterion | PROVISIONAL threshold |
 |---|---|
-| Three-outcome log-loss on held-out months | at least 2 % better than Layer 0 at every rating band |
-| Calibration | slope of actual on expected score within 0.95–1.05 in every gap bin up to 800 points |
+| Three-outcome log-loss, ranked probability score and Brier score on held-out months | log-loss at least 2 % better than Layer 0 in every rating band; all three better than Layer 0 with a bootstrap interval excluding zero |
+| Calibration | slope of actual on expected score within 0.95–1.05 in every gap bin up to 1000 points; the yearly table is published only if this holds |
 | Anchor-cohort drift | within ±2 points per year (the report's post-reform figure is about −16 per year [R 5]) |
 | Cross-federation residual | within ±10 points for every federation with at least 1,000 cross-border games in the window |
 | Newcomer convergence (simulation) | median absolute error below 50 points within 15 games |
 | Adversarial simulations | no strategy gains more than Layer 0 allows, and farming yields fewer points per game than honest play against equals |
-| Hand-checkability | 100 % of a random sample of published changes recomputed exactly from the breakdown and the parameter file |
+| Hand-checkability | 100 % of a random sample of published changes recomputed exactly from the breakdown, the table and the parameter file |
+| Ledger | the published ledger satisfies the identity of [T6] to the tenth in every month |
 
-**Data plan.**
-1. **Development:** the Lichess open database, CC0 ("Use them for research, commercial purpose, publication, anything you like" [V 4]); monthly standard-game files of about 28–33 GB and 85–100 million games each for 2024–2026 [V 4]; the classical and rapid subsets; the over-the-board broadcast archive (CC BY-SA 4.0 [V 4]) as the OTB slice. Online data calibrates methods, not FIDE parameters.
-2. **Player panel:** FIDE's monthly lists, standard, rapid and blitz, with K, games per period, year of birth and federation, archived monthly since February 2015 [V 3]. They carry no licence; the project downloads and analyses them and never redistributes them [V 3].
-3. **The formal request:** FIDE's TRF archive, the complete game-level record that arbiters submit under §9.1 [V 1], under a data-sharing agreement (Phase C). It is the only dataset that can settle the federation-offset question [R §5].
+**Data plan.** (1) Development: the Lichess open database, CC0 ("Use them for research, commercial purpose, publication, anything you like" [V 4]), about 85–100 million games a month for 2024–2026 [V 4], with the over-the-board broadcast archive (CC BY-SA 4.0 [V 4]) as the OTB slice; online data calibrates methods, not FIDE parameters. (2) Player panel: FIDE's monthly lists, standard, rapid and blitz, archived monthly since February 2015 [V 3]; they carry no licence, so the project downloads and analyses them and never redistributes them [V 3]. (3) The formal request: FIDE's TRF archive, the game-level record that arbiters submit under §9.1 [V 1], under a data-sharing agreement (stage 2); the only dataset that can settle the federation question [R §5].
 
 ---
 
 ## 9 Governance and the calculator FIDE can run
 
-**Plain statement.** This is a statistical model with machine-estimated parameters, re-estimated monthly from games, feeding a published per-game formula. It is not a neural network and not a black box. Anyone with the parameter file and the game record can recompute any rating change by hand; the model's only power is to set the numbers in that file, within caps, once a month, in public.
+**Plain statement.** This is the "AI calculator FIDE can run" only in this sense: a statistical model with machine-estimated parameters, re-estimated monthly from games, feeding a published per-game formula; it is not a neural network and not a black box. Anyone with the yearly table, the monthly parameter file and the game record can recompute any rating change by hand; the model's only power is to set the numbers in those two files, within caps, in public.
 
-**Determinism.** Layer 0 and Layer 2 use fixed-precision arithmetic and today's rounding rule (§8.3.4 [V 1]). Identical TRF input and identical parameter file give identical output on any machine. Layer 1 fixes its random seed wherever a stochastic step exists, so its parameter file is reproducible too.
+**Two published files** [T7]. The yearly lookup table, one per time control, succeeds table 8.1.2 and changes at most once a year. The monthly parameter file, published with every list, versioned, machine- and human-readable, holds for each time control: the function parameters behind the table (κ_tc, η_tc, α_tc, β_tc); K_min, K_max and σ_new; the adjustment a_t with its gain and cap, the anchor-cohort definition and the two means behind it; the federation adjustments a_{f,t} (all zero while disabled) with each federation's estimated miscalibration, its uncertainty and its connectivity diagnostics; the compensation c_j of every eligible junior; and every player's K_i.
 
-**The monthly parameter file.** Published with every list, versioned, machine- and human-readable. For each time control it holds the curve scale σ and clamp D_max; the colour term κ; the draw-term parameters (forecasts only); the K parameters; the seed prior by age band and pool (C1); the compensation weight α (C2); the pool bonuses b_P (C3); the federation offsets φ_F with sample sizes (C4); and the drift estimate and anchor-cohort definition behind them. Every value carries the date it last changed.
+**Annual change caps.** No published parameter moves by more than a published cap per calendar year; the PROVISIONAL caps are listed beside the values in [T7] (for example ±0.05 on the slope κ_tc, ±5 on the colour term, ±2 on K_min and K_max, ±0.5 on the adjustment cap).
 
-**Annual change caps.** No published parameter moves by more than a published cap per calendar year; the PROVISIONAL caps are tabulated in Appendix D (for example ±10 on σ, ±25 on a federation offset with an absolute cap of 100, ±0.1 per game on the pool bonus with an absolute cap of 0.2).
+**Ownership and process.** The QC owns and signs the parameter file and the caps; the FIDE Council approves changes to caps or to the formula; every change to the formula or the caps goes through a public comment period, with the 2023 consultation (over 150 comments [R 18] [R 19]) as the model. The monthly update within the caps is routine, published with its ledger and monitoring report. Rollback rule: if any monitoring threshold of [T8] is breached for two consecutive months, the file reverts to the last compliant version while the QC investigates; if the ledger identity of [T6] fails in any month, the list is held until it is reconciled. The federation adjustment is enabled only by Council decision after public comment and consultation with the federation concerned, after a backtest on FIDE's own game data has shown federation miscalibration to be stable and predictive out of sample; it acts on cross-pool evidence only, never on nationality, and when enabled it remains capped and reversible.
 
-**Ownership and process.** The QC owns the parameter file and the caps; the FIDE Council approves changes to caps or to the formula; every change to the formula or the caps goes through a public comment period, with the 2023 consultation (over 150 comments [R 18] [R 19]) as the model. The monthly update within the caps is routine and automatic, published with its monitoring report. Rollback rule: if any monitoring threshold (section 8) is breached for two consecutive months, the file reverts to the last compliant version while the QC investigates.
+**The properties the design guarantees** [T5]. P1 Forward-only: a published rating depends only on earlier lists and the games of the period, and no list is ever recomputed. P2 Bounded change: at most K_i per game, and per period at most 700 points plus the capped adjustment. P3 Continuity: no caps, clamps or bracket switches; the expected score and K_i are continuous in their inputs. P4 Unbiasedness: when ratings are accurate the expected change from any pairing is zero, so farming earns nothing. P5 Ledger completeness: every point created, moved or lost appears in one ledger line and the lines sum exactly. P6 Determinism: fixed-point arithmetic and today's rounding give identical output on any machine.
 
-**No exploitable cliffs.** Today's rules contain discontinuities that reward strategy rather than play: the 400-point cap below 2650 and none above it, so that a 2649 and a 2651 player get different expectations against the same 2200 opponent; the K switches at 30 games, at 2300 for juniors and permanently at 2400; the floor rule that turns a 1399 into "unrated" and re-seeds the player through two phantom 1800 draws; and a different cap regime in rapid and blitz [V 1] [V 2] [R 55]. The design removes each of them with one smooth clamp, one smooth K_eff, a carried rating below the floor and a model seed; Appendix D lists cliff and replacement side by side.
+**No exploitable cliffs.** Today's rules contain discontinuities: the 400-point cap below 2650 and none above it, so that a 2649 and a 2651 player get different expectations against the same opponent; the K switches at 30 games, at 2300 for juniors and permanently at 2400; the floor rule that turns a 1399 into "unrated" and re-seeds the player through two phantom 1800 draws; and a different cap regime in rapid and blitz [V 1] [V 2] [R 55]. The design contains no caps, clamps or bracket switches. Its only thresholds, the junior eligibility test and the activity test for the monthly adjustment, enter through capped, published quantities (c_j and a_t), so crossing one changes a published number by a bounded, visible amount and never changes the value of every later game.
 
-**Anomaly monitoring.** Each month the engine publishes, without names, aggregate indicators: clusters of players whose mutual results are far from forecast (collusion and arranged draws, which the draw model makes detectable [R §3.6]); players with large gains concentrated against far-lower-rated opponents (a farming index); returns from inactivity that coincide with unusual results; federations whose residuals move faster than their cap allows. Named cases go to FIDE's existing Tournament Investigation and QC appeal procedures [R §3.9] [V 1]; the engine flags, it does not judge.
+**Anomaly monitoring.** Each month the engine publishes, without names, aggregate indicators: clusters of players whose mutual results are far from forecast (collusion and arranged draws, which the draw model makes detectable [R §3.6]); players with large gains concentrated against far-lower-rated opponents (a farming index); returns from inactivity that coincide with unusual results; federations whose estimated miscalibration moves faster than its cap would allow. Named cases go to FIDE's existing Tournament Investigation and QC appeal procedures [R §3.9] [V 1]; the engine flags, it does not judge.
+
+**The ledger, published monthly** [T6]. The points ledger of section 5 appears with every list, per time control, and is the first thing the monitoring report reconciles.
 
 ---
 
 ## 10 Roadmap
 
-| Phase | Deliverable | Gate to the next phase |
+Nothing in this proposal touches the title and norm regulations. Their interaction with the new table, in particular whether any norm arithmetic that relies on table 8.1.2 would need to change, is NOT VERIFIED and is for the QC to assess; the shadow list exists to answer it with numbers before any decision; the transition is detailed in [T11].
+
+| Stage [T11] | Deliverable | Gate to the next stage |
 |---|---|---|
-| **A** | Layer 0 reference engine for standard, rapid and blitz, test-vector verified against FIDE's calculator and sampled monthly lists; the simulator with known true strengths; the Lichess backtest harness (CC0 data [V 4]) and the first rolling-origin results for L1 and L2 | L0 reproduces sampled players' monthly changes exactly; L2 beats L0 on the Lichess backtest on every metric of section 8 |
-| **B** | Publish the results: this proposal at v1.0, the code, the test vectors, a short technical report and the monitoring dashboard; invite QC and public comment | Comments triaged; no unresolved correctness finding |
-| **C** | Formal request to FIDE for the TRF archive under a data-sharing agreement, pitched to the new administration as a "digital transformation" deliverable [R §2] [R 28]; re-run every backtest on FIDE games; federation offsets become estimable | Backtest on FIDE data meets the section 8 criteria; data agreement respected |
-| **D** | Pilot with one federation: a shadow list run in parallel for twelve months, published alongside the official list, with monthly monitoring reports; then a QC decision on adoption, scope and timing | Twelve clean months; QC and Council decision |
+| **1. Layer 0 replica, now** | The reference engine for standard, rapid and blitz, test-vector verified against FIDE's calculator and sampled monthly lists; the simulator [T9]; the Lichess backtest harness (CC0 data [V 4]) and the first rolling-origin results [T8]; this proposal at v1.0 with code and test vectors, for QC and public comment | L0 reproduces sampled players' monthly changes exactly; L2 beats L0 on the Lichess backtest on every metric of [T8]; comments triaged with no unresolved correctness finding |
+| **2. Shadow list, twelve months** | With the TRF archive under a data-sharing agreement, pitched as a digital-transformation deliverable [R §2] [R 28]: a shadow list computed in parallel with every official list and published beside it, with the parameter file, the ledger and the monitoring report; no effect on any rating, title or norm. Precedent: the parallel list during the 2008–2011 K-factor trial [R §2] [R 16] | Twelve clean months; the pre-registered criteria of [T8] met on FIDE data; the QC's assessment of the title and norm question |
+| **3. Pilot federation** | One federation's players rated under Layer 2 for a domestic list, with the official list unchanged; monthly reports; the federation adjustment still disabled | Pilot report; QC recommendation |
+| **4. Council decision** | QC recommendation to the FIDE Council on adoption, scope and timing; adoption, if any, with no one-off jump: any gap between the shadow and official lists closes through the capped monthly adjustments | Council decision |
 
 ---
 
@@ -272,123 +242,45 @@ Reading the two tables together: the adult is no longer taxed for drawing a juni
 
 **Open questions the research could not settle** ([R Open questions], restated with the step that answers each):
 
-1. What share of FIDE-rated games is within one federation, by band and year? Needs the TRF archive (Phase C).
-2. Are federation offsets stable and causal, or artefacts of who travels? Needs the TRF archive and a multivariate analysis (Phase C).
-3. What were draw rates and White's score in FIDE play in 2024–2026, by level and time control? Lichess broadcasts first (Phase A), FIDE data later.
-4. How strongly do classical, rapid and blitz strength correlate for FIDE players today? Estimable from the combined monthly list in Phase A [V 3].
-5. How large is per-player colour-count imbalance, and does it move ratings? Phase A on broadcasts; Phase C on FIDE data.
-6. Will the QC under the new administration accept a model-driven correction layer, and would title-norm arithmetic need to change? Phase B and C conversations; see decision 6 below.
+1. What share of FIDE-rated games is within one federation, by band and year? Needs the TRF archive (stage 2).
+2. Are federation offsets stable and causal, or artefacts of who travels? Needs the TRF archive and a multivariate analysis (stage 2); the federation adjustment stays disabled until this is answered.
+3. What were draw rates and White's score in FIDE play in 2024–2026, by level and time control? Lichess broadcasts first (stage 1), FIDE data later.
+4. How strongly do classical, rapid and blitz strength correlate for FIDE players today? Estimable from the combined monthly list in stage 1 [V 3].
+5. How large is per-player colour-count imbalance, and does it move ratings? Stage 1 on broadcasts; stage 2 on FIDE data.
+6. Will the QC under the new administration accept a model-driven correction layer, and would title-norm arithmetic need to change? The shadow list answers the second with numbers; the first is for the QC (section 10).
 7. Does any exact reproduction of FIDE's calculator exist? None found [R §5]; Layer 0 is that deliverable.
 
-**Decisions needed from the founder** (numbered for reply):
+**Decisions needed from the founder** (numbered for reply). The technical decisions of v0.1 are resolved in `docs/decisions/D-0002` and `D-0003`; only these remain.
 
-1. **Assumptions A1–A7.** The research report refers to assumptions A1–A7 but does not list them; Appendix B reconstructs them from the report's usage. Confirm or supply the canonical list.
-2. **Junior-opponent compensation scope (C2).** Juniors only, as drafted, or every player whose model estimate exceeds their published rating by more than a threshold? The second is more general and harder to explain.
-3. **Floor policy.** Keep 1400 as the publication floor and carry ratings internally below it (as drafted), lower the floor, or keep today's "unrated" rule?
-4. **Pool bonus sign (C3).** Allow a negative bonus in an inflating pool, or constrain b ≥ 0 and handle inflation only through seeds?
-5. **Publication of model estimates.** Should each player's model estimate θ̂ (used in C1 and C2) be public, visible only to the player, or QC-only? Public is most transparent; it also creates a second number players will compare with.
-6. **Curve scale.** Fix σ at 400 for comparability with title-norm tables, or let it move within its cap? Decision 6 interacts with open question 6.
-7. **Rapid and blitz consistency.** The rapid/blitz chapter keeps the plain 400-point cap and adds a 600-point "not rated" rule [V 2]; the proposal applies one clamp to all three. Confirm.
-8. **Pilot federation.** Which federation to approach for Phase D, and when.
-9. **Data handling.** FIDE lists carry no licence [V 3]; confirm the policy "download, analyse, never redistribute" and the wording of the Phase C request.
-10. **Repository name.** The operator kept `Chess-ELO-Rating` and public visibility on 2026-10-09 (`docs/decisions/D-0001`). Revisit before v1.0 publication?
+1. **Publication of model estimates beyond the technical minimum.** The minimum is fixed: every eligible junior's compensation c_j and every player's K_i are published, because arbiters need them to recompute an expectation. Whether each player's θ̂_i and σ_i are public, visible only to the player, or QC-only remains open.
+2. **Pilot federation.** Which federation to approach for stage 3, and when.
+3. **Data handling and the TRF request.** FIDE lists carry no licence [V 3]; confirm the policy "download, analyse, never redistribute" and the wording of the stage 2 request.
+4. **Repository name and visibility.** The operator kept `Chess-ELO-Rating` and public visibility on 2026-10-09 (`docs/decisions/D-0001`). Revisit before v1.0 publication?
+5. **Repository description.** Confirm the current description text or revert it.
 
 ---
 
 ## Appendix A Mathematics
 
-**A.1 Notation.** Players i, j; months t; time controls tc ∈ {standard, rapid, blitz}; a game g has a White player w(g), a Black player b(g), a time control and a result y_g ∈ {1, ½, 0} for White. R_i(t) is the published rating, θ_i(t) the model's shared skill, δ_{i,tc}(t) the time-control offset, a_i(t) the player's age, F(i) their federation, P(i) their pool (the global pool or a federation pool). All skills live on the Elo scale: 400 points is a factor of 10 in odds.
-
-**A.2 Strength in a time control.** s_{i,tc}(t) = θ_i(t) + δ_{i,tc}(t).
-
-**A.3 Likelihood (Bradley–Terry–Davidson with colour and level-dependent draws).** For a game at time t in time control tc, let
-
-π_w = 10^{(s_{w,tc} + γ_tc)/400}, π_b = 10^{s_{b,tc}/400}, ν = exp(ν0_tc + ν1_tc · (s̄ − 2000)/400), s̄ = (s_{w,tc} + s_{b,tc})/2,
-
-Z = π_w + π_b + ν · √(π_w π_b),
-
-P(White wins) = π_w / Z, P(draw) = ν · √(π_w π_b) / Z, P(Black wins) = π_b / Z.
-
-γ_tc is the colour term (White's advantage in rating points), ν0_tc and ν1_tc set the draw propensity and its growth with level. White's expected score is E_w = P(White wins) + ½ P(draw). The log-likelihood is the sum over games of log P(observed result). Colour and draw structure are what assumption A2 omits (Appendix B).
-
-**A.4 Dynamics.** Skill follows a random walk with an age-dependent drift and volatility:
-
-θ_i(t+1) = θ_i(t) + m(a_i(t)) + ε_i(t), ε_i(t) ~ N(0, τ²(a_i(t))),
-
-where m(a) is the expected monthly improvement at age a (large for juniors, near zero for adults, slightly negative at high age) and τ(a) the monthly volatility. Offsets are shrunk toward zero and move slowly:
-
-δ_{i,tc}(t+1) = ρ_tc · δ_{i,tc}(t) + ξ_{i,tc}(t), ξ ~ N(0, ω²_tc), with stationary prior δ ~ N(0, ω²_tc / (1 − ρ²_tc)).
-
-A new player enters with prior θ_i(t_0) ~ N(μ_0(a, P), s_0²), where μ_0 depends on age band and pool. m(·), τ(·), ρ, ω, γ, ν0, ν1, μ_0 and s_0 are global parameters.
-
-**A.5 Fitting.** Each month, on the games of the last 36 months, maximise the log posterior over all skill trajectories (maximum a posteriori by Newton's method, as in Whole-History Rating [R 11], or a linearised Kalman smoother), warm-started from last month's fit; choose the global parameters by cross-validated three-outcome log-loss on the most recent months. Identification: the mean skill of the anchor cohort (adults aged 25–45 with regular activity in each of the last three years, as in the US Chess practice [R 22]) is held constant over the window.
-
-**A.6 Layer 1 outputs.**
-- Posterior mean θ̂_i(t) and variance for every player; forecasts for any pairing.
-- Federation offset: φ_F(t) = shrink_F [ mean_{i∈F}(θ̂_i − R_i) − mean_all(θ̂_i − R_i) ], with shrink_F = n_F / (n_F + n_φ) where n_F is the number of cross-border games involving F in the window, then capped at ±φ_max and rate-limited to Δφ_max per year.
-- Drift of pool P: d_P(t) = twelve-month change of mean_{i ∈ anchor(P)} [R_i(t) − θ̂_i(t)], in points per year (negative means deflation).
-- Junior improvement rates: m̂(a) by age.
-
-**A.7 Layer 2 update rule.** For a game between player i and opponent j, with colour indicator c = 1 for White and 0 for Black:
-
-R̃_j = R_j + α · (θ̂_j − R_j) if j is a junior and the model's variance for j is below a threshold, else R̃_j = R_j (channel C2);
-
-D_i = (R_i + φ_{F(i)} + κ·c_i) − (R̃_j + φ_{F(j)} + κ·c_j) (channel C4 enters here; within a federation φ cancels);
-
-D_eff = D_max · tanh(D_i / D_max) (smooth clamp, same for everyone);
-
-E_i = 1 / (1 + 10^{−D_eff/σ});
-
-ΔR_i = K_eff,i · (S_i − E_i) + b_{P(i)} (channel C3), with S_i ∈ {1, ½, 0};
-
-K_eff,i = K_floor(R_i) + (K_max − K_floor(R_i)) · exp(−n_eff,i / n_0), K_floor(R) = K_top + (K_mid − K_top) / (1 + 10^{(R − R_half)/w});
-
-n_eff,i ← min(n_cap, λ · n_eff,i + Σ_{games this month} w_g), w_g = w_junior if i is a junior at the time of the game, else 1.
-
-The period change is Σ ΔR_i over the player's games in the rating period, rounded to the nearest whole number with 0.5 away from zero (today's §8.3.4 [V 1]).
-
-Channel C1 (seed): a player new to the list receives R_i(t_0) = clamp(round(θ̂_i(t_0)), R_floor, R_seedmax) once they have at least N_min games against rated opponents within 26 consecutive months (today's §7.1.4 [V 1]), with n_eff,i(t_0) = n_seed.
-
-Channel C3 (pool bonus): b_P(t) = clamp(−β · d_P(t) / g_P(t), −b_max, +b_max), where g_P is the mean number of rated games per active player per year in P and β the correction fraction; the total injected per player per year is reported.
-
-**A.8 Symbols (with PROVISIONAL values where the proposal uses one).**
-
-| Symbol | Meaning | PROVISIONAL |
-|---|---|---|
-| θ_i(t) | shared skill of player i | fitted |
-| δ_{i,tc}(t) | time-control offset | fitted, shrunk |
-| γ_tc | L1 colour term | fitted (≈ 35 standard [R §3.7]) |
-| ν0_tc, ν1_tc | draw propensity and its level slope | fitted |
-| m(a), τ(a) | age drift and volatility | fitted |
-| ρ_tc, ω_tc | offset persistence and noise | fitted |
-| μ_0(a,P), s_0 | newcomer prior mean and sd | fitted |
-| σ | L2 curve scale | 400 (fit expected ≈ 480 [R 44]) |
-| κ | L2 colour term (points added to White) | 35 |
-| D_max | clamp scale | 800 |
-| K_max, K_mid, K_top | K ceiling, sub-2300 floor, top floor | 40, 20, 10 |
-| R_half, w | centre and width of the K transition | 2300, 100 |
-| n_0, n_cap, λ | experience scale, cap, monthly retention | 20, 60, 0.97 |
-| w_junior | experience weight of a junior's game | 0.5 |
-| α | junior compensation weight | 1.0 |
-| φ_F, φ_max, Δφ_max, n_φ | federation offset, cap, annual cap, shrinkage games | fitted, 100, 25, 2000 |
-| b_P, b_max, β | pool bonus, cap, correction fraction | fitted, 0.2, 1.0 |
-| R_floor, R_seedmax, N_min, n_seed | publication floor, seed cap, games to seed, starting experience | 1400, 2200, 5, 0 |
+Moved to the technical annex: the notation [T1], the Layer 1 model [T2] and the expected-score function [T3].
+The Layer 2 rules [T4] and the properties P1–P6 [T5].
+The ledger identity [T6].
 
 ---
 
 ## Appendix B Mapping to assumptions A1–A7
 
-The research report refers to "assumptions A1–A7" [R §1] and tags each problem with them ([R §3], "Ranked problem table"), but version 1.0 of the report does not contain the list itself. The mapping below reconstructs each assumption from the way the report uses it (decision 11.1 asks the founder to confirm). "Breaks" names the problem sections of the report; "Handled by" names the part of this design.
+The research report tags each problem with the assumptions A1–A7 it breaks ([R §1], [R §3], "Ranked problem table"). The list below is the architect's canonical one (`docs/decisions/D-0003`). "What breaks it" names the report sections; "Handled by" names the architecture revision and the annex section.
 
-| Assumption (reconstructed) | Statement | Report usage | Handled by |
+| Assumption | Statement | What breaks it (report section) | Handled by (AR-n and annex section) |
 |---|---|---|---|
-| A1 | One fixed link curve converts a rating gap into an expected score | §3.5 forecast accuracy across gaps; problem 4 | Calibrated logistic with fitted scale σ, smooth clamp (section 5); L1 forecasts |
-| A2 | No colour and no draw structure: results depend on the gap only | §3.6 draws; §3.7 colour; problems 8, 9 | Colour term κ in L2; colour and level-dependent draw terms in L1 (Appendix A.3) |
-| A3 | A fixed step size K, with bracket switches | §3.4 K-factor and bracket edges; §3.1 deflation; problems 1, 6 | Smooth, uncertainty-weighted K_eff (section 5) |
-| A4 | Strength varies slowly, at the same rate for everyone | §3.3 juniors; §3.11 COVID-era effects; §3.1 deflation; problems 1, 5 | Age-dependent drift and volatility in L1 (A.4); junior-opponent compensation C2; junior experience weight |
-| A5 | One well-mixed pool: everyone eventually plays everyone | §3.2 federation isolation; §3.13 matchmaking; problems 2, 12 | Federation offsets C4 through expectations; pool-level seeds; simulator tests of isolated pools |
-| A6 | A closed, conserving pool: points neither enter nor leave, so the scale's level is stable | §3.1 deflation; §3.10 inactivity; problems 1, 7 | Model seeds C1; capped pool drift correction C3; anchor-cohort drift monitoring |
-| A7 | Players do not act strategically: they do not choose opponents, time their activity or arrange results to move their rating | §3.8 protection and game selection; §3.9 manipulation; §3.10 inactivity; problems 3, 7, 10 | Cliff-free clamp and K_eff; experience decay on inactivity; anomaly monitoring; adversarial simulations |
+| A1 | One fixed curve turns any rating gap into a forecast, at every rating level. | §3.5 forecast accuracy across gaps; problem 4 | AR-1 calibrated expected-score function per time control and level band [T3] |
+| A2 | A draw is half a win, and colour does not matter. | §3.6 draws; §3.7 colour; problems 8, 9 | AR-1 colour term η_tc inside the gap and level-dependent draw term [T3]; L1 outcome model [T2] |
+| A3 | Every game moves a rating by a fixed step, set by brackets. | §3.4 K-factor and bracket edges; §3.1 deflation; problems 1, 6 | AR-2 K_i from the posterior uncertainty, no brackets [T4] |
+| A4 | Playing strength changes slowly. | §3.3 juniors; §3.11 COVID-era effects; §3.1 deflation; problems 1, 5 | AR-4 junior compensation [T4]; age-dependent drift in L1 [T2] |
+| A5 | The pool is well connected: everyone is indirectly compared with everyone. | §3.2 federation isolation; §3.13 matchmaking; problems 2, 12 | AR-3 federation adjustment, disabled pending evidence, with connectivity diagnostics [T2] [T4]; simulator tests of isolated pools [T9] |
+| A6 | Rating points are conserved, so the scale holds steady. | §3.1 deflation; §3.10 inactivity; problems 1, 7 | AR-3 global adjustment from anchor drift [T4]; AR-5 seeds [T4]; AR-6 ledger [T6] |
+| A7 | Players do not choose their games to protect or game their rating. | §3.8 protection and game selection; §3.9 manipulation; §3.10 inactivity; problems 3, 7, 10 | AR-1 and AR-2 remove the cliffs [T5]; AR-3 paid per active player, never per game [T4]; AR-5 uncertainty growth on inactivity [T4]; anomaly monitoring and adversarial simulations [T9] |
 
 The report's one-line statement of the model's assumptions, "one latent strength per player, one fixed link curve, no colour or draw structure, and slowly varying strength" [R §1], is covered by A1, A2 and A4; "one latent strength per player" is kept by this design (section 3(a)) and refined by the time-control offsets of section 7.
 
@@ -492,88 +384,17 @@ Sources listed: 87. Additional primary sources verified in Phase 1 that are not 
 
 ---
 
+
 ## Appendix D Illustrations of the provisional parameters, the caps and today's cliffs
 
-**D.1 What the PROVISIONAL K parameters imply (section 5).**
-
-| Situation | K_eff | FIDE today [V 1] |
-|---|---|---|
-| New player, 0 games | 40.0 | 40 |
-| 10 games | 32.1 | 40 |
-| 20 games | 27.4 | 40 |
-| 30 games | 24.5 | 40 → 20 (cliff) |
-| 60+ games, rated 1900 | 21.0 | 20 |
-| Established, rated 2300 | about 15 | 20 (40 for a junior; cliff at 2300) |
-| Established, rated 2400 | about 10.9 | 10, permanently (cliff) |
-| Rated 1900, idle 12 / 36 / 60 months | 22.5 / 27.3 / 32.3 | 20 |
-
-**D.2 The smooth clamp against table 8.1.2 (σ = 400, D_max = 800).**
-
-| Gap D | E under Layer 2 | FIDE table 8.1.2 [V 1] |
-|---|---|---|
-| 100 | 0.639 | .64 |
-| 300 | 0.839 | .85 |
-| 400 | 0.894 | .92 |
-| 600 | 0.949 | .98 (below 2650: capped to .92) |
-| 800 | 0.971 | 1.0 (below 2650: capped to .92) |
-| 1200 | 0.985 | 1.0 (below 2650: capped to .92) |
-
-**D.3 Annual change caps (all PROVISIONAL; section 9).**
-
-| Parameter | Cap per calendar year | Why |
-|---|---|---|
-| Curve scale σ | ±10 | Ratings must mean the same thing across years; the curve also feeds title-norm arithmetic (open question 11.6) |
-| Colour term κ | ±5 | Small, stable quantity [R §3.7] |
-| K parameters | ±2 each (K_max, K_mid, K_top), ±50 (R_half), ±2 (n_0), ±5 (n_cap) | Avoid sudden changes in volatility |
-| Federation offset φ_F | ±25, and \|φ_F\| ≤ 100 | Political and statistical caution; offsets are not peer-reviewed yet [R §3.2] |
-| Pool bonus b_P | ±0.1 per game, and \|b_P\| ≤ 0.2 per game | A few points a year per active player at most, as with the US Chess bonus constant [R 32] |
-| Seed prior | ±25 per age band | Protects the newcomer scale |
-
-**D.4 Today's cliffs and their replacements (section 9).**
-
-| Cliff today [V 1] [V 2] | Effect | Replacement |
-|---|---|---|
-| 400-point cap for players under 2650; no cap at 2650+ | A 2649 and a 2651 player get different expectations against the same 2200 opponent; the cap created the farming arbitrage [R 55] | One smooth clamp for everyone (section 5) |
-| Rapid and blitz keep the plain 400-point cap and add a 600-point "not rated" rule above 2600 | Different incentives by time control | Same clamp in all three |
-| K drops 40 → 20 after 30 games; 40 → 20 at 2300 for juniors; 20 → 10 at 2400, permanently | A junior's last game before 2300, or a player's first list at 2400, changes the value of every later game | Smooth K_eff; no permanent switch |
-| Floor at 1400: a player dropping below becomes "unrated" and re-enters as a newcomer with two phantom 1800 draws | Artificial pile-up at the floor and re-seeding upward [R 4] [R 2] | Rating carried internally below the floor; re-entry at the carried value (section 6) |
-| Two phantom 1800 draws in every initial rating | Pulls every newcomer toward 1800 regardless of age or pool | Model seed with an age- and pool-informed prior (C1) |
+Moved to the technical annex: the expected-score function and its comparison with table 8.1.2 [T3]; the Layer 2 rules, caps and the cliff-by-cliff replacement table [T4].
 
 ---
 
-## Appendix E Further worked examples (all Layer 2 values PROVISIONAL)
+## Appendix E Further worked examples
 
-Three more hand-checkable cases, computed with the section 5 formula and the parameter table, each next to today's rule [V 1].
-
-**E.1 A cross-federation game (channel C4).** A Spanish player, rated 1900, has White against a Vietnamese player, also rated 1900. Both are established adults (n_eff at the cap, K_eff = 21.0). This month's federation offsets are φ_ESP = 0 and φ_VIE = +100 (Ghita's estimate for Vietnam is about +101 [R 6]).
-
-*Today:* D = 0, table 8.1.2 gives .50 to each; K = 20. A win is worth +10, a loss −10, a draw 0, for either player.
-
-*Layer 2:* Spain's gap D = (1900 + 0 + 35) − (1900 + 100) = −65, D_eff = −64.9, E = 0.408; Vietnam's gap is +65, E = 0.592. The two expectations sum to one, because channel C4 applies symmetrically.
-
-| Result | Spain: 21.0 × (S − 0.408) | Vietnam: 21.0 × (S − 0.592) |
-|---|---|---|
-| Spain wins | +12.4 → **+12** | −12.4 → **−12** |
-| Draw | +1.9 → **+2** | −1.9 → **−2** |
-| Vietnam wins | −8.6 → **−9** | +8.6 → **+9** |
-
-The Spanish player is no longer the one who pays for the Vietnamese pool's under-rating: a loss costs 9 instead of 10, a draw earns 2 instead of 0. The Vietnamese player gains less from this game than today, which is deliberate: the catch-up of an under-rated pool comes through the pool's own seeds (C1) and its capped pool bonus (C3), never through draining opponents abroad. No rating was edited; the offset entered only through E.
-
-**E.2 A newcomer's first rating today (a Layer 0 test vector) and how channel C1 differs.** A newcomer plays five games against rated opponents of 1550, 1600, 1650, 1580 and 1620 (average 1600) and scores 3/5. Today's rule (§7.1.4, §8.2 [V 1]): Ra = (5 × 1600 + 2 × 1800) / 7 = 1657.14; p = (3 + 2 × ½) / 7 = 0.5714, taken as .57; table 8.1.1 gives dp = 50 for p = .57; Ru = 1657.14 + 50 = 1707.14, rounded to **1707** (above the 1400 minimum, below the 2200 cap). Whether the newcomer is ten or forty years old makes no difference to this number.
-
-Under channel C1 the same five games feed the model with an age- and pool-informed prior, and the seed is the rounded model estimate within the same floor and cap. The prior, not a pair of phantom 1800 draws, decides where the five games pull from; the age-cohort evidence [R 4] [R 6] implies a higher seed for the ten-year-old than for the forty-year-old with identical results, and a larger model variance, so a higher K_eff, for both. The breakdown would show both numbers: "today's rule 1707; model estimate and its uncertainty; published seed". (The rounding of p before the table lookup is a detail to confirm against FIDE's calculator; the Layer 0 specification lists it as a test case.)
-
-**E.3 The 2650 cliff (channel-free: the clamp alone).** Four players rated 2649, 2651, 2700 and 2936 each beat a 2200-rated opponent with White. Today, all four have K = 10 [V 1].
-
-| Winner's rating | Today: gap used | Today: PD and gain | Layer 2: gap with colour → after clamp | Layer 2: E | Layer 2: K_eff and gain |
-|---|---|---|---|---|---|
-| 2649 | 400 (capped) | .92 → +0.8 | 484 → 432.5 | 0.923 | 11.5 → +0.88 |
-| 2651 | 451 (no cap) | .94 → +0.6 | 486 → 433.9 | 0.924 | 11.5 → +0.87 |
-| 2700 | 500 | .96 → +0.4 | 535 → 467.3 | 0.936 | 11.5 → +0.73 |
-| 2936 | 736 | 1.0 → +0.0 | 771 → 596.8 | 0.969 | 11.5 → +0.36 |
-
-Today the gain jumps between 2649 and 2651 for the same result against the same opponent, and vanishes entirely above a 735-point gap. Under the clamp it declines smoothly and never reaches zero, so there is no rating at which the rules change and no result that is worth nothing; whether the top end should flatten faster is exactly what the calibration backtest (section 8) will decide.
+Moved to the technical annex: all worked examples, hand-checkable against the PROVISIONAL parameters, are in [T10].
 
 ---
 
-*End of DRAFT v0.1. Status line repeated: DRAFT v0.1 — not for publication.*
+*End of DRAFT v0.2. Status line repeated: DRAFT v0.2 — not for publication.*
