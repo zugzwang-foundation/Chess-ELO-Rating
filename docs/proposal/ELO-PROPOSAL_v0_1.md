@@ -24,7 +24,7 @@ The research report ranks the complaints by community demand, strength of eviden
 
 | Rank | Target | What the evidence says | Pointer |
 |---|---|---|---|
-| 1 | **Deflation and junior lag** | Sonas (2023, for FIDE) found "extreme rating deflation": players rated 1000 to 2400 spanned only about 1000 points of real strength, because newcomers and juniors enter below their strength and drain points from established players. After the 2024 reform the average rating still fell about 1 point a month, the median active player lost 16 points a year instead of 26, and players pile up at the 1400 floor. FIDE acknowledged the problem in the 2023 consultation and the 2024 reform. | [R §3.1] [R §3.3] [R 3] [R 4] [R 5] [R 37] [R 39] |
+| 1 | **Deflation and junior lag** | Sonas (2023, hosted by FIDE) found "extreme rating deflation": players rated 1000 to 2400 spanned only about 1000 points of real strength, because newcomers and juniors enter below their strength and drain points from established players. After the 2024 reform the average rating still fell about 1 point a month, the median active player lost 16 points a year instead of 26, and players pile up at the 1400 floor. FIDE acknowledged the problem in the 2023 consultation and the 2024 reform. | [R §3.1] [R §3.3] [R 3] [R 4] [R 5] [R 37] [R 39] |
 | 2 | **Federation isolation** | Most games are domestic, so pools drift apart. Ghita's 2026 study of cross-border games estimates offsets from about +101 (Vietnam) to about −64 (Switzerland, Austria), with gaps that "can exceed 160 Elo"; there is no official fix. Caveat: independent, not peer-reviewed; the "over 80 % domestic" figure is unverified. | [R §3.2] [R 5] [R 6] |
 | 3 | **Top-level protection, farming and inactivity** | The 400-point cap let a 2800 player bank points against 2250 opponents; FIDE lifted the cap for 2650+ players from 1 October 2025. Ratings never decay, about 40 % of listed players have not played since before the pandemic, and FIDE's then-president called inactivity the next long-term issue. | [R §3.8] [R §3.9] [R §3.10] [R 7] [R 27] [R 55] [R 56] [V 1] |
 | 4 | **Expectancy-curve miscalibration** | On 1.5 million FIDE games, Sonas found results behave as if the gap were about 5/6 of the nominal gap; under the capped table, 700-point favourites scored 98–100 % against an expected 92 %; after the cap was lifted for 2650+ players their expected score "can now be as high as 99 % or even 100 %". | [R §3.5] [R 44] [R 46] [R 47] |
@@ -236,6 +236,8 @@ Reading the two tables together: the adult is no longer taxed for drawing a juni
 1. **Development:** the Lichess open database, CC0 ("Use them for research, commercial purpose, publication, anything you like" [V 4]); monthly standard-game files of about 28–33 GB and 85–100 million games each for 2024–2026 [V 4]; the classical and rapid subsets; the over-the-board broadcast archive (CC BY-SA 4.0 [V 4]) as the OTB slice. Online data calibrates methods, not FIDE parameters.
 2. **Player panel:** FIDE's monthly lists, standard, rapid and blitz, with K, games per period, year of birth and federation, archived monthly since February 2015 [V 3]. They carry no licence; the project downloads and analyses them and never redistributes them [V 3].
 3. **The formal request:** FIDE's TRF archive, the complete game-level record that arbiters submit under §9.1 [V 1], under a data-sharing agreement (Phase C). It is the only dataset that can settle the federation-offset question [R §5].
+
+---
 
 ## 9 Governance and the calculator FIDE can run
 
