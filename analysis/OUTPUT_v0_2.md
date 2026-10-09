@@ -116,7 +116,7 @@ Feedback loop (AR-3) in a stylised pool: gap evolves as d_{t+1} = d_t - a_t + dr
 
 Steady state: a_t -> +1.3 = the drift, gap -> about 7.8 points (= drift / gamma_a); the loop is stable because 0 < gamma_a < 1 and the cap 1.5 exceeds the drift 1.3. If the drift exceeded a_cap the gap would grow linearly and the monitoring report would show it.
 
-## 8 Ledger identity (T6) checked on a synthetic month of 6 players, 7 games, one compensated junior, a_t = +1.2
+## 8 Ledger identity (T6) checked on a synthetic month: 7 listed players, 8 rated games, one compensated junior, one game against an unrated player (not rated), one floor exit, one newcomer, a_t = +1.2
 
 | game | White | Black | S_W | x_W | E_W | x_B | E_B | dR_W | dR_B | created by unequal K | created by compensation |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -127,17 +127,24 @@ Steady state: a_t -> +1.3 = the drift, gap -> about 7.8 points (= drift / gamma_
 | 5 | P4 (1750) | P6 (1600) | 0 | 185 | 0.707 | -185 | 0.293 | -17.4629 | +28.2800 | +10.8171 | +0.0000 |
 | 6 | P6 (1600) | P2 (1500) | 0 | -165 | 0.306 | -135 | 0.338 | -12.2400 | +26.4800 | -0.0000 | +14.2400 |
 | 7 | P5 (2300) | P1 (1900) | 1 | 435 | 0.858 | -435 | 0.142 | +2.2862 | -2.7122 | -0.4260 | +0.0000 |
+| 8 | P7 (1405) | P4 (1750) | 0 | -310 | 0.178 | 310 | 0.822 | -3.7024 | +4.3966 | +0.6942 | +0.0000 |
+| 9 | P6 (1600) | P7 (1405) | 1 | 230 | 0.758 | -230 | 0.242 | +9.6800 | -5.0336 | +4.6464 | +0.0000 |
+| 10 | P3 (2050) | U (unrated) | 1 | — | — | — | — | 0 (not rated) | — | 0 | 0 |
 
-| player | R | K_i | n | sum of game terms | + a_t | rounded change | rounding residual |
-|---|---|---|---|---|---|---|---|
-| P1 | 1900 | 19.1 | 3 | -11.4600 | -10.2600 | -10 | +0.2600 |
-| P2 | 1500 | 40.0 | 3 | +71.2800 | +72.4800 | +72 | -0.4800 |
-| P3 | 2050 | 17.5 | 2 | +9.9925 | +11.1925 | +11 | -0.1925 |
-| P4 | 1750 | 24.7 | 2 | -27.3429 | -26.1429 | -26 | +0.1429 |
-| P5 | 2300 | 16.1 | 2 | -2.0447 | -0.8447 | -1 | -0.1553 |
-| P6 | 1600 | 40.0 | 2 | +16.0400 | +17.2400 | +17 | -0.2400 |
+| player | R(t) | K_i | n | sum of game terms | + a_t | rounded change | R(t+1) | rounding residual | status |
+|---|---|---|---|---|---|---|---|---|---|
+| P1 | 1900 | 19.1 | 3 | -11.4600 | -10.2600 | -10 | 1890 | +0.2600 | listed |
+| P2 | 1500 | 40.0 | 3 | +71.2800 | +72.4800 | +72 | 1572 | -0.4800 | listed |
+| P3 | 2050 | 17.5 | 2 | +9.9925 | +11.1925 | +11 | 2061 | -0.1925 | listed |
+| P4 | 1750 | 24.7 | 3 | -22.9463 | -21.7463 | -22 | 1728 | -0.2537 | listed |
+| P5 | 2300 | 16.1 | 2 | -2.0447 | -0.8447 | -1 | 2299 | -0.1553 | listed |
+| P6 | 1600 | 40.0 | 3 | +25.7200 | +26.9200 | +27 | 1627 | +0.0800 | listed |
+| P7 | 1405 | 20.8 | 2 | -8.7360 | -7.5360 | -8 | 1397 | -0.4640 | below 1400: shown as unrated (7.2.1 [V 1]); EXIT at R+ = 1397 |
+| N1 | — | 40.0 | 5 | — | — | — | 1650 | — | newcomer: first published rating (seed, T4.7) |
 
-Identity: sum of published changes +63 = created by unequal K +29.5709 + created by compensation +26.8940 + adjustments +7.2 (6 x 1.2) + rounding residuals -0.6649 + newcomers 0 - exits 0 = +63.0000. Transfers cancel by construction. Closes exactly: True.
+Left side: list total after = 12827, list total before = 12505, change = +322.
+Right side: created by unequal K +34.9115 + created by compensation +26.8940 + adjustments posted +8.4 (7 x 1.2, including the exiting player) + rounding residuals -1.2055 + newcomers +1650 - exits at post-update rating 1397 = +322.0000.
+Identity closes exactly: True. Note the exit is booked at R+ = R(t) + period change (1397); booking R(t) = 1405 instead would leave a residual of +8 points. The game against the unrated player changed nothing and appears in no line (T4.1).
 
 ## 9 Today's initial rating for the Appendix E.2 case of v0.1 (Layer 0 test vector, unchanged)
 

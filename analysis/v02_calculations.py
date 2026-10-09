@@ -251,19 +251,23 @@ for t, dd, a in traj:
 P(f"\nSteady state: a_t -> +1.3 = the drift, gap -> about {6*1.3:.1f} points (= drift / gamma_a); the loop is stable because 0 < gamma_a < 1 and the cap 1.5 exceeds the drift 1.3. "
   "If the drift exceeded a_cap the gap would grow linearly and the monitoring report would show it.\n")
 
-# 8. Ledger identity on a synthetic month
-P("## 8 Ledger identity (T6) checked on a synthetic month of 6 players, 7 games, one compensated junior, a_t = +1.2\n")
+# 8. Ledger identity on a synthetic month (with a floor exit, a newcomer and a game against an unrated player)
+P("## 8 Ledger identity (T6) checked on a synthetic month: 7 listed players, 8 rated games, one compensated junior, one game against an unrated player (not rated), one floor exit, one newcomer, a_t = +1.2\n")
 players = {  # id: (R, sigma, is_eligible_junior, theta_hat)
     "P1": (1900, 55, False, None), "P2": (1500, 100, True, 1850), "P3": (2050, 50, False, None),
     "P4": (1750, 70, False, None), "P5": (2300, 45, False, None), "P6": (1600, 120, False, None),
+    "P7": (1405, 60, False, None),
 }
-games_m = [  # (white, black, score_white)
+games_m = [  # (white, black, score_white); "U" is an unrated player: the game is not rated for anyone (T4.1, 8.3.1 [V 1])
     ("P1", "P2", Decimal("0.5")), ("P3", "P1", Decimal(1)), ("P2", "P4", Decimal(1)), ("P5", "P3", Decimal("0.5")),
     ("P4", "P6", Decimal(0)), ("P6", "P2", Decimal(0)), ("P5", "P1", Decimal(1)),
+    ("P7", "P4", Decimal(0)), ("P6", "P7", Decimal(1)), ("P3", "U", Decimal(1)),
 ]
 A_T = Decimal("1.2")
+NEWCOMER_SEED = 1650   # a player new to the list this month, seed from L1 (illustrative)
 K = {p: K_of(v[1]) for p, v in players.items()}
-nn = {p: sum(1 for g in games_m if p in g[:2]) for p in players}
+rated = [g for g in games_m if "U" not in g[:2]]
+nn = {p: sum(1 for g in rated if p in g[:2]) for p in players}
 Kc = {p: K_capped(K[p], nn[p]) for p in players}
 def RX(p):
     R, sig, jun, th = players[p]
@@ -275,6 +279,9 @@ sumCK = sumCC = Decimal(0)
 P("| game | White | Black | S_W | x_W | E_W | x_B | E_B | dR_W | dR_B | created by unequal K | created by compensation |")
 P("|---|---|---|---|---|---|---|---|---|---|---|---|")
 for n_, (w, b, Sw) in enumerate(games_m, 1):
+    if "U" in (w, b):
+        P(f"| {n_} | {w} ({players[w][0]}) | U (unrated) | {Sw} | — | — | — | — | 0 (not rated) | — | 0 | 0 |")
+        continue
     Rw, Rb = players[w][0], players[b][0]
     Lg = (Rw + Rb) / 2
     xw, xb = Rw - RX(b) + 35, Rb - RX(w) - 35
@@ -288,18 +295,34 @@ for n_, (w, b, Sw) in enumerate(games_m, 1):
     tot[w] += dw; tot[b] += db; sumCK += CK; sumCC += CC
     P(f"| {n_} | {w} ({Rw}) | {b} ({Rb}) | {Sw} | {xw} | {Ew} | {xb} | {Eb} | {dw:+.4f} | {db:+.4f} | {CK:+.4f} | {CC:+.4f} |")
 P("")
-P("| player | R | K_i | n | sum of game terms | + a_t | rounded change | rounding residual |")
-P("|---|---|---|---|---|---|---|---|")
+P("| player | R(t) | K_i | n | sum of game terms | + a_t | rounded change | R(t+1) | rounding residual | status |")
+P("|---|---|---|---|---|---|---|---|---|---|")
 sum_round = sum_res = Decimal(0)
+list_t = sum(v[0] for v in players.values())
+list_t1 = Decimal(0)
+exits_post = Decimal(0)
 for p in players:
     pre = tot[p] + A_T
     r = round_fide(pre)
     res = r - pre
     sum_round += r; sum_res += res
-    P(f"| {p} | {players[p][0]} | {Kc[p]} | {nn[p]} | {tot[p]:+.4f} | {pre:+.4f} | {int(r):+d} | {res:+.4f} |")
+    post = players[p][0] + r
+    if post < 1400:
+        status = "below 1400: shown as unrated (7.2.1 [V 1]); EXIT at R+ = " + str(post)
+        exits_post += post
+    else:
+        status = "listed"
+        list_t1 += post
+    P(f"| {p} | {players[p][0]} | {Kc[p]} | {nn[p]} | {tot[p]:+.4f} | {pre:+.4f} | {int(r):+d} | {post} | {res:+.4f} | {status} |")
+P(f"| N1 | — | 40.0 | 5 | — | — | — | {NEWCOMER_SEED} | — | newcomer: first published rating (seed, T4.7) |")
+list_t1 += NEWCOMER_SEED
 P("")
-P(f"Identity: sum of published changes {int(sum_round):+d} = created by unequal K {sumCK:+.4f} + created by compensation {sumCC:+.4f} + adjustments {A_T*len(players):+.1f} (6 x 1.2) + rounding residuals {sum_res:+.4f} + newcomers 0 - exits 0 = {sumCK + sumCC + A_T*len(players) + sum_res:+.4f}. "
-  f"Transfers cancel by construction. Closes exactly: {sum_round == sumCK + sumCC + A_T*len(players) + sum_res}.\n")
+lhs = list_t1 - list_t
+rhs = sumCK + sumCC + A_T * len(players) + sum_res + NEWCOMER_SEED - exits_post
+P(f"Left side: list total after = {list_t1}, list total before = {list_t}, change = {lhs:+}.")
+P(f"Right side: created by unequal K {sumCK:+.4f} + created by compensation {sumCC:+.4f} + adjustments posted {A_T*len(players):+.1f} ({len(players)} x 1.2, including the exiting player) + rounding residuals {sum_res:+.4f} + newcomers {NEWCOMER_SEED:+} - exits at post-update rating {exits_post} = {rhs:+.4f}.")
+P(f"Identity closes exactly: {lhs == rhs}. Note the exit is booked at R+ = R(t) + period change ({exits_post}); booking R(t) = {players['P7'][0]} instead would leave a residual of {players['P7'][0] - exits_post:+} points. The game against the unrated player changed nothing and appears in no line (T4.1).\n")
+assert lhs == rhs
 
 # 9. Newcomer seed comparison (today's rule, as a Layer-0 test vector; the L2 seed is an L1 output and cannot be computed here)
 P("## 9 Today's initial rating for the Appendix E.2 case of v0.1 (Layer 0 test vector, unchanged)\n")

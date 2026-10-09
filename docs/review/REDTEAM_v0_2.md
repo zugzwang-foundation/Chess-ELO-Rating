@@ -19,7 +19,7 @@ Status: REVIEW RECORD · Session ELO-2, Phase 3 · Date: 2026-10-09 · Reviewer:
 
 | ID | Sev. | Topic | Status |
 |---|---|---|---|
-| R2-1 | blocker | Ledger identity: exit term must be the post-update rating; one-sided games undefined | Fixed: T6 now subtracts R_i⁺(t) for exits and states that the sums run over every player who played; T4.1 states, citing §8.3.1 [V 1] ("For each game played against a rated player"), that games against unrated opponents produce no change for anyone, so no one-sided terms exist. Open: add an exit and a re-entry case to the script's synthetic month. |
+| R2-1 | blocker | Ledger identity: exit term must be the post-update rating; one-sided games undefined | Fixed: T6 now subtracts R_i⁺(t) for exits and states that the sums run over every player who played; T4.1 states, citing §8.3.1 [V 1] ("For each game played against a rated player"), that games against unrated opponents produce no change for anyone, so no one-sided terms exist. The script's synthetic month now includes a floor exit, a newcomer and a game against an unrated player and closes exactly (+322); a re-entry case remains open. |
 | R2-2 | major | θ̃ not propagated (T4.8, T2.6, T7.2, proposal) | Fixed: θ̃_i defined in T1; T2.6, T4.8, T7 and proposal §6 use it; θ̂ no longer denotes a Layer 2 quantity. |
 | R2-3 | major | Public parameter file printed named juniors' estimates | Fixed: the public file carries only fide_id, R_j, c_j; θ̃_j and σ_j go to a QC-only annex whose hash is in the public file (T7); consistent with T4.6 and founder decision 1. |
 | R2-4 | major | In-time-control manufacture of compensation; winner's curse at the threshold | Partly fixed: the qualifying games must span at least 5 opponents in at least 3 events (T4.6); per-event publication and the farming index cover the rest (T6, T8). Open for the architect: the continuous lower-quantile form of c_j, which would remove the winner's curse (already recorded in REDTEAM_v0_1). |
@@ -32,7 +32,7 @@ Status: REVIEW RECORD · Session ELO-2, Phase 3 · Date: 2026-10-09 · Reviewer:
 
 ## Open after Phase 3 (carried to the close-out)
 
-1. Script: add a floor exit, a re-entry and a game against an unrated player to the synthetic month so that the corrected identity is tested on every branch (R2-1, R2-8).
+1. Script: a re-entry case (player re-qualifying after a floor exit) is still to be added to the synthetic month (R2-8); the exit, newcomer and unrated-opponent branches were added in Phase 3 and close exactly.
 2. Architect: continuous compensation form (R2-4, R-STAT-2b); per-game K ratio cap (R-EXPLOIT-1); gap-dependent draw factor if the calibration gate fails (R-EXPLOIT-4); sign of a_t (R-QC-9); band width 200 versus 100 (R-STAT-9); confirmation that the accrual rule and the θ̃ netting are within AR-3, AR-4 and AR-5.
 3. A dedicated list of the per-game breakdown fields for the published statement (R-QC-2).
 
