@@ -25,10 +25,11 @@ Python standard library only (pytest for (b)). Python 3.12 in CI.
 | `tools/events/us_championship_2026.json` | 2026 U.S. Championship, 9–21 October 2026 |
 | `tools/events/us_womens_championship_2026.json` | 2026 U.S. Women's Championship, 9–21 October 2026 |
 
-**Rerun after each round.** Read the round's results from the official page (https://saintlouischessclub.org/event/2026-us-chess-championships/), then run one command, with the results in board order (`1-0`, `1/2-1/2`, `0-1`, or `-` for a game not finished); use `tools/events/us_womens_championship_2026.json` for the women's boards:
+**Run once, after the event ends** (the operator's decision of 2026-10-09; it replaces the per-round rerun of the ELO-3 brief). The model is frozen beforehand: `docs/evidence/E3_us-championship-2026.md` prints the SHA-256 of the parameter file, `tools/compare_event.py` and `src/layer0/`, and check (a) fails if any of them changes. After the last round, read each round's results from the official page (https://saintlouischessclub.org/event/2026-us-chess-championships/) and enter them board by board (`1-0`, `1/2-1/2`, `0-1`), one command per round, using `tools/events/us_womens_championship_2026.json` for boards 7–12. Then regenerate the page once; an event's table appears only when all its games have results:
 
 ```
-python3 tools/set_results.py tools/events/us_championship_2026.json ROUND R1 R2 R3 R4 R5 R6 && python3 analysis/e3_us_championships.py > docs/evidence/E3_us-championship-2026.md
+python3 tools/set_results.py tools/events/us_championship_2026.json ROUND R1 R2 R3 R4 R5 R6
+python3 analysis/e3_us_championships.py > docs/evidence/E3_us-championship-2026.md
 ```
 
 ## data/ — downloads and conversions

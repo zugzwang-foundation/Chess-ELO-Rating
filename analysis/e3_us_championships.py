@@ -3,12 +3,16 @@
 
 Runs tools/compare_event.py (docs/specs/SPEC-COMPARE_v1_0.md) on the committed event
 files (tools/events/) with params/table_fit_2026-10.yaml, and prints the evidence page.
-Rerun after each round (tools/README.md). Python standard library only.
+By the operator's decision of 2026-10-09 the 2026 comparison runs once, after the event
+ends, with the model frozen beforehand: an event's table is printed only when all its
+games have results, and the page prints fingerprints of the frozen files, so that check
+(a) fails if any of them changes before the run. Python standard library only.
 
 Usage: python3 analysis/e3_us_championships.py > docs/evidence/E3_us-championship-2026.md
 """
 from __future__ import annotations
 
+import hashlib
 import sys
 from collections import Counter
 from itertools import combinations
@@ -21,6 +25,9 @@ import compare_event  # noqa: E402
 OPEN, WOMEN, Y2025 = ("tools/events/us_championship_2026.json", "tools/events/us_womens_championship_2026.json",
                       "tools/events/us_championship_2025.json")
 PAGE = "https://saintlouischessclub.org/event/2026-us-chess-championships/"
+FROZEN = ["params/table_fit_2026-10.yaml", "tools/compare_event.py", "src/layer0/__init__.py", "src/layer0/lists.py",
+          "src/layer0/records.py", "src/layer0/rules.py", "src/layer0/tables.py"]
+PENDING = "pending: runs after the event ends, with the model frozen beforehand"
 
 
 def is_round_robin(event: dict) -> bool:
@@ -69,12 +76,7 @@ def main() -> int:
     print("- Players are identified by FIDE ID, with the rating and K of FIDE's October 2026 standard list, the list in "
           "force at the start (SPEC-L0 R-11a). Their names are on the official page; the repository does not store "
           "them. Both events end by 22 October and are rated on the November 2026 list (R-09).\n")
-    print("## Status of play\n")
-    for name, c in (("U.S. Championship", o), ("U.S. Women's Championship", w)):
-        done, complete = status(c.event)
-        print(f"- {name}: {done} of {len(c.event['games'])} games have a result; complete rounds: "
-              f"{', '.join(map(str, complete)) or 'none yet'}.")
-    print("\n## The check: the 2025 U.S. Championship\n")
+    print("## The check: the 2025 U.S. Championship\n")
     print(f"Column (a) must equal FIDE's per-event calculation (SPEC-COMPARE §4); `tests/test_compare_event.py` asserts "
           f"it for all {len(y.rows)} players against `tests/fixtures/validation/us_championship_2025.json`, the "
           "fixture of E0.\n")
@@ -82,21 +84,37 @@ def main() -> int:
     diffs = [r["difference"] for r in y.rows]
     print(f"In 2025, rung 2 would have changed the twelve players' gains from the event by {min(diffs):+.2f} to "
           f"{max(diffs):+.2f} points against FIDE's rules, with the same K and the same results.\n")
-    print("## 2026 U.S. Championship\n")
-    print(o_md)
-    print("## 2026 U.S. Women's Championship\n")
-    print(w_md if w.counted else "No game has a result yet; the table fills as rounds are recorded.\n")
+    print("## 2026 U.S. Championship and U.S. Women's Championship\n")
+    print(f"**{PENDING}.**\n")
+    print("By the operator's decision of 2026-10-09, no game of either 2026 championship is processed while the event "
+          "runs. The comparison runs once, after the last round (21 October, or the playoff of 22 October), on all "
+          "games at once.\n")
+    for name, md, c in (("U.S. Championship", o_md, o), ("U.S. Women's Championship", w_md, w)):
+        done, complete = status(c.event)
+        if done == len(c.event["games"]):
+            print(f"### {name}\n")
+            print(md)
+        else:
+            print(f"- {name}: {done} of {len(c.event['games'])} results recorded; {PENDING}.")
+    print("\nFrozen beforehand: the model and the code that will run, fitted and written before the event. The table's "
+          "parameters were fitted on games up to September 2026. SHA-256 of each file:\n")
+    print("| File | SHA-256 |")
+    print("|---|---|")
+    for f in FROZEN:
+        print(f"| `{f}` | `{hashlib.sha256((ROOT / f).read_bytes()).hexdigest()}` |")
+    print("\nThis page is rerun by check (a) on every pull request. A change to any of these files changes the page and "
+          "fails the check until the page is regenerated, so an unfreezing would be visible.\n")
     print("## Reminder\n")
     print("FIDE's official changes for both events will appear on the 1 November 2026 standard list. Layer 0, column "
           "(a), must match them for every player once the players' other events in the October period are added, as "
           "E0 does for 2025 (`docs/evidence/E0_l0-validation.md`). A mismatch is a finding about Layer 0 or about "
           "FIDE's data (SPEC-L0 §8), never a reason to edit column (a).\n")
-    print("## Rerun after each round\n")
-    print("Enter the round's results from the official page, board by board, then regenerate this page "
-          "(`tools/README.md`):\n")
+    print("## Running the comparison after the event\n")
+    print("Enter each round's results from the official page, board by board, then regenerate this page once "
+          "(`tools/README.md`). For the women's championship, use boards 7–12 and its own event file:\n")
     print("```")
-    print("python3 tools/set_results.py tools/events/us_championship_2026.json ROUND R1 R2 R3 R4 R5 R6 && "
-          "python3 analysis/e3_us_championships.py > docs/evidence/E3_us-championship-2026.md")
+    print("python3 tools/set_results.py tools/events/us_championship_2026.json ROUND R1 R2 R3 R4 R5 R6")
+    print("python3 analysis/e3_us_championships.py > docs/evidence/E3_us-championship-2026.md")
     print("```")
     return 0
 

@@ -10,11 +10,6 @@ Status: DRAFT — not for publication; the event is in progress (session ELO-3, 
 - U.S. Women's Championship: 12 players, 11 rounds; the official pairings form a complete round robin (each pair once, every player once a round, 5 or 6 Whites each): True.
 - Players are identified by FIDE ID, with the rating and K of FIDE's October 2026 standard list, the list in force at the start (SPEC-L0 R-11a). Their names are on the official page; the repository does not store them. Both events end by 22 October and are rated on the November 2026 list (R-09).
 
-## Status of play
-
-- U.S. Championship: 1 of 66 games have a result; complete rounds: none yet.
-- U.S. Women's Championship: 0 of 66 games have a result; complete rounds: none yet.
-
 ## The check: the 2025 U.S. Championship
 
 Column (a) must equal FIDE's per-event calculation (SPEC-COMPARE §4); `tests/test_compare_event.py` asserts it for all 12 players against `tests/fixtures/validation/us_championship_2025.json`, the fixture of E0.
@@ -42,41 +37,38 @@ Method: (a) is FIDE today, computed by the ratified Layer-0 engine (SPEC-L0 v1.0
 
 In 2025, rung 2 would have changed the twelve players' gains from the event by -7.00 to +6.62 points against FIDE's rules, with the same K and the same results.
 
-## 2026 U.S. Championship
+## 2026 U.S. Championship and U.S. Women's Championship
 
-2026 U.S. Chess Championship (2026-10-09 to 2026-10-21, standard): 1 of 66 games counted; ratings and K from the 2026-10 list.
+**pending: runs after the event ends, with the model frozen beforehand.**
 
-Parameter file: params/table_fit_2026-10.yaml (PROVISIONAL-FITTED; standard fit window 2023-10 to 2026-09; kappa 1.2120, eta 35.91, used as 36, alpha 0.2860, beta 0.4985, gamma 0.2915).
+By the operator's decision of 2026-10-09, no game of either 2026 championship is processed while the event runs. The comparison runs once, after the last round (21 October, or the playoff of 22 October), on all games at once.
 
-Method: (a) is FIDE today, computed by the ratified Layer-0 engine (SPEC-L0 v1.0): table 8.1.2, the 400-point rule as it applies to each player, K from the list in force reduced under K x n <= 700 for the event's games. (b) is rung 2 of the adoption ladder: the expected score from the fitted table with colour and draws (annex T3; eta rounded to a whole number, E to three decimals at the midpoint of the game's 100-point level band), the same K, nothing else changed; rungs 4 and 5 are off because Layer 1 does not exist yet. Each column is K times the sum of (score - expectation) over the event's games, shown unrounded and rounded once. Rung 2's values illustrate a proposal on PROVISIONAL-FITTED parameters; FIDE's official changes are those of the 2026-11 list.
+- U.S. Championship: 0 of 66 results recorded; pending: runs after the event ends, with the model frozen beforehand.
+- U.S. Women's Championship: 0 of 66 results recorded; pending: runs after the event ends, with the model frozen beforehand.
 
-| FIDE ID | rating | K | games | score | (a) FIDE today | rounded | (b) rung 2 | rounded | (b) − (a) |
-|---|---|---|---|---|---|---|---|---|---|
-| 2020009 | 2784 | 10 | 1 | 0.5 | -0.80 | -1 | -0.15 | +0 | +0.65 |
-| 5202213 | 2770 | 10 | 0 | 0 | +0.00 | +0 | +0.00 | +0 | +0.00 |
-| 13300474 | 2725 | 10 | 1 | 0.5 | +0.80 | +1 | +0.15 | +0 | -0.65 |
-| 2093596 | 2717 | 10 | 0 | 0 | +0.00 | +0 | +0.00 | +0 | +0.00 |
-| 2040506 | 2708 | 10 | 0 | 0 | +0.00 | +0 | +0.00 | +0 | +0.00 |
-| 2056437 | 2685 | 10 | 0 | 0 | +0.00 | +0 | +0.00 | +0 | +0.00 |
-| 2023970 | 2659 | 10 | 0 | 0 | +0.00 | +0 | +0.00 | +0 | +0.00 |
-| 2047640 | 2656 | 10 | 0 | 0 | +0.00 | +0 | +0.00 | +0 | +0.00 |
-| 2004887 | 2646 | 10 | 0 | 0 | +0.00 | +0 | +0.00 | +0 | +0.00 |
-| 24125890 | 2638 | 10 | 0 | 0 | +0.00 | +0 | +0.00 | +0 | +0.00 |
-| 30920019 | 2636 | 10 | 0 | 0 | +0.00 | +0 | +0.00 | +0 | +0.00 |
-| 30953499 | 2619 | 10 | 0 | 0 | +0.00 | +0 | +0.00 | +0 | +0.00 |
+Frozen beforehand: the model and the code that will run, fitted and written before the event. The table's parameters were fitted on games up to September 2026. SHA-256 of each file:
 
-## 2026 U.S. Women's Championship
+| File | SHA-256 |
+|---|---|
+| `params/table_fit_2026-10.yaml` | `dcd0c56982e9b3fa4ad9b61993cb9f747ecc64a06975d335f00c2c9d117f3495` |
+| `tools/compare_event.py` | `3b517e345819b1f3d052e5e919c5f287ebd3d5c0c2d20c2f52f7ca45e5b9ec13` |
+| `src/layer0/__init__.py` | `247b3d0451c58d32bb46c6cf861f8805740cc3283bc1575416058820560611e7` |
+| `src/layer0/lists.py` | `d6fa39835b06eaba7eba6127afa9c87922572cb7dda3a21fb92d501345084aad` |
+| `src/layer0/records.py` | `5148c337a8b36e69f46b9bd29265a65e3effd236c5d3e4293d407fe71b44480f` |
+| `src/layer0/rules.py` | `fef4ac988d359066bc2e5bf51278556983a3cbf1b0972e791324e0bb1ff4e976` |
+| `src/layer0/tables.py` | `e12b30c96fd833198e20ec37a0592e33165dc7c03f744ae66cba53b676e89739` |
 
-No game has a result yet; the table fills as rounds are recorded.
+This page is rerun by check (a) on every pull request. A change to any of these files changes the page and fails the check until the page is regenerated, so an unfreezing would be visible.
 
 ## Reminder
 
 FIDE's official changes for both events will appear on the 1 November 2026 standard list. Layer 0, column (a), must match them for every player once the players' other events in the October period are added, as E0 does for 2025 (`docs/evidence/E0_l0-validation.md`). A mismatch is a finding about Layer 0 or about FIDE's data (SPEC-L0 §8), never a reason to edit column (a).
 
-## Rerun after each round
+## Running the comparison after the event
 
-Enter the round's results from the official page, board by board, then regenerate this page (`tools/README.md`):
+Enter each round's results from the official page, board by board, then regenerate this page once (`tools/README.md`). For the women's championship, use boards 7–12 and its own event file:
 
 ```
-python3 tools/set_results.py tools/events/us_championship_2026.json ROUND R1 R2 R3 R4 R5 R6 && python3 analysis/e3_us_championships.py > docs/evidence/E3_us-championship-2026.md
+python3 tools/set_results.py tools/events/us_championship_2026.json ROUND R1 R2 R3 R4 R5 R6
+python3 analysis/e3_us_championships.py > docs/evidence/E3_us-championship-2026.md
 ```
