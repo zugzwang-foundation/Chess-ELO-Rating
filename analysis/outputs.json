@@ -1,0 +1,7 @@
+{
+  "comment": "Registry for check (a): each script's standard output must equal its committed output byte for byte. needs_data = true marks scripts that read raw files under data/ (gitignored); CI checks only that their outputs exist.",
+  "outputs": [
+    {"script": "analysis/v02_calculations.py", "args": [], "output": "analysis/OUTPUT_v0_2.md", "needs_data": false}
+  ],
+  "modules": []
+}

@@ -1,0 +1,43 @@
+# The automated check that gates every merge to main (D-0004).
+# Python standard library and pytest only.
+name: check
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0   # check (c) lets records name paths that existed earlier in history
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: (a) every analysis script reproduces its committed output exactly
+        run: python tools/checks/check_outputs.py
+
+      - name: (b) pytest
+        if: ${{ !cancelled() }}
+        run: |
+          if [ -n "$(git ls-files 'tests/*.py' 'tests/**/*.py')" ]; then
+            python -m pip install --disable-pip-version-check --quiet pytest==9.1.1
+            python -m pytest -q
+          else
+            echo "No tests yet."
+          fi
+
+      - name: (c) every relative link and [T n] / [V n] / [R n] reference resolves
+        if: ${{ !cancelled() }}
+        run: python tools/checks/check_refs.py
+
+      - name: (d) the proposal body is at most 4,500 words (ELO-2 strict count)
+        if: ${{ !cancelled() }}
+        run: python tools/checks/check_wordcount.py
