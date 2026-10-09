@@ -7,23 +7,42 @@ in docs/proposal/ELO-PROPOSAL_v0_3.md, docs/proposal/ELO-TECHNICAL-ANNEX_v0_3.md
 and docs/proposal/ELO-BRIEF_v0_3.md.
 Run:  python3 analysis/v03_calculations.py > analysis/OUTPUT_v0_3.md
 
-Every parameter value below is PROVISIONAL (annex T1 and T7). The architect's
+Every parameter value below is PROVISIONAL (annex T1 and T7), except the
+expected-score table's (kappa, eta, alpha, beta, gamma), which are
+PROVISIONAL-FITTED: read from params/table_fit_2026-10.yaml (docs/evidence/
+E2_broadcast-calibration.md), with eta rounded to a whole number because the
+published table has one row per whole-number gap (annex T3.4). The architect's
 decisions D1-D18 are recorded in docs/decisions/D-0005_architect-decisions-v0.3.md.
 """
 from __future__ import annotations
 
 import math
+import re
 from decimal import ROUND_DOWN, ROUND_HALF_UP, Decimal
 from fractions import Fraction
+from pathlib import Path
 
 Q = math.log(10.0) / 400.0          # q = ln 10 / 400
+PARAM_FILE = "params/table_fit_2026-10.yaml"
 
-# ---------------------------------------------------------------- parameters (PROVISIONAL)
-PARAMS = {
-    "standard": {"kappa": 1.00, "eta": 35, "alpha": -0.50, "beta": 0.55, "gamma": 0.5},
-    "rapid":    {"kappa": 1.00, "eta": 25, "alpha": -0.70, "beta": 0.50, "gamma": 0.5},
-    "blitz":    {"kappa": 1.00, "eta": 25, "alpha": -0.90, "beta": 0.45, "gamma": 0.5},
-}
+
+def read_params(path: str) -> dict:
+    """The fitted table parameters of every time control in a params/table_fit_*.yaml file."""
+    text = (Path(__file__).resolve().parents[1] / path).read_text(encoding="utf-8")
+    out = {}
+    for tc in ("standard", "rapid", "blitz"):
+        block = re.search(rf"^{tc}:\n((?:  .*\n?)+)", text, re.M).group(1)
+        v = {k: float(re.search(rf"^  {k}: {{value: (-?[\d.]+)", block, re.M).group(1))
+             for k in ("kappa", "eta", "alpha", "beta", "gamma")}
+        v["eta"] = int(Decimal(repr(v["eta"])).quantize(Decimal(1), rounding=ROUND_HALF_UP))
+        out[tc] = v
+    return out
+
+
+# ---------------------------------------------------------------- parameters
+PARAMS = read_params(PARAM_FILE)    # PROVISIONAL-FITTED (E2)
+ETA = PARAMS["standard"]["eta"]     # White's edge in standard, whole points
+GAMMA = PARAMS["standard"]["gamma"]
 K_MIN, K_MAX = 10.0, 40.0
 C_PERIOD = 700
 A_CAP, GAMMA_A, D_0 = Decimal("1.5"), Decimal(1) / Decimal(6), Decimal("2.0")
@@ -168,15 +187,18 @@ def f3(v) -> str:
 out: list[str] = []
 P = out.append
 
-P("# OUTPUT of analysis/v03_calculations.py (all parameters PROVISIONAL)\n")
+P("# OUTPUT of analysis/v03_calculations.py (parameters PROVISIONAL; the table's PROVISIONAL-FITTED)\n")
 P("Generated deterministically by the script; the source of every number in the proposal v0.3, the technical annex v0.3 and the brief v0.3.\n")
 
 # 0. Parameters
-P("## 0 Parameters used (PROVISIONAL)\n")
+P("## 0 Parameters used\n")
+P(f"The table's parameters are PROVISIONAL-FITTED, read from {PARAM_FILE} (maximum likelihood on the Lichess broadcast "
+  "archive, CC BY-SA 4.0, against FIDE's lists; docs/evidence/E2_broadcast-calibration.md), with eta rounded to a "
+  "whole number; every other value is PROVISIONAL.\n")
 P("| tc | kappa | eta | alpha | beta | gamma |")
 P("|---|---|---|---|---|---|")
 for tc, p in PARAMS.items():
-    P(f"| {tc} | {p['kappa']:.2f} | {p['eta']} | {p['alpha']:.2f} | {p['beta']:.2f} | {p['gamma']:.2f} |")
+    P(f"| {tc} | {p['kappa']:.4f} | {p['eta']} | {p['alpha']:.4f} | {p['beta']:.4f} | {p['gamma']:.4f} |")
 P("")
 P(f"q = ln 10 / 400 = {Q:.7f}; K_min = {K_MIN:.0f}, K_max = {K_MAX:.0f}; C_period = {C_PERIOD}; a_cap = {A_CAP}, gamma_a = 1/6, d_0 = {D_0}; "
   f"tau = {TAU}, c_cap = {C_CAP}, z = {Z_Q}; level bands of {BAND_WIDTH} points from {BAND_LOW} to {BAND_HIGH}, open below and above "
@@ -184,7 +206,7 @@ P(f"q = ln 10 / 400 = {Q:.7f}; K_min = {K_MIN:.0f}, K_max = {K_MAX:.0f}; C_perio
 
 # 1. Table
 MIDS, LABELS = mids_of(), labels_of()
-P("## 1 Expected-score table, standard (D1 draw decay gamma = 1/2, D6 bands of 100 points; E to three decimals)\n")
+P(f"## 1 Expected-score table, standard (D1 draw decay, fitted gamma = {GAMMA:.4f}; D6 bands of 100 points; E to three decimals)\n")
 P("| x | " + " | ".join(LABELS) + " |")
 P("|---|" + "---|" * len(LABELS))
 for x in range(0, 1001, 100):
@@ -201,38 +223,39 @@ P("Draw probability at x = 0 by band midpoint, standard: " + ", ".join(f"{m}: {f
 P("nu0 by band midpoint, standard: " + ", ".join(f"{m}: {nu0('standard', m):.4f}" for m in MIDS) + "\n")
 
 # 2. Tail against the 5/6-gap rule
-P("## 2 The forecast tail at level 2300 (standard alpha, beta of v0.2) against the 5/6-gap rule\n")
+P("## 2 The forecast tail at level 2300 (fitted standard parameters) against the 5/6-gap rule\n")
 P(f"nu0 at L = 2300: {nu0('standard', 2300):.4f}. The 5/6-gap rule is logistic Elo on five sixths of the gap, 1/(1 + 10^(-(5x/6)/400)) [R 44]; "
-  "today's table 8.1.2 [V 1] is shown for reference.\n")
-P("| gap x | D1 (gamma = 1/2): P_W / P_D / P_L | D1: E | v0.2 (gamma = 0): P_D | v0.2: E | 5/6-gap rule | table 8.1.2 |")
-P("|---|---|---|---|---|---|---|")
+  "today's table 8.1.2 [V 1] is shown for reference; the D1 columns with gamma = 1/2 and gamma = 0 keep the other fitted values.\n")
+P(f"| gap x | D1 (fitted gamma = {GAMMA:.4f}): P_W / P_D / P_L | D1: E | gamma = 1/2: E | gamma = 0: P_D | gamma = 0: E | 5/6-gap rule | table 8.1.2 |")
+P("|---|---|---|---|---|---|---|---|")
 for x in (200, 400, 500, 700):
     pw, pd, pl = probs('standard', x, 2300)
     _, pd0, _ = probs('standard', x, 2300, gamma=0.0)
-    P(f"| {x} | {pw:.3f} / {pd:.3f} / {pl:.3f} | {f3(E_exact('standard', x, 2300))} | {pd0:.3f} | "
+    P(f"| {x} | {pw:.3f} / {pd:.3f} / {pl:.3f} | {f3(E_exact('standard', x, 2300))} | {f3(E_exact('standard', x, 2300, gamma=0.5))} | {pd0:.3f} | "
       f"{f3(E_exact('standard', x, 2300, gamma=0.0))} | {f3(logistic(5 * x / 6))} | {table_812_H(x)} |")
 P("")
 for x in (400, 800, 1200):
-    pw, pd, pl = probs('standard', x, 2300)
-    P(f"- x = {x}: P_D / P_L = {pd / pl:.4f} with gamma = 1/2 (equals nu0: draws fade as fast as losses); "
-      f"with gamma = 0 it is {probs('standard', x, 2300, gamma=0.0)[1] / probs('standard', x, 2300, gamma=0.0)[2]:.4f}.")
+    rat = lambda g: probs('standard', x, 2300, gamma=g)[1] / probs('standard', x, 2300, gamma=g)[2]
+    P(f"- x = {x}: P_D / P_L = {rat(GAMMA):.4f} with the fitted gamma; {rat(0.5):.4f} with gamma = 1/2 (equals nu0: draws fade as fast as losses); "
+      f"{rat(0.0):.4f} with gamma = 0.")
 P("")
 
 # 3. Checks
 P("## 3 Numerical checks of the D1 form (standard parameters)\n")
 grid = range(-1500, 1501)
-for g in (0.0, 0.25, 0.5):
+for g in (0.0, 0.25, GAMMA, 0.5):
     sym = max(abs(E_exact('standard', x, m, gamma=g) + E_exact('standard', -x, m, gamma=g) - 1.0) for x in grid for m in MIDS)
     mono = min(E_exact('standard', x + 1, m, gamma=g) - E_exact('standard', x, m, gamma=g) for x in range(-1500, 1500) for m in MIDS)
-    P(f"- gamma = {g}: symmetry max |E(x) + E(-x) - 1| over x in [-1500, 1500], all bands = {sym:.1e}; "
+    P(f"- gamma = {g:g}: symmetry max |E(x) + E(-x) - 1| over x in [-1500, 1500], all bands = {sym:.1e}; "
       f"monotonicity min E(x+1) - E(x) = {mono:.2e} (> 0)")
 lg = max(abs(E_exact('standard', x, 2000, gamma=0.5, kappa=1.0, nu0_override=0.0) - logistic(x)) for x in grid)
 P(f"- Logistic special case (nu0 = 0, kappa = 1, any gamma): max |E(x) - 1/(1 + 10^(-x/400))| = {lg:.1e}")
 h = 1e-3
 for L in (1700, 2300, 2700):
     num = (E_exact('standard', h, L) - E_exact('standard', -h, L)) / (2 * h)
-    ana = Q / (2 * (2 + nu0('standard', L)))
-    P(f"- Slope at x = 0, level {L}: numerical {num:.6e}, formula kappa q / (2 (2 + nu0)) = {ana:.6e}; local logistic scale 200 (2 + nu0) / kappa = {200 * (2 + nu0('standard', L)):.1f}")
+    kap = PARAMS['standard']['kappa']
+    ana = kap * Q / (2 * (2 + nu0('standard', L)))
+    P(f"- Slope at x = 0, level {L}: numerical {num:.6e}, formula kappa q / (2 (2 + nu0)) = {ana:.6e}; local logistic scale 200 (2 + nu0) / kappa = {200 * (2 + nu0('standard', L)) / kap:.1f} (logistic Elo: 400)")
 P("")
 
 
@@ -254,19 +277,19 @@ def band_steps(width: int, low: int, high: int, gamma: float) -> tuple[float, in
 P("### 3.1 Band-edge steps (D6): max over x in [0, 1500] of |E(x; band b) - E(x; band b+1)|\n")
 P("| bands | gamma | largest step | at x | between | points at K = 20 |")
 P("|---|---|---|---|---|---|")
-for width, low, high, g, name in ((200, 1600, 2800, 0.0, "200 (v0.2)"), (200, 1600, 2800, 0.5, "200"), (100, BAND_LOW, BAND_HIGH, 0.5, "100 (v0.3)")):
+for width, low, high, g, name in ((200, 1600, 2800, 0.0, "200 (v0.2)"), (200, 1600, 2800, GAMMA, "200"), (100, BAND_LOW, BAND_HIGH, GAMMA, "100 (v0.3)")):
     s, x_at, pair, _ = band_steps(width, low, high, g)
-    P(f"| {name} | {g} | {s:.4f} | {x_at} | {pair} | {20 * s:.2f} |")
-_, _, _, per = band_steps(100, BAND_LOW, BAND_HIGH, 0.5)
+    P(f"| {name} | {g:.4g} | {s:.4f} | {x_at} | {pair} | {20 * s:.2f} |")
+_, _, _, per = band_steps(100, BAND_LOW, BAND_HIGH, GAMMA)
 P("")
-P("Per adjacent pair, 100-point bands, gamma = 1/2: " + ", ".join(f"{LABELS[b]}/{LABELS[b + 1]}: {per[b]:.4f}" for b in range(len(per))) + "\n")
+P(f"Per adjacent pair, 100-point bands, fitted gamma = {GAMMA:.4f}: " + ", ".join(f"{LABELS[b]}/{LABELS[b + 1]}: {per[b]:.4f}" for b in range(len(per))) + "\n")
 tbl = max(abs(E_table('standard', x, MIDS[b]) - E_table('standard', x, MIDS[b + 1])) for x in range(0, 1501) for b in range(len(MIDS) - 1))
-P(f"Largest step between adjacent bands in the published three-decimal table (100-point bands, gamma = 1/2): {tbl}\n")
+P(f"Largest step between adjacent bands in the published three-decimal table (100-point bands, fitted parameters): {tbl}\n")
 
 # 4. Colour
-P("## 4 Colour inside the expectation (standard, eta = 35, gamma = 1/2)\n")
+P(f"## 4 Colour inside the expectation (standard, eta = {ETA}, fitted parameters)\n")
 for L in (1700, 2000, 2500):
-    ew = E_exact('standard', 35, L)
+    ew = E_exact('standard', ETA, L)
     P(f"- Equal ratings at level {L}: E(White) = {f3(ew)}, E(Black) = {f3(1 - ew)}; today's table gives .50 to each [V 1]; "
       f"expected gain per extra White today at K = 20: {20 * (ew - 0.5):+.2f} points; with colour in the table: 0.00 by construction.")
 P("")
@@ -304,12 +327,12 @@ c_J = comp(TH_J, SIG_J, R_J)
 RX_J = R_J + int(c_J)
 K_A, K_J = K_of(SIG_A), K_of(SIG_J)
 L = (R_A + R_J) / 2
-xA, xJ, xA0 = R_A - RX_J + 35, R_J - R_A - 35, R_A - R_J + 35
+xA, xJ, xA0 = R_A - RX_J + ETA, R_J - R_A - ETA, R_A - R_J + ETA
 EA, EJ, EA0 = E_table('standard', xA, L), E_table('standard', xJ, L), E_table('standard', xA0, L)
 P(f"- c_J = min(300, max(0, {TH_J} - 1.2816 x {SIG_J} - {R_J} - 25)) = min(300, max(0, {comp_raw(Decimal(TH_J), Decimal(SIG_J), Decimal(R_J))})) -> {c_J}; RX_J = {RX_J}.")
 P(f"- Level L = {L:.0f}, band {band_label(L)} (midpoint {band_mid(L)}), nu0 = {nu0('standard', band_mid(L)):.4f}.")
-P(f"- x_A = {R_A} - {RX_J} + 35 = {xA}, E_A = {EA}; without compensation x = {xA0}, E_A0 = {EA0}.")
-P(f"- x_J = {R_J} - {R_A} - 35 = {xJ}, E_J = {EJ} (J's own update uses published ratings only).")
+P(f"- x_A = {R_A} - {RX_J} + {ETA} = {xA}, E_A = {EA}; without compensation x = {xA0}, E_A0 = {EA0}.")
+P(f"- x_J = {R_J} - {R_A} - {ETA} = {xJ}, E_J = {EJ} (J's own update uses published ratings only).")
 P(f"- K_A = {K_A} (sigma 55), K_J = {K_J} (sigma 100). Today: D = 400, no cap; table 8.1.2 row 392-411: .92 / .08; K = 20 for A, 40 for J [V 1].")
 P("")
 P("| Result | A today: 20 x (S - .92) | J today: 40 x (S - .08) | A under L2: K_A x (S - E_A) | J under L2: K_J x (S - E_J) |")
@@ -338,7 +361,7 @@ P("Today [V 1]: K = 10. 2600 v 2100: D = 500 counted as 400 (player below 2650):
 P("| Player | Opponent | Today: D used, PD | Today: win / draw / loss | L2: x, band, E | L2: K_i | L2: win / draw / loss |")
 P("|---|---|---|---|---|---|---|")
 for Rs, Dused, PD in ((2600, 400, Decimal("0.92")), (2700, 600, Decimal("0.98"))):
-    Lg, x = (Rs + 2100) / 2, Rs - 2100 + 35
+    Lg, x = (Rs + 2100) / 2, Rs - 2100 + ETA
     E = E_table('standard', x, Lg)
     tw, td, tl = 10 * (1 - PD), 10 * (Decimal("0.5") - PD), 10 * (0 - PD)
     P(f"| {Rs} | 2100 | {Dused}, {PD} | {tw:+.1f} / {td:+.1f} / {tl:+.1f} | {x}, {band_label(Lg)}, {E} | {K45} | "
@@ -350,7 +373,7 @@ P(f"The 2650 cliff today v rung 2 (each beats a 2200 with White; today K = 10 [V
 P(f"| Winner | Today: gap used, PD, gain | L2: x, band, E, gain at K = {K45} |")
 P("|---|---|---|")
 for Rw, Dused, PD in ((2649, 400, Decimal("0.92")), (2651, 451, Decimal("0.94")), (2700, 500, Decimal("0.96")), (2936, 736, Decimal("1.0"))):
-    Lg, x = (Rw + 2200) / 2, Rw - 2200 + 35
+    Lg, x = (Rw + 2200) / 2, Rw - 2200 + ETA
     E = E_table('standard', x, Lg)
     P(f"| {Rw} | {Dused}, {PD}, {10 * (1 - PD):+.1f} | {x}, {band_label(Lg)}, {E}, {K45 * (1 - E):+.4f} |")
 P("")
@@ -440,7 +463,7 @@ for n_, (w, b, Sw, kind) in enumerate(games_m, 1):
         continue
     Rw, Rb = players[w][0], players[b][0]
     Lg = (Rw + Rb) / 2
-    xw, xb, xw0 = Rw - RX(b) + 35, Rb - RX(w) - 35, Rw - Rb + 35
+    xw, xb, xw0 = Rw - RX(b) + ETA, Rb - RX(w) - ETA, Rw - Rb + ETA
     Ew, Eb, Ew0 = E_table('standard', xw, Lg), E_table('standard', xb, Lg), E_table('standard', xw0, Lg)
     if kind.startswith("one-sided:"):
         side = kind.split(":")[1]
@@ -539,14 +562,14 @@ P("")
 
 
 def inverse_gap(pval: float, level: float) -> int:
-    """Smallest whole-number gap x >= 0 at which the PROVISIONAL table (band midpoint `level`) reaches pval."""
+    """Smallest whole-number gap x >= 0 at which the fitted table (band midpoint `level`) reaches pval."""
     x = 0
     while E_exact('standard', x, level) < pval and x < 2000:
         x += 1
     return x
 
 
-P("- Table 8.1.1 against the PROVISIONAL rung-2 table (rung 2 alone keeps 8.1.1 for initial ratings, §8.2.3 [V 1]): the gap at which the table reaches a score p, at three band midpoints:")
+P("- Table 8.1.1 against the PROVISIONAL-FITTED rung-2 table (rung 2 alone keeps 8.1.1 for initial ratings, §8.2.3 [V 1]): the gap at which the table reaches a score p, at three band midpoints:")
 P("")
 P("| p | 8.1.1 dp [V 1] | band midpoint 1650 | 2050 | 2450 |")
 P("|---|---|---|---|---|")
@@ -556,12 +579,12 @@ P("")
 for cc in (100, 300):
     Lg = 1550
     x1 = -cc + 0                                         # two eligible juniors at equal published ratings, each compensated by cc
-    e_w = E_table('standard', 0 - cc + 35, Lg)          # White's expectation against the opponent's RX
-    e_b = E_table('standard', 0 - cc - 35, Lg)
+    e_w = E_table('standard', 0 - cc + ETA, Lg)         # White's expectation against the opponent's RX
+    e_b = E_table('standard', 0 - cc - ETA, Lg)
     created = Decimal(40) * (1 - e_w - e_b)
     P(f"- Two eligible juniors at equal published ratings (band 1500-1599), each with c = {cc}, K = 40: expectations {e_w} (White) and {e_b} (Black), sum {e_w + e_b}; points created per game {created:+.1f}, whatever the result.")
 for R in (1400, 1500, 1600):
-    P(f"- With a table slope kappa = 5/6 and an anchor mean of 2041.3 (T7.2, illustrative), a correctly rated player at R = {R} shows theta~ - R = (1 - kappa)(m_t - R) = {(1 - 5 / 6) * (2041.3 - R):+.0f} points that are spread, not under-rating.")
+    P(f"- With a spread factor of 5/6 (Sonas's rule, illustrative) and an anchor mean of 2041.3 (T7.2, illustrative), a correctly rated player at R = {R} shows theta~ - R = (1 - 5/6)(m_t - R) = {(1 - 5 / 6) * (2041.3 - R):+.0f} points that are spread, not under-rating.")
 P(f"- Accrual against activity at a_t = +1.3 a month: a player active under §7.2.2 with one game a year accrues {12 * 1.3:.1f} points a year; the drift it offsets, about 16 points a year for the median active player [R 5], is about {16 / 30:.2f} a game at T9.1's median of 30 games a year.")
 P("")
 
