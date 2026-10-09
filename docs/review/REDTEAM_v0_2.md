@@ -1,0 +1,141 @@
+# Second red-team review: proposal v0.2 and technical annex v0.2
+
+Status: REVIEW RECORD · Session ELO-2, Phase 3 · Date: 2026-10-09 · Reviewer: one subagent briefed with both the R-STAT and the R-EXPLOIT briefs, reading `docs/proposal/ELO-PROPOSAL_v0_2.md`, `docs/proposal/ELO-TECHNICAL-ANNEX_v0_2.md`, `docs/review/REDTEAM_v0_1.md` and `analysis/OUTPUT_v0_2.md`. The reviewer's text is reproduced verbatim in the second half of this file; the first half records what the executor did with it inside the session.
+
+## Verification performed in Phase 3 (executor)
+
+- `python3 analysis/v02_calculations.py | diff - analysis/OUTPUT_v0_2.md` is empty: the committed output reproduces.
+- Every number with two or more decimals in annex T3–T6 and T10 and in the proposal's §5 example appears in `analysis/OUTPUT_v0_2.md` (117 and 3 distinct numbers respectively; none missing).
+- The two formulas shown in the proposal (`R_i ← R_i + K_i · (S_i − E(x_i))` and the K_i mapping) appear symbol for symbol in annex T4.2 and T4.3.
+- The two regulation quotations in proposal §7 match `docs/research/VERIFICATION_2026-10-09.md` character for character.
+- Proposal body: 4,496 words excluding tables, the diagram and headings (strict count); summary 249 words.
+- The reviewer independently re-derived T3.2 (derivative, local scale, logistic case), the T4.3 K values and Kalman gains, the T4.4 cap example and the T6 decomposition on all seven games of the synthetic month, and found them correct.
+
+## Resolution of the first review's 30 findings, as checked by the reviewer
+
+19 RESOLVED, 11 PARTIAL, 0 NOT RESOLVED. Every PARTIAL was a fix present in one place but not propagated (T4.8, T7, the proposal) or a monitoring promise not written into T6/T8. All eleven were closed in Phase 3 as follows: θ̃_i defined in T1 and used in T2.6, T4.8, T7 and the proposal (R-STAT-2, R-STAT-8); per-event publication of ledger lines 2 and 3, the farming index including compensated games, the return-from-inactivity indicator with a threshold, the sandbag indicator and the Cov(θ, δ) diagnostic written into T6 and T8 (R-STAT-3, R-EXPLOIT-1, R-EXPLOIT-2, R-EXPLOIT-8); band width registered in T1 and T7 (R-STAT-9); exit term corrected (R-STAT-4, see R2-1); the per-game breakdown fields are those of T4.1 and the ledger (R-QC-2; a dedicated list remains to be added, open); the public parameter file redacted (R-QC-8, see R2-3); "patched" and "arbitrage" removed (R-QC-10).
+
+## New findings R2-1 to R2-10 and their status
+
+| ID | Sev. | Topic | Status |
+|---|---|---|---|
+| R2-1 | blocker | Ledger identity: exit term must be the post-update rating; one-sided games undefined | Fixed: T6 now subtracts R_i⁺(t) for exits and states that the sums run over every player who played; T4.1 states, citing §8.3.1 [V 1] ("For each game played against a rated player"), that games against unrated opponents produce no change for anyone, so no one-sided terms exist. The script's synthetic month now includes a floor exit, a newcomer and a game against an unrated player and closes exactly (+322); a re-entry case remains open. |
+| R2-2 | major | θ̃ not propagated (T4.8, T2.6, T7.2, proposal) | Fixed: θ̃_i defined in T1; T2.6, T4.8, T7 and proposal §6 use it; θ̂ no longer denotes a Layer 2 quantity. |
+| R2-3 | major | Public parameter file printed named juniors' estimates | Fixed: the public file carries only fide_id, R_j, c_j; θ̃_j and σ_j go to a QC-only annex whose hash is in the public file (T7); consistent with T4.6 and founder decision 1. |
+| R2-4 | major | In-time-control manufacture of compensation; winner's curse at the threshold | Partly fixed: the qualifying games must span at least 5 opponents in at least 3 events (T4.6); per-event publication and the farming index cover the rest (T6, T8). Open for the architect: the continuous lower-quantile form of c_j, which would remove the winner's curse (already recorded in REDTEAM_v0_1). |
+| R2-5 | major | Seed inflation by three friends; unrated-opponent rule unstated | Partly fixed: no seed is published while σ_i > σ_seed,max (T4.7); the unrated-opponent rule is now stated with its citation (T4.1); the "three friends, two events" case belongs to the T9 seed-manipulator adversary. The exposure is bounded by the 2200 maximum and is the same as today's. |
+| R2-6 | major | Proposal said "carried in tenths"; annex says exact game terms | Fixed: proposal §3(c), §5 and §9 now state the one precision chain and the Layer 1 tolerance caveat. |
+| R2-7 | major | Forfeiture of the accrued balance is a cliff and a gift under negative a_t | Fixed: the balance is carried, not forfeited; accrual stops while inactive; posted in the first rated month after return (T4.5); P2 and P3 wording corrected; proposal §4 bullet aligned. |
+| R2-8 | minor | Re-entry at the floor manufactures points | Fixed: re-publication only if round_FIDE(θ̃_i) ≥ 1400; otherwise the player stays unrated while Layer 1 keeps estimating (T4.7). Open: script re-entry case. |
+| R2-9 | minor | T7 example sign of the floor line; posting wording; posted-amount comment | Fixed (T7). |
+| R2-10 | minor | Consistency and citation sweep (grids, symbols, age bands, cross-reference, Lichess figures, ledger wording, d_t note, two citations, P4 wording) | Fixed: all nine items (T1 symbol block; T7 age bands aligned with T2.2; T11 decision 2; T8.6 figures; proposal §5 ledger wording; T10.1 note; proposal §9 and §4 citations; §6 wording; T5 P4 reworded). |
+
+## Open after Phase 3 (carried to the close-out)
+
+1. Script: a re-entry case (player re-qualifying after a floor exit) is still to be added to the synthetic month (R2-8); the exit, newcomer and unrated-opponent branches were added in Phase 3 and close exactly.
+2. Architect: continuous compensation form (R2-4, R-STAT-2b); per-game K ratio cap (R-EXPLOIT-1); gap-dependent draw factor if the calibration gate fails (R-EXPLOIT-4); sign of a_t (R-QC-9); band width 200 versus 100 (R-STAT-9); confirmation that the accrual rule and the θ̃ netting are within AR-3, AR-4 and AR-5.
+3. A dedicated list of the per-game breakdown fields for the published statement (R-QC-2).
+
+---
+
+## Reviewer's text (verbatim)
+
+# Red-team review 2 of proposal v0.2 and technical annex v0.2 (R-STAT + R-EXPLOIT combined)
+
+Status: REVIEW RECORD (draft) · Date: 2026-10-09 · Inputs read: `docs/proposal/ELO-TECHNICAL-ANNEX_v0_2.md`, `docs/proposal/ELO-PROPOSAL_v0_2.md`, `docs/review/REDTEAM_v0_1.md`, `analysis/OUTPUT_v0_2.md`. No web access; no repository file edited. Arithmetic re-checked by hand: T3.2 derivative and local-scale formula, T4.3 K/σ values (12.7/16.1/19.1/24.7/31.7/40.0) and Kalman gains, T4.4 cap example, the T6 decomposition on all seven games of script §8, the +63 closure, and every number quoted from OUTPUT §1–§8 in both documents. All of those are correct and match OUTPUT_v0_2.md.
+
+## Part A — Resolution check of the 30 findings of REDTEAM_v0_1
+
+| ID | Status claimed | Verdict | Reason |
+|---|---|---|---|
+| R-STAT-1 | fixed (T2.4, T4.5, §7) | RESOLVED | T2.4 has fixed reference month, chain-linked re-basing, zero-drift constraint, per-player d_t; T4.5 has the γ_a controller with 0 < γ_a < 1; script §7 shows convergence to drift/γ_a. |
+| R-STAT-2 | fixed (a, c: T4.6, T4.7); justified (b: T5 P3) | PARTIAL | θ̃ = ŝ − d_t is in T4.6/T4.7 text, but T4.8 channel table still prints c_j = min(θ̂_j − R_j, c_cap) and seed clip(round(θ̂_i)), T2.6 still says "ŝ (written θ̂_i in Layer 2)", T7.2 uses key `theta_hat_j` against schema `theta_tilde_j`, and proposal §4/§6 never mention the d_t netting. (b) is correctly recorded in P3. |
+| R-STAT-3 | fixed (T4.6, T6, T8) | PARTIAL | Line 3 of T6 exists and the a_cap comparison rule exists, but it sits in T4.5 (not T4.6); "published per event" and "compensated games enter the farming index" appear nowhere in T6 or T8. |
+| R-STAT-4 | fixed (T6, script §8) | PARTIAL | Identity stated and the script closes it, but only with exits = 0; the exit term is written as R_i(t) where it must be the post-update rating (see R2-1), and one-sided games (rated v unrated) are not in the identity. |
+| R-STAT-5 | fixed (T4.3, T4.4) | RESOLVED | σ_new = 100 gives K = 19.1 at σ = 55 and 40 at σ ≥ 100; Kalman rationale stated; cap restated as ⌊7000/n⌋/10. |
+| R-STAT-6 | fixed (T4.5) | RESOLVED | Accrual to §7.2.2-active players, posting in a rated month, forfeiture on inactivity are all in T4.5 (new issues it opens: R2-7). |
+| R-STAT-7 | fixed (T2.3, T5 P6) | RESOLVED | EP or calibrated block Laplace, fixed-lag smoothing at the window edge, L1 reproducibility at a published tolerance, bitwise only for Layer 2. |
+| R-STAT-8 | fixed (T1, T2.4) | PARTIAL | ŝ_{i,tc} used throughout and the anchor constraint is per time control, but the promised "Cov(θ, δ) reported" is in neither T2 nor the T7 schema. |
+| R-STAT-9 | fixed (T3.2, T3.3) | PARTIAL | Open bands clamp ν at 1500/2900, band-edge step measured, σ_eff noted; but T3.3 says "the band width is a parameter in T7" and the T7.1 schema has no band-width field. |
+| R-STAT-10 | fixed (T2.5, T4.5) | RESOLVED | φ_f defined net of d_t, continuous shrink_f, effective-resistance diagnostic, ships disabled. (s_f comes from the Laplace covariance, with the resistance as a separate gate; acceptable.) |
+| R-QC-1 | justified (T4.7) | RESOLVED | §7.2.1 kept as a display rule with the reviewer's alternative recorded; the design choice is explicit. (Its ledger consequence is wrong, see R2-1.) |
+| R-QC-2 | fixed (T4.1, T4.8, T11) | PARTIAL | Inputs frozen at list t, RX_j column, one-line band rule all present; the "per-game breakdown fields" claimed to be listed are not listed anywhere in the annex (T11 stage 2 lists only rating, K_i, games, c_j). |
+| R-QC-3 | fixed (proposal §10, T11) | RESOLVED | Title/norm regulations declared untouched and NOT VERIFIED, table 8.1.1 retained, shadow list without legal status. |
+| R-QC-4 | fixed (T4.4) | RESOLVED | Cap rule, a_t outside the cap, precision chain and single rounding are stated (but the proposal contradicts the chain, R2-6). |
+| R-QC-5 | fixed (T11) | RESOLVED | Signatory, hashes, no legal status, pilot definition, 24-month Layer 0 fallback, abandonment rule all present. |
+| R-QC-6 | fixed (proposal §1, §2, §4) | RESOLVED | No federation named in the body; E.1 gone; a_{f,t} described as disabled and evidence-based. |
+| R-QC-7 | fixed (proposal §7, T11) | RESOLVED | §7 quotes [V 2] verbatim; the 45+30 sentence is removed rather than marked (stronger); T11 lists changed and unchanged paragraphs. |
+| R-QC-8 | fixed (T4.6, T7) | PARTIAL | Age rule, missing-birth-year rule and parameters are in place, but T7.2 prints fide_id, birth_year, θ̂_j and σ_j of eligible juniors in a file the proposal calls public (R2-3). |
+| R-QC-9 | fixed (T4.4, T4.5); sign open | RESOLVED | "Rated month" defined and separated from §7.2.2; sign recorded as open for the QC. |
+| R-QC-10 | fixed / justified | PARTIAL | "AI" appears only in the §9 denial, but "patch/patched" survives twice in proposal §7 and "arbitrage" in T10.2; central-bank analogy kept once per document as justified. |
+| R-EXPLOIT-1 | fixed (monitoring) / justified | PARTIAL | Unequal-K creation is ledger line 2 (per month, not per event); the "top percentile flagged for Tournament Investigation (T8)" and the recorded option K_i ≤ 2K_j are absent from T8 and the annex. |
+| R-EXPLOIT-2 | fixed (T4.6, T6) | PARTIAL | Per-time-control posterior and the 10-games-in-tc condition are in T4.6; per-event publication and club flagging are not in T6/T8 (and the in-tc route remains open, R2-4). |
+| R-EXPLOIT-3 | fixed (T4.5) | RESOLVED | 50 players / 5 % / trimmed mean with LOO range / 2 s_f exclusion / annual cap all written into T4.5. |
+| R-EXPLOIT-4 | fixed (gate) / open (form) | RESOLVED | Calibration gate in T8.5 to 1000 points; the gap-dependent draw factor recorded as an open question in T3.3. |
+| R-EXPLOIT-5 | fixed (T4.7) | RESOLVED | 2200 maximum kept, three distinct opponents in two events, seed σ published (new exploit opened: R2-5). |
+| R-EXPLOIT-6 | fixed (T4.5) | RESOLVED | Accrual rule plus "a_t computed from the month just closed". |
+| R-EXPLOIT-7 | justified (T5 P3) | RESOLVED | Per-list switch controlled by a posterior; calendar rule mirrors §8.3.3 [V 1]. |
+| R-EXPLOIT-8 | justified (T4.7, T8) | PARTIAL | T4.7 justification stands, but T8 contains no return-from-inactivity indicator or published threshold; only proposal §9 mentions it without a threshold. |
+| R-EXPLOIT-9 | fixed (T4.4) | RESOLVED | Cap acts on K, uniformly over the period's games, n per time control. |
+| R-EXPLOIT-10 | fixed (T4.7, T6) | RESOLVED | Re-entry seeded from the posterior, exit and entry booked (lines 7/8); subject to R2-1 and R2-8. |
+
+Tally: 19 RESOLVED, 11 PARTIAL, 0 NOT RESOLVED. The PARTIALs cluster on two causes: (1) fixes written into T4.6/T4.7 prose but not propagated to T4.8, T7 and the proposal; (2) monitoring/publication promises ("per event", "flagged", "threshold", "Cov reported") that the status column attributes to T6/T8 but that those sections do not contain.
+
+## Part B — New findings, ranked
+
+### R2-1 · blocker · ANNEX T6 (identity), T4.7 (floor), T5 P5
+**Problem.** The per-game decomposition is algebraically right (verified on all seven games of script §8), but the monthly identity is wrong in the exit branch: Σ_g (C^K + C^c) + Σ A_i + Σ ρ_i sums the period changes of *every* player who played, including a player who then drops below 1400, while the left side removes only R_i(t) for that player. The identity therefore misses Σ_exits (period change_i); it closes in script §8 only because exits = 0. Second gap: T4 and T6 never say how the rated side of a game against a not-yet-seeded (unrated) opponent is treated; if such games are rated for the rated player (as today's regulations do — which paragraph, NOT VERIFIED here), they are one-sided changes with no counterpart and belong to no ledger line. Under the §9 rollback rule ("if the ledger identity fails in any month, the list is held") every real month with a floor exit would hold the list.
+**Fix.** Line (8) = Σ_exits R_i(t+1) = Σ_exits (R_i(t) + period change_i), i.e. "the rating that left", post-update; add a line (8b) or extend (2) for one-sided games (rated v unrated, with the opponent's rule for the rated side stated and cited); add an exit and a one-sided game to the script §8 synthetic month so both branches are tested.
+
+### R2-2 · major · ANNEX T4.8, T2.6, T7.2 ("theta_hat_j"); PROPOSAL §4 (AR-4, AR-5 bullets), §6 (Newcomers, Juniors rows)
+**Problem.** The R-STAT-2(a) fix (use θ̃ = ŝ − d_t for compensation and seeds) exists only in the prose of T4.6/T4.7. The T4.8 channel table, which an implementer would copy, still gives c_j = min(θ̂_j − R_j, c_cap) and the seed as clip(round(θ̂_i)); T2.6 defines θ̂_i as the Layer 2 name of ŝ; the T7.2 example uses `theta_hat_j` where the T7.1 schema says `theta_tilde_j`; the proposal describes both channels as "the Layer 1 posterior mean" with no netting. Two symbols (θ̂, θ̃) now float for two different quantities, so the uncapped level loop of R-STAT-2(a) reappears wherever θ̂ is read.
+**Fix.** Define θ̃_i = ŝ_{i,tc} − d_t once in T1, use θ̃ in T4.8, T7.2 and proposal §4/§6, and drop θ̂ from Layer 2 entirely (keep ŝ for Layer 1).
+
+### R2-3 · major · ANNEX T7.1/T7.2 `junior_compensation.eligible`; T4.6 last paragraph; PROPOSAL §9 "Two published files", §11 decision 1
+**Problem.** T4.6 and R-QC-8 promise that θ̂_j and σ_j "are not published for named players". T7.2 nevertheless prints fide_id, birth_year, θ̂_j (1931.4, 2198.7) and σ_j (62.0, 48.5) for each eligible junior inside the parameter file, which the proposal describes as "published with every list ... public and versioned". The schema comment "not printed on the public list" does not rescue this: the file is public. This is exactly the model's-view-of-a-minor exposure R-QC-8 objected to, and it pre-empts founder decision 1.
+**Fix.** Either publish only {fide_id, R_j, c_j} in the public file and keep θ̃_j, σ_j in a QC-only annex (hash-chained to the public file), or state in T7 that the public copy is redacted; align T4.6, T7 and §11 decision 1.
+
+### R2-4 · major · ANNEX T4.6 (eligibility (b), (c)), T9.4 "Compensation hunter", T5 P4 — exploit
+**Problem.** (i) In-time-control manufacture: with K_J = 40 but a Kalman gain of 57.6 at σ_J = 100 (OUTPUT §4), each arranged junior win against a club adult moves ŝ_J about 16 points further than R_J, so roughly 11 arranged wins (which also satisfy the 10-games-in-tc condition) lift θ̃_J − R_J past τ + 1.28 σ_J ≈ 178 and switch c_j on. Every adult who then plays the junior receives the result-independent gift K_A (E_A⁰ − E_A), +4.35 points per game at c_j = 300 (OUTPUT §5, line "created by compensation"), for at least one full list period because c_j is frozen (T4.1). Donors lose about 17 per thrown game, so the ring pays only if beneficiaries and donors differ (standard collusion). (ii) Even without manufacture, the eligibility test selects on a noisy posterior: conditional on θ̃_J − R_J − 1.28 σ_J ≥ τ, the junior is on average over-estimated (winner's curse), so a hunter who seeks compensated juniors with non-binding c_cap has positive yield, roughly K_A · E′(x) · bias ≈ 19.1 × 0.0011 × (20–40) ≈ +0.4 to +0.8 per game; T9.4's "expected yield is zero" holds only if θ̃ is unbiased.
+**Fix.** Adopt the continuous lower-quantile form already recorded (R-STAT-2b): c_j = min(c_cap, max(0, θ̃_j − 1.28 σ_j − R_j − τ)), which removes both the winner's curse and most of the manufactured gap; compute RX_j used against opponent i from a posterior that excludes i's own games against j (leave-one-opponent-out) or require the 10 qualifying games to span ≥ 5 opponents in ≥ 3 events; publish line 3 per event and add it to the farming index as REDTEAM_v0_1 already promised.
+
+### R2-5 · major · ANNEX T4.7 (seed rule), T4.1/T6 (silence on unrated opponents) — exploit
+**Problem.** The seed is θ̃ from all games, clipped to [1400, 2200], after five games against rated opponents with ≥ 3 distinct opponents in ≥ 2 events. Three colluding 2300-rated friends who lose five games to a newcomer across two weekend events seed the newcomer at 2200 (for θ_true ≈ 1800, a +400 display gain) — and if the rated side of those games is not rated (T4 does not say; T4.7 says exactly that for sub-floor players), the donors pay nothing. The seeded player protects the number by inactivity (K_i grows but R_i never moves, T4.7) or, after adoption, feeds it into norm arithmetic. The 2200 cap bounds, but does not remove, the gain; the three-opponent rule is satisfied by three friends.
+**Fix.** State that the rated side of a game against an unrated player is rated under today's rule (cite the paragraph from [V 1] or mark NOT VERIFIED), so donors pay K_i E ≈ 14–16 points per thrown game; seed at the lower quantile θ̃_i − z σ_i for the display with the full θ̃ in Layer 1, or publish a seed only when σ_i ≤ σ_seed,max; keep the T9.4 seed-manipulator adversary and add the "three friends, two events" scenario to it.
+
+### R2-6 · major · PROPOSAL §3(c) row 1 ("fixed-point arithmetic in tenths"), §5 ("carried in tenths"), §9 P6; ANNEX T4.2 ("exact with at most four decimals"), T5 P6
+**Problem.** The proposal says per-game changes are carried in tenths; the annex says each game term is exact to four decimals and rounding happens once at the period total. An arbiter following the proposal gets −3.0 + 5.8 − 8.7 = −5.9 where the script's −2.9796 + 5.8410 − 8.7000 = −5.8386 (OUTPUT §7 style), and over nine rounds the two chains round to different whole numbers, which breaks the "100 % recomputed exactly" criterion of T8.5 and P6. The proposal's P6 also claims "identical output on any machine" without the Layer 1 tolerance caveat of T5 P6.
+**Fix.** One precision chain in both documents: K_i one decimal, E three decimals, game term exact (four decimals), one round_FIDE at the period total; rewrite proposal §3(c)/§5/§9 accordingly and copy the Layer 1 tolerance caveat into §9.
+
+### R2-7 · major · ANNEX T4.5 (accrual, forfeiture), T5 P2–P3; PROPOSAL §4 AR-3 bullet — exploit and property gap
+**Problem.** (i) Forfeiture on inactivity is a cliff of up to 12 a_cap = 18 points at the §7.2.2 boundary: a player returning in month 11 of inactivity posts up to 16.5 points, in month 13 nothing. P3 lists only two discrete elements and omits this one; the proposal §9 acknowledges "the activity test for the monthly adjustment" as a threshold, so the two documents disagree. (ii) If a_t may be negative (open, R-QC-9), forfeiture becomes a gift: a player holding a negative balance sits out twelve months, forfeits the liability and returns with a higher K_i; expected gain up to 18 points. (iii) a_t rounded to one decimal is a step, not "a clipped linear function", and P2's 718 ignores the a_{f,t} balance (736 if ever enabled). (iv) Proposal §4's AR-3 bullet still says a_t is "paid each month to every player who played ... that month", contradicting the accrual rule in §5/§6.
+**Fix.** Do not forfeit: post the accrued balance in the first rated month after return (bounded by 12 a_cap anyway) or state the forfeiture as the third discrete element of P3; if negative a_t is retained, carry negative balances across inactivity; fix P2/P3 wording and the §4 bullet.
+
+### R2-8 · minor · ANNEX T4.7 (floor), T6 lines 7–8 — exploit
+**Problem.** Re-entry seeds at clip(θ̃, 1400, 2200). A player with θ̃ < 1400 is re-seeded at exactly 1400 each time they re-qualify, so the floor still manufactures points at the bottom: creation per cycle ≈ 1400 − R_exit (10–30 points per five games) plus a permanent +(1400 − θ̃) display gift for the player, and the 1400 pile-up the proposal complains of (§2, §6) is preserved by the design that claims to remove it. The cost of the dive is zero because the sub-1400 rating is discarded.
+**Fix.** Re-seed only when θ̃ ≥ R_floor (otherwise the player stays unrated while Layer 1 keeps estimating); or apply the R-QC-1 alternative (carry the sub-1400 number, display "unrated"). Either way add a re-entry case to script §8.
+
+### R2-9 · minor · ANNEX T7.2 (illustrative file), T7.1 `a_t` unit text
+**Problem.** The illustrative ledger prints `leaving_below_floor: -172260.0` and then states (9) = (2)+(3)+(4)+(5)+(6)+(7)−(8); with the printed sign that gives 6,491,853.3, not the printed 6,147,333.3 (which uses +172,260). `global_adjustment_posted: 198176.0 # 1.1 × 180,160 players` contradicts the accrual rule (the posted amount is Σ of balances, not a_t × players). T7.1 says a_t is "posted in the next rated month" while T4.5/T10.3 post the current month's a_t in the same month if rated.
+**Fix.** Print (8) as a positive outflow with the sign convention stated; replace the comment with "Σ posted balances"; write "posted in the current month if rated, otherwise accrued".
+
+### R2-10 · minor · consistency and citation sweep (both documents)
+**Problem.** (a) Grids: T1 says c_j and RX_j are whole numbers; T7 types c_j float and T7.2 prints 119.4/93.7, so x_i is no longer on the whole-number grid P6 relies on. (b) Symbols/parameters used but not in T1 or the T7 schema: N_anchor (2,000), n_φ, s_max, R_max, band width, B_i, A_i, ρ_i, E_i⁰, T_g, C_g^K, C_g^c, θ̃. (c) μ age bands differ between T2.2 (under 12, 12–15, 16–19, 20–24, 25–45, …), T7.2 (≤12, 13–17, 18–21, 22–45, …) and T9.1 (linear to 22); the "no birth year" default is "25–45" in T2.2 but that band does not exist in T7.2. (d) T11 stage 3 cites "v0.2 §11 decision 8"; §11 has five decisions and the pilot is decision 2. (e) Lichess volume: proposal §8 "85–100 million games a month", annex T8.6 "85–89 million", both [V 4]. (f) Proposal §5 says the ledger counts points "leaving with players who dropped off the active list"; T6 line 10 says inactive players stay on the list and are outside the identity. (g) T10.1 sets d_t = 0 while T10.3/T10.4 use d_t = 7.2 for what T10.4 presents as the same synthetic month (no numerical effect because c_cap binds, but say so). (h) Citations: "Tournament Investigation and QC appeal procedures [R §3.9] [V 1]" (proposal §9) is cited to [V 1], whose transcription covers §7–§8 only; "WHR adds a game in under a millisecond" (proposal §4) has no [R n]; proposal §6 "K unchanged (§7.2.2)" attributes a K statement to the inactivity paragraph. (i) T5 P4 states "K_i ... does not depend on results"; the Laplace σ_i is the inverse observed information at the MAP, which depends on results through ŝ and on the gaps played (information per game p(1−p) is small against far-weaker opponents, so a player who only farms keeps a high K_i); the claim should be "depends on results only through the fitted strength, not on their sign".
+**Fix.** One pass over T1/T7 to register every symbol and parameter with its grid; harmonise the age bands; correct the cross-reference and the Lichess figure; mark the two uncited claims NOT VERIFIED or cite them; reword P4.
+
+## Note on what was checked and found correct
+T3.2 items 1–6 (symmetry, dE/du = (2/u + ν/2 + ν/(2u²))/D², the ν = 0 reduction, dE/dx(0) = κ ln10/(400·2(2+ν)) giving scale 200(2+ν)/κ, P_D = ν/(2+ν) = 0.167/0.443); T4.3 values and the Kalman comparison; T4.4 cap example; the T6 per-game algebra for both players (uses E_j⁰ = 1 − E_i⁰, valid because L is shared); all seven games and the +63 closure of script §8; the T10.1/T10.2 numbers and their reproduction in proposal §5; the P1–P6 names and order in proposal §9, T5 and T8.5; σ_new = 100 and K = 19.1/40.0/16.1 in every place they appear.
+
+---
+
+## Addendum: third review (R-QC, proposal body only, 16:03 UTC)
+
+A five-minute Qualification Commission read of the proposal body returned five findings; the reviewer's verdict was "not agendable as it stands" before the fixes below. The reviewer's text is in the session scratchpad and is summarised here with the executor's action.
+
+| ID | Sev. | Finding | Status |
+|---|---|---|---|
+| R3-1 | blocker | Per-federation miscalibration estimates would be published monthly while the adjustment is disabled and the evidence unverified | Fixed: while disabled, federation-level estimates go to the QC only; the public file carries aggregate connectivity diagnostics (proposal §9; annex T7 federations block marked QC-only with a hash in the public file) |
+| R3-2 | blocker | A step-10 table with no row rule cannot reproduce the example's gaps of 135 and −435; table not declared normative; carried adjustment balance not on the list | Fixed: one row per whole-number gap 0–1500, negative gaps by 1 − E, table normative, engine reads the same table (proposal §5, annex T3.3); the list prints K_i, RX and the carried balance (proposal §5, annex T4.1) |
+| R3-3 | major | "Junior catches up at full speed" contradicted by the example (+15/+35 against +17/+37 today) | Fixed: both sentences replaced with the accurate statement (proposal §5, §6) |
+| R3-4 | major | §1 asserts norms untouched although §10 marks the interaction NOT VERIFIED; K = 10/20/40 stated without [V 1] | Fixed (proposal §1, §4, §5) |
+| R3-5 | major | "Farming" and "honest play" impute dishonesty to rule-compliant players | Fixed in the proposal body (§2, §8, §9); the annex keeps "farming" as the technical term of the brief (T5 P4, T8, T9) |
