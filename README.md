@@ -15,6 +15,7 @@ Zugzwang's proposal to modernise the FIDE Elo rating system. The project deliver
 | `docs/evidence/` | Evidence reports, each the committed output of a script under `analysis/` |
 | `docs/review/` | Red-team reviews of each proposal version |
 | `analysis/` | Deterministic scripts that produce every number in the documents, with their committed outputs |
+| `params/` | Fitted parameter files (`params/table_fit_2026-10.yaml`), PROVISIONAL-FITTED, each written by a script under `analysis/` |
 | `src/layer0/` | The Layer-0 engine: FIDE's rating regulations exactly (SPEC-L0) |
 | `tests/` | The SPEC-L0 acceptance tests and the fixtures recorded from FIDE's pages (`tests/fixtures/`) |
 | `tools/` | The automated check run on every pull request (`tools/README.md`) |
