@@ -80,10 +80,10 @@ def main() -> int:
     post = [drift["standard"][s]["all"]["median"] for s in AFTER if s in drift["standard"]]
     print(f"\nStandard: the cohort's median change ranged from {frat(min(pre))} to {frat(max(pre))} points a year in "
           f"the eight windows before March 2024 and from {frat(min(post))} to {frat(max(post))} in the three windows "
-          "after it. The research report cites an independent study of 954,805 games with a median loss of 26 points "
-          "a year before the reform and 16 after it [R 5]; the populations and methods differ (that study follows "
-          "active players' results, this follows the published ratings of a fixed adult cohort), so the figures are "
-          "shown side by side, not reconciled.\n")
+          "after it. The research report cites Ghita's median loss of 26 points a year before the reform and 16 "
+          "after it [R 5]. That figure is the change of the median of the active list, a cross-section, while this "
+          "one follows the published ratings of a fixed adult cohort; E5 reconciles the two "
+          "(`docs/evidence/E5_deflation.md`).\n")
 
     print("## (ii) The 1400 floor\n")
     floor = {x["list"]: x for x in std["floor"]}

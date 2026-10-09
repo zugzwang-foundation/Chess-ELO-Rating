@@ -27,7 +27,7 @@ Median annual change of the anchor cohort's published ratings, points per year (
 | 2025-03 to 2026-03 | 3 (12,420) | 6 | -1 | 4 (8,125) | -1 (6,789) |
 | 2025-10 to 2026-10 | 2 (12,736) | 5 | -3 | 5 (8,609) | -1 (7,059) |
 
-Standard: the cohort's median change ranged from -6 to -2 points a year in the eight windows before March 2024 and from 2 to 3 in the three windows after it. The research report cites an independent study of 954,805 games with a median loss of 26 points a year before the reform and 16 after it [R 5]; the populations and methods differ (that study follows active players' results, this follows the published ratings of a fixed adult cohort), so the figures are shown side by side, not reconciled.
+Standard: the cohort's median change ranged from -6 to -2 points a year in the eight windows before March 2024 and from 2 to 3 in the three windows after it. The research report cites Ghita's median loss of 26 points a year before the reform and 16 after it [R 5]. That figure is the change of the median of the active list, a cross-section, while this one follows the published ratings of a fixed adult cohort; E5 reconciles the two (`docs/evidence/E5_deflation.md`).
 
 ## (ii) The 1400 floor
 

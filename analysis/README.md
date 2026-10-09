@@ -22,6 +22,10 @@ These scripts are **not the rating engine**: the engine is the package `src/laye
 | `aggregates/E2_broadcast.json` | Its output |
 | `e2_broadcast_report.py` | Applies the decision rules of annex T8 and writes `docs/evidence/E2_broadcast-calibration.md` and, with `--yaml`, `params/table_fit_2026-10.yaml` |
 | `e3_us_championships.py` | Runs `tools/compare_event.py` on the 2025 and 2026 U.S. Championship event files and writes the evidence page `docs/evidence/E3_us-championship-2026.md` |
+| `fide_panel.py` | A module (registered under "modules"): FIDE's monthly lists as per-month arrays indexed by player, and the April 2026 batch of D-0008 R11; reads `data/`, writes nothing |
+| `e5_deflation_extract.py` | Needs `data/`: the deflation question (session ELO-4, Phase 1): per-player and cross-sectional change of published ratings by group, band and age, the composition of the active list, Ghita's measures as his book defines them, the top and the spread, and the drain implied by the favourite's over-prediction on broadcast games; counts, medians, percentiles and sums only; enforces the ELO-4 data cutoff (no broadcast game after 2026-09-30) |
+| `aggregates/E5_deflation.json` | Its output |
+| `e5_deflation_report.py` | Turns the E5 aggregates (and E1's, for the K scheme of the rapid and blitz lists) into the evidence page `docs/evidence/E5_deflation.md` |
 | `outputs.json` | The registry of scripts and outputs that check (a) reruns (`tools/README.md`) |
 
 Run: `python3 analysis/v03_calculations.py > analysis/OUTPUT_v0_3.md` and `git diff` must be empty. Scripts registered with `needs_data` read files under `data/` (never committed; `tools/README.md` says how to rebuild them); CI checks that their outputs exist and `python3 tools/checks/check_outputs.py --all` reruns them locally. Every script here is registered in `analysis/outputs.json` with the file its output must equal; check (a) of the automated check reruns them on every pull request. The v0.2 script and its output were bumped to v0.3 with `git mv`; earlier versions are in git history.
