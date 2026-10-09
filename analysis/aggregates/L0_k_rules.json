@@ -1,0 +1,191 @@
+{
+ "agreement": {
+  "variant_with_first_list_games": {
+   "agree": 19468800,
+   "n": 19631361,
+   "share": 0.991719
+  },
+  "variant_without_first_list_games": {
+   "agree": 18856374,
+   "n": 19631361,
+   "share": 0.960523
+  }
+ },
+ "population": "players first listed from 2016-02, lists 2017-01 onwards, with a year of birth",
+ "published_k_by_cell": {
+  "junior=False|band=2300-2399|games30=False|ever2400=False|ever2300=True": {
+   "10": 288,
+   "20": 65,
+   "40": 1771
+  },
+  "junior=False|band=2300-2399|games30=False|ever2400=True|ever2300=True": {
+   "10": 190
+  },
+  "junior=False|band=2300-2399|games30=True|ever2400=False|ever2300=True": {
+   "10": 125,
+   "20": 3338
+  },
+  "junior=False|band=2300-2399|games30=True|ever2400=True|ever2300=True": {
+   "10": 1017,
+   "40": 104
+  },
+  "junior=False|band=2400+|games30=False|ever2400=True|ever2300=True": {
+   "10": 1115
+  },
+  "junior=False|band=2400+|games30=True|ever2400=True|ever2300=True": {
+   "10": 1308
+  },
+  "junior=False|band=<2300|games30=False|ever2400=False|ever2300=False": {
+   "0": 6,
+   "15": 118,
+   "20": 129594,
+   "40": 9023053
+  },
+  "junior=False|band=<2300|games30=False|ever2400=False|ever2300=True": {
+   "20": 82,
+   "40": 513
+  },
+  "junior=False|band=<2300|games30=True|ever2400=False|ever2300=False": {
+   "0": 1,
+   "20": 2653285,
+   "40": 24245
+  },
+  "junior=False|band=<2300|games30=True|ever2400=False|ever2300=True": {
+   "10": 39,
+   "20": 4325
+  },
+  "junior=False|band=<2300|games30=True|ever2400=True|ever2300=True": {
+   "10": 254,
+   "20": 104,
+   "40": 104
+  },
+  "junior=True|band=2300-2399|games30=True|ever2400=False|ever2300=True": {
+   "20": 8221
+  },
+  "junior=True|band=2300-2399|games30=True|ever2400=True|ever2300=True": {
+   "10": 1562,
+   "20": 4
+  },
+  "junior=True|band=2400+|games30=False|ever2400=True|ever2300=True": {
+   "10": 2
+  },
+  "junior=True|band=2400+|games30=True|ever2400=True|ever2300=True": {
+   "10": 3631
+  },
+  "junior=True|band=<2300|games30=False|ever2400=False|ever2300=False": {
+   "0": 30,
+   "40": 5076616
+  },
+  "junior=True|band=<2300|games30=True|ever2400=False|ever2300=False": {
+   "0": 6,
+   "20": 30,
+   "40": 2689889
+  },
+  "junior=True|band=<2300|games30=True|ever2400=False|ever2300=True": {
+   "20": 6166,
+   "40": 17
+  },
+  "junior=True|band=<2300|games30=True|ever2400=True|ever2300=True": {
+   "10": 142,
+   "20": 1
+  }
+ },
+ "refined_agreement": {
+  "agree": 19476398,
+  "n": 19631361,
+  "share": 0.992106
+ },
+ "refined_disagreements_by_games": {
+  "25-34": {
+   "predicted 10, published 40": 104,
+   "predicted 20, published 10": 35,
+   "predicted 20, published 40": 9294,
+   "predicted 40, published 0": 5,
+   "predicted 40, published 10": 31,
+   "predicted 40, published 20": 4668
+  },
+  "35+": {
+   "predicted 10, published 20": 109,
+   "predicted 10, published 40": 104,
+   "predicted 20, published 0": 1,
+   "predicted 20, published 10": 129,
+   "predicted 20, published 40": 14968,
+   "predicted 40, published 0": 6,
+   "predicted 40, published 20": 23
+  },
+  "<25": {
+   "predicted 40, published 0": 31,
+   "predicted 40, published 10": 257,
+   "predicted 40, published 15": 118,
+   "predicted 40, published 20": 125080
+  }
+ },
+ "refined_order": "ever published >= 2400 -> 10; junior never rated >= 2300 -> 40; games<30 -> 40; else 20",
+ "residual_published20_predicted40_games_lt25_by_games": {
+  "0-4": 116020,
+  "10-14": 1454,
+  "15-19": 1076,
+  "20-24": 1584,
+  "5-9": 4946
+ },
+ "residual_published20_predicted40_games_lt25_by_list_year": {
+  "2017": 250,
+  "2018": 303,
+  "2019": 538,
+  "2020": 763,
+  "2021": 838,
+  "2022": 795,
+  "2023": 854,
+  "2024": 34365,
+  "2025": 37518,
+  "2026": 48856
+ },
+ "rule_order": "junior & R<2300 -> 40; games<30 -> 40; ever published >= 2400 -> 10; else 20",
+ "turning_19_december_to_january": {
+  "2016-12 -> 2017-01": {
+   "40->20": 7
+  },
+  "2017-12 -> 2018-01": {
+   "40->20": 100,
+   "40->40": 2
+  },
+  "2018-12 -> 2019-01": {
+   "40->20": 323,
+   "40->40": 3
+  },
+  "2019-12 -> 2020-01": {
+   "20->20": 1,
+   "40->20": 691,
+   "40->40": 3
+  },
+  "2020-12 -> 2021-01": {
+   "40->20": 1171,
+   "40->40": 8
+  },
+  "2021-12 -> 2022-01": {
+   "20->20": 1,
+   "40->20": 1779,
+   "40->40": 11
+  },
+  "2022-12 -> 2023-01": {
+   "20->20": 6,
+   "40->20": 2777,
+   "40->40": 39
+  },
+  "2023-12 -> 2024-01": {
+   "20->20": 12,
+   "40->20": 3747,
+   "40->40": 72
+  },
+  "2024-12 -> 2025-01": {
+   "20->20": 31,
+   "40->20": 4914,
+   "40->40": 79
+  },
+  "2025-12 -> 2026-01": {
+   "20->20": 50,
+   "40->20": 5848,
+   "40->40": 131
+  }
+ }
+}
