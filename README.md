@@ -18,7 +18,7 @@ Zugzwang's proposal to modernise the FIDE Elo rating system. The project deliver
 | `tools/` | The automated check run on every pull request (`tools/README.md`) |
 | `CLAUDE.md` | Working rules for the humans and agents editing this repository |
 
-There is no rating-engine code yet: by project rule, none is written until the Layer-0 specification in `docs/specs/` is ratified.
+The Layer-0 specification in `docs/specs/` is ratified (`docs/decisions/D-0006_spec-l0-ratified.md`). Its acceptance tests were written first, under `tests/`; the engine follows under src.
 
 ## Spelling
 

@@ -12,6 +12,8 @@ These scripts are **not the rating engine**. By project rule (CLAUDE.md, hard ru
 | `aggregates/L0_k_rules.json` | Its output: counts only, no player data |
 | `l0_k_rules_report.py` | Turns the K aggregates into the tables SPEC-L0 cites |
 | `OUTPUT_L0_k_rules.md` | Its output |
+| `l0_ratification_check.py` | Measures the pre-agreed ratification rule of SPEC-L0: every rule has a quoted citation or an existing fixture and is mentioned by a test; every acceptance criterion has a test module (D-0006) |
+| `OUTPUT_L0_ratification.md` | Its output |
 | `outputs.json` | The registry of scripts and outputs that check (a) reruns (`tools/README.md`) |
 
 Run: `python3 analysis/v03_calculations.py > analysis/OUTPUT_v0_3.md` and `git diff` must be empty. Scripts registered with `needs_data` read files under `data/` (never committed; `tools/README.md` says how to rebuild them); CI checks that their outputs exist and `python3 tools/checks/check_outputs.py --all` reruns them locally. Every script here is registered in `analysis/outputs.json` with the file its output must equal; check (a) of the automated check reruns them on every pull request. The v0.2 script and its output were bumped to v0.3 with `git mv`; earlier versions are in git history.
