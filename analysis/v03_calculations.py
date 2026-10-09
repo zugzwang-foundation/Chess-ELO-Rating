@@ -394,18 +394,20 @@ P(f"Bound on a published change (P2): |period change| <= round(700 + 12 x a_cap)
   f"round(700 + a_cap) = {round_fide(C_PERIOD + A_CAP)} in a month without one; today's bound is 700 [V 1].\n")
 
 # 10. Ledger identity
-P("## 10 Ledger identity (annex T6) on a synthetic month: 7 listed players, 9 rated games, one compensated junior, one game against an unrated player, one floor exit, one newcomer, one re-entry and one refused re-entry, a_t = +0.9\n")
-players = {  # id: (R, sigma, theta~ for an eligible junior or None)
+P("## 10 Ledger identity (annex T6) on a synthetic month: 8 listed players, 9 rated games, one compensated junior, one game against an unrated player, one one-sided game under §8.2.4, one floor exit, one newcomer, one re-entry, one refused newcomer and one refused re-entry, a_t = +0.9\n")
+players = {  # id: (R, sigma, theta~ for an eligible junior or None); P8 received its first rating on list t
     "P1": (1900, 55, None), "P2": (1500, 100, 1850), "P3": (2050, 50, None), "P4": (1750, 70, None),
-    "P5": (2300, 45, None), "P6": (1600, 120, None), "P7": (1405, 60, None),
+    "P5": (2300, 45, None), "P6": (1600, 120, None), "P7": (1405, 60, None), "P8": (1580, 90, None),
 }
-games_m = [
-    ("P1", "P2", Decimal("0.5")), ("P3", "P1", Decimal(1)), ("P2", "P4", Decimal(1)), ("P5", "P3", Decimal("0.5")),
-    ("P4", "P6", Decimal(0)), ("P6", "P2", Decimal(0)), ("P5", "P1", Decimal(1)), ("P7", "P4", Decimal(0)),
-    ("P6", "P7", Decimal(1)), ("P3", "U", Decimal(1)),
+games_m = [  # (White, Black, White's score, kind); kind "both" | "unrated" (U) | "one-sided:<id>" (§8.2.4 [V 1])
+    ("P1", "P2", Decimal("0.5"), "both"), ("P3", "P1", Decimal(1), "both"), ("P2", "P4", Decimal(1), "both"),
+    ("P5", "P3", Decimal("0.5"), "both"), ("P4", "P6", Decimal(0), "both"), ("P6", "P2", Decimal(0), "both"),
+    ("P5", "P1", Decimal(1), "both"), ("P7", "P4", Decimal(0), "both"), ("P6", "P7", Decimal(1), "both"),
+    ("P3", "U", Decimal(1), "unrated"), ("P3", "P8", Decimal("0.5"), "one-sided:P8"),
 ]
 A_T = a_of(d_ex)
-SEED_N1 = 1650                      # newcomer: first published rating (L1 seed on the published scale)
+SEED_N1 = Decimal("1650.3")         # newcomer N1: theta~ (L1 estimate on the published scale)
+SEED_N2 = Decimal("1287.6")         # newcomer N2: theta~ below the floor
 REENTRY = {"Q1": Decimal("1452.4"), "Q2": Decimal("1381.2")}   # theta~ of two former floor exits who re-qualify
 
 
@@ -414,22 +416,41 @@ def RX(p: str) -> int:
     return R + int(comp(th, sg, R)) if th is not None else R
 
 
+def counts_for(pid: str, g: tuple) -> bool:
+    w, b, _, kind = g
+    if pid not in (w, b):
+        return False
+    if kind == "unrated":
+        return False
+    if kind.startswith("one-sided:"):
+        return kind.split(":")[1] == pid
+    return True
+
+
 K = {p: K_of(v[1]) for p, v in players.items()}
-rated = [g for g in games_m if "U" not in g[:2]]
-nn = {p: sum(1 for g in rated if p in g[:2]) for p in players}
+nn = {p: sum(1 for g in games_m if counts_for(p, g)) for p in players}
 Kc = {p: K_capped(K[p], nn[p]) for p in players}
 tot = {p: Decimal(0) for p in players}
-sumCK = sumCC = Decimal(0)
-P("| game | White | Black | S_W | band | x_W | E_W | x_B | E_B | dR_W | dR_B | created by unequal K | created by compensation |")
-P("|---|---|---|---|---|---|---|---|---|---|---|---|---|")
-for n_, (w, b, Sw) in enumerate(games_m, 1):
-    if "U" in (w, b):
-        P(f"| {n_} | {w} ({players[w][0]}) | U (unrated) | {Sw} | — | — | — | — | — | 0 (not rated) | — | 0 | 0 |")
+sumCK = sumCC = sum1 = Decimal(0)
+P("| game | White | Black | S_W | band | x_W | E_W | x_B | E_B | dR_W | dR_B | created by unequal K | created by compensation | one-sided |")
+P("|---|---|---|---|---|---|---|---|---|---|---|---|---|---|")
+for n_, (w, b, Sw, kind) in enumerate(games_m, 1):
+    if kind == "unrated":
+        P(f"| {n_} | {w} ({players[w][0]}) | U (unrated) | {Sw} | — | — | — | — | — | 0 (not rated) | — | 0 | 0 | 0 |")
         continue
     Rw, Rb = players[w][0], players[b][0]
     Lg = (Rw + Rb) / 2
     xw, xb, xw0 = Rw - RX(b) + 35, Rb - RX(w) - 35, Rw - Rb + 35
     Ew, Eb, Ew0 = E_table('standard', xw, Lg), E_table('standard', xb, Lg), E_table('standard', xw0, Lg)
+    if kind.startswith("one-sided:"):
+        side = kind.split(":")[1]
+        d1 = Kc[side] * ((Sw if side == w else 1 - Sw) - (Ew if side == w else Eb))
+        tot[side] += d1
+        sum1 += d1
+        dws = f"{d1:+.4f}" if side == w else "0 (counts the newly rated player as unrated)"
+        dbs = f"{d1:+.4f}" if side == b else "0 (counts the newly rated player as unrated)"
+        P(f"| {n_} | {w} ({Rw}) | {b} ({Rb}) | {Sw} | {band_label(Lg)} | {xw} | {Ew} | {xb} | {Eb} | {dws} | {dbs} | 0 | 0 | {d1:+.4f} |")
+        continue
     dw, db = Kc[w] * (Sw - Ew), Kc[b] * ((1 - Sw) - Eb)
     CK = (Kc[w] - Kc[b]) * (Sw - Ew0) + 0          # + 0 normalises a signed zero
     CC = Kc[w] * (Ew0 - Ew) + Kc[b] * ((1 - Ew0) - Eb) + 0
@@ -438,7 +459,7 @@ for n_, (w, b, Sw) in enumerate(games_m, 1):
     tot[b] += db
     sumCK += CK
     sumCC += CC
-    P(f"| {n_} | {w} ({Rw}) | {b} ({Rb}) | {Sw} | {band_label(Lg)} | {xw} | {Ew} | {xb} | {Eb} | {dw:+.4f} | {db:+.4f} | {CK:+.4f} | {CC:+.4f} |")
+    P(f"| {n_} | {w} ({Rw}) | {b} ({Rb}) | {Sw} | {band_label(Lg)} | {xw} | {Ew} | {xb} | {Eb} | {dw:+.4f} | {db:+.4f} | {CK:+.4f} | {CC:+.4f} | 0 |")
 P("")
 P("| player | R(t) | sigma | K_i | n | RX | sum of game terms | + a_t | rounded change | R(t+1) | rounding residual | status |")
 P("|---|---|---|---|---|---|---|---|---|---|---|---|")
@@ -455,26 +476,94 @@ for p in players:
         status = f"below 1400: shown as unrated (7.2.1 [V 1]); exit booked at R+ = {post}"
         exits += post
     else:
-        status = "listed"
+        status = "listed" if p != "P8" else "listed (first rated on list t; its late-rated game is one-sided, §8.2.4 [V 1])"
         list_t1 += post
     P(f"| {p} | {players[p][0]} | {players[p][1]} | {Kc[p]} | {nn[p]} | {RX(p)} | {tot[p]:+.4f} | {pre:+.4f} | {int(r):+d} | {post} | {r - pre:+.4f} | {status} |")
-entering = Decimal(SEED_N1)
-P(f"| N1 | — | — | 40.0 | — | — | — | — | — | {SEED_N1} | — | newcomer: first published rating (seed) |")
-for q, th in REENTRY.items():
+entering = Decimal(0)
+for q, th, what in (("N1", SEED_N1, "newcomer"), ("N2", SEED_N2, "newcomer"),
+                    ("Q1", REENTRY["Q1"], "former floor exit re-qualifies"), ("Q2", REENTRY["Q2"], "former floor exit re-qualifies")):
+    seed = min(round_fide(th), Decimal(2200))
     if round_fide(th) >= 1400:
-        entering += round_fide(th)
-        P(f"| {q} | — | — | — | — | — | — | — | — | {round_fide(th)} | — | former floor exit re-qualifies: theta~ = {th}, round = {round_fide(th)} >= 1400, re-published |")
+        entering += seed
+        P(f"| {q} | — | — | 40.0 | — | — | — | — | — | {seed} | — | {what}: theta~ = {th}, round = {round_fide(th)} >= 1400, published at {seed} |")
     else:
-        P(f"| {q} | — | — | — | — | — | — | — | — | — | — | former floor exit re-qualifies: theta~ = {th}, round = {round_fide(th)} < 1400, stays unrated (no ledger line) |")
+        P(f"| {q} | — | — | — | — | — | — | — | — | — | — | {what}: theta~ = {th}, round = {round_fide(th)} < 1400, not published (stays unrated; no ledger line) |")
 list_t1 += entering
 P("")
 lhs = list_t1 - list_t
-rhs = sumCK + sumCC + A_T * len(players) + sum_res + entering - exits
+rhs = sumCK + sumCC + sum1 + A_T * len(players) + sum_res + entering - exits
 P(f"Left side: list total after {list_t1} - before {list_t} = {lhs:+}.")
-P(f"Right side: unequal K {sumCK:+.4f} + compensation {sumCC:+.4f} + adjustments posted {A_T * len(players):+.1f} ({len(players)} x {A_T}) + rounding {sum_res:+.4f} "
-  f"+ entering {entering} (newcomer {SEED_N1} and re-entry {entering - SEED_N1}) - exits at post-update rating {exits} = {rhs:+.4f}.")
-P(f"Identity closes exactly: {lhs == rhs}. Booking the exit at R(t) = {players['P7'][0]} instead of R+ = {exits} would leave a residual of {players['P7'][0] - exits:+} points.\n")
+P(f"Right side: unequal K {sumCK:+.4f} + compensation {sumCC:+.4f} + one-sided (§8.2.4) {sum1:+.4f} + adjustments posted {A_T * len(players):+.1f} ({len(players)} x {A_T}) "
+  f"+ rounding {sum_res:+.4f} + entering {entering} - exits at post-update rating {exits} = {rhs:+.4f}.")
+P(f"Identity closes exactly: {lhs == rhs}. Without the one-sided line the residual would be {sum1:+.4f}; booking the exit at R(t) = {players['P7'][0]} instead of R+ = {exits} would leave {players['P7'][0] - exits:+} points.\n")
 assert lhs == rhs
+
+# 10b. Figures used by the v0.3 review fixes (REDTEAM_v0_3)
+P("## 10b Further figures for the review fixes\n")
+P(f"- Table entry at x = 500 in band 2300-2399 (midpoint 2350): {E_table('standard', 500, 2350)}; the function at L = 2300 gives {f3(E_exact('standard', 500, 2300))}.")
+for kk in ("17.0", "27.1"):
+    k = float(kk)
+    lo = math.sqrt((k - 0.05) / (Q - (k - 0.05) * Q * Q / 4))
+    hi = math.sqrt((k + 0.05) / (Q - (k + 0.05) * Q * Q / 4))
+    mid = math.sqrt(k / (Q - k * Q * Q / 4))
+    P(f"- K_i = {kk} published to one decimal implies sigma_i between {lo:.2f} and {hi:.2f}; a compensated junior with K_j = {kk} and 0 < c_j < 300 then has theta~_j = RX_j + 25 + 1.2816 x {mid:.2f} = RX_j + {25 + 1.2816 * mid:.1f} (to within the rounding of c_j).")
+sig_ret = math.sqrt(55 ** 2 + 36 * 12 ** 2)
+P(f"- A player at sigma 55 who is inactive for 36 months with a process SD of 12 points a month (T7.2, illustrative) returns at sigma = sqrt(55^2 + 36 x 12^2) = {sig_ret:.1f}, K = {K_of(sig_ret)}.")
+
+
+def steady_k(games: int, level: float, sig_theta: float = 12.0) -> tuple[float, Decimal]:
+    """Steady-state posterior SD after a month of `games` games at x = 0 (Davidson information), process SD sig_theta."""
+    nu = nu0('standard', level)
+    h = 1e-3
+    slope = (E_exact('standard', h, level) - E_exact('standard', -h, level)) / (2 * h) / Q     # dE/dz at 0
+    pw, pd, pl = probs('standard', 0.0, level)
+    var_s = pw * 0.25 + pl * 0.25                         # score variance at x = 0
+    info = (Q * slope) ** 2 / var_s if var_s > 0 else 0.0  # Fisher information per game about the gap, per point^2
+    v = 100.0 ** 2
+    for _ in range(2000):
+        v = 1.0 / (1.0 / (v + sig_theta ** 2) + games * info)
+    return math.sqrt(v), K_of(math.sqrt(v))
+
+
+P("- Steady-state K from activity (process SD 12 points a month, T7.2 illustrative; Davidson information at equal strength; one month's games before each list):")
+P("")
+P("| standard games a month | " + " | ".join(str(g) for g in (1, 2, 3, 4, 5, 8)) + " |")
+P("|---|" + "---|" * 6)
+for lvl in (1700, 2300, 2700):
+    cells = []
+    for g in (1, 2, 3, 4, 5, 8):
+        s, k = steady_k(g, lvl)
+        cells.append(f"sigma {s:.1f}, K {k}")
+    P(f"| level {lvl} | " + " | ".join(cells) + " |")
+P("")
+
+
+def inverse_gap(pval: float, level: float) -> int:
+    """Smallest whole-number gap x >= 0 at which the PROVISIONAL table (band midpoint `level`) reaches pval."""
+    x = 0
+    while E_exact('standard', x, level) < pval and x < 2000:
+        x += 1
+    return x
+
+
+P("- Table 8.1.1 against the PROVISIONAL rung-2 table (rung 2 alone keeps 8.1.1 for initial ratings, §8.2.3 [V 1]): the gap at which the table reaches a score p, at three band midpoints:")
+P("")
+P("| p | 8.1.1 dp [V 1] | band midpoint 1650 | 2050 | 2450 |")
+P("|---|---|---|---|---|")
+for pval, dp in ((0.75, 193), (0.92, 401)):
+    P(f"| {pval} | {dp} | " + " | ".join(str(inverse_gap(pval, m)) for m in (1650, 2050, 2450)) + " |")
+P("")
+for cc in (100, 300):
+    Lg = 1550
+    x1 = -cc + 0                                         # two eligible juniors at equal published ratings, each compensated by cc
+    e_w = E_table('standard', 0 - cc + 35, Lg)          # White's expectation against the opponent's RX
+    e_b = E_table('standard', 0 - cc - 35, Lg)
+    created = Decimal(40) * (1 - e_w - e_b)
+    P(f"- Two eligible juniors at equal published ratings (band 1500-1599), each with c = {cc}, K = 40: expectations {e_w} (White) and {e_b} (Black), sum {e_w + e_b}; points created per game {created:+.1f}, whatever the result.")
+for R in (1400, 1500, 1600):
+    P(f"- With a table slope kappa = 5/6 and an anchor mean of 2041.3 (T7.2, illustrative), a correctly rated player at R = {R} shows theta~ - R = (1 - kappa)(m_t - R) = {(1 - 5 / 6) * (2041.3 - R):+.0f} points that are spread, not under-rating.")
+P(f"- Accrual against activity at a_t = +1.3 a month: a player active under §7.2.2 with one game a year accrues {12 * 1.3:.1f} points a year; the drift it offsets, about 16 points a year for the median active player [R 5], is about {16 / 30:.2f} a game at T9.1's median of 30 games a year.")
+P("")
 
 # 11. Layer 0 test vector
 P("## 11 Today's initial rating for the Appendix E.2 case of v0.1 (a Layer 0 test vector)\n")

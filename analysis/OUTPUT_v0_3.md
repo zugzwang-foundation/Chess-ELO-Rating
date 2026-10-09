@@ -185,20 +185,21 @@ Steady state: a_t equals the drift and the gap settles near d_0 + drift / gamma_
 
 Bound on a published change (P2): |period change| <= round(700 + 12 x a_cap) = 718 with a full year of carried balance; round(700 + a_cap) = 702 in a month without one; today's bound is 700 [V 1].
 
-## 10 Ledger identity (annex T6) on a synthetic month: 7 listed players, 9 rated games, one compensated junior, one game against an unrated player, one floor exit, one newcomer, one re-entry and one refused re-entry, a_t = +0.9
+## 10 Ledger identity (annex T6) on a synthetic month: 8 listed players, 9 rated games, one compensated junior, one game against an unrated player, one one-sided game under §8.2.4, one floor exit, one newcomer, one re-entry, one refused newcomer and one refused re-entry, a_t = +0.9
 
-| game | White | Black | S_W | band | x_W | E_W | x_B | E_B | dR_W | dR_B | created by unequal K | created by compensation |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | P1 (1900) | P2 (1500) | 0.5 | 1700-1799 | 238 | 0.774 | -435 | 0.089 | -4.6580 | +16.4400 | +9.4530 | +2.3290 |
-| 2 | P3 (2050) | P1 (1900) | 1 | 1900-1999 | 185 | 0.713 | -185 | 0.287 | +4.0467 | -4.8790 | -0.8323 | +0.0000 |
-| 3 | P2 (1500) | P4 (1750) | 1 | 1600-1699 | -215 | 0.246 | 18 | 0.522 | +30.1600 | -14.1462 | +9.7266 | +6.2872 |
-| 4 | P5 (2300) | P3 (2050) | 0.5 | 2100-2199 | 285 | 0.801 | -285 | 0.199 | -3.4615 | +4.2441 | +0.7826 | +0.0000 |
-| 5 | P4 (1750) | P6 (1600) | 0 | 1600-1699 | 185 | 0.722 | -185 | 0.278 | -19.5662 | +28.8800 | +9.3138 | +0.0000 |
-| 6 | P6 (1600) | P2 (1500) | 0 | 1500-1599 | -62 | 0.422 | -135 | 0.332 | -16.8800 | +26.7200 | +0.0000 | +9.8400 |
-| 7 | P5 (2300) | P1 (1900) | 1 | 2100-2199 | 435 | 0.902 | -435 | 0.098 | +1.1270 | -1.6660 | -0.5390 | +0.0000 |
-| 8 | P7 (1405) | P4 (1750) | 0 | 1500-1599 | -310 | 0.160 | 310 | 0.840 | -3.2160 | +4.3360 | +1.1200 | +0.0000 |
-| 9 | P6 (1600) | P7 (1405) | 1 | 1500-1599 | 230 | 0.771 | -230 | 0.229 | +9.1600 | -4.6029 | +4.5571 | +0.0000 |
-| 10 | P3 (2050) | U (unrated) | 1 | — | — | — | — | — | 0 (not rated) | — | 0 | 0 |
+| game | White | Black | S_W | band | x_W | E_W | x_B | E_B | dR_W | dR_B | created by unequal K | created by compensation | one-sided |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | P1 (1900) | P2 (1500) | 0.5 | 1700-1799 | 238 | 0.774 | -435 | 0.089 | -4.6580 | +16.4400 | +9.4530 | +2.3290 | 0 |
+| 2 | P3 (2050) | P1 (1900) | 1 | 1900-1999 | 185 | 0.713 | -185 | 0.287 | +4.0467 | -4.8790 | -0.8323 | +0.0000 | 0 |
+| 3 | P2 (1500) | P4 (1750) | 1 | 1600-1699 | -215 | 0.246 | 18 | 0.522 | +30.1600 | -14.1462 | +9.7266 | +6.2872 | 0 |
+| 4 | P5 (2300) | P3 (2050) | 0.5 | 2100-2199 | 285 | 0.801 | -285 | 0.199 | -3.4615 | +4.2441 | +0.7826 | +0.0000 | 0 |
+| 5 | P4 (1750) | P6 (1600) | 0 | 1600-1699 | 185 | 0.722 | -185 | 0.278 | -19.5662 | +28.8800 | +9.3138 | +0.0000 | 0 |
+| 6 | P6 (1600) | P2 (1500) | 0 | 1500-1599 | -62 | 0.422 | -135 | 0.332 | -16.8800 | +26.7200 | +0.0000 | +9.8400 | 0 |
+| 7 | P5 (2300) | P1 (1900) | 1 | 2100-2199 | 435 | 0.902 | -435 | 0.098 | +1.1270 | -1.6660 | -0.5390 | +0.0000 | 0 |
+| 8 | P7 (1405) | P4 (1750) | 0 | 1500-1599 | -310 | 0.160 | 310 | 0.840 | -3.2160 | +4.3360 | +1.1200 | +0.0000 | 0 |
+| 9 | P6 (1600) | P7 (1405) | 1 | 1500-1599 | 230 | 0.771 | -230 | 0.229 | +9.1600 | -4.6029 | +4.5571 | +0.0000 | 0 |
+| 10 | P3 (2050) | U (unrated) | 1 | — | — | — | — | — | 0 (not rated) | — | 0 | 0 | 0 |
+| 11 | P3 (2050) | P8 (1580) | 0.5 | 1800-1899 | 505 | 0.937 | -505 | 0.063 | 0 (counts the newly rated player as unrated) | +17.4800 | 0 | 0 | +17.4800 |
 
 | player | R(t) | sigma | K_i | n | RX | sum of game terms | + a_t | rounded change | R(t+1) | rounding residual | status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -209,13 +210,43 @@ Bound on a published change (P2): |period change| <= round(700 + 12 x a_cap) = 7
 | P5 | 2300 | 45 | 11.5 | 2 | 2300 | -2.3345 | -1.4345 | -1 | 2299 | +0.4345 | listed |
 | P6 | 1600 | 120 | 40.0 | 3 | 1600 | +21.1600 | +22.0600 | +22 | 1622 | -0.0600 | listed |
 | P7 | 1405 | 60 | 20.1 | 2 | 1405 | -7.8189 | -6.9189 | -7 | 1398 | -0.0811 | below 1400: shown as unrated (7.2.1 [V 1]); exit booked at R+ = 1398 |
-| N1 | — | — | 40.0 | — | — | — | — | — | 1650 | — | newcomer: first published rating (seed) |
-| Q1 | — | — | — | — | — | — | — | — | 1452 | — | former floor exit re-qualifies: theta~ = 1452.4, round = 1452 >= 1400, re-published |
-| Q2 | — | — | — | — | — | — | — | — | — | — | former floor exit re-qualifies: theta~ = 1381.2, round = 1381 < 1400, stays unrated (no ledger line) |
+| P8 | 1580 | 90 | 40.0 | 1 | 1580 | +17.4800 | +18.3800 | +18 | 1598 | -0.3800 | listed (first rated on list t; its late-rated game is one-sided, §8.2.4 [V 1]) |
+| N1 | — | — | 40.0 | — | — | — | — | — | 1650 | — | newcomer: theta~ = 1650.3, round = 1650 >= 1400, published at 1650 |
+| N2 | — | — | — | — | — | — | — | — | — | — | newcomer: theta~ = 1287.6, round = 1288 < 1400, not published (stays unrated; no ledger line) |
+| Q1 | — | — | 40.0 | — | — | — | — | — | 1452 | — | former floor exit re-qualifies: theta~ = 1452.4, round = 1452 >= 1400, published at 1452 |
+| Q2 | — | — | — | — | — | — | — | — | — | — | former floor exit re-qualifies: theta~ = 1381.2, round = 1381 < 1400, not published (stays unrated; no ledger line) |
 
-Left side: list total after 14268 - before 12505 = +1763.
-Right side: unequal K +33.5818 + compensation +18.4562 + adjustments posted +6.3 (7 x 0.9) + rounding +0.6620 + entering 3102 (newcomer 1650 and re-entry 1452) - exits at post-update rating 1398 = +1763.0000.
-Identity closes exactly: True. Booking the exit at R(t) = 1405 instead of R+ = 1398 would leave a residual of +7 points.
+Left side: list total after 15866 - before 14085 = +1781.
+Right side: unequal K +33.5818 + compensation +18.4562 + one-sided (§8.2.4) +17.4800 + adjustments posted +7.2 (8 x 0.9) + rounding +0.2820 + entering 3102 - exits at post-update rating 1398 = +1781.0000.
+Identity closes exactly: True. Without the one-sided line the residual would be +17.4800; booking the exit at R(t) = 1405 instead of R+ = 1398 would leave +7 points.
+
+## 10b Further figures for the review fixes
+
+- Table entry at x = 500 in band 2300-2399 (midpoint 2350): 0.925; the function at L = 2300 gives 0.926.
+- K_i = 17.0 published to one decimal implies sigma_i between 54.94 and 55.10; a compensated junior with K_j = 17.0 and 0 < c_j < 300 then has theta~_j = RX_j + 25 + 1.2816 x 55.02 = RX_j + 95.5 (to within the rounding of c_j).
+- K_i = 27.1 published to one decimal implies sigma_i between 69.92 and 70.06; a compensated junior with K_j = 27.1 and 0 < c_j < 300 then has theta~_j = RX_j + 25 + 1.2816 x 69.99 = RX_j + 114.7 (to within the rounding of c_j).
+- A player at sigma 55 who is inactive for 36 months with a process SD of 12 points a month (T7.2, illustrative) returns at sigma = sqrt(55^2 + 36 x 12^2) = 90.6, K = 40.0.
+- Steady-state K from activity (process SD 12 points a month, T7.2 illustrative; Davidson information at equal strength; one month's games before each list):
+
+| standard games a month | 1 | 2 | 3 | 4 | 5 | 8 |
+|---|---|---|---|---|---|---|
+| level 1700 | sigma 67.1, K 25.0 | sigma 56.2, K 17.7 | sigma 50.7, K 14.5 | sigma 47.0, K 12.5 | sigma 44.4, K 11.2 | sigma 39.3, K 10.0 |
+| level 2300 | sigma 70.4, K 27.4 | sigma 59.1, K 19.5 | sigma 53.2, K 15.9 | sigma 49.5, K 13.8 | sigma 46.7, K 12.3 | sigma 41.3, K 10.0 |
+| level 2700 | sigma 74.2, K 30.3 | sigma 62.3, K 21.6 | sigma 56.2, K 17.7 | sigma 52.2, K 15.3 | sigma 49.3, K 13.7 | sigma 43.6, K 10.8 |
+
+- Table 8.1.1 against the PROVISIONAL rung-2 table (rung 2 alone keeps 8.1.1 for initial ratings, §8.2.3 [V 1]): the gap at which the table reaches a score p, at three band midpoints:
+
+| p | 8.1.1 dp [V 1] | band midpoint 1650 | 2050 | 2450 |
+|---|---|---|---|---|
+| 0.75 | 193 | 212 | 225 | 247 |
+| 0.92 | 401 | 452 | 470 | 497 |
+
+- Two eligible juniors at equal published ratings (band 1500-1599), each with c = 100, K = 40: expectations 0.418 (White) and 0.332 (Black), sum 0.750; points created per game +10.0, whatever the result.
+- Two eligible juniors at equal published ratings (band 1500-1599), each with c = 300, K = 40: expectations 0.196 (White) and 0.142 (Black), sum 0.338; points created per game +26.5, whatever the result.
+- With a table slope kappa = 5/6 and an anchor mean of 2041.3 (T7.2, illustrative), a correctly rated player at R = 1400 shows theta~ - R = (1 - kappa)(m_t - R) = +107 points that are spread, not under-rating.
+- With a table slope kappa = 5/6 and an anchor mean of 2041.3 (T7.2, illustrative), a correctly rated player at R = 1500 shows theta~ - R = (1 - kappa)(m_t - R) = +90 points that are spread, not under-rating.
+- With a table slope kappa = 5/6 and an anchor mean of 2041.3 (T7.2, illustrative), a correctly rated player at R = 1600 shows theta~ - R = (1 - kappa)(m_t - R) = +74 points that are spread, not under-rating.
+- Accrual against activity at a_t = +1.3 a month: a player active under §7.2.2 with one game a year accrues 15.6 points a year; the drift it offsets, about 16 points a year for the median active player [R 5], is about 0.53 a game at T9.1's median of 30 games a year.
 
 ## 11 Today's initial rating for the Appendix E.2 case of v0.1 (a Layer 0 test vector)
 
