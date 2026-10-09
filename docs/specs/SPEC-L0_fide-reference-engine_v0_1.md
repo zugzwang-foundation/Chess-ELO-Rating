@@ -4,7 +4,7 @@
 Author: The Zugzwang Authors · Licence: CC BY 4.0 (`docs/LICENSE-docs.md`) · Date: 2026-10-09
 Language: Python 3.12 (decision D-0001). Tooling: TODO (see §10).
 
-Citations: `[V k]` = item k of `docs/research/VERIFICATION_2026-10-09.md` (the Phase 1 transcription of the FIDE regulations); `[P §x]` = section x of `docs/proposal/ELO-PROPOSAL_v0_1.md`. Every rule below is enumerated from the transcription; where the transcription is silent the rule is marked TODO and must be settled by a test vector, never from memory.
+Citations: `[V k]` = item k of `docs/research/VERIFICATION_2026-10-09.md` (the Phase 1 transcription of the FIDE regulations); `[P §x]` = section x of the proposal (written against v0.1, kept in git history; the current version is `docs/proposal/ELO-PROPOSAL_v0_2.md`, whose §4 and §8 cover the same ground). Every rule below is enumerated from the transcription; where the transcription is silent the rule is marked TODO and must be settled by a test vector, never from memory.
 
 ## 1 Purpose
 
@@ -69,7 +69,7 @@ For each unrated player: the pooled results against rated opponents over consecu
 - R-27 Publish a rating only when based on at least 5 games against rated opponents, pooled over consecutive rating periods of not more than 26 months; the rating must be at least 1400.
 - R-28 A zero score in the player's first event is disregarded (§8.2.1).
 - R-29 Ra = average rating of the rated opponents plus two hypothetical opponents rated 1800, scored as draws (§8.2.2): Ra = (Σ opponent ratings + 3600) / (n + 2); p = (score + 1) / (n + 2).
-- R-30 Ru = Ra + dp with dp from table 8.1.1 (§8.2.3); maximum initial rating 2200; Ru rounded (R-26). TODO: rounding of p to two decimals before the lookup (the table is indexed by two-decimal p; the rule for p values between entries is not stated; settle by test vector, see [P Appendix E.2]).
+- R-30 Ru = Ra + dp with dp from table 8.1.1 (§8.2.3); maximum initial rating 2200; Ru rounded (R-26). TODO: rounding of p to two decimals before the lookup (the table is indexed by two-decimal p; the rule for p values between entries is not stated; settle by test vector; the v0.1 Appendix E.2 case is reproduced in `analysis/OUTPUT_v0_2.md` §9).
 - R-31 Rapid/blitz: an unrated player who has a standard rating at the start of a rapid or blitz tournament uses that standard rating and is treated as rated; R-27 to R-30 do not apply to them (§7.2.1 [V 2]).
 
 ### 3.7 Floor and inactivity, §7.2 [V 1] (identical in §6.2 [V 2])
