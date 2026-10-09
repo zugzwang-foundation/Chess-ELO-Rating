@@ -8,6 +8,8 @@ These scripts are **not the rating engine**: the engine is the package `src/laye
 | `OUTPUT_v0_3.md` | The script's output, committed so that the documents can be diffed against it |
 | `l0_fixtures_report.py` | Recomputes every fixture in `tests/fixtures/fide_calculator/` (FIDE's online calculator and published calculations) from tables 8.1.1, 8.1.2 and 1.4.9 as transcribed, under each reading SPEC-L0 names, and checks every derived value stored in the fixtures |
 | `OUTPUT_L0_fixtures.md` | Its output, cited by SPEC-L0 |
+| `l0_rounding_report.py` | SPEC-L0 §8 Q-1 (D-0008, R10): for every multi-event period of FIDE's published calculations (`tests/fixtures/fide_calculator/`), the change rounded once and per tournament against the published list, with base corrections identified |
+| `OUTPUT_L0_rounding.md` | Its output |
 | `l0_k_rules_extract.py` | Needs `data/`: scores orders of the K rules (SPEC-L0 R-18 to R-22) against the K FIDE published on every standard list, February 2015 to October 2026; prints counts only |
 | `aggregates/L0_k_rules.json` | Its output: counts only, no player data |
 | `l0_k_rules_report.py` | Turns the K aggregates into the tables SPEC-L0 cites |
