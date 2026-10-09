@@ -1,0 +1,612 @@
+{
+ "event": {
+  "name": "2026 U.S. Chess Championship",
+  "start": "2026-10-09",
+  "end": "2026-10-21",
+  "chapter": "standard",
+  "rating_period": "2026-11",
+  "list_in_force": "2026-10",
+  "source": "Saint Louis Chess Club, official event page https://saintlouischessclub.org/event/2026-us-chess-championships/, read 2026-10-09 at about 19:53 UTC through a web reader (a direct download was refused with HTTP 403): dates Oct 7-23, 2026; rounds 1-4 Oct 9-12, rest day Oct 13, rounds 5-8 Oct 14-17, rest day Oct 18, rounds 9-11 Oct 19-21, playoff if necessary Oct 22; the field and the pairings of all 11 rounds. FIDE IDs, ratings and K from FIDE's October 2026 standard list (federation USA).",
+  "results_source": "Saint Louis Chess Club official event page; each result with the UTC time it was read is listed under results_read"
+ },
+ "players": [
+  {
+   "fide_id": 2004887,
+   "rating": 2646,
+   "k": 10
+  },
+  {
+   "fide_id": 2020009,
+   "rating": 2784,
+   "k": 10
+  },
+  {
+   "fide_id": 2023970,
+   "rating": 2659,
+   "k": 10
+  },
+  {
+   "fide_id": 2040506,
+   "rating": 2708,
+   "k": 10
+  },
+  {
+   "fide_id": 2047640,
+   "rating": 2656,
+   "k": 10
+  },
+  {
+   "fide_id": 2056437,
+   "rating": 2685,
+   "k": 10
+  },
+  {
+   "fide_id": 2093596,
+   "rating": 2717,
+   "k": 10
+  },
+  {
+   "fide_id": 5202213,
+   "rating": 2770,
+   "k": 10
+  },
+  {
+   "fide_id": 13300474,
+   "rating": 2725,
+   "k": 10
+  },
+  {
+   "fide_id": 24125890,
+   "rating": 2638,
+   "k": 10
+  },
+  {
+   "fide_id": 30920019,
+   "rating": 2636,
+   "k": 10
+  },
+  {
+   "fide_id": 30953499,
+   "rating": 2619,
+   "k": 10
+  }
+ ],
+ "games": [
+  {
+   "round": 1,
+   "board": 1,
+   "date": "2026-10-09",
+   "white": 13300474,
+   "black": 2020009,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 1,
+   "board": 2,
+   "date": "2026-10-09",
+   "white": 30920019,
+   "black": 2023970,
+   "result": null
+  },
+  {
+   "round": 1,
+   "board": 3,
+   "date": "2026-10-09",
+   "white": 5202213,
+   "black": 2004887,
+   "result": null
+  },
+  {
+   "round": 1,
+   "board": 4,
+   "date": "2026-10-09",
+   "white": 2047640,
+   "black": 2040506,
+   "result": null
+  },
+  {
+   "round": 1,
+   "board": 5,
+   "date": "2026-10-09",
+   "white": 2056437,
+   "black": 2093596,
+   "result": null
+  },
+  {
+   "round": 1,
+   "board": 6,
+   "date": "2026-10-09",
+   "white": 24125890,
+   "black": 30953499,
+   "result": null
+  },
+  {
+   "round": 2,
+   "board": 1,
+   "date": "2026-10-10",
+   "white": 2004887,
+   "black": 2023970,
+   "result": null
+  },
+  {
+   "round": 2,
+   "board": 2,
+   "date": "2026-10-10",
+   "white": 2020009,
+   "black": 24125890,
+   "result": null
+  },
+  {
+   "round": 2,
+   "board": 3,
+   "date": "2026-10-10",
+   "white": 2040506,
+   "black": 2056437,
+   "result": null
+  },
+  {
+   "round": 2,
+   "board": 4,
+   "date": "2026-10-10",
+   "white": 2093596,
+   "black": 13300474,
+   "result": null
+  },
+  {
+   "round": 2,
+   "board": 5,
+   "date": "2026-10-10",
+   "white": 30953499,
+   "black": 30920019,
+   "result": null
+  },
+  {
+   "round": 2,
+   "board": 6,
+   "date": "2026-10-10",
+   "white": 5202213,
+   "black": 2047640,
+   "result": null
+  },
+  {
+   "round": 3,
+   "board": 1,
+   "date": "2026-10-11",
+   "white": 30920019,
+   "black": 2020009,
+   "result": null
+  },
+  {
+   "round": 3,
+   "board": 2,
+   "date": "2026-10-11",
+   "white": 2056437,
+   "black": 5202213,
+   "result": null
+  },
+  {
+   "round": 3,
+   "board": 3,
+   "date": "2026-10-11",
+   "white": 24125890,
+   "black": 2093596,
+   "result": null
+  },
+  {
+   "round": 3,
+   "board": 4,
+   "date": "2026-10-11",
+   "white": 2023970,
+   "black": 30953499,
+   "result": null
+  },
+  {
+   "round": 3,
+   "board": 5,
+   "date": "2026-10-11",
+   "white": 2047640,
+   "black": 2004887,
+   "result": null
+  },
+  {
+   "round": 3,
+   "board": 6,
+   "date": "2026-10-11",
+   "white": 13300474,
+   "black": 2040506,
+   "result": null
+  },
+  {
+   "round": 4,
+   "board": 1,
+   "date": "2026-10-12",
+   "white": 2047640,
+   "black": 2056437,
+   "result": null
+  },
+  {
+   "round": 4,
+   "board": 2,
+   "date": "2026-10-12",
+   "white": 2004887,
+   "black": 30953499,
+   "result": null
+  },
+  {
+   "round": 4,
+   "board": 3,
+   "date": "2026-10-12",
+   "white": 5202213,
+   "black": 13300474,
+   "result": null
+  },
+  {
+   "round": 4,
+   "board": 4,
+   "date": "2026-10-12",
+   "white": 2040506,
+   "black": 24125890,
+   "result": null
+  },
+  {
+   "round": 4,
+   "board": 5,
+   "date": "2026-10-12",
+   "white": 2093596,
+   "black": 30920019,
+   "result": null
+  },
+  {
+   "round": 4,
+   "board": 6,
+   "date": "2026-10-12",
+   "white": 2020009,
+   "black": 2023970,
+   "result": null
+  },
+  {
+   "round": 5,
+   "board": 1,
+   "date": "2026-10-14",
+   "white": 2023970,
+   "black": 2093596,
+   "result": null
+  },
+  {
+   "round": 5,
+   "board": 2,
+   "date": "2026-10-14",
+   "white": 13300474,
+   "black": 2047640,
+   "result": null
+  },
+  {
+   "round": 5,
+   "board": 3,
+   "date": "2026-10-14",
+   "white": 30953499,
+   "black": 2020009,
+   "result": null
+  },
+  {
+   "round": 5,
+   "board": 4,
+   "date": "2026-10-14",
+   "white": 2056437,
+   "black": 2004887,
+   "result": null
+  },
+  {
+   "round": 5,
+   "board": 5,
+   "date": "2026-10-14",
+   "white": 24125890,
+   "black": 5202213,
+   "result": null
+  },
+  {
+   "round": 5,
+   "board": 6,
+   "date": "2026-10-14",
+   "white": 30920019,
+   "black": 2040506,
+   "result": null
+  },
+  {
+   "round": 6,
+   "board": 1,
+   "date": "2026-10-15",
+   "white": 2047640,
+   "black": 24125890,
+   "result": null
+  },
+  {
+   "round": 6,
+   "board": 2,
+   "date": "2026-10-15",
+   "white": 2004887,
+   "black": 2020009,
+   "result": null
+  },
+  {
+   "round": 6,
+   "board": 3,
+   "date": "2026-10-15",
+   "white": 2040506,
+   "black": 2023970,
+   "result": null
+  },
+  {
+   "round": 6,
+   "board": 4,
+   "date": "2026-10-15",
+   "white": 5202213,
+   "black": 30920019,
+   "result": null
+  },
+  {
+   "round": 6,
+   "board": 5,
+   "date": "2026-10-15",
+   "white": 2056437,
+   "black": 13300474,
+   "result": null
+  },
+  {
+   "round": 6,
+   "board": 6,
+   "date": "2026-10-15",
+   "white": 2093596,
+   "black": 30953499,
+   "result": null
+  },
+  {
+   "round": 7,
+   "board": 1,
+   "date": "2026-10-16",
+   "white": 30953499,
+   "black": 2040506,
+   "result": null
+  },
+  {
+   "round": 7,
+   "board": 2,
+   "date": "2026-10-16",
+   "white": 24125890,
+   "black": 2056437,
+   "result": null
+  },
+  {
+   "round": 7,
+   "board": 3,
+   "date": "2026-10-16",
+   "white": 30920019,
+   "black": 2047640,
+   "result": null
+  },
+  {
+   "round": 7,
+   "board": 4,
+   "date": "2026-10-16",
+   "white": 2020009,
+   "black": 2093596,
+   "result": null
+  },
+  {
+   "round": 7,
+   "board": 5,
+   "date": "2026-10-16",
+   "white": 2023970,
+   "black": 5202213,
+   "result": null
+  },
+  {
+   "round": 7,
+   "board": 6,
+   "date": "2026-10-16",
+   "white": 13300474,
+   "black": 2004887,
+   "result": null
+  },
+  {
+   "round": 8,
+   "board": 1,
+   "date": "2026-10-17",
+   "white": 2004887,
+   "black": 2093596,
+   "result": null
+  },
+  {
+   "round": 8,
+   "board": 2,
+   "date": "2026-10-17",
+   "white": 5202213,
+   "black": 30953499,
+   "result": null
+  },
+  {
+   "round": 8,
+   "board": 3,
+   "date": "2026-10-17",
+   "white": 13300474,
+   "black": 24125890,
+   "result": null
+  },
+  {
+   "round": 8,
+   "board": 4,
+   "date": "2026-10-17",
+   "white": 2047640,
+   "black": 2023970,
+   "result": null
+  },
+  {
+   "round": 8,
+   "board": 5,
+   "date": "2026-10-17",
+   "white": 2040506,
+   "black": 2020009,
+   "result": null
+  },
+  {
+   "round": 8,
+   "board": 6,
+   "date": "2026-10-17",
+   "white": 2056437,
+   "black": 30920019,
+   "result": null
+  },
+  {
+   "round": 9,
+   "board": 1,
+   "date": "2026-10-19",
+   "white": 30920019,
+   "black": 13300474,
+   "result": null
+  },
+  {
+   "round": 9,
+   "board": 2,
+   "date": "2026-10-19",
+   "white": 2093596,
+   "black": 2040506,
+   "result": null
+  },
+  {
+   "round": 9,
+   "board": 3,
+   "date": "2026-10-19",
+   "white": 2023970,
+   "black": 2056437,
+   "result": null
+  },
+  {
+   "round": 9,
+   "board": 4,
+   "date": "2026-10-19",
+   "white": 2020009,
+   "black": 5202213,
+   "result": null
+  },
+  {
+   "round": 9,
+   "board": 5,
+   "date": "2026-10-19",
+   "white": 30953499,
+   "black": 2047640,
+   "result": null
+  },
+  {
+   "round": 9,
+   "board": 6,
+   "date": "2026-10-19",
+   "white": 24125890,
+   "black": 2004887,
+   "result": null
+  },
+  {
+   "round": 10,
+   "board": 1,
+   "date": "2026-10-20",
+   "white": 2056437,
+   "black": 30953499,
+   "result": null
+  },
+  {
+   "round": 10,
+   "board": 2,
+   "date": "2026-10-20",
+   "white": 13300474,
+   "black": 2023970,
+   "result": null
+  },
+  {
+   "round": 10,
+   "board": 3,
+   "date": "2026-10-20",
+   "white": 2047640,
+   "black": 2020009,
+   "result": null
+  },
+  {
+   "round": 10,
+   "board": 4,
+   "date": "2026-10-20",
+   "white": 24125890,
+   "black": 30920019,
+   "result": null
+  },
+  {
+   "round": 10,
+   "board": 5,
+   "date": "2026-10-20",
+   "white": 2004887,
+   "black": 2040506,
+   "result": null
+  },
+  {
+   "round": 10,
+   "board": 6,
+   "date": "2026-10-20",
+   "white": 5202213,
+   "black": 2093596,
+   "result": null
+  },
+  {
+   "round": 11,
+   "board": 1,
+   "date": "2026-10-21",
+   "white": 2040506,
+   "black": 5202213,
+   "result": null
+  },
+  {
+   "round": 11,
+   "board": 2,
+   "date": "2026-10-21",
+   "white": 2093596,
+   "black": 2047640,
+   "result": null
+  },
+  {
+   "round": 11,
+   "board": 3,
+   "date": "2026-10-21",
+   "white": 30920019,
+   "black": 2004887,
+   "result": null
+  },
+  {
+   "round": 11,
+   "board": 4,
+   "date": "2026-10-21",
+   "white": 30953499,
+   "black": 13300474,
+   "result": null
+  },
+  {
+   "round": 11,
+   "board": 5,
+   "date": "2026-10-21",
+   "white": 2023970,
+   "black": 24125890,
+   "result": null
+  },
+  {
+   "round": 11,
+   "board": 6,
+   "date": "2026-10-21",
+   "white": 2020009,
+   "black": 2056437,
+   "result": null
+  }
+ ],
+ "results_read": [
+  {
+   "round": 1,
+   "board": 1,
+   "result": "1/2-1/2",
+   "read_utc": "2026-10-09T19:53Z"
+  }
+ ]
+}

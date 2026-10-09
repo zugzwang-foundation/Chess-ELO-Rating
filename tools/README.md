@@ -15,6 +15,22 @@ The workflow `.github/workflows/check.yml` runs on every pull request to `main`;
 
 Python standard library only (pytest for (b)). Python 3.12 in CI.
 
+## compare_event.py — one event under FIDE's rules and under rung 2
+
+`tools/compare_event.py` (`docs/specs/SPEC-COMPARE_v1_0.md`) reads an event file from `tools/events/` and prints, per player, the rating change under (a) FIDE today, computed by the Layer-0 engine, and (b) rung 2, the fitted table of `params/table_fit_2026-10.yaml` with the same K. `--csv FILE` also writes a CSV; `--rung4` and `--rung5` accept only `off` until Layer 1 exists. `tools/set_results.py` records a round's results in an event file.
+
+| Event file | Event |
+|---|---|
+| `tools/events/us_championship_2025.json` | 2025 U.S. Championship (the check: column (a) equals FIDE's calculation) |
+| `tools/events/us_championship_2026.json` | 2026 U.S. Championship, 9–21 October 2026 |
+| `tools/events/us_womens_championship_2026.json` | 2026 U.S. Women's Championship, 9–21 October 2026 |
+
+**Rerun after each round.** Read the round's results from the official page (https://saintlouischessclub.org/event/2026-us-chess-championships/), then run one command, with the results in board order (`1-0`, `1/2-1/2`, `0-1`, or `-` for a game not finished); use `tools/events/us_womens_championship_2026.json` for the women's boards:
+
+```
+python3 tools/set_results.py tools/events/us_championship_2026.json ROUND R1 R2 R3 R4 R5 R6 && python3 analysis/e3_us_championships.py > docs/evidence/E3_us-championship-2026.md
+```
+
 ## data/ — downloads and conversions
 
 Raw and converted data live under `data/` at the repository root, which is never committed (`.gitignore`): FIDE's lists carry no data licence and are analysed, never redistributed [V 3]. Only aggregates computed from them are committed, under `analysis/aggregates/`.
