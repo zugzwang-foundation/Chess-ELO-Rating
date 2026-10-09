@@ -35,12 +35,6 @@ The automated check (`.github/workflows/check.yml`) runs on every pull request; 
 executor merges (squash) only when it is green, and on a red check fixes and pushes
 again. The architect reviews the close-outs afterwards.
 
-## Active session — ELO-3
-After any compaction, and at every phase boundary, re-read
-~/Downloads/zz_ELO-3_relay.md and the latest ~/Downloads/zz_ELO-3_session_*.md
-before continuing; resume from the first phase not marked DONE. Remove this
-section in Phase 7.
-
 ## Layout
 - `docs/research/` evidence base · `docs/proposal/` proposal drafts ·
   `docs/specs/` specifications · `docs/decisions/` decision records.
