@@ -1,0 +1,28 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+dist/
+build/
+*.egg-info/
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Data: never commit raw rating lists or game archives
+data/raw/
+*.pgn
+*.pgn.zst
+*.zip
+
+# Local
+.env
