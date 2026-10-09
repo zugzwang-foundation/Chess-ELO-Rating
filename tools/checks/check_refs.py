@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check (c): every relative link and every [T n] / [V n] / [VT n] / [R n] reference resolves.
+"""Check (c): every relative link and every [T n] / [V n] / [VT n] / [R n] / [E n] reference resolves.
 
 Scope: every tracked Markdown file under docs/, plus README.md, CLAUDE.md and the
 README files of analysis/ and tools/.
@@ -13,7 +13,8 @@ README files of analysis/ and tools/.
    [R §x] one of its numbered sections and [R Name] one of its named headings.
 4. [V k] must be an item of docs/research/VERIFICATION_2026-10-09.md and
    [VT k] an item of docs/research/VERIFICATION_TITLES.md.
-5. [T n] and [Tn.m] must be a section of the current technical annex (the
+5. [E n] must name an evidence report docs/evidence/E{n}_*.md.
+6. [T n] and [Tn.m] must be a section of the current technical annex (the
    highest-versioned docs/proposal/ELO-TECHNICAL-ANNEX_vX_Y.md). Checked in
    living documents only: records cite the annex as it was when they were written.
 Placeholders in citation keys ([R n], [R §x], [V k], [VT k], [T n]) are not references.
@@ -40,6 +41,7 @@ CODE_SPAN = re.compile(r"`([^`]+)`")
 CITE_R = re.compile(r"\[R ([^\]]+)\]")
 CITE_V = re.compile(r"\[V ([^\]]+)\]")
 CITE_VT = re.compile(r"\[VT ([^\]]+)\]")
+CITE_E = re.compile(r"\[E(\d+)\]")
 CITE_T = re.compile(r"\[T ?(\d+(?:\.\d+)*)\]")
 PLACEHOLDER_IDS = {"n", "k", "x", "§x", "§n"}
 
@@ -99,7 +101,8 @@ def main() -> int:
     annex = latest("docs/proposal/ELO-TECHNICAL-ANNEX_v*_*.md")
     t_ids = annex_ids(annex) if annex else set()
     errors: list[str] = []
-    counts = {"links": 0, "paths": 0, "R": 0, "V": 0, "VT": 0, "T": 0}
+    counts = {"links": 0, "paths": 0, "R": 0, "V": 0, "VT": 0, "E": 0, "T": 0}
+    evidence = {f.split("/")[-1].split("_")[0] for f in tracked() if f.startswith("docs/evidence/E") and f.endswith(".md")}
 
     for f in files:
         record = f.startswith(RECORDS)
@@ -160,6 +163,10 @@ def main() -> int:
                     counts["VT"] += 1
                     if item not in vt_items:
                         errors.append(f"{f}:{n}: [VT {item}] not an item of {TITLES}")
+            for m in CITE_E.finditer(prose):
+                counts["E"] += 1
+                if f"E{m.group(1)}" not in evidence:
+                    errors.append(f"{f}:{n}: [E{m.group(1)}] names no report docs/evidence/E{m.group(1)}_*.md")
             if not record:
                 for m in CITE_T.finditer(prose):
                     counts["T"] += 1
@@ -169,7 +176,7 @@ def main() -> int:
     for e in errors:
         print(e)
     print(f"check_refs: {len(files)} files; {counts['links']} links, {counts['paths']} paths, "
-          f"{counts['R']} [R], {counts['V']} [V], {counts['VT']} [VT], {counts['T']} [T] references; "
+          f"{counts['R']} [R], {counts['V']} [V], {counts['VT']} [VT], {counts['E']} [E], {counts['T']} [T] references; "
           f"{len(errors)} unresolved")
     return 1 if errors else 0
 
