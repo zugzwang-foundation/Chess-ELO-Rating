@@ -128,7 +128,7 @@ Derivation: Davidson's model gives P(i wins) : P(draw) : P(j wins) = π_i : ν �
 5. *Limits.* E → 1 as x → +∞ and E → 0 as x → −∞; P_D at equal strength is ν/(2 + ν) (0.167 at level 1700, 0.443 at level 2700 with the PROVISIONAL parameters; script §1) and decays like ν e^{−|z|/2} at large gaps. No cap or clamp is needed: there is no x at which the function changes rule, and no result is ever worth exactly nothing.
 6. *Colour is self-correcting per game.* Because x_i includes +η_tc for White and −η_tc for Black, the model's expectation already contains the colour. If the model is right, the expected change of i in any single game is K_i · (P_W + P_D/2 − E) = 0 whatever the colour (property P4, T5), so a player who happens to receive more Whites than Blacks gains nothing in expectation and no colour debt accumulates across games or events. Under today's table, which gives .50 to both colours at equal ratings [V 1], a player with one extra White at level 2000 gains about +0.77 points in expectation at K = 20 (script §3), and a short event with an odd number of rounds leaves that imbalance uncorrected.
 
-**T3.3 The published table.** The successor to table 8.1.2 [V 1] is one table per time control, published yearly with the parameter file. Rows: x from 0 to 1000 in steps of 10 and a final row for x > 1000. Columns: level bands of 200 points (below 1600; 1600–1799; …; 2600–2799; 2800 and above), with ν evaluated at the band midpoint (1500 and 2900 for the two open bands). Entries: E to three decimals; a three-decimal entry resolves the top of the scale, where today's two decimals produce the "worth nothing above 735 points" effect [V 1] [R 55]. For negative x the arbiter uses E(−x) = 1 − E(x). For x between two rows the arbiter uses the nearer row (ties to the lower row); the engine uses the exact function, and the maximum difference between a row and the exact value in a 10-point step is published with the table (PROVISIONAL rule; a 1-point step would remove it at the cost of a hundred-fold longer table). Excerpt for standard (script §1):
+**T3.3 The published table.** The successor to table 8.1.2 [V 1] is one table per time control, published yearly with the parameter file. Rows: one row for every whole-number x from 0 to 1500 (the QC extends the table whenever a list in force makes a larger gap possible), so that no interpolation is ever needed and the table is normative; the parameter file documents the function that generated it. Columns: level bands of 200 points (below 1600; 1600–1799; …; 2600–2799; 2800 and above), with ν evaluated at the band midpoint (1500 and 2900 for the two open bands). Entries: E to three decimals; a three-decimal entry resolves the top of the scale, where today's two decimals produce the "worth nothing above 735 points" effect [V 1] [R 55]. For negative x the arbiter uses E(−x) = 1 − E(x). The engine uses the same table, so engine and arbiter read identical values. Excerpt for standard (script §1):
 
 | x | <1600 | 1600–1799 | 1800–1999 | 2000–2199 | 2200–2399 | 2400–2599 | 2600–2799 | ≥2800 |
 |---|---|---|---|---|---|---|---|---|
@@ -150,7 +150,7 @@ Two consequences are stated plainly. First, the level band makes E step at band 
 
 Layer 2 is the published rating. Everything in this section is computed from quantities printed on list t and in the parameter file of list t; nothing computed during month t is used before list t+1.
 
-**T4.1 Inputs frozen for the period.** Only games against rated opponents enter Layer 2, exactly as today: §8.3.1 begins "For each game played against a rated player" [V 1], so a rated player's game against an unrated or sub-floor opponent produces no change for either side and no ledger entry; Layer 1 uses every game. For every game of rating period t: R_i and R_j from list t; K_i from list t (one decimal); RX_j = R_j + c_j from list t; the level band of L = (R_i + R_j)/2 (published ratings, without compensation; a half is rounded down before banding); the colour from the tournament report (format NOT VERIFIED; see SPEC-L0 §2.1); η_tc, the table and a_t from the parameter file of list t.
+**T4.1 Inputs frozen for the period.** Only games against rated opponents enter Layer 2, exactly as today: §8.3.1 begins "For each game played against a rated player" [V 1], so a rated player's game against an unrated or sub-floor opponent produces no change for either side and no ledger entry; Layer 1 uses every game. For every game of rating period t: R_i and R_j from list t; K_i from list t (one decimal); RX_j = R_j + c_j from list t; the carried adjustment balance B_i from list t (printed, so that a change after an absence is recomputable); the level band of L = (R_i + R_j)/2 (published ratings, without compensation; a half is rounded down before banding); the colour from the tournament report (format NOT VERIFIED; see SPEC-L0 §2.1); η_tc, the table and a_t from the parameter file of list t.
 
 **T4.2 The game term.**
 
@@ -288,7 +288,8 @@ global_adjustment:              # AR-3, global channel
 federation_adjustment:          # AR-3, federation channel; SHIPS DISABLED
   enabled:    bool            # false until the FIDE-data backtest passes (T8); change = Council decision
   threshold:  string          # published evidence rule a channel must pass (s_max, R_max, n_phi, 50-player and 5 % conditions of T4.5); cap_per_year: fixed text
-  federations:                # one entry per federation with ≥ 1 cross-pool game in the window
+  federations_public_aggregate: {share_cross_federation_games_by_band: list}   # the only federation information in the PUBLIC file while enabled = false
+  federations:                # QC-ONLY annex while enabled = false (hash below); one entry per federation with ≥ 1 cross-pool game in the window
     - fed:                string   # three-letter FIDE federation code
       phi_f:              float    # φ_f, measured, points
       s_f:                float    # posterior SD of φ_f, measured, points
@@ -386,7 +387,8 @@ global_adjustment:
 federation_adjustment:
   enabled: false
   threshold: "PROVISIONAL: |phi_f| / s_f >= 3 and eff_resistance <= 0.05 and >= 1000 cross-pool games in the window; enabled only by Council decision after the FIDE-data backtest (T8)."
-  federations:                  # codes and numbers illustrative, not estimates for any real federation
+  federations_qc_annex_sha256: "0000…0000"   # placeholder; the per-federation block below is in the QC-only annex while enabled = false
+  federations:                  # QC-ONLY while disabled; codes and numbers illustrative, not estimates for any real federation
     - {fed: AAA, phi_f: 12.4,  s_f: 9.8,  component_id: 1, eff_resistance: 0.031, passes_threshold: false, a_f_t: 0.0}
     - {fed: BBB, phi_f: -41.0, s_f: 11.2, component_id: 1, eff_resistance: 0.044, passes_threshold: false, a_f_t: 0.0}
     - {fed: CCC, phi_f: 77.5,  s_f: 38.9, component_id: 1, eff_resistance: 0.210, passes_threshold: false, a_f_t: 0.0}

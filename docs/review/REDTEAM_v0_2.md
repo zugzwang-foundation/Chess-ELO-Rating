@@ -125,3 +125,17 @@ Tally: 19 RESOLVED, 11 PARTIAL, 0 NOT RESOLVED. The PARTIALs cluster on two caus
 
 ## Note on what was checked and found correct
 T3.2 items 1–6 (symmetry, dE/du = (2/u + ν/2 + ν/(2u²))/D², the ν = 0 reduction, dE/dx(0) = κ ln10/(400·2(2+ν)) giving scale 200(2+ν)/κ, P_D = ν/(2+ν) = 0.167/0.443); T4.3 values and the Kalman comparison; T4.4 cap example; the T6 per-game algebra for both players (uses E_j⁰ = 1 − E_i⁰, valid because L is shared); all seven games and the +63 closure of script §8; the T10.1/T10.2 numbers and their reproduction in proposal §5; the P1–P6 names and order in proposal §9, T5 and T8.5; σ_new = 100 and K = 19.1/40.0/16.1 in every place they appear.
+
+---
+
+## Addendum: third review (R-QC, proposal body only, 16:03 UTC)
+
+A five-minute Qualification Commission read of the proposal body returned five findings; the reviewer's verdict was "not agendable as it stands" before the fixes below. The reviewer's text is in the session scratchpad and is summarised here with the executor's action.
+
+| ID | Sev. | Finding | Status |
+|---|---|---|---|
+| R3-1 | blocker | Per-federation miscalibration estimates would be published monthly while the adjustment is disabled and the evidence unverified | Fixed: while disabled, federation-level estimates go to the QC only; the public file carries aggregate connectivity diagnostics (proposal §9; annex T7 federations block marked QC-only with a hash in the public file) |
+| R3-2 | blocker | A step-10 table with no row rule cannot reproduce the example's gaps of 135 and −435; table not declared normative; carried adjustment balance not on the list | Fixed: one row per whole-number gap 0–1500, negative gaps by 1 − E, table normative, engine reads the same table (proposal §5, annex T3.3); the list prints K_i, RX and the carried balance (proposal §5, annex T4.1) |
+| R3-3 | major | "Junior catches up at full speed" contradicted by the example (+15/+35 against +17/+37 today) | Fixed: both sentences replaced with the accurate statement (proposal §5, §6) |
+| R3-4 | major | §1 asserts norms untouched although §10 marks the interaction NOT VERIFIED; K = 10/20/40 stated without [V 1] | Fixed (proposal §1, §4, §5) |
+| R3-5 | major | "Farming" and "honest play" impute dishonesty to rule-compliant players | Fixed in the proposal body (§2, §8, §9); the annex keeps "farming" as the technical term of the brief (T5 P4, T8, T9) |
