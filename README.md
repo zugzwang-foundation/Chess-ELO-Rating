@@ -12,13 +12,15 @@ Zugzwang's proposal to modernise the FIDE Elo rating system. The project deliver
 | `docs/proposal/` | The proposal to FIDE, its technical annex and a plain-language brief (`ELO-PROPOSAL_vX_Y.md`, `ELO-TECHNICAL-ANNEX_vX_Y.md`, `ELO-BRIEF_vX_Y.md`) |
 | `docs/specs/` | Engineering specifications, starting with the Layer-0 FIDE reference engine (`SPEC-L0_*`) |
 | `docs/decisions/` | Decision records (`D-NNNN_*.md`) |
+| `docs/evidence/` | Evidence reports, each the committed output of a script under `analysis/` |
 | `docs/review/` | Red-team reviews of each proposal version |
 | `analysis/` | Deterministic scripts that produce every number in the documents, with their committed outputs |
-| `tests/` | Fixtures recorded from FIDE's pages (`tests/fixtures/fide_calculator/`) and, once SPEC-L0 is ratified, the tests of the Layer-0 engine |
+| `src/layer0/` | The Layer-0 engine: FIDE's rating regulations exactly (SPEC-L0) |
+| `tests/` | The SPEC-L0 acceptance tests and the fixtures recorded from FIDE's pages (`tests/fixtures/`) |
 | `tools/` | The automated check run on every pull request (`tools/README.md`) |
 | `CLAUDE.md` | Working rules for the humans and agents editing this repository |
 
-The Layer-0 specification in `docs/specs/` is ratified (`docs/decisions/D-0006_spec-l0-ratified.md`). Its acceptance tests were written first, under `tests/`; the engine follows under src.
+The Layer-0 specification in `docs/specs/` is ratified (`docs/decisions/D-0006_spec-l0-ratified.md`). Its acceptance tests were written first, under `tests/`; the engine is the package `src/layer0/` (Python 3.12, standard library only), validated against FIDE in `docs/evidence/E0_l0-validation.md`.
 
 ## Spelling
 
