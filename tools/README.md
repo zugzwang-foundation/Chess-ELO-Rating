@@ -23,5 +23,7 @@ Raw and converted data live under `data/` at the repository root, which is never
 |---|---|
 | `tools/data/fetch_fide_lists.py` | Downloads FIDE's monthly lists (TXT in zip) for one time control and a range of months into `data/raw/fide/<tc>/`, one request at a time, recording URL, UTC time, size and SHA-256 in `data/raw/fide/MANIFEST.tsv` |
 | `tools/data/convert_fide_lists.py` | Converts each list into `data/interim/fide/<tc>/YYYY-MM.tsv` (id, rating, games, K, year of birth, sex, federation, flag, title), locating the fixed-width columns from each file's header |
+| `tools/data/fetch_lichess_broadcasts.py` | Downloads the Lichess broadcast archive (monthly PGN, zstd; CC BY-SA 4.0 [V 4]) into `data/raw/lichess_broadcast/`, checking each file against the published SHA-256 sums and recording it in a manifest |
+| `tools/data/convert_broadcasts.py` | Converts each month into `data/interim/broadcast/YYYY-MM.tsv`: one line of game headers per game, no moves (needs the `zstd` command) |
 
-To rebuild what the `needs_data` scripts of `analysis/outputs.json` read: `python3 tools/data/fetch_fide_lists.py standard 2015-02 2026-10`, then `python3 tools/data/convert_fide_lists.py standard`, then `python3 tools/checks/check_outputs.py --all`.
+To rebuild what the `needs_data` scripts of `analysis/outputs.json` read: run `python3 tools/data/fetch_fide_lists.py <tc> 2015-02 2026-10` and `python3 tools/data/convert_fide_lists.py <tc>` for `standard`, `rapid` and `blitz`; `python3 tools/data/fetch_lichess_broadcasts.py 2023-01 2026-09` and `python3 tools/data/convert_broadcasts.py`; then `python3 tools/checks/check_outputs.py --all`.
