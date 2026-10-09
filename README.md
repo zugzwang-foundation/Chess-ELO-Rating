@@ -18,7 +18,7 @@ Zugzwang's proposal to modernise the FIDE Elo rating system. The project deliver
 | `params/` | Fitted parameter files (`params/table_fit_2026-10.yaml`), PROVISIONAL-FITTED, each written by a script under `analysis/` |
 | `src/layer0/` | The Layer-0 engine: FIDE's rating regulations exactly (SPEC-L0) |
 | `tests/` | The SPEC-L0 acceptance tests and the fixtures recorded from FIDE's pages (`tests/fixtures/`) |
-| `tools/` | The automated check run on every pull request (`tools/README.md`) |
+| `tools/` | The automated check run on every pull request, the data tools, and the event comparison tool with its event files (`tools/README.md`) |
 | `CLAUDE.md` | Working rules for the humans and agents editing this repository |
 
 The Layer-0 specification in `docs/specs/` is ratified (`docs/decisions/D-0006_spec-l0-ratified.md`). Its acceptance tests were written first, under `tests/`; the engine is the package `src/layer0/` (Python 3.12, standard library only), validated against FIDE in `docs/evidence/E0_l0-validation.md`.
