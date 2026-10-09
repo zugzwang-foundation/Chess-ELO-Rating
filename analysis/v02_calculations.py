@@ -148,6 +148,8 @@ P(f"Per-period cap example: K_i = 26.1 and n = 40 games gives K_i x n = {Decimal
   f"K_i = 16.5 and n = 40 gives {Decimal('16.5')*40} (no cap).\n")
 
 # 5. Worked example (i)
+from statistics import NormalDist
+P(f"z_{{0.90}} = NormalDist().inv_cdf(0.90) = {NormalDist().inv_cdf(0.90):.4f} (the Gaussian quantile used in the eligibility test, T4.6); p_min = 0.90.\n")
 P("## 5 Worked example (i): established 1900 adult (White, sigma = 55) v 1500-listed junior (Black, sigma = 100) whom L1 rates at 1850\n")
 R_A, R_J, THETA_J, SIG_A, SIG_J = 1900, 1500, 1850, 55, 100
 p_elig = phi((THETA_J - R_J - TAU) / SIG_J)

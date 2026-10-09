@@ -47,7 +47,10 @@ Every symbol is defined here once and used with this meaning everywhere in the p
 | μ_0(age, f), s_0 | prior mean and standard deviation of a new player's θ |
 | φ_f, s_f | mean miscalibration of federation f relative to the anchor pool, and its posterior SD |
 | m_t, m̂_t | published mean and latent (L1) mean of the anchor cohort at month t; d_t = m̂_t − m_t |
+| θ̃_i | ŝ_{i,tc} − d_t: the posterior mean brought onto the published scale; the only Layer 1 estimate Layer 2 ever uses (T4.6, T4.7) |
 | G, N | number of games and of players in the fit window |
+
+**Derived, ledger and threshold symbols.** E_i⁰ expectation of i without compensation; T_g, C_g^K, C_g^c transfer, unequal-K creation and compensation creation of game g (T6); B_i accrued adjustment balance, A_i the balance posted in month t (T4.5); ρ_i rounding residual (T6); N_anchor minimum anchor-panel size (PROVISIONAL 2,000); n_φ shrinkage constant for φ_f (PROVISIONAL 2,000 cross-pool games); s_max, R_max thresholds on s_f and on the effective resistance for any φ_f-dependent channel (PROVISIONAL, published in T7); σ_seed,max maximum posterior SD for a published seed (PROVISIONAL 120); band width of the published table (PROVISIONAL 200, T7).
 
 **Parameters (per time control unless stated; all PROVISIONAL; annual change caps in T7).**
 
@@ -101,7 +104,7 @@ Within a player, θ_i and the δ_{i,tc} are jointly identified only through the 
 
 with posterior SD s_f from the Laplace covariance. The second term equals d_t, so φ_f is net of the global drift by construction. It is identified only through games that cross pools. Two diagnostics are published per federation each month: the connected component of the game graph (players as nodes, games in the window as edges) that contains the federation's players, and the effective resistance between the federation (its players merged into one node) and the anchor pool (merged into one node) in the game graph with unit conductance per game, computed from the graph Laplacian. The effective resistance is the Gaussian-approximation variance of the offset under equal game information, so a large value means the offset is poorly determined whatever the point estimate says. A channel that depends on φ_f acts only when s_f < s_max and the effective resistance is below R_max (both published thresholds, T7); the federation adjustment ships disabled regardless (T4.5).
 
-**T2.6 Outputs.** Per player and time control: ŝ_{i,tc} (written θ̂_i in Layer 2), σ_i, and from them K_i; eligibility and c_j for juniors; seeds for newcomers; the anchor statistics m_t, m̂_t, d_t and from them a_t; φ_f, s_f and the graph diagnostics; the fit diagnostics of T7. Nothing else leaves Layer 1.
+**T2.6 Outputs.** Per player and time control: ŝ_{i,tc} and σ_i (Layer 2 uses θ̃_i = ŝ_{i,tc} − d_t, T1), and from them K_i; eligibility and c_j for juniors; seeds for newcomers; the anchor statistics m_t, m̂_t, d_t and from them a_t; φ_f, s_f and the graph diagnostics; the fit diagnostics of T7. Nothing else leaves Layer 1.
 
 ---
 
@@ -147,12 +150,12 @@ Two consequences are stated plainly. First, the level band makes E step at band 
 
 Layer 2 is the published rating. Everything in this section is computed from quantities printed on list t and in the parameter file of list t; nothing computed during month t is used before list t+1.
 
-**T4.1 Inputs frozen for the period.** For every game of rating period t: R_i and R_j from list t; K_i from list t (one decimal); RX_j = R_j + c_j from list t; the level band of L = (R_i + R_j)/2 (published ratings, without compensation; a half is rounded down before banding); the colour from the tournament report (format NOT VERIFIED; see SPEC-L0 §2.1); η_tc, the table and a_t from the parameter file of list t.
+**T4.1 Inputs frozen for the period.** Only games against rated opponents enter Layer 2, exactly as today: §8.3.1 begins "For each game played against a rated player" [V 1], so a rated player's game against an unrated or sub-floor opponent produces no change for either side and no ledger entry; Layer 1 uses every game. For every game of rating period t: R_i and R_j from list t; K_i from list t (one decimal); RX_j = R_j + c_j from list t; the level band of L = (R_i + R_j)/2 (published ratings, without compensation; a half is rounded down before banding); the colour from the tournament report (format NOT VERIFIED; see SPEC-L0 §2.1); η_tc, the table and a_t from the parameter file of list t.
 
 **T4.2 The game term.**
 
 > x_i = R_i − RX_j + w_i · η_tc
-> ΔR_{i,g} = K_i · (S_i − E(x_i; tc, L))
+> ΔR_{i,g} = K_i · (S_i − E(x_i; tc, L)), which the proposal writes per game as R_i ← R_i + K_i · (S_i − E(x_i)); the game terms are summed and rounded once per period (T4.4)
 
 K_i has one decimal and E three, so each ΔR_{i,g} is exact with at most four decimals. No rounding occurs here.
 
@@ -177,17 +180,17 @@ A *rated month* for i in tc is a month in which i has at least one rated game in
 > a_t = clip(γ_a · d_t, −a_cap, +a_cap), rounded to one decimal
 > a_{f,t} = clip(γ_a · shrink_f · φ_f(t), −a_cap, +a_cap) with shrink_f = n_f^× / (n_f^× + n_φ) and n_f^× the federation's cross-pool games in the window; SHIPS DISABLED: a_{f,t} = 0 for every f, printed as 0 in every parameter file, until a backtest on FIDE's own game data (T8) shows φ_f stable and predictive out of sample, and then only by Council decision after public comment and consultation with the federation concerned.
 
-a_t is computed from the month just closed and published with the list, never before the games it applies to are rated, so its sign cannot be timed. It is paid per player, never per game, so an extra or an arranged game earns no adjustment. To stop the calendar from mattering (twelve single-game months must not collect twelve payments while one month with twelve games collects one), a_t accrues each month to every player listed as active under §7.2.2 [V 1] (a rated game in the last twelve months) in that time control, into a balance B_i; the balance is posted to R_i only in a rated month, as part of the period total of T4.4, and is forfeited when the player becomes inactive under §7.2.2. Ratings therefore still change only for players who play, no adjustment is earned while inactive (AR-5), and the posted balance never exceeds 12 · a_cap. This accrual rule is a refinement of AR-3 recorded for the architect's confirmation (REDTEAM_v0_1, R-STAT-6, R-EXPLOIT-6). The loop is a proportional controller: with a steady deflationary pressure of 1.3 points a month (the research report's post-reform figure is about −16 a year [R 5]) and γ_a = 1/6, a_t rises to 1.3 and the measured gap settles near 7.8 points (script §7); it is stable because 0 < γ_a < 1, and it can only hold the level if a_cap exceeds the drift, which the monitoring report shows each month. Whether a_t may be negative (a deduction from everyone who played, in an inflating pool) is a policy question the QC can settle by constraining a_t ≥ 0 without touching the mechanism; the architecture allows both signs and this annex records the question as open (REDTEAM_v0_1, R-QC-9). No one-off adjustment is ever made: any gap at adoption closes through capped monthly adjustments to players who play.
+a_t is computed from the month just closed and published with the list, never before the games it applies to are rated, so its sign cannot be timed. It is paid per player, never per game, so an extra or an arranged game earns no adjustment. To stop the calendar from mattering (twelve single-game months must not collect twelve payments while one month with twelve games collects one), a_t accrues each month to every player listed as active under §7.2.2 [V 1] (a rated game in the last twelve months) in that time control, into a balance B_i; the balance is posted to R_i only in a rated month, as part of the period total of T4.4; accrual stops while the player is inactive under §7.2.2 and the balance (positive or negative) is carried, not forfeited, so that the activity boundary creates no cliff and no incentive to sit out a liability; it is posted in the first rated month after return. Ratings therefore still change only for players who play, no adjustment is earned while inactive (AR-5), and the posted balance never exceeds 12 · a_cap in magnitude. This accrual rule is a refinement of AR-3 recorded for the architect's confirmation (REDTEAM_v0_1, R-STAT-6, R-EXPLOIT-6). The loop is a proportional controller: with a steady deflationary pressure of 1.3 points a month (the research report's post-reform figure is about −16 a year [R 5]) and γ_a = 1/6, a_t rises to 1.3 and the measured gap settles near 7.8 points (script §7); it is stable because 0 < γ_a < 1, and it can only hold the level if a_cap exceeds the drift, which the monitoring report shows each month. Whether a_t may be negative (a deduction from everyone who played, in an inflating pool) is a policy question the QC can settle by constraining a_t ≥ 0 without touching the mechanism; the architecture allows both signs and this annex records the question as open (REDTEAM_v0_1, R-QC-9). No one-off adjustment is ever made: any gap at adoption closes through capped monthly adjustments to players who play.
 
 Before a_{f,t} may ever be enabled, the following are required in addition to the out-of-sample test (REDTEAM_v0_1, R-EXPLOIT-3): the evidence for φ_f must come from at least 50 distinct players of f with cross-pool games, none contributing more than 5 % of that information; φ_f is a trimmed-mean estimate with a published leave-one-player-out range, and a_{f,t} stays 0 unless the whole range has one sign; players whose published rating is more than 2 s_f from their estimate are excluded from φ_f; and the points a_{f,t} may create per federation per year are capped and printed in the ledger. Separately, because junior compensation creates points deterministically (T6, line 3), the monitoring report compares that line per active player with a_cap each month; if it exceeds a_cap the QC lowers c_cap or raises τ within their annual caps (REDTEAM_v0_1, R-STAT-3).
 
-**T4.6 Junior compensation (AR-4).** j is eligible on list t if (a) the list year minus j's year of birth on the FIDE list is at most 19 (that is, until the end of the calendar year of the 19th birthday, matching the form of §8.3.3's junior rule [V 1]; a player without a year of birth on the list is not eligible), (b) j has at least 10 rated games in that time control within the window (PROVISIONAL; so that same-time-control evidence dominates and compensation cannot be manufactured from another time control), and (c) P(s_{j,tc} − d_t − R_j > τ) ≥ p_min under the Layer 1 posterior, which for a Gaussian posterior is θ̃_j − R_j − z_{p_min} σ_j ≥ τ with z_{0.90} = 1.2816, where θ̃_j = ŝ_{j,tc} − d_t is the estimate brought onto the published scale (the latent scale sits d_t above the published one when the pool has drifted; without this netting, compensation would act as a second, uncapped level loop). Then
+**T4.6 Junior compensation (AR-4).** j is eligible on list t if (a) the list year minus j's year of birth on the FIDE list is at most 19 (that is, until the end of the calendar year of the 19th birthday, matching the form of §8.3.3's junior rule [V 1]; a player without a year of birth on the list is not eligible), (b) j has at least 10 rated games in that time control within the window, against at least 5 distinct opponents in at least 3 events (PROVISIONAL; so that same-time-control evidence dominates, compensation cannot be manufactured from another time control, and a small circle of club opponents cannot manufacture it within one), and (c) P(s_{j,tc} − d_t − R_j > τ) ≥ p_min under the Layer 1 posterior, which for a Gaussian posterior is θ̃_j − R_j − z_{p_min} σ_j ≥ τ with z_{0.90} = 1.2816, where θ̃_j = ŝ_{j,tc} − d_t is the estimate brought onto the published scale (the latent scale sits d_t above the published one when the pool has drifted; without this netting, compensation would act as a second, uncapped level loop). Then
 
-> c_j = min(θ̃_j − R_j, c_cap), RX_j = R_j + c_j, printed in the list; otherwise c_j = 0 and RX_j = R_j.
+> c_j = min(round_FIDE(θ̃_j − R_j), c_cap), RX_j = R_j + c_j, printed in the list; otherwise c_j = 0 and RX_j = R_j.
 
 c_j enters only opponents' x; j's own update uses R_i, R_j and the published table like everyone else, so j catches up at full speed while opponents are no longer drained. As R_j rises towards θ̃_j the test fails and c_j returns to 0 by itself. Only RX_j is printed; θ̂_j and σ_j are not published for named players unless the founder decides otherwise (D-0002, item 5). The switch at the threshold is the one discrete element of the design; it moves only opponents' expectations, by at most c_cap, and never within a rating period (T5, P3).
 
-**T4.7 Seeds, inactivity, floor (AR-5).** A player new to the list in tc receives a first published rating once they have at least N_seed = 5 games against rated opponents within 26 consecutive months (§7.1.4 [V 1], unchanged): R_i(t_0) = clip(round_FIDE(θ̃_i), R_floor, R_seedmax) with θ̃_i = ŝ_{i,tc} − d_t the Layer 1 posterior mean of s_{i,tc} on the published scale, drawing on the player's games in all three time controls, and K_i from σ_i (near K_max); the seed's σ_i is published with it. The two hypothetical draws against 1800 of §8.2.2 [V 1] are not used. The 2200 maximum of §8.2.3 is kept, and the five qualifying games must involve at least three distinct opponents in at least two events (both PROVISIONAL; REDTEAM_v0_1, R-EXPLOIT-5). Rapid and blitz keep §7.2.1 of their chapter [V 2] in spirit: a player with a standard rating is seeded in rapid or blitz from the same Layer 1 posterior, which already uses their standard games.
+**T4.7 Seeds, inactivity, floor (AR-5).** A player new to the list in tc receives a first published rating once they have at least N_seed = 5 games against rated opponents within 26 consecutive months (§7.1.4 [V 1], unchanged): R_i(t_0) = clip(round_FIDE(θ̃_i), R_floor, R_seedmax) with θ̃_i = ŝ_{i,tc} − d_t the Layer 1 posterior mean of s_{i,tc} on the published scale, drawing on the player's games in all three time controls, and K_i from σ_i (near K_max); the seed's σ_i is published with it, and no seed is published while σ_i exceeds σ_seed,max (PROVISIONAL 120): the player stays unrated and keeps accumulating games. A player re-qualifying after a floor exit is re-published only if round_FIDE(θ̃_i) ≥ R_floor; otherwise they remain unrated while Layer 1 keeps estimating, so the floor no longer manufactures points at the bottom (REDTEAM_v0_2, R2-8). The two hypothetical draws against 1800 of §8.2.2 [V 1] are not used. The 2200 maximum of §8.2.3 is kept, and the five qualifying games must involve at least three distinct opponents in at least two events (both PROVISIONAL; REDTEAM_v0_1, R-EXPLOIT-5). Rapid and blitz keep §7.2.1 of their chapter [V 2] in spirit: a player with a standard rating is seeded in rapid or blitz from the same Layer 1 posterior, which already uses their standard games.
 
 Inactivity: no published rating decays. While i has no rated month, R_i is unchanged, no a_t is paid, and σ_i grows through the random walk (T2.2) so that K_i is higher on return. The activity flag of §7.2.2 [V 1] is unchanged.
 
@@ -201,8 +204,8 @@ Floor: §7.2.1 [V 1] is unchanged as a display rule: a player whose rating drops
 | K from uncertainty (AR-2) | K_i | T4.3 | K_min ≤ K_i ≤ K_max; period cap 700 | always on |
 | Global adjustment (AR-3) | once per rated month | a_t = clip(γ_a d_t, ±a_cap) | a_cap per month | anchor panel of at least N_anchor players (PROVISIONAL 2,000) |
 | Federation adjustment (AR-3) | once per rated month | T4.5 | a_cap per month | DISABLED; later: s_f < s_max, effective resistance < R_max, Council decision |
-| Junior compensation (AR-4) | opponents' x only | c_j = min(θ̂_j − R_j, c_cap) | c_cap | age rule and P(s_j − R_j > τ) ≥ p_min |
-| Seed (AR-5) | first published rating | clip(round(θ̂_i), R_floor, R_seedmax) | R_seedmax | N_seed games within 26 months |
+| Junior compensation (AR-4) | opponents' x only | c_j = min(round_FIDE(θ̃_j − R_j), c_cap), θ̃_j = ŝ_{j,tc} − d_t | c_cap | age rule (list year − birth year ≤ 19), at least 10 rated games in tc, and P(s_{j,tc} − d_t − R_j > τ) ≥ p_min |
+| Seed (AR-5) | first published rating | clip(round_FIDE(θ̃_i), R_floor, R_seedmax), θ̃_i = ŝ_{i,tc} − d_t | R_seedmax | N_seed games against at least 3 distinct opponents in at least 2 events within 26 months |
 | Ledger (AR-6) | publication only | T6 | — | always |
 
 ---
@@ -211,11 +214,11 @@ Floor: §7.2.1 [V 1] is unchanged as a display rule: a player whose rating drops
 
 **P1 Forward-only.** R_i(t+1) is a function of R_i(t), the games of period t and quantities printed on list t and its parameter file (T4.1). Layer 1 writes nothing into any R. No published list is ever recomputed. Proof: the only operation on a published rating is the period update of T4.4; its inputs are frozen at list t; a published list is a constant thereafter. (The 2024 one-off compression [R §2] has no counterpart here: AR-3 forbids one-off jumps.)
 
-**P2 Bounded change.** Per game |ΔR_{i,g}| ≤ K_i |S_i − E| ≤ K_i ≤ K_max = 40. Per period |Σ_g ΔR_{i,g}| ≤ K_i n_i ≤ 700 after the cap of T4.4, and the posted adjustment balance is at most 12 · a_cap (T4.5), so the published change satisfies |period change| ≤ round_FIDE(700 + 12 · a_cap) = 718 (PROVISIONAL a_cap = 1.5; 702 in a month without accrued balance). Today's bound is 700 [V 1].
+**P2 Bounded change.** Per game |ΔR_{i,g}| ≤ K_i |S_i − E| ≤ K_i ≤ K_max = 40. Per period |Σ_g ΔR_{i,g}| ≤ K_i n_i ≤ 700 after the cap of T4.4, and the posted adjustment balance is at most 12 · a_cap (T4.5), so the published change satisfies |period change| ≤ round_FIDE(700 + 12 · a_cap) = 718 (PROVISIONAL a_cap = 1.5; 702 in a month without accrued balance; the same again for a_{f,t} if it is ever enabled). Today's bound is 700 [V 1].
 
-**P3 Continuity.** E is continuous and strictly increasing in x (T3.2); K_i is continuous in σ_i (a clipped quadratic); the period cap is continuous in n_i (a clipped hyperbola); a_t is continuous in d_t (a clipped linear function). There is no 400- or 600-point rule, no 2650 exemption, no switch at 30 games, at 2300, at 2400 or at age 18 [V 1] [V 2]. Two discrete elements remain and are stated: (i) the published table steps at level-band edges by at most 0.0256 in E (0.51 points at K = 20; script §2), a resolution effect that shrinks with the band width; (ii) c_j switches on and off at the eligibility test of T4.6, moving opponents' expectations by at most c_cap and never within a period. Neither can be straddled for gain: (i) is symmetric for both players and (ii) is controlled by a posterior, not by a result a player can choose (T9 tests the compensation hunter).
+**P3 Continuity.** E is continuous and strictly increasing in x (T3.2); K_i is continuous in σ_i (a clipped quadratic); the period cap is continuous in n_i (a clipped hyperbola); a_t is continuous in d_t up to its one-decimal rounding (a step of 0.1 point). There is no 400- or 600-point rule, no 2650 exemption, no switch at 30 games, at 2300, at 2400 or at age 18 [V 1] [V 2]. Two discrete elements remain and are stated: (i) the published table steps at level-band edges by at most 0.0256 in E (0.51 points at K = 20; script §2), a resolution effect that shrinks with the band width; (ii) c_j switches on and off at the eligibility test of T4.6, moving opponents' expectations by at most c_cap and never within a period. Neither can be straddled for gain: (i) is symmetric for both players and (ii) is controlled by a posterior, not by a result a player can choose (T9 tests the compensation hunter).
 
-**P4 Unbiasedness.** If the model's probabilities are correct for a game, E[ΔR_{i,g}] = K_i (P_W · 1 + P_D · ½ + P_L · 0 − E) = K_i (E − E) = 0. Hence the expected change from any pairing is zero: a player cannot gain in expectation by choosing weak opponents (farming), strong ones, or a particular colour; the only way to gain is to score more than the calibrated expectation. The result is exact for the model's own probabilities and holds for real games to the extent that the yearly calibration (κ_tc, α_tc, β_tc, η_tc fitted by T8) is right; any residual miscalibration m(x, L) = E_true − E gives an expected gain K_i m per game, which is precisely the quantity the calibration-by-gap metric of T8 reports, and which today's cap converts into a systematic +0.4 points a game for a 2600 against a 2100 if the uncapped table is right (script §6). K_i is a function of σ_i, which depends on how many games pin the strength down and not on their results, so no sequence of chosen results raises K_i.
+**P4 Unbiasedness.** If the model's probabilities are correct for a game, E[ΔR_{i,g}] = K_i (P_W · 1 + P_D · ½ + P_L · 0 − E) = K_i (E − E) = 0. Hence the expected change from any pairing is zero: a player cannot gain in expectation by choosing weak opponents (farming), strong ones, or a particular colour; the only way to gain is to score more than the calibrated expectation. The result is exact for the model's own probabilities and holds for real games to the extent that the yearly calibration (κ_tc, α_tc, β_tc, η_tc fitted by T8) is right; any residual miscalibration m(x, L) = E_true − E gives an expected gain K_i m per game, which is precisely the quantity the calibration-by-gap metric of T8 reports, and which today's cap converts into a systematic +0.4 points a game for a 2600 against a 2100 if the uncapped table is right (script §6). K_i is a function of σ_i, which depends on the information in the games played (how many, against whom) and on results only through the fitted strength, never on their sign, so a player cannot raise K_i by choosing to lose; playing only far weaker opponents does keep σ_i high (each such game carries little information), which is why the farming index of T8 watches that pattern.
 
 **P5 Ledger completeness.** Every point that enters, leaves or is created in a time control's list in a month appears in exactly one line of the ledger, and the lines sum to the change in the list total. Proof: T6 is an algebraic identity in which every term is one of the published lines; it is checked exactly on a synthetic month in script §8.
 
@@ -233,9 +236,11 @@ For a game g between i and j in time control tc, with E_i⁰ = E(R_i − R_j + w
 
 Then ΔR_{i,g} = T_g + ½ C_g^K + K_i (E_i⁰ − E_i) and ΔR_{j,g} = −T_g + ½ C_g^K + K_j (E_j⁰ − E_j), so ΔR_{i,g} + ΔR_{j,g} = C_g^K + C_g^c: transfers cancel and only the two creation terms remain. With A_i the adjustment balance posted to i in month t (the accrued a_t and a_{f(i),t} of T4.5) if i has a rated month and 0 otherwise, and the rounding residual ρ_i = round_FIDE(Σ_g ΔR_{i,g} + A_i) − (Σ_g ΔR_{i,g} + A_i), the monthly identity per time control is
 
-> Σ_{i ∈ list t+1} R_i(t+1) − Σ_{i ∈ list t} R_i(t) = Σ_g C_g^K + Σ_g C_g^c + Σ_i A_i + Σ_i ρ_i + Σ_{newcomers} R_i(t_0) − Σ_{exits} R_i(t).
+> Σ_{i ∈ list t+1} R_i(t+1) − Σ_{i ∈ list t} R_i(t) = Σ_g C_g^K + Σ_g C_g^c + Σ_i A_i + Σ_i ρ_i + Σ_{newcomers} R_i(t_0) − Σ_{exits} R_i⁺(t),
 
-The published ledger lines are therefore: (1) gross points moved between players by results, Σ_g |T_g| (a volume line; it nets to zero); (2) net points created or destroyed by unequal K, Σ_g C_g^K; (3) points created by junior compensation, Σ_g C_g^c; (4) points posted from the global adjustment, Σ_i A_i (global part), with the outstanding accrued balance Σ_i B_i shown as a memo liability; (5) points paid by federation adjustments, Σ_i a_{f(i),t} · 1[rated month] (0 while disabled); (6) rounding residual, Σ_i ρ_i, bounded by 0.5 per player with a rated month; (7) points entering with newcomers, Σ R_i(t_0); (8) points leaving with players removed from the list (below 1400, §7.2.1 [V 1]); (9) the change in the list total, which must equal (2) + (3) + (4) + (5) + (6) + (7) − (8) exactly; and a memo line (10), the ratings held by players who became inactive this month under §7.2.2, which does not enter the identity because inactive players stay on the list. The script's synthetic month (script §8: six players, seven games, one compensated junior, a_t = +1.2) gives +63 = +29.5709 + 26.8940 + 7.2 − 0.6649 + 0 − 0 exactly.
+where the sums over g, A_i and ρ_i run over every player on list t who played, including those who then leave, and R_i⁺(t) = R_i(t) + (period change of i) is the rating that actually leaves with an exiting player (post-update); writing R_i(t) there would miss the exiting players' own period changes (REDTEAM_v0_2, R2-1). Games against unrated players produce no change for anyone (T4.1), so there are no one-sided terms.
+
+The published ledger lines are therefore: (1) gross points moved between players by results, Σ_g |T_g| (a volume line; it nets to zero); (2) net points created or destroyed by unequal K, Σ_g C_g^K; (3) points created by junior compensation, Σ_g C_g^c; (4) points posted from the global adjustment, Σ_i A_i (global part), with the outstanding accrued balance Σ_i B_i shown as a memo liability; (5) points posted from federation adjustments, Σ_i A_i (federation part; 0 while disabled); (6) rounding residual, Σ_i ρ_i, bounded by 0.5 per player with a rated month; (7) points entering with newcomers, Σ R_i(t_0); (8) points leaving with players removed from the list (below 1400, §7.2.1 [V 1]), at their post-update rating R_i⁺(t); (9) the change in the list total, which must equal (2) + (3) + (4) + (5) + (6) + (7) − (8) exactly; and a memo line (10), the ratings held by players who became inactive this month under §7.2.2, which does not enter the identity because inactive players stay on the list. Lines (2) and (3) are also published per event, so that an event or a club in which unequal-K or compensation creation is concentrated is visible; the monitoring report (T8) flags the top percentile of events on either line for FIDE's existing investigation procedures (REDTEAM_v0_1, R-EXPLOIT-1, R-EXPLOIT-2). The script's synthetic month (script §8: six players, seven games, one compensated junior, a_t = +1.2) gives +63 = +29.5709 + 26.8940 + 7.2 − 0.6649 + 0 − 0 exactly.
 
 In plain language, for the proposal: the ledger is the system's audited monthly accounts, the way a central bank publishes how much money it created and why; nothing is created silently.
 
@@ -267,11 +272,13 @@ development_coefficient:        # AR-2
   C_period: {value: int,   unit: points × games, cap_per_year: fixed} # 700, FIDE's K × n rule restated [V 1]
 
 global_adjustment:              # AR-3, global channel
-  a_t:      {value: float, unit: points accrued per active player this month, posted in the next rated month (T4.5), cap: "|a_t| ≤ a_cap"}  # one decimal
+  a_t:      {value: float, unit: points accrued per active player this month, posted in the current month if rated, otherwise carried (T4.5), cap: "|a_t| ≤ a_cap"}  # one decimal
+  band_width: {value: int, unit: rating points, cap_per_year: fixed}   # level-band width of the published table (T3.3)
   a_cap:    {value: float, unit: points per month, cap_per_year: 0.5}
   gamma_a:  {value: float, unit: per month, cap_per_year: 0.0833}    # γ_a, 1/12 cap
   anchor_cohort:
-    definition:  string       # fixed text, NOTATION.md; re-based each 1 January, chain-linked
+    definition:  string       # fixed text (T2.4); re-based each 1 January, chain-linked
+    N_anchor:    int          # minimum panel size for the channel to act (PROVISIONAL 2,000)
     rebased_on:  date
     n_members:   int          # measured
     m_t:         float        # measured, published mean of the cohort, points
@@ -280,7 +287,7 @@ global_adjustment:              # AR-3, global channel
 
 federation_adjustment:          # AR-3, federation channel; SHIPS DISABLED
   enabled:    bool            # false until the FIDE-data backtest passes (T8); change = Council decision
-  threshold:  string          # published evidence rule a channel must pass; cap_per_year: fixed text
+  threshold:  string          # published evidence rule a channel must pass (s_max, R_max, n_phi, 50-player and 5 % conditions of T4.5); cap_per_year: fixed text
   federations:                # one entry per federation with ≥ 1 cross-pool game in the window
     - fed:                string   # three-letter FIDE federation code
       phi_f:              float    # φ_f, measured, points
@@ -294,13 +301,11 @@ junior_compensation:            # AR-4
   tau:    {value: float, unit: rating points, cap_per_year: 10}      # τ
   c_cap:  {value: float, unit: rating points, cap_per_year: 50}
   p_min:  {value: float, unit: probability,   cap_per_year: fixed}   # 0.90
-  eligible:                     # every junior with c_j > 0 this month
+  eligible:                     # every junior with c_j > 0 this month; PUBLIC copy carries only these three fields
     - fide_id:    int
-      birth_year: int
       R_j:        int           # published rating used in the test
-      theta_tilde_j: float      # θ̃_j = ŝ_{j,tc} − d_t, points, published-scale estimate (T4.6); not printed on the public list
-      sigma_j:     float        # σ_j, points; not printed on the public list
-      c_j:         float        # min(θ̃_j − R_j, c_cap); RX_j = R_j + c_j is the list column; enters opponents' expectations only
+      c_j:         int          # min(round_FIDE(θ̃_j − R_j), c_cap); RX_j = R_j + c_j is the list column; enters opponents' expectations only
+  eligible_qc_annex_sha256: string  # hash of the QC-only annex holding, per eligible junior, θ̃_j and σ_j (not public; founder decision 1 may widen this)
 
 seeds_inactivity_floor:         # AR-5
   R_floor:   {value: int, unit: rating points, cap_per_year: fixed}  # display rule only
@@ -390,9 +395,10 @@ junior_compensation:
   tau:   {value: 50,   cap_per_year: 10}
   c_cap: {value: 300,  cap_per_year: 50}
   p_min: {value: 0.90, cap_per_year: fixed}
-  eligible:                     # illustrative identities and values
-    - {fide_id: 900000001, birth_year: 2014, R_j: 1812, theta_hat_j: 1931.4, sigma_j: 62.0, c_j: 119.4}
-    - {fide_id: 900000002, birth_year: 2011, R_j: 2105, theta_hat_j: 2198.7, sigma_j: 48.5, c_j: 93.7}
+  eligible:                     # illustrative identities and values; public copy
+    - {fide_id: 900000001, R_j: 1812, c_j: 119}
+    - {fide_id: 900000002, R_j: 2105, c_j: 94}
+  eligible_qc_annex_sha256: "0000…0000"   # placeholder
 
 seeds_inactivity_floor:
   R_floor:   {value: 1400, cap_per_year: fixed}
@@ -402,17 +408,22 @@ seeds_inactivity_floor:
 layer1_hyperparameters:
   window_months: {value: 36, cap_per_year: fixed}
   method: map_laplace
-  drift_mu_by_age:              # points per month, illustrative
-    - {age_band: "<=12",  mu: 7.5}
-    - {age_band: "13-17", mu: 4.0}
-    - {age_band: "18-21", mu: 1.5}
-    - {age_band: "22-45", mu: 0.0}
+  drift_mu_by_age:              # points per month at θ = 2000, illustrative; bands as in T2.2
+    - {age_band: "<12",   mu: 7.5}
+    - {age_band: "12-15", mu: 5.0}
+    - {age_band: "16-19", mu: 2.5}
+    - {age_band: "20-24", mu: 0.8}
+    - {age_band: "25-45", mu: 0.0}
     - {age_band: "46-60", mu: -0.3}
     - {age_band: ">60",   mu: -0.8}
-  sigma_theta_by_age:           # points per month, illustrative
-    - {age_band: "<=17",  sigma_theta: 25}
-    - {age_band: "18-45", sigma_theta: 12}
-    - {age_band: ">45",   sigma_theta: 15}
+  sigma_theta_by_age:           # points per month, illustrative; bands as in T2.2
+    - {age_band: "<12",   sigma_theta: 25}
+    - {age_band: "12-15", sigma_theta: 25}
+    - {age_band: "16-19", sigma_theta: 20}
+    - {age_band: "20-24", sigma_theta: 14}
+    - {age_band: "25-45", sigma_theta: 12}
+    - {age_band: "46-60", sigma_theta: 15}
+    - {age_band: ">60",   sigma_theta: 15}
   rho: 0.97
   omega: 8.0
   rng_seed: 20270201
@@ -426,12 +437,12 @@ ledger_totals:                  # points, illustrative
   moved_by_results_gross: 2418766.3
   created_by_unequal_K: -1843.3
   junior_compensation: 2194.4
-  global_adjustment_posted: 198176.0   # 1.1 × 180,160 players posted this month
+  global_adjustment_posted: 198176.0   # Σ of the balances posted this month (illustrative)
   federation_adjustment_posted: 0.0
   rounding_residual: 31.2
   entering_with_newcomers: 6121035.0
-  leaving_below_floor: -172260.0
-  change_in_list_total: 6147333.3      # = (2)+(3)+(4)+(5)+(6)+(7)−(8)
+  leaving_below_floor: 172260.0        # magnitude; subtracted in the identity
+  change_in_list_total: 6147333.3      # = (2)+(3)+(4)+(5)+(6)+(7)−(8) = −1843.3 + 2194.4 + 198176.0 + 0.0 + 31.2 + 6121035.0 − 172260.0
   memo_newly_inactive: 4018812.0
   memo_accrued_balance: 61204.1
 
@@ -474,6 +485,7 @@ Games g = 1 … G in the test month, outcome y_g ∈ {W, D, L} from the player's
 | Calibration by bin | For each bin b (gap x in 50-point bins to 1000; level band of 200 points; colour; time control; federation pair): mean residual r_b = mean(S_g − E_g) and the slope of S on E by least squares within b; reported for bins with at least 1,000 games |
 | Anchor-cohort drift | D_t = m_{t} − m_{t−12}, the twelve-month change of the published mean of the fixed anchor panel (chain-linked at each re-basing), points per year [R 22] |
 | Cross-federation residual | r_f = mean(S_i − E(x_i)) over games with i ∈ f and j ∉ f, in score units, and in points r_f / E′(0; tc, L̄_f) with E′(0) = κ_tc (ln 10/400) / (2(2 + ν)) |
+| Monitoring indicators | Published monthly without names: per-event lines (2) and (3) of the ledger with the top percentile flagged; a farming index (share of a player's gain from opponents 300 or more points below, including games against compensated juniors); returns from inactivity whose first-10-game score exceeds the expectation by more than 2 SD (PROVISIONAL threshold); |θ̃_i − R_i| > 2 σ_i for any player (the sandbag indicator); federation offsets moving faster than their cap would allow; Cov(θ, δ_tc) and the cross-time-control correlation as fit diagnostics |
 | Newcomer convergence | Real data: mean three-outcome log-loss over a player's games 1–30 against the pool average. Simulation (T9): N_50 = the game count after which |R_i − θ_i| < 50 and stays below for the rest of the run |
 
 ### T8.4 Significance
@@ -497,7 +509,7 @@ Decision rule: Layer 2 must beat Layer 0 on log-loss, RPS and Brier with interva
 
 ### T8.6 Data plan
 
-1. Method development: the Lichess open database, CC0 ("Use them for research, commercial purpose, publication, anything you like" [V 4]), about 28–29 GB and 85–89 million standard games per month in 2024–2026 [V 4]; broadcasts (CC BY-SA 4.0 [V 4]) as the over-the-board slice. Online data calibrates methods, never FIDE parameters.
+1. Method development: the Lichess open database, CC0 ("Use them for research, commercial purpose, publication, anything you like" [V 4]), about 28–33 GB and 85–100 million standard games per month in 2024–2026 [V 4]; broadcasts (CC BY-SA 4.0 [V 4]) as the over-the-board slice. Online data calibrates methods, never FIDE parameters.
 2. Player panel: FIDE's monthly lists with K, games, birth year and federation [V 3]; no data licence is stated [V 3], so: download, analyse, never redistribute.
 3. Formal request: FIDE's TRF archive, the game record submitted under §9.1 [V 1], under a data-sharing agreement (Phase C); the only data on which φ_f can be tested.
 
@@ -569,7 +581,7 @@ Cumulative against L0: (a) AR-1 expected-score function only, FIDE's K; (b) plus
 
 All arithmetic from `analysis/v02_calculations.py` (sections 5–8 of its output) with the PROVISIONAL parameters of T1; rounding to the published change assumes the game is the player's only game of the period. "Today" means the FIDE Rating Regulations as transcribed [V 1].
 
-**T10.1 Example (i): an established 1900 adult against a 1500-listed junior whom Layer 1 rates at 1850.** A (1900, White, σ_A = 55 so K_A = 19.1) meets J (1500, Black, born such that J is eligible by age, σ_J = 100 so K_J = 40.0, ŝ_J = 1850, d_t = 0 this month). Eligibility: P(s_J − R_J > 50) = Φ((1850 − 1500 − 50)/100) = Φ(3.000) = 0.9987 ≥ 0.90; c_J = min(1850 − 1500, 300) = 300, so RX_J = 1800 (the cap binds). Level L = 1700, band 1600–1799, ν = 0.4015. A's gap x_A = 1900 − 1800 + 35 = 135, E_A = 0.656 from the table (without compensation x would be 435 and E 0.884). J's gap x_J = 1500 − 1900 − 35 = −435, E_J = 1 − E(435) = 0.116: J's own update uses published ratings only.
+**T10.1 Example (i): an established 1900 adult against a 1500-listed junior whom Layer 1 rates at 1850.** A (1900, White, σ_A = 55 so K_A = 19.1) meets J (1500, Black, born such that J is eligible by age, σ_J = 100 so K_J = 40.0, ŝ_J = 1850; d_t is taken as 0 here, and in T10.3 as +7.2: either way c_cap binds and the example is unchanged). Eligibility: P(s_J − R_J > 50) = Φ((1850 − 1500 − 50)/100) = Φ(3.000) = 0.9987 ≥ 0.90; c_J = min(1850 − 1500, 300) = 300, so RX_J = 1800 (the cap binds). Level L = 1700, band 1600–1799, ν = 0.4015. A's gap x_A = 1900 − 1800 + 35 = 135, E_A = 0.656 from the table (without compensation x would be 435 and E 0.884). J's gap x_J = 1500 − 1900 − 35 = −435, E_J = 1 − E(435) = 0.116: J's own update uses published ratings only.
 
 Today: D = 400, not "more than 400", so no cap applies; table 8.1.2 row 392–411 gives .92 to A and .08 to J; K = 20 for A and 40 for J (junior under 2300) [V 1].
 
@@ -596,7 +608,7 @@ In every row the sum of the two players' changes equals the two creation terms e
 | 2600 | 2100 | 400, .92 | +0.8 / −4.2 / −9.2 | 535, 2200–2399, 0.884 | 16.1 | +1.8676 / −6.1824 / −14.2324 |
 | 2700 | 2100 | 600, .98 | +0.2 / −4.8 / −9.8 | 635, 2400–2599, 0.899 | 16.1 | +1.6261 / −6.4239 / −14.4739 |
 
-Why the farming incentive disappears. Under Layer 2 the expected change is K_i (P_W (1 − E) + P_D (½ − E) + P_L (0 − E)) = K_i (E − E) = 0 exactly (P4): the win is worth little and the loss costs much, in the exact ratio of their probabilities, at every gap, with no cap. Today the 2600's expectation is capped at .92 while the table's own uncapped value at D = 500 is .96 (row 485–517 [V 1]); if the uncapped table were right, every game against a 2100 would be worth 10 × (.96 − .92) = +0.4 points in expectation, which is the arbitrage the October 2025 amendment removed for players rated 2650 and above and left in place below [V 1] [R 55]. The cliff at 2650 today, and its absence under Layer 2 (each player beats a 2200 with White):
+Why the farming incentive disappears. Under Layer 2 the expected change is K_i (P_W (1 − E) + P_D (½ − E) + P_L (0 − E)) = K_i (E − E) = 0 exactly (P4): the win is worth little and the loss costs much, in the exact ratio of their probabilities, at every gap, with no cap. Today the 2600's expectation is capped at .92 while the table's own uncapped value at D = 500 is .96 (row 485–517 [V 1]); if the uncapped table were right, every game against a 2100 would be worth 10 × (.96 − .92) = +0.4 points in expectation, which is the incentive the October 2025 amendment removed for players rated 2650 and above and left in place below [V 1] [R 55]. The cliff at 2650 today, and its absence under Layer 2 (each player beats a 2200 with White):
 
 | Winner | Today: gap used, PD, gain at K = 10 | Layer 2: x, band, E, gain at K_i = 16.1 |
 |---|---|---|
@@ -624,13 +636,13 @@ The reference engine implements the Rating Regulations exactly (docs/specs/SPEC-
 
 Published in parallel with the official list for twelve months, with no effect on titles, norms, pairings or prizes. Precedent: during the 2008–2011 K-factor trial, when top players raised "major concern", FIDE ordered a parallel list so both calculations could be compared before anything changed [R §2] [R 16].
 
-Published each month: the shadow list (rating, K_i, games, c_j); the parameter file (T7) per time control; the ledger (T6); a monitoring report with the T8 metrics and the anomaly indicators of v0.2 §9, without names.
+Published each month: the shadow list (rating, K_i, games, RX_j for compensated juniors); the parameter file (T7) per time control; the ledger (T6); a monitoring report with the T8 metrics and the anomaly indicators of v0.2 §9, without names.
 
 Rollback: if any T8.5 threshold is breached two months running, the parameter file reverts to the last compliant file while the QC investigates, and the reversion is published. The QC signs every parameter file (T7 signatures block); the project team proposes, never signs. If the pilot is abandoned, nothing happens to anyone's rating: the official list was never touched; the shadow list stops with a closing report.
 
 ### Stage 3: pilot federation
 
-One federation (not named; founder decision, v0.2 §11 decision 8) runs the shadow list as its national list for a defined period, PROVISIONAL twelve months, for domestic purposes. FIDE's official list remains the one used for titles, norms and every FIDE purpose. Publication, rollback and signature as in stage 2. Gate: twelve clean months and a QC report.
+One federation (not named; founder decision, v0.2 §11 decision 2) runs the shadow list as its national list for a defined period, PROVISIONAL twelve months, for domestic purposes. FIDE's official list remains the one used for titles, norms and every FIDE purpose. Publication, rollback and signature as in stage 2. Gate: twelve clean months and a QC report.
 
 ### Stage 4: adoption by Council decision
 

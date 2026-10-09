@@ -44,6 +44,8 @@ nu by band midpoint, standard: 1500: 0.3050, 1700: 0.4015, 1900: 0.5286, 2100: 0
 
 Per-period cap example: K_i = 26.1 and n = 40 games gives K_i x n = 1044.0; 700 / 40 truncated to tenths = 17.5; K_i = 16.5 and n = 40 gives 660.0 (no cap).
 
+z_{0.90} = NormalDist().inv_cdf(0.90) = 1.2816 (the Gaussian quantile used in the eligibility test, T4.6); p_min = 0.90.
+
 ## 5 Worked example (i): established 1900 adult (White, sigma = 55) v 1500-listed junior (Black, sigma = 100) whom L1 rates at 1850
 
 - Eligibility (AR-4): P(theta_J - R_J > tau) = Phi((1850 - 1500 - 50) / 100) = Phi(3.000) = 0.9987 >= 0.9: eligible. c_J = min(1850 - 1500, 300) = 300; RX_J = 1800.
