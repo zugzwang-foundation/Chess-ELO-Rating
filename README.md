@@ -14,10 +14,11 @@ Zugzwang's proposal to modernise the FIDE Elo rating system. The project deliver
 | `docs/decisions/` | Decision records (`D-NNNN_*.md`) |
 | `docs/review/` | Red-team reviews of each proposal version |
 | `analysis/` | Deterministic scripts that produce every number in the documents, with their committed outputs |
+| `tests/` | Fixtures recorded from FIDE's pages (`tests/fixtures/fide_calculator/`) and, once SPEC-L0 is ratified, the tests of the Layer-0 engine |
 | `tools/` | The automated check run on every pull request (`tools/README.md`) |
 | `CLAUDE.md` | Working rules for the humans and agents editing this repository |
 
-There is no code yet. By project rule, no rating-engine code is written until the Layer-0 specification in `docs/specs/` is ratified.
+There is no rating-engine code yet: by project rule, none is written until the Layer-0 specification in `docs/specs/` is ratified.
 
 ## Spelling
 

@@ -742,7 +742,7 @@ Four stages; nothing in stages 1–3 touches the official list. The adoption lad
 
 ### Stage 1: Layer 0 replica and the first real-data tests, now
 
-The reference engine implements the Rating Regulations exactly (`docs/specs/SPEC-L0_fide-reference-engine_v0_1.md`), test-vector verified against FIDE's calculator and against FIDE's published calculations [V 1] [V 3]; the rapid and blitz branches carry the plain 400-point cap and the 600-point exclusion [V 2]. The first evidence reports measure, on FIDE's monthly lists, the drift of the anchor cohort, the pile-up at the floor, newcomers and the K distribution, and, on the broadcast archive, the calibration of table 8.1.2, White's edge, draw rates and colour imbalance (T8.6). Gate: exact reproduction of every fixture; rung 2's table fitted and tested under T8. Needs nothing from FIDE.
+The reference engine implements the Rating Regulations exactly (`docs/specs/SPEC-L0_fide-reference-engine_v1_0.md`), test-vector verified against FIDE's published calculations, since FIDE's online calculator is out of date (SPEC-L0 §6.1) [V 1] [V 3]; the rapid and blitz branches carry the plain 400-point cap and the 600-point exclusion [V 2]. The first evidence reports measure, on FIDE's monthly lists, the drift of the anchor cohort, the pile-up at the floor, newcomers and the K distribution, and, on the broadcast archive, the calibration of table 8.1.2, White's edge, draw rates and colour imbalance (T8.6). Gate: exact reproduction of every fixture; rung 2's table fitted and tested under T8. Needs nothing from FIDE.
 
 ### Stage 2: twelve-month shadow list
 

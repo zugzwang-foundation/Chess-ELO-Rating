@@ -18,8 +18,8 @@ build/
 .idea/
 *.swp
 
-# Data: never commit raw rating lists or game archives
-data/raw/
+# Data: never commit rating lists, game archives or files derived from them
+/data/
 *.pgn
 *.pgn.zst
 *.zip
