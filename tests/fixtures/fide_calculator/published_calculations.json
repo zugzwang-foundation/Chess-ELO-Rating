@@ -1,0 +1,1044 @@
+{
+ "source": "FIDE's published per-player rating calculations (ratings.fide.com/calculations.phtml, data endpoint /a_indv_calculation.php)",
+ "fetched": "2026-10-09, one request at a time, at least 6 s apart; adults only (born 2007 or earlier); opponents identified by the rating FIDE used, not by name",
+ "list_values_note": "published_list_ratings, published_list_k and published_list_games are single values quoted from FIDE's monthly standard lists (downloaded 2026-10-09) for verification; the lists themselves are not redistributed",
+ "cases": [
+  {
+   "id": "F-P01",
+   "fide_id": 2016192,
+   "birth_year": 1987,
+   "rating_period": "2025-12",
+   "url": "https://ratings.fide.com/a_indv_calculation.php?id_number=2016192&rating_period=2025-12-01&t=0",
+   "fetched_utc": "2026-10-09T17:38:06Z",
+   "checks": "R-14 (the 2650+ player uses the full difference), R-25 (-2.50 rounded to -3)",
+   "published_list_ratings": {
+    "2025-11": 2813,
+    "2025-12": 2810
+   },
+   "published_list_k": {
+    "2025-11": 10,
+    "2025-12": 10
+   },
+   "published_list_games": {
+    "2025-12": 5
+   },
+   "total_change_shown": "-2.50",
+   "tournaments": [
+    {
+     "event_id": 435715,
+     "event": "1st Annual Washington Dulles Open",
+     "place": "Oak Grove, VA USA",
+     "start": "2025-11-07",
+     "end": "2025-11-09",
+     "Rc": "2205",
+     "Ro": "2813",
+     "w": "4.50",
+     "n": "5",
+     "chg": "-0.25",
+     "K": "10",
+     "K_chg": "-2.50",
+     "games": [
+      {
+       "colour": "white",
+       "opponent_rating_used": "1787",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.00",
+       "K": "10",
+       "K_chg": "0.00"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "2025",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.00",
+       "K": "10",
+       "K_chg": "0.00"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2310",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.04",
+       "K": "10",
+       "K_chg": "0.40"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "2400",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.07",
+       "K": "10",
+       "K_chg": "0.70"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2505",
+       "capped_marker": false,
+       "score": "0.50",
+       "chg": "-0.36",
+       "K": "10",
+       "K_chg": "-3.60"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-P02",
+   "fide_id": 9953698,
+   "birth_year": 2006,
+   "rating_period": "2025-12",
+   "url": "https://ratings.fide.com/a_indv_calculation.php?id_number=9953698&rating_period=2025-12-01&t=0",
+   "fetched_utc": "2026-10-09T17:50:26Z",
+   "checks": "R-14 (the player below 2650 sees the 2650+ opponent capped, '2800 *'); several capped games in one event; R-11a (ratings from the list in force at each event's start); R-25 granularity (see README)",
+   "published_list_ratings": {
+    "2025-10": 2395,
+    "2025-11": 2400,
+    "2025-12": 2406
+   },
+   "published_list_k": {
+    "2025-11": 10,
+    "2025-12": 10
+   },
+   "published_list_games": {
+    "2025-12": 15
+   },
+   "total_change_shown": "5.40",
+   "tournaments": [
+    {
+     "event_id": 442869,
+     "event": "2nd Annual ACA Thanksgiving Open",
+     "place": "Dulles, VA USA",
+     "start": "2025-10-31",
+     "end": "2025-11-02",
+     "Rc": "2103",
+     "Ro": "2395",
+     "w": "3.50",
+     "n": "5",
+     "chg": "-0.61",
+     "K": "10",
+     "K_chg": "-6.10",
+     "games": [
+      {
+       "colour": "black",
+       "opponent_rating_used": "1995",
+       "capped_marker": true,
+       "score": "1.00",
+       "chg": "0.08",
+       "K": "10",
+       "K_chg": "0.80"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2205",
+       "capped_marker": false,
+       "score": "0.50",
+       "chg": "-0.25",
+       "K": "10",
+       "K_chg": "-2.50"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2325",
+       "capped_marker": false,
+       "score": "0.00",
+       "chg": "-0.60",
+       "K": "10",
+       "K_chg": "-6.00"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "1995",
+       "capped_marker": true,
+       "score": "1.00",
+       "chg": "0.08",
+       "K": "10",
+       "K_chg": "0.80"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "1995",
+       "capped_marker": true,
+       "score": "1.00",
+       "chg": "0.08",
+       "K": "10",
+       "K_chg": "0.80"
+      }
+     ]
+    },
+    {
+     "event_id": 435715,
+     "event": "1st Annual Washington Dulles Open",
+     "place": "Oak Grove, VA USA",
+     "start": "2025-11-07",
+     "end": "2025-11-09",
+     "Rc": "2201",
+     "Ro": "2400",
+     "w": "4.00",
+     "n": "5",
+     "chg": "0.37",
+     "K": "10",
+     "K_chg": "3.70",
+     "games": [
+      {
+       "colour": "white",
+       "opponent_rating_used": "2000",
+       "capped_marker": true,
+       "score": "1.00",
+       "chg": "0.08",
+       "K": "10",
+       "K_chg": "0.80"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "2000",
+       "capped_marker": true,
+       "score": "1.00",
+       "chg": "0.08",
+       "K": "10",
+       "K_chg": "0.80"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2121",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.16",
+       "K": "10",
+       "K_chg": "1.60"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2800",
+       "capped_marker": true,
+       "score": "0.00",
+       "chg": "-0.08",
+       "K": "10",
+       "K_chg": "-0.80"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "2084",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.13",
+       "K": "10",
+       "K_chg": "1.30"
+      }
+     ]
+    },
+    {
+     "event_id": 441774,
+     "event": "2025 Northern Virginia Open - Championship",
+     "place": "Dulles, VA USA",
+     "start": "2025-11-21",
+     "end": "2025-11-23",
+     "Rc": "2178",
+     "Ro": "2400",
+     "w": "4.50",
+     "n": "5",
+     "chg": "0.78",
+     "K": "10",
+     "K_chg": "7.80",
+     "games": [
+      {
+       "colour": "white",
+       "opponent_rating_used": "2000",
+       "capped_marker": true,
+       "score": "1.00",
+       "chg": "0.08",
+       "K": "10",
+       "K_chg": "0.80"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "2000",
+       "capped_marker": true,
+       "score": "1.00",
+       "chg": "0.08",
+       "K": "10",
+       "K_chg": "0.80"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2230",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.28",
+       "K": "10",
+       "K_chg": "2.80"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "2505",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.64",
+       "K": "10",
+       "K_chg": "6.40"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2155",
+       "capped_marker": false,
+       "score": "0.50",
+       "chg": "-0.30",
+       "K": "10",
+       "K_chg": "-3.00"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-P03",
+   "fide_id": 2064871,
+   "birth_year": 2002,
+   "rating_period": "2025-12",
+   "url": "https://ratings.fide.com/a_indv_calculation.php?id_number=2064871&rating_period=2025-12-01&t=0",
+   "fetched_utc": "2026-10-09T17:51:16Z",
+   "checks": "R-11a (an event starting on 31 October uses the October list); R-25",
+   "published_list_ratings": {
+    "2025-10": 2499,
+    "2025-11": 2505,
+    "2025-12": 2507
+   },
+   "published_list_k": {
+    "2025-11": 10,
+    "2025-12": 10
+   },
+   "published_list_games": {
+    "2025-12": 15
+   },
+   "total_change_shown": "1.90",
+   "tournaments": [
+    {
+     "event_id": 442869,
+     "event": "2nd Annual ACA Thanksgiving Open",
+     "place": "Dulles, VA USA",
+     "start": "2025-10-31",
+     "end": "2025-11-02",
+     "Rc": "2285",
+     "Ro": "2499",
+     "w": "4.00",
+     "n": "5",
+     "chg": "0.21",
+     "K": "10",
+     "K_chg": "2.10",
+     "games": [
+      {
+       "colour": "white",
+       "opponent_rating_used": "2099",
+       "capped_marker": true,
+       "score": "1.00",
+       "chg": "0.08",
+       "K": "10",
+       "K_chg": "0.80"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "2322",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.27",
+       "K": "10",
+       "K_chg": "2.70"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2422",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.39",
+       "K": "10",
+       "K_chg": "3.90"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "2325",
+       "capped_marker": false,
+       "score": "0.50",
+       "chg": "-0.23",
+       "K": "10",
+       "K_chg": "-2.30"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2255",
+       "capped_marker": false,
+       "score": "0.50",
+       "chg": "-0.30",
+       "K": "10",
+       "K_chg": "-3.00"
+      }
+     ]
+    },
+    {
+     "event_id": 435715,
+     "event": "1st Annual Washington Dulles Open",
+     "place": "Oak Grove, VA USA",
+     "start": "2025-11-07",
+     "end": "2025-11-09",
+     "Rc": "2279",
+     "Ro": "2505",
+     "w": "4.00",
+     "n": "5",
+     "chg": "0.29",
+     "K": "10",
+     "K_chg": "2.90",
+     "games": [
+      {
+       "colour": "black",
+       "opponent_rating_used": "2105",
+       "capped_marker": true,
+       "score": "1.00",
+       "chg": "0.08",
+       "K": "10",
+       "K_chg": "0.80"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2105",
+       "capped_marker": true,
+       "score": "1.00",
+       "chg": "0.08",
+       "K": "10",
+       "K_chg": "0.80"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "2237",
+       "capped_marker": false,
+       "score": "0.50",
+       "chg": "-0.33",
+       "K": "10",
+       "K_chg": "-3.30"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2134",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.10",
+       "K": "10",
+       "K_chg": "1.00"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "2813",
+       "capped_marker": false,
+       "score": "0.50",
+       "chg": "0.36",
+       "K": "10",
+       "K_chg": "3.60"
+      }
+     ]
+    },
+    {
+     "event_id": 441774,
+     "event": "2025 Northern Virginia Open - Championship",
+     "place": "Dulles, VA USA",
+     "start": "2025-11-21",
+     "end": "2025-11-23",
+     "Rc": "2167",
+     "Ro": "2505",
+     "w": "4.00",
+     "n": "5",
+     "chg": "-0.31",
+     "K": "10",
+     "K_chg": "-3.10",
+     "games": [
+      {
+       "colour": "black",
+       "opponent_rating_used": "2105",
+       "capped_marker": true,
+       "score": "1.00",
+       "chg": "0.08",
+       "K": "10",
+       "K_chg": "0.80"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2105",
+       "capped_marker": true,
+       "score": "1.00",
+       "chg": "0.08",
+       "K": "10",
+       "K_chg": "0.80"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "2105",
+       "capped_marker": true,
+       "score": "1.00",
+       "chg": "0.08",
+       "K": "10",
+       "K_chg": "0.80"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2400",
+       "capped_marker": false,
+       "score": "0.00",
+       "chg": "-0.64",
+       "K": "10",
+       "K_chg": "-6.40"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "2118",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.09",
+       "K": "10",
+       "K_chg": "0.90"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-P04",
+   "fide_id": 30915422,
+   "birth_year": 1998,
+   "rating_period": "2025-12",
+   "url": "https://ratings.fide.com/a_indv_calculation.php?id_number=30915422&rating_period=2025-12-01&t=0",
+   "fetched_utc": "2026-10-09T17:53:45Z",
+   "checks": "base correction: FIDE's Ro (2053) differs from the published November list (2052); R-25",
+   "published_list_ratings": {
+    "2025-11": 2052,
+    "2025-12": 2053
+   },
+   "published_list_k": {
+    "2025-11": 20,
+    "2025-12": 20
+   },
+   "published_list_games": {
+    "2025-12": 5
+   },
+   "total_change_shown": "-0.20",
+   "tournaments": [
+    {
+     "event_id": 435715,
+     "event": "1st Annual Washington Dulles Open",
+     "place": "Oak Grove, VA USA",
+     "start": "2025-11-07",
+     "end": "2025-11-09",
+     "Rc": "1948",
+     "Ro": "2053",
+     "w": "3.00",
+     "n": "5",
+     "chg": "-0.01",
+     "K": "20",
+     "K_chg": "-0.20",
+     "games": [
+      {
+       "colour": "black",
+       "opponent_rating_used": "1675",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.09",
+       "K": "20",
+       "K_chg": "1.80"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2310",
+       "capped_marker": false,
+       "score": "0.00",
+       "chg": "-0.18",
+       "K": "20",
+       "K_chg": "-3.60"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "1653",
+       "capped_marker": true,
+       "score": "1.00",
+       "chg": "0.08",
+       "K": "20",
+       "K_chg": "1.60"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "1884",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.28",
+       "K": "20",
+       "K_chg": "5.60"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "2218",
+       "capped_marker": false,
+       "score": "0.00",
+       "chg": "-0.28",
+       "K": "20",
+       "K_chg": "-5.60"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-P05",
+   "fide_id": 25759884,
+   "birth_year": 2003,
+   "rating_period": "2026-10",
+   "url": "https://ratings.fide.com/a_indv_calculation.php?id_number=25759884&rating_period=2026-10-01&t=0",
+   "fetched_utc": "2026-10-09T18:03:10Z",
+   "checks": "R-23 (K x n <= 700: K = 17 for n = 39 while the list's K column shows 20); R-25 (92.48 rounded to 92)",
+   "published_list_ratings": {
+    "2026-08": 2054,
+    "2026-09": 2054,
+    "2026-10": 2146
+   },
+   "published_list_k": {
+    "2026-09": 20,
+    "2026-10": 20
+   },
+   "published_list_games": {
+    "2026-10": 39
+   },
+   "total_change_shown": "92.48",
+   "tournaments": [
+    {
+     "event_id": 477038,
+     "event": "XXVII Open Internacional de Sants - Ciutat de Barcelona 2026 - Grup A",
+     "place": "Barcelona ESP",
+     "start": "2026-08-21",
+     "end": "2026-08-30",
+     "Rc": "2198",
+     "Ro": "2054",
+     "w": "4.00",
+     "n": "8",
+     "chg": "1.44",
+     "K": "17",
+     "K_chg": "24.48",
+     "games": [
+      {
+       "colour": "black",
+       "opponent_rating_used": "2406",
+       "capped_marker": false,
+       "score": "0.00",
+       "chg": "-0.11",
+       "K": "17",
+       "K_chg": "-1.87"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "1908",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.30",
+       "K": "17",
+       "K_chg": "5.10"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "2220",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.72",
+       "K": "17",
+       "K_chg": "12.24"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2216",
+       "capped_marker": false,
+       "score": "0.00",
+       "chg": "-0.29",
+       "K": "17",
+       "K_chg": "-4.93"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "2204",
+       "capped_marker": false,
+       "score": "0.50",
+       "chg": "0.20",
+       "K": "17",
+       "K_chg": "3.40"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2189",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.68",
+       "K": "17",
+       "K_chg": "11.56"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "2223",
+       "capped_marker": false,
+       "score": "0.00",
+       "chg": "-0.28",
+       "K": "17",
+       "K_chg": "-4.76"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2221",
+       "capped_marker": false,
+       "score": "0.50",
+       "chg": "0.22",
+       "K": "17",
+       "K_chg": "3.74"
+      }
+     ]
+    },
+    {
+     "event_id": 474879,
+     "event": "FE 28 Citta' di Trieste - A",
+     "place": "Trieste ITA",
+     "start": "2026-08-29",
+     "end": "2026-09-04",
+     "Rc": "2082",
+     "Ro": "2054",
+     "w": "5.00",
+     "n": "8",
+     "chg": "1.14",
+     "K": "17",
+     "K_chg": "19.38",
+     "games": [
+      {
+       "colour": "black",
+       "opponent_rating_used": "2350",
+       "capped_marker": false,
+       "score": "0.00",
+       "chg": "-0.15",
+       "K": "17",
+       "K_chg": "-2.55"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "1928",
+       "capped_marker": false,
+       "score": "0.00",
+       "chg": "-0.67",
+       "K": "17",
+       "K_chg": "-11.39"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "2085",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.54",
+       "K": "17",
+       "K_chg": "9.18"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "1993",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.42",
+       "K": "17",
+       "K_chg": "7.14"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "1931",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.33",
+       "K": "17",
+       "K_chg": "5.61"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2055",
+       "capped_marker": false,
+       "score": "0.50",
+       "chg": "0.00",
+       "K": "17",
+       "K_chg": "0.00"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "2454",
+       "capped_marker": true,
+       "score": "0.50",
+       "chg": "0.42",
+       "K": "17",
+       "K_chg": "7.14"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "1861",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.25",
+       "K": "17",
+       "K_chg": "4.25"
+      }
+     ]
+    },
+    {
+     "event_id": 486307,
+     "event": "I Open Internacional MyInvestor Casablanca",
+     "place": "Zaragoza ESP",
+     "start": "2026-09-05",
+     "end": "2026-09-12",
+     "Rc": "2091",
+     "Ro": "2054",
+     "w": "5.00",
+     "n": "6",
+     "chg": "2.34",
+     "K": "17",
+     "K_chg": "39.78",
+     "games": [
+      {
+       "colour": "white",
+       "opponent_rating_used": "2217",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.72",
+       "K": "17",
+       "K_chg": "12.24"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "1743",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.14",
+       "K": "17",
+       "K_chg": "2.38"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "1947",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.35",
+       "K": "17",
+       "K_chg": "5.95"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "2266",
+       "capped_marker": false,
+       "score": "0.50",
+       "chg": "0.27",
+       "K": "17",
+       "K_chg": "4.59"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2189",
+       "capped_marker": false,
+       "score": "0.50",
+       "chg": "0.18",
+       "K": "17",
+       "K_chg": "3.06"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "2186",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.68",
+       "K": "17",
+       "K_chg": "11.56"
+      }
+     ]
+    },
+    {
+     "event_id": 490904,
+     "event": "MEDJUNARODNI SAHOVSKI TURNIR \"1. MEDJUGORJE OPEN - STANDARD\"",
+     "place": "Medjugorje BIH",
+     "start": "2026-09-13",
+     "end": "2026-09-19",
+     "Rc": "2024",
+     "Ro": "2054",
+     "w": "5.00",
+     "n": "8",
+     "chg": "0.79",
+     "K": "17",
+     "K_chg": "13.43",
+     "games": [
+      {
+       "colour": "black",
+       "opponent_rating_used": "1654",
+       "capped_marker": true,
+       "score": "1.00",
+       "chg": "0.08",
+       "K": "17",
+       "K_chg": "1.36"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2283",
+       "capped_marker": false,
+       "score": "0.00",
+       "chg": "-0.21",
+       "K": "17",
+       "K_chg": "-3.57"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "1822",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.21",
+       "K": "17",
+       "K_chg": "3.57"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2251",
+       "capped_marker": false,
+       "score": "0.00",
+       "chg": "-0.25",
+       "K": "17",
+       "K_chg": "-4.25"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "1884",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.28",
+       "K": "17",
+       "K_chg": "4.76"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2215",
+       "capped_marker": false,
+       "score": "0.50",
+       "chg": "0.21",
+       "K": "17",
+       "K_chg": "3.57"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "2210",
+       "capped_marker": false,
+       "score": "0.50",
+       "chg": "0.21",
+       "K": "17",
+       "K_chg": "3.57"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "1872",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.26",
+       "K": "17",
+       "K_chg": "4.42"
+      }
+     ]
+    },
+    {
+     "event_id": 499196,
+     "event": "S: Zagreb Open 2026. - VIII. Memorijal Krunoslava Hulaka",
+     "place": "Zagreb CRO",
+     "start": "2026-09-20",
+     "end": "2026-09-27",
+     "Rc": "1924",
+     "Ro": "2054",
+     "w": "5.50",
+     "n": "9",
+     "chg": "-0.27",
+     "K": "17",
+     "K_chg": "-4.59",
+     "games": [
+      {
+       "colour": "black",
+       "opponent_rating_used": "1654",
+       "capped_marker": true,
+       "score": "1.00",
+       "chg": "0.08",
+       "K": "17",
+       "K_chg": "1.36"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2247",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.75",
+       "K": "17",
+       "K_chg": "12.75"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "2308",
+       "capped_marker": false,
+       "score": "0.00",
+       "chg": "-0.19",
+       "K": "17",
+       "K_chg": "-3.23"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "2168",
+       "capped_marker": false,
+       "score": "0.00",
+       "chg": "-0.34",
+       "K": "17",
+       "K_chg": "-5.78"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "1810",
+       "capped_marker": false,
+       "score": "0.00",
+       "chg": "-0.80",
+       "K": "17",
+       "K_chg": "-13.60"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "1747",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.14",
+       "K": "17",
+       "K_chg": "2.38"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "1852",
+       "capped_marker": false,
+       "score": "1.00",
+       "chg": "0.24",
+       "K": "17",
+       "K_chg": "4.08"
+      },
+      {
+       "colour": "white",
+       "opponent_rating_used": "1875",
+       "capped_marker": false,
+       "score": "0.50",
+       "chg": "-0.23",
+       "K": "17",
+       "K_chg": "-3.91"
+      },
+      {
+       "colour": "black",
+       "opponent_rating_used": "1654",
+       "capped_marker": true,
+       "score": "1.00",
+       "chg": "0.08",
+       "K": "17",
+       "K_chg": "1.36"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

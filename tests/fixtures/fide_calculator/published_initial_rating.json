@@ -1,0 +1,97 @@
+{
+ "source": "FIDE's published per-player rating calculation and tournament report for a player new to the standard list",
+ "fetched": "2026-10-09, one request at a time, at least 6 s apart; adult player (born 2004); opponents identified by the rating FIDE used, not by name",
+ "list_values_note": "published_list values are single values quoted from FIDE's monthly standard lists for verification; the lists themselves are not redistributed",
+ "cases": [
+  {
+   "id": "F-N01",
+   "fide_id": 39998126,
+   "birth_year": 2004,
+   "rating_period": "2025-12",
+   "checks": "R-27 to R-30 (current initial-rating rule, Ra with two hypothetical 1800 opponents scored as draws); the 'Rp' column of FIDE's calculation page and tournament report follows the archived 2022-24 rule",
+   "calculation_url": "https://ratings.fide.com/a_indv_calculation.php?id_number=39998126&rating_period=2025-12-01&t=0",
+   "calculation_fetched_utc": "2026-10-09T18:50:08Z",
+   "report_url": "https://ratings.fide.com/report.phtml?event=435715&t=0",
+   "report_fetched_utc": "2026-10-09T17:51:53Z",
+   "event_id": 435715,
+   "event": "1st Annual Washington Dulles Open",
+   "start": "2025-11-07",
+   "end": "2025-11-09",
+   "calculation_summary": {
+    "Rc": "1901",
+    "Ro": "0",
+    "w": "3.00",
+    "n": "5",
+    "chg": "0.00",
+    "Rp": "1921"
+   },
+   "report_row": {
+    "Rc": "1901",
+    "Rp": "1921",
+    "W": "3.00",
+    "N": "5",
+    "Chg": "0"
+   },
+   "games": [
+    {
+     "colour": "black",
+     "opponent_rating_used": "1902",
+     "score": "0.50"
+    },
+    {
+     "colour": "white",
+     "opponent_rating_used": "1877",
+     "score": "0.50"
+    },
+    {
+     "colour": "black",
+     "opponent_rating_used": "1884",
+     "score": "1.00"
+    },
+    {
+     "colour": "white",
+     "opponent_rating_used": "2012",
+     "score": "0.00"
+    },
+    {
+     "colour": "black",
+     "opponent_rating_used": "1832",
+     "score": "1.00"
+    }
+   ],
+   "published_list": {
+    "2025-11": null,
+    "2025-12": {
+     "rating": 1922,
+     "games": 5,
+     "k": 40
+    },
+    "2026-01": {
+     "rating": 1922,
+     "games": 0,
+     "k": 40
+    }
+   },
+   "derived": {
+    "sum_of_opponent_ratings": 9507,
+    "rule_2024": {
+     "Ra": "1872.428571",
+     "p": "0.571429",
+     "p_to_two_decimals": "0.57",
+     "dp": 50,
+     "Ru": "1922.428571",
+     "Ru_rounded": 1922,
+     "agrees_with_list": true
+    },
+    "rule_2022": {
+     "Ra": "1901.4",
+     "half_points_over_50_percent": 1,
+     "Ru": "1921.4",
+     "Ru_rounded": 1921,
+     "agrees_with_Rp_column": true
+    }
+   },
+   "finding": "The published first rating (1922) equals the current rule [V 1] §8.2.2-8.2.3; the 'Rp' value FIDE prints on the calculation page and the tournament report (1921) equals the archived 2022-24 rule [VT 2] (Ra + 20 for each half point over 50 %), as FIDE's online calculator does (calculator_initial_rating.json)."
+  }
+ ]
+}

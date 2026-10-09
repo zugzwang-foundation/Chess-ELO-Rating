@@ -1,0 +1,439 @@
+{
+ "source": "FIDE online rating-change calculator, https://ratings.fide.com/calc.phtml (endpoint /a_calc_rtd.php)",
+ "fetched": "2026-10-09, one request at a time, at least 6 s apart",
+ "finding": "Every response agrees with table 8.1.2 [V 1]; for a player rated 2650 or above with a gap over 400 the calculator still applies the plain 400-point cap, so it does not implement the 1 October 2025 wording of §8.3.1 [V 1]. Changes are shown unrounded (one game).",
+ "cases": [
+  {
+   "id": "F-C01",
+   "case": "T812-D0",
+   "purpose": "table 8.1.2 row 0-3, D = 0",
+   "inputs": {
+    "own_rating": 2000,
+    "opponent_rating": 2000,
+    "score": 1.0,
+    "K": 10
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=2000&f_rc=2000&f_w=1&f_k=10",
+   "fetched_utc": "2026-10-09T17:31:35Z",
+   "response_text": "Rating: 2000 Opponent Rating: 2000 Score: 1 / K factor: 10 Rating Change is: +5",
+   "calculator_change": 5.0,
+   "current_rules_change": 5.0,
+   "agrees_with_current_rules": true,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C02",
+   "case": "T812-D3",
+   "purpose": "row 0-3 upper edge",
+   "inputs": {
+    "own_rating": 2003,
+    "opponent_rating": 2000,
+    "score": 1.0,
+    "K": 10
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=2003&f_rc=2000&f_w=1&f_k=10",
+   "fetched_utc": "2026-10-09T17:31:41Z",
+   "response_text": "Rating: 2003 Opponent Rating: 2000 Score: 1 / K factor: 10 Rating Change is: +5",
+   "calculator_change": 5.0,
+   "current_rules_change": 5.0,
+   "agrees_with_current_rules": true,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C03",
+   "case": "T812-D4",
+   "purpose": "row 4-10 lower edge",
+   "inputs": {
+    "own_rating": 2004,
+    "opponent_rating": 2000,
+    "score": 1.0,
+    "K": 10
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=2004&f_rc=2000&f_w=1&f_k=10",
+   "fetched_utc": "2026-10-09T17:31:48Z",
+   "response_text": "Rating: 2004 Opponent Rating: 2000 Score: 1 / K factor: 10 Rating Change is: +4.9",
+   "calculator_change": 4.9,
+   "current_rules_change": 4.9,
+   "agrees_with_current_rules": true,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C04",
+   "case": "T812-D10",
+   "purpose": "row 4-10 upper edge",
+   "inputs": {
+    "own_rating": 2010,
+    "opponent_rating": 2000,
+    "score": 1.0,
+    "K": 10
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=2010&f_rc=2000&f_w=1&f_k=10",
+   "fetched_utc": "2026-10-09T17:31:54Z",
+   "response_text": "Rating: 2010 Opponent Rating: 2000 Score: 1 / K factor: 10 Rating Change is: +4.9",
+   "calculator_change": 4.9,
+   "current_rules_change": 4.9,
+   "agrees_with_current_rules": true,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C05",
+   "case": "T812-D11",
+   "purpose": "row 11-17 lower edge",
+   "inputs": {
+    "own_rating": 2011,
+    "opponent_rating": 2000,
+    "score": 1.0,
+    "K": 10
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=2011&f_rc=2000&f_w=1&f_k=10",
+   "fetched_utc": "2026-10-09T17:32:01Z",
+   "response_text": "Rating: 2011 Opponent Rating: 2000 Score: 1 / K factor: 10 Rating Change is: +4.8",
+   "calculator_change": 4.8,
+   "current_rules_change": 4.8,
+   "agrees_with_current_rules": true,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C06",
+   "case": "T812-D206",
+   "purpose": "row 198-206 upper edge",
+   "inputs": {
+    "own_rating": 2206,
+    "opponent_rating": 2000,
+    "score": 1.0,
+    "K": 10
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=2206&f_rc=2000&f_w=1&f_k=10",
+   "fetched_utc": "2026-10-09T17:32:07Z",
+   "response_text": "Rating: 2206 Opponent Rating: 2000 Score: 1 / K factor: 10 Rating Change is: +2.4",
+   "calculator_change": 2.4,
+   "current_rules_change": 2.4,
+   "agrees_with_current_rules": true,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C07",
+   "case": "T812-D207",
+   "purpose": "row 207-215 lower edge",
+   "inputs": {
+    "own_rating": 2207,
+    "opponent_rating": 2000,
+    "score": 1.0,
+    "K": 10
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=2207&f_rc=2000&f_w=1&f_k=10",
+   "fetched_utc": "2026-10-09T17:32:14Z",
+   "response_text": "Rating: 2207 Opponent Rating: 2000 Score: 1 / K factor: 10 Rating Change is: +2.3",
+   "calculator_change": 2.3,
+   "current_rules_change": 2.3,
+   "agrees_with_current_rules": true,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C08",
+   "case": "T812-D391",
+   "purpose": "row 375-391 upper edge",
+   "inputs": {
+    "own_rating": 2391,
+    "opponent_rating": 2000,
+    "score": 1.0,
+    "K": 10
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=2391&f_rc=2000&f_w=1&f_k=10",
+   "fetched_utc": "2026-10-09T17:32:21Z",
+   "response_text": "Rating: 2391 Opponent Rating: 2000 Score: 1 / K factor: 10 Rating Change is: +0.9",
+   "calculator_change": 0.9,
+   "current_rules_change": 0.9,
+   "agrees_with_current_rules": true,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C09",
+   "case": "T812-D392",
+   "purpose": "row 392-411 lower edge",
+   "inputs": {
+    "own_rating": 2392,
+    "opponent_rating": 2000,
+    "score": 1.0,
+    "K": 10
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=2392&f_rc=2000&f_w=1&f_k=10",
+   "fetched_utc": "2026-10-09T17:32:27Z",
+   "response_text": "Rating: 2392 Opponent Rating: 2000 Score: 1 / K factor: 10 Rating Change is: +0.8",
+   "calculator_change": 0.8,
+   "current_rules_change": 0.8,
+   "agrees_with_current_rules": true,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C10",
+   "case": "T812-Dm3",
+   "purpose": "negative D, row 0-3 (L column)",
+   "inputs": {
+    "own_rating": 2000,
+    "opponent_rating": 2003,
+    "score": 0.0,
+    "K": 10
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=2000&f_rc=2003&f_w=0&f_k=10",
+   "fetched_utc": "2026-10-09T17:32:34Z",
+   "response_text": "Rating: 2000 Opponent Rating: 2003 Score: 0 / K factor: 10 Rating Change is: -5",
+   "calculator_change": -5.0,
+   "current_rules_change": -5.0,
+   "agrees_with_current_rules": true,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C11",
+   "case": "T812-Dm4",
+   "purpose": "negative D, row 4-10 (L column)",
+   "inputs": {
+    "own_rating": 2000,
+    "opponent_rating": 2004,
+    "score": 0.0,
+    "K": 10
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=2000&f_rc=2004&f_w=0&f_k=10",
+   "fetched_utc": "2026-10-09T17:32:40Z",
+   "response_text": "Rating: 2000 Opponent Rating: 2004 Score: 0 / K factor: 10 Rating Change is: -4.9",
+   "calculator_change": -4.9,
+   "current_rules_change": -4.9,
+   "agrees_with_current_rules": true,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C12",
+   "case": "T812-Dm344",
+   "purpose": "negative D = -344, row 329-344 L = .12",
+   "inputs": {
+    "own_rating": 1656,
+    "opponent_rating": 2000,
+    "score": 0.0,
+    "K": 10
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=1656&f_rc=2000&f_w=0&f_k=10",
+   "fetched_utc": "2026-10-09T17:32:47Z",
+   "response_text": "Rating: 1656 Opponent Rating: 2000 Score: 0 / K factor: 10 Rating Change is: -1.2",
+   "calculator_change": -1.2,
+   "current_rules_change": -1.2,
+   "agrees_with_current_rules": true,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C13",
+   "case": "T812-Dm345",
+   "purpose": "negative D = -345, row 345-357 L = .11",
+   "inputs": {
+    "own_rating": 1655,
+    "opponent_rating": 2000,
+    "score": 0.0,
+    "K": 10
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=1655&f_rc=2000&f_w=0&f_k=10",
+   "fetched_utc": "2026-10-09T17:32:53Z",
+   "response_text": "Rating: 1655 Opponent Rating: 2000 Score: 0 / K factor: 10 Rating Change is: -1.1",
+   "calculator_change": -1.1,
+   "current_rules_change": -1.1,
+   "agrees_with_current_rules": true,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C14",
+   "case": "R14-own2600-D500",
+   "purpose": "400-point rule, own rating below 2650",
+   "inputs": {
+    "own_rating": 2600,
+    "opponent_rating": 2100,
+    "score": 1.0,
+    "K": 10
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=2600&f_rc=2100&f_w=1&f_k=10",
+   "fetched_utc": "2026-10-09T17:33:00Z",
+   "response_text": "Difference of more than 400 is counted as 400. Rating: 2600 Opponent Rating: 2100 Score: 1 / K factor: 10 Rating Change is: +0.8",
+   "calculator_change": 0.8,
+   "current_rules_change": 0.8,
+   "agrees_with_current_rules": true,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C15",
+   "case": "R14-own2649-D500",
+   "purpose": "400-point rule just below 2650",
+   "inputs": {
+    "own_rating": 2649,
+    "opponent_rating": 2149,
+    "score": 1.0,
+    "K": 10
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=2649&f_rc=2149&f_w=1&f_k=10",
+   "fetched_utc": "2026-10-09T17:33:06Z",
+   "response_text": "Difference of more than 400 is counted as 400. Rating: 2649 Opponent Rating: 2149 Score: 1 / K factor: 10 Rating Change is: +0.8",
+   "calculator_change": 0.8,
+   "current_rules_change": 0.8,
+   "agrees_with_current_rules": true,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C16",
+   "case": "R14-own2650-D500",
+   "purpose": "exemption at exactly 2650",
+   "inputs": {
+    "own_rating": 2650,
+    "opponent_rating": 2150,
+    "score": 1.0,
+    "K": 10
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=2650&f_rc=2150&f_w=1&f_k=10",
+   "fetched_utc": "2026-10-09T17:33:13Z",
+   "response_text": "Difference of more than 400 is counted as 400. Rating: 2650 Opponent Rating: 2150 Score: 1 / K factor: 10 Rating Change is: +0.8",
+   "calculator_change": 0.8,
+   "current_rules_change": 0.4,
+   "agrees_with_current_rules": false,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C17",
+   "case": "R14-own2700-D500",
+   "purpose": "exemption above 2650",
+   "inputs": {
+    "own_rating": 2700,
+    "opponent_rating": 2200,
+    "score": 1.0,
+    "K": 10
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=2700&f_rc=2200&f_w=1&f_k=10",
+   "fetched_utc": "2026-10-09T17:33:20Z",
+   "response_text": "Difference of more than 400 is counted as 400. Rating: 2700 Opponent Rating: 2200 Score: 1 / K factor: 10 Rating Change is: +0.8",
+   "calculator_change": 0.8,
+   "current_rules_change": 0.4,
+   "agrees_with_current_rules": false,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C18",
+   "case": "R14-own2200-opp2700",
+   "purpose": "R-14: lower player below 2650, opponent above: own-rating or either-player reading",
+   "inputs": {
+    "own_rating": 2200,
+    "opponent_rating": 2700,
+    "score": 0.0,
+    "K": 20
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=2200&f_rc=2700&f_w=0&f_k=20",
+   "fetched_utc": "2026-10-09T17:33:26Z",
+   "response_text": "Difference of more than 400 is counted as 400. Rating: 2200 Opponent Rating: 2700 Score: 0 / K factor: 20 Rating Change is: -1.6",
+   "calculator_change": -1.6,
+   "current_rules_change": -1.6,
+   "agrees_with_current_rules": true,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C19",
+   "case": "R14-own2100-opp2600",
+   "purpose": "both below 2650, D = -500",
+   "inputs": {
+    "own_rating": 2100,
+    "opponent_rating": 2600,
+    "score": 0.0,
+    "K": 20
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=2100&f_rc=2600&f_w=0&f_k=20",
+   "fetched_utc": "2026-10-09T17:33:33Z",
+   "response_text": "Difference of more than 400 is counted as 400. Rating: 2100 Opponent Rating: 2600 Score: 0 / K factor: 20 Rating Change is: -1.6",
+   "calculator_change": -1.6,
+   "current_rules_change": -1.6,
+   "agrees_with_current_rules": true,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C20",
+   "case": "R14-own2700-D736",
+   "purpose": "exempt player, D = 736 (> 735)",
+   "inputs": {
+    "own_rating": 2700,
+    "opponent_rating": 1964,
+    "score": 1.0,
+    "K": 10
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=2700&f_rc=1964&f_w=1&f_k=10",
+   "fetched_utc": "2026-10-09T17:33:40Z",
+   "response_text": "Difference of more than 400 is counted as 400. Rating: 2700 Opponent Rating: 1964 Score: 1 / K factor: 10 Rating Change is: +0.8",
+   "calculator_change": 0.8,
+   "current_rules_change": 0.0,
+   "agrees_with_current_rules": false,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C21",
+   "case": "R14-own2700-D800",
+   "purpose": "exempt player loses at D = 800",
+   "inputs": {
+    "own_rating": 2700,
+    "opponent_rating": 1900,
+    "score": 0.0,
+    "K": 10
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=2700&f_rc=1900&f_w=0&f_k=10",
+   "fetched_utc": "2026-10-09T17:33:47Z",
+   "response_text": "Difference of more than 400 is counted as 400. Rating: 2700 Opponent Rating: 1900 Score: 0 / K factor: 10 Rating Change is: -9.2",
+   "calculator_change": -9.2,
+   "current_rules_change": -10.0,
+   "agrees_with_current_rules": false,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C22",
+   "case": "R15-own1500-opp2000-draw",
+   "purpose": "capped at -400 for a lower-rated player, draw",
+   "inputs": {
+    "own_rating": 1500,
+    "opponent_rating": 2000,
+    "score": 0.5,
+    "K": 20
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=1500&f_rc=2000&f_w=0.5&f_k=20",
+   "fetched_utc": "2026-10-09T17:33:54Z",
+   "response_text": "Difference of more than 400 is counted as 400. Rating: 1500 Opponent Rating: 2000 Score: 0.5 / K factor: 20 Rating Change is: +8.4",
+   "calculator_change": 8.4,
+   "current_rules_change": 8.4,
+   "agrees_with_current_rules": true,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C23",
+   "case": "R17-K15-display",
+   "purpose": "display rounding: 15 x (1 - .63) = 5.55",
+   "inputs": {
+    "own_rating": 2092,
+    "opponent_rating": 2000,
+    "score": 1.0,
+    "K": 15
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=2092&f_rc=2000&f_w=1&f_k=15",
+   "fetched_utc": "2026-10-09T17:34:00Z",
+   "response_text": "Rating: 2092 Opponent Rating: 2000 Score: 1 / K factor: 15 Rating Change is: +5.55",
+   "calculator_change": 5.55,
+   "current_rules_change": 5.55,
+   "agrees_with_current_rules": true,
+   "agrees_with_plain_400_cap": true
+  },
+  {
+   "id": "F-C24",
+   "case": "R17-K30-display",
+   "purpose": "30 x (0.5 - .37) = 3.9",
+   "inputs": {
+    "own_rating": 2000,
+    "opponent_rating": 2092,
+    "score": 0.5,
+    "K": 30
+   },
+   "url": "https://ratings.fide.com/a_calc_rtd.php?f_ro=2000&f_rc=2092&f_w=0.5&f_k=30",
+   "fetched_utc": "2026-10-09T17:34:07Z",
+   "response_text": "Rating: 2000 Opponent Rating: 2092 Score: 0.5 / K factor: 30 Rating Change is: +3.9",
+   "calculator_change": 3.9,
+   "current_rules_change": 3.9,
+   "agrees_with_current_rules": true,
+   "agrees_with_plain_400_cap": true
+  }
+ ]
+}
