@@ -9,9 +9,12 @@ Zugzwang's proposal to modernise the FIDE Elo rating system. The project deliver
 | Path | Contents |
 |---|---|
 | `docs/research/` | Evidence base: the research report (v1.0) and dated verification sweeps of primary sources |
-| `docs/proposal/` | The proposal to FIDE, versioned drafts (`ELO-PROPOSAL_vX_Y.md`) |
+| `docs/proposal/` | The proposal to FIDE, its technical annex and a plain-language brief (`ELO-PROPOSAL_vX_Y.md`, `ELO-TECHNICAL-ANNEX_vX_Y.md`, `ELO-BRIEF_vX_Y.md`) |
 | `docs/specs/` | Engineering specifications, starting with the Layer-0 FIDE reference engine (`SPEC-L0_*`) |
 | `docs/decisions/` | Decision records (`D-NNNN_*.md`) |
+| `docs/review/` | Red-team reviews of each proposal version |
+| `analysis/` | Deterministic scripts that produce every number in the documents, with their committed outputs |
+| `tools/` | The automated check run on every pull request (`tools/README.md`) |
 | `CLAUDE.md` | Working rules for the humans and agents editing this repository |
 
 There is no code yet. By project rule, no rating-engine code is written until the Layer-0 specification in `docs/specs/` is ratified.
