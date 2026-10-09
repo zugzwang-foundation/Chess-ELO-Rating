@@ -1,0 +1,537 @@
+{
+ "event": {
+  "name": "2025 US Championship",
+  "start": "2025-10-12",
+  "end": "2025-10-24",
+  "chapter": "standard",
+  "rating_period": "2025-11",
+  "list_in_force": "2025-10",
+  "source": "tests/fixtures/validation/us_championship_2025.json (FIDE event 432532: FIDE's report and the players' published calculations, fetched 2026-10-09; ratings and K from FIDE's October 2025 list)"
+ },
+ "players": [
+  {
+   "fide_id": 2020009,
+   "rating": 2789,
+   "k": 10
+  },
+  {
+   "fide_id": 5202213,
+   "rating": 2756,
+   "k": 10
+  },
+  {
+   "fide_id": 2093596,
+   "rating": 2738,
+   "k": 10
+  },
+  {
+   "fide_id": 13300474,
+   "rating": 2722,
+   "k": 10
+  },
+  {
+   "fide_id": 2056437,
+   "rating": 2710,
+   "k": 10
+  },
+  {
+   "fide_id": 2040506,
+   "rating": 2698,
+   "k": 10
+  },
+  {
+   "fide_id": 2023970,
+   "rating": 2664,
+   "k": 10
+  },
+  {
+   "fide_id": 24125890,
+   "rating": 2661,
+   "k": 10
+  },
+  {
+   "fide_id": 2004887,
+   "rating": 2654,
+   "k": 10
+  },
+  {
+   "fide_id": 30920019,
+   "rating": 2652,
+   "k": 10
+  },
+  {
+   "fide_id": 30953499,
+   "rating": 2590,
+   "k": 10
+  },
+  {
+   "fide_id": 1126881,
+   "rating": 2577,
+   "k": 10
+  }
+ ],
+ "games": [
+  {
+   "round": 1,
+   "board": null,
+   "white": 1126881,
+   "black": 2023970,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 1,
+   "board": null,
+   "white": 2020009,
+   "black": 24125890,
+   "result": "1-0"
+  },
+  {
+   "round": 1,
+   "board": null,
+   "white": 2040506,
+   "black": 2004887,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 1,
+   "board": null,
+   "white": 2056437,
+   "black": 30920019,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 1,
+   "board": null,
+   "white": 5202213,
+   "black": 2093596,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 1,
+   "board": null,
+   "white": 30953499,
+   "black": 13300474,
+   "result": "0-1"
+  },
+  {
+   "round": 2,
+   "board": null,
+   "white": 2004887,
+   "black": 1126881,
+   "result": "1-0"
+  },
+  {
+   "round": 2,
+   "board": null,
+   "white": 2020009,
+   "black": 30953499,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 2,
+   "board": null,
+   "white": 2023970,
+   "black": 5202213,
+   "result": "0-1"
+  },
+  {
+   "round": 2,
+   "board": null,
+   "white": 13300474,
+   "black": 2056437,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 2,
+   "board": null,
+   "white": 24125890,
+   "black": 2093596,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 2,
+   "board": null,
+   "white": 30920019,
+   "black": 2040506,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 3,
+   "board": null,
+   "white": 1126881,
+   "black": 30920019,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 3,
+   "board": null,
+   "white": 2040506,
+   "black": 13300474,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 3,
+   "board": null,
+   "white": 2056437,
+   "black": 2020009,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 3,
+   "board": null,
+   "white": 2093596,
+   "black": 2023970,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 3,
+   "board": null,
+   "white": 5202213,
+   "black": 2004887,
+   "result": "1-0"
+  },
+  {
+   "round": 3,
+   "board": null,
+   "white": 30953499,
+   "black": 24125890,
+   "result": "0-1"
+  },
+  {
+   "round": 4,
+   "board": null,
+   "white": 2004887,
+   "black": 2093596,
+   "result": "0-1"
+  },
+  {
+   "round": 4,
+   "board": null,
+   "white": 2020009,
+   "black": 2040506,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 4,
+   "board": null,
+   "white": 13300474,
+   "black": 1126881,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 4,
+   "board": null,
+   "white": 24125890,
+   "black": 2023970,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 4,
+   "board": null,
+   "white": 30920019,
+   "black": 5202213,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 4,
+   "board": null,
+   "white": 30953499,
+   "black": 2056437,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 5,
+   "board": null,
+   "white": 1126881,
+   "black": 2020009,
+   "result": "0-1"
+  },
+  {
+   "round": 5,
+   "board": null,
+   "white": 2023970,
+   "black": 2004887,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 5,
+   "board": null,
+   "white": 2040506,
+   "black": 30953499,
+   "result": "0-1"
+  },
+  {
+   "round": 5,
+   "board": null,
+   "white": 2056437,
+   "black": 24125890,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 5,
+   "board": null,
+   "white": 2093596,
+   "black": 30920019,
+   "result": "1-0"
+  },
+  {
+   "round": 5,
+   "board": null,
+   "white": 5202213,
+   "black": 13300474,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 6,
+   "board": null,
+   "white": 2020009,
+   "black": 5202213,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 6,
+   "board": null,
+   "white": 2056437,
+   "black": 2040506,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 6,
+   "board": null,
+   "white": 13300474,
+   "black": 2093596,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 6,
+   "board": null,
+   "white": 24125890,
+   "black": 2004887,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 6,
+   "board": null,
+   "white": 30920019,
+   "black": 2023970,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 6,
+   "board": null,
+   "white": 30953499,
+   "black": 1126881,
+   "result": "1-0"
+  },
+  {
+   "round": 7,
+   "board": null,
+   "white": 1126881,
+   "black": 2056437,
+   "result": "1-0"
+  },
+  {
+   "round": 7,
+   "board": null,
+   "white": 2004887,
+   "black": 30920019,
+   "result": "1-0"
+  },
+  {
+   "round": 7,
+   "board": null,
+   "white": 2023970,
+   "black": 13300474,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 7,
+   "board": null,
+   "white": 2040506,
+   "black": 24125890,
+   "result": "1-0"
+  },
+  {
+   "round": 7,
+   "board": null,
+   "white": 2093596,
+   "black": 2020009,
+   "result": "0-1"
+  },
+  {
+   "round": 7,
+   "board": null,
+   "white": 5202213,
+   "black": 30953499,
+   "result": "1-0"
+  },
+  {
+   "round": 8,
+   "board": null,
+   "white": 2020009,
+   "black": 2023970,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 8,
+   "board": null,
+   "white": 2040506,
+   "black": 1126881,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 8,
+   "board": null,
+   "white": 2056437,
+   "black": 5202213,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 8,
+   "board": null,
+   "white": 13300474,
+   "black": 2004887,
+   "result": "1-0"
+  },
+  {
+   "round": 8,
+   "board": null,
+   "white": 24125890,
+   "black": 30920019,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 8,
+   "board": null,
+   "white": 30953499,
+   "black": 2093596,
+   "result": "1-0"
+  },
+  {
+   "round": 9,
+   "board": null,
+   "white": 1126881,
+   "black": 24125890,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 9,
+   "board": null,
+   "white": 2004887,
+   "black": 2020009,
+   "result": "0-1"
+  },
+  {
+   "round": 9,
+   "board": null,
+   "white": 2023970,
+   "black": 30953499,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 9,
+   "board": null,
+   "white": 2093596,
+   "black": 2056437,
+   "result": "1-0"
+  },
+  {
+   "round": 9,
+   "board": null,
+   "white": 5202213,
+   "black": 2040506,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 9,
+   "board": null,
+   "white": 30920019,
+   "black": 13300474,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 10,
+   "board": null,
+   "white": 1126881,
+   "black": 5202213,
+   "result": "0-1"
+  },
+  {
+   "round": 10,
+   "board": null,
+   "white": 2020009,
+   "black": 30920019,
+   "result": "1-0"
+  },
+  {
+   "round": 10,
+   "board": null,
+   "white": 2040506,
+   "black": 2093596,
+   "result": "1-0"
+  },
+  {
+   "round": 10,
+   "board": null,
+   "white": 2056437,
+   "black": 2023970,
+   "result": "1-0"
+  },
+  {
+   "round": 10,
+   "board": null,
+   "white": 24125890,
+   "black": 13300474,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 10,
+   "board": null,
+   "white": 30953499,
+   "black": 2004887,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 11,
+   "board": null,
+   "white": 2004887,
+   "black": 2056437,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 11,
+   "board": null,
+   "white": 2023970,
+   "black": 2040506,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 11,
+   "board": null,
+   "white": 2093596,
+   "black": 1126881,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 11,
+   "board": null,
+   "white": 5202213,
+   "black": 24125890,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 11,
+   "board": null,
+   "white": 13300474,
+   "black": 2020009,
+   "result": "1/2-1/2"
+  },
+  {
+   "round": 11,
+   "board": null,
+   "white": 30920019,
+   "black": 30953499,
+   "result": "1/2-1/2"
+  }
+ ]
+}
