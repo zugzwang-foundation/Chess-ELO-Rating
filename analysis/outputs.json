@@ -6,7 +6,14 @@
     {"script": "analysis/l0_k_rules_report.py", "args": [], "output": "analysis/OUTPUT_L0_k_rules.md", "needs_data": false},
     {"script": "analysis/l0_fixtures_report.py", "args": [], "output": "analysis/OUTPUT_L0_fixtures.md", "needs_data": false},
     {"script": "analysis/l0_ratification_check.py", "args": [], "output": "analysis/OUTPUT_L0_ratification.md", "needs_data": false},
-    {"script": "analysis/e0_l0_validation.py", "args": [], "output": "docs/evidence/E0_l0-validation.md", "needs_data": false}
+    {"script": "analysis/e0_l0_validation.py", "args": [], "output": "docs/evidence/E0_l0-validation.md", "needs_data": false},
+    {"script": "analysis/e1_fide_lists_extract.py", "args": ["standard"], "output": "analysis/aggregates/E1_standard.json", "needs_data": true},
+    {"script": "analysis/e1_fide_lists_extract.py", "args": ["rapid"], "output": "analysis/aggregates/E1_rapid.json", "needs_data": true},
+    {"script": "analysis/e1_fide_lists_extract.py", "args": ["blitz"], "output": "analysis/aggregates/E1_blitz.json", "needs_data": true},
+    {"script": "analysis/e1_fide_lists_report.py", "args": [], "output": "docs/evidence/E1_fide-lists.md", "needs_data": false},
+    {"script": "analysis/e2_broadcast_extract.py", "args": [], "output": "analysis/aggregates/E2_broadcast.json", "needs_data": true},
+    {"script": "analysis/e2_broadcast_report.py", "args": [], "output": "docs/evidence/E2_broadcast-calibration.md", "needs_data": false},
+    {"script": "analysis/e2_broadcast_report.py", "args": ["--yaml"], "output": "params/table_fit_2026-10.yaml", "needs_data": false}
   ],
   "modules": []
 }
