@@ -38,6 +38,6 @@ jobs:
         if: ${{ !cancelled() }}
         run: python tools/checks/check_refs.py
 
-      - name: (d) the proposal body is at most 4,500 words (ELO-2 strict count)
+      - name: (d) word caps — proposal body 4,500 (ELO-2 strict count), brief 900
         if: ${{ !cancelled() }}
         run: python tools/checks/check_wordcount.py
