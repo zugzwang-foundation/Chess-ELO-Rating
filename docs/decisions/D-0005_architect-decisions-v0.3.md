@@ -43,8 +43,19 @@ A cap on the ratio of the two players' K factors (for example K_i ≤ 2 K_j, rec
 - Layer 1's own outcome parameters are written η^L, α^L, β^L, γ^L to keep them distinct from the table's, which D2 fits on published ratings (annex T1, T2.1).
 - Check (d) is extended to the brief's 900-word cap (`tools/checks/check_wordcount.py`).
 
+After the v0.3 review (`docs/review/REDTEAM_v0_3.md`), within the decisions:
+- A seed is published only if round_FIDE(θ̃_i) ≥ 1400 and is then min(round_FIDE(θ̃_i), 2200), for newcomers and re-entries alike; it is never raised to the floor (V3-EXPLOIT-4). §7.1.4's "The rating must be at least 1400" is kept as the publication condition.
+- d_t is measured on the settled rating R_i + B_i; the anchor constraint is written μ(age, θ) ≡ 0 for ages 25–45 (V3-STAT-9).
+- One timing sentence for a_t: the file published with list t carries a_t measured at list t from period t − 1; it accrues to players active in period t and is posted with period t's games. The list prints the settled rating R_i + B_i (V3-QC-5, V3-EXPLOIT-7).
+- §8.2.4 [V 1] is kept at every rung; its one-sided changes get ledger line (2b), administrative corrections line (11), and the list is held only for a residual that no line explains (V3-STAT-2, V3-QC-4).
+- The rung tests of T8 use statistical decision rules (Holm–Bonferroni across bins, an across-bin calibration slope, at least 9,000 cross-border games for rung 7, a moving-block bootstrap, a closed list of rollback triggers) (V3-STAT-1, V3-STAT-10, V3-QC-4).
+- Per-federation residuals go to the QC only while rung 7 is disabled (V3-QC-1).
+- s_0 (PROVISIONAL 250), the compensation and seed gates, the selection-test tolerance, n_φ, s_max and R_max are fields of the parameter file; η is a whole number (V3-QC-6).
+- In a game between two eligible juniors, AR-2 is applied as written (each sees the other's compensation); the creation is shown as its own sub-line of ledger line 3 and counts in the a_cap comparison (V3-STAT-8).
+
 ## Consequences
 
 - The six architect questions of the ELO-2 close-out are closed: accrual and θ̃ by D10, continuous compensation by D5, the draw tail by D1, the K ratio cap by D11, the sign of a_t by D7, the band width by D6.
 - Founder decisions 1, 2, 3 (the policy half) and 5 of the ELO-2 close-out are applied by D17. Still open for the founder: repository name and visibility before v1.0 (D-0001 stands), and the wording of the stage-2 TRF request.
 - Every parameter value remains PROVISIONAL; κ, η, α, β and γ are first fitted on over-the-board data in the evidence work that follows (annex T8.6).
+- Eight decision-level questions raised by the v0.3 review (FA-1 to FA-8 in `docs/review/REDTEAM_v0_3.md`) are open for the architect; none is decided here.
