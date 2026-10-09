@@ -5,7 +5,8 @@
     {"script": "analysis/l0_k_rules_extract.py", "args": [], "output": "analysis/aggregates/L0_k_rules.json", "needs_data": true},
     {"script": "analysis/l0_k_rules_report.py", "args": [], "output": "analysis/OUTPUT_L0_k_rules.md", "needs_data": false},
     {"script": "analysis/l0_fixtures_report.py", "args": [], "output": "analysis/OUTPUT_L0_fixtures.md", "needs_data": false},
-    {"script": "analysis/l0_ratification_check.py", "args": [], "output": "analysis/OUTPUT_L0_ratification.md", "needs_data": false}
+    {"script": "analysis/l0_ratification_check.py", "args": [], "output": "analysis/OUTPUT_L0_ratification.md", "needs_data": false},
+    {"script": "analysis/e0_l0_validation.py", "args": [], "output": "docs/evidence/E0_l0-validation.md", "needs_data": false}
   ],
   "modules": []
 }

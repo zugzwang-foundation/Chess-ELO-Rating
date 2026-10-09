@@ -1,6 +1,6 @@
 # analysis/ — calculations for the proposal documents
 
-These scripts are **not the rating engine**. By project rule (CLAUDE.md, hard rule 1) no engine code exists before SPEC-L0 is ratified, and nothing here is engine code. The scripts are deterministic, Python 3 standard library only, and exist so that every number printed in `docs/proposal/ELO-PROPOSAL_v0_3.md`, `docs/proposal/ELO-TECHNICAL-ANNEX_v0_3.md`, `docs/proposal/ELO-BRIEF_v0_3.md` and `docs/specs/SPEC-L0_fide-reference-engine_v1_0.md` can be regenerated and checked.
+These scripts are **not the rating engine**: the engine is the package `src/layer0/`, written after SPEC-L0 was ratified (D-0006); scripts that need it import it. The scripts are deterministic, Python 3 standard library only, and exist so that every number printed in `docs/proposal/ELO-PROPOSAL_v0_3.md`, `docs/proposal/ELO-TECHNICAL-ANNEX_v0_3.md`, `docs/proposal/ELO-BRIEF_v0_3.md` and `docs/specs/SPEC-L0_fide-reference-engine_v1_0.md` can be regenerated and checked.
 
 | File | Purpose |
 |---|---|
@@ -14,6 +14,7 @@ These scripts are **not the rating engine**. By project rule (CLAUDE.md, hard ru
 | `OUTPUT_L0_k_rules.md` | Its output |
 | `l0_ratification_check.py` | Measures the pre-agreed ratification rule of SPEC-L0: every rule has a quoted citation or an existing fixture and is mentioned by a test; every acceptance criterion has a test module (D-0006) |
 | `OUTPUT_L0_ratification.md` | Its output |
+| `e0_l0_validation.py` | Runs the Layer-0 engine on the 2025 US Championship fixture and compares game by game and player by player with FIDE; its output is the evidence page `docs/evidence/E0_l0-validation.md` itself |
 | `outputs.json` | The registry of scripts and outputs that check (a) reruns (`tools/README.md`) |
 
 Run: `python3 analysis/v03_calculations.py > analysis/OUTPUT_v0_3.md` and `git diff` must be empty. Scripts registered with `needs_data` read files under `data/` (never committed; `tools/README.md` says how to rebuild them); CI checks that their outputs exist and `python3 tools/checks/check_outputs.py --all` reruns them locally. Every script here is registered in `analysis/outputs.json` with the file its output must equal; check (a) of the automated check reruns them on every pull request. The v0.2 script and its output were bumped to v0.3 with `git mv`; earlier versions are in git history.
