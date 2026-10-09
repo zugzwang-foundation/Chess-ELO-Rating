@@ -14,7 +14,9 @@
     {"script": "analysis/e2_broadcast_extract.py", "args": [], "output": "analysis/aggregates/E2_broadcast.json", "needs_data": true},
     {"script": "analysis/e2_broadcast_report.py", "args": [], "output": "docs/evidence/E2_broadcast-calibration.md", "needs_data": false},
     {"script": "analysis/e2_broadcast_report.py", "args": ["--yaml"], "output": "params/table_fit_2026-10.yaml", "needs_data": false},
-    {"script": "analysis/e3_us_championships.py", "args": [], "output": "docs/evidence/E3_us-championship-2026.md", "needs_data": false}
+    {"script": "analysis/e3_us_championships.py", "args": [], "output": "docs/evidence/E3_us-championship-2026.md", "needs_data": false},
+    {"script": "analysis/e5_deflation_extract.py", "args": [], "output": "analysis/aggregates/E5_deflation.json", "needs_data": true},
+    {"script": "analysis/e5_deflation_report.py", "args": [], "output": "docs/evidence/E5_deflation.md", "needs_data": false}
   ],
-  "modules": []
+  "modules": ["analysis/fide_panel.py"]
 }
