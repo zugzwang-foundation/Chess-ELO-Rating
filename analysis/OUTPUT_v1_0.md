@@ -1,6 +1,6 @@
-# OUTPUT of analysis/v04_calculations.py (parameters PROVISIONAL; the table's PROVISIONAL-FITTED)
+# OUTPUT of analysis/v10_calculations.py (parameters PROVISIONAL; the table's PROVISIONAL-FITTED)
 
-Generated deterministically by the script; the source of every calculated number in the proposal v0.4, the technical annex v0.4 and the brief v0.4 that is not cited to an evidence report. Rulings R1-R14 (D-0008) applied.
+Generated deterministically by the script; the source of every calculated number in the proposal v1.0, the technical annex v1.0 and the brief v1.0 that is not cited to an evidence report. Rulings R1-R14 (D-0008) and R15-R23 (D-0009) applied.
 
 ## 0 Parameters used
 
@@ -112,7 +112,37 @@ sigma_i is Layer 1's posterior SD of s_i,tc in latent units (D-0008, reading 5);
 - R = 2300: K_min binds below sigma = 46.08; K_max binds above sigma = 93.39; the published-scale SD at those points is sigma / kappa = 38.02 and 77.05.
 - R = 2700: K_min binds below sigma = 46.03; K_max binds above sigma = 92.98; the published-scale SD at those points is sigma / kappa = 37.98 and 76.72.
 
-Per-period cap example: K_i = 26.1 and n = 40 gives 1044.0 > 700, so K_i = 17.5 for the period; K_i = 16.5 and n = 40 gives 660.0 (no cap).
+### 5b R16: K falls with the period's games, K_i(n) = clip(q sigma^2 / (kappa (1 + n q^2 sigma^2 v)), 10, 40)
+
+n is the player's rated games in the time control in the rating period; K_i(n) applies to every game of the period (D-0009, reading 2). With n = 1 it is the R6 value of the table above. Published form (D-0009, reading 3): K_i(n) = clip(C / (N_i + n)), C = 1 / (kappa q v) a constant of the table in each level band and N_i = 1 / (q^2 sigma^2 v), the player's certainty in games at equal strength.
+
+Level 1700 (C = 852.8):
+
+| sigma_i | N_i | K(n = 1) | K(n = 2) | K(n = 4) | K(n = 9) | K(n = 20) | K(n = 30) | n x K(n) at n = 30 |
+|---|---|---|---|---|---|---|---|---|
+| 45 | 88.7 | 10.0 | 10.0 | 10.0 | 10.0 | 10.0 | 10.0 | 300.0 |
+| 55 | 59.4 | 14.1 | 13.9 | 13.5 | 12.5 | 10.7 | 10.0 | 300.0 |
+| 70 | 36.6 | 22.7 | 22.1 | 21.0 | 18.7 | 15.1 | 12.8 | 384.0 |
+| 90 | 22.2 | 36.8 | 35.3 | 32.6 | 27.4 | 20.2 | 16.3 | 489.0 |
+| 120 | 12.5 | 40.0 | 40.0 | 40.0 | 39.7 | 26.3 | 20.1 | 603.0 |
+| 150 | 8.0 | 40.0 | 40.0 | 40.0 | 40.0 | 30.5 | 22.5 | 675.0 |
+| 250 | 2.9 | 40.0 | 40.0 | 40.0 | 40.0 | 37.3 | 25.9 | 777.0 |
+
+Level 2300 (C = 1163.5):
+
+| sigma_i | N_i | K(n = 1) | K(n = 2) | K(n = 4) | K(n = 9) | K(n = 20) | K(n = 30) | n x K(n) at n = 30 |
+|---|---|---|---|---|---|---|---|---|
+| 45 | 121.0 | 10.0 | 10.0 | 10.0 | 10.0 | 10.0 | 10.0 | 300.0 |
+| 55 | 81.0 | 14.2 | 14.0 | 13.7 | 12.9 | 11.5 | 10.5 | 315.0 |
+| 70 | 50.0 | 22.8 | 22.4 | 21.5 | 19.7 | 16.6 | 14.5 | 435.0 |
+| 90 | 30.2 | 37.2 | 36.1 | 34.0 | 29.6 | 23.2 | 19.3 | 579.0 |
+| 120 | 17.0 | 40.0 | 40.0 | 40.0 | 40.0 | 31.4 | 24.7 | 741.0 |
+| 150 | 10.9 | 40.0 | 40.0 | 40.0 | 40.0 | 37.7 | 28.5 | 855.0 |
+| 250 | 3.9 | 40.0 | 40.0 | 40.0 | 40.0 | 40.0 | 34.3 | 1029.0 |
+
+- The bound of a period's change (property P2) under R16, with rung 4 adopted: unclipped, n x K(n) < C, which is 853 at level 1700, 1164 at level 2300, 1545 at level 2700; clipped at K_min, n x K_min, above 700 only from 71 games in a period; clipped at K_max, 40 n. Today's bound is 700 [V 1].
+- A newcomer at the prior's sigma (250, latent) with 30 games in a period at level 1700: K(30) = 25.9, n x K = 777.0; today a newcomer's K = 40 is cut to 700 // 30 = 23 by K x n <= 700, n x K = 690 [V 1].
+- Without rung 4 today's K and the 700 rule stay (every rung not adopted leaves today's rule): K_i = 26.1 and n = 40 would give 1044.0 > 700, so 17.5 for the period; that restatement for a one-decimal K applies only to rung 4 under R6, which R16 replaces.
 
 ## 6 Continuous junior compensation (D5, R5): c_j = min(c_cap, max(0, theta~ - z sigma~ - R - tau)), z = 1.2816, tau = 25; theta~, sigma~ the same-time-control posterior on the published scale
 
@@ -155,21 +185,23 @@ E_A + E_J = 0.861; compensation creates K_A x (E_A0 - E_A) = +1.9599 points in t
 
 Today [V 1]: K = 10. 2600 v 2100: D = 500 counted as 400 (player below 2650): row 392-411, .92. 2700 v 2100: D = 600 used in full: row 560-619, .98. Rapid and blitz [V 2]: the plain 400 cap applies to both and, with a player above 2600 and a difference of 600 or more, the game is not rated.
 
-| Player | Opponent | Today: D used, PD | Today: win / draw / loss | L2: x, band, E | L2: K_i | L2: win / draw / loss |
-|---|---|---|---|---|---|---|
-| 2600 | 2100 | 400, 0.92 | +0.8 / -4.2 / -9.2 | 536, 2300-2399, 0.932 | 10.0 | +0.6800 / -4.3200 / -9.3200 |
-| 2700 | 2100 | 600, 0.98 | +0.2 / -4.8 / -9.8 | 636, 2400-2499, 0.957 | 10.0 | +0.4300 / -4.5700 / -9.5700 |
+| Player | Opponent | Today: D used, PD | Today: win / draw / loss | L2: x, band, E | with R17's guard: E | L2: K_i | L2 with the guard: win / draw / loss |
+|---|---|---|---|---|---|---|---|
+| 2600 | 2100 | 400, 0.92 | +0.8 / -4.2 / -9.2 | 536, 2300-2399, 0.932 | 0.96 | 10.0 | +0.4000 / -4.6000 / -9.6000 |
+| 2700 | 2100 | 600, 0.98 | +0.2 / -4.8 / -9.8 | 636, 2400-2499, 0.957 | 0.98 | 10.0 | +0.2000 / -4.8000 / -9.8000 |
 
 If the uncapped table were right, today's cap gives the 2600 player 10 x (.96 - .92) = +0.4 points per game against a 2100 in expectation (row 485-517 [V 1]); with a calibrated table the expected change of any pairing is zero (P4).
 
 The 2650 cliff today v rung 2 (each beats a 2200 with White; today K = 10 [V 1]; rung 2 here uses K = 10.0):
 
-| Winner | Today: gap used, PD, gain | L2: x, band, E, gain at K = 10.0 |
-|---|---|---|
-| 2649 | 400, 0.92, +0.8 | 485, 2400-2499, 0.905, +0.9500 |
-| 2651 | 451, 0.94, +0.6 | 487, 2400-2499, 0.905, +0.9500 |
-| 2700 | 500, 0.96, +0.4 | 536, 2400-2499, 0.926, +0.7400 |
-| 2936 | 736, 1.0, +0.0 | 772, 2500-2599, 0.978, +0.2200 |
+| Winner | Today: gap used, PD, gain | L2: x, band, E, gain at K = 10.0 | with R17's guard: E, gain |
+|---|---|---|---|
+| 2649 | 400, 0.92, +0.8 | 485, 2400-2499, 0.905, +0.9500 | 0.94, +0.6000 |
+| 2651 | 451, 0.94, +0.6 | 487, 2400-2499, 0.905, +0.9500 | 0.94, +0.6000 |
+| 2700 | 500, 0.96, +0.4 | 536, 2400-2499, 0.926, +0.7400 | 0.96, +0.4000 |
+| 2936 | 736, 1.0, +0.0 | 772, 2500-2599, 0.978, +0.2200 | 1.0, +0.0000 |
+
+R17 (D-0009, reading 4): where the gap is 400 or more and the favourite is rated 2300 or more, the favourite's expectation is the larger of the fitted value and table 8.1.2's H entry at the full gap, the underdog's one minus it. In every row above the guard binds: rung 2 with the guard reads table 8.1.2 in full for these pairings, as today's rule does for players rated 2650 or more, and the 2650 cliff disappears because the cap no longer depends on the favourite's rating.
 
 ## 9 Monthly adjustment with a soft deadband (D7): a_t = clip(gamma_a sign(d_t) max(0, |d_t| - d_0), -a_cap, +a_cap), one decimal
 
@@ -204,35 +236,35 @@ Bound on a published change (P2): |period change| <= round(700 + 12 x a_cap) = 7
 
 | game | White | Black | S_W | band | x_W | E_W | x_B | E_B | dR_W | dR_B | created by unequal K | created by compensation | one-sided |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | P1 (1900) | P2 (1500) | 0.5 | 1700-1799 | 239 | 0.780 | -436 | 0.081 | -3.9480 | +16.7600 | +10.8521 | +1.9599 | 0 |
-| 2 | P3 (2050) | P1 (1900) | 1 | 1900-1999 | 186 | 0.711 | -186 | 0.289 | +3.3813 | -4.0749 | -0.6936 | +0.0000 | 0 |
-| 3 | P2 (1500) | P4 (1750) | 1 | 1600-1699 | -214 | 0.240 | 17 | 0.521 | +30.4000 | -11.8267 | +13.1480 | +5.4253 | 0 |
-| 4 | P5 (2300) | P3 (2050) | 0.5 | 2100-2199 | 286 | 0.795 | -286 | 0.205 | -2.9500 | +3.4515 | +0.5015 | +0.0000 | 0 |
-| 5 | P4 (1750) | P6 (1600) | 0 | 1600-1699 | 186 | 0.730 | -186 | 0.270 | -16.5710 | +29.2000 | +12.6290 | +0.0000 | 0 |
+| 1 | P1 (1900) | P2 (1500) | 0.5 | 1700-1799 | 239 | 0.780 | -436 | 0.081 | -3.8360 | +16.7600 | +11.0197 | +1.9043 | 0 |
+| 2 | P3 (2050) | P1 (1900) | 1 | 1900-1999 | 186 | 0.711 | -186 | 0.289 | +3.3524 | -3.9593 | -0.6069 | +0.0000 | 0 |
+| 3 | P2 (1500) | P4 (1750) | 1 | 1600-1699 | -214 | 0.240 | 17 | 0.521 | +30.4000 | -11.2015 | +14.0600 | +5.1385 | 0 |
+| 4 | P5 (2300) | P3 (2050) | 0.5 | 2100-2199 | 286 | 0.795 | -286 | 0.205 | -2.9500 | +3.4220 | +0.4720 | +0.0000 | 0 |
+| 5 | P4 (1750) | P6 (1600) | 0 | 1600-1699 | 186 | 0.730 | -186 | 0.270 | -15.6950 | +29.2000 | +13.5050 | +0.0000 | 0 |
 | 6 | P6 (1600) | P2 (1500) | 0 | 1500-1599 | -61 | 0.421 | -136 | 0.324 | -16.8400 | +27.0400 | +0.0000 | +10.2000 | 0 |
-| 7 | P5 (2300) | P1 (1900) | 1 | 2100-2199 | 436 | 0.899 | -436 | 0.101 | +1.0100 | -1.4241 | -0.4141 | +0.0000 | 0 |
-| 8 | P7 (1405) | P4 (1750) | 0 | 1500-1599 | -309 | 0.147 | 309 | 0.853 | -3.3222 | +3.3369 | +0.0147 | +0.0000 | 0 |
-| 9 | P6 (1600) | P7 (1405) | 1 | 1500-1599 | 231 | 0.783 | -231 | 0.217 | +8.6800 | -4.9042 | +3.7758 | +0.0000 | 0 |
+| 7 | P5 (2300) | P1 (1900) | 1 | 2100-2199 | 436 | 0.899 | -436 | 0.101 | +1.0100 | -1.3837 | -0.3737 | +0.0000 | 0 |
+| 8 | P7 (1405) | P4 (1750) | 0 | 1500-1599 | -309 | 0.147 | 309 | 0.853 | -3.2193 | +3.1605 | -0.0588 | +0.0000 | 0 |
+| 9 | P6 (1600) | P7 (1405) | 1 | 1500-1599 | 231 | 0.783 | -231 | 0.217 | +8.6800 | -4.7523 | +3.9277 | +0.0000 | 0 |
 | 10 | P3 (2050) | U (unrated) | 1 | — | — | — | — | — | 0 (not rated) | — | 0 | 0 | 0 |
 | 11 | P3 (2050) | P8 (1580) | 0.5 | 1800-1899 | 506 | 0.943 | -506 | 0.057 | 0 (counts the newly rated player as unrated) | +16.2581 | 0 | 0 | +16.2581 |
 
-| player | R(t) | sigma | K_i | n | RX | sum of game terms | + a_t | rounded change | R(t+1) | rounding residual | status |
+| player | R(t) | sigma | K_i(n) (R16) | n | RX | sum of game terms | + a_t | rounded change | R(t+1) | rounding residual | status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| P1 | 1900 | 55 | 14.1 | 3 | 1900 | -9.4470 | -8.5470 | -9 | 1891 | -0.4530 | listed |
+| P1 | 1900 | 55 | 13.7 | 3 | 1900 | -9.1790 | -8.2790 | -8 | 1892 | +0.2790 | listed |
 | P2 | 1500 | 121.2 | 40.0 | 3 | 1697 | +74.2000 | +75.1000 | +75 | 1575 | -0.1000 | listed |
-| P3 | 2050 | 50 | 11.7 | 2 | 2050 | +6.8328 | +7.7328 | +8 | 2058 | +0.2672 | listed |
-| P4 | 1750 | 70 | 22.7 | 3 | 1750 | -25.0608 | -24.1608 | -24 | 1726 | +0.1608 | listed |
+| P3 | 2050 | 50 | 11.6 | 2 | 2050 | +6.7744 | +7.6744 | +8 | 2058 | +0.3256 | listed |
+| P4 | 1750 | 70 | 21.5 | 3 | 1750 | -23.7360 | -22.8360 | -23 | 1727 | -0.1640 | listed |
 | P5 | 2300 | 45 | 10.0 | 2 | 2300 | -1.9400 | -1.0400 | -1 | 2299 | +0.0400 | listed |
 | P6 | 1600 | 120 | 40.0 | 3 | 1600 | +21.0400 | +21.9400 | +22 | 1622 | +0.0600 | listed |
-| P7 | 1405 | 70 | 22.6 | 2 | 1405 | -8.2264 | -7.3264 | -7 | 1398 | +0.3264 | below 1400: shown as unrated (7.2.1 [V 1]); exit booked at R+ = 1398 |
+| P7 | 1405 | 70 | 21.9 | 2 | 1405 | -7.9716 | -7.0716 | -7 | 1398 | +0.0716 | below 1400: shown as unrated (7.2.1 [V 1]); exit booked at R+ = 1398 |
 | P8 | 1580 | 90 | 36.7 | 1 | 1580 | +16.2581 | +17.1581 | +17 | 1597 | -0.1581 | listed (first rated on list t; its late-rated game is one-sided, §8.2.4 [V 1]) |
 | N1 | — | — | 40.0 | — | — | — | — | — | 1650 | — | newcomer: theta~ = 1650.3, round = 1650 >= 1400, published at 1650 |
 | N2 | — | — | — | — | — | — | — | — | — | — | newcomer: theta~ = 1287.6, round = 1288 < 1400, not published (stays unrated; no ledger line) |
 | Q1 | — | — | 40.0 | — | — | — | — | — | 1452 | — | former floor exit re-qualifies: theta~ = 1452.4, round = 1452 >= 1400, published at 1452 |
 | Q2 | — | — | — | — | — | — | — | — | — | — | former floor exit re-qualifies: theta~ = 1381.2, round = 1381 < 1400, not published (stays unrated; no ledger line) |
 
-Left side: list total after 15870 - before 14085 = +1785.
-Right side: unequal K +39.8134 + compensation +17.5852 + one-sided (§8.2.4) +16.2581 + adjustments posted +7.2 (8 x 0.9) + rounding +0.1433 + entering 3102 - exits at post-update rating 1398 = +1785.0000.
+Left side: list total after 15872 - before 14085 = +1787.
+Right side: unequal K +41.9450 + compensation +17.2428 + one-sided (§8.2.4) +16.2581 + adjustments posted +7.2 (8 x 0.9) + rounding +0.3541 + entering 3102 - exits at post-update rating 1398 = +1787.0000.
 Identity closes exactly: True. Without the one-sided line the residual would be +16.2581; booking the exit at R(t) = 1405 instead of R+ = 1398 would leave +7 points.
 
 ## 10b Further figures for the review fixes
@@ -240,24 +272,26 @@ Identity closes exactly: True. Without the one-sided line the residual would be 
 - Table entry at x = 500 in band 2300-2399 (midpoint 2350): 0.918; the function at L = 2300 gives 0.920.
 - R4 disclosure (R6): K_i = 14.1 published to one decimal at R = 1900 implies latent sigma_i between 54.80 and 55.00 (published-scale 45.22 to 45.38); a compensated junior with K_j = 14.1 and 0 < c_j < 300 then has theta~_j = RX_j + 25 + 1.2816 x 45.30 = RX_j + 83.1 (to within the rounding of c_j).
 - R4 disclosure (R6): K_i = 27.1 published to one decimal at R = 1500 implies latent sigma_i between 76.79 and 76.94 (published-scale 63.36 to 63.48); a compensated junior with K_j = 27.1 and 0 < c_j < 300 then has theta~_j = RX_j + 25 + 1.2816 x 63.42 = RX_j + 106.3 (to within the rounding of c_j).
-- A player at latent sigma 55 and R = 1900 who is inactive for 36 months with a process SD of 12 points a month (T7.2, illustrative) returns at sigma = sqrt(55^2 + 36 x 12^2) = 90.6, K = 37.4 (from 14.1).
-- Steady-state K from activity under R6 (Davidson information at equal strength in latent units; one month's games before each list), at two latent process SDs:
+- R16's published form at R = 1900, latent sigma 55.0: C = 931.8, N_i = 64.9; the list prints N_i to one decimal, from which sigma_i = 1 / (q sqrt(N_i v)) = 55.0: the same disclosure as K_i under R6 (R4).
+- R16's published form at R = 1500, latent sigma 121.2: C = 791.1, N_i = 11.3; the list prints N_i to one decimal, from which sigma_i = 1 / (q sqrt(N_i v)) = 121.2: the same disclosure as K_i under R6 (R4).
+- A player at latent sigma 55 and R = 1900 who is inactive for 36 months with a process SD of 12 points a month (T7.2, illustrative) returns at sigma = sqrt(55^2 + 36 x 12^2) = 90.6, K(1) = 37.4 and K(4) = 33.4 (from 14.1 and 13.5).
+- Steady-state K from activity under R16 (Davidson information at equal strength in latent units; the same number of games every month; K_i(n) for that month's n games from the certainty before them), at two latent process SDs:
 
   illustrative process SD 12 (T7.2):
 
 | standard games a month | 1 | 2 | 3 | 4 | 5 | 8 |
 |---|---|---|---|---|---|---|
-| level 1700 | sigma 70.8, K 23.2 | sigma 59.4, K 16.4 | sigma 53.5, K 13.4 | sigma 49.7, K 11.6 | sigma 46.9, K 10.3 | sigma 41.6, K 10.0 |
-| level 2300 | sigma 76.6, K 27.2 | sigma 64.3, K 19.3 | sigma 57.9, K 15.7 | sigma 53.8, K 13.6 | sigma 50.8, K 12.2 | sigma 45.0, K 10.0 |
-| level 2700 | sigma 82.3, K 31.5 | sigma 69.1, K 22.3 | sigma 62.3, K 18.2 | sigma 57.9, K 15.8 | sigma 54.7, K 14.1 | sigma 48.5, K 11.1 |
+| level 1700 | sigma 70.8, K 23.8 | sigma 59.4, K 16.7 | sigma 53.5, K 13.6 | sigma 49.7, K 11.7 | sigma 46.9, K 10.5 | sigma 41.6, K 10.0 |
+| level 2300 | sigma 76.6, K 27.9 | sigma 64.3, K 19.6 | sigma 57.9, K 15.9 | sigma 53.8, K 13.8 | sigma 50.8, K 12.3 | sigma 45.0, K 10.0 |
+| level 2700 | sigma 82.3, K 32.2 | sigma 69.1, K 22.6 | sigma 62.3, K 18.4 | sigma 57.9, K 15.9 | sigma 54.7, K 14.2 | sigma 48.5, K 11.2 |
 
   process SD 24, as fitted on history (c_theta = 2.0 times 12 at ages 25-45; SPEC-L1 3.7, analysis/OUTPUT_L1_history.md):
 
 | standard games a month | 1 | 2 | 3 | 4 | 5 | 8 |
 |---|---|---|---|---|---|---|
-| level 1700 | sigma 99.4, K 40.0 | sigma 83.1, K 31.6 | sigma 74.8, K 25.8 | sigma 69.3, K 22.2 | sigma 65.3, K 19.8 | sigma 57.6, K 15.5 |
-| level 2300 | sigma 107.7, K 40.0 | sigma 90.1, K 37.3 | sigma 81.1, K 30.4 | sigma 75.2, K 26.3 | sigma 70.9, K 23.4 | sigma 62.6, K 18.3 |
-| level 2700 | sigma 115.8, K 40.0 | sigma 96.9, K 40.0 | sigma 87.3, K 35.4 | sigma 81.0, K 30.6 | sigma 76.4, K 27.2 | sigma 67.5, K 21.4 |
+| level 1700 | sigma 99.4, K 40.0 | sigma 83.1, K 32.8 | sigma 74.8, K 26.6 | sigma 69.3, K 22.8 | sigma 65.3, K 20.3 | sigma 57.6, K 15.8 |
+| level 2300 | sigma 107.7, K 40.0 | sigma 90.1, K 38.6 | sigma 81.1, K 31.2 | sigma 75.2, K 26.9 | sigma 70.9, K 23.9 | sigma 62.6, K 18.6 |
+| level 2700 | sigma 115.8, K 40.0 | sigma 96.9, K 40.0 | sigma 87.3, K 36.2 | sigma 81.0, K 31.2 | sigma 76.4, K 27.7 | sigma 67.5, K 21.7 |
 
 - Seed gate (T4.7, sigma~ <= 120): a newcomer's published-scale SD after n games against opponents of equal strength in one month, from the prior s_0 = 250 (latent), with the same-level information q^2 v per game and the opponents taken as known: level 1500: n = 5: 121.6, n = 6: 114.4, n = 8: 103.1, n = 10: 94.6; level 1800: n = 5: 126.3, n = 6: 119.1, n = 8: 107.7, n = 10: 99.1.
 
@@ -280,9 +314,9 @@ Identity closes exactly: True. Without the one-sided line the residual would be 
 
 - Ra = (8000 + 2 x 1800)/7 = 1657.14; p = (3 + 1)/7 = 0.5714 -> .57; dp(.57) = 50 [V 1]; Ru = 1707.14 -> 1707. The rounding of p before the lookup is settled in SPEC-L0.
 
-## 12 R1: the monthly spread ratio and the QC-review threshold
+## 12 R1: the monthly spread ratio and the QC-review threshold (R1 as revised by R19 and R20)
 
-The spread ratio is the SD of published ratings divided by the SD of Layer 1's estimates for active adults (aged 25-45, rated, a game of the fit in the 12 months up to the month), measured on history in `analysis/OUTPUT_L1_history.md` (aggregate `analysis/aggregates/L1_history.json`); the corrected ratio adds the mean posterior variance to the latent variance, so that it does not move with activity alone. R1: if the measure moves beyond a published threshold two years running, the QC reviews; no automatic correction.
+The spread ratio is the SD of published ratings divided by the SD of Layer 1's estimates for active adults (aged 25-45, rated, a game of the fit in the 12 months up to the month), measured on history in `analysis/OUTPUT_L1_history.md` (aggregate `analysis/aggregates/L1_history.json`); the corrected ratio adds the mean posterior variance to the latent variance, so that it does not move with activity alone. In v0.4, if the measure moved beyond a published threshold two years running, the QC reviewed (R1, D-0008); R19 (D-0009) makes the trigger the cumulative change since the last review. No automatic correction either way.
 
 | time control | SD of the month-to-month change (ratio) | largest 12-month change since 2024-03 (ratio) | calendar-year means, corrected ratio | year-on-year changes, corrected ratio |
 |---|---|---|---|---|
@@ -290,5 +324,7 @@ The spread ratio is the SD of published ratings divided by the SD of Layer 1's e
 | rapid | 0.0078 | 0.011 | 2023: 0.736, 2024: 0.730, 2025: 0.728, 2026: 0.718 | 2023->2024 -0.005, 2024->2025 -0.003, 2025->2026 -0.010 |
 | standard | 0.0160 | 0.053 | 2023: 0.787, 2024: 0.739, 2025: 0.735, 2026: 0.717 | 2023->2024 -0.049, 2024->2025 -0.004, 2025->2026 -0.018 |
 
-A ratchet held to kappa's annual cap of 0.05 moves the ratio by about ratio x cap / kappa = 0.747 x 0.05 / 1.212 = 0.031 a year in standard (the ratio varies roughly as 1/kappa), so a threshold on year-on-year changes must lie below that rate to catch it. PROVISIONAL rule: the calendar-year mean of the corrected ratio moves by more than 0.02 in the same direction two years running (a field of the parameter file, T7). On history every year-on-year change since the March 2024 reset is within ±0.02 (the largest, -0.018 in standard into 2026, covers January to September only); the change across 2023-2024 includes the reset itself.
+A ratchet held to kappa's annual cap of 0.05 moves the ratio by about ratio x cap / kappa = 0.747 x 0.05 / 1.212 = 0.031 a year in standard (the ratio varies roughly as 1/kappa). R19 replaces v0.4's year-on-year rule: the QC reviews when the trailing twelve-month mean of the noise-corrected ratio differs from its value at the last QC review (at adoption, the mean of the first twelve months of operation) by more than theta_R1, in either direction; a review resets the reference (D-0009, reading 5). A cumulative rule catches a ratchet however slowly it runs.
+
+theta_R1 calibrated in the simulator (20 paired runs, E9; D-0009, reading 6): the smallest threshold whose false-alarm rate from noise alone over ten simulated years is at most 5 % is 0.025 (PROVISIONAL); a ratchet at kappa's cap trips it after a median of 57 months. R20's earlier PROVISIONAL 0.02: 25 % false alarms from noise, the ratchet tripping it after 50 months. On history since the March 2024 reset the year-on-year changes of the corrected ratio's calendar-year means are within ±0.02 (table above).
 

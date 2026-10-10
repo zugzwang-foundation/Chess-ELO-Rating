@@ -73,6 +73,7 @@ def main() -> None:
     # ---------------------------------------------------------------- headline numbers
     rmse_all = {x: mean(err("baseline", x, "all", "rmse")) for x in led_all}
     top = {x: mean(top_rate("baseline", x)) for x in led_all}
+    top_true = mean(per("baseline", lambda r: r["series"]["L0"]["top_true_change"][-1] / 10))
     jd = {x: mean(per("baseline", lambda r, x=x: r["junior_drain"][x].get("2000-2399", [0, None])[1])) for x in led_all}
     n50 = {x: mean(per("baseline", lambda r, x=x: r["newcomer_n50"][x]["median"])) for x in led_all}
     adv = sc["adversaries"]
@@ -97,8 +98,9 @@ def main() -> None:
     best_all = min(led_all, key=lambda x: rmse_all[x])
     p("**In brief.**")
     p("")
-    p(f"- **The simulated Layer 0 reproduces what FIDE's lists show without being tuned to it:** the players rated 2400 or more "
-      f"at adoption lose {abs(top['L0']):.1f} points a year while their true strength does not move (FIDE's lists since the "
+    p(f"- **The simulated Layer 0 reproduces what FIDE's lists show without being tuned to it:** the adults "
+      f"aged 25–45 whose true strength was 2400 or more at adoption lose {abs(top['L0']):.1f} points a year on the list while "
+      f"their true strength changes by {top_true:+.1f} (FIDE's lists since the "
       f"2024 reform: players rated 2200 or more lose {abs(max(top_fide)):.0f} to {abs(min(top_fide)):.0f} [E5]), and adults rated "
       f"2400 or more score {abs(mean(per('baseline', lambda r: r['junior_drain']['L0'].get('2400+', [0, None])[1]))) / 1000:.3f} "
       f"a game below today's expectation against juniors (broadcast games: {abs(drain_fide):.3f} [E6]); today's newcomer rule "
