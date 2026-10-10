@@ -94,6 +94,7 @@ Recorded in `docs/decisions/D-0010_freeze-2.md` before any result of either even
 
 | File | SHA-256 |
 |---|---|
+| `analysis/OUTPUT_ELO6.md` | `5fc8ee2b54a58a00cae87ce25c10bb7037c68d1e7c194fef647736e384f055cf` |
 | `analysis/OUTPUT_L0_fixtures.md` | `f391893efec3aa7b9aaef152f59f0921929ae434d90d97002be671acd220e59a` |
 | `analysis/OUTPUT_L0_k_rules.md` | `418580c5a26f88e6e4a44b08c2a39fa531aea72ab60d0f01cb1a3f572d1a3718` |
 | `analysis/OUTPUT_L0_ratification.md` | `030d9d43c6ba01d8d01830de4232ca794ae37aad805637b215f2833864affb00` |
@@ -103,6 +104,9 @@ Recorded in `docs/decisions/D-0010_freeze-2.md` before any result of either even
 | `analysis/aggregates/E10_guard.json` | `111f3a42ebfaf8fbc6719cd6749abc83e6c5dd6eb52843ba8b024399c781b8cf` |
 | `analysis/aggregates/E11_table_by_level.json` | `c55e9b8acafadc5f62af6e9afe21ca5e21d5c891a8b5a5c29c2a2d94a585d8c8` |
 | `analysis/aggregates/E12_guard_v2.json` | `a560ec8efc7d3b5b938ae3afc7dfb24de621d6d32d7194a5e189dad093910765` |
+| `analysis/aggregates/E14_simulator_v2.json` | `126451a3f7b2248e92c96120e8e0095caeac563ad39667aa6b2b6a342601e1cc` |
+| `analysis/aggregates/E15_l1_grid.json` | `1ebf3aa23de24a39b68d888a4223b782896260f9a017610b9bf45b691a569467` |
+| `analysis/aggregates/E16_post_compression.json` | `58c4c1121a16e654f64aa6586ddeb63f2a561ffb427c2d0da5994f650e34007f` |
 | `analysis/aggregates/E1_blitz.json` | `9419d0311d235a539f0311ffbe448f359790a9b9a9c1729a28da3c56cbb8da44` |
 | `analysis/aggregates/E1_rapid.json` | `cae310b51dc7913648ae865ce35b87fc026a0e9f9240f00234858f2b3201a57d` |
 | `analysis/aggregates/E1_standard.json` | `6152e41ae6c32a1a35313277b993c66b7a604bc7444ac2a055d04d36df82a065` |
@@ -122,6 +126,12 @@ Recorded in `docs/decisions/D-0010_freeze-2.md` before any result of either even
 | `analysis/e12_guard_v2_extract.py` | `a26d7ee3e01cd5750b338f29f661429a1079723eba44101b62105fb97290bb67` |
 | `analysis/e12_guard_v2_report.py` | `fd52501614c75f729367b6d5eb6e5c76bfdfae473539a0ecb5932e9a150d36b5` |
 | `analysis/e13_us_championships_freeze3.py` | `37ffeaa58244b6949f11b65eced3c679c4d5ef66b844f109b3a847f42a5014f2` |
+| `analysis/e14_simulator_v2_report.py` | `7bf53da774840fbda32d6c9575367901bf0c5c2e1d8e1f341797aa18ced16a90` |
+| `analysis/e14_simulator_v2_run.py` | `01e005b64072dd17eb7977670b8474e2ae69874eb698b040ad0ae7c1b0b64c40` |
+| `analysis/e15_l1_grid_extract.py` | `36562dbfb997dcfe931afafeb32bb57ce1a1c0f13d3f0bf17bc906c470369fa7` |
+| `analysis/e15_l1_grid_report.py` | `1b5b0a4d4f5c3cbceaadd0b03aa49b0aec9a865145fe6097c487478911df4769` |
+| `analysis/e16_post_compression_extract.py` | `4ffdbb18b958947b742d8a9851162a026154f4479ae1f2bf9622adf8e9058887` |
+| `analysis/e16_rung2_review_report.py` | `5cf600268d274c178d005129a004e4c5be2a21bae9468c9320bfbb45eb6068bc` |
 | `analysis/e1_fide_lists_extract.py` | `185fdf9865f6f5efc7ac4a7b7eaf55101f94330bc4e0feba75f2152c052685c8` |
 | `analysis/e1_fide_lists_report.py` | `a871398f3677237684f3d25022da0496f25c639166c2d1c6b36fdbec1f2af90e` |
 | `analysis/e2_broadcast_extract.py` | `36c95141c6390fbfd1685a2f933067c10b2c59be199f55e6f30f0551721268a8` |
@@ -138,6 +148,7 @@ Recorded in `docs/decisions/D-0010_freeze-2.md` before any result of either even
 | `analysis/e8_k_activity_report.py` | `f79cb4e81062a60c191775bef58e0bc5b4a07d9cb86c57c05810dd2ada375e4a` |
 | `analysis/e9_simulator_report.py` | `4cacd1581657ba7e6266b841c4f742b1e0285c1ef16c243b1d5a29918bf18db8` |
 | `analysis/e9_simulator_run.py` | `270b3388892e88714108bde8bee538beebfa18f72939b230914c05788acd735b` |
+| `analysis/elo6_calculations.py` | `5c90393b99c59a8d333b646b8c4fa3662891582781604b50fb9a949ffde8fc01` |
 | `analysis/fide_panel.py` | `a6a7a6be0b4da9a20fca16218d4c5c0ee6398391a30ac0660b73be729f55f9e1` |
 | `analysis/l0_fixtures_report.py` | `4580b1a997abe3ac1455330c7aa41ce13e89e2b770029efea22fdfeb2ec9409f` |
 | `analysis/l0_k_rules_extract.py` | `fd05b3a9ea7a0f5df254c7620aeef0c21681d11789cfe165bed3b8ec958f5db0` |
@@ -180,6 +191,7 @@ Recorded in `docs/decisions/D-0010_freeze-2.md` before any result of either even
 | `src/simulator/pool.py` | `1f20542e1c56223223275218524aa8995b498d85e6efb11de17f05fc097c3954` |
 | `src/simulator/proxy.py` | `0b794ed44db7ac8e0c6565ec52bc0742ef7a1dec56dde7b662abe7f10ae62bf3` |
 | `src/simulator/run.py` | `ebd83041e48f553282495f18c78221363094f593e4a6b8b67bcd0820f8dbbf71` |
+| `src/simulator/v2.py` | `b1778629bd5359d9ac23b7331c581d065ed29f9a3d417cf17772d0fc4384c81a` |
 | `tools/checks/_repo.py` | `6219e885e1c1d484b23b8c015ab229f039189f7fdcfb8a64646ef6fcbcda60bb` |
 | `tools/checks/check_outputs.py` | `ec9eecd754e5b8b172881a5a4ad563275b6fce6ff5eee066d00add1615917cb2` |
 | `tools/checks/check_refs.py` | `303ba0c0c403c7b46ab7fa2a6867d5f40719702cce7358f62dabbb9e2bd378e8` |
@@ -197,7 +209,7 @@ Recorded in `docs/decisions/D-0010_freeze-2.md` before any result of either even
 | `tools/events/us_championship_2026.json` (without results) | `0a4312e026cd6dcd49ce64492c89870ec59d44a741c36b4c67abdada91fba3a1` |
 | `tools/events/us_womens_championship_2026.json` (without results) | `70ce5aa418a4ab527b7ad13121061de2d030ca25cc0ce19a6ca9ad741f47afb6` |
 
-Manifest (SHA-256 of the 102 lines "hash  file" above): `183bb7264a2931e1e6a65f1b1546a10f70f2adef788a16e85aad309a2e7a0e1e`.
+Manifest (SHA-256 of the 114 lines "hash  file" above): `b9601f1c3623ae7b5f6deccdd9f3426bd8992d0990daf7629672aedbce0f1e4c`.
 
 Check (a) reruns this page on every pull request, so a change to any of these files, or to the pairings, ratings or K of either event file, changes the page; and it compares this manifest with the one D-0010 records, so the check keeps failing even if the page is regenerated, until a new decision record supersedes D-0010. Entering the results after the event changes no value here.
 

@@ -1,0 +1,129 @@
+{
+ "at_edge": {
+  "c_theta": false,
+  "omega": false
+ },
+ "chosen": {
+  "c_theta": 2.0,
+  "games": 59529,
+  "log_loss": 0.925754,
+  "max_move": 0.0269,
+  "omega": 4.0,
+  "sweeps": 63
+ },
+ "grid": [
+  {
+   "c_theta": 2.0,
+   "games": 59529,
+   "log_loss": 0.925754,
+   "max_move": 0.0269,
+   "omega": 4.0,
+   "sweeps": 63
+  },
+  {
+   "c_theta": 4.0,
+   "games": 59529,
+   "log_loss": 0.933954,
+   "max_move": 0.0813,
+   "omega": 4.0,
+   "sweeps": 49
+  },
+  {
+   "c_theta": 8.0,
+   "games": 59529,
+   "log_loss": 0.95666,
+   "max_move": 0.0988,
+   "omega": 4.0,
+   "sweeps": 70
+  },
+  {
+   "c_theta": 2.0,
+   "games": 59529,
+   "log_loss": 0.925779,
+   "max_move": 0.0745,
+   "omega": 1.0,
+   "sweeps": 53
+  },
+  {
+   "c_theta": 2.0,
+   "games": 59529,
+   "log_loss": 0.925755,
+   "max_move": 0.0139,
+   "omega": 2.0,
+   "sweeps": 57
+  }
+ ],
+ "previous": {
+  "chosen": {
+   "c_theta": 2.0,
+   "games": 59529,
+   "log_loss": 0.925754,
+   "max_move": 0.0269,
+   "omega": 4.0,
+   "sweeps": 63
+  },
+  "grid": [
+   {
+    "c_theta": 0.5,
+    "games": 59529,
+    "log_loss": 0.936902,
+    "max_move": 0.0484,
+    "omega": 8.0,
+    "sweeps": 73
+   },
+   {
+    "c_theta": 1.0,
+    "games": 59529,
+    "log_loss": 0.928907,
+    "max_move": 0.0308,
+    "omega": 8.0,
+    "sweeps": 66
+   },
+   {
+    "c_theta": 2.0,
+    "games": 59529,
+    "log_loss": 0.92581,
+    "max_move": 0.079,
+    "omega": 8.0,
+    "sweeps": 56
+   },
+   {
+    "c_theta": 2.0,
+    "games": 59529,
+    "log_loss": 0.925754,
+    "max_move": 0.0269,
+    "omega": 4.0,
+    "sweeps": 63
+   },
+   {
+    "c_theta": 2.0,
+    "games": 59529,
+    "log_loss": 0.92657,
+    "max_move": 0.0067,
+    "omega": 16.0,
+    "sweeps": 63
+   }
+  ]
+ },
+ "protocol": {
+  "c_theta": [
+   2.0,
+   4.0,
+   8.0
+  ],
+  "fit": [
+   "2023-01",
+   "2024-09"
+  ],
+  "omega": [
+   1.0,
+   2.0,
+   4.0
+  ],
+  "score": [
+   "2024-10",
+   "2024-12"
+  ]
+ },
+ "reproduces_previous_point": true
+}
