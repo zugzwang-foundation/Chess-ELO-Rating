@@ -145,11 +145,16 @@ def main() -> None:
     act_lo = [last[f"adult_games:{k}"]["median"] for k in ("1-4", "5-9", "10-19")]
     p("## Verdict")
     p()
+    def implied_share(bn: str) -> float:
+        c, g = bby[f"{bn}|all"], last.get(f"band:{bn}", {})
+        return c["implied_per_game"] * g["games"] / g["n"] / g["mean"]
+    share_low = implied_share("2200-2399")
     p(f"**In three sentences.** Since March 2024 the published ratings of steadily active adults have stopped falling in standard "
       f"({srng(anchor_post)} points a year) and rapid ({srng(rapid_anchor_post)}), after falling {rng(anchor_pre)} a year in standard from 2016 to "
       f"February 2024; blitz is still slightly negative ({sgl(blitz_anchor_post)}). What still slides is the top of the list: players rated 2200 "
-      f"or more lose {rng([v for bn in top3 for v in band_post[bn]])} points a year, largely the transfer that table 8.1.2's over-prediction of "
-      f"favourites implies, and active 2600+ players fell from {t_2600[0]} in 2015 to {t_2600[2]}. The median of the active list also keeps "
+      f"or more lose {rng([v for bn in top3 for v in band_post[bn]])} points a year; at 2400 and above that is about the transfer table 8.1.2's "
+      f"over-prediction of favourites implies, at 2200–2399 about {'a third' if share_low < 0.42 else 'half'} of it (section 5), and active 2600+ "
+      f"players fell from {t_2600[0]} in 2015 to {t_2600[2]}. The median of the active list also keeps "
       f"falling, {rng(med_post)} points a year, but only because entrants arrive below the players who stop (continuing players gain), and that "
       "cross-sectional median is what Ghita's −26 and −16 a year measure.")
     p()

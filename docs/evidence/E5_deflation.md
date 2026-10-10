@@ -4,7 +4,7 @@ Status: REVIEW — evidence for the proposal (§1, §2, §10) and annex (T4.5, T
 
 ## Verdict
 
-**In three sentences.** Since March 2024 the published ratings of steadily active adults have stopped falling in standard (+2 to +3 points a year) and rapid (+4 to +5), after falling 2 to 6 a year in standard from 2016 to February 2024; blitz is still slightly negative (-2, -1, -1). What still slides is the top of the list: players rated 2200 or more lose 5 to 8 points a year, largely the transfer that table 8.1.2's over-prediction of favourites implies, and active 2600+ players fell from 225 in 2015 to 150. The median of the active list also keeps falling, 11 to 16 points a year, but only because entrants arrive below the players who stop (continuing players gain), and that cross-sectional median is what Ghita's −26 and −16 a year measure.
+**In three sentences.** Since March 2024 the published ratings of steadily active adults have stopped falling in standard (+2 to +3 points a year) and rapid (+4 to +5), after falling 2 to 6 a year in standard from 2016 to February 2024; blitz is still slightly negative (-2, -1, -1). What still slides is the top of the list: players rated 2200 or more lose 5 to 8 points a year; at 2400 and above that is about the transfer table 8.1.2's over-prediction of favourites implies, at 2200–2399 about a third of it (section 5), and active 2600+ players fell from 225 in 2015 to 150. The median of the active list also keeps falling, 11 to 16 points a year, but only because entrants arrive below the players who stop (continuing players gain), and that cross-sectional median is what Ghita's −26 and −16 a year measure.
 
 **What is sliding, where, since when, by how much.**
 

@@ -257,6 +257,104 @@
   "c_theta": 2.0,
   "omega": 4.0
  },
+ "r12_farming_game_level": {
+  "blitz": {
+   "layer0_month_blocks": {
+    "hi": 0.01214,
+    "lo": -0.00615,
+    "mean": 0.00247,
+    "months": 21,
+    "n": 1019,
+    "p_outside": 1.0
+   },
+   "layer0_player_clusters": {
+    "clusters": 233,
+    "hi": 0.0178,
+    "lo": -0.01381,
+    "mean": 0.00247,
+    "n": 1019
+   },
+   "rung2_month_blocks": {
+    "hi": 0.05437,
+    "lo": 0.03791,
+    "mean": 0.0445,
+    "months": 21,
+    "n": 1019,
+    "p_outside": 0.0
+   },
+   "rung2_player_clusters": {
+    "clusters": 233,
+    "hi": 0.05948,
+    "lo": 0.02931,
+    "mean": 0.0445,
+    "n": 1019
+   }
+  },
+  "rapid": {
+   "layer0_month_blocks": {
+    "hi": -0.04899,
+    "lo": -0.07468,
+    "mean": -0.06406,
+    "months": 21,
+    "n": 1010,
+    "p_outside": 0.0
+   },
+   "layer0_player_clusters": {
+    "clusters": 276,
+    "hi": -0.04245,
+    "lo": -0.08853,
+    "mean": -0.06406,
+    "n": 1010
+   },
+   "rung2_month_blocks": {
+    "hi": 0.02233,
+    "lo": -0.00297,
+    "mean": 0.0079,
+    "months": 21,
+    "n": 1010,
+    "p_outside": 1.0
+   },
+   "rung2_player_clusters": {
+    "clusters": 276,
+    "hi": 0.02933,
+    "lo": -0.01639,
+    "mean": 0.0079,
+    "n": 1010
+   }
+  },
+  "standard": {
+   "layer0_month_blocks": {
+    "hi": 0.00967,
+    "lo": -0.00736,
+    "mean": 0.00016,
+    "months": 21,
+    "n": 827,
+    "p_outside": 1.0
+   },
+   "layer0_player_clusters": {
+    "clusters": 305,
+    "hi": 0.01302,
+    "lo": -0.01429,
+    "mean": 0.00016,
+    "n": 827
+   },
+   "rung2_month_blocks": {
+    "hi": 0.04219,
+    "lo": 0.02505,
+    "mean": 0.03235,
+    "months": 21,
+    "n": 827,
+    "p_outside": 0.0
+   },
+   "rung2_player_clusters": {
+    "clusters": 305,
+    "hi": 0.04514,
+    "lo": 0.01868,
+    "mean": 0.03235,
+    "n": 827
+   }
+  }
+ },
  "r12_farming_region": {
   "blitz": {
    "games": 1020,
@@ -1027,6 +1125,114 @@
     "points_total_layer0": -52390.6,
     "points_total_rung5": 12661.7
    }
+  }
+ },
+ "rung5_control": {
+  "control_games_adult_pairs": 169508,
+  "hunter_yield_rung2_plus_rung5_by_adult_band": {
+   "1600-1999": {
+    "hi": -0.03663,
+    "lo": -0.07762,
+    "mean": -0.05447,
+    "months": 21,
+    "n": 2705
+   },
+   "2000-2399": {
+    "hi": 0.00032,
+    "lo": -0.0212,
+    "mean": -0.01099,
+    "months": 21,
+    "n": 8610
+   },
+   "2400+": {
+    "hi": 0.04037,
+    "lo": 0.02697,
+    "mean": 0.03438,
+    "months": 21,
+    "n": 7385
+   },
+   "<1600": {
+    "hi": -0.06139,
+    "lo": -0.13306,
+    "mean": -0.09711,
+    "months": 18,
+    "n": 105
+   }
+  },
+  "junior_specific_layer0": {
+   "hi": -0.04146,
+   "lo": -0.05373,
+   "mean": -0.047,
+   "months": 21,
+   "n": 56030,
+   "p_outside": 0.0
+  },
+  "junior_specific_rung2": {
+   "hi": -0.03953,
+   "lo": -0.05144,
+   "mean": -0.0451,
+   "months": 21,
+   "n": 56030,
+   "p_outside": 0.0
+  },
+  "junior_specific_rung5": {
+   "hi": -0.00554,
+   "lo": -0.01476,
+   "mean": -0.01032,
+   "months": 21,
+   "n": 56030,
+   "p_outside": 0.5215
+  },
+  "matched_control_mean_layer0": -0.00763,
+  "rung2_plus_rung5_by_adult_band": {
+   "1600-1999": {
+    "hi": -0.03744,
+    "lo": -0.05886,
+    "mean": -0.04718,
+    "months": 21,
+    "n": 12820,
+    "p_outside": 0.0
+   },
+   "2000-2399": {
+    "hi": -0.0051,
+    "lo": -0.0184,
+    "mean": -0.01209,
+    "months": 21,
+    "n": 27814,
+    "p_outside": 0.3045
+   },
+   "2400+": {
+    "hi": 0.03375,
+    "lo": 0.02142,
+    "mean": 0.0285,
+    "months": 21,
+    "n": 14545,
+    "p_outside": 0.0
+   },
+   "<1600": {
+    "hi": -0.06783,
+    "lo": -0.09735,
+    "mean": -0.07666,
+    "months": 21,
+    "n": 851,
+    "p_outside": 0.0
+   }
+  },
+  "rung2_plus_rung5_residual": {
+   "hi": -0.00592,
+   "lo": -0.01468,
+   "mean": -0.01056,
+   "months": 21,
+   "n": 56030,
+   "p_outside": 0.4635
+  },
+  "rung2_table_residual": {
+   "hi": -0.03278,
+   "lo": -0.04443,
+   "mean": -0.03845,
+   "months": 21,
+   "n": 56030,
+   "p_outside": 0.0
   }
  },
  "rung6": {

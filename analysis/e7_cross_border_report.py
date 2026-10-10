@@ -15,7 +15,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-PERIODS = ("2025", "2023-2026")
+PERIODS = ("2025", "2023-2024 and 2026", "2023-2026")
 SCALES = ("scale_400", "scale_459")
 BANDS = ("<1600", "1600-1999", "2000-2199", "2200-2399", "2400+")
 NAMES = {"PER": "Peru"}
@@ -30,7 +30,7 @@ def pct(x: float) -> str:
 
 
 def pval(p: float) -> str:
-    return f"{p:.5f}".rstrip("0")
+    return "< 0.00001" if p < 0.00001 else f"{p:.5f}".rstrip("0")
 
 
 def main() -> None:
@@ -64,9 +64,13 @@ def main() -> None:
       f"({n0(all_['cross_border_games'])} games, p = {pval(tall['binomial_p_one_sided'])})"
       + ("; the logistic scale 400 and his 459 give the same signs. " if same_scale else ". ")
       + f"The exception is {dis_names}, the weakest of his fifteen qualifying federations (recursive index +18 points, interval "
-      "+10 to +26; [R 5], p. 53). The direction of his federation residuals is reproduced on games he did not use; their size is "
-      "not compared, because the broadcast sample over-represents strong players (section 4) and because federation "
-      "magnitudes are for the QC while rung 7 is disabled.")
+      "+10 to +26; [R 5], p. 53). Broadcast games of 2025 are FIDE-rated and may be among the games of his 2025 extract, so the "
+      "sample is different from his, not independent of it; on the years his extract cannot contain, 2023, 2024 and 2026, "
+      f"{d['2023-2024 and 2026']['scale_400']['direction_test']['agree']} of "
+      f"{d['2023-2024 and 2026']['scale_400']['direction_test']['named_and_estimable']} agree (p = "
+      f"{pval(d['2023-2024 and 2026']['scale_400']['direction_test']['binomial_p_one_sided'])}). Their size is not compared, because "
+      "the broadcast sample over-represents strong players (section 4) and because federation magnitudes are for the QC while "
+      "rung 7 is disabled.")
     p("")
 
     p("## 1 What is tested")
@@ -179,7 +183,8 @@ def main() -> None:
 
     p("## 5 What it means for the proposal")
     p("")
-    p("- The direction of Ghita's federation residuals stands on an independent sample and method: the federation problem is "
+    p("- The direction of Ghita's federation residuals stands on a different sample and method, including years his extract cannot "
+      "contain: the federation problem is "
       "real for the broadcast population, not an artefact of his data. The proposal says so and credits him with the finding "
       "and the method.")
     p("- It does not decide rung 7 (federation offsets), which stays disabled: the evidence here is directional, the sample "
