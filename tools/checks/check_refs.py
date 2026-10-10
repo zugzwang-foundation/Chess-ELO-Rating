@@ -6,9 +6,10 @@ README files of analysis/ and tools/.
 1. A relative Markdown link [text](path) must point to a tracked file or directory.
 2. A repository path written in a code span (`docs/...`, `analysis/...`,
    `src/...`, `tests/...`, `tools/...`, `params/...`, `.github/...`) must exist.
-   Records (docs/decisions/, docs/review/, docs/research/), which are never
-   edited after the fact, may also name a path that existed earlier in git
-   history. Paths under data/ (raw data, never committed) are not checked.
+   Records (docs/decisions/, docs/review/, docs/research/, and any document
+   whose status line reads RATIFIED), which are never edited after the fact,
+   may also name a path that existed earlier in git history. Paths under
+   data/ (raw data, never committed) are not checked.
 3. [R n] must be a numbered source of docs/research/ELO-RESEARCH_v1_0.md,
    [R §x] one of its numbered sections and [R Name] one of its named headings.
 4. [V k] must be an item of docs/research/VERIFICATION_2026-10-09.md,
@@ -109,9 +110,9 @@ def main() -> int:
     evidence = {f.split("/")[-1].split("_")[0] for f in tracked() if f.startswith("docs/evidence/E") and f.endswith(".md")}
 
     for f in files:
-        record = f.startswith(RECORDS)
         base = (ROOT / f).parent
         text = (ROOT / f).read_text(encoding="utf-8")
+        record = f.startswith(RECORDS) or "Status: RATIFIED" in "\n".join(text.split("\n")[:5])
 
         def path_ok(p: str) -> bool:
             return exists_now(p) or (record and existed_in_history(p))

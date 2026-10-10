@@ -114,6 +114,44 @@ def boot(per_month: dict[int, list[float]], bound: float | None = None) -> dict:
     return out
 
 
+def e2_expect(par: tuple, own: int, opp: int, own_white: bool, mid: int) -> float:
+    """Rung 2: the expectation of `own` from the table fitted for the month (E2's rolling parameters κ, η, α, β, γ),
+    White's published gap x, level band midpoint mid (SPEC-TABLE-FIT §2)."""
+    kappa, eta, alpha, beta, gamma = par
+    x = (own - opp) if own_white else (opp - own)
+    z = kappa * model.Q * (x + eta)
+    nu = math.exp(alpha + beta * (mid - 2000.0) / 400.0 - gamma * abs(z))
+    a = math.exp(z / 2.0)
+    den = a + 1.0 / a + nu
+    ew = (a + nu / 2.0) / den
+    return ew if own_white else 1.0 - ew
+
+
+def boot_cluster(items: list[tuple[int, float]]) -> dict:
+    """Mean of a per-game quantity with a bootstrap that resamples clusters (players) with replacement."""
+    if not items:
+        return {"n": 0}
+    groups: dict[int, list[float]] = defaultdict(list)
+    for key, v in items:
+        groups[key].append(v)
+    keys = sorted(groups)
+    sums = [sum(groups[k]) for k in keys]
+    cnts = [len(groups[k]) for k in keys]
+    rnd = random.Random(SEED)
+    stats = []
+    for _ in range(RESAMPLES):
+        s = c_ = 0.0
+        for _k in range(len(keys)):
+            j = rnd.randrange(len(keys))
+            s += sums[j]
+            c_ += cnts[j]
+        stats.append(s / c_)
+    stats.sort()
+    n = sum(cnts)
+    return {"n": n, "clusters": len(keys), "mean": round(sum(sums) / n, 5), "lo": round(stats[int(0.025 * RESAMPLES)], 5),
+            "hi": round(stats[int(0.975 * RESAMPLES) - 1], 5)}
+
+
 def boot_groups(per_group: dict[str, dict[int, list[float]]], bound: float | None = None) -> dict:
     """boot() for each group (rating band), in the groups' sorted order."""
     return {k: boot(v, bound) for k, v in sorted(per_group.items())}
@@ -462,8 +500,101 @@ def main() -> int:
         r6[name] = rows
     out["rung6"] = r6
 
-    # ---------------------------------------------------------------- R12: the farming region pooled (E2 aggregates)
     e2 = json.loads((ROOT / "analysis" / "aggregates" / "E2_broadcast.json").read_text(encoding="utf-8"))
+    e2par = {c.TCS.index(name): {m: tuple(v["params"][k] for k in ("kappa", "eta", "alpha", "beta", "gamma"))
+                                 for m, v in rr["per_month"].items()} for name, rr in e2["rolling"].items()}
+
+    # ---------------------------------------------------------------- rung 5 against a matched control, and on rung 2's table
+    def adult_at(p: int, t: int) -> bool:
+        by = S.birth.get(p)
+        return by is None or (t // 12) - by >= 20               # annex T2.2: no year of birth counts as an adult
+
+    def gbin(x: int) -> int:
+        return max(-20, min(20, x // 50))
+
+    ctrl0: dict[tuple, list[float]] = defaultdict(lambda: [0, 0.0])
+    ctrl2: dict[tuple, list[float]] = defaultdict(lambda: [0, 0.0])
+    for t in TEST:
+        lab = fit.month_label(t)
+        for g in by_month[t]:
+            if not g.white_r or not g.black_r or not (adult_at(g.white, t) and adult_at(g.black, t)):
+                continue
+            par = e2par[g.tc][lab]
+            for own, opp, white, s in ((g.white_r, g.black_r, True, g.score), (g.black_r, g.white_r, False, 1.0 - g.score)):
+                e_0 = e0(own, opp, g.tc, g.list_month)                 # Layer 0: the player's own expectation, no colour
+                key = (g.tc, white, gbin(own - opp))
+                ctrl0[key][0] += 1
+                ctrl0[key][1] += s - e_0
+                ctrl2[key][0] += 1
+                ctrl2[key][1] += s - e2_expect(par, own, opp, white, g.level_mid)
+    spec0, spec5, res2, res25, spec2 = (defaultdict(list) for _ in range(5))
+    band25: dict[str, dict[int, list[float]]] = defaultdict(lambda: defaultdict(list))
+    hunt25: dict[str, dict[int, list[float]]] = defaultdict(lambda: defaultdict(list))
+    ctrl_used = []
+    for t in TEST:
+        lab = fit.month_label(t)
+        for g in by_month[t]:
+            if not g.white_r or not g.black_r:
+                continue
+            pw, pb = origin[t]["players"].get((g.white, g.tc)), origin[t]["players"].get((g.black, g.tc))
+            jw, jb = bool(pw and pw.get("eligible")), bool(pb and pb.get("eligible"))
+            if jw == jb:
+                continue
+            if jw:
+                opp, own, s, cj, jr, white = g.black, g.black_r, 1.0 - g.score, pw["c_j"], g.white_r, False
+            else:
+                opp, own, s, cj, jr, white = g.white, g.white_r, g.score, pb["c_j"], g.black_r, True
+            if not adult_at(opp, t):
+                continue
+            key = (g.tc, white, gbin(own - jr))
+            c0 = ctrl0[key][1] / ctrl0[key][0] if ctrl0[key][0] else 0.0
+            c2 = ctrl2[key][1] / ctrl2[key][0] if ctrl2[key][0] else 0.0
+            ctrl_used.append(c0)
+            e_0 = e0(own, jr, g.tc, g.list_month)
+            e_5 = e0(own, jr + cj, g.tc, g.list_month)
+            par = e2par[g.tc][lab]
+            e_2 = e2_expect(par, own, jr, white, g.level_mid)
+            e_25 = e2_expect(par, own, jr + cj, white, g.level_mid)
+            spec0[t].append((s - e_0) - c0)
+            spec5[t].append((s - e_5) - c0)
+            res2[t].append(s - e_2)
+            res25[t].append(s - e_25)
+            spec2[t].append((s - e_2) - c2)
+            b = "<1600" if own < 1600 else "1600-1999" if own < 2000 else "2000-2399" if own < 2400 else "2400+"
+            band25[b][t].append(s - e_25)
+            if cj > 0:
+                hunt25[b][t].append(s - e_25)
+    out["rung5_control"] = {
+        "control_games_adult_pairs": sum(v[0] for v in ctrl0.values()) // 2,
+        "matched_control_mean_layer0": round(statistics.fmean(ctrl_used), 5) if ctrl_used else None,
+        "junior_specific_layer0": boot(spec0, 0.01), "junior_specific_rung5": boot(spec5, 0.01),
+        "rung2_table_residual": boot(res2, 0.01), "rung2_plus_rung5_residual": boot(res25, 0.01),
+        "junior_specific_rung2": boot(spec2, 0.01),
+        "rung2_plus_rung5_by_adult_band": boot_groups(band25, 0.01),
+        "hunter_yield_rung2_plus_rung5_by_adult_band": boot_groups(hunt25)}
+
+    # ---------------------------------------------------------------- R12: the farming region at game level (V4 review)
+    farm = {}
+    for tc in range(3):
+        f2, f0, cl2, cl0 = defaultdict(list), defaultdict(list), [], []
+        for t in TEST:
+            lab = fit.month_label(t)
+            for g in by_month[t]:
+                if g.tc != tc or not g.white_r or not g.black_r or abs(g.white_r - g.black_r) < 400 or g.level_mid < 2350:
+                    continue
+                white_fav = g.white_r > g.black_r
+                fav_id, own, opp, s = (g.white, g.white_r, g.black_r, g.score) if white_fav else (g.black, g.black_r, g.white_r, 1.0 - g.score)
+                e_0 = e0(own, opp, tc, g.list_month)
+                e_2 = e2_expect(e2par[tc][lab], own, opp, white_fav, g.level_mid)
+                f0[t].append(s - e_0)
+                f2[t].append(s - e_2)
+                cl0.append((fav_id, s - e_0))
+                cl2.append((fav_id, s - e_2))
+        farm[c.TCS[tc]] = {"rung2_month_blocks": boot(f2, 0.01), "layer0_month_blocks": boot(f0, 0.01),
+                           "rung2_player_clusters": boot_cluster(cl2), "layer0_player_clusters": boot_cluster(cl0)}
+    out["r12_farming_game_level"] = farm
+
+    # ---------------------------------------------------------------- R12: the farming region pooled (E2 aggregates)
     r12 = {}
     for tc, rr in e2["rolling"].items():
         bins = rr["farming_bins"]

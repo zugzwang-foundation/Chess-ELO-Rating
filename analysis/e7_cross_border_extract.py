@@ -141,7 +141,7 @@ def main() -> int:
     out = {"sample": {"standard_games": len(rows), "skipped": dict(skipped), "broadcast": meta,
                       "cross_border_by_year": dict(sorted(Counter(r[0] for r in rows if r[3] != r[4]).items())),
                       "domestic_by_year": dict(sorted(Counter(r[0] for r in rows if r[3] == r[4]).items()))}}
-    for label, years in (("2025", {2025}), ("2023-2026", {2023, 2024, 2025, 2026})):
+    for label, years in (("2025", {2025}), ("2023-2024 and 2026", {2023, 2024, 2026}), ("2023-2026", {2023, 2024, 2025, 2026})):
         cross = [(rw, rb, fw, fb, s) for y, rw, rb, fw, fb, s in rows if y in years and fw != fb]
         per_fed = Counter()
         for rw, rb, fw, fb, s in cross:

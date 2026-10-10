@@ -6,7 +6,7 @@ Status: REVIEW — evidence for the proposal (§9, §10) and annex (T4.3–T4.7,
 
 - **Rung 3, newcomer seeds:** does not pass on the 659 newcomers the broadcast data can seed (2,907 games); residual over their first games -0.0201 (-0.0350 to -0.0090) with FIDE's first rating, -0.0100 (-0.0294 to +0.0010) with the seed: closer to zero on average, but log-loss worse by 0.050 nats a game, because seeds from broadcast games alone are noisier than first ratings from every rated game.
 - **Rung 4, K from certainty (R6):** does not pass; log-loss of next month's games for the players whose K changes most +0.00242 (+0.00066 to +0.00414) nats a game (negative is better), overall +0.00160 (+0.00076 to +0.00231).
-- **Rung 5, junior compensation (R5, R8):** does not pass; the adults' residual against eligible juniors -0.0546 (-0.0619 to -0.0488) under Layer 0 and -0.0180 (-0.0222 to -0.0134) with compensation (56,030 games): the drain falls by 67 % and forecasts improve (log-loss -0.0160 nats a game), but the residual stays significantly outside ±0.01, in the bands below 2000 most.
+- **Rung 5, junior compensation (R5, R8):** does not pass; the adults' residual against eligible juniors -0.0546 (-0.0619 to -0.0488) under Layer 0 and -0.0180 (-0.0222 to -0.0134) with compensation (56,030 games): the drain falls by 67 % and forecasts improve (log-loss -0.0160 nats a game), but the residual stays significantly outside ±0.01 in every band below 2400. Against a matched control of adult games at the same gaps the junior-specific residual falls inside ±0.01 overall, but the compensation is too small below 2000 and too large against adults rated 2400 or more (section 4).
 - **Rung 6, the monthly adjustment (R3):** blitz: D_t from month 13 not within ±2 points a year, level criterion met; rapid: D_t from month 13 not within ±2 points a year, level criterion met; standard: D_t from month 13 not within ±2 points a year, level criterion met. The fixed panel's published mean rose over these months, as E5 found for steadily active adults, while the controller, which follows the gap to Layer 1 rather than the published mean, paid at most half a point a month (section 5).
 - **What the broadcast data cannot settle:** the juniors and newcomers the rungs are meant for, below 2000 in domestic events, are almost absent (OUTPUT_L1_history §5); every result here holds for the broadcast population, and FIDE's tournament reports (the TRF archive) settle it for the pool (annex T8.6).
 
@@ -83,7 +83,7 @@ Status: REVIEW — evidence for the proposal (§9, §10) and annex (T4.3–T4.7,
 | blitz | 40 | 7,737 | 40.0 | 40.0 | 40.0 |
 
 - **Stability of established ratings** (adults with FIDE's K of 10 or 20, the absolute change from one month's broadcast games): median 7.6 points with FIDE's K, 16.8 with K_i; p90 25.8 and 55.6.
-- **Why K_i is high here.** σ in the fit comes from broadcast games only, a fraction of each player's rated games, so σ, and with it K_i, is larger than a fit on FIDE's full record would give; most broadcast players below 2400 sit at K_max = 40 (OUTPUT_L1_history §4). The K distribution above is an upper bound for the pool, not a forecast of the list.
+- **Why K_i is high here.** σ in the fit comes from broadcast games only. For most players below 2400 these are a fraction of their rated games, so σ and K_i are larger than a fit on FIDE's record would give, and most sit at K_max = 40 (OUTPUT_L1_history §4). For established 2600+ players the archive holds most of their standard games [E5], so their K_i of about 19 is largely what R6 gives with the process noise fitted on history (c_θ = 2.0), not an artefact of the sample.
 
 ## 4 Rung 5: junior compensation (R5, R8; annex T4.6)
 
@@ -105,6 +105,24 @@ By the adult opponent's band (the pre-registered metric):
 | 1600-1999 | 12,820 | -0.0498 (-0.0606 to -0.0410) | -0.0347 (-0.0453 to -0.0256) |
 | 2000-2399 | 27,814 | -0.0478 (-0.0544 to -0.0405) | -0.0170 (-0.0228 to -0.0107) |
 | 2400+ | 14,545 | -0.0718 (-0.0804 to -0.0674) | -0.0030 (-0.0124 to +0.0052) |
+
+**Against a matched control, and on rung 2's table.** Table 8.1.2 itself over-predicts favourites [E2], so part of the adults' residual against juniors could be the table's. The control is every game between two adults (aged 20 or more, or without a year of birth) in the same months, 169,508 games, scored from each side and binned by time control, colour and 50-point published gap; each junior game is compared with the control's mean residual at its own bin (on average -0.0076). Rung 5 is also evaluated on rung 2's fitted table (E2's table for the month) instead of table 8.1.2.
+
+| adults against eligible juniors | residual |
+|---|---|
+| junior-specific, Layer 0 (residual minus the matched control) | -0.0470 (-0.0537 to -0.0415) |
+| junior-specific, rung 5 | -0.0103 (-0.0148 to -0.0055) |
+| rung 2's table, no compensation | -0.0384 (-0.0444 to -0.0328) |
+| rung 2's table with compensation (rungs 2 and 5) | -0.0106 (-0.0147 to -0.0059) |
+
+| adult's band | games | rungs 2 and 5: residual | rungs 2 and 5, games with c_j > 0 (the compensation hunter's yield) |
+|---|---|---|---|
+| <1600 | 851 | -0.0767 (-0.0974 to -0.0678) | -0.0971 (-0.1331 to -0.0614) |
+| 1600-1999 | 12,820 | -0.0472 (-0.0589 to -0.0374) | -0.0545 (-0.0776 to -0.0366) |
+| 2000-2399 | 27,814 | -0.0121 (-0.0184 to -0.0051) | -0.0110 (-0.0212 to +0.0003) |
+| 2400+ | 14,545 | +0.0285 (+0.0214 to +0.0338) | +0.0344 (+0.0270 to +0.0404) |
+
+- **Reading.** Most of the adults' residual is junior-specific: the table's own error at the same gaps is about a seventh of it. With compensation the junior-specific residual overall is inside ±0.01, on either table; by band it is not, in both directions: adults below 2000 still lose against eligible juniors, and adults rated 2400 or more now score above the compensated expectation, most in the games where c_j is above zero. A strong player who seeks out compensated juniors would gain about K times that residual a game: the compensation is too large at the top and too small below 2000. A margin τ that varies with the opponent's level is one fix; it is a design question for the architect.
 
 - **Where the drain remains.** In the games where c_j is above zero the adults' residual moves from -0.1021 (-0.1084 to -0.0954) to +0.0072 (+0.0012 to +0.0137); the remaining drain comes from eligible juniors whose c_j is zero, under-rated but not by more than τ plus 1.2816 σ̃ (annex T4.6): the lower-quantile design avoids the winner's curse by compensating only what the model is 90 % sure of, and leaves the rest. Over every non-eligible opponent, juniors included, the residual moves from -0.0316 (-0.0362 to -0.0280) to -0.0010 (-0.0046 to +0.0032).
 - **Targeted rule** (adults' residual not significantly outside ±0.01, by band, closer to zero than Layer 0's): overall significantly outside ±0.01, closer to zero than Layer 0's; bands significantly outside after Holm: 1600-1999, <1600, 2000-2399; bands not closer to zero: none.
@@ -148,7 +166,17 @@ Per ruling R12, every gap of 400 points or more at level 2300 or above is pooled
 | rapid | 1,010 | +0.0079 (-0.0085 to +0.0243) | -0.0641 (-0.0807 to -0.0474) |
 | standard | 827 | +0.0324 (+0.0187 to +0.0460) | +0.0019 (-0.0119 to +0.0157) |
 
-The residual is the favourite's, so a negative value is the favourite scoring below the expectation; intervals are normal approximations (± 1.96 standard errors of the per-game residual), not the month bootstrap.
+The residual is the favourite's, so a negative value is the favourite scoring below the expectation; intervals are normal approximations (± 1.96 standard errors of the per-game residual), which ignore that games cluster by player and month.
+
+The same region at game level, on Layer 1's game set (both players rated on the list in force) with E2's fitted table for each test month, and two bootstraps: the month blocks of annex T8.5, and resampling the favourites (players) with replacement:
+
+| time control | games | favourites | rung 2: month blocks | rung 2: players | Layer 0: month blocks | Layer 0: players |
+|---|---|---|---|---|---|---|
+| blitz | 1,019 | 233 | +0.0445 (+0.0379 to +0.0544) | +0.0445 (+0.0293 to +0.0595) | +0.0025 (-0.0062 to +0.0121) | +0.0025 (-0.0138 to +0.0178) |
+| rapid | 1,010 | 276 | +0.0079 (-0.0030 to +0.0223) | +0.0079 (-0.0164 to +0.0293) | -0.0641 (-0.0747 to -0.0490) | -0.0641 (-0.0885 to -0.0425) |
+| standard | 827 | 305 | +0.0323 (+0.0250 to +0.0422) | +0.0323 (+0.0187 to +0.0451) | +0.0002 (-0.0074 to +0.0097) | +0.0002 (-0.0143 to +0.0130) |
+
+With either bootstrap the fitted table under-predicts the favourite beyond ±0.01 in standard and blitz, and table 8.1.2 with its 400-point cap does not; in rapid the reverse. At the K that rung 4 gives established 2600+ players (median about 19 in standard, section 3) the residual is a gain of about 0.6 points a game in standard and more in blitz.
 
 ## 7 What the data cannot support, and the data that would
 

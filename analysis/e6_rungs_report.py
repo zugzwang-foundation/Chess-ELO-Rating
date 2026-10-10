@@ -132,7 +132,8 @@ def main() -> None:
       f"({n0(pe['opponent_residual_layer0'].get('n'))} games): the drain falls by {100 * red:.0f} % and forecasts improve "
       f"(log-loss {pe['log_loss_difference']['mean']:+.4f} nats a game), but"
       + (" the residual stays significantly outside ±0.01" if pe["opponent_residual_rung5"].get("p_outside", 1) < 0.025 else " it fails a band")
-      + ", in the bands below 2000 most.")
+      + " in every band below 2400. Against a matched control of adult games at the same gaps the junior-specific residual falls "
+        "inside ±0.01 overall, but the compensation is too small below 2000 and too large against adults rated 2400 or more (section 4).")
     p("- **Rung 6, the monthly adjustment (R3):** " + "; ".join(
         f"{tc}: D_t from month 13 {'within' if v['within'] else 'not within'} ±2 points a year, level criterion "
         f"{'met' if v['level'] else 'not met'}" for tc, v in r6v.items() if v["late"]) +
@@ -233,9 +234,10 @@ def main() -> None:
     p(f"- **Stability of established ratings** (adults with FIDE's K of 10 or 20, the absolute change from one month's broadcast "
       f"games): median {st['layer0'].get('median')} points with FIDE's K, {st['rung4'].get('median')} with K_i; p90 "
       f"{st['layer0'].get('p90')} and {st['rung4'].get('p90')}.")
-    p("- **Why K_i is high here.** σ in the fit comes from broadcast games only, a fraction of each player's rated games, so σ, and "
-      "with it K_i, is larger than a fit on FIDE's full record would give; most broadcast players below 2400 sit at K_max = 40 "
-      "(OUTPUT_L1_history §4). The K distribution above is an upper bound for the pool, not a forecast of the list.")
+    p("- **Why K_i is high here.** σ in the fit comes from broadcast games only. For most players below 2400 these are a fraction of their "
+      "rated games, so σ and K_i are larger than a fit on FIDE's record would give, and most sit at K_max = 40 (OUTPUT_L1_history §4). "
+      "For established 2600+ players the archive holds most of their standard games [E5], so their K_i of about 19 is largely what R6 "
+      "gives with the process noise fitted on history (c_θ = 2.0), not an artefact of the sample.")
     p("")
 
     # ---------------------------------------------------------------- 4 rung 5
@@ -268,6 +270,35 @@ def main() -> None:
         if a0:
             p(f"| {b} | {n0(a0['n'])} | {ci(a0)} | {ci(a5)} |")
     p("")
+    rc = d.get("rung5_control")
+    if rc:
+        p("**Against a matched control, and on rung 2's table.** Table 8.1.2 itself over-predicts favourites [E2], so part of the "
+          "adults' residual against juniors could be the table's. The control is every game between two adults (aged 20 or more, "
+          f"or without a year of birth) in the same months, {n0(rc['control_games_adult_pairs'])} games, scored from each side and "
+          "binned by time control, colour and 50-point published gap; each junior game is compared with the control's mean residual "
+          f"at its own bin (on average {rc['matched_control_mean_layer0']:+.4f}). Rung 5 is also evaluated on rung 2's fitted table "
+          "(E2's table for the month) instead of table 8.1.2.")
+        p("")
+        p("| adults against eligible juniors | residual |")
+        p("|---|---|")
+        p(f"| junior-specific, Layer 0 (residual minus the matched control) | {ci(rc['junior_specific_layer0'])} |")
+        p(f"| junior-specific, rung 5 | {ci(rc['junior_specific_rung5'])} |")
+        p(f"| rung 2's table, no compensation | {ci(rc['rung2_table_residual'])} |")
+        p(f"| rung 2's table with compensation (rungs 2 and 5) | {ci(rc['rung2_plus_rung5_residual'])} |")
+        p("")
+        p("| adult's band | games | rungs 2 and 5: residual | rungs 2 and 5, games with c_j > 0 (the compensation hunter's yield) |")
+        p("|---|---|---|---|")
+        for b in ["<1600", "1600-1999", "2000-2399", "2400+"]:
+            x, y = rc["rung2_plus_rung5_by_adult_band"].get(b, {}), rc["hunter_yield_rung2_plus_rung5_by_adult_band"].get(b, {})
+            p(f"| {b} | {n0(x.get('n'))} | {ci(x)} | {ci(y)} |")
+        p("")
+        p("- **Reading.** Most of the adults' residual is junior-specific: the table's own error at the same gaps is about a seventh of "
+          "it. With compensation the junior-specific residual overall is inside ±0.01, on either table; by band it is not, in both "
+          "directions: adults below 2000 still lose against eligible juniors, and adults rated 2400 or more now score above the "
+          "compensated expectation, most in the games where c_j is above zero. A strong player who seeks out compensated juniors "
+          "would gain about K times that residual a game: the compensation is too large at the top and too small below 2000. A "
+          "margin τ that varies with the opponent's level is one fix; it is a design question for the architect.")
+        p("")
     pc, pall = r5["populations"]["adults_compensated"], r5["populations"]["eligible"]
     p(f"- **Where the drain remains.** In the games where c_j is above zero the adults' residual moves from "
       f"{ci(pc['opponent_residual_layer0'])} to {ci(pc['opponent_residual_rung5'])}; the remaining drain comes from eligible juniors "
@@ -346,7 +377,24 @@ def main() -> None:
           f"{v['layer0']['residual']:+.4f} ({v['layer0']['lo']:+.4f} to {v['layer0']['hi']:+.4f}) |")
     p("")
     p("The residual is the favourite's, so a negative value is the favourite scoring below the expectation; intervals are normal "
-      "approximations (± 1.96 standard errors of the per-game residual), not the month bootstrap.")
+      "approximations (± 1.96 standard errors of the per-game residual), which ignore that games cluster by player and month.")
+    fg = d.get("r12_farming_game_level")
+    if fg:
+        p("")
+        p("The same region at game level, on Layer 1's game set (both players rated on the list in force) with E2's fitted table "
+          "for each test month, and two bootstraps: the month blocks of annex T8.5, and resampling the favourites (players) "
+          "with replacement:")
+        p("")
+        p("| time control | games | favourites | rung 2: month blocks | rung 2: players | Layer 0: month blocks | Layer 0: players |")
+        p("|---|---|---|---|---|---|---|")
+        for tc, v in fg.items():
+            p(f"| {tc} | {n0(v['rung2_month_blocks'].get('n'))} | {n0(v['rung2_player_clusters'].get('clusters'))} | "
+              f"{ci(v['rung2_month_blocks'])} | {ci(v['rung2_player_clusters'])} | {ci(v['layer0_month_blocks'])} | "
+              f"{ci(v['layer0_player_clusters'])} |")
+        p("")
+        p("With either bootstrap the fitted table under-predicts the favourite beyond ±0.01 in standard and blitz, and table 8.1.2 "
+          "with its 400-point cap does not; in rapid the reverse. At the K that rung 4 gives established 2600+ players (median "
+          "about 19 in standard, section 3) the residual is a gain of about 0.6 points a game in standard and more in blitz.")
     p("")
 
     # ---------------------------------------------------------------- 7 limits

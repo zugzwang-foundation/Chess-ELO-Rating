@@ -1,18 +1,22 @@
 #!/usr/bin/env python3
-"""Calculations for proposal v0.3, technical annex v0.3 and the brief v0.3.
+"""Calculations for proposal v0.4, technical annex v0.4 and the brief v0.4.
 
 Python standard library only. Deterministic. NOT the rating engine: these are
 hand-check-scale calculations, and their output is the source of every number
-in docs/proposal/ELO-PROPOSAL_v0_3.md, docs/proposal/ELO-TECHNICAL-ANNEX_v0_3.md
-and docs/proposal/ELO-BRIEF_v0_3.md.
-Run:  python3 analysis/v03_calculations.py > analysis/OUTPUT_v0_3.md
+in docs/proposal/ELO-PROPOSAL_v0_4.md, docs/proposal/ELO-TECHNICAL-ANNEX_v0_4.md
+and docs/proposal/ELO-BRIEF_v0_4.md that is not cited to an evidence report.
+Run:  python3 analysis/v04_calculations.py > analysis/OUTPUT_v0_4.md
 
 Every parameter value below is PROVISIONAL (annex T1 and T7), except the
 expected-score table's (kappa, eta, alpha, beta, gamma), which are
 PROVISIONAL-FITTED: read from params/table_fit_2026-10.yaml (docs/evidence/
 E2_broadcast-calibration.md), with eta rounded to a whole number because the
 published table has one row per whole-number gap (annex T3.4). The architect's
-decisions D1-D18 are recorded in docs/decisions/D-0005_architect-decisions-v0.3.md.
+decisions D1-D18 are recorded in docs/decisions/D-0005_architect-decisions-v0.3.md and
+the rulings R1-R14 in docs/decisions/D-0008_architect-rulings-elo-4.md: K from the
+published-scale gain (R6), theta~ in spread as well as level (R2), compensation from the
+published-scale posterior (R5) and only against non-eligible opponents (R8), accrual
+scaled by activity (R3), gamma >= 0 without an upper bound (R7).
 """
 from __future__ import annotations
 
@@ -117,14 +121,31 @@ def E_table(tc: str, x: int, L: float) -> Decimal:
     return Decimal(E_exact(tc, x, band_mid(L))).quantize(Decimal("0.001"), rounding=ROUND_HALF_UP)
 
 
-def K_raw(sigma: float) -> float:
+def v_of(R: float, tc: str = "standard") -> float:
+    """R6 (D-0008 reading 5): the per-game score variance at x = 0 in the player's own level band, 1 / (2 (2 + nu0))."""
+    return 1.0 / (2.0 * (2.0 + nu0(tc, band_mid(R))))
+
+
+def K_raw(sigma: float, R: float, tc: str = "standard") -> float:
+    """R6: q sigma^2 / (kappa (1 + q^2 sigma^2 v)), sigma the Layer 1 posterior SD in latent units."""
+    return Q * sigma * sigma / (PARAMS[tc]["kappa"] * (1.0 + Q * Q * sigma * sigma * v_of(R, tc)))
+
+
+def K_D3(sigma: float) -> float:
+    """v0.3's D3 gain (kappa = 1, v = 1/4), for comparison only."""
     return Q * sigma * sigma / (1.0 + Q * Q * sigma * sigma / 4.0)
 
 
-def K_of(sigma: float) -> Decimal:
-    """D3: K = clip(q sigma^2 / (1 + q^2 sigma^2 / 4), K_min, K_max), one decimal."""
-    k = min(K_MAX, max(K_MIN, K_raw(sigma)))
+def K_of(sigma: float, R: float, tc: str = "standard") -> Decimal:
+    """R6: K = clip(q sigma^2 / (kappa (1 + q^2 sigma^2 v)), K_min, K_max), one decimal."""
+    k = min(K_MAX, max(K_MIN, K_raw(sigma, R, tc)))
     return Decimal(k).quantize(Decimal("0.1"), rounding=ROUND_HALF_UP)
+
+
+def sigma_for_K(K: float, R: float, tc: str = "standard") -> float:
+    """The sigma at which K_raw equals K (inverse of R6 at the player's level)."""
+    kap, v = PARAMS[tc]["kappa"], v_of(R, tc)
+    return math.sqrt(K * kap / (Q - K * kap * Q * Q * v))
 
 
 def K_capped(K: Decimal, n: int) -> Decimal:
@@ -144,7 +165,8 @@ def comp_raw(theta_tilde: Decimal, sigma: Decimal, R: Decimal) -> Decimal:
 
 
 def comp(theta_tilde, sigma, R) -> Decimal:
-    """D5: c_j = min(c_cap, max(0, theta~ - z sigma - R - tau)), on the whole-number grid."""
+    """D5 with R5: c_j = min(c_cap, max(0, theta~ - z sigma~ - R - tau)), on the whole-number grid; theta~ and sigma~
+    are the same-time-control posterior on the published scale (sigma~ = sigma / kappa)."""
     v = round_fide(comp_raw(Decimal(theta_tilde), Decimal(sigma), Decimal(R)))
     return min(C_CAP, max(Decimal(0), v))
 
@@ -187,8 +209,9 @@ def f3(v) -> str:
 out: list[str] = []
 P = out.append
 
-P("# OUTPUT of analysis/v03_calculations.py (parameters PROVISIONAL; the table's PROVISIONAL-FITTED)\n")
-P("Generated deterministically by the script; the source of every number in the proposal v0.3, the technical annex v0.3 and the brief v0.3.\n")
+P("# OUTPUT of analysis/v04_calculations.py (parameters PROVISIONAL; the table's PROVISIONAL-FITTED)\n")
+P("Generated deterministically by the script; the source of every calculated number in the proposal v0.4, the technical annex v0.4 and the brief v0.4 "
+  "that is not cited to an evidence report. Rulings R1-R14 (D-0008) applied.\n")
 
 # 0. Parameters
 P("## 0 Parameters used\n")
@@ -295,37 +318,45 @@ for L in (1700, 2000, 2500):
 P("")
 
 # 5. K from certainty
-P("## 5 K_i from certainty (D3): K = clip(q sigma^2 / (1 + q^2 sigma^2 / 4), 10, 40), one decimal\n")
+LEVELS_K = (1700, 2300, 2700)
+P("## 5 K_i from certainty (R6): K = clip(q sigma^2 / (kappa (1 + q^2 sigma^2 v)), 10, 40), one decimal; v = 1 / (2 (2 + nu0)) in the player's own level band\n")
+P(f"sigma_i is Layer 1's posterior SD of s_i,tc in latent units (D-0008, reading 5); kappa = {PARAMS['standard']['kappa']:.4f} (standard). "
+  "v at the band midpoint of the player's rating: " + ", ".join(f"R = {R}: band {band_label(R)}, nu0 = {nu0('standard', band_mid(R)):.4f}, v = {v_of(R):.4f}" for R in LEVELS_K) + ".\n")
 SIGMAS = (30, 40, 45, 50, 55, 60, 70, 80, 90, 100, 150)
 P("| sigma_i | " + " | ".join(str(s) for s in SIGMAS) + " |")
 P("|---|" + "---|" * len(SIGMAS))
-P("| q sigma^2 / (1 + q^2 sigma^2 / 4) | " + " | ".join(f"{K_raw(s):.2f}" for s in SIGMAS) + " |")
-P("| K_i (clipped, one decimal) | " + " | ".join(str(K_of(s)) for s in SIGMAS) + " |")
+for R in LEVELS_K:
+    P(f"| R6 raw, R = {R} | " + " | ".join(f"{K_raw(s, R):.2f}" for s in SIGMAS) + " |")
+    P(f"| K_i, R = {R} | " + " | ".join(str(K_of(s, R)) for s in SIGMAS) + " |")
+P("| v0.3's D3 (kappa = 1, v = 1/4), for comparison | " + " | ".join(f"{K_D3(s):.2f}" for s in SIGMAS) + " |")
 P("")
-s_min = math.sqrt(K_MIN / (Q - K_MIN * Q * Q / 4.0))
-s_max = math.sqrt(K_MAX / (Q - K_MAX * Q * Q / 4.0))
-P(f"K_min binds below sigma = {s_min:.2f}; K_max binds above sigma = {s_max:.2f}.\n")
+for R in LEVELS_K:
+    P(f"- R = {R}: K_min binds below sigma = {sigma_for_K(K_MIN, R):.2f}; K_max binds above sigma = {sigma_for_K(K_MAX, R):.2f}; "
+      f"the published-scale SD at those points is sigma / kappa = {sigma_for_K(K_MIN, R) / PARAMS['standard']['kappa']:.2f} and "
+      f"{sigma_for_K(K_MAX, R) / PARAMS['standard']['kappa']:.2f}.")
+P("")
 P(f"Per-period cap example: K_i = 26.1 and n = 40 gives {Decimal('26.1') * 40} > 700, so K_i = {K_capped(Decimal('26.1'), 40)} for the period; "
   f"K_i = 16.5 and n = 40 gives {Decimal('16.5') * 40} (no cap).\n")
 
 # 6. Continuous compensation
-P("## 6 Continuous junior compensation (D5): c_j = min(c_cap, max(0, theta~ - z sigma - R - tau)), z = 1.2816, tau = 25\n")
+P("## 6 Continuous junior compensation (D5, R5): c_j = min(c_cap, max(0, theta~ - z sigma~ - R - tau)), z = 1.2816, tau = 25; theta~, sigma~ the same-time-control posterior on the published scale\n")
 GAPS = (0, 50, 100, 150, 200, 250, 300, 400, 500, 600)
-P("| sigma_j | " + " | ".join(f"theta~ - R = {g}" for g in GAPS) + " |")
+P("| sigma~_j | " + " | ".join(f"theta~ - R = {g}" for g in GAPS) + " |")
 P("|---|" + "---|" * len(GAPS))
 for sg in (60, 80, 100):
     P(f"| {sg} | " + " | ".join(str(comp(1500 + g, sg, 1500)) for g in GAPS) + " |")
 P("")
 for sg in (60, 80, 100):
-    P(f"- sigma_j = {sg}: c_j is positive once theta~ - R exceeds tau + z sigma = {TAU + Z_Q * sg} and reaches c_cap at {C_CAP + TAU + Z_Q * sg}; it rises one point per point in between, with no jump.")
-P("")
+    P(f"- sigma~_j = {sg}: c_j is positive once theta~ - R exceeds tau + z sigma~ = {TAU + Z_Q * sg} and reaches c_cap at {C_CAP + TAU + Z_Q * sg}; it rises one point per point in between, with no jump.")
+P("- R8: in a game between two eligible juniors neither compensation enters; both expectations use published ratings.\n")
 
 # 7. Worked example (i)
-P("## 7 Worked example (i): established 1900 adult (White, sigma 55) v 1500-listed junior (Black, sigma 100) whom L1 rates at 1850 on the published scale\n")
+KAPPA_S = PARAMS["standard"]["kappa"]
+P(f"## 7 Worked example (i): established 1900 adult (White, latent sigma 55) v 1500-listed junior (Black) whom L1 rates at theta~ = 1850 with sigma~ = 100 on the published scale (latent sigma = kappa x 100 = {KAPPA_S * 100:.1f})\n")
 R_A, R_J, TH_J, SIG_A, SIG_J = 1900, 1500, 1850, 55, 100
 c_J = comp(TH_J, SIG_J, R_J)
 RX_J = R_J + int(c_J)
-K_A, K_J = K_of(SIG_A), K_of(SIG_J)
+K_A, K_J = K_of(SIG_A, R_A), K_of(KAPPA_S * SIG_J, R_J)
 L = (R_A + R_J) / 2
 xA, xJ, xA0 = R_A - RX_J + ETA, R_J - R_A - ETA, R_A - R_J + ETA
 EA, EJ, EA0 = E_table('standard', xA, L), E_table('standard', xJ, L), E_table('standard', xA0, L)
@@ -333,7 +364,7 @@ P(f"- c_J = min(300, max(0, {TH_J} - 1.2816 x {SIG_J} - {R_J} - 25)) = min(300, 
 P(f"- Level L = {L:.0f}, band {band_label(L)} (midpoint {band_mid(L)}), nu0 = {nu0('standard', band_mid(L)):.4f}.")
 P(f"- x_A = {R_A} - {RX_J} + {ETA} = {xA}, E_A = {EA}; without compensation x = {xA0}, E_A0 = {EA0}.")
 P(f"- x_J = {R_J} - {R_A} - {ETA} = {xJ}, E_J = {EJ} (J's own update uses published ratings only).")
-P(f"- K_A = {K_A} (sigma 55), K_J = {K_J} (sigma 100). Today: D = 400, no cap; table 8.1.2 row 392-411: .92 / .08; K = 20 for A, 40 for J [V 1].")
+P(f"- K_A = {K_A} (latent sigma 55 at R = {R_A}, R6; v0.3's D3 gave {K_D3(SIG_A):.1f}), K_J = {K_J} (latent sigma {KAPPA_S * SIG_J:.1f}). Today: D = 400, no cap; table 8.1.2 row 392-411: .92 / .08; K = 20 for A, 40 for J [V 1].")
 P("")
 P("| Result | A today: 20 x (S - .92) | J today: 40 x (S - .08) | A under L2: K_A x (S - E_A) | J under L2: K_J x (S - E_J) |")
 P("|---|---|---|---|---|")
@@ -354,8 +385,8 @@ for name, T, CK, CC, tot in led:
 P(f"\nE_A + E_J = {EA + EJ}; compensation creates K_A x (E_A0 - E_A) = {K_A * (EA0 - EA):+.4f} points in this game whatever the result.\n")
 
 # 8. Worked example (ii)
-K45 = K_of(45)
-P(f"## 8 Worked example (ii): 2600 v 2100 and 2700 v 2100 (strong player White, sigma 45 so K = {K45})\n")
+K45 = K_of(45, 2600)
+P(f"## 8 Worked example (ii): 2600 v 2100 and 2700 v 2100 (strong player White, latent sigma 45: K = {K45} at 2600 and {K_of(45, 2700)} at 2700 under R6; raw {K_raw(45, 2600):.2f} and {K_raw(45, 2700):.2f})\n")
 P("Today [V 1]: K = 10. 2600 v 2100: D = 500 counted as 400 (player below 2650): row 392-411, .92. 2700 v 2100: D = 600 used in full: row 560-619, .98. "
   "Rapid and blitz [V 2]: the plain 400 cap applies to both and, with a player above 2600 and a difference of 600 or more, the game is not rated.\n")
 P("| Player | Opponent | Today: D used, PD | Today: win / draw / loss | L2: x, band, E | L2: K_i | L2: win / draw / loss |")
@@ -389,9 +420,15 @@ m_t, mh_t = Decimal("2004.6"), Decimal("2011.8")
 d_ex = mh_t - m_t
 a_ex = a_of(d_ex)
 games = [Decimal("-2.4090"), Decimal("5.8410"), Decimal("-8.7000")]
+N_ANCHOR_MEAN = Decimal(30)        # the anchor cohort's mean games in 12 months (illustrative: T9.1's median of 30)
+P(f"R3: the accrual of a_t is scaled by min(1, n_i / n_bar), n_i the player's rated games on the 12 lists up to t and n_bar the anchor cohort's mean of the same count "
+  f"(illustrative n_bar = {N_ANCHOR_MEAN}): " + ", ".join(f"n_i = {n}: factor {min(Decimal(1), Decimal(n) / N_ANCHOR_MEAN):.4f}, accrual {a_of(Decimal('7.2')) * min(Decimal(1), Decimal(n) / N_ANCHOR_MEAN):+.4f} at a_t = {a_of(Decimal('7.2')):+.1f}" for n in (1, 6, 15, 30, 60)) + ".\n")
 P(f"Worked example (iii): m_t = {m_t}, m_hat_t = {mh_t}, d_t = {d_ex:+}; a_t = (1/6) x ({d_ex} - {D_0}) = {(d_ex - D_0) * GAMMA_A:.4f} -> {a_ex:+.1f}. "
   f"A player with game terms {', '.join(f'{g:+.4f}' for g in games)} (sum {sum(games):+.4f}) and no carried balance: "
-  f"{sum(games):+.4f} {a_ex:+.1f} = {sum(games) + a_ex:+.4f} -> {round_fide(sum(games) + a_ex):+}.\n")
+  f"{sum(games):+.4f} {a_ex:+.1f} = {sum(games) + a_ex:+.4f} -> {round_fide(sum(games) + a_ex):+}. "
+  f"Under R3 the balance accrued in that month is a_t x min(1, n_i / n_bar): with n_i = 24 and n_bar = {N_ANCHOR_MEAN}, "
+  f"{a_ex:+.1f} x {min(Decimal(1), Decimal(24) / N_ANCHOR_MEAN)} = {a_ex * min(Decimal(1), Decimal(24) / N_ANCHOR_MEAN):+.4f}, and the period change is "
+  f"{sum(games) + a_ex * min(Decimal(1), Decimal(24) / N_ANCHOR_MEAN):+.4f} -> {round_fide(sum(games) + a_ex * min(Decimal(1), Decimal(24) / N_ANCHOR_MEAN)):+}.\n")
 
 
 def trajectory(drift: Decimal, months: int = 61) -> list[tuple[int, Decimal, Decimal]]:
@@ -403,7 +440,7 @@ def trajectory(drift: Decimal, months: int = 61) -> list[tuple[int, Decimal, Dec
     return rows
 
 
-P("Feedback loop in a stylised pool, d_{t+1} = d_t - a_t + drift (deflation: drift +1.3 points a month, the research report's post-reform figure being about -16 a year [R 5]; inflation: drift -1.0):\n")
+P("Feedback loop in a stylised pool, d_{t+1} = d_t - a_t + drift (deflation: drift +1.3 points a month, illustrative; inflation: drift -1.0):\n")
 P("| month | deflation: d_t | a_t | inflation: d_t | a_t |")
 P("|---|---|---|---|---|")
 tr_up, tr_dn = trajectory(Decimal("1.3")), trajectory(Decimal("-1.0"))
@@ -418,9 +455,9 @@ P(f"Bound on a published change (P2): |period change| <= round(700 + 12 x a_cap)
 
 # 10. Ledger identity
 P("## 10 Ledger identity (annex T6) on a synthetic month: 8 listed players, 9 rated games, one compensated junior, one game against an unrated player, one one-sided game under §8.2.4, one floor exit, one newcomer, one re-entry, one refused newcomer and one refused re-entry, a_t = +0.9\n")
-players = {  # id: (R, sigma, theta~ for an eligible junior or None); P8 received its first rating on list t
-    "P1": (1900, 55, None), "P2": (1500, 100, 1850), "P3": (2050, 50, None), "P4": (1750, 70, None),
-    "P5": (2300, 45, None), "P6": (1600, 120, None), "P7": (1405, 60, None), "P8": (1580, 90, None),
+players = {  # id: (R, latent sigma, theta~ for an eligible junior or None); P8 received its first rating on list t
+    "P1": (1900, 55, None), "P2": (1500, 121.2, 1850), "P3": (2050, 50, None), "P4": (1750, 70, None),
+    "P5": (2300, 45, None), "P6": (1600, 120, None), "P7": (1405, 70, None), "P8": (1580, 90, None),
 }
 games_m = [  # (White, Black, White's score, kind); kind "both" | "unrated" (U) | "one-sided:<id>" (§8.2.4 [V 1])
     ("P1", "P2", Decimal("0.5"), "both"), ("P3", "P1", Decimal(1), "both"), ("P2", "P4", Decimal(1), "both"),
@@ -436,7 +473,7 @@ REENTRY = {"Q1": Decimal("1452.4"), "Q2": Decimal("1381.2")}   # theta~ of two f
 
 def RX(p: str) -> int:
     R, sg, th = players[p]
-    return R + int(comp(th, sg, R)) if th is not None else R
+    return R + int(comp(th, Decimal(repr(sg)) / Decimal(repr(KAPPA_S)), R)) if th is not None else R
 
 
 def counts_for(pid: str, g: tuple) -> bool:
@@ -450,7 +487,7 @@ def counts_for(pid: str, g: tuple) -> bool:
     return True
 
 
-K = {p: K_of(v[1]) for p, v in players.items()}
+K = {p: K_of(v[1], v[0]) for p, v in players.items()}
 nn = {p: sum(1 for g in games_m if counts_for(p, g)) for p in players}
 Kc = {p: K_capped(K[p], nn[p]) for p in players}
 tot = {p: Decimal(0) for p in players}
@@ -521,43 +558,51 @@ P(f"Right side: unequal K {sumCK:+.4f} + compensation {sumCC:+.4f} + one-sided (
 P(f"Identity closes exactly: {lhs == rhs}. Without the one-sided line the residual would be {sum1:+.4f}; booking the exit at R(t) = {players['P7'][0]} instead of R+ = {exits} would leave {players['P7'][0] - exits:+} points.\n")
 assert lhs == rhs
 
-# 10b. Figures used by the v0.3 review fixes (REDTEAM_v0_3)
+# 10b. Figures used by the review fixes (REDTEAM_v0_3) and the rulings R1-R14 (D-0008)
 P("## 10b Further figures for the review fixes\n")
 P(f"- Table entry at x = 500 in band 2300-2399 (midpoint 2350): {E_table('standard', 500, 2350)}; the function at L = 2300 gives {f3(E_exact('standard', 500, 2300))}.")
-for kk in ("17.0", "27.1"):
+for kk, Rk in (("14.1", 1900), ("27.1", 1500)):
     k = float(kk)
-    lo = math.sqrt((k - 0.05) / (Q - (k - 0.05) * Q * Q / 4))
-    hi = math.sqrt((k + 0.05) / (Q - (k + 0.05) * Q * Q / 4))
-    mid = math.sqrt(k / (Q - k * Q * Q / 4))
-    P(f"- K_i = {kk} published to one decimal implies sigma_i between {lo:.2f} and {hi:.2f}; a compensated junior with K_j = {kk} and 0 < c_j < 300 then has theta~_j = RX_j + 25 + 1.2816 x {mid:.2f} = RX_j + {25 + 1.2816 * mid:.1f} (to within the rounding of c_j).")
+    lo, hi, mid = sigma_for_K(k - 0.05, Rk), sigma_for_K(k + 0.05, Rk), sigma_for_K(k, Rk)
+    P(f"- R4 disclosure (R6): K_i = {kk} published to one decimal at R = {Rk} implies latent sigma_i between {lo:.2f} and {hi:.2f} (published-scale "
+      f"{lo / KAPPA_S:.2f} to {hi / KAPPA_S:.2f}); a compensated junior with K_j = {kk} and 0 < c_j < 300 then has theta~_j = RX_j + 25 + 1.2816 x {mid / KAPPA_S:.2f} "
+      f"= RX_j + {25 + 1.2816 * mid / KAPPA_S:.1f} (to within the rounding of c_j).")
 sig_ret = math.sqrt(55 ** 2 + 36 * 12 ** 2)
-P(f"- A player at sigma 55 who is inactive for 36 months with a process SD of 12 points a month (T7.2, illustrative) returns at sigma = sqrt(55^2 + 36 x 12^2) = {sig_ret:.1f}, K = {K_of(sig_ret)}.")
+P(f"- A player at latent sigma 55 and R = 1900 who is inactive for 36 months with a process SD of 12 points a month (T7.2, illustrative) returns at sigma = sqrt(55^2 + 36 x 12^2) = {sig_ret:.1f}, K = {K_of(sig_ret, 1900)} (from {K_of(55, 1900)}).")
 
 
 def steady_k(games: int, level: float, sig_theta: float = 12.0) -> tuple[float, Decimal]:
-    """Steady-state posterior SD after a month of `games` games at x = 0 (Davidson information), process SD sig_theta."""
-    nu = nu0('standard', level)
-    h = 1e-3
-    slope = (E_exact('standard', h, level) - E_exact('standard', -h, level)) / (2 * h) / Q     # dE/dz at 0
-    pw, pd, pl = probs('standard', 0.0, level)
-    var_s = pw * 0.25 + pl * 0.25                         # score variance at x = 0
-    info = (Q * slope) ** 2 / var_s if var_s > 0 else 0.0  # Fisher information per game about the gap, per point^2
+    """Steady-state latent posterior SD after a month of `games` games at x = 0, process SD sig_theta (latent units).
+    In latent units (slope 1) the Davidson information per game about the gap at x = 0 is q^2 v, v = 1/(2(2 + nu0)),
+    because dE/dz and the score variance at z = 0 both equal v."""
+    info = Q * Q * v_of(level)
     v = 100.0 ** 2
     for _ in range(2000):
         v = 1.0 / (1.0 / (v + sig_theta ** 2) + games * info)
-    return math.sqrt(v), K_of(math.sqrt(v))
+    return math.sqrt(v), K_of(math.sqrt(v), level)
 
 
-P("- Steady-state K from activity (process SD 12 points a month, T7.2 illustrative; Davidson information at equal strength; one month's games before each list):")
+P("- Steady-state K from activity under R6 (Davidson information at equal strength in latent units; one month's games before each list), at two latent process SDs:")
 P("")
-P("| standard games a month | " + " | ".join(str(g) for g in (1, 2, 3, 4, 5, 8)) + " |")
-P("|---|" + "---|" * 6)
-for lvl in (1700, 2300, 2700):
-    cells = []
-    for g in (1, 2, 3, 4, 5, 8):
-        s, k = steady_k(g, lvl)
-        cells.append(f"sigma {s:.1f}, K {k}")
-    P(f"| level {lvl} | " + " | ".join(cells) + " |")
+for sig_th, label in ((12.0, "illustrative process SD 12 (T7.2)"), (24.0, "process SD 24, as fitted on history (c_theta = 2.0 times 12 at ages 25-45; SPEC-L1 3.7, analysis/OUTPUT_L1_history.md)")):
+    P(f"  {label}:")
+    P("")
+    P("| standard games a month | " + " | ".join(str(g) for g in (1, 2, 3, 4, 5, 8)) + " |")
+    P("|---|" + "---|" * 6)
+    for lvl in (1700, 2300, 2700):
+        cells = []
+        for g in (1, 2, 3, 4, 5, 8):
+            s, k = steady_k(g, lvl, sig_th)
+            cells.append(f"sigma {s:.1f}, K {k}")
+        P(f"| level {lvl} | " + " | ".join(cells) + " |")
+    P("")
+
+
+S0_LATENT = 250.0      # s_0, the newcomer's prior SD (T7.2, PROVISIONAL)
+P("- Seed gate (T4.7, sigma~ <= 120): a newcomer's published-scale SD after n games against opponents of equal strength in one month, from the "
+  f"prior s_0 = {S0_LATENT:.0f} (latent), with the same-level information q^2 v per game and the opponents taken as known: " +
+  "; ".join(f"level {lvl}: " + ", ".join(f"n = {n}: {math.sqrt(1.0 / (1.0 / S0_LATENT ** 2 + n * Q * Q * v_of(lvl))) / KAPPA_S:.1f}" for n in (5, 6, 8, 10))
+            for lvl in (1500, 1800)) + ".")
 P("")
 
 
@@ -576,16 +621,20 @@ P("|---|---|---|---|---|")
 for pval, dp in ((0.75, 193), (0.92, 401)):
     P(f"| {pval} | {dp} | " + " | ".join(str(inverse_gap(pval, m)) for m in (1650, 2050, 2450)) + " |")
 P("")
+P("- R8: two eligible juniors at equal published ratings use published ratings on both sides, so their expectations sum to one and the game creates no points. "
+  "For the record, v0.3's rule (each one's compensation in the other's expectation) would have created:")
 for cc in (100, 300):
     Lg = 1550
     x1 = -cc + 0                                         # two eligible juniors at equal published ratings, each compensated by cc
     e_w = E_table('standard', 0 - cc + ETA, Lg)         # White's expectation against the opponent's RX
     e_b = E_table('standard', 0 - cc - ETA, Lg)
     created = Decimal(40) * (1 - e_w - e_b)
-    P(f"- Two eligible juniors at equal published ratings (band 1500-1599), each with c = {cc}, K = 40: expectations {e_w} (White) and {e_b} (Black), sum {e_w + e_b}; points created per game {created:+.1f}, whatever the result.")
+    P(f"  - (v0.3, superseded) two eligible juniors at equal published ratings (band 1500-1599), each with c = {cc}, K = 40: expectations {e_w} (White) and {e_b} (Black), sum {e_w + e_b}; points created per game {created:+.1f}, whatever the result.")
 for R in (1400, 1500, 1600):
-    P(f"- With a spread factor of 5/6 (Sonas's rule, illustrative) and an anchor mean of 2041.3 (T7.2, illustrative), a correctly rated player at R = {R} shows theta~ - R = (1 - 5/6)(m_t - R) = {(1 - 5 / 6) * (2041.3 - R):+.0f} points that are spread, not under-rating.")
-P(f"- Accrual against activity at a_t = +1.3 a month: a player active under §7.2.2 with one game a year accrues {12 * 1.3:.1f} points a year; the drift it offsets, about 16 points a year for the median active player [R 5], is about {16 / 30:.2f} a game at T9.1's median of 30 games a year.")
+    P(f"- R2: a correctly rated player at R = {R} whose latent distance from the anchor mean is kappa times the published one (kappa = {KAPPA_S:.4f}, anchor mean 2041.3, T7.2 illustrative) "
+      f"has theta~ - R = 0 under R2's theta~ = m_t + (s^ - m^_t) / kappa; v0.3's theta~ = s^ - d_t would have shown (kappa - 1)(R - m_t) = {(KAPPA_S - 1) * (R - 2041.3):+.0f} points.")
+P(f"- Accrual against activity at a_t = +1.3 a month (R3, illustrative n_bar = {N_ANCHOR_MEAN}): a player active under §7.2.2 with one game a year accrues {12 * 1.3 / float(N_ANCHOR_MEAN):.2f} points a year "
+  f"(v0.3, without R3: {12 * 1.3:.1f}); with {int(N_ANCHOR_MEAN)} or more games a year, {12 * 1.3:.1f}. A drift of 1.3 points a month spread over {int(N_ANCHOR_MEAN)} games a year is {12 * 1.3 / float(N_ANCHOR_MEAN):.2f} a game, so the accrual now matches the drain per game up to the anchor's mean activity.")
 P("")
 
 # 11. Layer 0 test vector
@@ -594,5 +643,36 @@ opp = [1550, 1600, 1650, 1580, 1620]
 Ra = Fraction(sum(opp) + 3600, 7)
 P(f"- Ra = ({sum(opp)} + 2 x 1800)/7 = {float(Ra):.2f}; p = (3 + 1)/7 = {float(Fraction(4, 7)):.4f} -> .57; dp(.57) = 50 [V 1]; Ru = {float(Ra) + 50:.2f} -> 1707. "
   "The rounding of p before the lookup is settled in SPEC-L0.\n")
+
+# 12. R1: the spread ratio and its review threshold
+import json  # noqa: E402
+L1 = json.loads((Path(__file__).resolve().parents[1] / "analysis" / "aggregates" / "L1_history.json").read_text(encoding="utf-8"))
+R1_THRESHOLD = 0.02                 # PROVISIONAL (D-0008, R1 and reading 1; REDTEAM_v0_4, V4-STAT-4)
+P("## 12 R1: the monthly spread ratio and the QC-review threshold\n")
+P("The spread ratio is the SD of published ratings divided by the SD of Layer 1's estimates for active adults (aged 25-45, rated, a game of the "
+  "fit in the 12 months up to the month), measured on history in `analysis/OUTPUT_L1_history.md` (aggregate `analysis/aggregates/L1_history.json`); "
+  "the corrected ratio adds the mean posterior variance to the latent variance, so that it does not move with activity alone. R1: if the measure "
+  "moves beyond a published threshold two years running, the QC reviews; no automatic correction.\n")
+P("| time control | SD of the month-to-month change (ratio) | largest 12-month change since 2024-03 (ratio) | calendar-year means, corrected ratio | year-on-year changes, corrected ratio |")
+P("|---|---|---|---|---|")
+for tc, rows in L1["spread_series"].items():
+    r = [x["ratio"] for x in rows]
+    dif = [b - a for a, b in zip(r, r[1:])]
+    mean_d = sum(dif) / len(dif)
+    sd = math.sqrt(sum((d - mean_d) ** 2 for d in dif) / len(dif))
+    d12 = [abs(r[k + 12] - r[k]) for k in range(len(r) - 12) if rows[k]["month"] >= "2024-03"]
+    years = sorted({x["month"][:4] for x in rows})
+    means = {y: sum(x["ratio_noise_corrected"] for x in rows if x["month"][:4] == y) / sum(1 for x in rows if x["month"][:4] == y) for y in years}
+    yoy = [(f"{a}->{b}", means[b] - means[a]) for a, b in zip(years, years[1:])]
+    P(f"| {tc} | {sd:.4f} | {max(d12):.3f} | " + ", ".join(f"{y}: {means[y]:.3f}" for y in years) + " | "
+      + ", ".join(f"{k} {v:+.3f}" for k, v in yoy) + " |")
+P("")
+kap = PARAMS["standard"]["kappa"]
+cap = 0.05
+P(f"A ratchet held to kappa's annual cap of {cap} moves the ratio by about ratio x cap / kappa = 0.747 x {cap} / {kap:.3f} = {0.747 * cap / kap:.3f} a year "
+  "in standard (the ratio varies roughly as 1/kappa), so a threshold on year-on-year changes must lie below that rate to catch it. PROVISIONAL rule: "
+  f"the calendar-year mean of the corrected ratio moves by more than {R1_THRESHOLD} in the same direction two years running (a field of the parameter "
+  "file, T7). On history every year-on-year change since the March 2024 reset is within ±0.02 (the largest, -0.018 in standard into 2026, "
+  "covers January to September only); the change across 2023-2024 includes the reset itself.\n")
 
 print("\n".join(out))
