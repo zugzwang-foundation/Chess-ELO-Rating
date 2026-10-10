@@ -112,6 +112,7 @@ def main() -> None:
                         "r15_ok": all(abs(c) <= 2.0 for c in ch6) if ch6 else None,
                         "r15_in": sum(abs(c) <= 2.0 for c in ch6),
                         "r15_level_in": sum(abs(rows[k]["d_t_rung6"]) <= 2.0 for k in ks),
+                        "r15_growth_in": sum(abs(rows[k]["d_t_rung6"]) - abs(rows[k - 12]["d_t_rung6"]) <= 2.0 for k in ks),
                         "r15_below": sum(abs(ch6[j]) < abs(ch0[j]) - 1e-9 for j in range(len(ch6))),
                         "r15_equal": sum(abs(ch6[j] - ch0[j]) < 0.005 for j in range(len(ch6))),
                         "r15_above": len(above),
@@ -405,6 +406,9 @@ def main() -> None:
           + f". R15: {'met' if v['r15_ok'] else 'not met'}.")
     p("- **The stricter reading.** Read as |d_t| ≤ 2 in every month from the thirteenth, the verdict is the same: within in "
       + ", ".join(f"{v['r15_level_in']} of {len(v['r15_rung6'])} months in {tc}" for tc, v in scored.items()) + ".")
+    p("- **A reading that scores only a widening gap** (REDTEAM_v1_0, for the architect): the twelve-month growth of |d_t|, "
+      "|d_t| − |d_(t−12)| ≤ 2, which does not count a closing gap as a failure, holds in "
+      + ", ".join(f"{v['r15_growth_in']} of {len(v['r15_rung6'])} months in {tc}" for tc, v in scored.items()) + ".")
     p("- **Reading.** Rung 6 does not meet R15 on these months in any time control. The gap to Layer 1 widened by up to "
       f"{max(max(abs(c) for c in v['r15_layer0']) for v in scored.values()):.1f} points a year without the adjustment, and the "
       "controller of T4.5 (PROVISIONAL: a 2-point deadband, a sixth of the excess a month, at most 1.5 points) pays nothing while "

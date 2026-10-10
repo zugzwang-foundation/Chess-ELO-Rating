@@ -176,12 +176,13 @@ def published_form(sigma: float, R: float, tc: str = "standard") -> tuple[float,
     return 1.0 / (PARAMS[tc]["kappa"] * Q * v), 1.0 / (Q * Q * sigma * sigma * v)
 
 
-def guard_E(E: Decimal, own: int, opp: int) -> Decimal:
+def guard_E(E: Decimal, own: int, opp: int, opp_pub: int | None = None) -> Decimal:
     """R17 (D-0009 reading 4): for a favourite rated 2300 or more at a gap of 400 or more, the larger of the fitted value and
-    table 8.1.2 read without the cap; the underdog's is one minus it. Gap without the colour term."""
+    table 8.1.2 read without the cap; the underdog's is one minus it. Gap without the colour term; opp is RX_j when
+    compensation applies, and the favourite's 2300 is read on its published rating (opp_pub)."""
     if own - opp >= 400 and own >= 2300:
         return max(E, table_812_H(own - opp))
-    if opp - own >= 400 and opp >= 2300:
+    if opp - own >= 400 and (opp if opp_pub is None else opp_pub) >= 2300:
         return min(E, Decimal(1) - table_812_H(opp - own))
     return E
 
@@ -559,7 +560,11 @@ for n_, (w, b, Sw, kind) in enumerate(games_m, 1):
     Rw, Rb = players[w][0], players[b][0]
     Lg = (Rw + Rb) / 2
     xw, xb, xw0 = Rw - RX(b) + ETA, Rb - RX(w) - ETA, Rw - Rb + ETA
-    Ew, Eb, Ew0 = E_table('standard', xw, Lg), E_table('standard', xb, Lg), E_table('standard', xw0, Lg)
+    # all rungs adopted: rung 2's expectation with R17's guard on the gap each side uses; E0, the expectation without
+    # compensation, is guarded too, so that the guard is never booked as compensation (annex T6)
+    Ew = guard_E(E_table('standard', xw, Lg), Rw, RX(b), Rb)
+    Eb = guard_E(E_table('standard', xb, Lg), Rb, RX(w), Rw)
+    Ew0 = guard_E(E_table('standard', xw0, Lg), Rw, Rb)
     if kind.startswith("one-sided:"):
         side = kind.split(":")[1]
         d1 = Kc[side] * ((Sw if side == w else 1 - Sw) - (Ew if side == w else Eb))
@@ -737,8 +742,10 @@ for tc, rows in L1["spread_series"].items():
 P("")
 kap = PARAMS["standard"]["kappa"]
 cap = 0.05
-P(f"A ratchet held to kappa's annual cap of {cap} moves the ratio by about ratio x cap / kappa = 0.747 x {cap} / {kap:.3f} = {0.747 * cap / kap:.3f} a year "
-  "in standard (the ratio varies roughly as 1/kappa). R19 replaces v0.4's year-on-year rule: the QC reviews when the trailing twelve-month mean of the "
+corr_last = L1["spread_series"]["standard"][-1]["ratio_noise_corrected"]
+P(f"A ratchet held to kappa's annual cap of {cap} moves the noise-corrected ratio, once ratings have adjusted to the flatter table, by about "
+  f"ratio x cap / kappa = {corr_last:.3f} x {cap} / {kap:.3f} = {corr_last * cap / kap:.3f} a year in standard (the ratio varies roughly as "
+  "1/kappa); in the simulator the trailing mean responds more slowly (below). R19 replaces v0.4's year-on-year rule: the QC reviews when the trailing twelve-month mean of the "
   "noise-corrected ratio differs from its value at the last QC review (at adoption, the mean of the first twelve months of operation) by more than "
   "theta_R1, in either direction; a review resets the reference (D-0009, reading 5). A cumulative rule catches a ratchet however slowly it runs.\n")
 th = CAL["thresholds"]
@@ -747,5 +754,118 @@ P(f"theta_R1 calibrated in the simulator ({CAL['runs']} paired runs, E9; D-0009,
   f"{th[str(R1_THRESHOLD)]['ratchet_median_months']} months. R20's earlier PROVISIONAL 0.02: {100 * th['0.02']['noise_false_alarm_share']:.0f} % false "
   f"alarms from noise, the ratchet tripping it after {th['0.02']['ratchet_median_months']} months. On history since the March 2024 reset the "
   "year-on-year changes of the corrected ratio's calendar-year means are within ±0.02 (table above).\n")
+
+# 13. Figures for the v1.0 red team (docs/review/REDTEAM_v1_0.md)
+P("## 13 Figures for the v1.0 red team (REDTEAM_v1_0)\n")
+P("### 13.1 The guard's edges, colour and tail (R17; annex T3.6)\n")
+P("The favourite's expectation from the published table of each time control (three decimals, level band of the two published ratings), "
+  "at the guard's two edges: a gap of 399 (outside the region) against 400 (inside), and a favourite rated 2299 (outside) against 2300 "
+  "(inside) at a gap of 420; the colour term is in the gap (eta: " + ", ".join(f"{tc} {PARAMS[tc]['eta']}" for tc in PARAMS) + ").\n")
+P("| time control | favourite, colour | gap 399: E | gap 400: E fitted -> with the guard | step at the gap edge |")
+P("|---|---|---|---|---|")
+edge_steps = {}
+for tc in ("standard", "rapid", "blitz"):
+    eta_tc = PARAMS[tc]["eta"]
+    for fav in (2300, 2500, 2700):
+        for col, sgn in (("White", 1), ("Black", -1)):
+            e399 = E_table(tc, 399 + sgn * eta_tc, (fav + fav - 399) // 2)
+            e400 = E_table(tc, 400 + sgn * eta_tc, (fav + fav - 400) // 2)
+            e400g = guard_E(e400, fav, fav - 400)
+            edge_steps.setdefault(tc, []).append(e400g - e399)
+            P(f"| {tc} | {fav}, {col} | {e399} | {e400} -> {e400g} | {e400g - e399:+.3f} |")
+P("")
+P("| time control | colour | favourite 2299 v 1879: E | favourite 2300 v 1880: E fitted -> with the guard | step at the 2300 edge |")
+P("|---|---|---|---|---|")
+fav_steps = {}
+for tc in ("standard", "rapid", "blitz"):
+    eta_tc = PARAMS[tc]["eta"]
+    for col, sgn in (("White", 1), ("Black", -1)):
+        a = E_table(tc, 420 + sgn * eta_tc, (2299 + 1879) // 2)
+        b = E_table(tc, 420 + sgn * eta_tc, (2300 + 1880) // 2)
+        bg = guard_E(b, 2300, 1880)
+        fav_steps.setdefault(tc, []).append(bg - a)
+        P(f"| {tc} | {col} | {a} | {b} -> {bg} | {bg - a:+.3f} |")
+P("")
+for tc in ("standard", "rapid", "blitz"):
+    lo_, hi_ = min(edge_steps[tc]), max(edge_steps[tc])
+    P(f"- {tc}: one rating point at the gap edge raises the favourite's expectation by {lo_:.3f} to {hi_:.3f} (the underdog's falls as "
+      f"much: {40 * hi_:.1f} points a game at most for an underdog with K = 40, if the fitted table is right there); at the 2300 edge by "
+      f"{min(fav_steps[tc]):.3f} to {max(fav_steps[tc]):.3f}.")
+w400 = E_table("standard", 400 + ETA, 2100)
+b400 = E_table("standard", 400 - ETA, 2100)
+P(f"- Colour inside the region (standard, 2300 v 1900): the fitted table gives the favourite {w400} with White and {b400} with Black; the "
+  f"guard gives {guard_E(w400, 2300, 1900)} with either colour, so inside the region White's edge ({w400 - b400:.3f}) is not priced.")
+tail = [(g, E_table("standard", g + ETA, (2700 + 2700 - g) // 2)) for g in (750, 800, 900)]
+P("- The tail: from a gap of 736, table 8.1.2 reads 1.0 without its cap [V 1], so the guarded favourite expects 1.000 and the underdog "
+  "0.000; a favourite rated 2700 with White expects, on the fitted table, " + ", ".join(f"{e} at a gap of {g}" for g, e in tail) +
+  ": if the fitted table is right there, the underdog gains K x (1 - E) a game in expectation, and the favourite's win is worth nothing.\n")
+
+P("### 13.2 R16: K is fixed when the period closes (annex T4.3)\n")
+v1750 = v_of(1750)
+er5 = math.sqrt(2 / math.pi) * math.sqrt(5 * v1750)
+P(f"Band 1700-1799 (v = {v1750:.4f}): a player who scores a residual r over a five-game event, then stops if r > 0 and plays nine (or "
+  f"thirty) more games in the same period if r < 0, has the first event's result weighted by K(5) when it is good and by K(14) (or K(35)) "
+  f"when it is bad. At equal strength E|r| = sqrt(2/pi) sqrt(5 v) = {er5:.3f} score points, so the expected gain a decision is "
+  "(K(5) - K(14)) x E|r| / 2, with nothing gained in skill:\n")
+P("| latent sigma | N_i | K(5) | K(14) | K(35) | gain a decision, nine more games | thirty more games |")
+P("|---|---|---|---|---|---|---|")
+for s_ in (55.0, 70.0, 90.0):
+    _c, n_i = published_form(s_, 1750)
+    k5, k14, k35 = K_n(s_, 1750, 5), K_n(s_, 1750, 14), K_n(s_, 1750, 35)
+    P(f"| {s_:.0f} | {n_i:.1f} | {k5} | {k14} | {k35} | {float(k5 - k14) * er5 / 2:+.2f} | {float(k5 - k35) * er5 / 2:+.2f} |")
+P("")
+
+P("### 13.3 K from the printed N_i and C (D-0009, reading 3; annex T4.3)\n")
+diff1 = diff2 = tot_k = 0
+for mid in mids_of():
+    c_ = 1.0 / (PARAMS["standard"]["kappa"] * Q * v_of(mid))
+    c1 = round(c_, 1)
+    for sg in range(40, 131):
+        n_ = 1.0 / (Q * Q * sg * sg * v_of(mid))
+        for n in range(1, 41):
+            raw = K_n_raw(float(sg), mid, n)
+            if not (K_MIN < raw < K_MAX):
+                continue
+            tot_k += 1
+            k_sig = K_n(float(sg), mid, n)
+            for nd, acc in ((1, 1), (2, 2)):
+                kp = Decimal(min(K_MAX, max(K_MIN, c1 / (round(n_, nd) + n)))).quantize(Decimal("0.1"), rounding=ROUND_HALF_UP)
+                if kp != k_sig:
+                    if nd == 1:
+                        diff1 += 1
+                    else:
+                        diff2 += 1
+P(f"Standard, every level band, latent sigma 40 to 130, n = 1 to 40, {tot_k} unclipped values: K computed from sigma differs by 0.1 from K "
+  f"computed from the printed C (one decimal) and N_i (one decimal) in {100 * diff1 / tot_k:.1f} % of cases, and with N_i to two decimals in "
+  f"{100 * diff2 / tot_k:.1f} %. An arbiter can reproduce K exactly only if the printed values are normative: K_i(n) = clip(C / (N_i + n)) from "
+  "the printed C of the player's band and the printed N_i, half up to one decimal (annex T4.3).\n")
+
+P("### 13.4 How fast a rating answers its error (annex T3.5)\n")
+ds = list(range(0, 101))
+hs = [float(table_812_H(d)) for d in ds]
+md, mh = sum(ds) / len(ds), sum(hs) / len(hs)
+slope_812 = sum((d - md) * (h - mh) for d, h in zip(ds, hs)) / sum((d - md) ** 2 for d in ds)
+P(f"Each game moves a rating error e towards zero by about K x E'(0) x e. Table 8.1.2's slope near zero (least squares over D = 0 to 100 "
+  f"[V 1]): {slope_812:.5f} a point. The fitted standard table's, kappa q v in the player's band: " + ", ".join(
+      f"{lv}: {PARAMS['standard']['kappa'] * Q * v_of(lv):.5f} ({100 * (1 - PARAMS['standard']['kappa'] * Q * v_of(lv) / slope_812):.0f} % less)"
+      for lv in (1700, 2300, 2700)) + ". At the same K, rung 2 alone makes a rating answer its error more slowly, most at the top; rung 4 "
+  "sets K from certainty instead.\n")
+
+P("### 13.5 Accrual after the last game (R3; annex T4.5)\n")
+P(f"A player active under §7.2.2 [V 1] (a rated game on the twelve lists up to t) keeps accruing a_t for eleven months after the last game: "
+  f"at most 11 x a_cap = {11 * A_CAP} points, posted at the next rated month. With a steady a_t = +1.3, thirty games spread over the "
+  "twelve months before stopping and n_bar = 30 (illustrative), the activity factor falls by a twelfth a month and the player accrues "
+  f"{Decimal('1.3') * sum(Decimal(12 - k) / 12 for k in range(1, 12)):.2f} points while no longer playing.\n")
+
+P("### 13.6 The spread ratio on history since the March 2024 reset (R19; annex T3.5)\n")
+ser = {x["month"]: x["ratio_noise_corrected"] for x in L1["spread_series"]["standard"]}
+ms_ = sorted(ser)
+def trail12(m: str) -> float:
+    i = ms_.index(m)
+    return sum(ser[x] for x in ms_[i - 11:i + 1]) / 12
+P(f"Standard, noise-corrected ratio: {ser['2024-12']:.3f} in December 2024 and {ser[ms_[-1]]:.3f} in {ms_[-1]}; its trailing twelve-month mean "
+  f"was {trail12('2025-02'):.3f} over March 2024 to February 2025 and {trail12(ms_[-1]):.3f} over the twelve months to {ms_[-1]}, "
+  f"{trail12(ms_[-1]) - trail12('2025-02'):+.3f}. A continued fall of the published scale against Layer 1's would trip a review at "
+  "theta_R1 without any ratchet of kappa; the ratio alone cannot tell the two apart.\n")
 
 print("\n".join(out))

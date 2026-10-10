@@ -29,6 +29,18 @@ def mean(v):
     return sum(v) / len(v) if v else None
 
 
+def upper95(k: int, n: int) -> float:
+    """Exact one-sided 95 % upper bound of a binomial share with k successes in n trials (Clopper–Pearson), by bisection."""
+    def cdf(p: float) -> float:
+        from math import comb
+        return sum(comb(n, i) * p ** i * (1 - p) ** (n - i) for i in range(k + 1))
+    lo, hi = k / n, 1.0
+    for _ in range(60):
+        mid = (lo + hi) / 2
+        lo, hi = (mid, hi) if cdf(mid) > 0.05 else (lo, mid)
+    return hi
+
+
 def mr(v, nd: int = 1, sign: bool = False) -> str:
     """Mean over seeds (range)."""
     v = [x for x in v if x is not None]
@@ -44,6 +56,8 @@ def main() -> None:
     e5 = json.loads((AGG / "E5_deflation.json").read_text(encoding="utf-8"))["by_tc"]["standard"]
     e1 = json.loads((AGG / "E1_standard.json").read_text(encoding="utf-8"))
     e6 = json.loads((AGG / "E6_rungs.json").read_text(encoding="utf-8"))
+    l1 = json.loads((AGG / "L1_history.json").read_text(encoding="utf-8"))
+    n_fide = sum(c["pool"] for c in l1["at_list"]["standard"]["coverage"] if c["band"] != "unrated")
     lon = {w["start"]: w["groups"] for w in e5["longitudinal"]}
     post = ("2024-03", "2025-03")                                   # E5's windows after the 2024 reform
     top_fide = [lon[s][f"band:{b}"]["median"] for s in ("2024-03", "2025-03", "2025-10") for b in ("2200-2399", "2400-2599", "2600+")]
@@ -79,6 +93,10 @@ def main() -> None:
     adv = sc["adversaries"]
     farm = {x: mean(per("adversaries", lambda r, x=x: r["adversaries"][x]["farming_advantage_per_game"])) for x in led_all}
     cal = d["r1_calibration"]
+    cal_rows = per("baseline", lambda r: r["calibration"])
+    act_adopt = mean([rs[3]["active_rated"] for rs in cal_rows])
+    act_end = mean([rs[-1]["active_rated"] for rs in cal_rows])
+    fa_k = round(cal["thresholds"][str(cal["calibrated"])]["noise_false_alarm_share"] * cal["runs"]) if cal["calibrated"] else None
 
     p("# E9 — The simulator: ten years of each rung against Layer 0, on known true strengths")
     p("")
@@ -87,10 +105,13 @@ def main() -> None:
       "computes with `src/simulator/` under `docs/specs/SPEC-SIM_v1_0.md`. Do not edit by hand. Licence: CC BY 4.0 "
       "(`docs/LICENSE-docs.md`). The pool is synthetic: no player's data is used. Its parameters are calibrated on the "
       "evidence reports where they could be (E1, E2, E5, E7, E8, and Layer 1's history fit) and PROVISIONAL everywhere; "
-      "section 9 lists the results that rest on assumptions the data could not pin down.")
+      "section 9 lists the results that rest on assumptions the data could not pin down. Rerun after the v1.0 red team "
+      "(`docs/review/REDTEAM_v1_0.md`): entrants' true strengths moved to today's scale, and d_t and the level chain-linked "
+      "across the January re-basings of the anchor panel (SPEC-SIM §11).")
     p("")
     p(f"Runs: {len(seeds)} seeds for each of {len(sc)} scenarios, each ten simulated years after a three-year burn-in under "
-      f"Layer 0, about {mean(per('baseline', lambda r: r['pool']['active_end'])):,.0f} active players; every rung on the same "
+      f"Layer 0, with about {act_adopt:,.0f} active rated players at adoption and {act_end:,.0f} after ten years, about a "
+      f"twentieth of FIDE's {n_fide:,} active rated standard players (`analysis/OUTPUT_L1_history.md`); every rung on the same "
       f"simulated games as Layer 0 (pairings from Layer 0's list). Figures are means over the seeds, with their range in "
       f"brackets. R1's threshold uses {cal['runs']} further paired runs (section 8).")
     p("")
@@ -98,7 +119,8 @@ def main() -> None:
     best_all = min(led_all, key=lambda x: rmse_all[x])
     p("**In brief.**")
     p("")
-    p(f"- **The simulated Layer 0 reproduces what FIDE's lists show without being tuned to it:** the adults "
+    p(f"- **The simulated Layer 0 reproduces what FIDE's lists show without being tuned to it, on a pool whose true outcome "
+      f"model is E2's fitted table, so that table 8.1.2's over-prediction of favourites is part of the simulated world:** the adults "
       f"aged 25–45 whose true strength was 2400 or more at adoption lose {abs(top['L0']):.1f} points a year on the list while "
       f"their true strength changes by {top_true:+.1f} (FIDE's lists since the "
       f"2024 reform: players rated 2200 or more lose {abs(max(top_fide)):.0f} to {abs(min(top_fide)):.0f} [E5]), and adults rated "
@@ -123,8 +145,9 @@ def main() -> None:
     p(f"- **Farming** gains {farm['L0']:+.3f} points a game over ordinary play under Layer 0 and {farm['R2']:+.3f} with rung 2 "
       f"and its guard.")
     p(f"- **R1's review threshold:** the noise of the twelve-month mean of the spread ratio has an SD of {cal['noise_sd']:.4f}; "
-      + (f"the smallest threshold with at most 5 % false alarms from noise is {cal['calibrated']}, which a ratchet at κ's "
-         f"annual cap trips after a median of {cal['thresholds'][str(cal['calibrated'])]['ratchet_median_months']} months"
+      + (f"the smallest threshold with at most 5 % false alarms from noise is {cal['calibrated']} ({fa_k} of {cal['runs']} runs; "
+         f"exact 95 % upper bound {100 * upper95(fa_k, cal['runs']):.0f} %), which a ratchet at κ's annual cap trips after a "
+         f"median of {cal['thresholds'][str(cal['calibrated'])]['ratchet_median_months']} months"
          if cal["calibrated"] is not None else "no threshold on the grid keeps false alarms at 5 % or less")
       + f"; R20's PROVISIONAL 0.02 gives {100 * cal['thresholds']['0.02']['noise_false_alarm_share']:.0f} % false alarms and "
         f"trips on a ratchet after {cal['thresholds']['0.02']['ratchet_median_months']} months (section 8).")
@@ -135,9 +158,9 @@ def main() -> None:
     p("")
     df = d["defaults"]
     p(f"- **Pool.** {df['n0']:,} players at the start in six federations (relative sizes 20 : 10 : 5 : 2 : 1 : 0.5), juniors "
-      f"35 %, true strengths around 1450 (juniors) and 1750 (adults), a tenth of FIDE's active standard pool [E5]; entries "
-      f"{100 * df['entry_rate']:.1f} % of the active pool a month with E1's age shares and the 2023 newcomers' median first "
-      f"ratings as their true strengths [E1]; exits by age, activity and experience.")
+      f"35 %, true strengths around 1450 (juniors) and 1750 (adults); entries {100 * df['entry_rate']:.1f} % of the active pool "
+      "a month with E1's age shares, their true strengths around the 2023 newcomers' median first ratings moved to today's "
+      "scale by the March 2024 compression, R + round(0.4 × (2000 − R)) [E1] [E5]; exits by age, activity and experience.")
     p(f"- **Strength.** A latent strength moving each month by Layer 1's fitted drift by age (`analysis/OUTPUT_L1_history.md`), "
       f"multiplied under 25 by a personal factor of mean {df['junior_factor_mean']} (coefficient of variation "
       f"{df['junior_factor_cv']}), and a random walk of 12 latent points a month (15 after 45), E8's choice for standard; "
@@ -226,7 +249,7 @@ def main() -> None:
     # ---------------------------------------------------------------- 4 top, level, spread
     p("## 4 The top, the level and the spread (baseline)")
     p("")
-    p("| ledger | top cohort: change a year | published 2600+ / true 2600+ after ten years | level (anchor's mean R − θᴾ): end of year 1 → year 10 (change) | true spread ratio: year 1 → year 10 (a year) |")
+    p("| ledger | top cohort: change a year | published 2600+ / true 2600+ after ten years | level (anchor's mean R − θᴾ, chain-linked at the January re-basings): end of year 1 → year 10 (change) | true spread ratio: year 1 → year 10 (a year) |")
     p("|---|---|---|---|---|")
     flat = []
     for x in led_all:
@@ -247,8 +270,10 @@ def main() -> None:
     p("- The true spread ratio is the SD of published ratings over the SD of true strength (θᴾ) for active adults aged 25–45; "
       "below 1 the published scale is compressed. T9.5's check (no trend beyond ±0.01 a year) is met by "
       + ", ".join(flat) + "; the other ledgers keep Layer 0's newcomer rule and floor, which compress the scale from below.")
-    p("- The level was already about 20 points below true strength when the rungs were adopted (the three years of Layer 0 "
-      "before); the column shows where each ledger takes it from there.")
+    lv1 = mean(per("baseline", lambda r: r["series"]["L0"]["yearly"]["level"][0]))
+    p(f"- The level is the anchor panel's mean R − θᴾ, chain-linked across the panel's January re-basings so that who is in the "
+      f"panel does not move it (SPEC-SIM §6). At the end of the first year of operation it stood at {lv1:+.0f} under Layer 0; "
+      "the column shows where each ledger takes it from there.")
     p("")
 
     # ---------------------------------------------------------------- 5 juniors, newcomers
@@ -311,13 +336,16 @@ def main() -> None:
     p("Layer 0 has no adjustment; its d_t, the gap a controller would see, is shown for comparison.")
     p("")
     dd = mean(per("baseline", lambda r: r["series"]["L0"]["yearly"]["d_t"][-1] - r["series"]["L0"]["yearly"]["d_t"][0]))
-    p("- **Rung 6 holds the level** in every scenario: the true level of the anchor cohort moves far less from the first "
-      "year to the tenth than under Layer 0. It does not meet R15's rule month by month. The controller answers d_t, Layer 1's "
-      f"own measure of the gap, and under Layer 0 d_t moved {dd:+.0f} points from the first year to the tenth while the true "
-      f"level moved {dr['L0']:+.0f}: the proxy's latent level, fixed by the anchor's zero drift (annex T2.4) on a cohort "
-      "re-formed every January, is not itself fixed against true strength, and its movements reach the controller. Whether "
-      "R15's rule can be met depends on how well Layer 1 holds its level, which the full Layer 1 fit on FIDE's data, not "
-      "this proxy, can show.")
+    sh6 = mean(per("baseline", lambda r: r["series"]["R6"]["r15_share_within_2"]))
+    shd = mean(per("deflation", lambda r: r["series"]["R6"]["r15_share_within_2"]))
+    atd = mean(per("deflation", lambda r: r["series"]["R6"]["a_t_mean"]))
+    p(f"- **Rung 6 holds the level in the baseline** ({dr['R6']:+.0f} points from the first year to the tenth against Layer 0's "
+      f"{dr['L0']:+.0f}) and meets R15's rule there in {100 * sh6:.0f} % of months. Under Layer 0 the gap it answers, d_t, moved "
+      f"{dd:+.0f} points over the same years while the true level moved {dr['L0']:+.0f}: with the anchor panel chain-linked, the "
+      f"proxy's gap follows the true level. Under a sustained junior wave the controller pays {atd:+.2f} a month on average, "
+      f"close to its cap of 1.5, and the level still moves {drd['R6']:+.0f} (Layer 0 {drd['L0']:+.0f}); R15's rule holds in "
+      f"{100 * shd:.0f} % of months. The controller holds the level only while its cap exceeds the drift (annex T4.5); whether "
+      "Layer 1 holds its own level as well on FIDE's data as this proxy, which knows the pool's dynamics, the full fit must show.")
     p("- **Rung 7 cannot reach isolated federations:** its offset is shrunk by n×/(n× + 2000), and a federation that plays "
       "1 % of its games abroad has too few cross-border games for the shrinkage to let any adjustment through, so its "
       "offset decays at Layer 0's pace. That is the shrinkage working as designed: the evidence for an offset is the "
@@ -353,12 +381,28 @@ def main() -> None:
     fpg = {x: mean(per("adversaries", lambda r, x=x: r["adversaries"][x]["farmer"]["per_game"])) for x in led_all}
     p(f"- **Farming in points:** the farmers' own change a game net of their true change is {fpg['L0']:+.3f} under Layer 0, "
       f"{fpg['R2']:+.3f} with rung 2 and its guard and {fpg['R2U']:+.3f} without it; their controls lose under every ledger "
-      "(the drain at the top), so the advantage is measured against ordinary play, as T9.4 defines it. The rungs that keep "
-      "today's capped table and raise the elite's K (rung 4) or post adjustments (rung 6) let the farmer keep more of the "
-      "cap's gain.")
-    better = [x for x in led_all if x != "L0" and farm[x] > farm["L0"]]
-    p(f"- T9.5's check (no strategy gains more under a rung than under Layer 0), farming: "
-      + ("met for every rung." if not better else "not met for " + ", ".join(better) + "."))
+      "(the drain at the top), so the advantage is measured against ordinary play, as T9.4 defines it.")
+    fcg = {x: mean(per("adversaries", lambda r, x=x: r["adversaries"][x]["farmer_control"]["per_game"])) for x in led_all}
+    p("- **What moves the advantage.** The farmers' own change a game net of their true change, and their controls': "
+      + "; ".join(f"{x} {fpg[x]:+.3f} and {fcg[x]:+.3f}" for x in led_all) + ". Where a rung alone raises the advantage "
+      "over Layer 0's, it is mostly because ordinary strong players lose more, the drain at the top deepening under today's "
+      "capped table, not because the farmer gains more.")
+    sb = {x: mean(per("adversaries", lambda r, x=x: r["adversaries"][x]["checkpoints"].get("sandbagger_24")))
+          - mean(per("adversaries", lambda r, x=x: r["adversaries"][x]["checkpoints"].get("sandbagger_control_24"))) for x in led_all}
+    co = {x: mean(per("adversaries", lambda r, x=x: r["adversaries"][x]["collusion"]["created_per_game"])) for x in led_all}
+    pa = {x: mean(per("adversaries", lambda r, x=x: r["adversaries"][x]["protector"]["err_12_months_after_return"])) for x in led_all}
+    checks = (("farming (advantage a game)", farm), ("sandbagging (net of the control, a year after the dumping year)", sb),
+              ("collusion (points created per arranged game, all years)", co),
+              ("inactivity (R − θᴾ a year after return)", pa))
+    p("- T9.5's check (no strategy gains more under a rung than under Layer 0), strategy by strategy, with the margin over "
+      "Layer 0 where it is not met: " + "; ".join(
+        f"{lab}: " + ("met for every rung" if not [x for x in led_all if x != "L0" and vals[x] > vals["L0"]]
+                      else "not met for " + ", ".join(f"{x} ({vals[x] - vals['L0']:+.3g})" for x in led_all
+                                                      if x != "L0" and vals[x] > vals["L0"]))
+        for lab, vals in checks) + ". Margins smaller than the spread over the seeds in the table above are within noise.")
+    pr1 = per("adversaries", lambda r: r["adversaries"]["L0"]["protector"]["err_12_months_after_return"])
+    p(f"- The inactivity figures are means over the seeds of about {mean(per('adversaries', lambda r: r['adversaries']['L0']['protector']['returned_and_followed_12_months'])):.0f} "
+      f"returning players each; a year after return under Layer 0 they range over the seeds from {min(pr1):+.0f} to {max(pr1):+.0f}.")
     p("")
 
     # ---------------------------------------------------------------- 8 R1
@@ -375,9 +419,17 @@ def main() -> None:
           f"{100 * v['noise_false_alarm_share']:.0f} % | {100 * v['ratchet_detect_share']:.0f} % | "
           f"{v['ratchet_median_months'] if v['ratchet_median_months'] is not None else '—'} |")
     p("")
+    raw_c = cal["thresholds"][str(cal["calibrated"])] if cal["calibrated"] is not None else None
     p(f"- **Calibrated** (the smallest threshold with at most 5 % false alarms from noise; D-0009, reading 6): "
-      f"{cal['calibrated']}. A raw trigger in the baseline is not a false alarm: the simulated published scale does keep "
-      "compressing against true strength (section 4), which is what a QC review should see.")
+      f"{cal['calibrated']}" + (f", with {fa_k} false alarm(s) in {cal['runs']} runs (exact 95 % upper bound "
+                                f"{100 * upper95(fa_k, cal['runs']):.0f} %)" if raw_c else "") + ".")
+    p("- **What the calibration measures.** False alarms are counted on the noise around each run's own linear trend, and the "
+      "ratchet's detection on the paired difference, ratchet minus baseline on the same seed, which removes the noise both "
+      "share; both are therefore optimistic. The raw statistic the QC would watch triggers in "
+      + (f"{100 * raw_c['raw_trigger_share']:.0f} % of baseline runs, at a median of {raw_c['raw_median_months']} months, "
+         if raw_c else "")
+      + "because the simulated published scale keeps compressing against true strength (section 4): a review the QC should "
+      "hold, but one the ratio alone cannot tell from a ratchet of κ.")
     p("")
 
     # ---------------------------------------------------------------- 9 sensitivity and assumptions
@@ -396,22 +448,24 @@ def main() -> None:
     p("| result | rests on |")
     p("|---|---|")
     p("| the junior drain, the slide at the top, the level's drift | how fast juniors improve and how unevenly (Layer 1's profile, measured on broadcast juniors, scaled to the lists' junior gains) |")
-    p("| newcomers' over-rating under today's rule, rung 3's effect on the level | entrants' true strengths (2023 first ratings, before the floor) |")
+    p("| newcomers' over-rating under today's rule, rung 3's effect on the level | entrants' true strengths (2023 first ratings, before the floor, moved to today's scale) |")
+    p("| the level and d_t | the anchor panel, re-formed each January and chain-linked across the re-basing (SPEC-SIM §6) |")
     p("| rung 4's K and its effect | the noise scale (E8's 1.0 or Layer 1's 2.0) |")
     p("| federation offsets and their decay | the domestic share of games (between E7's 52 % on broadcast games and Ghita's more than 80 %) and the true offsets |")
     p("| everything that uses Layer 1 (rungs 3 to 7) | a proxy that knows the pool's average dynamics: optimistic |")
     p("| the guard | the true model is E2's fitted table, right at large gaps, so the guard's cost shows and its benefit cannot |")
-    p("| R1's threshold | the noise of the simulated spread ratio, on a pool a tenth of FIDE's |")
+    p("| R1's threshold | the noise of the simulated spread ratio, on a pool about a twentieth of FIDE's active list, and a detrended noise reference |")
     p("")
     p("## 10 Limits")
     p("")
-    p("- A synthetic pool a tenth of FIDE's, in standard only, five seeds a scenario: differences of a few points between "
-      "rungs are within the seeds' range.")
+    p("- A synthetic pool about a twentieth of FIDE's active list, in standard only, five seeds a scenario: differences of a few "
+      "points between rungs are within the seeds' range.")
     p("- Pairings follow Layer 0's list for every rung (the shadow-list design), so a rung's effect on who meets whom is not "
       "simulated.")
     p("- The ledger identity of annex T6 is not evaluated line by line; the points entering, leaving through the floor and "
       "posted by adjustments are reported in the aggregates.")
-    p("- SPEC-SIM §11 lists the revisions the pilot runs forced and why; none was made after these runs.")
+    p("- SPEC-SIM §11 lists the revisions the pilot runs forced and the two the v1.0 red team found (entrants' scale, chain-linking), "
+      "each with its reason; the runs reported here follow all of them.")
     sys.stdout.write("\n".join(P) + "\n")
 
 

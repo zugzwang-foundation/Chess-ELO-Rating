@@ -242,7 +242,7 @@ Bound on a published change (P2): |period change| <= round(700 + 12 x a_cap) = 7
 | 4 | P5 (2300) | P3 (2050) | 0.5 | 2100-2199 | 286 | 0.795 | -286 | 0.205 | -2.9500 | +3.4220 | +0.4720 | +0.0000 | 0 |
 | 5 | P4 (1750) | P6 (1600) | 0 | 1600-1699 | 186 | 0.730 | -186 | 0.270 | -15.6950 | +29.2000 | +13.5050 | +0.0000 | 0 |
 | 6 | P6 (1600) | P2 (1500) | 0 | 1500-1599 | -61 | 0.421 | -136 | 0.324 | -16.8400 | +27.0400 | +0.0000 | +10.2000 | 0 |
-| 7 | P5 (2300) | P1 (1900) | 1 | 2100-2199 | 436 | 0.899 | -436 | 0.101 | +1.0100 | -1.3837 | -0.3737 | +0.0000 | 0 |
+| 7 | P5 (2300) | P1 (1900) | 1 | 2100-2199 | 436 | 0.92 | -436 | 0.08 | +0.8000 | -1.0960 | -0.2960 | +0.0000 | 0 |
 | 8 | P7 (1405) | P4 (1750) | 0 | 1500-1599 | -309 | 0.147 | 309 | 0.853 | -3.2193 | +3.1605 | -0.0588 | +0.0000 | 0 |
 | 9 | P6 (1600) | P7 (1405) | 1 | 1500-1599 | 231 | 0.783 | -231 | 0.217 | +8.6800 | -4.7523 | +3.9277 | +0.0000 | 0 |
 | 10 | P3 (2050) | U (unrated) | 1 | — | — | — | — | — | 0 (not rated) | — | 0 | 0 | 0 |
@@ -250,11 +250,11 @@ Bound on a published change (P2): |period change| <= round(700 + 12 x a_cap) = 7
 
 | player | R(t) | sigma | K_i(n) (R16) | n | RX | sum of game terms | + a_t | rounded change | R(t+1) | rounding residual | status |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| P1 | 1900 | 55 | 13.7 | 3 | 1900 | -9.1790 | -8.2790 | -8 | 1892 | +0.2790 | listed |
+| P1 | 1900 | 55 | 13.7 | 3 | 1900 | -8.8913 | -7.9913 | -8 | 1892 | -0.0087 | listed |
 | P2 | 1500 | 121.2 | 40.0 | 3 | 1697 | +74.2000 | +75.1000 | +75 | 1575 | -0.1000 | listed |
 | P3 | 2050 | 50 | 11.6 | 2 | 2050 | +6.7744 | +7.6744 | +8 | 2058 | +0.3256 | listed |
 | P4 | 1750 | 70 | 21.5 | 3 | 1750 | -23.7360 | -22.8360 | -23 | 1727 | -0.1640 | listed |
-| P5 | 2300 | 45 | 10.0 | 2 | 2300 | -1.9400 | -1.0400 | -1 | 2299 | +0.0400 | listed |
+| P5 | 2300 | 45 | 10.0 | 2 | 2300 | -2.1500 | -1.2500 | -1 | 2299 | +0.2500 | listed |
 | P6 | 1600 | 120 | 40.0 | 3 | 1600 | +21.0400 | +21.9400 | +22 | 1622 | +0.0600 | listed |
 | P7 | 1405 | 70 | 21.9 | 2 | 1405 | -7.9716 | -7.0716 | -7 | 1398 | +0.0716 | below 1400: shown as unrated (7.2.1 [V 1]); exit booked at R+ = 1398 |
 | P8 | 1580 | 90 | 36.7 | 1 | 1580 | +16.2581 | +17.1581 | +17 | 1597 | -0.1581 | listed (first rated on list t; its late-rated game is one-sided, §8.2.4 [V 1]) |
@@ -264,7 +264,7 @@ Bound on a published change (P2): |period change| <= round(700 + 12 x a_cap) = 7
 | Q2 | — | — | — | — | — | — | — | — | — | — | former floor exit re-qualifies: theta~ = 1381.2, round = 1381 < 1400, not published (stays unrated; no ledger line) |
 
 Left side: list total after 15872 - before 14085 = +1787.
-Right side: unequal K +41.9450 + compensation +17.2428 + one-sided (§8.2.4) +16.2581 + adjustments posted +7.2 (8 x 0.9) + rounding +0.3541 + entering 3102 - exits at post-update rating 1398 = +1787.0000.
+Right side: unequal K +42.0227 + compensation +17.2428 + one-sided (§8.2.4) +16.2581 + adjustments posted +7.2 (8 x 0.9) + rounding +0.2764 + entering 3102 - exits at post-update rating 1398 = +1787.0000.
 Identity closes exactly: True. Without the one-sided line the residual would be +16.2581; booking the exit at R(t) = 1405 instead of R+ = 1398 would leave +7 points.
 
 ## 10b Further figures for the review fixes
@@ -324,7 +324,75 @@ The spread ratio is the SD of published ratings divided by the SD of Layer 1's e
 | rapid | 0.0078 | 0.011 | 2023: 0.736, 2024: 0.730, 2025: 0.728, 2026: 0.718 | 2023->2024 -0.005, 2024->2025 -0.003, 2025->2026 -0.010 |
 | standard | 0.0160 | 0.053 | 2023: 0.787, 2024: 0.739, 2025: 0.735, 2026: 0.717 | 2023->2024 -0.049, 2024->2025 -0.004, 2025->2026 -0.018 |
 
-A ratchet held to kappa's annual cap of 0.05 moves the ratio by about ratio x cap / kappa = 0.747 x 0.05 / 1.212 = 0.031 a year in standard (the ratio varies roughly as 1/kappa). R19 replaces v0.4's year-on-year rule: the QC reviews when the trailing twelve-month mean of the noise-corrected ratio differs from its value at the last QC review (at adoption, the mean of the first twelve months of operation) by more than theta_R1, in either direction; a review resets the reference (D-0009, reading 5). A cumulative rule catches a ratchet however slowly it runs.
+A ratchet held to kappa's annual cap of 0.05 moves the noise-corrected ratio, once ratings have adjusted to the flatter table, by about ratio x cap / kappa = 0.714 x 0.05 / 1.212 = 0.029 a year in standard (the ratio varies roughly as 1/kappa); in the simulator the trailing mean responds more slowly (below). R19 replaces v0.4's year-on-year rule: the QC reviews when the trailing twelve-month mean of the noise-corrected ratio differs from its value at the last QC review (at adoption, the mean of the first twelve months of operation) by more than theta_R1, in either direction; a review resets the reference (D-0009, reading 5). A cumulative rule catches a ratchet however slowly it runs.
 
-theta_R1 calibrated in the simulator (20 paired runs, E9; D-0009, reading 6): the smallest threshold whose false-alarm rate from noise alone over ten simulated years is at most 5 % is 0.025 (PROVISIONAL); a ratchet at kappa's cap trips it after a median of 57 months. R20's earlier PROVISIONAL 0.02: 25 % false alarms from noise, the ratchet tripping it after 50 months. On history since the March 2024 reset the year-on-year changes of the corrected ratio's calendar-year means are within ±0.02 (table above).
+theta_R1 calibrated in the simulator (20 paired runs, E9; D-0009, reading 6): the smallest threshold whose false-alarm rate from noise alone over ten simulated years is at most 5 % is 0.01 (PROVISIONAL); a ratchet at kappa's cap trips it after a median of 30 months. R20's earlier PROVISIONAL 0.02: 0 % false alarms from noise, the ratchet tripping it after 43 months. On history since the March 2024 reset the year-on-year changes of the corrected ratio's calendar-year means are within ±0.02 (table above).
+
+## 13 Figures for the v1.0 red team (REDTEAM_v1_0)
+
+### 13.1 The guard's edges, colour and tail (R17; annex T3.6)
+
+The favourite's expectation from the published table of each time control (three decimals, level band of the two published ratings), at the guard's two edges: a gap of 399 (outside the region) against 400 (inside), and a favourite rated 2299 (outside) against 2300 (inside) at a gap of 420; the colour term is in the gap (eta: standard 36, rapid 37, blitz 27).
+
+| time control | favourite, colour | gap 399: E | gap 400: E fitted -> with the guard | step at the gap edge |
+|---|---|---|---|---|
+| standard | 2300, White | 0.899 | 0.899 -> 0.92 | +0.021 |
+| standard | 2300, Black | 0.855 | 0.856 -> 0.92 | +0.065 |
+| standard | 2500, White | 0.886 | 0.886 -> 0.92 | +0.034 |
+| standard | 2500, Black | 0.839 | 0.840 -> 0.92 | +0.081 |
+| standard | 2700, White | 0.870 | 0.870 -> 0.92 | +0.050 |
+| standard | 2700, Black | 0.821 | 0.821 -> 0.92 | +0.099 |
+| rapid | 2300, White | 0.845 | 0.846 -> 0.92 | +0.075 |
+| rapid | 2300, Black | 0.801 | 0.801 -> 0.92 | +0.119 |
+| rapid | 2500, White | 0.829 | 0.829 -> 0.92 | +0.091 |
+| rapid | 2500, Black | 0.783 | 0.784 -> 0.92 | +0.137 |
+| rapid | 2700, White | 0.809 | 0.810 -> 0.92 | +0.111 |
+| rapid | 2700, Black | 0.763 | 0.764 -> 0.92 | +0.157 |
+| blitz | 2300, White | 0.864 | 0.865 -> 0.92 | +0.056 |
+| blitz | 2300, Black | 0.833 | 0.833 -> 0.92 | +0.087 |
+| blitz | 2500, White | 0.857 | 0.858 -> 0.92 | +0.063 |
+| blitz | 2500, Black | 0.825 | 0.826 -> 0.92 | +0.095 |
+| blitz | 2700, White | 0.849 | 0.849 -> 0.92 | +0.071 |
+| blitz | 2700, Black | 0.816 | 0.817 -> 0.92 | +0.104 |
+
+| time control | colour | favourite 2299 v 1879: E | favourite 2300 v 1880: E fitted -> with the guard | step at the 2300 edge |
+|---|---|---|---|---|
+| standard | White | 0.915 | 0.915 -> 0.93 | +0.015 |
+| standard | Black | 0.876 | 0.876 -> 0.93 | +0.054 |
+| rapid | White | 0.864 | 0.864 -> 0.93 | +0.066 |
+| rapid | Black | 0.822 | 0.822 -> 0.93 | +0.108 |
+| blitz | White | 0.878 | 0.878 -> 0.93 | +0.052 |
+| blitz | Black | 0.849 | 0.849 -> 0.93 | +0.081 |
+
+- standard: one rating point at the gap edge raises the favourite's expectation by 0.021 to 0.099 (the underdog's falls as much: 4.0 points a game at most for an underdog with K = 40, if the fitted table is right there); at the 2300 edge by 0.015 to 0.054.
+- rapid: one rating point at the gap edge raises the favourite's expectation by 0.075 to 0.157 (the underdog's falls as much: 6.3 points a game at most for an underdog with K = 40, if the fitted table is right there); at the 2300 edge by 0.066 to 0.108.
+- blitz: one rating point at the gap edge raises the favourite's expectation by 0.056 to 0.104 (the underdog's falls as much: 4.2 points a game at most for an underdog with K = 40, if the fitted table is right there); at the 2300 edge by 0.052 to 0.081.
+- Colour inside the region (standard, 2300 v 1900): the fitted table gives the favourite 0.899 with White and 0.856 with Black; the guard gives 0.92 with either colour, so inside the region White's edge (0.043) is not priced.
+- The tail: from a gap of 736, table 8.1.2 reads 1.0 without its cap [V 1], so the guarded favourite expects 1.000 and the underdog 0.000; a favourite rated 2700 with White expects, on the fitted table, 0.983 at a gap of 750, 0.987 at a gap of 800, 0.993 at a gap of 900: if the fitted table is right there, the underdog gains K x (1 - E) a game in expectation, and the favourite's win is worth nothing.
+
+### 13.2 R16: K is fixed when the period closes (annex T4.3)
+
+Band 1700-1799 (v = 0.1681): a player who scores a residual r over a five-game event, then stops if r > 0 and plays nine (or thirty) more games in the same period if r < 0, has the first event's result weighted by K(5) when it is good and by K(14) (or K(35)) when it is bad. At equal strength E|r| = sqrt(2/pi) sqrt(5 v) = 0.731 score points, so the expected gain a decision is (K(5) - K(14)) x E|r| / 2, with nothing gained in skill:
+
+| latent sigma | N_i | K(5) | K(14) | K(35) | gain a decision, nine more games | thirty more games |
+|---|---|---|---|---|---|---|
+| 55 | 59.4 | 13.3 | 11.6 | 10.0 | +0.62 | +1.21 |
+| 70 | 36.6 | 20.5 | 16.8 | 11.9 | +1.35 | +3.15 |
+| 90 | 22.2 | 31.4 | 23.6 | 14.9 | +2.85 | +6.03 |
+
+### 13.3 K from the printed N_i and C (D-0009, reading 3; annex T4.3)
+
+Standard, every level band, latent sigma 40 to 130, n = 1 to 40, 42806 unclipped values: K computed from sigma differs by 0.1 from K computed from the printed C (one decimal) and N_i (one decimal) in 11.4 % of cases, and with N_i to two decimals in 1.2 %. An arbiter can reproduce K exactly only if the printed values are normative: K_i(n) = clip(C / (N_i + n)) from the printed C of the player's band and the printed N_i, half up to one decimal (annex T4.3).
+
+### 13.4 How fast a rating answers its error (annex T3.5)
+
+Each game moves a rating error e towards zero by about K x E'(0) x e. Table 8.1.2's slope near zero (least squares over D = 0 to 100 [V 1]): 0.00137 a point. The fitted standard table's, kappa q v in the player's band: 1700: 0.00117 (14 % less), 2300: 0.00086 (37 % less), 2700: 0.00065 (53 % less). At the same K, rung 2 alone makes a rating answer its error more slowly, most at the top; rung 4 sets K from certainty instead.
+
+### 13.5 Accrual after the last game (R3; annex T4.5)
+
+A player active under §7.2.2 [V 1] (a rated game on the twelve lists up to t) keeps accruing a_t for eleven months after the last game: at most 11 x a_cap = 16.5 points, posted at the next rated month. With a steady a_t = +1.3, thirty games spread over the twelve months before stopping and n_bar = 30 (illustrative), the activity factor falls by a twelfth a month and the player accrues 7.15 points while no longer playing.
+
+### 13.6 The spread ratio on history since the March 2024 reset (R19; annex T3.5)
+
+Standard, noise-corrected ratio: 0.743 in December 2024 and 0.714 in 2026-09; its trailing twelve-month mean was 0.729 over March 2024 to February 2025 and 0.720 over the twelve months to 2026-09, -0.008. A continued fall of the published scale against Layer 1's would trip a review at theta_R1 without any ratchet of kappa; the ratio alone cannot tell the two apart.
 

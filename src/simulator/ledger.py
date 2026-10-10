@@ -122,6 +122,8 @@ class Ledger:
         self.games_since_first: list[int] = []
         self.last_bad: list[int] = []
         self.anchor: list[int] = []
+        self.d_link = 0.0        # chain links of d_t and of the level across the January re-basings (annex T2.4)
+        self.level_link = 0.0
         self.jd: dict[str, list] = {}             # junior drain: adult's band -> [games, Σ(S − E) thousandths]
         self.tracked: list = []                   # arranged games: (i, j, s2_i, e_i, e_j)
         self.created_arranged = [0, 0.0]
@@ -171,7 +173,9 @@ class Ledger:
         self.elig, self.cj = [False] * n, [0] * n
 
     # ------------------------------------------------------------------ one game
-    def expect(self, own: int, opp_eff: int, colour: int, mid: int) -> int:
+    def expect(self, own: int, opp_eff: int, colour: int, mid: int, opp_pub: int | None = None) -> int:
+        """Expectation in thousandths; with rung 2 the guard of R17, the favourite's 2300 read on its published rating
+        (D-0009, reading 4; opp_pub is the opponent's published rating when opp_eff is a compensated RX)."""
         if not self.fit:
             return fide.pd100(own, opp_eff) * 10
         e = self.tables[mid][own - opp_eff + colour * self.eta + XOFF]
@@ -181,7 +185,7 @@ class Ledger:
                 v = PDU10[min(g, fide.DMAX)]
                 if v > e:
                     e = v
-            elif g <= -400 and opp_eff >= 2300:
+            elif g <= -400 and (opp_eff if opp_pub is None else opp_pub) >= 2300:
                 v = 1000 - PDU10[min(-g, fide.DMAX)]
                 if v < e:
                     e = v
@@ -205,8 +209,8 @@ class Ledger:
             if self.fit_kappa_yearly:
                 key = (rw - rb, MIDS[mid_index(lv)], s2)
                 self.cells[key] = self.cells.get(key, 0) + 1
-            ew = self.expect(rw, ow, 1, mid)
-            eb = self.expect(rb, ob, -1, mid)
+            ew = self.expect(rw, ow, 1, mid, rb)
+            eb = self.expect(rb, ob, -1, mid, rw)
             sw = 500 * s2
             self.acc[w] += sw - ew
             self.acc[b] += 1000 - sw - eb
@@ -396,13 +400,15 @@ def fed_adjustment(phi: float, shrink: float) -> float:
 
 
 def anchor_gap(led: Ledger, pool, proxy, c_ref: float) -> tuple[float, float, float] | None:
-    """d_t = m̂_t − m_t over the anchor's members on settled ratings R + B (annex T2.4), with m_t and m̂_t."""
+    """d_t = m̂_t − m_t over the anchor's members on settled ratings R + B (annex T2.4), chain-linked across the
+    January re-basings (led.d_link), with the current panel's m_t and m̂_t."""
     mem = [i for i in led.members(pool) if proxy.m[i] is not None]
     if not mem:
         return None
     m_t = sum(led.R[i] + led.B[i] for i in mem) / len(mem)
     m_hat = sum(proxy.m[i] + c_ref for i in mem) / len(mem)
-    return m_hat - m_t, m_t, m_hat
+    return m_hat - m_t + led.d_link, m_t, m_hat
+
 
 
 def sd(values: list[float]) -> float:

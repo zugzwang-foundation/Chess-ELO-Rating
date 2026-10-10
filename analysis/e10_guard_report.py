@@ -117,8 +117,10 @@ def main() -> None:
       "Before the guard is applied the script reproduces E2's monthly sums for Layer 0 and rung 2 and E2's calibration bins: "
       + "; ".join(f"{tc} largest difference {d[tc]['reproduces_e2']['max_abs_difference_of_monthly_sums']:.1e}, bins "
                   f"{'equal' if d[tc]['reproduces_e2']['bins_equal'] else 'different'}" for tc in TCS) + ".")
-    p("- **Three-outcome forecasts.** Where the guard binds, the fitted draw probability is kept and the win and loss "
-      "probabilities move to the guarded expectation (E6's three-outcome split); elsewhere the forecast is rung 2's.")
+    p("- **Three-outcome forecasts.** Where the guard binds, the fitted draw probability is kept, cut where needed to "
+      "2(1 − E) − 0.002 so that the loss probability stays positive, and the win and loss probabilities move to the guarded "
+      "expectation (E6's three-outcome split); elsewhere the forecast is rung 2's. Where the cut binds it raises the guard's "
+      "log-loss cost.")
     p("- **Decision rules** are E2's (annex T8.2), applied with E2's report functions; the regions use E6's month-block "
       "bootstrap (blocks of 3, 2,000 resamples, seed 20261009) and its bootstrap over the favourites (players).")
     p(f"- **Data cutoff.** No broadcast file after 2026-09 is opened; games dated after 2026-09-30: "
@@ -207,8 +209,49 @@ def main() -> None:
                                     "tool frozen in Freeze 2, and E3 says so."))
     p("")
 
-    # ---------------------------------------------------------------- 5
-    p("## 5 Reading")
+    # ---------------------------------------------------------------- 5 by level (E2's held-out months)
+    p("## 5 The fitted table by level, from E2's held-out months")
+    p("")
+    p("The favourite's (higher-rated player's) residual S − E by 100-point level band, all gaps, on E2's 21 test months "
+      "(`analysis/aggregates/E2_broadcast.json`, rolling bins by level), under rung 2 (the fitted table, unguarded) and "
+      "Layer 0 (table 8.1.2 with the 400-point rule):")
+    p("")
+    p("| level band | " + " | ".join(f"{tc}: games, rung 2, Layer 0" for tc in TCS) + " |")
+    p("|---|" + "---|" * len(TCS))
+    lv_all = sorted({int(k) for tc in TCS for k in e2["rolling"][tc]["levels"]})
+    for k in lv_all:
+        cells = []
+        for tc in TCS:
+            b = e2["rolling"][tc]["levels"].get(str(k))
+            cells.append(f"{b[0]:,}, {(b[1] - b[2]) / b[0]:+.3f}, {(b[1] - b[3]) / b[0]:+.3f}" if b and b[0] else "—")
+        lab = "below 1500" if k < 1500 else "2800 and above" if k >= 2800 else f"{k - 50}–{k + 49}"
+        p(f"| {lab} | " + " | ".join(cells) + " |")
+    p("")
+    hi_rows = []
+    for tc in TCS:
+        r = e2["rolling"][tc]
+        hi = [0.0] * 8
+        for k, v in r["levels"].items():
+            if int(k) >= 2300:
+                hi = [a + b for a, b in zip(hi, v)]
+        farm = [sum(b[i] for b in r["farming_bins"]) for i in range(8)]
+        below = [a - b for a, b in zip(hi, farm)]
+        n = below[0]
+        res2, res0 = (below[1] - below[2]) / n, (below[1] - below[3]) / n
+        se = (below[4] / n - res2 ** 2) ** 0.5 / n ** 0.5
+        hi_rows.append((tc, n, res2, se, res0))
+    over = {tc: [k for k in lv_all if k >= 2300 and (b := e2["rolling"][tc]["levels"].get(str(k))) and b[0] >= 1000
+                 and (b[1] - b[2]) / b[0] > 0.01] for tc in TCS}
+    p("At levels of 2300 or more and gaps below 400 (all games at those levels less E6's farming region), the games the guard "
+      "never reaches: " + "; ".join(f"{tc} {n:,.0f} games, rung 2 {r2_:+.4f} (per-game standard error {se:.4f}, which ignores "
+                                    f"clustering), Layer 0 {r0:+.4f}" for tc, n, r2_, se, r0 in hi_rows) + ". At those levels "
+      "the fitted table under-predicts the favourite below a 400-point gap as well as at 400 or more, by as much in standard, "
+      "while table 8.1.2 over-predicts it. Level bands from 2300 with 1,000 games or more where rung 2's residual exceeds +0.01: " + "; ".join(
+          f"{tc} " + (", ".join(f"{k - 50}–{k + 49}" for k in over[tc]) or "none") for tc in TCS) + ". E2's calibration rule "
+      "pools each gap bin over all levels (annex T8.2), where the lower levels' small negative residuals offset these; a rule "
+      "by level band was not pre-registered.")
+    p("")
+    p("## 6 Reading")
     p("")
     p("- **The guard does what R17 asks.** Where the fitted table under-predicted big favourites, the guard replaces it by "
       "today's table read in full, so a strong player who seeks out far weaker opponents loses points on average instead of "
@@ -218,16 +261,20 @@ def main() -> None:
       "favourites throughout its region, most in rapid, whose fitted curve is the flattest. Overall the guarded table still "
       "forecasts far better than Layer 0 in all three time controls; by E2's full stage-1 rule it "
       + ", ".join(f"{'passes' if res[tc]['okg'] else 'fails'} in {tc}" for tc in TCS) + ".")
+    p("- **What it does not reach.** At levels of 2300 or more the fitted table under-predicts favourites below a 400-point "
+      "gap about as much as in the farming region in standard, and about a third as much in blitz (section 5), in many more games: a strong player who meets fields 100 to 399 "
+      "points below gains under rung 2 what the guard removed above 400. The guard's region is fixed by R17; the evidence "
+      "by level is for the architect, and a calibration rule by level band and gap for FIDE's data (annex T8.2).")
     p("- **What lifts it.** FIDE's game archive, with enough games in the region for the formal test of annex T8.2 (bins of "
       "1,000 games), which the broadcast archive cannot supply (R12).")
     p("")
 
     # ---------------------------------------------------------------- 6
-    p("## 6 Limits")
+    p("## 7 Limits")
     p("")
     p("- The broadcast games are stronger and more international than the rated pool [E2]; the region's results hold for them.")
-    p("- The three-outcome forecast where the guard binds keeps the fitted draw probability, a choice for scoring only: the "
-      "guard defines the expected score, not the three probabilities.")
+    p("- The three-outcome forecast where the guard binds keeps the fitted draw probability, cut where needed (section 1), a "
+      "choice for scoring only: the guard defines the expected score, not the three probabilities.")
     p("- E2's parameters for each month are used as fitted; the guard is applied after the fit and does not refit the table.")
     sys.stdout.write("\n".join(P) + "\n")
 

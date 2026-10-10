@@ -145,8 +145,20 @@ class Sim:
         cfg, pool, proxy, rnd = self.cfg, self.pool, self.proxy, self.rnd
         operating = month >= self.adopt
         if month % 12 == 0:
+            # the anchor panel is re-formed every January; after adoption d_t and the level are chain-linked across the
+            # re-basing (annex T2.4): the new panel's values are set equal to the old panel's in the re-basing month,
+            # so that who is in the panel does not move them (REDTEAM_v1_0, V10-STAT-5)
+            link = month > self.adopt
+            old = {n: (anchor_gap(led, pool, proxy, self.c_ref), level_of(led, pool)) for n, led in self.ledgers.items()} \
+                if link else {}
             for led in self.ledgers.values():
                 led.new_year(month, pool)
+            for n, led in (self.ledgers.items() if link else ()):
+                g_new, l_new = anchor_gap(led, pool, proxy, self.c_ref), level_of(led, pool)
+                if old[n][0] is not None and g_new is not None:
+                    led.d_link += old[n][0][0] - g_new[0]
+                if old[n][1] is not None and l_new is not None:
+                    led.level_link += old[n][1] - l_new
             self.calibration_year(month)
         if month == self.adopt:
             self.adopt_ledgers(month)
@@ -396,8 +408,8 @@ class Sim:
                           and to_pub(pool.theta[i]) >= 2600)
         for name, led in self.ledgers.items():
             s = self.series.setdefault(name, {})
-            mem = led.members(pool)
-            lvl = sum(led.R[i] - to_pub(pool.theta[i]) for i in mem) / len(mem) if mem else 0.0
+            lvl = level_of(led, pool)
+            lvl = 0.0 if lvl is None else lvl
             g = anchor_gap(led, pool, proxy, self.c_ref)
             s.setdefault("level", []).append(round(lvl, 2))
             s.setdefault("d_t", []).append(round(g[0], 2) if g else None)
@@ -481,6 +493,14 @@ class Sim:
             r["checkpoints"] = self.out.get("checkpoints", {}).get(name, {})
             res[name] = r
         return res
+
+
+def level_of(led: Ledger, pool) -> float | None:
+    """The level: the anchor panel's mean R − θᴾ on the published scale, chain-linked across the January re-basings."""
+    mem = led.members(pool)
+    if not mem:
+        return None
+    return sum(led.R[i] - to_pub(pool.theta[i]) for i in mem) / len(mem) + led.level_link
 
 
 def run(cfg: C.Config) -> dict:

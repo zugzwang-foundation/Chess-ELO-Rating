@@ -31,12 +31,17 @@ def table_812_uncapped(d: int) -> Decimal:
     return layer0.expected_score(d)
 
 
-def guard_own(e_fit, r_own: int, r_opp: int):
-    """A player's expectation under the guard, from the fitted value e_fit and the two ratings that enter it.
-    Returns (expectation, binds): binds is True when the guard changed the value."""
-    fav, und, own_fav = (r_own, r_opp, True) if r_own >= r_opp else (r_opp, r_own, False)
-    if not in_region(fav, und):
+def guard_own(e_fit, r_own: int, r_opp: int, r_opp_published: int | None = None):
+    """A player's expectation under the guard, from the fitted value e_fit and the two ratings that enter it (r_opp is
+    RX_j when junior compensation applies). The favourite's "rated 2300 or more" is read on its published rating
+    (reading 4): pass r_opp_published when r_opp is a compensated rating. Returns (expectation, binds): binds is True
+    when the guard changed the value."""
+    own_fav = r_own >= r_opp
+    gap = abs(r_own - r_opp)
+    fav_published = r_own if own_fav else (r_opp if r_opp_published is None else r_opp_published)
+    if not (fav_published >= FAV_MIN and gap >= GAP_MIN):
         return e_fit, False
+    fav, und = (r_own, r_opp) if own_fav else (r_opp, r_own)
     t = table_812_uncapped(fav - und)
     if not isinstance(e_fit, Decimal):
         t = float(t)

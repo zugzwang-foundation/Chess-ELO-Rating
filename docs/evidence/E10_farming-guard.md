@@ -8,7 +8,7 @@ Status: REVIEW — evidence for the proposal (§5, §9, §12) and annex (T3, T4.
 
 - **The rule** (R17; D-0009, reading 4). Region: the favourite's published rating at least 2300 and the gap at least 400, the gap being the published difference without the colour term. There, the favourite's expectation is max(fitted value, table 8.1.2's H entry at the full difference) and the underdog's is one minus it; each player's expectation is guarded on the gap it uses. All three time controls. It lapses only when FIDE's game data calibrate the region.
 - **The sample and the months** are E2's: its sample is rebuilt with E2's own functions, imported unchanged, and each of the 21 test months (2025-01 to 2026-09) is forecast with the parameters E2 fitted on the 36 months before it. Before the guard is applied the script reproduces E2's monthly sums for Layer 0 and rung 2 and E2's calibration bins: standard largest difference 0.0e+00, bins equal; rapid largest difference 0.0e+00, bins equal; blitz largest difference 0.0e+00, bins equal.
-- **Three-outcome forecasts.** Where the guard binds, the fitted draw probability is kept and the win and loss probabilities move to the guarded expectation (E6's three-outcome split); elsewhere the forecast is rung 2's.
+- **Three-outcome forecasts.** Where the guard binds, the fitted draw probability is kept, cut where needed to 2(1 − E) − 0.002 so that the loss probability stays positive, and the win and loss probabilities move to the guarded expectation (E6's three-outcome split); elsewhere the forecast is rung 2's. Where the cut binds it raises the guard's log-loss cost.
 - **Decision rules** are E2's (annex T8.2), applied with E2's report functions; the regions use E6's month-block bootstrap (blocks of 3, 2,000 resamples, seed 20261009) and its bootstrap over the favourites (players).
 - **Data cutoff.** No broadcast file after 2026-09 is opened; games dated after 2026-09-30: 7 dropped.
 
@@ -88,14 +88,39 @@ Calibration bins of the guard's gaps, the favourite's side (bins with at least 1
 
 The official pairings of all eleven rounds, with the ratings of FIDE's October 2026 list, as recorded in the event files (`tools/events/`). No pairing falls in the guard's region, so the guard cannot change any expectation in either event: Freeze 1's rung-2 column stands for the comparison, and E3 says so.
 
-## 5 Reading
+## 5 The fitted table by level, from E2's held-out months
+
+The favourite's (higher-rated player's) residual S − E by 100-point level band, all gaps, on E2's 21 test months (`analysis/aggregates/E2_broadcast.json`, rolling bins by level), under rung 2 (the fitted table, unguarded) and Layer 0 (table 8.1.2 with the 400-point rule):
+
+| level band | standard: games, rung 2, Layer 0 | rapid: games, rung 2, Layer 0 | blitz: games, rung 2, Layer 0 |
+|---|---|---|---|
+| below 1500 | 950, -0.015, -0.017 | 2,959, +0.005, -0.012 | 652, +0.016, -0.006 |
+| 1500–1599 | 5,539, -0.000, -0.010 | 11,067, +0.012, -0.021 | 2,671, +0.021, -0.012 |
+| 1600–1699 | 10,272, -0.010, -0.024 | 17,241, +0.013, -0.028 | 4,331, +0.015, -0.029 |
+| 1700–1799 | 13,832, -0.007, -0.025 | 21,662, +0.006, -0.039 | 6,263, +0.012, -0.033 |
+| 1800–1899 | 17,721, -0.005, -0.026 | 23,758, +0.000, -0.047 | 8,605, +0.009, -0.036 |
+| 1900–1999 | 20,797, +0.003, -0.023 | 22,691, -0.001, -0.050 | 8,887, +0.009, -0.037 |
+| 2000–2099 | 23,202, -0.006, -0.037 | 20,112, -0.007, -0.063 | 8,662, +0.007, -0.041 |
+| 2100–2199 | 23,894, +0.003, -0.034 | 18,421, -0.007, -0.068 | 8,142, +0.003, -0.048 |
+| 2200–2299 | 24,122, +0.013, -0.031 | 16,321, +0.000, -0.067 | 7,190, +0.003, -0.051 |
+| 2300–2399 | 22,446, +0.030, -0.018 | 12,703, +0.007, -0.062 | 5,862, +0.027, -0.027 |
+| 2400–2499 | 16,947, +0.036, -0.013 | 7,945, +0.009, -0.058 | 4,908, +0.012, -0.046 |
+| 2500–2599 | 7,880, +0.024, -0.026 | 3,417, +0.000, -0.068 | 4,077, +0.013, -0.042 |
+| 2600–2699 | 3,322, +0.018, -0.023 | 1,196, +0.010, -0.052 | 2,418, +0.019, -0.034 |
+| 2700–2799 | 938, +0.005, -0.029 | 337, +0.016, -0.018 | 1,260, -0.001, -0.049 |
+| 2800 and above | 16, +0.038, +0.004 | — | 213, +0.028, -0.017 |
+
+At levels of 2300 or more and gaps below 400 (all games at those levels less E6's farming region), the games the guard never reaches: standard 50,722 games, rung 2 +0.0299 (per-game standard error 0.0015, which ignores clustering), Layer 0 -0.0187; rapid 24,588 games, rung 2 +0.0070 (per-game standard error 0.0022, which ignores clustering), Layer 0 -0.0604; blitz 17,718 games, rung 2 +0.0156 (per-game standard error 0.0030, which ignores clustering), Layer 0 -0.0397. At those levels the fitted table under-predicts the favourite below a 400-point gap as well as at 400 or more, by as much in standard, while table 8.1.2 over-predicts it. Level bands from 2300 with 1,000 games or more where rung 2's residual exceeds +0.01: standard 2300–2399, 2400–2499, 2500–2599, 2600–2699; rapid none; blitz 2300–2399, 2400–2499, 2500–2599, 2600–2699. E2's calibration rule pools each gap bin over all levels (annex T8.2), where the lower levels' small negative residuals offset these; a rule by level band was not pre-registered.
+
+## 6 Reading
 
 - **The guard does what R17 asks.** Where the fitted table under-predicted big favourites, the guard replaces it by today's table read in full, so a strong player who seeks out far weaker opponents loses points on average instead of gaining them, in all three time controls.
 - **Its price is calibration in its region.** Table 8.1.2 read without the cap expects more of the favourite than the favourite scores, and more than today's capped reading does for players below 2650; the guard therefore over-predicts favourites throughout its region, most in rapid, whose fitted curve is the flattest. Overall the guarded table still forecasts far better than Layer 0 in all three time controls; by E2's full stage-1 rule it passes in standard, fails in rapid, fails in blitz.
+- **What it does not reach.** At levels of 2300 or more the fitted table under-predicts favourites below a 400-point gap about as much as in the farming region in standard, and about a third as much in blitz (section 5), in many more games: a strong player who meets fields 100 to 399 points below gains under rung 2 what the guard removed above 400. The guard's region is fixed by R17; the evidence by level is for the architect, and a calibration rule by level band and gap for FIDE's data (annex T8.2).
 - **What lifts it.** FIDE's game archive, with enough games in the region for the formal test of annex T8.2 (bins of 1,000 games), which the broadcast archive cannot supply (R12).
 
-## 6 Limits
+## 7 Limits
 
 - The broadcast games are stronger and more international than the rated pool [E2]; the region's results hold for them.
-- The three-outcome forecast where the guard binds keeps the fitted draw probability, a choice for scoring only: the guard defines the expected score, not the three probabilities.
+- The three-outcome forecast where the guard binds keeps the fitted draw probability, cut where needed (section 1), a choice for scoring only: the guard defines the expected score, not the three probabilities.
 - E2's parameters for each month are used as fitted; the guard is applied after the fit and does not refit the table.
