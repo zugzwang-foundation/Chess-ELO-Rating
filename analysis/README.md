@@ -35,6 +35,9 @@ These scripts are **not the rating engine**: the engine is the package `src/laye
 | `aggregates/L1_history.json` | Its output |
 | `l1_history_report.py` | Turns the Layer 1 aggregates into `OUTPUT_L1_history.md` |
 | `OUTPUT_L1_history.md` | Its output, cited by SPEC-L1 and the evidence pages |
+| `e6_rungs_extract.py` | Needs `data/`: rungs 3 to 6 against Layer 0 on rolling held-out months, 2025-01 to 2026-09 (session ELO-4, Phase 4; decision D12): Layer 1 refitted each month on the 36 months before it, then newcomer seeds, K from certainty (R6), junior compensation (R5, R8) and the monthly adjustment (R3) scored under the decision rules of annex T8, with the paired moving-block bootstrap; and R12's pooled farming-region test from the E2 aggregates; aggregates only |
+| `aggregates/E6_rungs.json` | Its output |
+| `e6_rungs_report.py` | Applies the decision rules and writes the evidence page `docs/evidence/E6_rungs-on-history.md` |
 | `outputs.json` | The registry of scripts and outputs that check (a) reruns (`tools/README.md`) |
 
 Run: `python3 analysis/v03_calculations.py > analysis/OUTPUT_v0_3.md` and `git diff` must be empty. Scripts registered with `needs_data` read files under `data/` (never committed; `tools/README.md` says how to rebuild them); CI checks that their outputs exist and `python3 tools/checks/check_outputs.py --all` reruns them locally. Every script here is registered in `analysis/outputs.json` with the file its output must equal; check (a) of the automated check reruns them on every pull request. The v0.2 script and its output were bumped to v0.3 with `git mv`; earlier versions are in git history.
