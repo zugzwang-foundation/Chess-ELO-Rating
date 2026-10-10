@@ -7,12 +7,12 @@ input is raw data under data/ (gitignored, never committed) carry
 "needs_data": true, and scripts that run for minutes (the simulator) carry
 "slow": true; CI does not run either, so without --all it checks only that
 their committed outputs exist. Every *.py under analysis/ must be registered,
-as a script or under "modules", so that no script escapes the check. Freeze 3
-(docs/decisions/D-0011_rulings-and-freeze-3.md, part B, superseding Freeze 2 of
-D-0010): the manifest of every file the championship comparison depends on,
-computed as E13 prints it, must equal the manifest the decision records, so that
-a change to a frozen file fails this check even after E13 is regenerated.
-Python standard library only.
+as a script or under "modules", so that no script escapes the check. Freeze 3a
+(docs/decisions/D-0012_pre-results-amendments.md, amending Freeze 3 of D-0011,
+part B, which superseded Freeze 2 of D-0010): the manifest of every file the
+championship comparison depends on, computed as E13 prints it, must equal the
+manifest the decision records, so that a change to a frozen file fails this
+check even after E13 is regenerated. Python standard library only.
 """
 from __future__ import annotations
 
@@ -26,24 +26,25 @@ import sys
 from _repo import ROOT, tracked
 
 MANIFEST = ROOT / "analysis" / "outputs.json"
-FREEZE_RECORD = ROOT / "docs" / "decisions" / "D-0011_rulings-and-freeze-3.md"
+FREEZE_RECORD = ROOT / "docs" / "decisions" / "D-0012_pre-results-amendments.md"
 
 
 def freeze_check() -> int:
-    """Freeze 3: the live manifest of the frozen files (analysis/e13_us_championships_freeze3.py) against D-0011's."""
+    """Freeze 3a: the live manifest of the frozen files (analysis/e13_us_championships_freeze3a.py) against D-0012's."""
     if not FREEZE_RECORD.exists():
-        return 0
-    m = re.search(r"Freeze-3 manifest: `([0-9a-f]{64})`", FREEZE_RECORD.read_text(encoding="utf-8"))
+        print(f"FREEZE   {FREEZE_RECORD.relative_to(ROOT)} is missing")
+        return 1
+    m = re.search(r"Freeze-3a manifest: `([0-9a-f]{64})`", FREEZE_RECORD.read_text(encoding="utf-8"))
     if not m:
         print(f"FREEZE   {FREEZE_RECORD.relative_to(ROOT)} records no manifest")
         return 1
     sys.path.insert(0, str(ROOT / "analysis"))
-    import e13_us_championships_freeze3 as e13  # noqa: E402  (adds tools/ and src/ to the path itself)
-    live = e13.freeze3_manifest()
+    import e13_us_championships_freeze3a as e13a  # noqa: E402  (adds tools/ and src/ to the path itself)
+    live = e13a.freeze3a_manifest()
     if live == m.group(1):
-        print(f"OK       Freeze 3: the manifest of the {len(e13.freeze3_lines())} frozen files equals D-0011's")
+        print(f"OK       Freeze 3a: the manifest of the {len(e13a.freeze3a_lines())} frozen files equals D-0012's")
         return 0
-    print(f"FREEZE   Freeze 3 broken: the frozen files' manifest is {live}, D-0011 records {m.group(1)}; "
+    print(f"FREEZE   Freeze 3a broken: the frozen files' manifest is {live}, D-0012 records {m.group(1)}; "
           "E13 lists every frozen file and its SHA-256")
     return 1
 
