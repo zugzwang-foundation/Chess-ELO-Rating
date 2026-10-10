@@ -13,6 +13,7 @@ Staged under analysis/staging/ until Freeze 3 (D-0011, reading 1); library code,
 from __future__ import annotations
 
 import math
+import re
 from decimal import ROUND_HALF_UP, Decimal
 from functools import lru_cache
 
@@ -113,3 +114,20 @@ def ratio_printed(par: tuple, mid: float) -> Decimal:
 def needs_scaling(par: tuple) -> bool:
     """R32: no scaling when every band's printed ratio lies within 0.9-1.1."""
     return any(not (Decimal("0.9") <= ratio_printed(par, m) <= Decimal("1.1")) for m in BAND_MIDS)
+
+
+def load(text: str, chapter: str) -> dict:
+    """One time control of a v2 parameter file (the format analysis/staging/e11_table_by_level_report.py --yaml
+    writes): the printed parameters, R32's printed ratios by band midpoint and whether K is scaled, the fit window
+    and the status line."""
+    status = re.search(r"^status: (.+)$", text, re.M).group(1).strip()
+    block = re.search(rf"^{chapter}:\n((?:  .*\n?)+)", text, re.M)
+    if not block:
+        raise ValueError(f"no parameters for {chapter}")
+    b = block.group(1)
+    par = tuple(float(re.search(rf"^  {k}: {{value: (-?[\d.]+)", b, re.M).group(1)) for k in NAMES)
+    scale = {int(k): Decimal(v) for k, v in re.findall(r"(\d{4}): ([\d.]+)", re.search(r"^  k_scale: \{(.*)\}$", b, re.M).group(1))}
+    w = re.search(r'fit_window: \{from: "([\d-]+)", to: "([\d-]+)"\}', b)
+    return {"par": par, "k_scale": scale, "k_scale_applies": re.search(r"^  k_scale_applies: (\w+)$", b, re.M).group(1) == "true",
+            "draw_tail": re.search(r"^  draw_tail: (\w+)$", b, re.M).group(1) == "true", "status": status,
+            "window": f"{w.group(1)} to {w.group(2)}"}
