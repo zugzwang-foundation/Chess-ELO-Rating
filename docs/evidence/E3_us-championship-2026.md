@@ -46,6 +46,17 @@ By the operator's decision of 2026-10-09, no game of either 2026 championship is
 - U.S. Championship: 0 of 66 results recorded; pending: runs after the event ends, with the model frozen beforehand.
 - U.S. Women's Championship: 0 of 66 results recorded; pending: runs after the event ends, with the model frozen beforehand.
 
+## The farming guard (R17)
+
+Ruling R17 (`docs/decisions/D-0009_architect-rulings-elo-5.md`) guards rung 2 where the gap is 400 or more and the favourite is rated 2300 or more (`src/layer2/guard.py`; evidence in E10). Checked against both fields with their official pairings and the ratings of the October 2026 list:
+
+| event | games | largest gap | pairings in the guard's region |
+|---|---|---|---|
+| U.S. Championship | 66 | 165 | 0 |
+| U.S. Women's Championship | 66 | 250 | 0 |
+
+No pairing falls in the guard's region, so the guard cannot change any expectation in either event: Freeze 1's rung-2 column, computed by `tools/compare_event.py`, stands for the comparison.
+
 Frozen beforehand: the model and the code that will run, fitted and written before the event. The table's parameters were fitted on games up to September 2026. SHA-256 of each file:
 
 | File | SHA-256 |

@@ -26,7 +26,9 @@
     {"script": "analysis/e7_cross_border_extract.py", "args": [], "output": "analysis/aggregates/E7_cross_border.json", "needs_data": true},
     {"script": "analysis/e7_cross_border_report.py", "args": [], "output": "docs/evidence/E7_cross-border.md", "needs_data": false},
     {"script": "analysis/e8_k_activity_extract.py", "args": [], "output": "analysis/aggregates/E8_k_activity.json", "needs_data": true},
-    {"script": "analysis/e8_k_activity_report.py", "args": [], "output": "docs/evidence/E8_k-from-activity.md", "needs_data": false}
+    {"script": "analysis/e8_k_activity_report.py", "args": [], "output": "docs/evidence/E8_k-from-activity.md", "needs_data": false},
+    {"script": "analysis/e10_guard_extract.py", "args": [], "output": "analysis/aggregates/E10_guard.json", "needs_data": true},
+    {"script": "analysis/e10_guard_report.py", "args": [], "output": "docs/evidence/E10_farming-guard.md", "needs_data": false}
   ],
   "modules": ["analysis/fide_panel.py", "analysis/l1_common.py"]
 }
