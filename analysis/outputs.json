@@ -22,7 +22,9 @@
     {"script": "analysis/l1_history_extract.py", "args": [], "output": "analysis/aggregates/L1_history.json", "needs_data": true},
     {"script": "analysis/l1_history_report.py", "args": [], "output": "analysis/OUTPUT_L1_history.md", "needs_data": false},
     {"script": "analysis/e6_rungs_extract.py", "args": [], "output": "analysis/aggregates/E6_rungs.json", "needs_data": true},
-    {"script": "analysis/e6_rungs_report.py", "args": [], "output": "docs/evidence/E6_rungs-on-history.md", "needs_data": false}
+    {"script": "analysis/e6_rungs_report.py", "args": [], "output": "docs/evidence/E6_rungs-on-history.md", "needs_data": false},
+    {"script": "analysis/e7_cross_border_extract.py", "args": [], "output": "analysis/aggregates/E7_cross_border.json", "needs_data": true},
+    {"script": "analysis/e7_cross_border_report.py", "args": [], "output": "docs/evidence/E7_cross-border.md", "needs_data": false}
   ],
   "modules": ["analysis/fide_panel.py", "analysis/l1_common.py"]
 }

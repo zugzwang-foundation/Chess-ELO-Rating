@@ -1,0 +1,356 @@
+{
+ "2023-2026": {
+  "cross_border_games": 173890,
+  "federations_with_1000": 69,
+  "federations_with_min_games": 114,
+  "player_games_profile": {
+   "median": 2248.0,
+   "n": 347780,
+   "share": {
+    "1600-1999": 0.2183,
+    "2000-2199": 0.1952,
+    "2200-2399": 0.2659,
+    "2400+": 0.2899,
+    "<1600": 0.0308
+   }
+  },
+  "scale_400": {
+   "base_index_vs_recursive_sign_agreement": 0.8947,
+   "converged": true,
+   "direction_test": {
+    "agree": 21,
+    "agree_feds": [
+     "AUT",
+     "AZE",
+     "BLR",
+     "CHN",
+     "CRO",
+     "ECU",
+     "ESP",
+     "GER",
+     "IND",
+     "IRI",
+     "KAZ",
+     "KGZ",
+     "MAS",
+     "NED",
+     "RUS",
+     "SGP",
+     "SRI",
+     "SUI",
+     "TUR",
+     "UZB",
+     "VIE"
+    ],
+    "binomial_p_one_sided": 1e-05,
+    "disagree_feds": [
+     "PER"
+    ],
+    "named_and_estimable": 22,
+    "not_estimable": []
+   },
+   "games_named_feds": {
+    "AUT": 4852,
+    "AZE": 4569,
+    "BLR": 734,
+    "CHN": 5770,
+    "CRO": 3869,
+    "ECU": 736,
+    "ESP": 10133,
+    "GER": 21590,
+    "IND": 22871,
+    "IRI": 2767,
+    "KAZ": 5455,
+    "KGZ": 983,
+    "MAS": 1236,
+    "NED": 7376,
+    "PER": 2225,
+    "RUS": 2811,
+    "SGP": 1454,
+    "SRI": 1034,
+    "SUI": 5354,
+    "TUR": 6611,
+    "UZB": 3876,
+    "VIE": 1862
+   },
+   "iterations": 128,
+   "offsets_distribution": {
+    "max": 88.7,
+    "median": -14.4,
+    "min": -85.4,
+    "n": 114,
+    "p10": -54.9,
+    "p90": 53.9,
+    "sd": 39.9
+   }
+  },
+  "scale_459": {
+   "base_index_vs_recursive_sign_agreement": 0.8947,
+   "converged": true,
+   "direction_test": {
+    "agree": 21,
+    "agree_feds": [
+     "AUT",
+     "AZE",
+     "BLR",
+     "CHN",
+     "CRO",
+     "ECU",
+     "ESP",
+     "GER",
+     "IND",
+     "IRI",
+     "KAZ",
+     "KGZ",
+     "MAS",
+     "NED",
+     "RUS",
+     "SGP",
+     "SRI",
+     "SUI",
+     "TUR",
+     "UZB",
+     "VIE"
+    ],
+    "binomial_p_one_sided": 1e-05,
+    "disagree_feds": [
+     "PER"
+    ],
+    "named_and_estimable": 22,
+    "not_estimable": []
+   },
+   "games_named_feds": {
+    "AUT": 4852,
+    "AZE": 4569,
+    "BLR": 734,
+    "CHN": 5770,
+    "CRO": 3869,
+    "ECU": 736,
+    "ESP": 10133,
+    "GER": 21590,
+    "IND": 22871,
+    "IRI": 2767,
+    "KAZ": 5455,
+    "KGZ": 983,
+    "MAS": 1236,
+    "NED": 7376,
+    "PER": 2225,
+    "RUS": 2811,
+    "SGP": 1454,
+    "SRI": 1034,
+    "SUI": 5354,
+    "TUR": 6611,
+    "UZB": 3876,
+    "VIE": 1862
+   },
+   "iterations": 132,
+   "offsets_distribution": {
+    "max": 86.7,
+    "median": -16.0,
+    "min": -106.6,
+    "n": 114,
+    "p10": -62.2,
+    "p90": 54.3,
+    "sd": 42.6
+   }
+  },
+  "share_of_games_in_estimated_feds": 0.9832
+ },
+ "2025": {
+  "cross_border_games": 47213,
+  "federations_with_1000": 29,
+  "federations_with_min_games": 63,
+  "player_games_profile": {
+   "median": 2257.0,
+   "n": 94426,
+   "share": {
+    "1600-1999": 0.2013,
+    "2000-2199": 0.2057,
+    "2200-2399": 0.274,
+    "2400+": 0.2948,
+    "<1600": 0.0243
+   }
+  },
+  "scale_400": {
+   "base_index_vs_recursive_sign_agreement": 0.8889,
+   "converged": true,
+   "direction_test": {
+    "agree": 17,
+    "agree_feds": [
+     "AUT",
+     "AZE",
+     "CHN",
+     "CRO",
+     "ESP",
+     "GER",
+     "IND",
+     "IRI",
+     "KAZ",
+     "MAS",
+     "NED",
+     "RUS",
+     "SGP",
+     "SUI",
+     "TUR",
+     "UZB",
+     "VIE"
+    ],
+    "binomial_p_one_sided": 7e-05,
+    "disagree_feds": [
+     "PER"
+    ],
+    "named_and_estimable": 18,
+    "not_estimable": [
+     "BLR",
+     "ECU",
+     "KGZ",
+     "SRI"
+    ]
+   },
+   "games_named_feds": {
+    "AUT": 1541,
+    "AZE": 890,
+    "BLR": 221,
+    "CHN": 1942,
+    "CRO": 1109,
+    "ECU": 159,
+    "ESP": 2539,
+    "GER": 6838,
+    "IND": 6466,
+    "IRI": 623,
+    "KAZ": 1711,
+    "KGZ": 197,
+    "MAS": 588,
+    "NED": 2505,
+    "PER": 603,
+    "RUS": 851,
+    "SGP": 521,
+    "SRI": 252,
+    "SUI": 1781,
+    "TUR": 1546,
+    "UZB": 1125,
+    "VIE": 699
+   },
+   "iterations": 9,
+   "offsets_distribution": {
+    "max": 69.6,
+    "median": -4.7,
+    "min": -78.9,
+    "n": 63,
+    "p10": -38.8,
+    "p90": 48.1,
+    "sd": 35.2
+   }
+  },
+  "scale_459": {
+   "base_index_vs_recursive_sign_agreement": 0.9048,
+   "converged": true,
+   "direction_test": {
+    "agree": 17,
+    "agree_feds": [
+     "AUT",
+     "AZE",
+     "CHN",
+     "CRO",
+     "ESP",
+     "GER",
+     "IND",
+     "IRI",
+     "KAZ",
+     "MAS",
+     "NED",
+     "RUS",
+     "SGP",
+     "SUI",
+     "TUR",
+     "UZB",
+     "VIE"
+    ],
+    "binomial_p_one_sided": 7e-05,
+    "disagree_feds": [
+     "PER"
+    ],
+    "named_and_estimable": 18,
+    "not_estimable": [
+     "BLR",
+     "ECU",
+     "KGZ",
+     "SRI"
+    ]
+   },
+   "games_named_feds": {
+    "AUT": 1541,
+    "AZE": 890,
+    "BLR": 221,
+    "CHN": 1942,
+    "CRO": 1109,
+    "ECU": 159,
+    "ESP": 2539,
+    "GER": 6838,
+    "IND": 6466,
+    "IRI": 623,
+    "KAZ": 1711,
+    "KGZ": 197,
+    "MAS": 588,
+    "NED": 2505,
+    "PER": 603,
+    "RUS": 851,
+    "SGP": 521,
+    "SRI": 252,
+    "SUI": 1781,
+    "TUR": 1546,
+    "UZB": 1125,
+    "VIE": 699
+   },
+   "iterations": 14,
+   "offsets_distribution": {
+    "max": 65.8,
+    "median": -7.6,
+    "min": -86.6,
+    "n": 63,
+    "p10": -41.3,
+    "p90": 51.8,
+    "sd": 37.5
+   }
+  },
+  "share_of_games_in_estimated_feds": 0.9744
+ },
+ "pool_2025_profile": {
+  "median": 1712.0,
+  "n": 210200,
+  "share": {
+   "1600-1999": 0.5574,
+   "2000-2199": 0.0915,
+   "2200-2399": 0.0309,
+   "2400+": 0.0081,
+   "<1600": 0.3121
+  }
+ },
+ "sample": {
+  "broadcast": {
+   "cutoff": "2026-09-30",
+   "dropped_after_cutoff": 7,
+   "duplicates_removed": 2072,
+   "raw_games": 1060782
+  },
+  "cross_border_by_year": {
+   "2022": 43,
+   "2023": 13072,
+   "2024": 71412,
+   "2025": 47213,
+   "2026": 42193
+  },
+  "domestic_by_year": {
+   "2022": 34,
+   "2023": 7355,
+   "2024": 68943,
+   "2025": 50829,
+   "2026": 51426
+  },
+  "skipped": {
+   "not_rated_on_list_in_force": 25265,
+   "r11_batch": 1511
+  },
+  "standard_games": 352520
+ }
+}

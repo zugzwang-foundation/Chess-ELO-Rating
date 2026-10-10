@@ -10,7 +10,7 @@ The workflow `.github/workflows/check.yml` runs on every pull request to `main`;
 |---|---|---|
 | (a) | `python3 tools/checks/check_outputs.py` | every script registered in `analysis/outputs.json` reproduces its committed output byte for byte; every `analysis/*.py` is registered. Add `--all` to also rerun the scripts that read raw data under `data/` |
 | (b) | `python3 -m pytest -q` | the test suite under `tests/`, configured in `pyproject.toml`: the SPEC-L0 acceptance tests A-1 to A-10 against the engine in `src/layer0/` |
-| (c) | `python3 tools/checks/check_refs.py` | relative links and repository paths in code spans exist; `[R n]`, `[V k]`, `[VT k]` and `[T n]` references resolve against the research report, the two verification sweeps and the current technical annex |
+| (c) | `python3 tools/checks/check_refs.py` | relative links and repository paths in code spans exist; `[R n]`, `[V k]`, `[VT k]`, `[VP k]`, `[E n]` and `[T n]` references resolve against the research report, the three verification sweeps, the evidence reports and the current technical annex |
 | (d) | `python3 tools/checks/check_wordcount.py` | the body of the current proposal is at most 4,500 words by ELO-2's strict count, and the current brief at most 900 words (D-0005) |
 
 Python standard library only (pytest for (b)). Python 3.12 in CI.
