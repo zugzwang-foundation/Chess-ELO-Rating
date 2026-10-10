@@ -25,12 +25,18 @@ Python standard library only (pytest for (b)). Python 3.12 in CI.
 | `tools/events/us_championship_2026.json` | 2026 U.S. Championship, 9–21 October 2026 |
 | `tools/events/us_womens_championship_2026.json` | 2026 U.S. Women's Championship, 9–21 October 2026 |
 
-**Run once, after the event ends** (the operator's decision of 2026-10-09; it replaces the per-round rerun of the ELO-3 brief). The model is frozen beforehand: `docs/evidence/E3_us-championship-2026.md` prints the SHA-256 of the parameter file, `tools/compare_event.py` and `src/layer0/`, and check (a) fails if any of them changes. After the last round, read each round's results from the official page (https://saintlouischessclub.org/event/2026-us-chess-championships/) and enter them board by board (`1-0`, `1/2-1/2`, `0-1`), one command per round, using `tools/events/us_womens_championship_2026.json` for boards 7–12. Then regenerate the page once; an event's table appears only when all its games have results:
+## compare_pilot.py — rung 2 with the guard and, labelled PILOT, rung 5
+
+`tools/compare_pilot.py` (Freeze 2, `docs/decisions/D-0010_freeze-2.md`) reads the same event files and prints, per player, (b) the change under rung 2 with R17's guard (`src/layer2/guard.py`) and today's K, which equals `tools/compare_event.py`'s column (b) wherever the guard does not bind, and (p), labelled PILOT, the same with rung 5: an eligible junior's opponents who are not eligible use RX_j = R_j + c_j, the juniors' own expectations published ratings (R8). The eligibility flags and c_j are frozen in `params/rung5_us2026.json`, written by `analysis/us26_rung5_extract.py` from a Layer 1 fit on games to September 2026. `tests/test_compare_pilot.py` checks it against the frozen tool.
+
+**Run once, after the event ends** (the operator's decision of 2026-10-09; it replaces the per-round rerun of the ELO-3 brief). The model is frozen beforehand: `docs/evidence/E3_us-championship-2026.md` prints the SHA-256 of Freeze 1's files and of every file Freeze 2 froze, and check (a) fails if any of them changes, also after the page is regenerated, because it compares the files' manifest with the one D-0010 records. A game not played is entered as `-` and is not counted (§5.1 of the rating regulations). After the last round, read each round's results from the official page (https://saintlouischessclub.org/event/2026-us-chess-championships/) and enter them board by board (`1-0`, `1/2-1/2`, `0-1`), one command per round, using `tools/events/us_womens_championship_2026.json` for boards 7–12. Then regenerate the page once; an event's table appears only when all its games have results:
 
 ```
 python3 tools/set_results.py tools/events/us_championship_2026.json ROUND R1 R2 R3 R4 R5 R6
 python3 analysis/e3_us_championships.py > docs/evidence/E3_us-championship-2026.md
 ```
+
+The regenerated page prints the main table (columns (a) and (b)), the PILOT table and the values of the blanks of the proposal's §10, as D-0010 fixes them.
 
 ## data/ — downloads and conversions
 

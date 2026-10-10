@@ -1,0 +1,43 @@
+# D-0010 — Freeze 2: the comparison on the 2026 U.S. Championships, pre-registered
+
+Date: 2026-10-10 (UTC; recorded at about 13:55) · Session: ELO-5, Phase 6 · Status: DECIDED (ruling R23 of `docs/decisions/D-0009_architect-rulings-elo-5.md`: Freeze 2 at the end of this session, not on 20 October); recorded by the executor before any result of either event was read
+
+## Context
+
+The 2026 U.S. Championship and U.S. Women's Championship (Saint Louis, 7 to 23 October 2026; two round robins of 12 players, 66 games each, rounds 1 to 11 on 9 to 21 October, a playoff on 22 October if necessary) are rated on FIDE's November 2026 standard list [E3]. By the operator's decision of 2026-10-09, no game of either event is processed while it runs; the comparison runs once, after the last round.
+
+Freeze 1 (sessions ELO-3 and ELO-4) fixed the comparison tool `tools/compare_event.py`, the fitted table `params/table_fit_2026-10.yaml` and the Layer 0 engine `src/layer0/`, with their SHA-256 printed in E3; it was committed at 2026-10-09T19:59:46Z (commit cb192ba, "Phase 5 — event comparison tool, 2025 check, 2026 U.S. Championships"), the day of the first round, whose start time is NOT VERIFIED (the official page was read for dates only). Since then the architect ruled (D-0009) that the ladder shows three verdicts (R22): RECOMMENDED NOW for rungs 1 and 2 with R17's farming guard, PILOT for rung 5, TEST ON FIDE DATA for the rest; and that Freeze 2 is made now (R23). The v1.0 red team (`docs/review/REDTEAM_v1_0.md`, V10-QC-1) asked that the method be fixed tightly enough that no number can be chosen after the fact. This record fixes exactly what will be computed after the event, and freezes every file that produces a number in the comparison or in the proposal.
+
+## Decision: what will be computed after the event, and nothing else
+
+1. **Results.** The results of rounds 1 to 11 of each event (132 games), entered once after the last round from the organiser's official page with `tools/set_results.py`, board by board, which writes only the `result` fields and the `results_read` log of `tools/events/us_championship_2026.json` and `tools/events/us_womens_championship_2026.json`. Playoff games are not part of the comparison. A game not played is entered as `-` and is not counted: "Whether these occur because of forfeiture or any other reason, they are not counted" (§5.1 [V 1]; SPEC-L0 R-05).
+2. **The main table: RECOMMENDED NOW (rungs 1 and 2).** `tools/compare_event.py` (Freeze 1), with `params/table_fit_2026-10.yaml`, on each event file: per player, (a) the event's rating change under FIDE's rules, computed by Layer 0 (`src/layer0/`), and (b) the change under rung 2 with the same K, each unrounded and rounded once, and (b) − (a). No pairing of either field lies in the region of R17's guard (largest gaps 165 and 250 on the October 2026 list [E3]), so column (b) is rung 2 with its guard; `tools/compare_pilot.py`'s column (b), which applies the guard, must equal it, and E3 prints whether it does.
+3. **The PILOT table: rung 5, labelled PILOT and printed separately, never in the main table.** `tools/compare_pilot.py` with `params/rung5_us2026.json`: per player, (b) rung 2 with the guard and today's K reduced under K × n ≤ 700; (p) the same with rung 5, an eligible junior's opponent who is not eligible using RX_j = R_j + c_j in the gap of the expectation, the guard read on that gap with the favourite's published rating (D-0009, reading 4), the junior's own expectation on published ratings, no compensation between two eligible juniors (R8), the level band that of the two published ratings; and (p) − (b), unrounded and rounded once. The eligibility flags and c_j are those of `params/rung5_us2026.json`, computed by `analysis/us26_rung5_extract.py` with E6's functions from one Layer 1 fit (SPEC-L1, c_θ 2.0, ω 4.0) on broadcast games of 2023-10 to 2026-09 for the October 2026 list: in the U.S. Championship two juniors are eligible, with c_j 89 and 60; in the U.S. Women's Championship three, with c_j 5, 0 and 0, and a fourth junior fails the information share [E3]. Two runs of the extract gave the same file byte for byte.
+4. **The blanks of the proposal's §10**, each printed by `analysis/e3_us_championships.py` from the two tables, for each event:
+   - `{{US26_*_GAMES}}`: the games counted;
+   - `{{US26_*_MEAN_ABS_DIFF}}`: the mean over the 12 players of |(b) − (a)|, unrounded, to two decimals;
+   - `{{US26_*_MAX_DIFF}}`: the (b) − (a) of largest absolute value, signed, unrounded, to two decimals;
+   - `{{US26_*_N_DIFFER}}`: the number of players whose rounded (b) differs from their rounded (a);
+   - `{{US26_*_R5_GAMES}}`: the games in which a compensated junior (c_j > 0) met an opponent who is not eligible;
+   - `{{US26_*_R5_DIFF}}`: those opponents' total change under (p) minus under (b), unrounded, to two decimals;
+   - `{{US26_*_L0_MATCH}}`: the number of players whose column (a) equals, to 0.01, FIDE's published calculation of that player's change in that event (ratings.fide.com), read after the 1 November 2026 list and entered as a fixture checked by a test, as for 2025 (`docs/specs/SPEC-COMPARE_v1_0.md` §4); if FIDE rates either event on a later list, the blank waits for that list;
+   - `{{US26_READING}}`: one paragraph, written after the event, that restates the blanks in words and says what they show and nothing they do not; it adds no number that E3 does not print, and it says that 132 games illustrate the rungs and cannot test them.
+5. **Not computed on the event**: rungs 3, 4, 6 and 7, and any other column, statistic, subset or event. A mismatch between column (a) and FIDE's published calculation is reported as a finding about Layer 0 or FIDE's data (SPEC-L0 §8), never a reason to edit column (a).
+
+## The data cutoff, and the event's games
+
+Every fit behind a number in the comparison uses games up to 30 September 2026 only: the table's parameters (broadcast games to 2026-09; Freeze 1) and rung 5's Layer 1 fit (2023-10 to 2026-09). The cutoff is enforced in code: `src/layer1/data.py` refuses a broadcast file later than 2026-09 and drops games dated after 30 September 2026, and `src/layer1/fit.py` refuses any such game. The October 2026 list supplies the ratings and K in force at the start of both events (SPEC-L0 R-11a); it holds no game of either event, which are rated on a later list. No game of either 2026 championship has been read for this comparison or used in any fit: the event files hold the pairings and the October ratings and K, and every result is empty.
+
+## The freeze
+
+`analysis/e3_us_championships.py` prints in E3 the SHA-256 of every tracked file that produces a number in the comparison or in the proposal: the parameter files (`params/`); the engine, model and simulator code (`src/`); the tools (`tools/`, its documentation aside, with `tools/events/us_championship_2025.json` whole and the two 2026 event files with their results, results log and results' source removed, so that entering the results changes nothing); and the analysis scripts with the aggregates and outputs they produce (`analysis/*.py`, `analysis/aggregates/`, `analysis/OUTPUT_*.md`), among them the Layer 1 history fit and the simulator's outputs. Freeze 1's files are among them, with their Freeze 1 hashes. E3 also prints the manifest, the SHA-256 of the lines "hash  file", one per frozen file, in the order E3 prints them. At this record:
+
+Freeze-2 manifest: `64a60a37dccf7cb75a81bef356180c21d88d9b9c87ee5111b087d48e2bb0e632` (89 files)
+
+Check (a) (`tools/checks/check_outputs.py`) reruns E3's script on every pull request and compares the page with the committed one, and compares the live manifest with the one recorded above; a change to any frozen file therefore fails the check even after E3 is regenerated, until a new decision record supersedes this one. The commit that merges this record is tagged `freeze-2`. Raw data under `data/` (FIDE's lists and the broadcast archive) is never committed and is outside the freeze; every aggregate derived from it is inside. Prose may still change until submission; numbers may not.
+
+## Consequences
+
+- After the last round the operator enters the results, regenerates E3 once and fills the blanks of the proposal's §10 from it; after the list that rates the events, `{{US26_*_L0_MATCH}}` is filled from FIDE's published calculations.
+- Freeze 1 stands: its files are part of Freeze 2's list and keep their Freeze 1 hashes.
+- No change to `src/layer0/` is made before the comparison and the 1 November check (R21). Any change to a frozen file before the comparison runs is a new decision, recorded in a new decision record that says what changed and why, and updates the check.

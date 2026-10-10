@@ -2,17 +2,23 @@
 """E3: the 2026 U.S. Championships under FIDE's rules and under rung 2; prints docs/evidence/E3_us-championship-2026.md.
 
 Runs tools/compare_event.py (docs/specs/SPEC-COMPARE_v1_0.md) on the committed event
-files (tools/events/) with params/table_fit_2026-10.yaml, and prints the evidence page.
+files (tools/events/) with params/table_fit_2026-10.yaml, and, labelled PILOT,
+tools/compare_pilot.py with params/rung5_us2026.json, and prints the evidence page.
 By the operator's decision of 2026-10-09 the 2026 comparison runs once, after the event
-ends, with the model frozen beforehand: an event's table is printed only when all its
-games have results, and the page prints fingerprints of the frozen files, so that check
-(a) fails if any of them changes before the run. Python standard library only.
+ends, with the model frozen beforehand: an event's tables are printed only when all its
+games have results. The page prints the SHA-256 of Freeze 1's files and of Freeze 2's
+(docs/decisions/D-0010_freeze-2.md: every tracked file that produces a number in the
+comparison or the proposal, and the event files without their results), so that check
+(a) fails if any of them changes before the run; and, once both events are complete, the
+values of the blanks of the proposal's §10. Python standard library only.
 
 Usage: python3 analysis/e3_us_championships.py > docs/evidence/E3_us-championship-2026.md
 """
 from __future__ import annotations
 
 import hashlib
+import json
+import subprocess
 import sys
 from collections import Counter
 from itertools import combinations
@@ -22,6 +28,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(ROOT / "src"))
 import compare_event  # noqa: E402
+import compare_pilot  # noqa: E402
 from layer2 import guard  # noqa: E402
 
 OPEN, WOMEN, Y2025 = ("tools/events/us_championship_2026.json", "tools/events/us_womens_championship_2026.json",
@@ -30,6 +37,62 @@ PAGE = "https://saintlouischessclub.org/event/2026-us-chess-championships/"
 FROZEN = ["params/table_fit_2026-10.yaml", "tools/compare_event.py", "src/layer0/__init__.py", "src/layer0/lists.py",
           "src/layer0/records.py", "src/layer0/rules.py", "src/layer0/tables.py"]
 PENDING = "pending: runs after the event ends, with the model frozen beforehand"
+RUNG5 = "params/rung5_us2026.json"
+FREEZE_RECORD = "docs/decisions/D-0010_freeze-2.md"
+
+
+def sha(path: str) -> str:
+    return hashlib.sha256((ROOT / path).read_bytes()).hexdigest()
+
+
+def freeze2_files() -> list[str]:
+    """Freeze 2 (D-0010): every tracked file that produces a number in the comparison or the proposal, sorted: the
+    parameter files, src/, tools/ (its documentation aside; the two 2026 event files are hashed without their results,
+    below), and the analysis scripts with the aggregates and outputs they produce (analysis/*.py, analysis/aggregates/,
+    analysis/OUTPUT_*.md)."""
+    out = subprocess.run(["git", "ls-files", "-z", "--", "params", "src", "tools", "analysis"], cwd=ROOT,
+                         capture_output=True, check=True).stdout.decode("utf-8").split("\0")
+    keep = []
+    for f in out:
+        if not f or "__pycache__" in f or f in (OPEN, WOMEN):
+            continue
+        if f.startswith("analysis/"):
+            top = f.count("/") == 1
+            if f.startswith("analysis/aggregates/") or (top and f.endswith(".py")) or (top and f.startswith("analysis/OUTPUT_")):
+                keep.append(f)
+            continue
+        if not f.endswith(".md"):
+            keep.append(f)
+    return sorted(keep)
+
+
+def freeze2_lines() -> list[tuple[str, str]]:
+    """(file, SHA-256) for every frozen file, and the 2026 event files with their results removed."""
+    return [(f, sha(f)) for f in freeze2_files()] + [(f + " (without results)", event_sha_without_results(f))
+                                                      for f in (OPEN, WOMEN)]
+
+
+def freeze2_manifest(lines: list[tuple[str, str]] | None = None) -> str:
+    """SHA-256 of the lines "hash  file", one per frozen file: the value D-0010 records."""
+    lines = freeze2_lines() if lines is None else lines
+    return hashlib.sha256("".join(f"{h}  {f}\n" for f, h in lines).encode("utf-8")).hexdigest()
+
+
+def event_sha_without_results(path: str) -> str:
+    """The event file's SHA-256 with every result, the results log and the results' source removed: the pairings,
+    the ratings and the K are frozen; entering the results after the event leaves this value unchanged."""
+    ev = json.loads((ROOT / path).read_text(encoding="utf-8"))
+    ev.pop("results_read", None)
+    ev["event"].pop("results_source", None)
+    for g in ev["games"]:
+        g["result"] = None
+    return hashlib.sha256(json.dumps(ev, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
+
+
+def pilot(path: str) -> compare_pilot.Pilot:
+    event = compare_event.load_event(path)
+    params = compare_event.load_params(compare_event.DEFAULT_PARAMS, event["event"]["chapter"])
+    return compare_pilot.compare(event, params, compare_pilot.load_rung5(RUNG5, path), RUNG5)
 
 
 def is_round_robin(event: dict) -> bool:
@@ -61,10 +124,11 @@ def main() -> int:
     w_md, w = table(WOMEN)
     y_md, y = table(Y2025)
     print("# E3 — The 2026 U.S. Championships under FIDE's rules and under rung 2\n")
-    print("Status: DRAFT — not for publication; the event is in progress (session ELO-3, Phase 5.3). Generated by "
-          "`analysis/e3_us_championships.py` with `tools/compare_event.py` (`docs/specs/SPEC-COMPARE_v1_0.md`) from "
-          "the event files in `tools/events/` and `params/table_fit_2026-10.yaml`; do not edit by hand. Licence: CC BY "
-          "4.0 (`docs/LICENSE-docs.md`).\n")
+    print("Status: DRAFT — not for publication; the event is in progress (session ELO-3, Phase 5.3; Freeze 2 recorded in "
+          "session ELO-5, Phase 6, `docs/decisions/D-0010_freeze-2.md`). Generated by `analysis/e3_us_championships.py` "
+          "with `tools/compare_event.py` (`docs/specs/SPEC-COMPARE_v1_0.md`) and `tools/compare_pilot.py` from the event "
+          "files in `tools/events/`, `params/table_fit_2026-10.yaml` and `params/rung5_us2026.json`; do not edit by hand. "
+          "Licence: CC BY 4.0 (`docs/LICENSE-docs.md`).\n")
     print("## The event, confirmed\n")
     print(f"- Source: the Saint Louis Chess Club's official event page ({PAGE}), read on 2026-10-09 at about 19:53 UTC "
           "through a web reader; a direct download was refused with HTTP 403. Published sources disagreed on the "
@@ -98,6 +162,50 @@ def main() -> int:
             print(md)
         else:
             print(f"- {name}: {done} of {len(c.event['games'])} results recorded; {PENDING}.")
+    po, pw = pilot(OPEN), pilot(WOMEN)
+    complete = all(status(c.event)[0] == len(c.event["games"]) for c in (o, w))
+    print("\n## PILOT: rung 5 on top of rung 2 with its guard (labelled; not part of the main table)\n")
+    print("Rung 5 is a PILOT rung (R22): it is printed here, separately, and never in the main table. Its inputs were "
+          f"frozen before any result was read (`{RUNG5}`, from `analysis/us26_rung5_extract.py`: a Layer 1 fit on "
+          "broadcast games of 2023-10 to 2026-09 for the October 2026 list, annex T4.6's gates and R5's information share): "
+          "per player the eligibility flag and the compensation c_j only.\n")
+    print("| event | players aged 19 or less | eligible | with c_j > 0 | c_j of the eligible |")
+    print("|---|---|---|---|---|")
+    r5 = json.loads((ROOT / RUNG5).read_text(encoding="utf-8"))
+    for name, path in (("U.S. Championship", OPEN), ("U.S. Women's Championship", WOMEN)):
+        rows = [r for r in r5["players"] if r["event"] == path]
+        el = [r for r in rows if r["eligible"]]
+        print(f"| {name} | {sum(r['age_at_most_19'] for r in rows)} | {len(el)} | {sum(r['c_j'] > 0 for r in el)} | "
+              f"{', '.join(str(r['c_j']) for r in sorted(el, key=lambda r: -r['c_j'])) or '—'} |")
+    print("")
+    for name, c, p in (("U.S. Championship", o, po), ("U.S. Women's Championship", w, pw)):
+        if status(c.event)[0] == len(c.event["games"]):
+            same = all(a["b"] == b["b"] for a, b in zip(c.rows, p.rows))
+            print(f"### {name}, PILOT\n")
+            print(compare_pilot.to_markdown(p))
+            print(f"Column (b) here equals the main table's column (b) for every player: {same}.\n")
+        else:
+            print(f"- {name}, PILOT: {PENDING}.")
+    print("\n## The blanks of the proposal's §10 (D-0010)\n")
+    if not complete:
+        print(f"**{PENDING}.** Each blank is computed here, from the two tables above, once both events are complete; "
+              "`{{US26_*_L0_MATCH}}` after the 1 November 2026 list, from FIDE's published calculations, and "
+              "`{{US26_READING}}` by hand (D-0010).\n")
+    else:
+        print("| blank | U.S. Championship | U.S. Women's Championship |")
+        print("|---|---|---|")
+        vals = {}
+        for key, c, p in (("OPEN", o, po), ("WOMEN", w, pw)):
+            diffs = [r["difference"] for r in c.rows]
+            vals[key] = {"GAMES": f"{c.counted}",
+                         "MEAN_ABS_DIFF": f"{sum(abs(d) for d in diffs) / len(diffs):.2f}",
+                         "MAX_DIFF": f"{max(diffs, key=abs):+.2f}",
+                         "N_DIFFER": f"{sum(1 for r in c.rows if r['b_rounded'] != r['a_rounded'])} of {len(c.rows)}",
+                         "R5_GAMES": f"{p.compensated_games}", "R5_DIFF": f"{p.opponents_diff:+.2f}"}
+        for k in ("GAMES", "MEAN_ABS_DIFF", "MAX_DIFF", "N_DIFFER", "R5_GAMES", "R5_DIFF"):
+            print(f"| `{{{{US26_*_{k}}}}}` | {vals['OPEN'][k]} | {vals['WOMEN'][k]} |")
+        print("\n`{{US26_*_L0_MATCH}}` waits for FIDE's published calculations after the 1 November 2026 list; "
+              "`{{US26_READING}}` is written by hand (D-0010).\n")
     print("\n## The farming guard (R17)\n")
     print("Ruling R17 (`docs/decisions/D-0009_architect-rulings-elo-5.md`) guards rung 2 where the gap is 400 or more and the "
           "favourite is rated 2300 or more (`src/layer2/guard.py`; evidence in E10). Checked against both fields with their "
@@ -124,6 +232,25 @@ def main() -> int:
         print(f"| `{f}` | `{hashlib.sha256((ROOT / f).read_bytes()).hexdigest()}` |")
     print("\nThis page is rerun by check (a) on every pull request. A change to any of these files changes the page and "
           "fails the check until the page is regenerated, so an unfreezing would be visible.\n")
+    print("## Freeze 2 (D-0010)\n")
+    print("Recorded in `docs/decisions/D-0010_freeze-2.md` before any result of either event was read, as ruling R23 "
+          "orders, and tagged `freeze-2`. The decision states what will be computed after the event: the main table above "
+          "(rungs 1 and 2 with R17's guard, RECOMMENDED NOW), the PILOT table (rung 5, labelled), and the blanks of the "
+          "proposal's §10; nothing else. Every fit behind these numbers uses games up to 30 September 2026, a cutoff "
+          "enforced in code (`src/layer1/data.py`, `src/layer1/fit.py`); no game of either event was read. SHA-256 of "
+          "every tracked file that produces a number in the comparison or in the proposal (Freeze 1's files among them), "
+          "and of the two event files with their results removed:\n")
+    print("| File | SHA-256 |")
+    print("|---|---|")
+    lines = freeze2_lines()
+    for f, h in lines:
+        print(f"| `{f.replace(' (without results)', '')}`{' (without results)' if f.endswith('(without results)') else ''} | `{h}` |")
+    manifest = freeze2_manifest(lines)
+    print(f"\nManifest (SHA-256 of the {len(lines)} lines \"hash  file\" above): `{manifest}`.\n")
+    print("Check (a) reruns this page on every pull request, so a change to any of these files, or to the pairings, "
+          "ratings or K of either event file, changes the page; and it compares this manifest with the one D-0010 "
+          "records, so the check keeps failing even if the page is regenerated, until a new decision record supersedes "
+          "D-0010. Entering the results after the event changes no value here.\n")
     print("## Reminder\n")
     print("FIDE's official changes for both events will appear on the 1 November 2026 standard list. Layer 0, column "
           "(a), must match them for every player once the players' other events in the October period are added, as "

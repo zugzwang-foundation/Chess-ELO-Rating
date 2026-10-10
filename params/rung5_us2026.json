@@ -1,0 +1,250 @@
+{
+ "anchor_standard": {
+  "d_t": 2.52,
+  "m_hat_t": 2103.81,
+  "m_t": 2101.29,
+  "members_in_fit": 5711
+ },
+ "compensation": {
+  "c_cap": 300,
+  "tau": 25,
+  "z": 1.2816
+ },
+ "data_cutoff": "2026-09-30",
+ "fit": {
+  "games": 757118,
+  "max_move": 0.038,
+  "players": 87530,
+  "sweeps": 60
+ },
+ "fit_window": [
+  "2023-10",
+  "2026-09"
+ ],
+ "generated_by": "analysis/us26_rung5_extract.py",
+ "hyperparameters": {
+  "c_theta": 2.0,
+  "omega": 4.0
+ },
+ "list_in_force": "2026-10",
+ "players": [
+  {
+   "age_at_most_19": false,
+   "c_j": 0,
+   "eligible": false,
+   "event": "tools/events/us_championship_2026.json",
+   "fide_id": 2004887,
+   "in_fit": true
+  },
+  {
+   "age_at_most_19": false,
+   "c_j": 0,
+   "eligible": false,
+   "event": "tools/events/us_championship_2026.json",
+   "fide_id": 2020009,
+   "in_fit": true
+  },
+  {
+   "age_at_most_19": false,
+   "c_j": 0,
+   "eligible": false,
+   "event": "tools/events/us_championship_2026.json",
+   "fide_id": 2023970,
+   "in_fit": true
+  },
+  {
+   "age_at_most_19": false,
+   "c_j": 0,
+   "eligible": false,
+   "event": "tools/events/us_championship_2026.json",
+   "fide_id": 2040506,
+   "in_fit": true
+  },
+  {
+   "age_at_most_19": false,
+   "c_j": 0,
+   "eligible": false,
+   "event": "tools/events/us_championship_2026.json",
+   "fide_id": 2047640,
+   "in_fit": true
+  },
+  {
+   "age_at_most_19": false,
+   "c_j": 0,
+   "eligible": false,
+   "event": "tools/events/us_championship_2026.json",
+   "fide_id": 2056437,
+   "in_fit": true
+  },
+  {
+   "age_at_most_19": false,
+   "c_j": 0,
+   "eligible": false,
+   "event": "tools/events/us_championship_2026.json",
+   "fide_id": 2093596,
+   "in_fit": true
+  },
+  {
+   "age_at_most_19": false,
+   "c_j": 0,
+   "eligible": false,
+   "event": "tools/events/us_championship_2026.json",
+   "fide_id": 5202213,
+   "in_fit": true
+  },
+  {
+   "age_at_most_19": false,
+   "c_j": 0,
+   "eligible": false,
+   "event": "tools/events/us_championship_2026.json",
+   "fide_id": 13300474,
+   "in_fit": true
+  },
+  {
+   "age_at_most_19": false,
+   "c_j": 0,
+   "eligible": false,
+   "event": "tools/events/us_championship_2026.json",
+   "fide_id": 24125890,
+   "in_fit": true
+  },
+  {
+   "age_at_most_19": true,
+   "c_j": 60,
+   "eligible": true,
+   "event": "tools/events/us_championship_2026.json",
+   "events": 15,
+   "fide_id": 30920019,
+   "games_in_window": 113,
+   "in_fit": true,
+   "info_share_at_least_half": true,
+   "opponents": 101
+  },
+  {
+   "age_at_most_19": true,
+   "c_j": 89,
+   "eligible": true,
+   "event": "tools/events/us_championship_2026.json",
+   "events": 7,
+   "fide_id": 30953499,
+   "games_in_window": 52,
+   "in_fit": true,
+   "info_share_at_least_half": true,
+   "opponents": 46
+  },
+  {
+   "age_at_most_19": false,
+   "c_j": 0,
+   "eligible": false,
+   "event": "tools/events/us_womens_championship_2026.json",
+   "fide_id": 2012782,
+   "in_fit": true
+  },
+  {
+   "age_at_most_19": false,
+   "c_j": 0,
+   "eligible": false,
+   "event": "tools/events/us_womens_championship_2026.json",
+   "fide_id": 2078341,
+   "in_fit": true
+  },
+  {
+   "age_at_most_19": false,
+   "c_j": 0,
+   "eligible": false,
+   "event": "tools/events/us_womens_championship_2026.json",
+   "fide_id": 2090732,
+   "in_fit": true
+  },
+  {
+   "age_at_most_19": false,
+   "c_j": 0,
+   "eligible": false,
+   "event": "tools/events/us_womens_championship_2026.json",
+   "fide_id": 3520498,
+   "in_fit": true
+  },
+  {
+   "age_at_most_19": false,
+   "c_j": 0,
+   "eligible": false,
+   "event": "tools/events/us_womens_championship_2026.json",
+   "fide_id": 13301918,
+   "in_fit": true
+  },
+  {
+   "age_at_most_19": false,
+   "c_j": 0,
+   "eligible": false,
+   "event": "tools/events/us_womens_championship_2026.json",
+   "fide_id": 13308130,
+   "in_fit": true
+  },
+  {
+   "age_at_most_19": false,
+   "c_j": 0,
+   "eligible": false,
+   "event": "tools/events/us_womens_championship_2026.json",
+   "fide_id": 13603620,
+   "in_fit": false
+  },
+  {
+   "age_at_most_19": false,
+   "c_j": 0,
+   "eligible": false,
+   "event": "tools/events/us_womens_championship_2026.json",
+   "fide_id": 14101572,
+   "in_fit": true
+  },
+  {
+   "age_at_most_19": true,
+   "c_j": 0,
+   "eligible": true,
+   "event": "tools/events/us_womens_championship_2026.json",
+   "events": 8,
+   "fide_id": 30929849,
+   "games_in_window": 34,
+   "in_fit": true,
+   "info_share_at_least_half": true,
+   "opponents": 31
+  },
+  {
+   "age_at_most_19": true,
+   "c_j": 5,
+   "eligible": true,
+   "event": "tools/events/us_womens_championship_2026.json",
+   "events": 14,
+   "fide_id": 30941822,
+   "games_in_window": 90,
+   "in_fit": true,
+   "info_share_at_least_half": true,
+   "opponents": 74
+  },
+  {
+   "age_at_most_19": true,
+   "c_j": 0,
+   "eligible": true,
+   "event": "tools/events/us_womens_championship_2026.json",
+   "events": 24,
+   "fide_id": 30951011,
+   "games_in_window": 129,
+   "in_fit": true,
+   "info_share_at_least_half": true,
+   "opponents": 101
+  },
+  {
+   "age_at_most_19": true,
+   "c_j": 0,
+   "eligible": false,
+   "event": "tools/events/us_womens_championship_2026.json",
+   "events": 9,
+   "fide_id": 30973007,
+   "games_in_window": 32,
+   "in_fit": true,
+   "info_share_at_least_half": false,
+   "opponents": 29
+  }
+ ],
+ "spec": "docs/specs/SPEC-L1_v1_0.md; annex T4.6 (R5, R8, R18, R20); E6's functions (layer1.outputs)",
+ "status": "FROZEN (Freeze 2) \u2014 rung 5, PILOT; every parameter PROVISIONAL (annex T1, T4.6)"
+}
