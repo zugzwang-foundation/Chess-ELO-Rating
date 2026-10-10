@@ -3,9 +3,9 @@
 
 E9's runs (analysis/e9_simulator_run.py, imported unchanged: its scenarios, seeds, thresholds and summaries) with the
 replacements of src/simulator/v2.py installed in every worker process: the v2 table (E11) as the true outcome model
-and as Layer 1's proxy's model; rung 2's ledgers on the published v2 table, with the narrowed guard (R24, E12) and K
-times the printed slope ratio (R32); rung 4's K fixed per event (R25); accrual ending three months after the last
-rated game (R33). Added to E9's summaries: rung 6 scored on the growth of |d_t| (R30), the per-player line-2 creation
+and as Layer 1's proxy's model; rung 2's ledgers on the published v2 table, with the narrowed guard (R24, E12) at
+today's K (R44 withdrew R32's slope ratio; rerun in session ELO-7); rung 4's K fixed per event (R25); accrual ending
+three months after the last rated game (R33). Added to E9's summaries: rung 6 scored on the growth of |d_t| (R30), the per-player line-2 creation
 that sizes R29's cap, and R1's review under R31 and R40 (the spread condition paired with κ at its annual cap). No
 data/ is read. Takes minutes: registered as slow in analysis/outputs.json, rerun by check (a) with --all.
 
@@ -77,6 +77,7 @@ def main() -> int:
     out = {"spec": "docs/specs/SPEC-SIM_v1_0.md", "v2": {"table": V2_TABLE, "guard": V2_GUARD,
                                                           "module": "src/simulator/v2.py", "parameters": list(v2.PAR),
                                                           "k_scale": {str(k): v for k, v in sorted(v2.M100.items())},
+                                                          "k_scale_applied": v2.SCALE_K,
                                                           "guard_applies": v2.GUARD_APPLIES},
            "seeds": e9.SEEDS, "r1_seeds": e9.R1_SEEDS,
            "defaults": {k: v for k, v in asdict(C.Config()).items() if k not in ("extra",)},

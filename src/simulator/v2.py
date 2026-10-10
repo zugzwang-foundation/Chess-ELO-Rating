@@ -4,8 +4,9 @@ The pool's true outcome model is the v2 table (E11; params/table_fit_2026-10b.ya
 strengths on the published scale as E9 applied E2's table: z = κ(L) q (θᴾ_W − θᴾ_B + η), L the band of the true
 level, with the draw tail γ(L). Layer 1's proxy uses the same model, as it used E2's in E9, so that it still knows
 the pool's average dynamics (SPEC-SIM §5). Rung 2's ledgers read the published v2 table; "2" adds the narrowed guard
-of R24 (src/layer2/guard_v2.py; params/guard_2026-10b.yaml), "2u" is without it; at today's K (no rung 4) every game's
-K is multiplied by the printed slope ratio m(L) of the game's level band (R32). Rung 4's K uses the v2 table's κ(L)
+of R24 (src/layer2/guard_v2.py; params/guard_2026-10b.yaml), "2u" is without it; at today's K (no rung 4) every game
+uses today's K: R32's slope ratio m(L), with which session ELO-6 multiplied it, is withdrawn by R44
+(docs/decisions/D-0012_pre-results-amendments.md), and SCALE_K below keeps it off. Rung 4's K uses the v2 table's κ(L)
 and v(L) in the band of the player's rating (annex T4.3), the simulator's variances (in latent units of κ₀ times the
 published scale, SPEC-SIM §5) carried to the v2 table's latent units at L by (κ(L)/κ₀)², so that K is the Kalman
 gain on the published scale under the v2 table. The rulings that change a ledger: R25 (rung 4's K fixed per event,
@@ -40,6 +41,7 @@ _V2 = t2.load((ROOT / "params" / "table_fit_2026-10b.yaml").read_text(encoding="
 PAR = _V2["par"]                                             # (κ, λ, η, α, β, γ, μ) as printed
 M100 = {mid: int(_V2["k_scale"][mid] * 100) for mid in t2.BAND_MIDS} if _V2["k_scale_applies"] else \
     {mid: 100 for mid in t2.BAND_MIDS}
+SCALE_K = False                                              # R44 (D-0012): R32 withdrawn; M100 is the frozen file's m, unused
 _G = re.search(r"^standard:\n((?:  .*\n?)+)", (ROOT / "params" / "guard_2026-10b.yaml").read_text(encoding="utf-8"), re.M)
 GUARD_APPLIES = re.search(r"^  applies: (\w+)$", _G.group(1), re.M).group(1) == "true"
 KAPPA_V2, ETA_V2 = PAR[0], PAR[2]
@@ -130,7 +132,7 @@ class LedgerV2(L.Ledger):
         super().__init__(name, rungs, fit, ck)
         self.guard_v2 = "2" in rungs and GUARD_APPLIES
         self.guard = False                                     # R17's guard is replaced by the narrowed guard
-        self.scale_k = self.fit and self.kmode == "fide"       # R32: rung 2 at today's K
+        self.scale_k = SCALE_K and self.fit and self.kmode == "fide"   # R32's K x m, withdrawn by R44 (off)
         self.games_rec: list[tuple] = []                       # the month's rated games (R25, line 2)
         self.ev: dict[int, dict[int, list]] = {}               # player -> event -> [Σ m(S − E) thousandths·hundredths, games]
         self.l2_ring: dict[int, list[float]] = {}              # player -> line-2 creation in each of the last 12 months

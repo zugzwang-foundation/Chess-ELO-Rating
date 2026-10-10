@@ -19,7 +19,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 AGG = ROOT / "analysis" / "aggregates"
-NAMES = {"L0": "Layer 0 (rung 1, today's rules)", "R2": "rung 2 v2 with the narrowed guard and K × m (RECOMMENDED NOW)",
+NAMES = {"L0": "Layer 0 (rung 1, today's rules)", "R2": "rung 2 v2 with the narrowed guard at today's K (RECOMMENDED NOW)",
          "R2U": "rung 2 v2 without the guard", "R3": "rung 3, seeds", "R4A": "rung 4, K from the activity record",
          "R4L": "rung 4, K from Layer 1's certainty", "R5": "rung 5, junior compensation", "R6": "rung 6, the monthly adjustment",
          "R7": "rung 7, the federation adjustment", "ALL": "rungs 2 to 6 together"}
@@ -157,10 +157,12 @@ def main() -> None:
       "replacements of `src/simulator/v2.py`. Do not edit by hand. Licence: CC BY 4.0 (`docs/LICENSE-docs.md`). The pool is "
       "synthetic: no player's data is used. It reruns E9's scenarios and seeds (`docs/evidence/E9_simulator.md`) with the "
       "v2 table (E11) as the pool's true outcome model and as Layer 1's proxy's model; rung 2's ledgers read the published "
-      "v2 table, with the narrowed guard (R24, E12) and K times the printed slope ratio m(L) (R32); rung 4's K is fixed per "
-      "event (R25); accrual ends three months after the last rated game (R33). The rulings' scores are added: R30 for rung "
-      "6, R29's cap, R31 and R40 for R1 (`docs/decisions/D-0011_rulings-and-freeze-3.md`). Parameters calibrated as in E9 "
-      "and PROVISIONAL everywhere; section 9 lists what rests on assumptions.")
+      "v2 table, with the narrowed guard (R24, E12) at today's K; rung 4's K is fixed per event (R25); accrual ends three "
+      "months after the last rated game (R33). The rulings' scores are added: R30 for rung 6, R29's cap, R31 and R40 for R1 "
+      "(`docs/decisions/D-0011_rulings-and-freeze-3.md`). Session ELO-6 ran rung 2's ledgers with K times the slope ratio "
+      "m(L) of R32; session ELO-7 reran the whole simulation after R44 withdrew it "
+      "(`docs/decisions/D-0012_pre-results-amendments.md`), and only rung 2's ledgers changed. Parameters calibrated as in "
+      "E9 and PROVISIONAL everywhere; section 9 lists what rests on assumptions.")
     p("")
     p(f"Runs: {len(seeds)} seeds for each of {len(sc)} scenarios, each ten simulated years after a three-year burn-in under "
       f"Layer 0, with about {act_adopt:,.0f} active rated players at adoption and {act_end:,.0f} after ten years, about a "
@@ -174,7 +176,8 @@ def main() -> None:
     p("")
     ms = [v / 100 for v in d["v2"]["k_scale"].values()]
     p(f"- **The simulated Layer 0, on a pool whose true outcome model is the v2 table (flatter than table 8.1.2 near equal "
-      f"ratings in every level band, by R32's factor m, {min(ms):.2f} to {max(ms):.2f}, most at the top), so that table "
+      f"ratings in every level band, its slope at an even gap {min(ms):.2f} to {max(ms):.2f} times smaller, most at the top), "
+      f"so that table "
       f"8.1.2's over-prediction of favourites is part of the simulated world:** the adults "
       f"aged 25–45 whose true strength was 2400 or more at adoption lose {abs(top['L0']):.1f} points a year on the list while "
       f"their true strength changes by {top_true:+.1f} (FIDE's lists since the "
@@ -183,11 +186,11 @@ def main() -> None:
       f"a game below today's expectation against juniors (broadcast games: {abs(drain_fide):.3f} [E6]); today's newcomer rule "
       f"publishes newcomers far above their true strength (section 2).")
     p(f"- **Error against true strength** (RMSE over active players, net of the level): Layer 0 {rmse_all['L0']:.0f} points; "
-      + ", ".join(f"{NAMES[x].split(',')[0] if x != 'R2' else 'rung 2 v2 (guard, K × m)'} {rmse_all[x]:.0f}" for x in ("R2", "R3", "R4A", "R5", "R6", "ALL"))
+      + ", ".join(f"{NAMES[x].split(',')[0] if x != 'R2' else "rung 2 v2 (guard, today's K)"} {rmse_all[x]:.0f}" for x in ("R2", "R3", "R4A", "R5", "R6", "ALL"))
       + f". The most accurate is {NAMES[best_all]} ({rmse_all[best_all]:.0f}); of the single rungs, {NAMES[best]} "
         f"({rmse_all[best]:.0f}).")
     p(f"- **The slide at the top:** {abs(top['L0']):.1f} points a year under Layer 0, {abs(top['R2']):.1f} with rung 2 v2 "
-      f"(the narrowed guard, K × m), {abs(top['R2U']):.1f} without the guard, {abs(top['ALL']):.1f} with rungs 2 to 6 "
+      f"(the narrowed guard, today's K), {abs(top['R2U']):.1f} without the guard, {abs(top['ALL']):.1f} with rungs 2 to 6 "
       f"together (a negative slide is a rise).")
     dr = {x: mean(drift("baseline", x)) for x in led_all}
     drd = {x: mean(drift("deflation", x)) for x in ("L0", "R6", "ALL")}
@@ -228,11 +231,11 @@ def main() -> None:
     p(f"- **Games.** Activity rising with strength (about 10 rated games a year for club adults, 50–60 at 2600 [E5] [E8]); "
       f"{100 * df['domestic_share']:.0f} % of events domestic; Swiss events (9, 7 or 5 rounds) and round-robins of 10.")
     p("- **Ledgers.** Layer 0 exactly (an integer port of SPEC-L0, tested against `src/layer0/`), and each rung alone on the "
-      "same games: rung 2 v2 with the narrowed guard and without it, both with K × m (R32); rung 3; rung 4 from the activity "
+      "same games: rung 2 v2 with the narrowed guard and without it, both at today's K (R44); rung 3; rung 4 from the activity "
       "record (E8's design) and from Layer 1's certainty, each with K fixed per event (R25) and with the v2 table's κ(L) "
       "and v(L) in the player's band (annex T4.3); rung 5; rung 6 with accrual "
-      "ending three months after the last rated game (R33); rung 7; and rungs 2 to 6 together, whose rung 4 sets K, so "
-      "without m. Rung 1 is Layer 0 itself, so the RECOMMENDED NOW package is rung 2 v2 with the narrowed guard and K × m. "
+      "ending three months after the last rated game (R33); rung 7; and rungs 2 to 6 together, whose rung 4 sets K. Rung 1 "
+      "is Layer 0 itself, so the RECOMMENDED NOW package is rung 2 v2 with the narrowed guard at today's K. "
       "Rungs 3 to 7 use a forward-filter proxy of Layer 1 that knows the pool's average dynamics (SPEC-SIM §5).")
     p("- **Scenarios.** Baseline; the baseline with twice the noise (Layer 1's history fit, c = 2.0); deflation with a "
       "junior wave; two isolated federations whose ratings start 100 too low and 60 too high; adversaries (section 7); and, "
@@ -560,14 +563,14 @@ def main() -> None:
     p("| rung 4's K and its effect | the noise scale (E8's 1.0 or Layer 1's 2.0) |")
     p("| federation offsets and their decay | the domestic share of games (between E7's 52 % on broadcast games and Ghita's more than 80 %) and the true offsets |")
     p("| everything that uses Layer 1 (rungs 3 to 7) | a proxy that knows the pool's average dynamics: optimistic |")
-    p("| the guard and K × m | the true model is the v2 table, the table rung 2 v2 publishes, so the guard's cost shows and its benefit cannot, and K × m is judged against a calibrated table |")
+    p("| the guard | the true model is the v2 table, the table rung 2 v2 publishes, so the guard's cost shows and its benefit cannot |")
     p("| R1's threshold | the noise of the simulated spread ratio, on a pool about a twentieth of FIDE's active list, and a detrended noise reference |")
     p("")
     p("## 10 E9 beside E14")
     p("")
     p("E9's figures (the pool's true model E2's table, rung 2 with R17's guard at today's K, R16 as read in D-0009, accrual "
       "for eleven months after the last game) beside this rerun's (the v2 table as true model, rung 2 v2 with the narrowed "
-      "guard and K × m, R25, R33), on the same scenarios and seeds:")
+      "guard at today's K, R25, R33), on the same scenarios and seeds:")
     p("")
     h9, h14 = headline(d9), headline(d)
     p("| figure | E9 | E14 |")

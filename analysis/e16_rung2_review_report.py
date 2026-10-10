@@ -7,7 +7,10 @@ documents cite numbers a committed script prints. It reads the frozen aggregates
 them, the refit after the March 2024 compression (analysis/aggregates/E16_post_compression.json, written by
 analysis/e16_post_compression_extract.py), the frozen parameter file params/table_fit_2026-10b.yaml, and runs
 tools/compare_event_v3.py, unchanged, on the 2025 U.S. Championship; it also simulates title thresholds with the v2
-table as the truth. No 2026 championship result is read. Python standard library only; deterministic.
+table as the truth. Restated in session ELO-7 after ruling R44 withdrew R32 (docs/decisions/D-0012_pre-results-amendments.md):
+every rung-2 figure is at today's K, and R32's K x m appears only where this page records what it did (sections 3, 7
+and 8) and in section 9, which restates E12's figures at today's K. No 2026 championship result is read. Python
+standard library only; deterministic.
 
 Usage: python3 analysis/e16_rung2_review_report.py > docs/evidence/E16_rung2-under-review.md
 """
@@ -88,7 +91,10 @@ p("Status: REVIEW — evidence for the proposal and annex (T3, T8, T10, T11; pro
   "compression), from `params/table_fit_2026-10b.yaml`, and with `tools/compare_event_v3.py` run unchanged on the 2025 "
   "U.S. Championship; do not edit by hand. Licence: CC BY 4.0 (`docs/LICENSE-docs.md`). Game data: the Lichess "
   "broadcast archive, CC BY-SA 4.0, attributed; aggregates only. No result of either 2026 championship is read. Nothing "
-  "here changes a frozen file or the table: the refit of section 5 is shown beside Freeze 3, not in it.")
+  "here changes a frozen file or the table: the refit of section 5 is shown beside Freeze 3, not in it. Restated in "
+  "session ELO-7 after ruling R44 withdrew R32's K × m (`docs/decisions/D-0012_pre-results-amendments.md`): every "
+  "rung-2 figure is at today's K; K × m appears only where the page records what it did (sections 3, 7 and 8), and "
+  "section 9 restates E12's figures at today's K.")
 p("")
 
 # ------------------------------------------------------------------------------------------------ 1 playing down
@@ -97,17 +103,17 @@ p("")
 p("The favourite's residual S − E at published gaps of 100 to 399, below the guard's 400 (E2's 21 held-out months, "
   "E11's cells of level band × 50-point gap pooled by the games, the cells' cluster-robust standard errors combined as "
   "if independent), and what it is worth to a player who chooses such opponents: the expected points a game, K times "
-  "the residual, with R32's m(L) of each cell's band for the v2 table at today's K:")
+  "the residual, at today's K (R44):")
 p("")
 GROUPS = (("1500–1999", (1550, 1650, 1750, 1850, 1950)), ("2000–2299", (2050, 2150, 2250)),
           ("2300–2799", (2350, 2450, 2550, 2650, 2750)), ("2400–2499 alone", (2450,)))
 GAPS = (100, 150, 200, 250, 300, 350)
-p("| level | games | residual: Layer 0 | Freeze 1's table | the v2 table | yield a game at K = 10: Layer 0 / Freeze 1 / v2 × m | at K = 20 | at K = 40 |")
+p("| level | games | residual: Layer 0 | Freeze 1's table | the v2 table | yield a game at K = 10: Layer 0 / Freeze 1 / v2 | at K = 20 | at K = 40 |")
 p("|---|---|---|---|---|---|---|---|")
 yields = {}
 for lab, mids in GROUPS:
     res = {who: pooled(cells("standard", who), mids, GAPS) for who in ("l0", "v1", "v2")}
-    v2m = sum(r[2]["n"] * m_of("standard", r[0]) * r[2]["mean"] for r in res["v2"]["rows"]) / res["v2"]["n"]
+    v2m = res["v2"]["mean"]                                    # today's K: no factor m (R44)
     yields[lab] = (res, v2m)
     cols = []
     for k in (10, 20, 40):
@@ -116,9 +122,9 @@ for lab, mids in GROUPS:
       f"{res['v2']['mean']:+.4f} (SE {res['v2']['se']:.4f}) | " + " | ".join(cols) + " |")
 p("")
 top, bottom = yields["2300–2799"], yields["1500–1999"]
-p(f"- **At the top** the v2 table cuts the residual from {top[0]['v1']['mean']:+.4f} to {top[0]['v2']['mean']:+.4f}, but "
-  f"R32's m multiplies what remains: at K = 10 the yield falls from {10 * top[0]['v1']['mean']:+.2f} to "
-  f"{10 * top[1]:+.2f} points a game; in band 2400–2499 alone it is {10 * yields['2400–2499 alone'][1]:+.2f}.")
+p(f"- **At the top** the v2 table cuts the residual from {top[0]['v1']['mean']:+.4f} to {top[0]['v2']['mean']:+.4f}: at "
+  f"K = 10 the yield falls from {10 * top[0]['v1']['mean']:+.2f} to {10 * top[1]:+.2f} points a game; in band 2400–2499 "
+  f"alone it is {10 * yields['2400–2499 alone'][1]:+.2f}.")
 p(f"- **Below 2000** the v2 table creates an incentive Freeze 1's table did not have: the residual moves from "
   f"{bottom[0]['v1']['mean']:+.4f} to {bottom[0]['v2']['mean']:+.4f}, worth {20 * bottom[1]:+.2f} a game at K = 20 and "
   f"{40 * bottom[1]:+.2f} at K = 40 (Layer 0: {20 * bottom[0]['l0']['mean']:+.2f} and {40 * bottom[0]['l0']['mean']:+.2f}).")
@@ -132,14 +138,14 @@ p("")
 p("E2's descriptive table (all months 2023 to 2026-09, not held out): White's score in games between players at most 25 "
   "points apart, by 200-point level band, against the v2 table's White expectation at equal ratings (x = η = "
   f"{t2.eta_whole(V2['standard']['par'][2])}) averaged over the band's 100-point bands; the worth of a game with White "
-  "beyond what the table prices is K × m × (score − expectation):")
+  "beyond what the table prices is K × (score − expectation), at today's K (R44):")
 p("")
 LEVELS = (("1400", "below 1600", (1450, 1550)), ("1600", "1600–1799", (1650, 1750)), ("1800", "1800–1999", (1850, 1950)),
           ("2000", "2000–2199", (2050, 2150)), ("2200", "2200–2399", (2250, 2350)), ("2400", "2400–2599", (2450, 2550)),
           ("2600", "2600 or more", (2650, 2750, 2850)))
 par = V2["standard"]["par"]
 eta = t2.eta_whole(par[2])
-p("| level | games within 25 points | White's score (SE) | the v2 table's White expectation | residual | worth at K = 10 × m | at K = 20 × m |")
+p("| level | games within 25 points | White's score (SE) | the v2 table's White expectation | residual | worth at K = 10 | at K = 20 |")
 p("|---|---|---|---|---|---|---|")
 colour = {}
 for key, lab, mids in LEVELS:
@@ -149,22 +155,26 @@ for key, lab, mids in LEVELS:
     var = (wins + d25 / 4.0) / n - sc * sc
     se = math.sqrt(var / n)
     ev = sum(t2.expected_effective(eta, mid, par) for mid in mids) / len(mids)
-    mm = sum(m_of("standard", mid) for mid in mids) / len(mids)
-    colour[lab] = (sc - ev, se, mm)
-    p(f"| {lab} | {n:,} | {sc:.3f} ({se:.3f}) | {ev:.3f} | {sc - ev:+.3f} | {10 * mm * (sc - ev):+.2f} | {20 * mm * (sc - ev):+.2f} |")
+    colour[lab] = (sc - ev, se)
+    p(f"| {lab} | {n:,} | {sc:.3f} ({se:.3f}) | {ev:.3f} | {sc - ev:+.3f} | {10 * (sc - ev):+.2f} | {20 * (sc - ev):+.2f} |")
 p("")
 p("A level-dependent colour term is not part of SPEC-TABLE-FIT v1.1; on these games White's edge rises with the level "
-  "while the fitted η is one number for every level.")
+  "while the fitted η is one number for every level. SPEC-TABLE-FIT v1.2 adds one at the next yearly fit if it improves "
+  "held-out log-loss (R50).")
 p("")
 
 # ------------------------------------------------------------------------------------------------ 3 tolerance
-p("## 3 T8.2's tolerance in points under K × m")
+p("## 3 T8.2's tolerance in points, at today's K and under the withdrawn K × m")
 p("")
 ms = [float(v) for v in V2["standard"]["k_scale"].values()]
-p(f"A residual at the edge of the ±{BAND} tolerance is worth K × m × {BAND} points a game; with standard's m from "
-  f"{min(ms):.2f} to {max(ms):.2f}: K = 10: {10 * min(ms) * BAND:.2f} to {10 * max(ms) * BAND:.2f}; K = 20: "
-  f"{20 * min(ms) * BAND:.2f} to {20 * max(ms) * BAND:.2f}; K = 40: {40 * min(ms) * BAND:.2f} to {40 * max(ms) * BAND:.2f} "
-  f"(at today's K without m: {10 * BAND:.2f}, {20 * BAND:.2f} and {40 * BAND:.2f}).")
+p(f"A residual at the edge of the ±{BAND} tolerance is worth K × {BAND} points a game at today's K: {10 * BAND:.2f} at "
+  f"K = 10, {20 * BAND:.2f} at K = 20 and {40 * BAND:.2f} at K = 40, so T8.2's tolerance is unchanged (R48). Under R32's "
+  f"K × m, with standard's m from {min(ms):.2f} to {max(ms):.2f}, it was worth {10 * min(ms) * BAND:.2f} to "
+  f"{10 * max(ms) * BAND:.2f} at K = 10, {20 * min(ms) * BAND:.2f} to {20 * max(ms) * BAND:.2f} at K = 20 and "
+  f"{40 * min(ms) * BAND:.2f} to {40 * max(ms) * BAND:.2f} at K = 40: m raised K by {100 * (min(ms) - 1):.0f} % to "
+  f"{100 * (max(ms) - 1):.0f} % in standard ({100 * (min(float(v) for tc in TCS for v in V2[tc]['k_scale'].values()) - 1):.0f} % to "
+  f"{100 * (max(float(v) for tc in TCS for v in V2[tc]['k_scale'].values()) - 1):.0f} % over the three time controls), "
+  "one of the reasons R44 withdrew it.")
 p("")
 
 # ------------------------------------------------------------------------------------------------ 4 power
@@ -221,17 +231,16 @@ p("On the March 2024 lists FIDE raised every rating below 2000 by round(0.4 × (
   "rolling fits on max(t − 36, 2024-03) to t − 1; a fit on 2024-03 to 2026-09 in place of the published one), each with "
   "the model E11 published.")
 p("")
-p("| time control | fit | κ | λ | η | α | β | γ | μ | κ(L) at 1700–1799 / 2300–2399 / 2700–2799 | m by band |")
-p("|---|---|---|---|---|---|---|---|---|---|---|")
+p("| time control | fit | κ | λ | η | α | β | γ | μ | κ(L) at 1700–1799 / 2300–2399 / 2700–2799 |")
+p("|---|---|---|---|---|---|---|---|---|---|")
 for tc in TCS:
     f_pub = E11["final_fit"][tc][model(tc)]
     f_new = E16["fit"][tc]["params"]
     for lab, f in (("published, 2023-10 to 2026-09 (Freeze 3)", f_pub), ("after the compression, 2024-03 to 2026-09", f_new)):
         pr = tuple(f[k] for k in t2.NAMES)
         kl = " / ".join(f"{t2.kappa_at(pr, mid):.3f}" for mid in (1750, 2350, 2750))
-        mr = [t2.ratio_printed(pr, mid) for mid in t2.BAND_MIDS]
         p(f"| {tc} | {lab} | {f['kappa']:.4f} | {f['lambda']:.4f} | {f['eta']:.2f} | {f['alpha']:.4f} | {f['beta']:.4f} | "
-          f"{f['gamma']:.4f} | {f.get('mu', 0.0):.4f} | {kl} | {min(mr)} to {max(mr)} |")
+          f"{f['gamma']:.4f} | {f.get('mu', 0.0):.4f} | {kl} |")
 p("")
 p("The published fit's parameters against the range of E11's 21 rolling refits (standard):")
 p("")
@@ -316,8 +325,8 @@ cm = v3.compare(event, r2, v1, rung5)
 cn = v3.compare(event, dataclasses.replace(r2, scaled=False), v1, rung5)
 by_n = {r["fide_id"]: r for r in cn.rows}
 cols = (("(b): the v2 table, the guard and K × m (the column as frozen)", lambda r: r["b"], lambda r: r["b_rounded"]),
-        ("the v2 table and the guard at today's K (no m; not a frozen column)", lambda r: by_n[r["fide_id"]]["b"],
-         lambda r: by_n[r["fide_id"]]["b_rounded"]),
+        ("(b′): the v2 table and the narrowed guard at today's K (Freeze 3a, D-0012: §10's main column)",
+         lambda r: by_n[r["fide_id"]]["b"], lambda r: by_n[r["fide_id"]]["b_rounded"]),
         ("(b0): Freeze 2's column (first pre-registration, superseded)", lambda r: r["b0"], lambda r: r["b0_rounded"]))
 p(f"With 2025's results ({cm.counted} games), per player against column (a) (FIDE's rules by Layer 0):")
 p("")
@@ -328,18 +337,35 @@ for lab, fx, fr in cols:
     big = max(d, key=abs)
     p(f"| {lab} | {sum(abs(x) for x in d) / len(d):.2f} | {big:+.2f} | {sum(1 for r in cm.rows if fr(r) != r['a_rounded'])} of {len(cm.rows)} |")
 p("")
+p("The same 2025 event with the four columns of §10 side by side (D-0012), (a) among them, and the size of each column's "
+  "changes:")
+p("")
+four = (("(a) FIDE's rules", lambda r: r["a"], lambda r: r["a_rounded"]), ("(b′), the main column", cols[1][1], cols[1][2]),
+        ("(b), Freeze 3, K × m", cols[0][1], cols[0][2]), ("(b0)", cols[2][1], cols[2][2]))
+p("| 2025 U.S. Championship | " + " | ".join(lab for lab, _f, _r in four) + " |")
+p("|---|---|---|---|---|")
+p("| mean of \\|x\\| over the players, unrounded, points | " + " | ".join(
+    f"{sum(abs(fx(r)) for r in cm.rows) / len(cm.rows):.2f}" for _l, fx, _r in four) + " |")
+p("| mean of \\|x − (a)\\| over the players, unrounded, points | — | " + " | ".join(
+    f"{sum(abs(fx(r) - r['a']) for r in cm.rows) / len(cm.rows):.2f}" for _l, fx, _r in four[1:]) + " |")
+p("| x − (a) of largest absolute value, signed, unrounded | — | " + " | ".join(
+    f"{max((fx(r) - r['a'] for r in cm.rows), key=abs):+.2f}" for _l, fx, _r in four[1:]) + " |")
+p("| players whose rounded change differs from (a) | — | " + " | ".join(
+    f"{sum(1 for r in cm.rows if fr(r) != r['a_rounded'])} of {len(cm.rows)}" for _l, _f, fr in four[1:]) + " |")
+p("")
 lead = max(cm.rows, key=lambda r: abs(r["b"] - r["a"]))
 tab = by_n[lead["fide_id"]]["b"] - lead["a"]
 p(f"The largest (b) − (a), {lead['b'] - lead['a']:+.2f}, splits into {tab:+.2f} from the table at today's K and "
   f"{lead['b'] - lead['a'] - tab:+.2f} from m; over the twelve players m alone accounts for "
   f"{sum(abs(r['b'] - by_n[r['fide_id']]['b']) for r in cm.rows) / len(cm.rows):.2f} of the mean "
-  f"{sum(abs(r['b'] - r['a']) for r in cm.rows) / len(cm.rows):.2f} (mean of |(b) − the table at today's K|). In the "
-  "2026 comparison column (b) will therefore read mostly as R32's factor m, and (b) against (b0) as m against Freeze 1's "
-  "table; the frozen columns cannot separate them, and this page is the key to reading them.")
+  f"{sum(abs(r['b'] - r['a']) for r in cm.rows) / len(cm.rows):.2f} (mean of |(b) − the table at today's K|). Column (b) "
+  "would therefore have read mostly as R32's factor m, and (b) against (b0) as m against Freeze 1's table; before any "
+  "2026 result was read, D-0012 withdrew R32 (R44) and added (b′), the v2 table and the narrowed guard at today's K, as "
+  "§10's main column (R45), which E13 prints beside (b) and (b0).")
 p("")
 
 # ------------------------------------------------------------------------------------------------ 8 titles
-p("## 8 Title thresholds under K × m")
+p("## 8 Title thresholds: today's K and the withdrawn K × m")
 p("")
 RUNS, GAMES_A_MONTH, MONTHS = 40000, 9, 3
 p(f"A title needs a rating achieved at some time, which may be obtained in the middle of a rating period or of a "
@@ -347,8 +373,8 @@ p(f"A title needs a rating achieved at some time, which may be obtained in the m
   f"{GAMES_A_MONTH} games a month for {MONTHS} months against opponents of the same rating and strength, colours "
   "alternating; results drawn from the v2 table (the truth), the expectation read from the published v2 table, the "
   "interim rating the published rating plus the period's game terms so far, the period's change rounded once (§8.3.4 "
-  f"[V 1]); the share of {RUNS:,} runs in which the interim or the published rating reaches the threshold, with K and "
-  "with K × m (the same results for both):")
+  f"[V 1]); the share of {RUNS:,} runs in which the interim or the published rating reaches the threshold, at today's K "
+  "and with R32's K × m (the same results for both):")
 p("")
 
 
@@ -392,12 +418,39 @@ def touch(r0: int, k: int, threshold: int, seed: int) -> tuple[float, float, flo
     return hits[0] / RUNS, hits[1] / RUNS, m_of("standard", mid0)
 
 
-p("| starting rating (= strength) | K | threshold | rung 2 with K | rung 2 with K × m | m of the band |")
+p("| starting rating (= strength) | K | threshold | rung 2 at today's K (R48) | rung 2 with K × m (R32, withdrawn) | m of the band |")
 p("|---|---|---|---|---|---|")
 for r0, k, thr, seed in ((2470, 10, 2500, 20261010), (2480, 10, 2500, 20261011), (2370, 20, 2400, 20261012)):
     a, b, m = touch(r0, k, thr, seed)
     p(f"| {r0} | {k} | {thr} | {a:.3f} | {b:.3f} | {m:.2f} |")
 p("")
-p(f"Each share has a standard error of at most {0.5 / math.sqrt(RUNS):.4f}. Under rung 2 at today's K the interim "
-  "rating moves by K × m a game, so thresholds are touched more often without playing better.")
+p(f"Each share has a standard error of at most {0.5 / math.sqrt(RUNS):.4f}. Under R32's K × m the interim rating moved by "
+  "K × m a game, so thresholds were touched more often without playing better; R44 withdrew it, and under R48 an "
+  "interim rating under rung 2 uses today's K.")
+
+# ------------------------------------------------------------------------------------------------ 9 E12 at today's K
+p("")
+p("## 9 E12's figures at today's K (R44)")
+p("")
+p("E12, frozen in Freeze 3, printed the farmer's yield in the farming region with R32's K × m. At today's K the yield a "
+  "game is K times the favourite's residual in the region (E12 §3; players' intervals in brackets), at K = 10, the K of "
+  "every player rated 2400 or more today [V 1]:")
+p("")
+p("| time control | games in the region | v2 table: residual, yield at K = 10 | with the narrowed guard: residual, yield at K = 10 | E12's yield with K × m, v2 / guarded |")
+p("|---|---|---|---|---|")
+for tc in TCS:
+    reg = E12["static"][tc]["region"]
+    v, g = reg["v2"], reg["guarded"]
+    m24 = m_of(tc, 2450)
+    p(f"| {tc} | {v['n']:,} | {v['mean']:+.4f} ({v['players']['lo']:+.4f} to {v['players']['hi']:+.4f}), {10 * v['mean']:+.2f} | "
+      f"{g['mean']:+.4f} ({g['players']['lo']:+.4f} to {g['players']['hi']:+.4f}), {10 * g['mean']:+.2f} | "
+      f"{10 * m24 * v['mean']:+.2f} / {10 * m24 * g['mean']:+.2f} (m = {m24:.2f}) |")
+p("")
+r32 = E12["r32"]
+p("E12 §6 also tested R32's scaling with ratings carried forward on broadcast games (scaled minus unscaled log-loss, "
+  "nats a game, month-block interval): " + "; ".join(
+      f"{tc} {r32[tc]['log_loss_difference']['mean']:+.5f} ({r32[tc]['log_loss_difference']['lo']:+.5f} to "
+      f"{r32[tc]['log_loss_difference']['hi']:+.5f})" for tc in TCS)
+  + ". Worse in standard and blitz with the interval above zero, it is one of the reasons R44 withdrew R32; rung 2 now "
+  "uses the unscaled K, which is today's.")
 print("\n".join(P))
