@@ -39,5 +39,5 @@
     {"script": "analysis/staging/e12_guard_v2_report.py", "args": [], "output": "docs/evidence/E12_guard-v2.md", "needs_data": false},
     {"script": "analysis/staging/e12_guard_v2_report.py", "args": ["--yaml"], "output": "analysis/staging/params/guard_2026-10b.yaml", "needs_data": false}
   ],
-  "modules": ["analysis/fide_panel.py", "analysis/l1_common.py", "analysis/staging/table_v2.py", "analysis/staging/table_v2_fit.py", "analysis/staging/guard_v2.py"]
+  "modules": ["analysis/fide_panel.py", "analysis/l1_common.py", "analysis/staging/table_v2.py", "analysis/staging/table_v2_fit.py", "analysis/staging/guard_v2.py", "analysis/staging/compare_event_v3.py"]
 }
