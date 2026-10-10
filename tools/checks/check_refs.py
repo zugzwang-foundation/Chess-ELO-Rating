@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check (c): every relative link and every [T n] / [V n] / [VT n] / [R n] / [E n] reference resolves.
+"""Check (c): every relative link and every [T n] / [V n] / [VT n] / [VP n] / [R n] / [E n] reference resolves.
 
 Scope: every tracked Markdown file under docs/, plus README.md, CLAUDE.md and the
 README files of analysis/ and tools/.
@@ -11,13 +11,14 @@ README files of analysis/ and tools/.
    history. Paths under data/ (raw data, never committed) are not checked.
 3. [R n] must be a numbered source of docs/research/ELO-RESEARCH_v1_0.md,
    [R §x] one of its numbered sections and [R Name] one of its named headings.
-4. [V k] must be an item of docs/research/VERIFICATION_2026-10-09.md and
-   [VT k] an item of docs/research/VERIFICATION_TITLES.md.
+4. [V k] must be an item of docs/research/VERIFICATION_2026-10-09.md,
+   [VT k] an item of docs/research/VERIFICATION_TITLES.md and [VP k] an item
+   of docs/research/VERIFICATION_PRIOR-WORK.md.
 5. [E n] must name an evidence report docs/evidence/E{n}_*.md.
 6. [T n] and [Tn.m] must be a section of the current technical annex (the
    highest-versioned docs/proposal/ELO-TECHNICAL-ANNEX_vX_Y.md). Checked in
    living documents only: records cite the annex as it was when they were written.
-Placeholders in citation keys ([R n], [R §x], [V k], [VT k], [T n]) are not references.
+Placeholders in citation keys ([R n], [R §x], [V k], [VT k], [VP k], [T n]) are not references.
 Python standard library only.
 """
 from __future__ import annotations
@@ -30,6 +31,7 @@ from _repo import ROOT, existed_in_history, exists_now, latest, rel, tracked
 RESEARCH = "docs/research/ELO-RESEARCH_v1_0.md"
 SWEEP = "docs/research/VERIFICATION_2026-10-09.md"
 TITLES = "docs/research/VERIFICATION_TITLES.md"
+PRIOR = "docs/research/VERIFICATION_PRIOR-WORK.md"
 RECORDS = ("docs/decisions/", "docs/review/", "docs/research/")
 EXTRA = {"README.md", "CLAUDE.md", "analysis/README.md", "tools/README.md"}
 
@@ -41,6 +43,7 @@ CODE_SPAN = re.compile(r"`([^`]+)`")
 CITE_R = re.compile(r"\[R ([^\]]+)\]")
 CITE_V = re.compile(r"\[V ([^\]]+)\]")
 CITE_VT = re.compile(r"\[VT ([^\]]+)\]")
+CITE_VP = re.compile(r"\[VP ([^\]]+)\]")
 CITE_E = re.compile(r"\[E(\d+)\]")
 CITE_T = re.compile(r"\[T ?(\d+(?:\.\d+)*)\]")
 PLACEHOLDER_IDS = {"n", "k", "x", "§x", "§n"}
@@ -98,10 +101,11 @@ def main() -> int:
     sources, sections, names = research_ids()
     v_items = sweep_ids()
     vt_items = sweep_ids(TITLES) if (ROOT / TITLES).exists() else set()
+    vp_items = sweep_ids(PRIOR) if (ROOT / PRIOR).exists() else set()
     annex = latest("docs/proposal/ELO-TECHNICAL-ANNEX_v*_*.md")
     t_ids = annex_ids(annex) if annex else set()
     errors: list[str] = []
-    counts = {"links": 0, "paths": 0, "R": 0, "V": 0, "VT": 0, "E": 0, "T": 0}
+    counts = {"links": 0, "paths": 0, "R": 0, "V": 0, "VT": 0, "VP": 0, "E": 0, "T": 0}
     evidence = {f.split("/")[-1].split("_")[0] for f in tracked() if f.startswith("docs/evidence/E") and f.endswith(".md")}
 
     for f in files:
@@ -163,6 +167,13 @@ def main() -> int:
                     counts["VT"] += 1
                     if item not in vt_items:
                         errors.append(f"{f}:{n}: [VT {item}] not an item of {TITLES}")
+            for m in CITE_VP.finditer(prose):
+                for item in (s.strip() for s in m.group(1).split(",")):
+                    if item in PLACEHOLDER_IDS:
+                        continue
+                    counts["VP"] += 1
+                    if item not in vp_items:
+                        errors.append(f"{f}:{n}: [VP {item}] not an item of {PRIOR}")
             for m in CITE_E.finditer(prose):
                 counts["E"] += 1
                 if f"E{m.group(1)}" not in evidence:
@@ -176,7 +187,7 @@ def main() -> int:
     for e in errors:
         print(e)
     print(f"check_refs: {len(files)} files; {counts['links']} links, {counts['paths']} paths, "
-          f"{counts['R']} [R], {counts['V']} [V], {counts['VT']} [VT], {counts['E']} [E], {counts['T']} [T] references; "
+          f"{counts['R']} [R], {counts['V']} [V], {counts['VT']} [VT], {counts['VP']} [VP], {counts['E']} [E], {counts['T']} [T] references; "
           f"{len(errors)} unresolved")
     return 1 if errors else 0
 
