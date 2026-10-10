@@ -18,7 +18,9 @@
     {"script": "analysis/e3_us_championships.py", "args": [], "output": "docs/evidence/E3_us-championship-2026.md", "needs_data": false},
     {"script": "analysis/e5_deflation_extract.py", "args": [], "output": "analysis/aggregates/E5_deflation.json", "needs_data": true},
     {"script": "analysis/e5_deflation_report.py", "args": [], "output": "docs/evidence/E5_deflation.md", "needs_data": false},
-    {"script": "analysis/e4_community_report.py", "args": [], "output": "docs/evidence/E4_community-register.md", "needs_data": false}
+    {"script": "analysis/e4_community_report.py", "args": [], "output": "docs/evidence/E4_community-register.md", "needs_data": false},
+    {"script": "analysis/l1_history_extract.py", "args": [], "output": "analysis/aggregates/L1_history.json", "needs_data": true},
+    {"script": "analysis/l1_history_report.py", "args": [], "output": "analysis/OUTPUT_L1_history.md", "needs_data": false}
   ],
-  "modules": ["analysis/fide_panel.py"]
+  "modules": ["analysis/fide_panel.py", "analysis/l1_common.py"]
 }
