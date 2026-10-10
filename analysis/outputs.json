@@ -38,7 +38,14 @@
     {"script": "analysis/e11_table_by_level_report.py", "args": ["--yaml"], "output": "params/table_fit_2026-10b.yaml", "needs_data": false},
     {"script": "analysis/e12_guard_v2_extract.py", "args": [], "output": "analysis/aggregates/E12_guard_v2.json", "needs_data": true},
     {"script": "analysis/e12_guard_v2_report.py", "args": [], "output": "docs/evidence/E12_guard-v2.md", "needs_data": false},
-    {"script": "analysis/e12_guard_v2_report.py", "args": ["--yaml"], "output": "params/guard_2026-10b.yaml", "needs_data": false}
+    {"script": "analysis/e12_guard_v2_report.py", "args": ["--yaml"], "output": "params/guard_2026-10b.yaml", "needs_data": false},
+    {"script": "analysis/elo6_calculations.py", "args": [], "output": "analysis/OUTPUT_ELO6.md", "needs_data": false},
+    {"script": "analysis/e14_simulator_v2_run.py", "args": [], "output": "analysis/aggregates/E14_simulator_v2.json", "needs_data": false, "slow": true},
+    {"script": "analysis/e14_simulator_v2_report.py", "args": [], "output": "docs/evidence/E14_simulator-v2.md", "needs_data": false},
+    {"script": "analysis/e15_l1_grid_extract.py", "args": [], "output": "analysis/aggregates/E15_l1_grid.json", "needs_data": true},
+    {"script": "analysis/e15_l1_grid_report.py", "args": [], "output": "docs/evidence/E15_l1-grid.md", "needs_data": false},
+    {"script": "analysis/e16_post_compression_extract.py", "args": [], "output": "analysis/aggregates/E16_post_compression.json", "needs_data": true},
+    {"script": "analysis/e16_rung2_review_report.py", "args": [], "output": "docs/evidence/E16_rung2-under-review.md", "needs_data": false}
   ],
   "modules": ["analysis/fide_panel.py", "analysis/l1_common.py", "analysis/table_v2_fit.py"]
 }

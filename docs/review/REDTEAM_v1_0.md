@@ -161,3 +161,315 @@ Ranked by value to the attacker. "Computed" means rerun from the committed aggre
 #### Checked and closed
 
 Farming at gaps of 350–399 pooled over levels: −0.006/−0.009/+0.008 (E10). A favourite entering the guard's region gains nothing; the 2650 cliff is gone (script §8); colour outside the guard is priced by η. Two eligible juniors: R8 makes their expectations sum to one. Seeds and re-entry published only from θ̃ ≥ 1400. Compensation hunter: stated and monitored (R18). Compensation and seeds boosted through blitz: closed by the information shares (R5, R20). Minimum-activity collector: 0.52 a year under R3. Knowing a_t early is worthless. Posting the balance when it suits: capped at 12 · a_cap and visible in R + B. Sandbagging: no ledger rewards the dip (E9). K raised by playing weak opponents: the activity record counts games only. R16's period bound above 700 is no lever by itself (stated, §15 Q5). N_i's disclosure is accepted (R4). Federation shopping: stated (P4), monitored by the QC.
+
+---
+
+## Addendum: session ELO-6, Phase 5 — rung 2 v2, the narrowed guard and §10
+
+Status: REVIEW RECORD · Session ELO-6, Phase 5 · Date: 2026-10-10 · Reviewer: one subagent, read-only, briefed with the R-STAT and R-EXPLOIT briefs together, after Freeze 3 and with the documents folded for ELO-6. As the brief orders, it read only rung 2 (the table calibrated by level, with today's K times R32's m), the narrowed guard and the proposal's §10: `docs/proposal/ELO-PROPOSAL_v1_0.md` (§1, §2(a), §5, §8, §10, §11, §13, §15 Q1) and `docs/proposal/ELO-TECHNICAL-ANNEX_v1_0.md` (T3, T5 P2–P4, T8.1, T8.2, T8.10, T10.2, T11), with `docs/decisions/D-0011_rulings-and-freeze-3.md` (the rulings R24–R42 given as fixed; ruling-level points to be listed separately), `docs/decisions/D-0010_freeze-2.md`, the evidence reports E2, E10, E11, E12 and E13 with their aggregates, `docs/specs/SPEC-TABLE-FIT_v1_1.md`, `src/layer2/table_v2.py`, `src/layer2/guard_v2.py`, the two v2 parameter files, `tools/compare_event_v3.py`, `analysis/e13_us_championships_freeze3.py`, `analysis/elo6_calculations.py` with its output, and this file. It returned ten findings, ranked, with severity, location and fix; the report is reproduced verbatim below, after what the executor did with it.
+
+### Verification performed by the executor
+
+- **Every finding was checked against its source, and every number the documents now cite is printed by a committed script.** A new evidence page, E16 (`docs/evidence/E16_rung2-under-review.md`, from `analysis/e16_rung2_review_report.py`), reads the aggregates of E2, E11 and E12 unchanged, runs `tools/compare_event_v3.py` unchanged on the 2025 event and simulates title thresholds; `analysis/e16_post_compression_extract.py` refits the v2 table on games after the March 2024 compression (E16 §5); `analysis/elo6_calculations.py` §8–§9 prints the colour figures and the stake of one game under K × m. Where its setup is the reviewer's, E16 reproduces the reviewer's figures: the residuals and yields of ELO6-EXPLOIT-1 (+0.0179 and +0.0170; +0.25, +0.47), the detectable deviations and rapid's Holm margin of ELO6-STAT-1 (0.023 to 0.043; p = 0.000715 against 0.000714), the sample sizes of ELO6-STAT-3 (1,579 and 4,512 in standard), the 2025 decomposition of ELO6-EXPLOIT-3 (5.49, of which 4.80 from m; +12.05 = +3.56 + 8.49) and the K × m stake of ELO6-STAT-4 (62.0, +60.14). The title simulation of ELO6-EXPLOIT-4 is E16's own design (nine games a month for three months against equal opposition, the interim or the published rating touching the threshold, 40,000 runs with common random numbers) and shows a larger effect than the reviewer's: 2470 to 2500, 0.054 with K and 0.171 with K × m.
+- **The compression refit** (ELO6-STAT-2): refitted on games from 2024-03 only, with E11's model, functions and test months (the extraction reproduces E2's monthly sums exactly, and a second run reproduced its aggregate byte for byte), the bottom bands miss less (1500–1599 +0.023 against +0.029) and only 2400–2499 stays outside ±0.01 by level band, log-loss improving by 0.00007 to 0.00037 nats a game (E16 §5). The frozen table is not changed: the refit is shown beside Freeze 3.
+- **No frozen file was changed.** Freeze 3's manifest is unchanged (check (a)). Freeze 1's and Freeze 2's files may not be modified in this session (the relay's locks), and changing a Freeze 3 file needs a new decision record that also changes check (a), itself a Freeze 2 file; so the two findings that need such changes, the rule for an unplayed game (ELO6-EXPLOIT-2) and a column without m (ELO6-EXPLOIT-3), are fixed in part and sent to the architect, time-critical. E12 §9's wording, which the reviewer corrects, is in a frozen script; E16 §6 states the correct reason.
+- **After the fixes:** proposal body 4,498 words by the strict count and brief 899 (check (d)); every reference resolves (check (c)); every script that needs no data reproduces its committed output and Freeze 3's manifest equals D-0011's (check (a)); the slow simulator run E14 (two runs, byte-identical, md5 81c184e42cfccfcfe7a748fa3ee3a5db) and the data-dependent E16 extraction (two runs, byte-identical) were reproduced by hand, and E15's widened search reproduced the first search's point exactly; 586 tests pass (check (b)).
+
+### Disposition
+
+**fixed** (where); **fixed in part** (what remains, and for whom). Ruling-level points go to the architect (below); none of R24–R42 was reopened.
+
+| ID | Sev. | Topic | Status |
+|---|---|---|---|
+| ELO6-EXPLOIT-1 | blocker | playing down still pays outside the guard's region, at both ends; colour at the top; the tolerance under K × m | fixed: measured (E16 §1–§3) and stated in annex T3.2 (item 6, with the v2 colour figures of script v2 §8), T3.5, T3.6 ("What remains"), P4, T8.1, T8.10, T10.2 ("what remains outside it"), proposal §5 and §8 and the brief (step 2: "an extra White pays much less"; "against moderately weaker players it still slightly favours the stronger"); the favourite's yield by band and White's residual by band added to T8.4's monthly indicators; the simulator's blindness to these yields stated (P4, T3.6 (g), proposal §8). Rescaling T8.2's tolerance for K × m: for the architect |
+| ELO6-STAT-1 | major | "passes in every cell" overstated; below 2000 the v2 table misses by more than Freeze 1's | fixed: the detectable deviations, the untested cells and rapid's Holm margin printed (E16 §4) and stated in annex T3.6, T8.1, T8.10 and proposal §2(a), §8, §15; the bands below 2000 and 2400–2499 named. Making the by-band test on FIDE's data a condition before adoption would change R35's verdict: for the architect |
+| ELO6-STAT-2 | major | the fit straddles the March 2024 compression; the held-out claim | fixed: the refit after the compression shown beside Freeze 3 (E16 §5); annex T3.3 states the confound, that the published fit's κ, λ and η lie outside the rolling refits' range and that the model's form was chosen on the test months; a confirmation of the published table on broadcast months from 2026-10 pre-registered (T8.3); proposal §8. Whether SPEC-TABLE-FIT should drop or rescale pre-compression games: for the architect |
+| ELO6-EXPLOIT-2 | major | one unplayed game would block every blank of §10 | fixed in part: stated in proposal §10 and annex T8.10; the marker, the completion rule and the changes to `tools/set_results.py`, E13 and check (a) need a decision record changing Freeze 2 and Freeze 3 files, which this session may not make: for the architect, before 22 October |
+| ELO6-STAT-3 | major | R24's rule as read could not have removed the guard; rapid's region fails | fixed: the games needed printed (E16 §6) and stated in annex T3.6 and proposal §5; §1 now reads "guarded in the farming region until FIDE's games can calibrate it"; rapid's farming-region failure reported beside slope (b) (annex T3.6 (b), T8.1, T8.10; proposal §5, §8). One test that both imposes and lifts the guard: for the architect |
+| ELO6-EXPLOIT-3 | major | §10's (b) will mostly measure R32's m | fixed in part: the 2025 decomposition printed (E16 §7) and set out in proposal §10, as a table, before any result is read, so that the reading can point to it; a pre-registered column without m needs a decision record changing Freeze 3: for the architect, before 22 October |
+| ELO6-EXPLOIT-4 | major | K × m raises the chance of touching a title threshold | fixed: the interim rating under rung 2 at today's K specified (each game's K × m term) and its effect measured (E16 §8) and stated in annex T3.5, T11 (§1.5.3 a) row, now rungs 2 and 4) and proposal §14; threshold crossings added to the shadow list's assessment (T3.5). K or K × m for interim ratings under rung 2: for the architect |
+| ELO6-EXPLOIT-5 | minor | the guard reaches few favourites; the simulated farmer never tests it | fixed: the reach stated (E16 §6: 193 of 827 standard region games at full weight) in annex T3.6 (g), P4 and proposal §8; a farmer inside the region added to T9.4's list of adversaries not yet run; favourites rated 2500 or more at levels just below 2300 monitored (T8.4) |
+| ELO6-EXPLOIT-6 | minor | §1 and §10 overstate how far in advance the comparison was fixed | fixed: proposal §1 ("fixed before any result was read, amended once after round 1") and §10 (Freeze 1's time against D-0011's reading of the schedule; the rung-5 inputs frozen in Freeze 2 after round 1; the tags freeze-2 and freeze-3 with GitHub's merge times as the record); annex T8.10 (the check a tripwire, not a lock) |
+| ELO6-STAT-4 | minor | five statements about rung 2 not true as written | fixed: (a) annex T1, P2, T3.4 and P3 (i) (script v2 §9: 62.0 and +60.14; 0.16 with m); (b) annex T11's §8.3.1 row and proposal §5 (the guard lifts towards table 8.1.2, blended); (c) T11's §8.2.3 row (seeds pulled towards the opponents' average); (d) T3.6 (c) and P3 (vi) state that R24's 0.01 condition is missed, by up to 0.006: for the architect; (e) proposal §5 and §8 and annex T8.1 (worse in standard and blitz, the intervals excluding zero) |
+
+### For the architect
+
+Consolidated from the report, with the executor's evidence beside each; none is decided here.
+
+1. **Before 22 October: an unplayed game** (ELO6-EXPLOIT-2). Under Freeze 3 a game not played is entered as "-", which `tools/set_results.py` stores as "no result yet", and E13 then holds both events' tables and every blank as pending. A decision record, before any result is read, should fix a marker for a game not played, the completion rule (every game of rounds 1 to 11 has a result or is marked not played) and the matching changes to `tools/set_results.py`, E13 and check (a); this session's locks forbid changing those files.
+2. **Before 22 October: a column without m** (ELO6-EXPLOIT-3). On 2025's games column (b) differs from (a) by 5.49 points on average, 4.80 of them from R32's m; the v2 table at today's K differs by 1.94 and (b0) by 3.33 (E16 §7). Add, by a decision record before any result is read, the v2 table and guard at today's K as a pre-registered column with its three blanks, or rely on §10's 2025 table as the key to reading (b)?
+3. **R24, reading 4** (ELO6-STAT-3). The strict reading cannot drop the guard before the region holds about 1,600 games in standard, 2,400 in blitz and 5,300 in rapid (E16 §6), while the guard would lapse on T8.2's "not significantly outside" form, which standard and rapid already meet on broadcast games. One test should both impose and lift the guard.
+4. **R24 (ii)** (ELO6-EXPLOIT-5, ELO6-STAT-4 (d)). Keyed on the mean rating, the region guards no favourite rated below 2500, and leaves the largest remaining under-prediction at the top unguarded (+0.017 at gaps of 100 to 399 at levels of 2300 or more, +0.022 at 2400–2499; E16 §1); inside the blend the guarded table steps by 0.011 to 0.016, above the ruling's 0.01 (E12 §2).
+5. **R32** (ELO6-EXPLOIT-1, -4, ELO6-STAT-4 (e)). Its only test shows forecasts getting worse in standard and blitz (E12 §6); it multiplies every residual T8.2 tolerates (±0.01 is worth up to 0.18 points a game at K = 10 and 0.73 at K = 40; E16 §3) and those that remain (up to +0.25 a game at K = 10; E16 §1); and it raises title-threshold crossings (E16 §8). Rescale T8.2's tolerance under K × m? K or K × m for interim ratings under rung 2 (R26 covers rung 4 only)?
+6. **The March 2024 compression** (ELO6-STAT-2). Refitted on games after it, the bottom bands miss less (1500–1599 +0.023 against +0.029) and one level band stays outside ±0.01 instead of two, with slightly better forecasts in all three time controls (E16 §5). Should SPEC-TABLE-FIT drop or rescale pre-compression games? A refit changes the frozen table, so it would be shown beside Freeze 3, not in it.
+7. **Rung 2's verdict and its by-band condition** (ELO6-STAT-1). Below 2000 the v2 table misses by more than Freeze 1's in four of five bands, and the cell test detects only misses of 0.023 to 0.043 (E16 §4). Should the by-band test on FIDE's data be a condition before adoption in standard, which would change R35's RECOMMENDED NOW?
+8. **A colour term by level** (ELO6-EXPLOIT-1). White scores 0.016 to 0.021 above the v2 table at 2200 and above (E16 §2): a level-dependent η for the next fit?
+
+### The reviewer's report (verbatim)
+
+The report as returned, with its headings moved three levels down so that it sits under this addendum; nothing else is changed.
+
+#### Red-team review, session ELO-6: rung 2 v2, the narrowed guard and §10 (R-STAT and R-EXPLOIT)
+
+**Method.** I worked read-only and changed no file. Numbers marked "computed" are my own. I produced them from the committed aggregates, or with the committed library code (`src/layer2/table_v2.py`, `src/layer2/guard_v2.py`, `tools/compare_event_v3.py`), and printed them to stdout only. No committed script produces them yet, so the documents must not cite them until one does (CLAUDE.md rule 3).
+
+##### Findings
+
+###### ELO6-EXPLOIT-1 — blocker — Playing down still pays under rung 2 as recommended, now at both ends of the list
+
+**Location:**
+- Annex T10.2 ("Why the farming incentive goes"), T3.2 item 6 ("an extra White no longer pays"), T5 P4, T3.6 (g).
+- Proposal §5 ("The gap and the table"), §8 rung-2 row, §13 "Cliffs".
+- E12 §3.
+
+**Problem.** Below the guard's 400-point gap, favourites still score above the v2 table, and R32's factor m multiplies that residual into a gain. Figures are computed from `analysis/aggregates/E11_table_by_level.json` (rolling test months, standard, level band × gap cells, weighted by games). They cover favourites at gaps of 100–399; yield is expected points a game, K × m × residual:
+
+| Levels | Games | Layer 0 | Freeze 1 | v2 | Yield: Layer 0 / Freeze 1 / v2 with K × m |
+|---|---|---|---|---|---|
+| 2300–2799 | 28,243 | −0.0233 | +0.0425 | +0.0170 (SE ≈ 0.002) | K = 10: −0.23 / +0.43 / +0.25; K = 20: −0.47 / +0.85 / +0.50 |
+| 2400–2499 only | 9,339 | — | +0.0493 | +0.0217 | K = 10: v2 with K × m +0.32 |
+| 1500–1999 | 42,516 | −0.0310 | −0.0047 | +0.0179 (SE ≈ 0.002) | K = 20: −0.62 / −0.09 / +0.47; K = 40: −1.24 / −0.19 / +0.94 |
+
+- **At the top.** The residual falls by 60 %, but the yield falls by only about 40 %. In band 2400–2499 the yield is as large as the +0.30 that V10-EXPLOIT-1 reported for Freeze 1's table.
+- **Below 2000.** This is a new incentive: Freeze 1's table had none there.
+- **The direction of the flow reverses.** Pooled over levels, favourites beat the v2 table in 10 of 11 gap bins (E11 §4: +0.0055 to +0.0121; +0.0079 weighted by games over 189,854 games). Points would flow up the list, the mirror image of §2(a)'s drain.
+- **Colour is still under-priced at the top.** E2's descriptive table (all months) has White scoring 0.552, 0.550 and 0.551 in games within 25 points:
+  - at 2200–2399 (5,545 games), 2400–2599 (5,140) and 2600 or more (1,912);
+  - the v2 table gives White 0.536–0.537, 0.533–0.535 and 0.529–0.532 at equal ratings (computed; script v2 §8 prints 0.533 for 2500–2599);
+  - an extra White is therefore still worth about 0.016 × 14.9 ≈ +0.24 points at K = 10.
+- **The documents' evidence cannot show any of this.**
+  - The simulator's 0.241 → 0.053 takes the v2 table as the truth, so these empirical residuals are absent by construction.
+  - E12 §3 computes K × m × residual only inside the guard's region.
+- **The tolerance was not rescaled.** T8.2's ±0.01 was set for today's K. Under K × m a residual at that tolerance is worth up to 0.18 points a game at K = 10, and 0.73 at K = 40.
+
+**Fix:**
+- Print the favourite's yield K × m × residual by level band and gap outside the region, and White's residual by level band (in E12 or a new report from a committed script).
+- Rewrite T10.2's heading and conclusion, P4, §5 and T3.2 item 6 with these figures. The qualifier "where it is calibrated" excludes exactly the common choices.
+- Add the favourite's yield by band to T8.4's monthly indicators.
+- State in §8 that the simulator cannot show these yields.
+
+###### ELO6-STAT-1 — major — "Passes in every cell" overstates the table's calibration, and below 2000 the v2 table is worse than Freeze 1's
+
+**Location:** proposal §2(a), §8 (rung-2 row and the paragraph after it), §15 Q1; annex T3.6 "What remains", T8.10; E11 §5–§6.
+
+**Problem.**
+
+(a) **Below 2000 the v2 table misses further than the table it replaces.** E11 §6, standard, Freeze 1 → v2 (SE):
+- 1500–1599: −0.000 → +0.029 (0.006)
+- 1600–1699: −0.010 → +0.018 (0.004)
+- 1700–1799: −0.007 → +0.015 (0.003)
+- 1800–1899: −0.005 → +0.010 (0.003)
+- 1900–1999: +0.003 → +0.011 (0.003)
+
+These five bands hold 68,161 of the 191,878 test games and most of the pool (median 1734, quartiles 1552–1928 [E2]). The proposal names only 1500–1599. It never mentions 2400–2499 (+0.0173, SE 0.0025), which E11's own summary lists as significantly outside ±0.01.
+
+(b) **"0 of 68 cells" comes from a weak test.**
+- The tested cells' clustered SEs are 0.0050–0.0133. At 80 % power and a one-sided 5 % test, the smallest detectable deviation is therefore 0.023–0.043. At Holm's first step (z = 3.18) it is 0.030–0.063 (computed).
+- T8.2 says "the minimum detectable deviation of each bin is published with the result". E2 printed these deviations; E11 and E12 print none.
+- Untested cells reach +0.064 (1500–1599 × 150–199, 904 games) and +0.081 (1500–1599 × 200–249, 473 games).
+
+(c) **Rapid passes by a hair.** Cell 1500–1599 × 200–249 (+0.0458, SE 0.0112, 1,196 games) has p = 0.000715 against Holm's first threshold 0.05/70 = 0.000714 (recomputed with E11's `holm`). With one fewer tested cell, rapid would fail rule (a) by cell, a pass that §8's "by level band and gap included" relies on.
+
+**Fix:**
+- Replace "passes them in every cell" with "no cell of 1,000 or more test games misses detectably", giving the smallest detectable deviation.
+- Print those deviations in E11 and E12, as T8.2 requires.
+- State in §1, §8 and §15 that the v2 table is better at 2200 and above but worse than Freeze 1's in every band from 1500 to 1999, and name 2400–2499.
+- Make the by-band test on FIDE's data a condition before adoption, not only "tested".
+
+###### ELO6-STAT-2 — major — The fit straddles the March 2024 compression, and the "held-out" claim covers neither the published table nor its form
+
+**Location:** annex T3.1, T3.3 ("improves held-out log-loss"); proposal §2(a); SPEC-TABLE-FIT v1.1 §2 and §4.6; E11 §2, §8, §11.
+
+**Problem.**
+
+(a) **Two published scales are pooled.**
+- The March 2024 list moved every standard rating below 2000 by round(0.4 × (2000 − R)) [E5]. That narrowed published gaps below 2000 by 40 % for the same strengths.
+- Every fit pools games on both scales with no indicator. The rolling windows hold 26 pre-compression months (test month 2025-01) down to 6 (2026-09); the published fit holds 5.
+- As that share falls, the slope steepens most where the compression acted. Between the 2025-01 and 2026-09 fits, κ(L) rises 5.7 % at 1500–1599, 4.1 % at 2000–2099 and 1.8 % at 2700–2799; κ rises from 1.1227 to 1.1701 and λ falls from 0.2041 to 0.1913 (computed from E11's `per_month`).
+- E2 shows the same pattern: its final κ of 1.212 lies above its rolling range of 1.159–1.206.
+- The test months are all after the compression, and the v2 table misses below 2000 (STAT-1), where pre-compression games would flatten it.
+- E2, E11 and SPEC-TABLE-FIT never mention the compression.
+
+(b) **The published parameters were never tested.** They lie outside the range of all 21 tested refits on κ (1.1771 against 1.1227–1.1701), λ (0.1866 against 0.1913–0.2104) and η (36.47 against 36.61–37.72). E11 §2 prints both without comment.
+
+(c) **The test months chose the model.**
+- λ was added because "E2's held-out months show that pattern" (SPEC v1.1 §2).
+- The draw tail was added by a condition evaluated on residuals from the test games (§4.6), then scored on the same months.
+- The draw tail changed nothing: 2 of 12 bands outside before and after, log-likelihood +2.2, μ 0.076 (SE 0.036), identical log-loss (E11 §8).
+
+**Fix:**
+- Refit on post-compression games only (2024-03 to 2026-09), or map pre-compression ratings below 2000 by the compression formula. Report κ(L), λ, the by-band residuals and m beside the frozen table.
+- State the confound in T3.3 and E11 §11.
+- Write "held out from the fit; the form was chosen on these months".
+- Pre-register now a confirmation of the published table on broadcast months from 2026-10.
+
+###### ELO6-EXPLOIT-2 — major — One unplayed game blocks every blank of §10, forcing a change to frozen files after the results are read
+
+**Location:**
+- Proposal §10; D-0011 part B, items 1 and 4.
+- `analysis/e13_us_championships_freeze3.py` (`complete`, and the per-event and blanks branches).
+- `tools/set_results.py` (`ALIASES`); `tools/compare_event.py` (`SCORE`).
+
+**Problem.**
+- D-0011 says a game not played is entered as "-" and not counted. `set_results.py` maps "-" to `None`; its docstring calls it "a game not finished", so "not played" and "not yet entered" become the same value.
+- `compare_event.compare` skips such a game.
+- E13 prints an event's tables only when `counted == scheduled` (66), and the blanks only when both events are complete.
+- So a single forfeit or withdrawal leaves both events "pending" for good. Unblocking them means editing frozen files under a new decision record after the results are known, deciding then what "complete" means. That is the after-the-fact choice the freeze exists to prevent.
+
+**Fix:** before any result is read, record in a new decision record:
+- a distinct marker for a game not played;
+- the completion rule: every game of rounds 1–11 has a result or is marked not played;
+- the matching changes to `set_results.py` and E13.
+
+###### ELO6-STAT-3 — major — R24's rule as read could not have removed the guard, yet its outcome is presented as evidence
+
+**Location:** proposal §1 ("guarded where farming pays"), §5 ("which none does on 827 to 1,020 games"); annex T3.6, T8.10; E12 §1, §9; D-0011 reading 4.
+
+**Problem.**
+- **No table could have passed.** Reading 4 requires the 95 % interval to lie inside ±0.01, a band 0.020 wide. The region's per-game SEs (E12 aggregate) are 0.00705, 0.01171 and 0.00779 (standard, rapid, blitz). Whatever the table, the intervals are therefore about 0.028, 0.046 and 0.031 wide (by players: 0.026, 0.046, 0.030).
+- **The samples needed are far larger** (computed): about 1,580 standard games for a centred residual and 4,540 at the observed +0.0041; blitz 2,380; rapid 5,320.
+- **E12 §9 is wrong.** It says the rule "cannot be met ... unless the region's residual is unusually tight". The interval's width does not depend on the residual.
+- **"Keeps the guard in all three" says nothing about calibration.** In standard the evidence is +0.0041 (−0.0096 to +0.0168), and the farmer's yield is +0.06 a game (E12 §3). §1's "guarded where farming pays" is not supported in standard.
+- **Rapid also fails the farming-region test.** With the guard, rapid's region scores −0.0414 (players −0.0651 to −0.0195; month blocks −0.0525 to −0.0261). That fails the farming-region part of rung 2's targeted metric (T8.1; §11 "also in the farming region"). The documents report only slope (b) as rapid's failure.
+
+**Fix:**
+- State in §5, T3.6 and E12 §9 that at these sizes rule (i) keeps the guard whatever the table, and give the sample needed.
+- §1: "guarded in the farming region until FIDE's games can calibrate it".
+- Report rapid's farming-region failure beside slope (b).
+
+###### ELO6-EXPLOIT-3 — major — §10's statistics will mostly measure R32's multiplier, and (b) against (b0) will read backwards
+
+**Location:** proposal §10 (method and results table); D-0011 part B, items 2, 4 and 5.
+
+**Problem.**
+- Column (b) changes two things at once: the table, and K × m (1.63–1.72 in the open field's bands, 1.39–1.49 in the women's). No other column may be computed.
+- On the 2025 Championship (computed with `compare_event_v3`, m switched off for comparison):
+  - mean |(b) − (a)| is 5.49, of which m alone accounts for 4.80;
+  - the v2 table at today's K differs from (a) by 1.94, and Freeze 1's table (b0) by 3.33;
+  - the largest (b) − (a), +12.05, is +3.56 from the table and +8.49 from m;
+  - rounded changes differ from (a) for 12 of 12 players under (b), 10 under the v2 table alone and 11 under (b0).
+- A reader will see (b) further from FIDE's rules than the superseded (b0) and credit the new table, though the new table alone is the closer of the two. The reading paragraph may add no number that would correct this.
+
+**Fix:**
+- Before any result is read, add by a new decision record one pre-registered column: the v2 table and guard at today's K, with its three blanks.
+- Failing that, fix the reading's template so it states, from a committed script run on 2025, that (b) − (a) is mostly the factor m.
+
+###### ELO6-EXPLOIT-4 — major — K × m raises the chance of touching a title threshold without playing better
+
+**Location:** proposal §14; annex T3.5, T4.4, T11 (§1.5.3 a) row); D-0011 R26, which covers rung 4 only.
+
+**Problem.**
+- A title needs a rating "achieved at some time". It "can be obtained in the middle of a rating period, or even in the middle of a tournament", and the player "may then disregard subsequent results" (§1.5.3 a) [VT 1]).
+- Rung 2 at today's K multiplies each game's stake by m in standard: +44 % at 2300–2399, +49 % at 2400–2499, up to +82 % at 2800 and above.
+- If the interim rating uses K × m, as T1's definition of K_i implies, the effect is sizeable. Computed with 40,000 runs each: the v2 table as the truth, true strength equal to the rating, 27 games over three months against equal opposition.
+
+| Starting rating (= strength) | K | Threshold | Today's K | K × m |
+|---|---|---|---|---|
+| 2470 | 10 | 2500 | 0.061 | 0.111 (m 1.49) |
+| 2480 | 10 | 2500 | 0.175 | 0.282 (m 1.49) |
+| 2370 | 20 | 2400 | 0.221 | 0.287 (m 1.44) |
+
+- A K = 40 junior now stakes up to 62 points in one game (see STAT-4).
+- The documents state how an interim rating is computed only under rung 4.
+
+**Fix:**
+- State the effect and its size in T3.5, in T11's §1.5.3 a) row and in §14.
+- Specify the interim rating under rung 2 at today's K.
+- Add title-threshold crossings to the shadow list's norms assessment.
+
+###### ELO6-EXPLOIT-5 — minor — The guard reaches few favourites, and the simulator's farmer never tests it
+
+**Location:** annex T3.6 (a) and (g), T5 P4, T9.4; proposal §8 rung-2 row; `src/simulator/run.py` (`agent_games`, lines 312–318).
+
+**Problem.**
+- **Few favourites are reached.** Because the region is keyed on the mean rating, it requires the favourite to be rated at least 2500; full weight needs 2575.
+  - A 2600 is fully guarded only against opponents rated 2100–2150.
+  - Only 193 of the 827 standard region games carry full weight (E12).
+- **The simulated farmer never tests the guard.** It is a player rated 2400 or more on the published list, playing fields 400–800 points below. It is outside the region whenever it is rated below 2500.
+  - Across the five seeds, the guard changes its advantage by +0.0029, +0.0017, +0.0012, +0.0008 and −0.0024 a game (E14 aggregate, ledgers "2" against "2u").
+  - The "+0.053 with or without the guard" therefore says nothing about the guard. The reason is the farmer's construction, not T3.6 (g)'s "the truth is the v2 table".
+- **Escaping downwards shows no gain on broadcast games.** In standard, levels 2000–2299 at gaps of 400 or more give +0.0023 over 5,390 games (computed). This is a gap in the evidence, not a measured yield.
+
+**Fix:** say so in T3.6 (g), P4 and §8; simulate a farmer who plays inside the region; monitor favourites rated 2500 or more at levels just below 2300 (T8.4).
+
+###### ELO6-EXPLOIT-6 — minor — §1 and §10 overstate how far in advance the comparison was fixed
+
+**Location:** proposal §1 ("fixed in advance"); §10 ("its start time NOT VERIFIED", "The method, fixed in advance", "frozen before the event"); annex T8.10.
+
+**Problem.**
+- **The freezes came after play began.** D-0011 part B reads the official schedule's 12:00 as 17:00 UTC. On that reading:
+  - Freeze 1, merged by GitHub at 19:59:46Z on 9 October, came about three hours into round 1;
+  - Freezes 2 (13:58:33Z) and 3 (15:22:53Z on 10 October) came after round 1 had been played.
+- **The rung-5 inputs were frozen during the event.** `params/rung5_us2026.json`, its extract and `tools/compare_pilot.py` were first committed in Freeze 2 (90ea5ea).
+- **What actually protects the comparison:** inputs computed deterministically from games up to 30 September, and the executor's statement that no result was read.
+- **Check (a) is a tripwire, not a lock.**
+  - It runs the pull request's own copy of the check.
+  - It reads the manifest from D-0011, which the same pull request could edit.
+  - `.github/workflows/check.yml` is outside the manifest.
+  - The external record is the annotated tags plus GitHub's merge times.
+
+**Fix:**
+- §1: "fixed before any result was read, amended once after round 1".
+- §10: replace "NOT VERIFIED" with D-0011's reading and the resulting order of events. Replace "frozen before the event" with "computed from games to September 2026 and frozen in Freeze 2, after round 1".
+- Name the tags and merge times as the record.
+
+###### ELO6-STAT-4 — minor — Five statements about rung 2 are not true as written
+
+**(a) The per-game bound in annex T5 P2 and T1.** P2 says "|ΔR| ≤ … ≤ K_i ≤ K_max = 40", and T1 calls K_min, K_max the "bounds of K_i".
+- Under rung 2 at today's K, K_i is K × m. A K = 40 junior rated 2290 who beats a 2780 with Black gains +60.14 (K × m = 62.0; computed with `table_v2` and `guard_v2`).
+- T3.4's "at most 0.12 points in one game at K = 20" omits m; with m it is 0.16.
+
+**(b) Annex T11, §8.3.1 row.** It says the guard "keeps the favourite's expectation at least table 8.1.2's". That is false inside the blend: a 2610 with White against a 2190 (gap 420, w = 0.4) reads 0.931, against table 8.1.2's 0.94 (computed). The regulation text must state the blend.
+
+**(c) Annex T11, §8.2.3 row.** "Seeded lower than the new table implies" holds only for newcomers scoring above 50 %.
+- Below 50 %, table 8.1.1's dp (−193 at p = .25) is smaller in size than the v2 table's (−231 to −245, from script v2 §7 by symmetry).
+- So those newcomers are seeded higher: seeds are pulled towards Ra.
+
+**(d) R24 (ii)'s blend.** The ruling asks for a blend "so that no step exceeds 0.01". Inside the blend, the guarded table steps by up to 0.011 (standard), 0.013 (rapid) and 0.011 (blitz) within a band, and 0.016 (rapid) at a band edge (E12 §2). T3.6 (c) and P3 (vi) print these sizes but do not say the ruling's condition is unmet.
+
+**(e) Proposal §8 rung-2 row and annex T8.1.** "K × m does no harm by the tolerance" omits that its only test shows forecasts getting worse, with the interval excluding zero:
+- standard +0.00033 (+0.00018 to +0.00059);
+- blitz +0.00130 (+0.00076 to +0.00189) [E12 §6].
+
+That runs against R32's own rationale; §5 mentions only standard.
+
+**Fix:** correct each sentence as indicated, and list (d) and (e) for the architect.
+
+##### For the architect
+
+1. **R24, reading 4.**
+   - The strict reading cannot drop the guard until the region holds roughly 1,600 games (standard) to 5,300 (rapid).
+   - The guard would lapse on a different statistic: "FIDE's data calibrate its region" (T11, T8.2 rule (a)) is the "not significantly outside" form. Under that form, standard and rapid would already pass on broadcast games.
+   - One test should both impose and lift the guard.
+2. **R24 (ii).**
+   - Keyed on the mean rating, the region guards no favourite below 2500.
+   - It leaves the largest remaining under-prediction at the top unguarded: +0.017 at gaps 100–399 at levels of 2300 or more, and +0.022 at 2400–2499.
+   - Inside the blend, its "no step exceeds 0.01" is breached (0.011 to 0.016). Reading 6 (f) sent only the stop at 735 to you.
+3. **R32.**
+   - Its only test shows forecasts getting worse in standard and blitz.
+   - It multiplies every residual that T8.2 tolerates: ±0.01 becomes up to ±0.18 points a game at K = 10, and ±0.73 at K = 40.
+   - It raises title-threshold crossings. Should interim ratings for titles under rung 2 use K or K × m? R26 covers rung 4 only.
+4. **The March 2024 compression.** Should SPEC-TABLE-FIT drop or rescale pre-compression games? A refit changes the frozen table, so it would be shown beside Freeze 3, not in it.
+5. **§10.** The rule for unplayed games and a column without m both need a decision record before any result is read. After that, either would be an after-the-fact choice.
+
+##### Checked and correct
+
+- **Reproduction.** E11, E12, E13 and `analysis/OUTPUT_ELO6.md` reproduce byte for byte from their scripts (stdout diff).
+- **Freeze 3's manifest.** The live manifest equals D-0011's (`e84f0564…`, 49 entries) and covers the import graph of `compare_event_v3`. `src/layer2/table.py` and `src/layer2/kactivity.py` are not on that path.
+- **The 2026 event files** hold no result (0 of 66 each).
+  - Largest gaps are 165 and 250; lowest levels 2627.5 and 2240.5.
+  - The games fall in bands 2600–2799 and 2200–2499, so m is 1.39–1.72.
+  - No pairing lies in the guard's region.
+- **The fit.** E11 §2's values and SEs match `params/table_fit_2026-10b.yaml`. κ(L) is 1.048, 1.386 and 1.670, and the local scales are 549, 604 and 721. The m values recompute (E′_8.1.2(0) = 0.001369, giving 1.31–1.82 in standard).
+- **Rule (a) by cell,** recomputed with Holm: standard 0 of 68 (Freeze 1 10, Layer 0 23), rapid 0 of 70, blitz 0 of 14.
+- **E12's figures** match its aggregate: region counts, residuals and both intervals, the guard's costs, the farmer's yields and R32's test.
+- **The guard's code.** `guard_v2.py` implements reading 6:
+  - the region is tested on published ratings, with w = w_g · w_L;
+  - the guard only ever lifts the favourite, and stops when x_fav exceeds 735;
+  - the value is rounded on the favourite's side and mirrored;
+  - compensation is read on each side's own gap.
+  - T10.2's rows reproduce (0.952 → 0.970 at K × m 14.40; 2649 and 2651 both 0.960; 2936 0.992).
+- **E13** implements §10's blanks as D-0011 defines them. The 2025 check reproduces: (b) − (a) from −8.05 to +12.05, and (b0) − (a) from −7.00 to +6.62.
+- **The simulator's farming figures,** 0.241 and 0.053, are the five-seed means in E14's aggregate (0.2407, 0.0534).
+- **T11's §8.2.3 figures** match script v2 §7 and table 8.1.1 in `src/layer0`.
+- **Freeze times.** GitHub merge times are 19:59:46Z on 9 October, then 13:58:33Z and 15:22:53Z on 10 October. Both tags are annotated.
