@@ -13,10 +13,13 @@ DRIFT_A = (16.10, 12.66, 6.60, 3.64, 0.0, -0.91, -1.79)
 DRIFT_B = (3.09, 0.90, -0.71, -0.25, 0.0, 0.11, 0.90)
 PROFILE = (25.0, 25.0, 20.0, 14.0, 12.0, 15.0, 15.0)                       # SPEC-L1 §3.7 (Layer 1's proxy)
 DGP_PROFILE = (12.0, 12.0, 12.0, 12.0, 12.0, 15.0, 15.0)                   # the true noise: juniors' spread is in τ
-# E1: 2025 newcomers' age shares and 2023 newcomers' median first rating (the last year before the 1400 floor)
+# E1: 2025 newcomers' age shares and 2023 newcomers' median first rating (the last year before the 1400 floor), on the
+# scale before the March 2024 compression; moved to today's scale by that compression, R + round(0.4 × (2000 − R))
+# below 2000 [E5] (REDTEAM_v1_0, V10-STAT-2): 1472, 1494, 1572, 1644, 1644, 1661
 ENTRANT_AGES = ((8, 9), (10, 14), (15, 19), (20, 29), (30, 49), (50, 70))
 ENTRANT_SHARE = (0.081, 0.367, 0.194, 0.123, 0.135, 0.098)
-ENTRANT_MEDIAN = (1120.0, 1156.0, 1286.0, 1407.0, 1406.0, 1435.0)
+ENTRANT_MEDIAN_2023 = (1120.0, 1156.0, 1286.0, 1407.0, 1406.0, 1435.0)
+ENTRANT_MEDIAN = tuple(m + round(0.4 * (2000.0 - m)) if m < 2000.0 else m for m in ENTRANT_MEDIAN_2023)
 FED_SIZES = (20.0, 10.0, 5.0, 2.0, 1.0, 0.5)                               # T9.1
 
 

@@ -75,3 +75,15 @@ def test_evaluation_form_symmetry():
             assert abs(table.expected_white(par, x, mid) + table.expected_white(par, -x, mid) - 1.0) < 1e-12
             pw, pd, pl = table.probs(par, x, mid)
             assert abs(pw + pd + pl - 1.0) < 1e-12
+
+
+def test_guard_reads_the_favourites_published_rating_under_compensation():
+    """D-0009 reading 4: "rated 2300 or more" is the favourite's published rating, also when the gap uses RX_j."""
+    from decimal import Decimal as D
+    # a junior published at 2250 with RX = 2350 against an adult rated 1900: the adult's gap is −450 on RX, but the
+    # favourite (the junior) is rated 2250 on the list, so the guard does not apply
+    e, binds = guard.guard_own(D("0.100"), 1900, 2350, r_opp_published=2250)
+    assert (e, binds) == (D("0.100"), False)
+    # the same pairing without compensation information reads 2350 and binds
+    e2, binds2 = guard.guard_own(D("0.100"), 1900, 2350)
+    assert binds2 and e2 < D("0.100")
