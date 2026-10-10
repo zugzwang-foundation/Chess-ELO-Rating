@@ -1,7 +1,7 @@
 {
   "comment": "Registry for check (a): each script's standard output must equal its committed output byte for byte. needs_data = true marks scripts that read raw files under data/ (gitignored), slow = true scripts that run for minutes (the simulator); CI checks only that their outputs exist, --all reruns them.",
   "outputs": [
-    {"script": "analysis/v04_calculations.py", "args": [], "output": "analysis/OUTPUT_v0_4.md", "needs_data": false},
+    {"script": "analysis/v10_calculations.py", "args": [], "output": "analysis/OUTPUT_v1_0.md", "needs_data": false},
     {"script": "analysis/l0_k_rules_extract.py", "args": [], "output": "analysis/aggregates/L0_k_rules.json", "needs_data": true},
     {"script": "analysis/l0_k_rules_report.py", "args": [], "output": "analysis/OUTPUT_L0_k_rules.md", "needs_data": false},
     {"script": "analysis/l0_fixtures_report.py", "args": [], "output": "analysis/OUTPUT_L0_fixtures.md", "needs_data": false},

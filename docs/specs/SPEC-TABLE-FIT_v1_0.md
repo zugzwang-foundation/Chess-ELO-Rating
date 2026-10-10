@@ -1,6 +1,6 @@
 # SPEC-TABLE-FIT — fitting the expected-score table on the broadcast archive, v1.0
 
-**Status: REVIEW — written before the fit (ELO-3 brief, Phase 4.2).** Author: The Zugzwang Authors · Licence: CC BY 4.0 (`docs/LICENSE-docs.md`) · Date: 2026-10-09. Implements decisions D1, D2 and D12 (`docs/decisions/D-0005_architect-decisions-v0.3.md`), annex T3 and T8 (of v0.3, now `docs/proposal/ELO-TECHNICAL-ANNEX_v0_4.md`). Every value it produces is PROVISIONAL-FITTED.
+**Status: REVIEW — written before the fit (ELO-3 brief, Phase 4.2).** Author: The Zugzwang Authors · Licence: CC BY 4.0 (`docs/LICENSE-docs.md`) · Date: 2026-10-09. Implements decisions D1, D2 and D12 (`docs/decisions/D-0005_architect-decisions-v0.3.md`), annex T3 and T8 (of v0.3, now `docs/proposal/ELO-TECHNICAL-ANNEX_v1_0.md`). Every value it produces is PROVISIONAL-FITTED.
 
 ## 1 Data
 
