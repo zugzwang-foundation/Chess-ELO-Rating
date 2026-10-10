@@ -1,6 +1,6 @@
 """The simulator's replacements for rung 2 v2 (src/simulator/v2.py; session ELO-6): the published v2 table and the
-narrowed guard in the ledger, K × m (R32), rung 4's K under the v2 table with R25's bound, R33's accrual window, and
-determinism of a small run. The frozen simulator's classes are restored after every test that installs the
+narrowed guard in the ledger, today's K (R32's K × m withdrawn by R44), rung 4's K under the v2 table with R25's
+bound, R33's accrual window, and determinism of a small run. The frozen simulator's classes are restored after every test that installs the
 replacements."""
 import json
 import math
@@ -46,7 +46,7 @@ def test_published_table_and_the_narrowed_guard():
     assert led.expect(2200, 2100, 1, ledger.mid_index(2150)) == tabs[ledger.mid_index(2150)][100 + eta + ledger.XOFF]
 
 
-def test_rung2_at_todays_k_scales_by_m():
+def test_rung2_uses_todays_k_r32_withdrawn():
     tabs, eta = v2.fit_table_v2(C.KAPPA0)
     led = v2.LedgerV2("R2", {"2"}, (tabs, eta), 1.0)
     for _ in range(2):
@@ -56,9 +56,10 @@ def test_rung2_at_todays_k_scales_by_m():
     led.game(0, 1, 2, 1, 0, [0, 0])
     text = (v2.ROOT / "params" / "table_fit_2026-10b.yaml").read_text(encoding="utf-8")
     m = int(t2.load(text, "standard")["k_scale"][2150] * 100)
-    assert v2.M100[2150] == m
+    assert v2.M100[2150] == m != 100                          # the frozen file still prints R32's m ...
+    assert not v2.SCALE_K and not led.scale_k                # ... which R44 withdrew: today's K, m = 1
     e = led.expect(2210, 2150, 1, ledger.mid_index(2180))
-    assert led.acc[0] == m * (1000 - e) and led.acc[1] == -m * (1000 - e)
+    assert led.acc[0] == 100 * (1000 - e) and led.acc[1] == -100 * (1000 - e)
 
 
 def test_rung4_k_is_the_kalman_gain_under_the_v2_table_with_r25s_bound():
