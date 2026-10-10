@@ -1,6 +1,6 @@
 # FIDE fixtures for SPEC-L0
 
-Status: REVIEW — recorded 2026-10-09 (session ELO-3, Phase 2) for `docs/specs/SPEC-L0_fide-reference-engine_v1_0.md`; `published_multi_event_periods.json` added in session ELO-4 under D-0008, R10. Every derived value of the ELO-3 files is recomputed by `analysis/l0_fixtures_report.py` (output `analysis/OUTPUT_L0_fixtures.md`); the rounding evidence of all published calculations by `analysis/l0_rounding_report.py` (output `analysis/OUTPUT_L0_rounding.md`).
+Status: REVIEW — recorded 2026-10-09 (session ELO-3, Phase 2) for SPEC-L0 (v1.0; now `docs/specs/SPEC-L0_fide-reference-engine_v1_1.md`, which records the multi-event periods); `published_multi_event_periods.json` added in session ELO-4 under D-0008, R10. Every derived value of the ELO-3 files is recomputed by `analysis/l0_fixtures_report.py` (output `analysis/OUTPUT_L0_fixtures.md`); the rounding evidence of all published calculations by `analysis/l0_rounding_report.py` (output `analysis/OUTPUT_L0_rounding.md`).
 
 ## Files
 

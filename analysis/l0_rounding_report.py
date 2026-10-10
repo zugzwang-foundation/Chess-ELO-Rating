@@ -107,8 +107,8 @@ def main() -> None:
             f"{len(disc)} discriminating periods; the exception, F-P02, is reproduced only by rounding each tournament, and neither its "
             f"events' starting ratings nor the lists show why. {sum(1 for r in disc if r['cross'] and r['follows'] == 'period')} of the "
             "discriminating periods that follow rounding once hold an event that started under an earlier list, so rounding such "
-            "events separately is not FIDE's practice either. SPEC-L0 keeps rounding once per period; Q-1 stays "
-            "NOT VERIFIED in the specification until a new version reclassifies it (D-0006), with this evidence behind it.", ""]
+            "events separately is not FIDE's practice either. SPEC-L0 v1.1 records this evidence (D-0009, R21) and keeps "
+            "rounding once per period; Q-1 stays NOT VERIFIED.", ""]
     print("\n".join(out))
 
 

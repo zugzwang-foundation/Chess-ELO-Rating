@@ -47,3 +47,8 @@ again. The architect reviews the close-outs afterwards.
 - Versioned documents: `NAME_vX_Y.md`; versions are bumped with git mv; history lives in git.
 - Commit messages use conventional prefixes: `chore:`, `docs:`, `feat:`, `fix:`, `test:`.
 - Session artefacts (logs, close-outs) live in the operator's `~/Downloads`, not here.
+
+## Active session — ELO-5
+After any compaction, and at every phase boundary, re-read
+~/Downloads/zz_ELO-5_relay.md and the latest ~/Downloads/zz_ELO-5_session_*.md;
+resume from the first phase not marked DONE. Remove this section at close-out.

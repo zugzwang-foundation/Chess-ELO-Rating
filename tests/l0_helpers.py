@@ -1,4 +1,4 @@
-"""Shared helpers for the SPEC-L0 acceptance tests A-1 to A-10 (docs/specs/SPEC-L0_fide-reference-engine_v1_0.md, §7).
+"""Shared helpers for the SPEC-L0 acceptance tests A-1 to A-10 (docs/specs/SPEC-L0_fide-reference-engine_v1_1.md, §7).
 
 The tests are written before the engine. While src/layer0/ does not exist, every
 test that needs the engine is skipped; once the package exists it is imported

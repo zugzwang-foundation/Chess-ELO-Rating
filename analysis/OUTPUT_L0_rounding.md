@@ -82,5 +82,5 @@ For every period: the change rounded once (§8.3.4 applied to the period total, 
 
 ## Reading
 
-Rounding once per period, as §8.3.4 is written and SPEC-L0 R-25 reads it, reproduces FIDE's list in 13 of the 14 discriminating periods; the exception, F-P02, is reproduced only by rounding each tournament, and neither its events' starting ratings nor the lists show why. 8 of the discriminating periods that follow rounding once hold an event that started under an earlier list, so rounding such events separately is not FIDE's practice either. SPEC-L0 keeps rounding once per period; Q-1 stays NOT VERIFIED in the specification until a new version reclassifies it (D-0006), with this evidence behind it.
+Rounding once per period, as §8.3.4 is written and SPEC-L0 R-25 reads it, reproduces FIDE's list in 13 of the 14 discriminating periods; the exception, F-P02, is reproduced only by rounding each tournament, and neither its events' starting ratings nor the lists show why. 8 of the discriminating periods that follow rounding once hold an event that started under an earlier list, so rounding such events separately is not FIDE's practice either. SPEC-L0 v1.1 records this evidence (D-0009, R21) and keeps rounding once per period; Q-1 stays NOT VERIFIED.
 

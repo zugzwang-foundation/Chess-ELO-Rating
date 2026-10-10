@@ -1,7 +1,7 @@
 [project]
 name = "zugzwang-layer0"
 version = "1.0.0"
-description = "Layer 0: an exact reference implementation of the FIDE Rating Regulations (docs/specs/SPEC-L0_fide-reference-engine_v1_0.md)"
+description = "Layer 0: an exact reference implementation of the FIDE Rating Regulations (docs/specs/SPEC-L0_fide-reference-engine_v1_1.md)"
 requires-python = ">=3.12"
 license = "Apache-2.0"
 authors = [{ name = "The Zugzwang Authors" }]
