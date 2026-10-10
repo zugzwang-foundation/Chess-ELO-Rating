@@ -9,8 +9,8 @@ when its opponent is a compensated junior), applied only while x <= 735, the las
 underdog's is E_v2 - w * max(0, E_v2 - (1 - T)) at its own effective gap, so that without compensation the two sum to
 one and the guard creates no points. Works on floats (evaluation, unrounded) and on Decimals (the published entry:
 the blended value rounded half up to three decimals). Whether the guard applies in a time control is Phase 2's
-outcome, read from the guard parameter file. Staged under analysis/staging/ until Freeze 3 (D-0011, reading 1).
-Standard library only.
+outcome, read from the guard parameter file (params/guard_2026-10b.yaml). Frozen in Freeze 3 (D-0011). Standard
+library only.
 """
 from __future__ import annotations
 

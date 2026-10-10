@@ -3,10 +3,10 @@
 
 The rule is D-0011's (R24, fixed before the v2 table was fitted; readings 4 to 7). This script computes what the rule
 and E10's checks need, with the v2 table of each of E2's 21 test months as E11 fitted it
-(analysis/staging/aggregates/E11_table_by_level.json; no refit):
+(analysis/aggregates/E11_table_by_level.json; no refit):
  - E2's sample rebuilt through E10's builder (the data cutoff enforced: no broadcast file after 2026-09, no game dated
    after 2026-09-30); the v2 table's monthly sums reproduced exactly from E11 before anything else;
- - the v2 table with and without the narrowed guard (analysis/staging/guard_v2.py) and Layer 0, on the same games:
+ - the v2 table with and without the narrowed guard (src/layer2/guard_v2.py) and Layer 0, on the same games:
    log-loss, Brier and RPS sums, calibration bins in E2's format, the favourite's residual by level band x gap cell
    (cluster-robust over favourites), the farming region (= the guard's region: level >= 2300, gap >= 400) with E6's
    month-block and player bootstraps (imported unchanged), and the favourite's and underdog's residuals in it by gap
@@ -16,9 +16,9 @@ and E10's checks need, with the v2 table of each of E2's 21 test months as E11 f
    the month's printed ratio m(L) of the game's level band, and month t + 1's games forecast from the carried ratings
    with month t + 1's v2 table and the narrowed guard (as E6 tested rung 4), the log-loss and Brier differences
    (scaled minus unscaled) by month with E6's month-block bootstrap.
-Only aggregates leave the script. Staged under analysis/staging/ until Freeze 3 (D-0011, reading 1).
+Only aggregates leave the script.
 
-Usage: python3 analysis/staging/e12_guard_v2_extract.py > analysis/staging/aggregates/E12_guard_v2.json
+Usage: python3 analysis/e12_guard_v2_extract.py > analysis/aggregates/E12_guard_v2.json
 """
 from __future__ import annotations
 
@@ -29,17 +29,16 @@ from collections import Counter, defaultdict
 from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "analysis" / "staging"))
+ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "analysis"))
 sys.path.insert(0, str(ROOT / "src"))
 import e2_broadcast_extract as e2x  # noqa: E402  (E2's model, bins and helpers, unchanged)
 import e6_rungs_extract as e6  # noqa: E402  (E6's bootstraps and three-outcome split, unchanged)
 import e10_guard_extract as e10  # noqa: E402  (E2's sample with the cutoff, unchanged)
 import e11_table_by_level_extract as e11  # noqa: E402  (the cluster-robust mean, unchanged)
-import guard_v2 as gv2  # noqa: E402
-import table_v2 as t2  # noqa: E402
 from layer1 import data as l1data  # noqa: E402
+from layer2 import guard_v2 as gv2  # noqa: E402
+from layer2 import table_v2 as t2  # noqa: E402
 
 TCS = e2x.TCS
 BAND = 0.01
@@ -71,7 +70,7 @@ def region_bin(gap: int, x_fav: int) -> str:
 
 
 def main() -> int:
-    d11 = json.loads((ROOT / "analysis" / "staging" / "aggregates" / "E11_table_by_level.json").read_text(encoding="utf-8"))
+    d11 = json.loads((ROOT / "analysis" / "aggregates" / "E11_table_by_level.json").read_text(encoding="utf-8"))
     e2 = json.loads((ROOT / "analysis" / "aggregates" / "E2_broadcast.json").read_text(encoding="utf-8"))
     smp, meta = e10.sample()
     out: dict = {"cutoff": meta, "rule": "docs/decisions/D-0011_rulings-and-freeze-3.md (R24; readings 4 to 7)",

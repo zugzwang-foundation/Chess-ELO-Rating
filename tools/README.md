@@ -38,6 +38,17 @@ python3 analysis/e3_us_championships.py > docs/evidence/E3_us-championship-2026.
 
 The regenerated page prints the main table (columns (a) and (b)), the PILOT table and the values of the blanks of the proposal's §10, as D-0010 fixes them.
 
+## compare_event_v3.py — Freeze 3: columns (a), (b), (b0) and the PILOT table on (b)
+
+`tools/compare_event_v3.py` (Freeze 3, `docs/decisions/D-0011_rulings-and-freeze-3.md`, part B) reads the same event files and prints, per player, (a) FIDE today through `tools/compare_event.py` unchanged; (b) rung 2 v2 as session ELO-6 left it: the table calibrated by level (`params/table_fit_2026-10b.yaml`, E11), the narrowed guard where `params/guard_2026-10b.yaml` applies it (`src/layer2/guard_v2.py`, E12) and each game's K multiplied by the table's printed slope ratio m(L) of the game's level band (R32); (b0) rung 2 exactly as Freeze 2 pre-registered it, labelled "first pre-registration, superseded"; and, separately and labelled PILOT, rung 5 on top of (b) with the frozen inputs of `params/rung5_us2026.json`. `tests/test_compare_event_v3.py` checks column (a) against FIDE's 2025 calculation and (b0) against Freeze 2's column (b).
+
+**After the event (Freeze 3).** Enter the results as above, then regenerate both pages once; `docs/evidence/E13_us-championship-2026-freeze-3.md` prints the tables of Freeze 3 and the blanks of the proposal's §10 as D-0011 part B redefines them, and its manifest of the frozen files must equal the one D-0011 records (check (a)):
+
+```
+python3 analysis/e13_us_championships_freeze3.py > docs/evidence/E13_us-championship-2026-freeze-3.md
+python3 analysis/e3_us_championships.py > docs/evidence/E3_us-championship-2026.md
+```
+
 ## data/ — downloads and conversions
 
 Raw and converted data live under `data/` at the repository root, which is never committed (`.gitignore`): FIDE's lists carry no data licence and are analysed, never redistributed [V 3]. Only aggregates computed from them are committed, under `analysis/aggregates/`.

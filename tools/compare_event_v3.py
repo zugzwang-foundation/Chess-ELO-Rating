@@ -7,7 +7,7 @@ Reads an event file (tools/events/*.json), the v2 table (params/table_fit_2026-1
   (a) the event's change under FIDE's rules, computed by the ratified Layer-0 engine through Freeze 1's tool
       (tools/compare_event.py, unchanged), with K reduced under K x n <= 700;
   (b) rung 2 v2 as Phase 2 left it (E11, E12): the v2 table's published entry (eta whole, three decimals, at the
-      game's level band), the narrowed guard where the guard file applies it (analysis/staging/guard_v2.py; R24), and
+      game's level band), the narrowed guard where the guard file applies it (src/layer2/guard_v2.py; R24), and
       each game's K multiplied by the table's printed ratio m(L) of the game's level band where R32 scales it;
   (b0) rung 2 exactly as Freeze 2 pre-registered it, labelled "first pre-registration, superseded": Freeze 1's tool's
       column (b) with Freeze 1's table, unchanged;
@@ -16,12 +16,12 @@ opponent who is not eligible (R8) using RX_j = R_j + c_j in the gap of the expec
 the published ratings and its value read at the gap that player's expectation uses (D-0011, reading 6), the junior's
 own expectation on published ratings, the level band that of the two published ratings; and (p) - (b). Every column
 is K times the sum of (score - expectation) over the event's games (with m inside the sum for (b) and (p)),
-unrounded and rounded once. Rungs 3, 4, 6 and 7 stay off. Staged under analysis/staging/ until Freeze 3 (D-0011,
-reading 1), then tools/compare_event_v3.py. Python standard library only.
+unrounded and rounded once. Rungs 3, 4, 6 and 7 stay off. Frozen in Freeze 3 (D-0011, part B). Python standard library
+only.
 
 Usage:
-  python3 analysis/staging/compare_event_v3.py tools/events/us_championship_2026.json
-  python3 analysis/staging/compare_event_v3.py EVENT.json --table T.yaml --guard G.yaml --rung5 R.json
+  python3 tools/compare_event_v3.py tools/events/us_championship_2026.json
+  python3 tools/compare_event_v3.py EVENT.json --table T.yaml --guard G.yaml --rung5 R.json
 """
 from __future__ import annotations
 
@@ -34,17 +34,16 @@ from decimal import Decimal
 from pathlib import Path
 
 ROOT = next(p for p in Path(__file__).resolve().parents if (p / "pyproject.toml").exists())
-sys.path.insert(0, str(ROOT / "analysis" / "staging"))
 sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(ROOT / "src"))
 import compare_event as ce  # noqa: E402  (Freeze 1's tool: columns (a) and (b0), unchanged)
 import compare_pilot as cp  # noqa: E402  (Freeze 2's PILOT tool: the rung-5 file's reader, unchanged)
-import guard_v2 as gv2  # noqa: E402
 import layer0  # noqa: E402
-import table_v2 as t2  # noqa: E402
+from layer2 import guard_v2 as gv2  # noqa: E402
+from layer2 import table_v2 as t2  # noqa: E402
 
-DEFAULT_TABLE = "analysis/staging/params/table_fit_2026-10b.yaml"
-DEFAULT_GUARD = "analysis/staging/params/guard_2026-10b.yaml"
+DEFAULT_TABLE = "params/table_fit_2026-10b.yaml"
+DEFAULT_GUARD = "params/guard_2026-10b.yaml"
 DEFAULT_RUNG5 = cp.DEFAULT_RUNG5
 SUPERSEDED = "first pre-registration, superseded"
 

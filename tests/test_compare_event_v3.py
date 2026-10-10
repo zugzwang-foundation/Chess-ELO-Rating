@@ -1,6 +1,6 @@
 """The championship comparison of Freeze 3 (D-0011; ELO-6, Phase 3): columns (a), (b), (b0) and the PILOT table.
 
-The tool is staged under analysis/staging/ until Freeze 3 (D-0011, reading 1)."""
+The tool is tools/compare_event_v3.py, frozen in Freeze 3 (D-0011, part B)."""
 import math
 import sys
 from decimal import ROUND_HALF_UP, Decimal
@@ -8,7 +8,6 @@ from decimal import ROUND_HALF_UP, Decimal
 from l0_helpers import ROOT, fixture, require_layer0
 
 require_layer0()
-sys.path.insert(0, str(ROOT / "analysis" / "staging"))
 sys.path.insert(0, str(ROOT / "tools"))
 import compare_event as ce  # noqa: E402
 import compare_event_v3 as v3  # noqa: E402

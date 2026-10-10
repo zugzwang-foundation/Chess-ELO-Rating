@@ -1,18 +1,17 @@
 """Maximum likelihood for the v2 table (SPEC-TABLE-FIT v1.1 §2): a module of the E11 extraction, not a script.
 
 The likelihood is summed over cells of identical (gap, level band, outcome); the parameters are
-(kappa, lambda, eta, alpha, beta, gamma, mu) of analysis/staging/table_v2.py, mu fixed at 0 unless the draw tail is
+(kappa, lambda, eta, alpha, beta, gamma, mu) of src/layer2/table_v2.py, mu fixed at 0 unless the draw tail is
 fitted. A damped Newton method with the analytic score and a finite-difference Hessian (as v1.0's fit in
 analysis/e2_broadcast_extract.py); a step that breaks a bound is halved until it holds (kappa >= 0.05, and
 0 <= gamma(L) <= 1/2 at every band midpoint); it stops when no parameter moves by more than 1e-7, or after 50
-iterations; standard errors from the inverse observed information of the free parameters. Staged under
-analysis/staging/ until Freeze 3 (D-0011, reading 1). Standard library only.
+iterations; standard errors from the inverse observed information of the free parameters. Standard library only.
 """
 from __future__ import annotations
 
 import math
 
-import table_v2 as t2
+from layer2 import table_v2 as t2
 
 ELLS = tuple(t2.ell(m) for m in t2.BAND_MIDS)
 L_MIN, L_MAX = min(ELLS), max(ELLS)

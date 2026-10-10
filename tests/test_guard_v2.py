@@ -1,4 +1,4 @@
-"""The narrowed guard of R24's rule (ii) (D-0011, reading 6), staged under analysis/staging/ until Freeze 3."""
+"""The narrowed guard of R24's rule (ii) (D-0011, reading 6): src/layer2/guard_v2.py and params/guard_2026-10b.yaml."""
 import re
 import sys
 from decimal import Decimal
@@ -7,12 +7,11 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "analysis" / "staging"))
 sys.path.insert(0, str(ROOT / "src"))
-import guard_v2 as gv2  # noqa: E402
-import table_v2 as t2  # noqa: E402
+from layer2 import guard_v2 as gv2  # noqa: E402
+from layer2 import table_v2 as t2  # noqa: E402
 
-STAGED = ROOT / "analysis" / "staging" / "params" / "guard_2026-10b.yaml"
+STAGED = ROOT / "params" / "guard_2026-10b.yaml"
 
 
 def test_region_and_weight_on_published_ratings():
