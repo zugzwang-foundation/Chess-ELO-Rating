@@ -12,9 +12,9 @@ gap cell and by level band, with cluster-robust standard errors over favourites;
 level >= 2300) and the games at levels >= 2300 below a 400-point gap, with E6's month-block and player bootstraps
 imported unchanged. If, after lambda, a level pattern remains in a time control (SPEC-TABLE-FIT v1.1 section 4.6),
 the draw tail gamma(L) = gamma exp(mu (L - 2000)/400) is added there and everything is redone with it. Only
-aggregates leave the script. Staged under analysis/staging/ until Freeze 3 (D-0011, reading 1).
+aggregates leave the script.
 
-Usage: python3 analysis/staging/e11_table_by_level_extract.py > analysis/staging/aggregates/E11_table_by_level.json
+Usage: python3 analysis/e11_table_by_level_extract.py > analysis/aggregates/E11_table_by_level.json
 """
 from __future__ import annotations
 
@@ -25,15 +25,14 @@ from collections import Counter, defaultdict
 from multiprocessing import Pool
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "analysis" / "staging"))
+ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "analysis"))
 sys.path.insert(0, str(ROOT / "src"))
 import e2_broadcast_extract as e2x  # noqa: E402  (E2's model, bins and helpers, unchanged)
 import e6_rungs_extract as e6  # noqa: E402  (E6's bootstraps, unchanged)
 import e10_guard_extract as e10  # noqa: E402  (E2's sample with the cutoff, unchanged)
-import table_v2 as t2  # noqa: E402
 import table_v2_fit as tf  # noqa: E402
+from layer2 import table_v2 as t2  # noqa: E402
 
 TCS = e2x.TCS
 BAND, MIN_CELL, ALPHA = 0.01, 1000, 0.05

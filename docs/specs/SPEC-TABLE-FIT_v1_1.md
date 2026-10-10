@@ -23,7 +23,7 @@ With λ_tc = 0 (and no tail) this is v1.0's model. The constraint of v1.0 holds 
 
 ## 3 Protocol
 
-As v1.0 §3: rolling origin, the first 24 months training only, each test month from 2025-01 to 2026-09 (21 months) forecast from a fit on the 36 months before it, Layer 0's forecast as in v1.0. Freeze 1's table is forecast with the parameters E2 fitted for each month (as E10 does), so that every comparison is on the same games, months and draw rates, and the script first reproduces E2's monthly sums for rung 2 and Layer 0 exactly. The published parameters are the fit on the last 36 months, 2023-10 to 2026-09, written to a new parameter file, params/table_fit_2026-10b.yaml; Freeze 1's file is untouched. Until Freeze 3 the file and the scripts are staged under `analysis/staging/` (D-0011, reading 1).
+As v1.0 §3: rolling origin, the first 24 months training only, each test month from 2025-01 to 2026-09 (21 months) forecast from a fit on the 36 months before it, Layer 0's forecast as in v1.0. Freeze 1's table is forecast with the parameters E2 fitted for each month (as E10 does), so that every comparison is on the same games, months and draw rates, and the script first reproduces E2's monthly sums for rung 2 and Layer 0 exactly. The published parameters are the fit on the last 36 months, 2023-10 to 2026-09, written to a new parameter file, `params/table_fit_2026-10b.yaml`; Freeze 1's file is untouched. Until Freeze 3 the file and the scripts were staged outside Freeze 2's file list (D-0011, reading 1); they are frozen in Freeze 3 (D-0011, part B).
 
 ## 4 Measures and decision rules
 
@@ -40,8 +40,8 @@ As v1.0 §3: rolling origin, the first 24 months training only, each test month 
 ## 5 Bias statement and outputs
 
 - **Bias.** As v1.0 §5: broadcast events are stronger and more international than the rated pool, and a pass here supports the v2 table for the broadcast population only; the FIDE TRF archive settles it for the pool (annex T8.6).
-- **Outputs**, staged under `analysis/staging/` until Freeze 3 and then moved to their permanent places (D-0011, reading 1):
-  - the extraction script (needs `data/`) writes an aggregate of counts, sums and fitted values only;
-  - the report script writes `docs/evidence/E11_table-by-level.md` and, with `--yaml`, the parameter file;
-  - the table's functions (the published entry, the slope at an even gap, the ratio m) are library code, moved to `src/layer2/` at Freeze 3;
+- **Outputs**, staged until Freeze 3 and then moved to these permanent places (D-0011, reading 1):
+  - `analysis/e11_table_by_level_extract.py` (needs `data/`), with the fit of `analysis/table_v2_fit.py`, writes `analysis/aggregates/E11_table_by_level.json`, counts, sums and fitted values only;
+  - `analysis/e11_table_by_level_report.py` writes `docs/evidence/E11_table-by-level.md` and, with `--yaml`, the parameter file;
+  - the table's functions (the published entry, the slope at an even gap, the ratio m, the parameter file's reader) are library code, `src/layer2/table_v2.py`;
   - check (a) reruns the report and the parameter file; the extraction is rerun with `--all` where the data are.

@@ -105,4 +105,60 @@ The brief's text, transcribed; it is recorded here in Phase 0, before the level-
 
 ## Part B — Freeze 3
 
-Added in Phase 4 of this session, before the tag `freeze-3`.
+Recorded by the executor in Phase 4 of session ELO-6, on 2026-10-10 at about 15:20 UTC, before any result of either 2026 championship was read. It supersedes D-0010 (Freeze 2) for the comparison on the 2026 U.S. Championships; D-0010 stays in the repository as the record of the first pre-registration.
+
+### Why
+
+The v1.0 red team found, on 10 October (`docs/review/REDTEAM_v1_0.md`, V10-EXPLOIT-1), that at levels of 2300 or more the fitted table of Freeze 1 under-predicts the favourite at every gap, +0.030 below a 400-point gap on 50,722 standard held-out games, so that farming moves below R17's guard [E10 §5]. The finding comes from E2's held-out months, 2025-01 to 2026-09, all before October 2026; no game of either championship entered it. The architect ruled (R24, R32) that the table be calibrated by level, the guard re-decided by a rule fixed beforehand, and rung 2's K scaled by the slope ratio. Freeze 2's rung-2 column would compare the championships on a table already known to be miscalibrated at the levels of both fields, so Freeze 3 fixes the amended comparison before the events go further, and keeps Freeze 2's column beside it, labelled.
+
+### What changed
+
+1. **The table.** Rung 2 v2 (`docs/specs/SPEC-TABLE-FIT_v1_1.md`, [E11]): a slope that depends on the level, κ_tc(L) = κ_tc · exp(λ_tc (L − 2000)/400), and in standard the draw tail γ(L), added because a level pattern remained after λ; fitted by maximum likelihood on broadcast games to 2026-09; `params/table_fit_2026-10b.yaml`. Freeze 1's table, `params/table_fit_2026-10.yaml`, is unchanged.
+2. **The guard.** Re-decided by R24's rule, read strictly (part A, reading 4): the narrowed guard in all three time controls, keyed on the game's level and blended at its edges (`src/layer2/guard_v2.py`, `params/guard_2026-10b.yaml`) [E12]. No pairing of either 2026 field lies in its region, so it changes no expectation in either event.
+3. **K.** R32: every game of rung 2 uses today's K, after the 700 rule, multiplied by the table's printed slope ratio m(L) of the game's level band (1.24 to 2.49 over all bands and time controls; 1.39 to 1.72 in the standard bands of the two fields' games) [E11] [E12].
+4. **The comparison.** A new tool, `tools/compare_event_v3.py`, and a new page, `docs/evidence/E13_us-championship-2026-freeze-3.md` (`analysis/e13_us_championships_freeze3.py`). Freeze 1's tool, Freeze 2's PILOT tool and the event files are unchanged; the 2026 event files still hold no result.
+5. **The check.** Check (a) compares the manifest of Freeze 3's files with the one this record holds, instead of D-0010's. `tools/checks/check_outputs.py` is therefore the one file of Freeze 2 that changed, as the brief orders; the other 88 files of D-0010's list and Freeze 1's seven files keep their hashes, which the executor verified against the page at tag `freeze-2` before recording this. `analysis/e3_us_championships.py` is unchanged; its page, which lists every tracked file under Freeze 2's rule afresh, now also lists the session's new files and no longer prints D-0010's manifest, which this record supersedes.
+6. **The session's staged files** (part A, reading 1) moved to their permanent paths in this phase. The two extractions, rerun from those paths, reproduced their committed aggregates byte for byte.
+
+### What will be computed after the event, and nothing else
+
+1. **Results.** As D-0010, item 1: the results of rounds 1 to 11 of each event (132 games), entered once after the last round from the official page with `tools/set_results.py`; playoff games not counted; a game not played entered as `-` and not counted (§5.1 [V 1]; SPEC-L0 R-05).
+2. **The main table** (`tools/compare_event_v3.py`, printed by E13), per player of each event: (a) the event's change under FIDE's rules, computed by Layer 0 (`src/layer0/`, Freeze 1), with K reduced under K × n ≤ 700; (b) rung 2 v2, RECOMMENDED NOW in standard, as items 1 to 3 above define it; (b0) rung 2 exactly as Freeze 2 pre-registered it (`tools/compare_event.py` with `params/table_fit_2026-10.yaml`), labelled "first pre-registration, superseded"; each unrounded and rounded once, with (b) − (a) and (b0) − (a).
+3. **The PILOT table**, printed separately and never in the main table: (p), rung 5 on top of (b), with the frozen inputs of `params/rung5_us2026.json` (D-0010, item 3): an eligible junior's opponent who is not eligible uses RX_j = R_j + c_j in the gap of the expectation (R8), the guard's region tested on the published ratings and its value read at the gap the expectation uses (part A, reading 6), the junior's own expectation on published ratings, K × m as in (b); and (p) − (b).
+4. **The blanks of the proposal's §10**, each printed by E13 from the two tables, for each event:
+   - `{{US26_*_GAMES}}`: the games counted;
+   - `{{US26_*_MEAN_ABS_DIFF}}`: the mean over the 12 players of |(b) − (a)|, unrounded, to two decimals;
+   - `{{US26_*_MAX_DIFF}}`: the (b) − (a) of largest absolute value, signed, unrounded, to two decimals;
+   - `{{US26_*_N_DIFFER}}`: the number of players whose rounded (b) differs from their rounded (a);
+   - `{{US26_*_B0_MEAN_ABS_DIFF}}`, `{{US26_*_B0_MAX_DIFF}}`, `{{US26_*_B0_N_DIFFER}}`: the same three for (b0), the first pre-registration;
+   - `{{US26_*_R5_GAMES}}`: the games in which a compensated junior (c_j > 0) met an opponent who is not eligible;
+   - `{{US26_*_R5_DIFF}}`: those opponents' total change under (p) minus under (b), unrounded, to two decimals;
+   - `{{US26_*_L0_MATCH}}`: as D-0010 defines it, the number of players whose column (a) equals, to 0.01, FIDE's published calculation of their change in the event, read after the 1 November 2026 list and entered as a fixture checked by a test; if FIDE rates either event on a later list, the blank waits for it;
+   - `{{US26_READING}}`: one paragraph, written after the event, that restates the blanks in words, names both pre-registrations plainly (Freeze 2's, superseded, and this one), adds no number E13 does not print, and says that 132 games illustrate the rungs and cannot test them.
+5. **Not computed on the event**: rungs 3, 4, 6 and 7, and any other column, statistic, subset or event. A mismatch between column (a) and FIDE's published calculation is a finding about Layer 0 or FIDE's data (SPEC-L0 §8), never a reason to edit column (a).
+
+### The data cutoff, and the event's games
+
+Every fit behind a number in the comparison uses games up to 30 September 2026 only: Freeze 1's table, the v2 table and its rolling fits (broadcast games to 2026-09), the guard's inputs and R32's ratios (from those fits), and rung 5's Layer 1 fit (2023-10 to 2026-09). The cutoff is enforced in code: `analysis/e10_guard_extract.py`, through which E11 and E12 build their sample, refuses a broadcast file later than 2026-09 and drops games dated after 30 September 2026 (7 dropped); `src/layer1/data.py` and `src/layer1/fit.py` do the same for Layer 1's records. No game of either 2026 championship has been read in this session or used in any fit: the event files hold the pairings and the October 2026 ratings and K, and every result is empty. The official page was read once, for the schedule only (below).
+
+### The time of the freeze
+
+The official schedule (https://saintlouischessclub.org/event/2026-us-chess-championships/, read on 2026-10-10 at about 14:35 UTC through a reader asked for the schedule only, no result, standing or report read) gives each round's start as "12:00", without a time zone, which is read as Saint Louis local time (CDT, UTC − 5): round 1 on 9 October, round 2 on 10 October at 17:00 UTC, round 3 on 11 October at 17:00 UTC. This record is written at about 15:20 UTC on 10 October; the commit that merges it is tagged `freeze-3`, and that commit's time is the freeze's time. At that moment **one round of each event had been played (round 1, 9 October)**; round 2 was scheduled to start at 17:00 UTC.
+
+### The scope
+
+Freeze 3 covers every file that produces a championship number: the comparison's code and parameter files, the engine, the scripts and aggregates that produce the parameter files (E2's, E11's and E12's, and rung 5's extract with what it imports or reads), Freeze 2's page script, E13's script and check (a) itself, and the two 2026 event files without their results. Numbers of the proposal drawn from history and from the simulator may be updated until submission, provided no event game is read: the files that produce only those numbers are outside Freeze 3, and Freeze 2's broader list is superseded. Prose may change until submission.
+
+### The manifest
+
+E13 prints the SHA-256 of each of the 49 entries (47 files and the two event files without their results) and their manifest, the SHA-256 of the lines "hash  file" in the order E13 prints them. At this record:
+
+Freeze-3 manifest: `e84f0564153579dcd394381e96fd55d046a2fe9f903b2806e758008230463ff5` (49 entries)
+
+Check (a) (`tools/checks/check_outputs.py`) reruns E13 on every pull request and compares the live manifest with the one recorded above; a change to any frozen file therefore fails the check even after E13 is regenerated, until a new decision record supersedes this one. The commit that merges this part is tagged `freeze-3`. Raw data under `data/` is never committed and is outside the freeze; every aggregate derived from it that the comparison depends on is inside.
+
+### Consequences
+
+- After the last round the operator enters the results, regenerates E13 (and E3) once and fills the blanks of the proposal's §10 from E13; after the list that rates the events, `{{US26_*_L0_MATCH}}` is filled from FIDE's published calculations.
+- Freeze 1 stands inside Freeze 3 with its hashes. Freeze 2's column (b) is printed as (b0), "first pre-registration, superseded"; its PILOT inputs are Freeze 3's.
+- No change to `src/layer0/` before the comparison and the 1 November check (R21, R42). Any change to a file of Freeze 3 before the comparison runs is a new decision, in a new record that says what changed and why and updates the check.

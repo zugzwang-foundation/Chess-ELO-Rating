@@ -1,20 +1,20 @@
 """Rung 2 v2 (SPEC-TABLE-FIT v1.1): the level-dependent table, its fit and R32's slope ratio.
 
-The modules are staged under analysis/staging/ until Freeze 3 (D-0011, reading 1)."""
+src/layer2/table_v2.py and analysis/table_v2_fit.py; the parameter file params/table_fit_2026-10b.yaml."""
 import re
 import sys
 from decimal import Decimal
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "analysis" / "staging"))
+sys.path.insert(0, str(ROOT / "analysis"))
 sys.path.insert(0, str(ROOT / "src"))
-import table_v2 as t2  # noqa: E402
 import table_v2_fit as tf  # noqa: E402
 from layer2 import table as t1  # noqa: E402
+from layer2 import table_v2 as t2  # noqa: E402
 
 V1 = (1.2120, 35.91, 0.2860, 0.4985, 0.2915)          # Freeze 1's standard parameters (params/table_fit_2026-10.yaml)
-STAGED = ROOT / "analysis" / "staging" / "params" / "table_fit_2026-10b.yaml"
+STAGED = ROOT / "params" / "table_fit_2026-10b.yaml"
 
 
 def v2_of(v1: tuple, lam: float = 0.0, mu: float = 0.0) -> tuple:

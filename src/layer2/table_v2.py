@@ -8,7 +8,7 @@ White's view, with q = ln 10/400, L the midpoint of the 100-point level band and
 Three forms, as in src/layer2/table.py: `probs` and `expected_white` evaluate the model (fractional eta, unrounded);
 `published` is the published table's entry (eta rounded to a whole number and added to the gap, E to three decimals
 half up, E(-x) = 1 - E(x)); `slope_at_zero` and `ratio_812` give R32's slope ratio (D-0011, reading 7).
-Staged under analysis/staging/ until Freeze 3 (D-0011, reading 1); library code, not a script. Standard library only.
+Library code, not a script; frozen in Freeze 3 (docs/decisions/D-0011_rulings-and-freeze-3.md). Standard library only.
 """
 from __future__ import annotations
 
@@ -117,8 +117,7 @@ def needs_scaling(par: tuple) -> bool:
 
 
 def load(text: str, chapter: str) -> dict:
-    """One time control of a v2 parameter file (the format analysis/staging/e11_table_by_level_report.py --yaml
-    writes): the printed parameters, R32's printed ratios by band midpoint and whether K is scaled, the fit window
+    """One time control of a v2 parameter file (the format analysis/e11_table_by_level_report.py --yaml writes): the printed parameters, R32's printed ratios by band midpoint and whether K is scaled, the fit window
     and the status line."""
     status = re.search(r"^status: (.+)$", text, re.M).group(1).strip()
     block = re.search(rf"^{chapter}:\n((?:  .*\n?)+)", text, re.M)
