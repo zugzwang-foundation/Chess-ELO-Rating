@@ -20,7 +20,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
+sys.path.insert(0, str(ROOT / "src"))
 import compare_event  # noqa: E402
+from layer2 import guard  # noqa: E402
 
 OPEN, WOMEN, Y2025 = ("tools/events/us_championship_2026.json", "tools/events/us_womens_championship_2026.json",
                       "tools/events/us_championship_2025.json")
@@ -96,6 +98,24 @@ def main() -> int:
             print(md)
         else:
             print(f"- {name}: {done} of {len(c.event['games'])} results recorded; {PENDING}.")
+    print("\n## The farming guard (R17)\n")
+    print("Ruling R17 (`docs/decisions/D-0009_architect-rulings-elo-5.md`) guards rung 2 where the gap is 400 or more and the "
+          "favourite is rated 2300 or more (`src/layer2/guard.py`; evidence in E10). Checked against both fields with their "
+          "official pairings and the ratings of the October 2026 list:\n")
+    print("| event | games | largest gap | pairings in the guard's region |")
+    print("|---|---|---|---|")
+    inside_total = 0
+    for name, c in (("U.S. Championship", o), ("U.S. Women's Championship", w)):
+        r = {pl["fide_id"]: pl["rating"] for pl in c.event["players"]}
+        gaps = [abs(r[g["white"]] - r[g["black"]]) for g in c.event["games"]]
+        inside = sum(1 for g in c.event["games"]
+                     if guard.in_region(max(r[g["white"]], r[g["black"]]), min(r[g["white"]], r[g["black"]])))
+        inside_total += inside
+        print(f"| {name} | {len(c.event['games'])} | {max(gaps)} | {inside} |")
+    print("\n" + ("No pairing falls in the guard's region, so the guard cannot change any expectation in either event: "
+                  "Freeze 1's rung-2 column, computed by `tools/compare_event.py`, stands for the comparison."
+                  if inside_total == 0 else "Pairings fall in the guard's region: the comparison uses the guarded tool "
+                  "frozen in Freeze 2."))
     print("\nFrozen beforehand: the model and the code that will run, fitted and written before the event. The table's "
           "parameters were fitted on games up to September 2026. SHA-256 of each file:\n")
     print("| File | SHA-256 |")
