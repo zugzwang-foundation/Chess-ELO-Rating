@@ -4,7 +4,8 @@
 The manifest analysis/outputs.json lists each script with its arguments and the
 committed file its standard output must equal byte for byte. Scripts whose
 input is raw data under data/ (gitignored, never committed) carry
-"needs_data": true; CI cannot run them, so without --all it checks only that
+"needs_data": true, and scripts that run for minutes (the simulator) carry
+"slow": true; CI does not run either, so without --all it checks only that
 their committed outputs exist. Every *.py under analysis/ must be registered,
 as a script or under "modules", so that no script escapes the check.
 Python standard library only.
@@ -41,6 +42,9 @@ def main() -> int:
             continue
         if e.get("needs_data") and not run_all:
             print(f"SKIPPED  {e['script']} -> {e['output']} (needs data/; run with --all locally)")
+            continue
+        if e.get("slow") and not run_all:
+            print(f"SKIPPED  {e['script']} -> {e['output']} (slow; run with --all locally)")
             continue
         proc = subprocess.run([sys.executable, e["script"], *e.get("args", [])], cwd=ROOT,
                               capture_output=True, env=env)

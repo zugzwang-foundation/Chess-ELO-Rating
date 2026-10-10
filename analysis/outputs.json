@@ -1,5 +1,5 @@
 {
-  "comment": "Registry for check (a): each script's standard output must equal its committed output byte for byte. needs_data = true marks scripts that read raw files under data/ (gitignored); CI checks only that their outputs exist.",
+  "comment": "Registry for check (a): each script's standard output must equal its committed output byte for byte. needs_data = true marks scripts that read raw files under data/ (gitignored), slow = true scripts that run for minutes (the simulator); CI checks only that their outputs exist, --all reruns them.",
   "outputs": [
     {"script": "analysis/v04_calculations.py", "args": [], "output": "analysis/OUTPUT_v0_4.md", "needs_data": false},
     {"script": "analysis/l0_k_rules_extract.py", "args": [], "output": "analysis/aggregates/L0_k_rules.json", "needs_data": true},
@@ -28,7 +28,9 @@
     {"script": "analysis/e8_k_activity_extract.py", "args": [], "output": "analysis/aggregates/E8_k_activity.json", "needs_data": true},
     {"script": "analysis/e8_k_activity_report.py", "args": [], "output": "docs/evidence/E8_k-from-activity.md", "needs_data": false},
     {"script": "analysis/e10_guard_extract.py", "args": [], "output": "analysis/aggregates/E10_guard.json", "needs_data": true},
-    {"script": "analysis/e10_guard_report.py", "args": [], "output": "docs/evidence/E10_farming-guard.md", "needs_data": false}
+    {"script": "analysis/e10_guard_report.py", "args": [], "output": "docs/evidence/E10_farming-guard.md", "needs_data": false},
+    {"script": "analysis/e9_simulator_run.py", "args": [], "output": "analysis/aggregates/E9_simulator.json", "needs_data": false, "slow": true},
+    {"script": "analysis/e9_simulator_report.py", "args": [], "output": "docs/evidence/E9_simulator.md", "needs_data": false}
   ],
   "modules": ["analysis/fide_panel.py", "analysis/l1_common.py"]
 }
