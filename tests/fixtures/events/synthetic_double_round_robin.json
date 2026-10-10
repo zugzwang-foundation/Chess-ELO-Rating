@@ -1,0 +1,133 @@
+{
+ "event": {
+  "name": "Synthetic test event (not a real event)",
+  "start": "2030-01-01",
+  "end": "2030-01-06",
+  "chapter": "standard",
+  "rating_period": "2030-02",
+  "list_in_force": "2030-01",
+  "source": "synthetic: written for tests/test_compare_event_v3a.py (D-0012, R43); no real player or game",
+  "results_source": "none"
+ },
+ "players": [
+  {
+   "fide_id": 9000001,
+   "rating": 2650,
+   "k": 10
+  },
+  {
+   "fide_id": 9000002,
+   "rating": 2580,
+   "k": 10
+  },
+  {
+   "fide_id": 9000003,
+   "rating": 2410,
+   "k": 20
+  },
+  {
+   "fide_id": 9000004,
+   "rating": 2290,
+   "k": 40
+  }
+ ],
+ "games": [
+  {
+   "round": 1,
+   "board": 1,
+   "date": "2030-01-01",
+   "white": 9000001,
+   "black": 9000004,
+   "result": null
+  },
+  {
+   "round": 1,
+   "board": 2,
+   "date": "2030-01-01",
+   "white": 9000002,
+   "black": 9000003,
+   "result": null
+  },
+  {
+   "round": 2,
+   "board": 1,
+   "date": "2030-01-02",
+   "white": 9000004,
+   "black": 9000003,
+   "result": null
+  },
+  {
+   "round": 2,
+   "board": 2,
+   "date": "2030-01-02",
+   "white": 9000001,
+   "black": 9000002,
+   "result": null
+  },
+  {
+   "round": 3,
+   "board": 1,
+   "date": "2030-01-03",
+   "white": 9000002,
+   "black": 9000004,
+   "result": null
+  },
+  {
+   "round": 3,
+   "board": 2,
+   "date": "2030-01-03",
+   "white": 9000003,
+   "black": 9000001,
+   "result": null
+  },
+  {
+   "round": 4,
+   "board": 1,
+   "date": "2030-01-04",
+   "white": 9000004,
+   "black": 9000001,
+   "result": null
+  },
+  {
+   "round": 4,
+   "board": 2,
+   "date": "2030-01-04",
+   "white": 9000003,
+   "black": 9000002,
+   "result": null
+  },
+  {
+   "round": 5,
+   "board": 1,
+   "date": "2030-01-05",
+   "white": 9000003,
+   "black": 9000004,
+   "result": null
+  },
+  {
+   "round": 5,
+   "board": 2,
+   "date": "2030-01-05",
+   "white": 9000002,
+   "black": 9000001,
+   "result": null
+  },
+  {
+   "round": 6,
+   "board": 1,
+   "date": "2030-01-06",
+   "white": 9000004,
+   "black": 9000002,
+   "result": null
+  },
+  {
+   "round": 6,
+   "board": 2,
+   "date": "2030-01-06",
+   "white": 9000001,
+   "black": 9000003,
+   "result": null
+  }
+ ],
+ "results_read": []
+}

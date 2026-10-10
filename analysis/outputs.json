@@ -16,8 +16,8 @@
     {"script": "analysis/e2_broadcast_report.py", "args": [], "output": "docs/evidence/E2_broadcast-calibration.md", "needs_data": false},
     {"script": "analysis/e2_broadcast_report.py", "args": ["--yaml"], "output": "params/table_fit_2026-10.yaml", "needs_data": false},
     {"script": "analysis/us26_rung5_extract.py", "args": [], "output": "params/rung5_us2026.json", "needs_data": true},
-    {"script": "analysis/e3_us_championships.py", "args": [], "output": "docs/evidence/E3_us-championship-2026.md", "needs_data": false},
-    {"script": "analysis/e13_us_championships_freeze3.py", "args": [], "output": "docs/evidence/E13_us-championship-2026-freeze-3.md", "needs_data": false},
+    {"script": "analysis/e3_freeze2_record.py", "args": [], "output": "docs/evidence/E3_us-championship-2026.md", "needs_data": false},
+    {"script": "analysis/e13_us_championships_freeze3a.py", "args": [], "output": "docs/evidence/E13_us-championship-2026-freeze-3.md", "needs_data": false},
     {"script": "analysis/e5_deflation_extract.py", "args": [], "output": "analysis/aggregates/E5_deflation.json", "needs_data": true},
     {"script": "analysis/e5_deflation_report.py", "args": [], "output": "docs/evidence/E5_deflation.md", "needs_data": false},
     {"script": "analysis/e4_community_report.py", "args": [], "output": "docs/evidence/E4_community-register.md", "needs_data": false},
@@ -47,5 +47,5 @@
     {"script": "analysis/e16_post_compression_extract.py", "args": [], "output": "analysis/aggregates/E16_post_compression.json", "needs_data": true},
     {"script": "analysis/e16_rung2_review_report.py", "args": [], "output": "docs/evidence/E16_rung2-under-review.md", "needs_data": false}
   ],
-  "modules": ["analysis/fide_panel.py", "analysis/l1_common.py", "analysis/table_v2_fit.py"]
+  "modules": ["analysis/e13_us_championships_freeze3.py", "analysis/e3_us_championships.py", "analysis/fide_panel.py", "analysis/l1_common.py", "analysis/table_v2_fit.py"]
 }

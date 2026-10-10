@@ -3,10 +3,14 @@
 
 Results are read from the organiser's official page (for the 2026 U.S. Championships:
 https://saintlouischessclub.org/event/2026-us-chess-championships/) and entered in
-board order: 1-0, 1/2-1/2 (or 0.5-0.5), 0-1, or - for a game not finished. The UTC
-time of entry is recorded beside each result. Python standard library only.
+board order: 1-0, 1/2-1/2 (or 0.5-0.5), 0-1; unplayed for a game not played (a forfeit,
+a withdrawal, a bye), which FIDE does not rate (§5.1 of the rating regulations) and every
+column of the comparison excludes; or - for no result yet, which clears the board. An
+event is complete when every game of rounds 1-11 has a result or the marker unplayed
+(docs/decisions/D-0012_pre-results-amendments.md, R43). The UTC time of entry is recorded
+beside each result and each marker. Python standard library only.
 
-Usage: python3 tools/set_results.py tools/events/us_championship_2026.json 2 1-0 1/2-1/2 0-1 - 1/2-1/2 1-0
+Usage: python3 tools/set_results.py tools/events/us_championship_2026.json 2 1-0 1/2-1/2 0-1 unplayed 1/2-1/2 1-0
 """
 from __future__ import annotations
 
@@ -15,7 +19,9 @@ import json
 import sys
 from pathlib import Path
 
-ALIASES = {"1-0": "1-0", "0-1": "0-1", "1/2-1/2": "1/2-1/2", "0.5-0.5": "1/2-1/2", "½-½": "1/2-1/2", "-": None}
+UNPLAYED = "unplayed"
+ALIASES = {"1-0": "1-0", "0-1": "0-1", "1/2-1/2": "1/2-1/2", "0.5-0.5": "1/2-1/2", "½-½": "1/2-1/2",
+           UNPLAYED: UNPLAYED, "-": None}
 
 
 def main() -> int:
@@ -39,8 +45,10 @@ def main() -> int:
             read[(rnd, g["board"])] = {"round": rnd, "board": g["board"], "result": g["result"], "read_utc": now}
     event["results_read"] = [read[k] for k in sorted(read)]
     path.write_text(json.dumps(event, indent=1) + "\n", encoding="utf-8")
-    done = sum(1 for g in event["games"] if g["result"])
-    print(f"{path}: round {rnd} recorded; {done} of {len(event['games'])} games have a result")
+    played = sum(1 for g in event["games"] if g["result"] not in (None, UNPLAYED))
+    unplayed = sum(1 for g in event["games"] if g["result"] == UNPLAYED)
+    print(f"{path}: round {rnd} recorded; {played} of {len(event['games'])} games have a result, "
+          f"{unplayed} marked {UNPLAYED}")
     return 0
 
 
