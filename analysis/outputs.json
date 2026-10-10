@@ -31,7 +31,10 @@
     {"script": "analysis/e10_guard_extract.py", "args": [], "output": "analysis/aggregates/E10_guard.json", "needs_data": true},
     {"script": "analysis/e10_guard_report.py", "args": [], "output": "docs/evidence/E10_farming-guard.md", "needs_data": false},
     {"script": "analysis/e9_simulator_run.py", "args": [], "output": "analysis/aggregates/E9_simulator.json", "needs_data": false, "slow": true},
-    {"script": "analysis/e9_simulator_report.py", "args": [], "output": "docs/evidence/E9_simulator.md", "needs_data": false}
+    {"script": "analysis/e9_simulator_report.py", "args": [], "output": "docs/evidence/E9_simulator.md", "needs_data": false},
+    {"script": "analysis/staging/e11_table_by_level_extract.py", "args": [], "output": "analysis/staging/aggregates/E11_table_by_level.json", "needs_data": true},
+    {"script": "analysis/staging/e11_table_by_level_report.py", "args": [], "output": "docs/evidence/E11_table-by-level.md", "needs_data": false},
+    {"script": "analysis/staging/e11_table_by_level_report.py", "args": ["--yaml"], "output": "analysis/staging/params/table_fit_2026-10b.yaml", "needs_data": false}
   ],
-  "modules": ["analysis/fide_panel.py", "analysis/l1_common.py"]
+  "modules": ["analysis/fide_panel.py", "analysis/l1_common.py", "analysis/staging/table_v2.py", "analysis/staging/table_v2_fit.py"]
 }
