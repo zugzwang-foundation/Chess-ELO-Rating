@@ -1,6 +1,6 @@
 # SPEC-L1 — Layer 1, the model, fitted on history, v1.0
 
-**Status: REVIEW — written before the code was committed (ELO-4 brief, Phase 3.1), and revised once, after the synthetic tests of §7, in §3.2 (the outcome parameters) and §4.2 (the anchor imposed at the end; the drift refit bounded).** Author: The Zugzwang Authors · Licence: CC BY 4.0 (`docs/LICENSE-docs.md`) · Date: 2026-10-10. Implements annex T2 (`docs/proposal/ELO-TECHNICAL-ANNEX_v0_3.md`) with the architect's rulings R2, R5 and R6 (`docs/decisions/D-0008_architect-rulings-elo-4.md`). Code: the package src/layer1 (pull request 3b); tests: tests/test_l1_*.py, written first and skipped until the package exists. Every hyperparameter below is PROVISIONAL; every fitted value it produces is PROVISIONAL-FITTED on broadcast games.
+**Status: REVIEW — written before the code was committed (ELO-4 brief, Phase 3.1), and revised once, after the synthetic tests of §7, in §3.2 (the outcome parameters) and §4.2 (the anchor imposed at the end; the drift refit bounded).** Author: The Zugzwang Authors · Licence: CC BY 4.0 (`docs/LICENSE-docs.md`) · Date: 2026-10-10. Implements annex T2 (`docs/proposal/ELO-TECHNICAL-ANNEX_v0_3.md`) with the architect's rulings R2, R5 and R6 (`docs/decisions/D-0008_architect-rulings-elo-4.md`). Code: `src/layer1/`; tests: `tests/test_l1_model.py`, `tests/test_l1_solver.py`, `tests/test_l1_fit.py`, `tests/test_l1_data.py`, `tests/test_l1_outputs.py` (written first, pull request 3a); the history fit: `analysis/l1_history_extract.py`, reported in `analysis/OUTPUT_L1_history.md`. Every hyperparameter below is PROVISIONAL; every fitted value it produces is PROVISIONAL-FITTED on broadcast games.
 
 ## 1 Purpose and scope
 
@@ -15,7 +15,7 @@ From the converted broadcast files `data/interim/broadcast/YYYY-MM.tsv` (`tools/
 - both players carry a FIDE ID;
 - its tour's time control is classified standard, rapid or blitz by the rules of SPEC-TABLE-FIT §1 (the tour's majority class);
 - its date (Date tag, else UTCDate, else the file's month, as SPEC-TABLE-FIT §1) is on or before 2026-09-30;
-- it is not a duplicate (SPEC-TABLE-FIT §1);
+- it is not a duplicate (SPEC-TABLE-FIT §1: per date, players and result, the largest single-tour count is kept; a player without a FIDE ID is keyed by name);
 - neither player belongs to the April 2026 batch (D-0008, R11; `analysis/fide_panel.py`).
 
 Unlike the table fit, a player need not be rated on the list in force: Layer 1 uses every game (annex T4.1), and players with a FIDE ID but no published rating are the newcomers of rung 3.
@@ -83,7 +83,7 @@ The published-scale estimate is θ̃_{i,tc}(t) = m_tc(t) + (ŝ_{i,tc}(t) − m̂
 | ρ_tc | persistence of δ_tc a month | 0.97 |
 | ω_tc | innovation SD of δ_tc | chosen from {4, 8, 16} points by §4.6 (one value for the three time controls) |
 | s_0, s_list | prior SD of a newcomer's and of a rated player's first θ | 250, 120 points |
-| window | months fitted | 36, ending with the last month before the list (fewer at the start of the archive) |
+| window | months fitted | the history fit of §8: every month of the archive, 2023-01 to 2026-09, as the ELO-4 brief asks; the rolling fits of the rung tests: 36 months ending with the last month before the list (fewer at the start of the archive), annex T2.3 |
 | ridge on A_a, B_a | prior SDs of the drift parameters | 10 points a month; 2 points a month per 400 points |
 
 The values of σ_θ's profile are the annex's illustrative T7.2 values; c_θ and ω are chosen on held-out games, as T2.3 asks, from the grids above, fixed here before any fit.
@@ -92,7 +92,7 @@ The values of σ_θ's profile are the annex's illustrative T7.2 values; c_θ and
 
 ### 4.1 Objective
 
-Maximum a posteriori over every player's states and the outcome parameters, given the hyperparameters.
+Maximum a posteriori over every player's states and the drift parameters, given the hyperparameters and the outcome parameters of §3.2.
 
 ### 4.2 Sweeps
 
@@ -147,7 +147,7 @@ On held-out games: the SD of the standardised forecast residual (S − E)/sqrt(V
 
 ## 6 Determinism
 
-Games are sorted by date, tour, round and game URL; players are swept in ascending FIDE ID; no step is random; the stopping rule and iteration caps are fixed. The same input gives the same output byte for byte on the same machine, and within |Δŝ| ≤ 0.1 point across machines (annex T5, P6). The committed outputs are reproduced by check (a) with `--all`.
+Games are sorted by date, tour and the two players' FIDE IDs (duplicates resolved first, ties keeping the order of round and game URL); players are swept in ascending FIDE ID; no step is random; the stopping rule and iteration caps are fixed. The same input gives the same output byte for byte on the same machine, and within |Δŝ| ≤ 0.1 point across machines (annex T5, P6). The committed outputs are reproduced by check (a) with `--all`.
 
 ## 7 Acceptance tests (written before the code; standard library and pytest only, synthetic data, run by check (b))
 
@@ -155,7 +155,7 @@ Games are sorted by date, tour, round and game URL; players are swept in ascendi
 |---|---|---|
 | A1-1 | Outcome model: the probabilities equal SPEC-TABLE-FIT §2's form with κ = 1, sum to 1, E(x) + E(−x) = 1 when η = 0, and dE/dz at z = 0 equals the score variance there | `tests/test_l1_model.py` |
 | A1-2 | A player's analytic gradient equals central finite differences (relative 1e-6); the game information is positive | `tests/test_l1_model.py` |
-| A1-3 | The block solver equals dense Gaussian elimination on random symmetric positive definite block-tridiagonal systems (1e-9), and its last block inverse equals the dense inverse's | `tests/test_l1_solver.py` |
+| A1-3 | The block solver equals dense Gaussian elimination on random symmetric positive definite block-tridiagonal systems (1e-9), its last block inverse equals the dense inverse's, and the smoothed covariances of every state (§5.3) equal the dense inverse's diagonal blocks | `tests/test_l1_solver.py` |
 | A1-4 | Recovery on a synthetic pool drawn from the model (known parameters, three time controls): correlation of ŝ with the true strength at least 0.9 for players with at least 20 games; SD of (ŝ − s)/σ between 0.7 and 1.4 | `tests/test_l1_fit.py` |
 | A1-5 | After a fit the panel's mean ŝ at t_ref equals its published mean within 1e-6 in each time control; A = B = 0 for ages 25–45 | `tests/test_l1_fit.py` |
 | A1-6 | Two fits of the same input are identical | `tests/test_l1_fit.py` |
