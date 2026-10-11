@@ -11,6 +11,8 @@ Code in this repository (everything outside `docs/`) is licensed under Apache-2.
 
 Third-party material quoted inside `docs/` (for example transcriptions of FIDE regulations in `docs/research/`) remains the property of its owners and is reproduced for reference and verification only; it is not relicensed.
 
+Figures derived from OlimpBase's transcription of FIDE's lists are not covered by this licence (ruling R83, `docs/decisions/D-0018_rulings-on-elo-9-questions.md`): each table or figure that holds them carries the label "Derived from OlimpBase's transcription of FIDE's lists; non-commercial use only; not covered by this repository's CC BY 4.0 or Apache-2.0 licences.", and the licence section of the top-level `README.md` names every file that holds them.
+
 ---
 
 The full legal code follows (retrieved from https://creativecommons.org/licenses/by/4.0/legalcode.txt on 2026-10-09).

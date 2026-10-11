@@ -38,6 +38,10 @@ from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+# R83 (docs/decisions/D-0018_rulings-on-elo-9-questions.md, a founder decision): the label every table or figure
+# derived from OlimpBase's transcription carries, and which this aggregate carries as its field "terms" (reading 11).
+OLIMPBASE_TERMS = ("Derived from OlimpBase's transcription of FIDE's lists; non-commercial use only; not covered by "
+                   "this repository's CC BY 4.0 or Apache-2.0 licences.")
 AGG = ROOT / "analysis" / "aggregates" / "GREATS_players.json"
 OB = ROOT / "data" / "interim" / "olimpbase"
 OLD = ROOT / "data" / "interim" / "fide_old" / "standard"
@@ -152,7 +156,7 @@ def main() -> int:
                      "excluded_supplementary": list(SUPPLEMENTARY)},
            "printed_vs_computed": {"dates": len(agreement), "equal": sum(1 for a in agreement if a["equal"]),
                                    "unequal": [a for a in agreement if not a["equal"]]},
-           "players": players}
+           "players": players, "terms": OLIMPBASE_TERMS}
     json.dump(out, sys.stdout, indent=1, sort_keys=True, ensure_ascii=False)
     sys.stdout.write("\n")
     return 0

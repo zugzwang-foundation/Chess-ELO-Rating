@@ -85,8 +85,8 @@ def fetch(path: str) -> int:
             raise SystemExit(f"refusing {pair}: outside {FIRST} to {LAST}")
         politeness.wait("ratings.fide.com", last)
         url = URL.format(id=pid, period=period)
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "X-Requested-With": "XMLHttpRequest",
-                                                   "Referer": REFERER.format(id=pid, period=period)})
+        req = urllib.request.Request(url, headers=politeness.headers(
+            {"X-Requested-With": "XMLHttpRequest", "Referer": REFERER.format(id=pid, period=period)}))
         stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
         last = time.time()
         try:

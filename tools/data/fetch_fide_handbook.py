@@ -21,6 +21,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "tools" / "data"))
+import politeness  # noqa: E402  (R85: the project's User-Agent)
 OUT = ROOT / "data" / "raw" / "fide_site" / "handbook"
 URL = "https://handbook.fide.com/chapter/{code}"
 DELAY = 3.0
@@ -42,7 +44,7 @@ def main(codes: list[str]) -> int:
         first = False
         url = URL.format(code=code)
         stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        req = urllib.request.Request(url, headers=politeness.headers())
         try:
             with urllib.request.urlopen(req, timeout=60) as resp:
                 status, body = resp.status, resp.read()

@@ -1,6 +1,6 @@
 # SPEC-GREATS — the greats on legitimate data: who is studied, what is computed for each, and how it is worded, v1.0
 
-**Status: REVIEW — written before any analysis of the players it names (ELO-9 brief, Phase 2).** The names in §2 come from `analysis/greats_select.py`, which applies §2's rule to the lists and computes nothing else; no rating series, gap or replay of any player named here had been computed when this specification was merged. Author: The Zugzwang Authors · Licence: CC BY 4.0 (`docs/LICENSE-docs.md`) · Date: 2026-10-11 · The table applied backwards in §6 is PROVISIONAL-FITTED (E18); every other parameter met here is PROVISIONAL.
+**Status: REVIEW — written before any analysis of the players it names (ELO-9 brief, Phase 2).** The names in §2 come from `analysis/greats_select.py`, which applies §2's rule to the lists and computes nothing else; no rating series, gap or replay of any player named here had been computed when this specification was merged. Author: The Zugzwang Authors · Licence: CC BY 4.0 (`docs/LICENSE-docs.md`), except the figures of §2's table that rest on OlimpBase's transcription, which carry ruling R83's label (added in session ELO-10, `docs/decisions/D-0018_rulings-on-elo-9-questions.md`; the rule, the names and the definitions are unchanged, §9) · Date: 2026-10-11 · The table applied backwards in §6 is PROVISIONAL-FITTED (E18); every other parameter met here is PROVISIONAL.
 
 ## 1 Purpose, and the words on every table
 
@@ -62,6 +62,8 @@ Every table of E20 and of the proposal's appendix carries, above it, the fixed w
 | 35 | Mamedyarov, Shakhriyar | 13401319 | AZE | 2017-12 | 2019-01 | 14 | 0 | 2 |
 | 36 | Ding, Liren | 8603677 | CHN | 2019-02 | 2019-12 | 11 | 0 | 3 |
 <!-- GREATS-TABLE END -->
+
+For the table's lists to April 2000, under ruling R83 (`docs/decisions/D-0018_rulings-on-elo-9-questions.md`): Derived from OlimpBase's transcription of FIDE's lists; non-commercial use only; not covered by this repository's CC BY 4.0 or Apache-2.0 licences.
 
 ## 3 The data
 

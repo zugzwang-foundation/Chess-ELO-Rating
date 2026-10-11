@@ -29,6 +29,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "tools" / "data"))
+import politeness  # noqa: E402  (R85: the project's User-Agent)
 PROBE = ROOT / "data" / "raw" / "probe"
 OUT = ROOT / "data" / "raw" / "fide_old" / "standard"
 MAN = ROOT / "data" / "raw" / "fide_old" / "MANIFEST.tsv"
@@ -80,7 +82,7 @@ def get(url: str) -> tuple[str, str, bytes]:
     if since < DELAY + 1:
         time.sleep(DELAY + 1 - since)
     stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    req = urllib.request.Request(url, headers=politeness.headers())
     try:
         with urllib.request.urlopen(req, timeout=120) as resp:
             return stamp, str(resp.status), resp.read()

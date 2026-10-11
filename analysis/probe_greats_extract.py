@@ -26,6 +26,10 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
+# R83 (docs/decisions/D-0018_rulings-on-elo-9-questions.md, a founder decision): the label every table or figure
+# derived from OlimpBase's transcription carries, and which this aggregate carries as its field "terms" (reading 11).
+OLIMPBASE_TERMS = ("Derived from OlimpBase's transcription of FIDE's lists; non-commercial use only; not covered by "
+                   "this repository's CC BY 4.0 or Apache-2.0 licences.")
 PROBE = ROOT / "data" / "raw" / "probe"
 SITE = ROOT / "data" / "raw" / "fide_site"
 FIDE_HOSTS = {"ratings.fide.com", "handbook.fide.com", "old.fide.com", "www.fide.com"}
@@ -362,7 +366,8 @@ def main() -> int:
            "fetcher": "tools/data/fetch_probe.py", "fide": fide(), "olimpbase_lists": olimpbase_lists(),
            "others": others(), "session_politeness": session_politeness(),
            "probe_requests": {"count": len(manifest()), "first": manifest()[0]["fetched_utc"],
-                              "last": manifest()[-1]["fetched_utc"]}}
+                              "last": manifest()[-1]["fetched_utc"]},
+           "terms": OLIMPBASE_TERMS}
     json.dump(out, sys.stdout, indent=1, sort_keys=True, ensure_ascii=False)
     sys.stdout.write("\n")
     return 0
