@@ -56,7 +56,8 @@ Annex T7.1's caps per calendar year, PROVISIONAL, relative to the previous year'
 
 - **form P:** each knot's κ within 0.05 of the previous table's κ(L) at that knot (whatever the previous form);
 - **ζ:** within 5 rating points per unit of ℓ of the previous table's ζ (0 if it had none);
-- **a form or term added in a year** (P after E, ζ or μ after none): capped against the previous table's value of the same quantity (κ(L) at the knots; ζ = 0; μ = 0).
+- **a form or term added in a year** (P after E, ζ or μ after none): capped against the previous table's value of the same quantity (κ(L) at the knots; ζ = 0; μ = 0);
+- **a term the rule of choice drops** (ζ or μ): it moves toward zero by at most its cap and is fixed there, so that the table's change stays within the cap (added in session ELO-8, Phase 3, before any table was fitted).
 
 The caps are box bounds of the fit: a capped parameter that would move further sits at its bound, and the fit says so. The first table has no predecessor and is fitted without caps. The caps stay in force in a year whose window W2 cuts (a rating-moving rule change lifts no cap); whether it should is for the architect.
 
