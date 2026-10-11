@@ -17,8 +17,9 @@ calculation the neighbouring reading does not reproduce (so that the case tells 
 Each case records, per tournament, its start, the player's Ro, K and K x sum, and per game the opponent's actual
 rating (the rating FIDE used, or, where FIDE printed the capped value, the opponent's rating on the list the
 tournament used, identified as analysis/e17_top100_extract.py identifies it), FIDE's cap mark, the score and FIDE's
-chg; and the published change of the list. Opponents' names are never recorded; the cases are single values quoted
-for verification, as in tests/fixtures/fide_calculator/. Python standard library only.
+chg; and the published change of the list. No name, FIDE ID or event is recorded (SPEC-TOP100 §8; review finding
+ELO7-QC-5): the cases are single values quoted for verification, as in tests/fixtures/fide_calculator/. Python
+standard library only.
 
 Usage: python3 tools/data/assemble_history_fixtures.py > tests/fixtures/fide_history/published_periods.json
 """
@@ -96,8 +97,7 @@ def main() -> int:
             if (v == "2025-10" and tr["ro"] >= 2650 and any(not x["capped_mark"] for x in fav)
                     and not reproduced(tr["ro"], games, date(2024, 9, 1))):
                 flags.add("F-H05")
-            tours.append({"event": tr["event"], "start": tr["start"], "ro": tr["ro"], "k": tr["k"],
-                          "k_chg": str(tr["k_chg"]), "games": games})
+            tours.append({"start": tr["start"], "ro": tr["ro"], "k": tr["k"], "k_chg": str(tr["k_chg"]), "games": games})
         if not ok or pid not in lists[t] or pid not in lists[prev]:
             continue
         change = lists[t][pid][0] - lists[prev][pid][0]
@@ -107,8 +107,7 @@ def main() -> int:
             flags.add("F-H02")
         for fid in sorted(flags):
             if fid not in found:
-                found[fid] = {"id": fid, "fide_id": int(pid), "list": t, "published_change": change,
-                              "sum": str(total), "tournaments": tours}
+                found[fid] = {"id": fid, "list": t, "published_change": change, "sum": str(total), "tournaments": tours}
     out = {"source": "FIDE's published per-player rating calculations (ratings.fide.com/calculations.phtml, data endpoint "
                      "/a_indv_calculation.php), cached by tools/data/fetch_top100_calculations.py; FIDE's monthly "
                      "standard lists for the published change and the opponents' actual ratings",

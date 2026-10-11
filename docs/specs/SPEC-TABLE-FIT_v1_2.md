@@ -23,7 +23,7 @@ v1.1's model (§2) with two extensions. Each enters the published table only by 
 2. **A colour term by level.** White's edge rises with the level while v1.1's η_tc is one number: in games at most 25 points apart White scores 0.530 below 1600 and 0.551 at 2600 or more, 0.016 to 0.021 above the v2 table at 2200 and above [E16 §2]. The candidate is η_tc(L) = η_tc + ζ_tc ℓ, entering z = κ_tc(L) q (x + η_tc(L)); the published table prints η_tc(L) per level band in whole points (annex T3.4).
 3. **The draw tail** γ_tc(L) = γ_tc · exp(μ_tc ℓ) stays a candidate under v1.1 §4.6's condition, evaluated on the selection months of §3 only.
 
-The constraint of v1.0 holds in every band (0 ≤ γ_tc(L) ≤ ½ at each band midpoint), and the fit is v1.1's (§2): maximum likelihood over cells of identical (x, band, outcome), a damped Newton method, deterministic starting values (the simpler candidate's fit with the added parameters at zero, or at the value that makes P equal to E at its knots).
+In every band γ_tc(L) ≥ 0 at each band midpoint, with no upper bound, and a fit on any boundary is a calibration flag for the QC (ruling R7, `docs/decisions/D-0008_architect-rulings-elo-4.md`; v1.0's and v1.1's upper bound of ½ is dropped, review finding ELO7-QC-6); the fit is otherwise v1.1's (§2): maximum likelihood over cells of identical (x, band, outcome), a damped Newton method, deterministic starting values (the simpler candidate's fit with the added parameters at zero, or at the value that makes P equal to E at its knots).
 
 ## 3 Protocol: candidates chosen on held-out log-loss
 

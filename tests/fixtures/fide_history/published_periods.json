@@ -6,13 +6,11 @@
  "cases": [
   {
    "id": "F-H01",
-   "fide_id": 409561,
    "list": "2020-02",
    "published_change": 2,
    "sum": "2.40",
    "tournaments": [
     {
-     "event": 233680,
      "start": "2020-01-11",
      "ro": 2679,
      "k": 10,
@@ -36,13 +34,11 @@
   },
   {
    "id": "F-H02",
-   "fide_id": 1118358,
    "list": "2020-02",
    "published_change": -5,
    "sum": "-4.50",
    "tournaments": [
     {
-     "event": 230158,
      "start": "2020-01-25",
      "ro": 2725,
      "k": 10,
@@ -66,13 +62,11 @@
   },
   {
    "id": "F-H03",
-   "fide_id": 409561,
    "list": "2022-03",
    "published_change": 1,
    "sum": "1.40",
    "tournaments": [
     {
-     "event": 271238,
      "start": "2022-02-12",
      "ro": 2671,
      "k": 10,
@@ -96,13 +90,11 @@
   },
   {
    "id": "F-H04",
-   "fide_id": 1226380,
    "list": "2024-04",
    "published_change": 2,
    "sum": "1.50",
    "tournaments": [
     {
-     "event": 335994,
      "start": "2024-03-15",
      "ro": 2690,
      "k": 10,
@@ -168,13 +160,11 @@
   },
   {
    "id": "F-H05",
-   "fide_id": 1226380,
    "list": "2025-11",
    "published_change": 0,
    "sum": "-0.20",
    "tournaments": [
     {
-     "event": 445609,
      "start": "2025-10-05",
      "ro": 2655,
      "k": 10,
@@ -237,7 +227,6 @@
      ]
     },
     {
-     "event": 440756,
      "start": "2025-10-19",
      "ro": 2655,
      "k": 10,
