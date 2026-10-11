@@ -17,6 +17,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 AGG = ROOT / "analysis" / "aggregates" / "E17_top100.json"
 FIXED = "*Under this rule, with the same results — not anyone's true strength.*"
+BANNER = ("> **Superseded before any public use** (ruling R59, `docs/decisions/D-0014_forecast-test-and-rulings.md`). "
+          "These figures use one table, Freeze 3's, fitted on broadcast games of October 2023 to September 2026, for every "
+          "year of the replay, and hold FIDE's K. The self-calibrating replay of session ELO-8, E19, in which each year's "
+          "table is fitted only on games played before that year and K follows FIDE's K rules on each system's own "
+          "rating (R61), replaces them; E17 stays as the record of the frozen table.")
 GAP_ORDER = ("below −100", "−100 to −1", "0 to 99", "100 to 199", "200 to 299", "300 to 399", "400 or more")
 P: list[str] = []
 p = P.append
@@ -61,6 +66,8 @@ def main() -> int:
       f"of {a['fit_window_from']} to 2026-09, so the replay is in sample from the November 2023 list and out of sample "
       "before it.")
     p("")
+    p(BANNER)
+    p("")
     p("**In brief.**")
     p("")
     p(f"- **Validation first.** Layer 0 with the rules in force at each date, given FIDE's own inputs (each game's Ro, "
@@ -70,9 +77,12 @@ def main() -> int:
       f"in {v['periods'] - v['period_change_differs']:,} of {v['periods']:,} player-periods with games; and, carried "
       f"from January 2020, every published rating on every list for {a['carried']['players_exact_on_every_list']} of the "
       f"{n} players. Every mismatch and its cause is in section 2.")
-    p(f"- **The average difference** (rung 2 minus FIDE's rules, October 2026): {sgn(mean_d, 1)} points; the table's "
-      f"effect {sgn(mean_t, 1)} and colour's {sgn(mean_c, 1)}. The differences run from {sgn(diffs[0])} to "
-      f"{sgn(diffs[-1])}.")
+    sh = a["outside_shift"]
+    p(f"- **The average difference** (rung 2 minus FIDE's rules, October 2026): {sgn(mean_d, 1)} points, "
+      f"{sgn(sh['-10']['mean_difference'], 1)} to {sgn(sh['10']['mean_difference'], 1)} if every opponent outside the "
+      f"100 were rated 10 points lower or higher under rung 2 ({sgn(sh['-5']['mean_difference'], 1)} and "
+      f"{sgn(sh['5']['mean_difference'], 1)} at 5 points; R58, section 9); the table's effect {sgn(mean_t, 1)} and "
+      f"colour's {sgn(mean_c, 1)}. The differences run from {sgn(diffs[0])} to {sgn(diffs[-1])}.")
     n_fall = sum(1 for r in rows if r["difference"] < 0)
     p(f"- **Largest risers:** " + "; ".join(f"FIDE ID {r['fide_id']} {sgn(r['difference'])}" for r in up[:3])
       + f". **At the other end** ({n_fall} of the {n} fall"
@@ -420,7 +430,26 @@ def main() -> int:
       "100 the exchange balances (section 4), so the rung-2 figures, and the counts above 2700 and 2800 most of all, "
       f"rest on this approximation: to first order, each point by which those opponents would on average be rated higher "
       f"(lower) moves the mean difference by about {sgn(so['mean_points_per_point'], 1)} "
-      f"({sgn(-so['mean_points_per_point'], 1)}) points (from {sgn(so['min'], 1)} to {sgn(so['max'], 1)} by player).")
+      f"({sgn(-so['mean_points_per_point'], 1)}) points (from {sgn(so['min'], 1)} to {sgn(so['max'], 1)} by player). "
+      "Rerun with every opponent outside the 100 rated 10 or 5 points lower or higher under rung 2 at every date (R58), "
+      "the replay's own ratings respond and the mean moves by less than that first-order figure:")
+    p("")
+    p("| the opponents outside the 100 under rung 2 | mean difference, October 2026 | range | players higher / lower | "
+      "2700+ under rung 2 | 2800+ under rung 2 |")
+    p("|---|---|---|---|---|---|")
+    for s in ("-10", "-5", "0", "5", "10"):
+        if s == "0":
+            p(f"| as published (the method) | {sgn(mean_d, 2)} | {sgn(diffs[0])} to {sgn(diffs[-1])} | "
+              f"{sum(1 for r in rows if r['difference'] > 0)} / {sum(1 for r in rows if r['difference'] < 0)} | "
+              f"{bl[last]['rung2']['2700']} | {bl[last]['rung2']['2800']} |")
+            continue
+        x = sh[s]
+        p(f"| {sgn(int(s))} points | {sgn(x['mean_difference'], 2)} | {sgn(x['min'])} to {sgn(x['max'])} | "
+          f"{x['higher']} / {x['lower']} | {x['2700']} | {x['2800']} |")
+    p("")
+    p("A replay of the whole pool, every opponent rated by rung 2 as well, needs every rated game: it belongs to the "
+      "request for FIDE's tournament reports (proposal section 9, stage 2).")
+    p("")
     p(f"- **Rung 2's own error.** The difference mixes FIDE's error with rung 2's, and the replay cannot separate them. On "
       "held-out broadcast months favourites at levels 2300–2799 and gaps of 100 to 399 score 0.023 below FIDE's "
       "table and 0.017 above the v2 table [E16 §1]; by level band the favourite's residual under the v2 table is "

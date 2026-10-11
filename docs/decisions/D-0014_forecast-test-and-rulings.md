@@ -99,3 +99,51 @@ Check (a′) reruns the computation on every pull request and compares the live 
 
 - After the last round the operator enters the results as D-0013 reads §5.1, regenerates E13 with `.venv/bin/python analysis/e13_us_championships_freeze3b.py` and E3 with `.venv/bin/python analysis/e3_freeze2_record.py` once, and fills the blanks of the proposal's §10 from E13; `{{US26_*_L0_MATCH}}` follows FIDE's published calculations after the 1 November list.
 - D-0012 stands; D-0011 part B stands where D-0012 left it. No change to `src/layer0/` before the comparison and the 1 November check (R21, R42, R53).
+
+## Part B — the rulings for the other questions (R58 to R65)
+
+Recorded by the executor in Phase 1 of session ELO-8, on 2026-10-11 at about 06:40 UTC, after part A had merged (06:21:57 UTC) and been tagged `freeze-3b`. Part B changes no file of Freeze 1, 2, 3, 3a or 3b; check (a) and check (a′) still equal D-0012's and part A's manifests.
+
+### The rulings
+
+The text of each ruling is the brief's, transcribed.
+
+| # | Answers | Ruling (the brief's text) |
+|---|---|---|
+| R58 | Q4 (E17's main limit) | Print E17's headline with a range: recompute the mean difference with the outside opponents' ratings shifted by −10, −5, +5 and +10 points. A full-pool replay belongs to the FIDE data request (stage 2). |
+| R59 | Q5 (rung 2's own residual at the top) | E17's figures are superseded, before any public use, by Phase 4's self-calibrating replay; E17 carries a banner saying so. Phase 4 also prints a bound for rung 2's own error at the top: the replay rerun with the table's residual at levels of 2300 or more removed, as E16 measured it. |
+| R60 | Q6 (publishing E17 and Appendix G; founder default) | E17 and Appendix G stay public with the banner. The final per-player tables, with names beside FIDE IDs and the fixed wording, come with Phase 4. |
+| R61 | Q7 (K under rung 2 in E17) | In every replay K follows FIDE's K rules applied to each system's own rating: same rules, different rating. |
+| R62 | Q8 (the video feed's format) | The video feed follows the format in Phase 5. |
+| R63 | Q9 (SPEC-L0) | SPEC-L0 v1.2 records the readings E17 tested as fixtures and tests. No file in a freeze manifest changes; if one would, it waits until after the 1 November check. |
+| R64 | Q10 (FIDE's own list mismatches) | FIDE's own list mismatches join the out-of-date calculator in the proposal's appendix of findings for the QC. Nothing is sent to FIDE. |
+| R65 | founder defaults | In the replays "our system" is self-calibrating: each year's table is fitted by SPEC-TABLE-FIT v1.2's rules only on games played before that year, within the yearly change caps; the method never changes because of results. The public name is "self-calibrating". Both systems use the same K rules at every date. |
+
+### Where each ruling is applied
+
+| # | In this session |
+|---|---|
+| R58 | Phase 1: `analysis/e17_top100_extract.py` reruns rung 2's replay with every opponent outside the 100 rated −10, −5, +5 and +10 points from the published rating at every date, the rest of its aggregate unchanged; E17's brief and §9, its summary and Appendix G print the range: the mean difference in October 2026 is +15.2, +19.3, +23.3 (as published), +27.5 and +31.5 points [E17 §9] |
+| R59 | Phase 1: the banner on E17, its one-page summary and Appendix G. Phase 4: E19, the self-calibrating replay, with the bound for rung 2's own error at the top |
+| R60 | Phase 1: E17 and Appendix G stay in the proposal and the repository with the banner. Phase 4: E19's per-player table with names beside FIDE IDs and the fixed wording |
+| R61 | Phase 2: the specification of the replays (SPEC-SELFCAL); Phase 4: E19 |
+| R62 | Phase 5, deferred by the operator's addendum of 11 October 2026: the video session that follows uses Phase 5's format, and E18's and E19's committed aggregates hold what it needs (each top-100 player's rating on every list under both systems; each year's table parameters with their intervals, beside table 8.1.2's constant values) |
+| R63 | Phase 1: `docs/specs/SPEC-L0_fide-reference-engine_v1_2.md` (version 1.1 moved with git mv), §11 and the notes under R-14a and R-22b; the fixture `tests/fixtures/fide_history/tested_readings.json` (F-H06 to F-H08, written by `tools/data/assemble_tested_readings.py`) and `tests/test_l0_tested_readings.py` |
+| R64 | Phase 1: the proposal's Appendix F becomes "Findings for the QC": F.1 the calculator, F.2 FIDE's lists against FIDE's own calculations [E17 §2] |
+| R65 | Phases 2 to 4 (SPEC-SELFCAL, E18, E19); Phase 6, the documents' wording |
+
+### Executor's readings where a ruling leaves a detail open
+
+1. **R58: what is shifted.** The ratings of the opponents outside the 100 that enter rung 2's expectation, in every game and at every date of the replay, with the method's matched colours; Layer 0's replay keeps FIDE's own inputs, which reproduce FIDE's lists. The replay's own ratings respond, so the mean moves by less than the first-order 2.4 points for each point of shift. The range is printed beside the headline, with the range by player and the counts above 2700 and 2800 under each shift; the full-pool replay stays with the request for FIDE's tournament reports.
+2. **R59: the banner's wording.** "Superseded before any public use": one table, Freeze 3's, serves every year of E17's replay, with FIDE's K; E19, the self-calibrating replay, replaces it; E17 stays as the record of the frozen table. Until E19 is merged the banner names it in plain text.
+3. **R60: "stay public".** E17 and Appendix G remain in the repository and the proposal, unchanged in visibility, with the banner; publication outside the repository stays the operator's decision.
+4. **R61: same rules, different rating.** In E19, Layer 0's replay keeps FIDE's K as FIDE's pages print it, which is FIDE's K rules applied to FIDE's ratings (E17 reproduces it in 4,938 of 4,940 tournaments); the self-calibrating replay applies the same K rules to its own ratings: the thresholds of 2300 and 2400, "ever 2400", are read on the self-calibrating rating, while the inputs that do not depend on the rating (games played, the year of birth, the list in force) are FIDE's. SPEC-SELFCAL fixes the details before the replay runs.
+5. **R62.** The operator's addendum defers Phase 5. The ruling stands for the video session, which follows Phase 5's format.
+6. **R63: the version.** SPEC-L0 v1.2 is version 1.1 moved with git mv (the convention for versioned documents), since no frozen file cites version 1.1; it changes no rule. The readings E17 tested (ELO-7 close-out, Q9) are three: the 400-point rule of 1 March 2024 to 30 September 2025 read as the plain cap (111 of 111 tournaments), the 2017 rounding read as away from zero (28 of 28 periods) and R-22b's K where it changes inside a period (2 of 2 tournaments used the start list's K). The third is evidence against R-22b as the engine reads it in two cases; the engine is not changed before the 1 November check.
+7. **R64: the appendix.** Appendix F is renamed "Findings for the QC" and holds two findings; the cases of F.2 are E17 §2's, by FIDE ID, as E17 prints them.
+8. **R65: before any result.** The self-calibrating method (the window, the caps, the candidates and the rule of choice) is fixed in SPEC-SELFCAL before any yearly table is fitted, and is not changed after a table or a replay is seen; the championship's tables stay as frozen.
+
+### For the architect
+
+- Reading 4: the inputs of FIDE's K rules other than the rating are FIDE's under both systems.
+- Reading 6: R-22b's two cases point to the start list's K; whether the engine should follow them is for after the 1 November check.

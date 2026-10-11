@@ -1,0 +1,1505 @@
+{
+ "source": "FIDE's published per-player rating calculations (ratings.fide.com/calculations.phtml), cached by tools/data/fetch_top100_calculations.py, and FIDE's monthly standard lists, for the October 2026 top 100 over the lists 2020-02 to 2026-10 (E17)",
+ "written_by": "tools/data/assemble_tested_readings.py (ruling R63, D-0014)",
+ "list_values_note": "the values are single figures quoted from FIDE's calculations and lists for verification; no name, FIDE ID or event is recorded and the lists are not redistributed",
+ "cases": [
+  {
+   "id": "F-H06",
+   "reading": "the 400-point rule of 1 March 2024 to 30 September 2025 read as the plain cap: every difference beyond 400 is capped",
+   "tournaments": [
+    {
+     "differences": [
+      548,
+      428
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      911,
+      801,
+      713,
+      563
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      533,
+      483
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      570,
+      426
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      772,
+      601,
+      425
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      657,
+      630,
+      624,
+      616,
+      550
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      550,
+      417
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      649,
+      466
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      769,
+      549,
+      420
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      731,
+      532
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      563,
+      430
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      482,
+      473,
+      460
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      572,
+      437
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      531,
+      414
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      714,
+      686,
+      556,
+      518,
+      513,
+      416
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      621,
+      490,
+      486,
+      401
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      891,
+      539
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      751,
+      414,
+      406
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      877,
+      765
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      714,
+      454
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      619,
+      484
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      706,
+      606
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      1085,
+      1045,
+      992,
+      942
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      902,
+      728,
+      720,
+      661,
+      581,
+      441
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      746,
+      550
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      608,
+      445
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      535,
+      516,
+      402
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      810,
+      671,
+      542,
+      495,
+      415
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      755,
+      600,
+      475
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      800,
+      615,
+      463
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      873,
+      733,
+      646,
+      602,
+      421
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      778,
+      754,
+      548,
+      446
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      707,
+      548
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      590,
+      406
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      604,
+      448
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      921,
+      566
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      519,
+      485,
+      437
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      862,
+      791,
+      736,
+      688,
+      467,
+      448
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      710,
+      666
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      965,
+      703,
+      624,
+      565,
+      543,
+      496
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      541,
+      428
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      634,
+      535,
+      434
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      416,
+      414
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      636,
+      422
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      469,
+      435
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      709,
+      709
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      566,
+      562
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      688,
+      523,
+      437,
+      413
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      642,
+      609,
+      573,
+      415
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      473,
+      414
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      449,
+      404,
+      401
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      906,
+      838,
+      779,
+      763,
+      711
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      571,
+      427
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      463,
+      408
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      579,
+      436,
+      410
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      610,
+      425,
+      421
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      977,
+      583,
+      475
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      842,
+      584
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      538,
+      431,
+      406
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      862,
+      690,
+      471
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      862,
+      621,
+      478
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      745,
+      561,
+      416
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      588,
+      584
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      723,
+      719,
+      690,
+      495,
+      415
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      534,
+      489
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      992,
+      975,
+      768,
+      531,
+      500
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      904,
+      830,
+      804,
+      720,
+      645
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      847,
+      808,
+      806,
+      576
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      819,
+      672
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      503,
+      448
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      483,
+      467
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      918,
+      488,
+      478,
+      426
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      575,
+      445
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      624,
+      437
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      553,
+      422
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      825,
+      467
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      497,
+      481,
+      471
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      406,
+      401
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      721,
+      554
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      656,
+      469
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      454,
+      444
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      585,
+      461,
+      425
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      771,
+      727,
+      531,
+      450
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      899,
+      821,
+      709
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      650,
+      492,
+      402
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      812,
+      812
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      757,
+      757
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      567,
+      409
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      571,
+      493,
+      471
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      619,
+      554,
+      425,
+      417,
+      409,
+      408
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      569,
+      406
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      620,
+      469,
+      462
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      775,
+      719,
+      628,
+      511,
+      496,
+      473,
+      425
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      517,
+      412
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      529,
+      476,
+      401
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      683,
+      529,
+      499
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      530,
+      447
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      760,
+      742,
+      671,
+      660,
+      429,
+      426
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      891,
+      677,
+      556
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      633,
+      480
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      664,
+      510,
+      413
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      511,
+      465
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      460,
+      435
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      823,
+      590,
+      576
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      1001,
+      789,
+      664,
+      656,
+      631,
+      625
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      636,
+      448
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      677,
+      575
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      608,
+      525,
+      481,
+      444,
+      413
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      768,
+      620,
+      409
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      1088,
+      772
+     ],
+     "fide_capped": [
+      true,
+      true
+     ]
+    },
+    {
+     "differences": [
+      684,
+      524,
+      513,
+      481,
+      410
+     ],
+     "fide_capped": [
+      true,
+      true,
+      true,
+      true,
+      true
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-H07",
+   "reading": "the 2017 text '0.5 is rounded up (whether the change is positive or negative)' read as away from zero",
+   "periods": [
+    {
+     "list": "2020-02",
+     "sum": "-4.50",
+     "published_change": -5
+    },
+    {
+     "list": "2020-02",
+     "sum": "-5.50",
+     "published_change": -6
+    },
+    {
+     "list": "2020-02",
+     "sum": "-3.50",
+     "published_change": -4
+    },
+    {
+     "list": "2020-03",
+     "sum": "-2.50",
+     "published_change": -3
+    },
+    {
+     "list": "2020-03",
+     "sum": "-3.50",
+     "published_change": -4
+    },
+    {
+     "list": "2020-04",
+     "sum": "-7.50",
+     "published_change": -8
+    },
+    {
+     "list": "2020-04",
+     "sum": "-13.50",
+     "published_change": -14
+    },
+    {
+     "list": "2020-10",
+     "sum": "-12.50",
+     "published_change": -13
+    },
+    {
+     "list": "2020-11",
+     "sum": "-20.50",
+     "published_change": -21
+    },
+    {
+     "list": "2020-12",
+     "sum": "-0.50",
+     "published_change": -1
+    },
+    {
+     "list": "2021-01",
+     "sum": "-8.50",
+     "published_change": -9
+    },
+    {
+     "list": "2021-03",
+     "sum": "-13.50",
+     "published_change": -14
+    },
+    {
+     "list": "2021-06",
+     "sum": "-3.50",
+     "published_change": -4
+    },
+    {
+     "list": "2021-06",
+     "sum": "-0.50",
+     "published_change": -1
+    },
+    {
+     "list": "2021-08",
+     "sum": "-0.50",
+     "published_change": -1
+    },
+    {
+     "list": "2021-10",
+     "sum": "-6.50",
+     "published_change": -7
+    },
+    {
+     "list": "2021-10",
+     "sum": "-3.50",
+     "published_change": -4
+    },
+    {
+     "list": "2021-10",
+     "sum": "-1.50",
+     "published_change": -2
+    },
+    {
+     "list": "2021-11",
+     "sum": "-3.50",
+     "published_change": -4
+    },
+    {
+     "list": "2021-11",
+     "sum": "-4.50",
+     "published_change": -5
+    },
+    {
+     "list": "2021-11",
+     "sum": "-11.50",
+     "published_change": -12
+    },
+    {
+     "list": "2021-11",
+     "sum": "-1.50",
+     "published_change": -2
+    },
+    {
+     "list": "2021-12",
+     "sum": "-1.50",
+     "published_change": -2
+    },
+    {
+     "list": "2021-12",
+     "sum": "-0.50",
+     "published_change": -1
+    },
+    {
+     "list": "2021-12",
+     "sum": "-8.50",
+     "published_change": -9
+    },
+    {
+     "list": "2021-12",
+     "sum": "-3.50",
+     "published_change": -4
+    },
+    {
+     "list": "2021-12",
+     "sum": "-4.50",
+     "published_change": -5
+    },
+    {
+     "list": "2021-12",
+     "sum": "-9.50",
+     "published_change": -10
+    }
+   ]
+  },
+  {
+   "id": "F-H08",
+   "reading": "SPEC-L0 R-22b where K changes inside a period: FIDE's K against the previous list's and the start list's",
+   "tournaments": [
+    {
+     "list": "2020-02",
+     "n": 15,
+     "k_previous_list": 10,
+     "k_start_list": 20,
+     "start_list_is_earlier": true,
+     "k_fide": 20
+    },
+    {
+     "list": "2022-04",
+     "n": 9,
+     "k_previous_list": 20,
+     "k_start_list": 40,
+     "start_list_is_earlier": true,
+     "k_fide": 40
+    }
+   ]
+  }
+ ]
+}

@@ -1862,6 +1862,44 @@
   "mean_points_per_point": 2.44,
   "min": 0.07
  },
+ "outside_shift": {
+  "-10": {
+   "2700": 38,
+   "2800": 5,
+   "higher": 98,
+   "lower": 2,
+   "max": 40,
+   "mean_difference": 15.23,
+   "min": -10
+  },
+  "-5": {
+   "2700": 40,
+   "2800": 5,
+   "higher": 99,
+   "lower": 1,
+   "max": 43,
+   "mean_difference": 19.28,
+   "min": -6
+  },
+  "10": {
+   "2700": 46,
+   "2800": 8,
+   "higher": 100,
+   "lower": 0,
+   "max": 52,
+   "mean_difference": 31.52,
+   "min": 6
+  },
+  "5": {
+   "2700": 44,
+   "2800": 8,
+   "higher": 100,
+   "lower": 0,
+   "max": 49,
+   "mean_difference": 27.51,
+   "min": 4
+  }
+ },
  "pages": {
   "planned": 3685,
   "read": 3685

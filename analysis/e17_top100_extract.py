@@ -7,7 +7,9 @@ fetched by tools/data/fetch_top100_calculations.py) and the Lichess broadcast ar
 from the November 2026 rating period is read. It replays the 100 together, month by month, from their January 2020
 ratings: under Layer 0 with the rules in force at each date (src/layer0_history/), validated against FIDE's published
 calculations and lists first; and under rung 2, the v2 table of Freeze 3 with the narrowed guard at today's K (R44), with
-and without the colour term, colours matched from the broadcast archive (SPEC-TOP100 §6). Writes
+and without the colour term, colours matched from the broadcast archive (SPEC-TOP100 §6), and, for ruling R58
+(docs/decisions/D-0014_forecast-test-and-rulings.md, part B), with every opponent outside the 100 rated 10 or 5 points
+lower or higher under rung 2. Writes
 analysis/aggregates/E17_top100.json: aggregates and the per-player figures SPEC-TOP100 §7 defines, identified by FIDE
 ID; no name, page or monthly per-player series. With --feed PATH it also writes the operator's monthly series of both
 systems' ratings (names included) to PATH, outside the repository, never committed. Python standard library only.
@@ -264,6 +266,8 @@ def e_rung2(own: int, opp: int, w: int) -> Decimal:
 
 # ------------------------------------------------------------------ the replay
 VARIANTS = ("r2", "r2nc", "r2fide")     # rung 2 with matched colours (the method), without colour, with FIDE's marks
+SHIFTS = (-10, -5, 5, 10)              # R58 (D-0014): the opponents outside the 100 rated this much higher under rung 2
+SHIFTED = tuple(f"r2_outside{s:+d}" for s in SHIFTS)
 GAP_BANDS = ((-10000, -100, "below −100"), (-100, 0, "−100 to −1"), (0, 100, "0 to 99"), (100, 200, "100 to 199"),
              (200, 300, "200 to 299"), (300, 400, "300 to 399"), (400, 10000, "400 or more"))
 
@@ -278,7 +282,7 @@ def replay(lists, ids, pages, names, index, bc_by_day) -> dict:
     top_names = {p: names.get(p, "") for p in ids}
     pnorm = {p: norm(top_names[p]) for p in ids}
     L0 = {p: {START: lists[START][p][0]} for p in ids}
-    R2 = {v: {p: {START: lists[START][p][0]} for p in ids} for v in VARIANTS}
+    R2 = {v: {p: {START: lists[START][p][0]} for p in ids} for v in VARIANTS + SHIFTED}
     val = {"games": 0, "game_delta_differs": [], "tournaments": 0, "tournament_k_chg_differs": [], "k_differs": [],
            "periods": 0, "period_change_differs": [], "carried_differs": [], "missing_pages": [],
            "change_without_games": [], "total_shown_differs": [], "capped_unresolved": 0, "opp_unresolved": 0,
@@ -302,7 +306,7 @@ def replay(lists, ids, pages, names, index, bc_by_day) -> dict:
                 val["missing_pages"].append((p, t))
             if not games_t or page is None:
                 L0[p][t] = L0[p][prev]
-                for v in VARIANTS:
+                for v in VARIANTS + SHIFTED:
                     R2[v][p][t] = R2[v][p][prev]
                 if pub_t != pub_prev and not games_t:
                     val["change_without_games"].append((p, t, pub_t - pub_prev))
@@ -314,7 +318,7 @@ def replay(lists, ids, pages, names, index, bc_by_day) -> dict:
             k_list = layer0.k_for_period(lists[prev][p][2], games_t)
             sum0 = Decimal(0)
             per_t0 = []
-            sums = {v: Decimal(0) for v in VARIANTS}
+            sums = {v: Decimal(0) for v in VARIANTS + SHIFTED}
             for tr in page["tournaments"]:
                 val["tournaments"] += 1
                 start = d_of(tr["start"]) if tr["start"] else date.fromisoformat(f"{prev}-01")
@@ -423,6 +427,10 @@ def replay(lists, ids, pages, names, index, bc_by_day) -> dict:
                                 b["games"] += 1
                                 b["e_gap"] += (g["score"] - dlt) - e2
                                 b["k_e_gap"] += kt * ((g["score"] - dlt) - e2)
+                    for v, s in zip(SHIFTED, SHIFTS):      # R58: the method with every outside opponent shifted by s
+                        own2 = tr["ro"] + diff(R2[v], L0, p, m)
+                        opp2 = actual + (diff(R2[v], L0, oid, m) if oid in top else s)
+                        sums[v] += kt * (g["score"] - e_rung2(own2, opp2, w_match))
             ch0 = lh.round_change(sum0, t)
             ch0_tourn = sum(lh.round_change(x, t) for x in per_t0)
             if sum0 < 0 and abs(sum0) % 1 == Decimal("0.5"):          # the rounding of a negative half-point
@@ -445,7 +453,7 @@ def replay(lists, ids, pages, names, index, bc_by_day) -> dict:
             L0[p][t] = L0[p][prev] + ch0
             if L0[p][t] != pub_t:
                 val["carried_differs"].append((p, t, pub_t, L0[p][t]))
-            for v in VARIANTS:
+            for v in VARIANTS + SHIFTED:
                 R2[v][p][t] = R2[v][p][prev] + lh.round_change(sums[v], t)
     return {"L0": L0, "R2": R2, "val": val, "colour": colour, "per_year_colour": per_year_colour, "stats": stats,
             "gaps": gaps, "by_gap": by_gap, "by_opp": by_opp, "sens": sens}
@@ -531,6 +539,15 @@ def summarise(lists, ids, res) -> dict:
             # one point higher (and, with the sign reversed, lower), from rung 2's expectations in the replay
             "mean_points_per_point": round(float(sum(res["sens"].values())) / len(ids), 2),
             "min": round(float(min(res["sens"].values())), 2), "max": round(float(max(res["sens"].values())), 2)},
+        "outside_shift": {  # R58: the replay rerun with every opponent outside the 100 rated s points higher under rung 2
+            str(s): {"mean_difference": round(sum(R2[v][p][LAST] - L0[p][LAST] for p in ids) / len(ids), 2),
+                     "min": min(R2[v][p][LAST] - L0[p][LAST] for p in ids),
+                     "max": max(R2[v][p][LAST] - L0[p][LAST] for p in ids),
+                     "higher": sum(1 for p in ids if R2[v][p][LAST] > L0[p][LAST]),
+                     "lower": sum(1 for p in ids if R2[v][p][LAST] < L0[p][LAST]),
+                     "2700": sum(1 for p in ids if pub[p][LAST] + R2[v][p][LAST] - L0[p][LAST] >= 2700),
+                     "2800": sum(1 for p in ids if pub[p][LAST] + R2[v][p][LAST] - L0[p][LAST] >= 2800)}
+            for v, s in zip(SHIFTED, SHIFTS)},
         "capped_unresolved_by_player": {
             "players": sum(1 for p in ids if res["stats"][p]["capped_unresolved"]),
             "max": max(res["stats"][p]["capped_unresolved"] for p in ids)}}
