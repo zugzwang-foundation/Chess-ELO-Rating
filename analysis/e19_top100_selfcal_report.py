@@ -5,6 +5,8 @@ needs data/, under docs/specs/SPEC-SELFCAL_v1_0.md §9 and §10). Every table ca
 gives names beside FIDE IDs (R60). Python standard library only; deterministic.
 
 Usage: python3 analysis/e19_top100_selfcal_report.py > docs/evidence/E19_top100-selfcal.md
+       python3 analysis/e19_top100_selfcal_report.py --appendix > analysis/OUTPUT_E19_appendix.md (the proposal's
+       Appendix H, from E18's and E19's aggregates, carried verbatim; tests/test_e19_appendix.py)
 """
 from __future__ import annotations
 
@@ -17,6 +19,7 @@ sys.path.insert(0, str(ROOT / "analysis"))
 import e17_top100_report as r17  # noqa: E402  (the fixed wording and its placement, E17's)
 
 AGG = ROOT / "analysis" / "aggregates" / "E19_top100_selfcal.json"
+WORDS = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten"}
 FIXED = r17.FIXED
 sgn = r17.sgn
 P: list[str] = []
@@ -28,7 +31,95 @@ def band(mid: str) -> str:
     return "below 1500" if m == 1450 else "2800 and above" if m == 2850 else f"{m - 50}–{m + 49}"
 
 
+def appendix(a: dict, s: dict) -> list[str]:
+    """Appendix H of the proposal: E18 and E19 in one page, every number from the two aggregates."""
+    out: list[str] = []
+    q = out.append
+    first, years = a["first_table_year"], s["table_years"]
+    t25, t26 = (s["tables"][y] for y in years[:2])
+    tw = {y: s["three_way"][y]["differences"] for y in years}
+    last_y = years[-1]
+    d32 = tw[last_y]["year-first"]
+    held = sorted(k for k in t26["on_bound"])
+    mt, sh, bd, e17 = a["method"], a["outside_shift"], a["bound"], a["e17_method"]
+    t812, d25, d26 = s["table_812"], t25["derived"], t26["derived"]
+    rows = a["players_table"]
+    bl = a["by_list"][a["window"]["last"]]
+    verdict = d32["hi"] < 0 and tw[last_y]["year-l0"]["hi"] < 0 and tw[last_y]["first-l0"]["hi"] < 0
+    form26 = s["choice"][last_y]["chosen"]
+    q("## Appendix H Self-calibrating: one table a year, and today's top 100 under it")
+    q("")
+    q(FIXED)
+    q("")
+    q("Rung 2 as recommended is self-calibrating (R65): each year's table is refitted by SPEC-TABLE-FIT v1.2's rules on "
+      "the games played before that year only, within annex T7.1's yearly caps, by a method fixed before any table was "
+      "fitted (`docs/specs/SPEC-SELFCAL_v1_0.md`). Run back in time on the broadcast archive, the data allow "
+      f"{WORDS.get(len(years), len(years))} tables: 2016–2019 could not be sourced legitimately, and the archive's games before 2023 carry no "
+      f"FIDE IDs, so the first window is {t25['window'][0]} to {t25['window'][1]}, after the March 2024 compression "
+      f"[E18 §1]. The {years[0]} table keeps v1.1's form; for {last_y} the rule of choice picked "
+      + ("a piecewise-linear slope by level" if form26["slope"] == "P" else "v1.1's exponential slope")
+      + (" and a colour term rising with the level" if form26["colour_by_level"] else "")
+      + f", and the yearly caps held {WORDS.get(len(held), len(held))} of its parameters at their bounds [E18 §2].")
+    q("")
+    q(f"Forecasting each year's games, the year's table beat table 8.1.2 as FIDE applied it in every year (log-loss "
+      + ", ".join(f"{sgn(tw[y]['year-l0']['mean'], 4)} in {y}" for y in years)
+      + f", nats a game, intervals below zero), and in {last_y} it beat the first table kept frozen "
+      f"({sgn(d32['mean'], 5)}; {sgn(d32['lo'], 5)} to {sgn(d32['hi'], 5)}): self-calibration "
+      + ("earns its name" if verdict else "does not earn its name")
+      + f" in {last_y}, the one year that can tell [E18 §3]. Table 8.1.2 expects a 100-point favourite at 2700 to score "
+      f"{t812['favourite_100_at_2700']:.3f}; the tables, {d25['favourite_100_at_2700']['value']:.3f} and "
+      f"{d26['favourite_100_at_2700']['value']:.3f}; White's edge at 2700–2799 is "
+      f"{d25['white_edge_points']['2750']['value']:.0f} and {d26['white_edge_points']['2750']['value']:.0f} rating points, "
+      "against none in table 8.1.2 [E18 §4].")
+    q("")
+    q(f"Today's top 100 replayed with these tables, FIDE's rules before {first}, and K by FIDE's rules on each system's "
+      "own rating (R61"
+      + (", which changes no K here" if not a["k_departs_from_fide"] else "")
+      + f"): in October 2026 the self-calibrating system rates them {sgn(mt['mean_difference'], 1)} points higher on "
+      f"average than FIDE's rules ({sgn(mt['min'])} to {sgn(mt['max'])}); {sgn(sh['-10']['mean_difference'], 1)} to "
+      f"{sgn(sh['10']['mean_difference'], 1)} with the opponents outside the 100 rated 10 points lower or higher from "
+      f"{first} (R58); {sgn(bd['mean_difference'], 1)} with each table's own residual at 2300 or more removed (R59's "
+      f"bound); {bl['selfcal']['2700']} and {bl['selfcal']['2800']} of the 100 at 2700 and 2800, against "
+      f"{bl['published']['2700']} and {bl['published']['2800']} [E19]. E17's frozen table gave "
+      f"{sgn(e17['mean_difference'], 1)} over 2020–2026 (Appendix G); E19 supersedes it (R59).")
+    q("")
+    q("The five largest differences and the five smallest, names beside FIDE IDs (R60):")
+    q("")
+    q(FIXED)
+    q("")
+    q("| | name | FIDE ID | FIDE's rules, October 2026 | self-calibrating | difference |")
+    q("|---|---|---|---|---|---|")
+    up = sorted(rows, key=lambda r: (-r["difference"], r["fide_id"]))
+    down = sorted(rows, key=lambda r: (r["difference"], r["fide_id"]))
+    for lab, lst in (("largest", up[:5]), ("smallest", down[:5])):
+        for r in lst:
+            q(f"| {lab} | {r['name']} | {r['fide_id']} | {r['oct_2026']} | {r['selfcal']} | {sgn(r['difference'])} |")
+    q("")
+    q("Read with these caveats [E18 §5] [E19 §8]:")
+    q("")
+    q(f"- Two tables only, so the test of self-calibration rests on {last_y}; the replay differs from FIDE's rules over "
+      f"{sum(1 for m in a['by_list'] if m >= f'{first}-01')} lists, not E17's "
+      f"{sum(1 for m in a['by_list'] if m > a['window']['start_list'])}.")
+    q("- Opponents outside the 100 keep their published ratings (R58's range above); a replay of the whole pool needs "
+      "FIDE's tournament reports (section 9, stage 2).")
+    q("- The tables' own error at the top is bounded, not removed (R59's bound above).")
+    q("- A flatter table spreads ratings further apart at the top (annex T3.5): counts above 2700 and 2800 compare two "
+      "scales as well as two rules.")
+    q("- The tables are fitted on broadcast games, stronger and more international than the rated pool.")
+    q("- Layer 0 reads the 400-point rule of March 2024 to September 2025 as the plain cap, NOT VERIFIED against the "
+      "handbook; FIDE's calculations agree in every tournament that can tell [E17 §2].")
+    q("- The figures describe the rule, not the players: who is stronger is not their question.")
+    q("")
+    q(FIXED)
+    return out
+
+
 def main() -> int:
+    if "--appendix" in sys.argv[1:]:
+        a = json.loads(AGG.read_text(encoding="utf-8"))
+        s = json.loads((ROOT / "analysis" / "aggregates" / "E18_selfcal.json").read_text(encoding="utf-8"))
+        sys.stdout.write("\n".join(appendix(a, s)) + "\n")
+        return 0
     a = json.loads(AGG.read_text(encoding="utf-8"))
     rows, v = a["players_table"], a["validation"]
     n = len(rows)

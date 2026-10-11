@@ -55,7 +55,8 @@
     {"script": "analysis/e18_selfcal_extract.py", "args": [], "output": "analysis/aggregates/E18_selfcal.json", "needs_data": true},
     {"script": "analysis/e18_selfcal_report.py", "args": [], "output": "docs/evidence/E18_self-calibration.md", "needs_data": false},
     {"script": "analysis/e19_top100_selfcal_extract.py", "args": [], "output": "analysis/aggregates/E19_top100_selfcal.json", "needs_data": true},
-    {"script": "analysis/e19_top100_selfcal_report.py", "args": [], "output": "docs/evidence/E19_top100-selfcal.md", "needs_data": false}
+    {"script": "analysis/e19_top100_selfcal_report.py", "args": [], "output": "docs/evidence/E19_top100-selfcal.md", "needs_data": false},
+    {"script": "analysis/e19_top100_selfcal_report.py", "args": ["--appendix"], "output": "analysis/OUTPUT_E19_appendix.md", "needs_data": false}
   ],
   "modules": ["analysis/e13_us_championships_freeze3.py", "analysis/e13_us_championships_freeze3a.py", "analysis/e3_us_championships.py", "analysis/fide_panel.py", "analysis/l1_common.py", "analysis/selfcal_fit.py", "analysis/table_v2_fit.py"]
 }

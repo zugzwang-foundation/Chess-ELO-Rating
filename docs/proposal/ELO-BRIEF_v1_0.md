@@ -1,7 +1,7 @@
 # Fixing the FIDE rating one step at a time: a brief
 
 **Status: DRAFT v1.0 — not for publication**
-The Zugzwang Authors · CC BY 4.0 · 2026-10-11. A plain-language summary of `docs/proposal/ELO-PROPOSAL_v1_0.md`; the mathematics is in `docs/proposal/ELO-TECHNICAL-ANNEX_v1_0.md`. Every number below is PROVISIONAL unless it is quoted from FIDE's rules [V 1], from our evidence reports [E n] or from the research report [R n].
+The Zugzwang Authors · CC BY 4.0 · 2026-10-11. A plain-language summary of `docs/proposal/ELO-PROPOSAL_v1_0.md`; the mathematics is in `docs/proposal/ELO-TECHNICAL-ANNEX_v1_0.md`. Every number below is PROVISIONAL unless quoted from FIDE's rules [V 1], our evidence reports [E n] or the research report [R n].
 
 ## What is wrong
 
@@ -20,7 +20,7 @@ One worry has eased: since the 2024 reset, steadily active adults' ratings have 
 ## Seven steps, lowest risk first, each adoptable alone, with our verdict
 
 1. **The open replica.** Nothing changes in the rules; the list becomes reproducible. *Recommended now, subject to a check on 1 November.*
-2. **A better table**, refitted yearly on real results, with colour, draws and a slope that changes with level: an extra White pays much less, and the 400-point rule goes. Where strong players meet far weaker ones, a temporary guard lifts the favourite's expected score towards today's, so farming does not pay there; against moderately weaker players the table still slightly favours the stronger. *Recommended now in standard: ready for a shadow list today, changing no official rating until a shadow year confirms it level by level on FIDE's data; rapid and blitz after a test on FIDE's games.*
+2. **A better table**, self-calibrating (refitted each year on earlier games), with colour, draws and a slope that changes with level: an extra White pays much less, and the 400-point rule goes. Where strong players meet far weaker ones, a temporary guard lifts the favourite's expected score towards today's, so farming does not pay there; against moderately weaker players the table still slightly favours the stronger. *Recommended now in standard: ready for a shadow list today, changing no official rating until a shadow year confirms it level by level on FIDE's data; rapid and blitz after a test on FIDE's games.*
 3. **Better starting ratings.** A newcomer's first rating uses all their games instead of two imaginary draws against 1800-rated players; age is used, nationality never. *Test on FIDE data.*
 4. **K that follows certainty**: 40 for a newcomer, lower the more regularly you play, and lower in a month with many games; no jumps at 30 games, 2300 or 2400; higher after years away. *Test on FIDE data.*
 5. **Fair games against juniors.** When the model is confident that a junior is stronger than their rating, the opponent's expected score uses a higher number for the junior: an adult who draws a junior listed at 1500 but playing like an 1850 loses 4 points instead of 8. The junior's own rating is computed as before. *Pilot.*
