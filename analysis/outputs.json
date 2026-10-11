@@ -58,6 +58,8 @@
     {"script": "analysis/e19_top100_selfcal_extract.py", "args": [], "output": "analysis/aggregates/E19_top100_selfcal.json", "needs_data": true},
     {"script": "analysis/e19_top100_selfcal_report.py", "args": [], "output": "docs/evidence/E19_top100-selfcal.md", "needs_data": false},
     {"script": "analysis/e19_top100_selfcal_report.py", "args": ["--appendix"], "output": "analysis/OUTPUT_E19_appendix.md", "needs_data": false},
+    {"script": "analysis/probe_greats_extract.py", "args": [], "output": "analysis/aggregates/PROBE_greats.json", "needs_data": true},
+    {"script": "analysis/probe_greats_report.py", "args": [], "output": "docs/research/DATA-PROBE_greats.md", "needs_data": false},
     {"script": "analysis/elo8_review_checks.py", "args": [], "output": "analysis/OUTPUT_ELO8_review.md", "needs_data": false, "slow": true}
   ],
   "modules": ["analysis/e13_us_championships_freeze3.py", "analysis/e13_us_championships_freeze3a.py", "analysis/e13_us_championships_freeze3b.py", "analysis/e13_us_championships_freeze3c.py", "analysis/e3_us_championships.py", "analysis/fide_panel.py", "analysis/l1_common.py", "analysis/selfcal_fit.py", "analysis/table_v2_fit.py"]
