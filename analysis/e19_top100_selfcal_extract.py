@@ -44,8 +44,12 @@ TABLES = {int(y): {"form": t["form"], "par": t["par"]} for y, t in E18["tables"]
 FIRST_TABLE = min(TABLES)
 RESID = {int(y): {int(mid): b["mean"] for mid, b in r["bands"]["year"].items() if int(mid) >= 2350}
          for y, r in E18["three_way"].items()}           # R59: the favourite's residual by band, levels of 2300 or more
+RESID_CELLS = {int(y): {(int(c["cell"].split("|")[0]), int(c["cell"].split("|")[1])): c["mean"]
+                        for c in r["cells"]["year"]["shown"] if int(c["cell"].split("|")[0]) >= 2350}
+               for y, r in E18["three_way"].items()}     # the same by band and 50-point gap, cells of 200 games or more
+GAP_BINS = ex.e2.BINS
 SHIFTS = ex.SHIFTS
-VARIANTS = ("sc", "sc_nc", "sc_bound") + tuple(f"sc_outside{s:+d}" for s in SHIFTS)
+VARIANTS = ("sc", "sc_nc", "sc_bound", "sc_bound_cells") + tuple(f"sc_outside{s:+d}" for s in SHIFTS)
 START, LAST, MONTHS = ex.START, ex.LAST, ex.MONTHS
 HISTORY = ex.ft.months("2015-02", LAST)                 # FIDE's lists on disk, for "ever 2300 / 2400" before 2020
 
@@ -75,14 +79,18 @@ def k_rule(rating: int, list_month: str, ever2400: bool, ever2300: bool, birth: 
     return layer0.published_k(rating, 30, ever2400, ever2300, list_month, birth)
 
 
-def sc_expectation(tab: dict, own: int, opp: int, w: int, resid: dict[int, float] | None = None) -> Decimal:
+def sc_expectation(tab: dict, own: int, opp: int, w: int, resid: dict[int, float] | None = None,
+                   cells: dict[tuple[int, int], float] | None = None) -> Decimal:
     """The self-calibrating table's published entry for `own` against `opp` (colour w = +1, -1 or 0), with R59's
-    correction where given, and the narrowed guard on these two ratings."""
+    correction where given (by level band, or by band and 50-point gap where a cell has 200 games, the band's value
+    elsewhere), and the narrowed guard on these two ratings."""
     mid = ex.t2.band_mid((own + opp) // 2)
     x = own - opp + w * sf.eta_whole(tab, mid)
     e = sf.published(tab, x, mid)
     if resid is not None and own != opp and mid in resid:
-        r = Decimal(repr(resid[mid])).quantize(Decimal("0.001"), rounding=ROUND_HALF_UP)
+        gap_bin = min(abs(own - opp) // 50, GAP_BINS - 1) * 50
+        rv = cells.get((mid, gap_bin), resid[mid]) if cells is not None else resid[mid]
+        r = Decimal(repr(rv)).quantize(Decimal("0.001"), rounding=ROUND_HALF_UP)
         e = min(max(e + (r if own > opp else -r), Decimal(0)), Decimal(1))
     if ex.GUARD_APPLIES:
         e, _ = gv2.guard_own(e, x, own > opp, gv2.weight(own, opp))
@@ -199,7 +207,10 @@ def main() -> int:
                     for g, oid, actual, c in zip(tr["games"], opp_ids, opp_actual, colours):
                         w = 0 if (c is None or v == "sc_nc") else (1 if c == "white" else -1)
                         opp2 = actual + (ex.diff(SC[v], L0, oid, m) if oid in top else shift)
-                        e = sc_expectation(tab, own2, opp2, w, RESID.get(int(m[:4])) if v == "sc_bound" else None)
+                        yr = int(m[:4])
+                        e = sc_expectation(tab, own2, opp2, w,
+                                           RESID.get(yr) if v in ("sc_bound", "sc_bound_cells") else None,
+                                           RESID_CELLS.get(yr) if v == "sc_bound_cells" else None)
                         tot += g["score"] - e
                         if v == "sc_nc":
                             # where the table's effect comes from: FIDE's expectation minus the table's, in points
@@ -257,7 +268,7 @@ def main() -> int:
                 "2700": sum(1 for p in ids if pub[p][LAST] + SC[v][p][LAST] - L0[p][LAST] >= 2700),
                 "2800": sum(1 for p in ids if pub[p][LAST] + SC[v][p][LAST] - L0[p][LAST] >= 2800)}
     out = {
-        "spec": "docs/specs/SPEC-SELFCAL_v1_0.md", "e18": "analysis/aggregates/E18_selfcal.json",
+        "spec": "docs/specs/SPEC-SELFCAL_v1_1.md", "e18": "analysis/aggregates/E18_selfcal.json",
         "window": {"start_list": START, "last": LAST}, "first_table_year": FIRST_TABLE,
         "tables_used": sorted(TABLES), "players": len(ids), "rank_100_rating": min(pub[p][LAST] for p in ids),
         "validation": val, "validation_equals_e17": True, "guard_applies": ex.GUARD_APPLIES,
@@ -265,6 +276,7 @@ def main() -> int:
                     "differs": k_check["differs"]},
         "k_departs_from_fide": dict(k_departs),
         "method": summary("sc"), "no_colour": summary("sc_nc"), "bound": summary("sc_bound"),
+        "bound_cells": summary("sc_bound_cells"),
         "bound_residuals": {str(y): {str(mid): r for mid, r in sorted(v.items())} for y, v in sorted(RESID.items())},
         "outside_shift": {str(s): summary(f"sc_outside{s:+d}") for s in SHIFTS},
         "e17_method": {"mean_difference": round(sum(r["difference"] for r in agg17["players_table"]) / len(ids), 2),

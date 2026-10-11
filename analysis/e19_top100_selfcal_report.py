@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """E19 report: today's top 100 under FIDE's rules and under the self-calibrating system; writes
 docs/evidence/E19_top100-selfcal.md from analysis/aggregates/E19_top100_selfcal.json (analysis/e19_top100_selfcal_extract.py,
-needs data/, under docs/specs/SPEC-SELFCAL_v1_0.md §9 and §10). Every table carries the fixed wording; the per-player table
+needs data/, under docs/specs/SPEC-SELFCAL_v1_1.md §9 and §10). Every table carries the fixed wording; the per-player table
 gives names beside FIDE IDs (R60). Python standard library only; deterministic.
 
 Usage: python3 analysis/e19_top100_selfcal_report.py > docs/evidence/E19_top100-selfcal.md
@@ -24,6 +24,14 @@ FIXED = r17.FIXED
 sgn = r17.sgn
 P: list[str] = []
 p = P.append
+
+
+def with_ties(rows: list[dict], n: int, key: str) -> list[dict]:
+    """The first n rows of a sorted list and every row tied with the n-th on `key` (review finding ELO8-QC-4)."""
+    if len(rows) <= n:
+        return rows
+    cut = rows[n - 1][key]
+    return rows[:n] + [r for r in rows[n:] if r[key] == cut]
 
 
 def band(mid: str) -> str:
@@ -53,7 +61,7 @@ def appendix(a: dict, s: dict) -> list[str]:
     q("")
     q("Rung 2 as recommended is self-calibrating (R65): each year's table is refitted by SPEC-TABLE-FIT v1.2's rules on "
       "the games played before that year only, within annex T7.1's yearly caps, by a method fixed before any table was "
-      "fitted (`docs/specs/SPEC-SELFCAL_v1_0.md`). Run back in time on the broadcast archive, the data allow "
+      "fitted (`docs/specs/SPEC-SELFCAL_v1_1.md`). Run back in time on the broadcast archive, the data allow "
       f"{WORDS.get(len(years), len(years))} tables: 2016–2019 could not be sourced legitimately, and the archive's games before 2023 carry no "
       f"FIDE IDs, so the first window is {t25['window'][0]} to {t25['window'][1]}, after the March 2024 compression "
       f"[E18 §1]. The {years[0]} table keeps v1.1's form; for {last_y} the rule of choice picked "
@@ -66,11 +74,18 @@ def appendix(a: dict, s: dict) -> list[str]:
       + f", nats a game, intervals below zero), and in {last_y} it beat the first table kept frozen "
       f"({sgn(d32['mean'], 5)}; {sgn(d32['lo'], 5)} to {sgn(d32['hi'], 5)}): self-calibration "
       + ("earns its name" if verdict else "does not earn its name")
-      + f" in {last_y}, the one year that can tell [E18 §3]. Table 8.1.2 expects a 100-point favourite at 2700 to score "
+      + f" in {last_y}, the one year that can tell. The size is small: {abs(d32['mean']):.4f} nats a game, against "
+      f"{abs(tw[last_y]['year-l0']['mean']):.3f} over table 8.1.2"
+      + (f", and {abs(tw[last_y]['year_prevform-first']['mean']):.4f} in the form SPEC-TABLE-FIT v1.2's 24 training "
+         "months would have kept" if "year_prevform-first" in tw[last_y] else "")
+      + f"; and with one year, against a frozen table fitted on {t25['months']} months to the year's {t26['months']}, "
+      "the result is consistent with self-calibration and cannot establish it [E18 §3]. Table 8.1.2 expects a 100-point "
+      "favourite at 2700 to score "
       f"{t812['favourite_100_at_2700']:.3f}; the tables, {d25['favourite_100_at_2700']['value']:.3f} and "
       f"{d26['favourite_100_at_2700']['value']:.3f}; White's edge at 2700–2799 is "
-      f"{d25['white_edge_points']['2750']['value']:.0f} and {d26['white_edge_points']['2750']['value']:.0f} rating points, "
-      "against none in table 8.1.2 [E18 §4].")
+      f"{d25['white_edge_points']['2750']['value']:.0f} and {d26['white_edge_points']['2750']['value']:.0f} rating points "
+      f"({t26['uncapped']['derived']['white_edge_points']['2750']:.0f} without the caps), against none in table 8.1.2 "
+      "[E18 §4].")
     q("")
     q(f"Today's top 100 replayed with these tables, FIDE's rules before {first}, and K by FIDE's rules on each system's "
       "own rating (R61"
@@ -78,12 +93,14 @@ def appendix(a: dict, s: dict) -> list[str]:
       + f"): in October 2026 the self-calibrating system rates them {sgn(mt['mean_difference'], 1)} points higher on "
       f"average than FIDE's rules ({sgn(mt['min'])} to {sgn(mt['max'])}); {sgn(sh['-10']['mean_difference'], 1)} to "
       f"{sgn(sh['10']['mean_difference'], 1)} with the opponents outside the 100 rated 10 points lower or higher from "
-      f"{first} (R58); {sgn(bd['mean_difference'], 1)} with each table's own residual at 2300 or more removed (R59's "
-      f"bound); {bl['selfcal']['2700']} and {bl['selfcal']['2800']} of the 100 at 2700 and 2800, against "
+      f"{first} (R58); {sgn(bd['mean_difference'], 1)} with each table's own residual at levels of 2300 or more "
+      f"removed by level band, {sgn(a['bound_cells']['mean_difference'], 1)} by band and gap (R59's bound, an "
+      f"estimate); {bl['selfcal']['2700']} and {bl['selfcal']['2800']} of the 100 at 2700 and 2800, against "
       f"{bl['published']['2700']} and {bl['published']['2800']} [E19]. E17's frozen table gave "
       f"{sgn(e17['mean_difference'], 1)} over 2020–2026 (Appendix G); E19 supersedes it (R59).")
     q("")
-    q("The five largest differences and the five smallest, names beside FIDE IDs (R60):")
+    q("The five largest differences and the five smallest, with every player tied at the cut, names beside FIDE IDs "
+      "(R60):")
     q("")
     q(FIXED)
     q("")
@@ -91,7 +108,7 @@ def appendix(a: dict, s: dict) -> list[str]:
     q("|---|---|---|---|---|---|")
     up = sorted(rows, key=lambda r: (-r["difference"], r["fide_id"]))
     down = sorted(rows, key=lambda r: (r["difference"], r["fide_id"]))
-    for lab, lst in (("largest", up[:5]), ("smallest", down[:5])):
+    for lab, lst in (("largest", with_ties(up, 5, "difference")), ("smallest", with_ties(down, 5, "difference"))):
         for r in lst:
             q(f"| {lab} | {r['name']} | {r['fide_id']} | {r['oct_2026']} | {r['selfcal']} | {sgn(r['difference'])} |")
     q("")
@@ -102,7 +119,7 @@ def appendix(a: dict, s: dict) -> list[str]:
       f"{sum(1 for m in a['by_list'] if m > a['window']['start_list'])}.")
     q("- Opponents outside the 100 keep their published ratings (R58's range above); a replay of the whole pool needs "
       "FIDE's tournament reports (section 9, stage 2).")
-    q("- The tables' own error at the top is bounded, not removed (R59's bound above).")
+    q("- The tables' own error at the top is estimated, not removed (R59's bound above is an estimate).")
     q("- A flatter table spreads ratings further apart at the top (annex T3.5): counts above 2700 and 2800 compare two "
       "scales as well as two rules.")
     q("- The tables are fitted on broadcast games, stronger and more international than the rated pool.")
@@ -136,7 +153,7 @@ def main() -> int:
     mean_c = sum(r["colour_effect"] for r in rows) / n
     p("# E19 — Today's top 100, self-calibrating: FIDE's rules against a table refitted each year on earlier games")
     p("")
-    p("Status: REVIEW — evidence for the proposal, session ELO-8, Phase 4, under `docs/specs/SPEC-SELFCAL_v1_0.md` §9 and "
+    p("Status: REVIEW — evidence for the proposal, session ELO-8, Phase 4, under `docs/specs/SPEC-SELFCAL_v1_1.md` §9 and "
       "§10 (written before any replay ran). Generated by `analysis/e19_top100_selfcal_report.py` from "
       "`analysis/aggregates/E19_top100_selfcal.json`, which `analysis/e19_top100_selfcal_extract.py` writes from `data/` "
       "with E18's tables; do not edit by hand. Licence: CC BY 4.0 (`docs/LICENSE-docs.md`). Data: FIDE's monthly standard "
@@ -161,12 +178,13 @@ def main() -> int:
       f"{sgn(mt['mean_difference'], 1)} points, from {sgn(mt['min'])} to {sgn(mt['max'])}; the table's effect "
       f"{sgn(mean_t, 1)}, colour's {sgn(mean_c, 1)}. With every opponent outside the 100 rated 10 points lower or higher "
       f"from {first} (R58): {sgn(sh['-10']['mean_difference'], 1)} to {sgn(sh['10']['mean_difference'], 1)}. With each "
-      f"year's table corrected at levels of 2300 or more by its own residual on that year's games (R59's bound): "
-      f"{sgn(bd['mean_difference'], 1)}. E17's frozen table, superseded, gave {sgn(e17['mean_difference'], 1)} over "
-      "2020–2026.")
-    p("- **Largest risers:** " + "; ".join(f"{r['name']} ({r['fide_id']}) {sgn(r['difference'])}" for r in up[:3])
-      + ". **At the other end:** " + "; ".join(f"{r['name']} ({r['fide_id']}) {sgn(r['difference'])}" for r in down[:3])
-      + ".")
+      f"year's table corrected at levels of 2300 or more by its own residual on that year's games (R59's bound, an "
+      f"estimate): {sgn(bd['mean_difference'], 1)} by level band, {sgn(a['bound_cells']['mean_difference'], 1)} by band "
+      f"and gap. E17's frozen table, superseded, gave {sgn(e17['mean_difference'], 1)} over 2020–2026.")
+    p("- **Largest risers** (with every player tied at the cut): " + "; ".join(
+        f"{r['name']} ({r['fide_id']}) {sgn(r['difference'])}" for r in with_ties(up, 3, "difference"))
+      + ". **At the other end:** " + "; ".join(f"{r['name']} ({r['fide_id']}) {sgn(r['difference'])}"
+                                              for r in with_ties(down, 3, "difference")) + ".")
     p(f"- **Ranks within the 100:** {len(moved)} players change rank; the largest move is "
       f"{max(abs(r['rank_selfcal'] - r['rank_oct_2026']) for r in rows)} places.")
     p(f"- **2700 and 2800 in October 2026:** {bl[last]['published']['2700']} and {bl[last]['published']['2800']} of the "
@@ -213,7 +231,10 @@ def main() -> int:
     for lab, x in ([("the method: opponents outside the 100 as published", mt)]
                    + [(f"opponents outside the 100 rated {sgn(int(s))} points from {first} (R58)", sh[s])
                       for s in ("-10", "-5", "5", "10")]
-                   + [("each year's table corrected at levels of 2300 or more by its own residual (R59's bound)", bd),
+                   + [("each year's table corrected at levels of 2300 or more by its own residual by level band "
+                       "(R59's bound, an estimate)", bd),
+                      ("the same by level band and 50-point gap (cells of 200 games or more; the band's value "
+                       "elsewhere)", a["bound_cells"]),
                       ("without the colour term", nc)]):
         p(f"| {lab} | {sgn(x['mean_difference'], 2)} | {sgn(x['min'])} to {sgn(x['max'])} | {x['higher']} / "
           f"{x['lower']} | {x['2700']} | {x['2800']} |")
@@ -224,17 +245,20 @@ def main() -> int:
     p("R59's bound uses each table's favourite residual by 100-point level band at 2300 or more, pooled over gaps, on "
       "its own year's games (E18 §3; E16 §5's measure): " + "; ".join(
           f"{y}: " + ", ".join(f"{band(mid)} {sgn(r, 4)}" for mid, r in sorted(v_.items(), key=lambda kv: int(kv[0])))
-          for y, v_ in sorted(br.items())) + f". The method's {sgn(mt['mean_difference'], 1)} against the bound's "
-      f"{sgn(bd['mean_difference'], 1)}: about {mt['mean_difference'] - bd['mean_difference']:.1f} points of the "
-      "headline could be the tables' own error at the top; the rest is FIDE's table against the self-calibrating one. "
-      "The band of 2800 and above holds a handful of games a year (E18 §1), so its residual is noise; it moves few "
-      "games.")
+          for y, v_ in sorted(br.items())) + ". R59 calls the rerun a bound; it is an estimate: a band's residual is "
+      "pooled over gaps, while the gain arises at gaps of 100 to 399, where the residual is larger (review finding "
+      f"ELO8-STAT-5). Corrected by band and gap instead, the mean is {sgn(a['bound_cells']['mean_difference'], 1)}. "
+      f"Against the method's {sgn(mt['mean_difference'], 1)}, the tables' own error at the top could account for about "
+      f"{mt['mean_difference'] - bd['mean_difference']:.1f} to "
+      f"{mt['mean_difference'] - a['bound_cells']['mean_difference']:.1f} points of the headline; the rest is FIDE's "
+      "table against the self-calibrating one. The band of 2800 and above holds a handful of games a year (E18 §1), so "
+      "its residual is noise; it moves few games.")
     p("")
     p("## 4 Risers, fallers and ranks")
     p("")
     p("| | name | FIDE ID | FIDE's rules | self-calibrating | difference | E17's frozen table |")
     p("|---|---|---|---|---|---|---|")
-    for lab, lst in (("largest", up[:10]), ("smallest", down[:10])):
+    for lab, lst in (("largest", with_ties(up, 10, "difference")), ("smallest", with_ties(down, 10, "difference"))):
         for r in lst:
             p(f"| {lab} | {r['name']} | {r['fide_id']} | {r['oct_2026']} | {r['selfcal']} | {sgn(r['difference'])} | "
               f"{sgn(r['e17_difference'])} |")
@@ -295,7 +319,7 @@ def main() -> int:
       f"only [E18 §1]; the difference accumulates over the {n_sc} lists rated with them, not E17's {n_all}.")
     p("- **Opponents outside the 100** keep their published ratings (R58's range in §3); a replay of the whole pool needs "
       "FIDE's tournament reports (proposal section 9, stage 2).")
-    p("- **The table's own error** at the top is bounded, not removed (§3, R59).")
+    p("- **The table's own error** at the top is estimated, not removed (§3, R59).")
     p("- **Two scales.** A flatter table spreads ratings further apart at the top (annex T3.5), so counts above 2700 and "
       "2800 compare two scales as well as two rules.")
     p("- **Colours** come from broadcasts; a game without a matched colour carries no colour term [E17 §8].")

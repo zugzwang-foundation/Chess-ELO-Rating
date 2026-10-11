@@ -619,3 +619,214 @@ Read-only at 586c7d2. "Computed" figures are mine, from committed files under `.
   - The colourless v2 table lies below table 8.1.2 at every gap from 4 to 399 in bands 2250–2850 (computed).
 - **The archive:** each transcription gives URL, timestamp and SHA-256, and the readings are coded as transcribed.
 - **Rung-2 figures:** those in §5, §8, §13, T3.6, T5 and T8.10 are at today's K and match E14, E16 and OUTPUT_ELO6. E14's rerun changed only rung 2's ledgers (computed). R49 is quoted verbatim. No committed E17 output carries names or monthly rating series.
+
+---
+
+## Addendum: session ELO-8, Phase 6 — D-0014, Freeze 3b, SPEC-SELFCAL, E18, E19 and the changed sections
+
+Status: REVIEW RECORD · Session ELO-8, Phase 6 · Date: 2026-10-11 · Reviewer: one subagent, read-only, briefed with the R-STAT and R-QC briefs together. It reviewed after Phases 0 to 4 had merged and Phase 6's document changes were committed (commit 0684218). It read:
+
+- `docs/decisions/D-0014_forecast-test-and-rulings.md` with Freeze 3b's implementation (`tools/compare_event_v3b.py`, `analysis/e13_us_championships_freeze3b.py`, `analysis/us26_draw_rate_extract.py` and its parameter file, `tools/checks/check_freeze3b.py`, the tests) and E13;
+- `docs/specs/SPEC-SELFCAL_v1_0.md` (now v1.1) with SPEC-TABLE-FIT v1.2;
+- E18 and E19 with their extractions, the fit module, the reports and the aggregates;
+- E17's changes, and §11 of SPEC-L0 v1.2 with its fixture and tests;
+- the changed sections of the proposal, the annex and the brief.
+
+The rulings R54–R65 were given as fixed, with points on the rulings themselves to be listed separately. It was told to read no result of either 2026 championship and to use no web access. It returned nine findings (four major, five minor), four points for the architect and a list of what it checked and found correct. Its report is reproduced verbatim below, after what the executor did with it.
+
+### Verification performed by the executor
+
+- **The three findings on the forecast test were checked before any result was read, and answered by a new record.**
+  - ELO8-STAT-1 (the interval over players). The executor simulated 200 events on the 2025 U.S. Championship's pairings, with (b′) as the truth (`analysis/elo8_review_checks.py`, output `analysis/OUTPUT_ELO8_review.md`).
+    - For the Brier difference, the interval over games covers the true mean in 0.96 of the events, R54's interval over players in 0.78 and the crossed interval in 0.99.
+    - For the log-loss difference the three figures are 0.83, 0.69 and 0.94.
+  - ELO8-STAT-2 (the draw share). Freeze 3c's tool prints from the pairings what the review computed. If (b′) were exactly right, its expected log-loss advantage would be 0.0358 nats a game in the open event and 0.0327 in the women's, of which the draw split contributes 0.0185 and 0.0208. The mean draw probability in the women's event is 0.374 under (a) against 0.450 under (b′) [E13].
+  - ELO8-QC-1 (the timing). By the schedule as D-0011 part B transcribed it, rounds 1 and 2, 24 of the 132 games, were played before Freeze 3b.
+  - The answer is `docs/decisions/D-0015_forecast-test-reading.md`, merged at 07:58:10 UTC on 11 October with Freeze 3c and tagged `freeze-3c`, before round 3 and before any result was read.
+- **E18's figures were reproduced by rerunning the extraction**, with SPEC-SELFCAL v1.1's restated W3, the previous form, the uncapped fit and the Brier differences added. The tables are unchanged, every window is unchanged (E18 §1), and the reviewer's figures came out exactly:
+  - (3) − (2) in 2026: −0.00056 to −0.00017 over months and −0.00077 to +0.00003 over quarters, with the year's table ahead in 8 of 9 months by log-loss and in 9 of 9 by Brier;
+  - the 2026 table in 2025's form beats the frozen table by −0.00011 (−0.00018 to −0.00007);
+  - the uncapped fit gives ζ = 8.36, κ = 1.605 at 2500 and 1.633 at 2700, White's edge of 48.1 at 2700–2799 and a 100-point favourite at 0.5915.
+- **E19 was rerun with R59's correction by level band and gap.** It gives +11.21 against +11.90 by band, as the review computed, and every other figure is unchanged.
+- **No frozen file changed.** Freeze 3a's manifest equals D-0012's and Freeze 3b's equals D-0014's; Freeze 3c adds three files.
+- **The checks after the fixes:**
+  - (a) every script that needs no data reproduces its committed output, and the three freezes hold;
+  - (b) 643 tests pass;
+  - (c) every reference resolves;
+  - (d) the body has 4,499 words and the brief 900.
+
+### Disposition
+
+**fixed** (where); points on the rulings themselves go to the architect (below); none of R54–R65 was reopened.
+
+| ID | Sev. | Topic | Status |
+|---|---|---|---|
+| ELO8-STAT-1 | major | the interval over players is narrower by construction | fixed before any result was read (D-0015, Freeze 3c): the interval over games is the one to read; R54's interval over players is reported, labelled "narrower by construction, not a test"; a crossed interval over players is added; coverage checked by simulation (above) |
+| ELO8-STAT-2 | major | (a)'s draw share tilts the log-loss towards (b′) | fixed (D-0015): the primary endpoint is the Brier difference, which needs no draw model; a secondary log-loss with one draw model; the benchmarks "if (b′) were right" printed now in E13 and §10; D-0014's "decided conservatively" withdrawn |
+| ELO8-QC-1 | major | no primary endpoint; the 24 games | fixed (D-0015): the primary endpoint (the pooled Brier difference with its interval over games) and three sentences fixed in advance; a rounds 3–11 line; the 24 games disclosed in D-0015 and §10 |
+| ELO8-STAT-3 | major | "earns its name" rests on 0.0004 nats | fixed: the size, and "consistent with self-calibration, cannot establish it", in §2(a), T3.7, T8.10 and Appendix H; E18 §3 prints the monthly and quarterly intervals, the month signs and the 2026 table in the form kept (−0.00011); the verdict, by SPEC-SELFCAL §7's rule, stands as computed |
+| ELO8-STAT-4 | minor | intervals at the caps | fixed: E18 §4 gives a quantity that depends on a capped parameter "at a cap", without interval, beside the same form fitted without caps; §2 prints the uncapped parameters; T3.7 says six parameters moved as far as the caps allow |
+| ELO8-QC-2 | minor | SPEC-SELFCAL's departures from v1.2; W3 | fixed: SPEC-SELFCAL v1.1 §13 lists the departures and what was set after the counts, for the architect; W3 restated and implemented (`analysis/e18_coverage_extract.py`), no window changing |
+| ELO8-STAT-5 | minor | R59's "bound" is an estimate | fixed: E19 §3 prints the correction by band and gap (+11.2) beside the band's (+11.9), both called estimates; the tables' own error could account for 2.6 to 3.3 points; Appendix H and T8.10 likewise |
+| ELO8-QC-3 | minor | E18 omits outputs SPEC-SELFCAL §7 promises | fixed: the Brier differences with intervals, per year and pooled; the residual by band and gap, every cell of 200 games, with standard errors |
+| ELO8-QC-4 | minor | ties at the cut; §10's heading | fixed: E19 and Appendix H list every player tied at the cut; §10 is headed "pre-registered" (and §12 says so) |
+
+### For the architect
+
+Consolidated from the report, with the executor's evidence beside each; none is decided here.
+
+1. **R54's draw model and intervals** (D-0015's readings). D-0015 makes the Brier difference, which needs no draw model, the primary endpoint and adds a crossed interval over players. The simulation adds a point. For the log-loss, which is skewed, the interval over games covers only 0.83 of the time; the crossed interval covers 0.94. D-0015 names the interval over games "the one to read for every measure". The primary endpoint's interval is unaffected (0.96), but for the log-loss lines the crossed interval is the safer reading. Overrule or confirm.
+2. **R65 and SPEC-TABLE-FIT v1.2's 24 training months** (SPEC-SELFCAL v1.1 §13, item 1). After the March 2024 cut, 24 months of training allow no choice of form before 2028. The 10-month minimum that made the 2026 choice possible was set after the counts. With 6 selection months and blocks of 3, the rule of choice's interval rests on few distinct resamples.
+3. **R59's "as E16 measured it".** E16 §5 measures by band, the executor's reading; E16 §1 measures at gaps of 100–399. E19 prints both by band and by band and gap.
+4. **The caps after a rule change that moved ratings.** SPEC-SELFCAL §6 keeps them. In 2026 six parameters sat on their caps; without the caps ζ would be 8.4, not 5.
+5. **Identifying broadcast players by name.** This could recover 2020–2023, whose games carry no FIDE ID, and give tables from 2023 or 2024, at the cost of departing from v1.2's sample rule.
+6. **Data (operator).** As the operator's addendum asks, E19's aggregate holds 8,200 of FIDE's published ratings for 100 named players. FIDE's list pages reserve reproduction [V 3]; the operator should confirm, or the aggregate should keep only the differences.
+
+### The reviewer's report (verbatim)
+
+The report as returned; its headings already sit four levels down, and nothing is changed.
+
+#### Red-team review, session ELO-8: D-0014, Freeze 3b, SPEC-SELFCAL, E18, E19 and the changed sections (R-STAT and R-QC)
+
+Read-only at 0684218. Every figure marked "computed" is mine. I produced them from committed files and the local `data/` under `.venv/bin/python`, kept scratch work outside the repository and held hypotheticals in memory. I also read the ELO-8 brief and session log in `~/Downloads`. I read the 2026 event files for pairings only (they hold no result) and looked up no result.
+
+##### Findings
+
+###### ELO8-STAT-1 — major — The forecast test's "over players" interval is too narrow by construction
+
+**Where:** D-0014 part A, item 1 and reading 5; `forecast_test` in `tools/compare_event_v3b.py`; the 2025 illustration in E13.
+**Problem:** In a round robin every game belongs to two players. Resampling players therefore counts each game twice and treats twelve overlapping clusters as independent.
+- With independent games, the players bootstrap's variance is about 0.42 of the games bootstrap's.
+- I simulated 400 events with 2025's pairings. The players interval covered the true mean 78 % of the time; the games interval covered it 95 % of the time (computed).
+- In E13's 2025 illustration, the players interval for the log-loss difference (−0.0942 to −0.0038) is half as wide as the games interval (−0.1475 to +0.0250). Only the players interval excludes zero.
+
+**Fix:** Before any result is read, issue a new record that makes the games interval primary. It should label the players interval "narrower by construction; not a test". Alternatively, add a crossed (pigeonhole) bootstrap in code outside the freeze. It weights each game by the product of its two players' resampled multiplicities. In the same simulations it covered 94–100 % (computed).
+
+###### ELO8-STAT-2 — major — Column (a)'s draw share tilts the log-loss towards (b′), so reading 1 is not conservative
+
+**Where:** D-0014 reading 1 ("decided conservatively"); `params/draw_rate_2026-10b.json`; §10.
+**Problem:** Column (a) splits its expectation using the level band's draw rate, which ignores the gap. Column (b′) uses a draw probability that rises as the gap narrows. The log-loss therefore compares two draw models as well as two expectations. From the pairings alone (computed):
+- In the women's event the mean draw probability is 0.374 under (a) and 0.450 under (b′). In the open event both are 0.582.
+- If (b′) were exactly right, its expected advantage would be 0.036 nats a game in the open event and 0.033 in the women's. The draw split alone accounts for 0.019 and 0.021 of that.
+- On the 2025 event (in sample), giving (a) the v2 table's draw probability closes 0.029 of the 0.048-nat gap.
+
+**Fix:** Before any result is read, a new record pre-registers one more line: (a)'s expectation split with (b′)'s draw probability. The same record withdraws "decided conservatively". §10 should say that only the Brier difference compares the expectations alone.
+
+###### ELO8-QC-1 — major — The pre-registration fixes the numbers but not how they will be read
+
+**Where:** D-0014, "What will be computed after the event", items 4–5; `{{US26_READING}}`; §10.
+**Problem:**
+- **No primary endpoint.** Two measures, three scopes and two intervals give twelve intervals, one of them too narrow (STAT-1). Nothing names a primary endpoint or says what counts as favouring (b′). The reading is written by hand after the results.
+- **Timing.** By the schedule, rounds 1–2 (24 of the 132 games) were played before Freeze 3b. The brief that set out R54 carries a date but no time. The record's "no result read" covers only the executor. §10 does not say that the test includes those games.
+
+**Fix:** Before any result is read, a new record should:
+- name a primary endpoint, for example the pooled Brier difference with its games interval;
+- fix the sentence to be used for each outcome;
+- add a secondary line covering rounds 3–11 only.
+
+§10 should also disclose the 24 games.
+
+###### ELO8-STAT-3 — major — "Self-calibration earns its name" rests on 0.0004 nats, a comparator with less data and a rule set after the counts
+
+**Where:** proposal §2(a) (in the body) and Appendix H; annex T3.7 and T8.10; E18 §3; SPEC-SELFCAL §5.
+**Problem:**
+- **Size.** In 2026 the year's table beats the frozen 2025 table by 0.00038 nats a game. That is under 1 % of its gain over table 8.1.2 (0.0477).
+- **Interval.** The interval comes from 3-month blocks over 9 months. From E18's monthly sums (computed), a month-level t-interval is twice as wide (−0.00056 to −0.00017). A quarterly interval reaches zero (−0.00077 to +0.00003). The sign holds in 8 of 9 months by log-loss and in 9 of 9 by Brier.
+- **Comparator.** The frozen table had 10 months of data and the 2026 table 22, so the test cannot separate refitting from having more data.
+- **A rule set after the counts.** Form P with ζ could only be chosen because SPEC-SELFCAL set a 10-month training minimum. That minimum was set once the window lengths were known (22 = 10 + 12). Under v1.0–v1.2's 24 training months no form can be chosen in 2026. Refitted in the form that would then be kept (E with the tail) within the caps, (3) − (2) is −0.00011 (−0.00018 to −0.00007) (computed). The verdict holds, but the size falls by 71 %.
+
+**Fix:**
+- In §2(a), T3.7, T8.10 and Appendix H, give the size: "by 0.0004 nats a game, against 0.048 over table 8.1.2".
+- Say that one year against a comparator with less data is consistent with self-calibration but cannot establish it.
+- Print the form-E variant in E18 §3.
+
+###### ELO8-STAT-4 — minor — The 2026 intervals at the caps exclude the uncapped estimates
+
+**Where:** E18 §4 (the 2026 column); T3.7 ("Its parameters move little").
+**Problem:** Six of the 2026 table's thirteen parameters sit on their caps, and the parametric draws hold them fixed. Fitted without caps (computed):
+- ζ is 8.36, against its cap of 5;
+- κ at 2500 and 2700 is 1.605 and 1.633, against caps of 1.471 and 1.589;
+- White's edge at 2700–2799 is 48.1, against E18's printed 43.5 (42.1 to 44.8);
+- a 100-point favourite at 2700 is expected to score 0.5915, against the printed 0.590 (0.589 to 0.591).
+
+Both derived values fall outside the printed intervals. E18 §5 says the intervals understate the uncertainty, but not by how much.
+**Fix:** Mark every quantity that depends on a capped parameter "at a cap", with no interval, and print the uncapped fit beside it. In T3.7, replace "move little" with "six parameters moved as far as the caps allow".
+
+###### ELO8-QC-2 — minor — SPEC-SELFCAL departs from the rules R65 fixes without saying so
+
+**Where:** SPEC-SELFCAL §4 (W3), §5 and §6; D-0014 part B, reading 8.
+**Problem:**
+- **Training months.** R65 says each table is fitted "by SPEC-TABLE-FIT v1.2's rules". Through v1.0 §3, that protocol trains on 24 months. SPEC-SELFCAL allows 10. It says the rule was set after the counts, but it does not call this a departure.
+- **Dropped terms.** §6's rule for dropped terms is said to predate the fits. It shares their squashed commit, and the session log has no entry between them, so its timing cannot be checked. It makes no difference here, since μ was 0.0009.
+- **W3.** A lengthened window still contains the year that was short, so W3 can never rescue a window. This has no effect on E18.
+
+**Fix:** List these as departures for the architect in SPEC-SELFCAL v1.1. Commit future amendments to a specification before fitting, and restate W3.
+
+###### ELO8-STAT-5 — minor — R59's "bound" is a point estimate, not a bound
+
+**Where:** E19 §3 and §8; Appendix H ("bounded, not removed").
+**Problem:** The correction pools each band's residual over gaps. That dilutes it where the gain arises: favourites at gaps of 100–399. At those gaps the year's table's residual is larger than the band value (computed from E18's cells):
+
+| year | band | residual at gaps 100–399 | band value |
+|---|---|---|---|
+| 2025 | 2400–2499 | +0.0315 | +0.0232 |
+| 2025 | 2600–2699 | +0.0296 | +0.0051 |
+| 2026 | 2300–2399 | +0.0201 | +0.0162 |
+
+Correcting by band and 50-point gap instead turns E19's +11.9 into +11.2 (computed). The tables' own error then accounts for 3.3 points of the headline, not "about 2.6".
+**Fix:** Print the correction by band and gap beside the correction by band. Write "estimated" instead of "bounded".
+
+###### ELO8-QC-3 — minor — E18 omits two outputs that SPEC-SELFCAL §7 promises
+
+**Where:** E18 §3; `analysis/e18_selfcal_extract.py`.
+**Problem:** §7 promises two outputs that E18 does not print:
+- the Brier differences with their intervals: E18 prints only the Brier means, and the extraction bootstraps only the log-loss;
+- the residual by band and 50-point gap, with standard errors, for cells of at least 200 games: E18 prints only counts of cells.
+
+**Fix:** Print the cells from the aggregate, and add the Brier differences to the extraction.
+
+###### ELO8-QC-4 — minor — Two slips a reader at FIDE would notice
+
+**Where:** Appendix H; E19's "Largest risers"; the heading of §10.
+**Problem:**
+- **Ties.** Caruana, Tabatabaei, Abdusattorov and Sarana all tie at +27. "The five largest" silently drops Sarana, because ties are broken by FIDE ID.
+- **Heading.** §10 is still headed "run blind", although E13 now prints its main blanks in advance (R55).
+
+**Fix:** List all ties at the cut, or say how they are broken, and head §10 "pre-registered".
+
+##### For the architect
+
+- **R54.** A log-loss "of FIDE's expectation" needs a draw model, and the ruling gives none. Should both columns share one (STAT-2)? In a round robin every game belongs to two players. Should "over players" become a crossed bootstrap, or be dropped (STAT-1)?
+- **R65 and SPEC-TABLE-FIT v1.2.** After the March 2024 cut, a 24-month training rule allows no choice of form before 2028, because 2027's window is only 34 months. Is a 10-month minimum acceptable? Annex T8.5's 3-month blocks over 6 selection months make the rule of choice's interval the range of ten block-pair means. For the slope, that range ends at the estimate itself (−0.00033; −0.00068 to −0.00033).
+- **R59.** "As E16 measured it" could mean E16 §1 (gaps 100–399) or §5 (by band). The executor took §5.
+- **Data (operator).** As the addendum asks, E19's aggregate holds 8,200 of FIDE's published ratings for 100 named players. The brief forbids redistributing FIDE data in bulk, and [V 3] reserves reproduction. The operator should confirm the addendum, or the aggregate should keep only the differences.
+
+##### Checked and correct
+
+- **Freeze 3b.**
+  - The manifest recomputes to 48457b94… (56 entries), and checks (a) and (a′) pass.
+  - The merge time and the tag match the record.
+  - The 2026 files hold no result.
+- **R55.**
+  - E13's fixed figures do not depend on results: the two runs with placeholder results agree with each other and with the direct sums.
+  - C and C + W bound (b) − (a), since m > 1 in every band.
+  - The fixed figures quoted in D-0014, §10 and T8.10 match E13.
+- **Forecast-test inputs.**
+  - The draw rates reproduce E11.
+  - The three-way split, the v2 draw formula, the percentile indices and the pairing across columns follow D-0014.
+- **E18.**
+  - My refit reproduces the 2026 table and its (3) − (2) exactly.
+  - The windows follow W1–W5.
+  - Every fit, every draw rate and the frozen table use only games from before the year they serve.
+  - The Brier difference against table 8.1.2 is negative in all 21 months (computed).
+- **E19.**
+  - The extraction reruns byte-identical, giving +14.51, R58's +10.14 to +18.71, the bound +11.90 and K reproduced on 8,200 of 8,200 player-lists.
+  - Each tournament uses the table for its start list.
+  - No year of birth is committed.
+  - Appendix H is the script's output verbatim.
+- **E17.** R58's range equals E17 §9, and the banners are in place.
+- **SPEC-L0 v1.2.**
+  - It changes no rule.
+  - Its fixtures carry no identifiers.
+  - R-14a and R-22b stay NOT VERIFIED.
+- **Checks.** 637 tests pass and every reference resolves. The body has 4,498 words and the brief 898.

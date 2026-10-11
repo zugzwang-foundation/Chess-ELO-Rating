@@ -54,8 +54,9 @@ def coverage(c: dict) -> None:
         p(f"| {lab} | " + " | ".join(f"{c['standard_by_year_band'][y].get(str(b), 0):,}" for y in yrs) + " |")
     p("")
     p("**Each year's window** (SPEC-SELFCAL §4: the 36 months before the year, which the data must cover; cut at the "
-      "March 2024 compression; lengthened while a calendar year inside it has fewer than "
-      f"{c['rule']['games_a_year']:,} standard games, pro rata for a part year; no table otherwise):")
+      "March 2024 compression; when a calendar year inside it has fewer than "
+      f"{c['rule']['games_a_year']:,} standard games, pro rata for a part year, lengthened until it holds that many a "
+      "year; no table otherwise):")
     p("")
     p("| table of | window | months | standard games | cut at the compression | lengthened by | the years inside it | "
       "table |")
@@ -81,6 +82,18 @@ F_NAMES = {"l0": "(1) table 8.1.2 as FIDE applied it", "first": "(2) the first t
            "year": "(3) the year's table"}
 
 
+T975 = {1: 12.706, 2: 4.303, 3: 3.182, 4: 2.776, 5: 2.571, 6: 2.447, 7: 2.365, 8: 2.306, 9: 2.262, 10: 2.228,
+        11: 2.201, 12: 2.179}                 # Student's t, 97.5th percentile, by degrees of freedom (standard tables)
+
+
+def t_interval(xs: list[float]) -> tuple[float, float, float]:
+    k = len(xs)
+    m = sum(xs) / k
+    sd = (sum((x - m) ** 2 for x in xs) / (k - 1)) ** 0.5
+    h = T975[k - 1] * sd / k ** 0.5
+    return m, m - h, m + h
+
+
 def sg(x: float, d: int = 4) -> str:
     s = f"{x:+.{d}f}"
     return ("+" + s[1:] if float(s) == 0 else s).replace("-", "−")
@@ -98,6 +111,11 @@ def form_text(f: dict) -> str:
     return (FORM_WORDS[f["slope"]] + ("; colour term by level, eta + zeta l" if f["colour_by_level"] else
                                       "; one colour term eta")
             + ("; with the draw tail, gamma exp(mu l)" if f["tail"] else "; no draw tail"))
+
+
+def band(mid: str) -> str:
+    m = int(mid)
+    return "below 1500" if m == 1450 else "2800 and above" if m == 2850 else f"{m - 50}–{m + 49}"
 
 
 def tables(s: dict) -> None:
@@ -155,8 +173,9 @@ def tables(s: dict) -> None:
         for k in s["tables"][y]["par"]:
             if k not in names:
                 names.append(k)
-    p("| parameter | " + " | ".join(years) + " |")
-    p("|---|" + "---|" * len(years))
+    unc = [y for y in years if "uncapped" in s["tables"][y]]
+    p("| parameter | " + " | ".join(years) + "".join(f" | {y} without caps (for comparison)" for y in unc) + " |")
+    p("|---|" + "---|" * (len(years) + len(unc)))
     for k in names:
         cells = []
         for y in years:
@@ -170,6 +189,9 @@ def tables(s: dict) -> None:
                 cells.append(f"{num(pr['value'])} ({fixed})")
             else:
                 cells.append(f"{num(pr['value'])} (SE {pr['se']:.4f}; {num(pr['low'])} to {num(pr['high'])})")
+        for y in unc:
+            v = s["tables"][y]["uncapped"]["par"].get(k)
+            cells.append("—" if v is None else num(v))
         p(f"| {k} | " + " | ".join(cells) + " |")
     p("")
 
@@ -186,8 +208,9 @@ def three_way(s: dict) -> None:
       "2,000 resamples, seed 20261009). Self-calibration earns its name in a year when (3) beats (2) with the interval "
       "below zero and both beat (1) likewise (SPEC-SELFCAL §7); in the first year (2) and (3) are one table.")
     p("")
-    p("| year | games | log-loss (1) | (2) | (3) | Brier (1) | (2) | (3) | (3) − (2) | (3) − (1) | (2) − (1) | verdict |")
-    p("|---|---|---|---|---|---|---|---|---|---|---|---|")
+    p("| year | games | log-loss (1) | (2) | (3) | Brier (1) | (2) | (3) | log-loss (3) − (2) | (3) − (1) | (2) − (1) | "
+      "Brier (3) − (2) | (3) − (1) | (2) − (1) | verdict |")
+    p("|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|")
     rows = [(y, s["three_way"][y]) for y in years] + [("pooled", s["three_way_pooled"])]
     for y, r in rows:
         mn, df = r["means"], r["differences"]
@@ -203,10 +226,47 @@ def three_way(s: dict) -> None:
             verdict = ("earns its name" if ok else "does not: " + "; ".join(
                 w for w, c in (("(3) does not beat (2)", not beats(d32)), ("(3) does not beat (1)", not beats(d31)),
                                ("(2) does not beat (1)", not beats(d21))) if c))
+        db = r["differences_brier"]
         p(f"| {y} | {n:,} | {mn['l0']['ll']:.5f} | {mn['first']['ll']:.5f} | {mn['year']['ll']:.5f} | "
           f"{mn['l0']['brier']:.5f} | {mn['first']['brier']:.5f} | {mn['year']['brier']:.5f} | "
-          f"{iv(d32, 5) if d32 and y != first else '—'} | {iv(d31, 5)} | {iv(d21, 5)} | {verdict} |")
+          f"{iv(d32, 5) if d32 and y != first else '—'} | {iv(d31, 5)} | {iv(d21, 5)} | "
+          f"{iv(db['year-first'], 5) if y != first else '—'} | {iv(db['year-l0'], 5)} | {iv(db['first-l0'], 5)} | "
+          f"{verdict} |")
     p("")
+    for y in years[1:]:
+        r = s["three_way"][y]
+        d32, d31 = r["differences"]["year-first"], r["differences"]["year-l0"]
+        pm = r["per_month"]
+        ms = sorted(pm)
+        mdiff = [(pm[m]["year"]["ll"] - pm[m]["first"]["ll"]) / pm[m]["year"]["n"] for m in ms]
+        bdiff = [(pm[m]["year"]["brier"] - pm[m]["first"]["brier"]) / pm[m]["year"]["n"] for m in ms]
+        qs = [ms[i:i + 3] for i in range(0, len(ms), 3)]
+        qdiff = [sum(pm[m]["year"]["ll"] - pm[m]["first"]["ll"] for m in q) / sum(pm[m]["year"]["n"] for m in q)
+                 for q in qs]
+        mt_, ml, mh = t_interval(mdiff)
+        _qt, ql, qh = t_interval(qdiff)
+        p(f"**How large, and how sure, in {y}.** The year's table beats the frozen first table by "
+          f"{abs(d32['mean']):.5f} nats a game, against {abs(d31['mean']):.4f} over table 8.1.2: about "
+          f"{100 * d32['mean'] / d31['mean']:.1f} % of its gain over table 8.1.2. The month-block interval "
+          f"({sg(d32['lo'], 5)} to {sg(d32['hi'], 5)}) rests on blocks of three of the year's {len(ms)} months; treating "
+          f"each month as one observation gives {sg(ml, 5)} to {sg(mh, 5)} (Student's t), and each quarter, "
+          f"{sg(ql, 5)} to {sg(qh, 5)}. The year's table is ahead in {sum(1 for x in mdiff if x < 0)} of {len(ms)} "
+          f"months by log-loss and {sum(1 for x in bdiff if x < 0)} of {len(ms)} by the Brier score.")
+        p("")
+        if "year_prevform-first" in r["differences"]:
+            pv = s["tables"][y]["previous_form"]["form"]
+            dk, dkk = r["differences"]["year_prevform-first"], r["differences"]["year-year_prevform"]
+            bk = r["differences_brier"]["year_prevform-first"]
+            p(f"**The chosen form, or the form kept.** Fitted in the form the first table has ({form_text(pv)}), as "
+              "SPEC-TABLE-FIT v1.2's 24 training months would have kept it (SPEC-SELFCAL §13), within the same caps, the "
+              f"{y} table beats the frozen first table by {sg(dk['mean'], 5)} ({sg(dk['lo'], 5)} to {sg(dk['hi'], 5)}) by "
+              f"log-loss and {sg(bk['mean'], 5)} ({sg(bk['lo'], 5)} to {sg(bk['hi'], 5)}) by the Brier score; the chosen "
+              f"form adds {sg(dkk['mean'], 5)} ({sg(dkk['lo'], 5)} to {sg(dkk['hi'], 5)}).")
+            p("")
+        p(f"**What the test can say.** One year decides it, and the frozen table was fitted on "
+          f"{s['tables'][first]['months']} months against the year's {s['tables'][y]['months']}, so the test cannot tell "
+          "refitting from having more data: the result is consistent with self-calibration and cannot establish it.")
+        p("")
     for y in years:
         r = s["three_way"][y]
         p(f"**{y}, by level band**: the log-loss difference, nats a game, with its month-block interval:")
@@ -242,6 +302,20 @@ def three_way(s: dict) -> None:
             p(f"| {F_NAMES[f]} | {len(c['shown'])} | {c['tested']} | {c['outside']} | "
               f"{', '.join(bands_out) if bands_out else 'none'} |")
         p("")
+        p(f"{y}, the favourite's residual by level band and 50-point gap, every cell of at least 200 games, with its "
+          "cluster-robust standard error:")
+        p("")
+        p("| level band | gap | games | " + " | ".join(F_NAMES[f] for f in ("l0", "first", "year")) + " |")
+        p("|---|---|---|---|---|---|")
+        by = {f: {c["cell"]: c for c in r["cells"][f]["shown"]} for f in ("l0", "first", "year")}
+        for cell in [c["cell"] for c in r["cells"]["year"]["shown"]]:
+            mid, gap = cell.split("|")
+            vals = []
+            for f in ("l0", "first", "year"):
+                st = by[f].get(cell)
+                vals.append(f"{sg(st['mean'])} ({st['se']:.4f})" if st and st.get("se") else "—")
+            p(f"| {band(mid)} | {int(gap)}–{int(gap) + 49} | {by['year'][cell]['n']:,} | " + " | ".join(vals) + " |")
+        p("")
 
 
 def parameters(s: dict) -> None:
@@ -251,15 +325,23 @@ def parameters(s: dict) -> None:
     p("")
     p("Each year's table beside table 8.1.2's constant values and, for reference, Freeze 3's table (fitted on games of "
       "2023-10 to 2026-09, the championship's table, not part of the self-calibrating series); 95 % intervals from "
-      "2,000 parametric draws of each fit (SPEC-SELFCAL §8):")
+      "2,000 parametric draws of each fit (SPEC-SELFCAL §8). A quantity that depends on a parameter held at a cap has "
+      "no interval: the draws hold that parameter fixed, so an interval would understate it; the same form fitted "
+      "without caps is shown beside it instead (review finding ELO8-STAT-4).")
     p("")
     p("| quantity | table 8.1.2 | Freeze 3's table | " + " | ".join(years) + " |")
     p("|---|---|---|" + "---|" * len(years))
 
     def cell(y, path, d, scale=1.0):
-        x = s["tables"][y]["derived"]
+        tb = s["tables"][y]
+        x = tb["derived"]
         for k in path:
             x = x[k]
+        if "/".join(path) in tb.get("cap_dependence", {}):
+            u = tb["uncapped"]["derived"]
+            for k in path:
+                u = u[k]
+            return f"{x['value'] * scale:.{d}f} (at a cap; without caps {u * scale:.{d}f})"
         return f"{x['value'] * scale:.{d}f} ({x['low'] * scale:.{d}f} to {x['high'] * scale:.{d}f})"
     for mid, lab in LEVELS:
         p(f"| White's edge at {lab}, rating points | 0 | {ref['white_edge_points'][mid]:.1f} | "
@@ -297,8 +379,11 @@ def limits(s: dict) -> None:
     p("- **Short windows.** The first table's window is ten months, cut at the March 2024 compression; the second's is "
       "22. A window under 22 months makes no choice of form (SPEC-SELFCAL §5).")
     p("- **The caps** bind the second table to within annex T7.1's yearly changes of the first, whatever the data say; "
-      "a parameter on a cap's bound is shown as such (§2), and the intervals of §4 treat it as fixed, so they understate "
-      "that table's uncertainty.")
+      "a parameter on a cap's bound is shown as such, beside the same form fitted without caps (§2, §4), and a quantity "
+      "that depends on one is given without an interval.")
+    p("- **More data, or refitting.** The frozen first table had ten months of games and the second table 22, so the "
+      "three-way test cannot tell refitting from more data; it is consistent with self-calibration and cannot "
+      "establish it (§3).")
     conf = [c["differences"].get("chosen-in_force") for c in s["confirmation"].values()]
     agree = all(d is not None and d["mean"] < 0 for d in conf) and conf
     p("- **Six selection months.** The rule of choice compares candidates on six months with blocks of three, so its "
@@ -316,7 +401,7 @@ def main() -> int:
     s_path = AGG / "E18_selfcal.json"
     p("# E18 — Self-calibrating tables: one table a year, each fitted only on the games before it")
     p("")
-    p("Status: DRAFT — evidence for the proposal, session ELO-8, under `docs/specs/SPEC-SELFCAL_v1_0.md` (written before "
+    p("Status: DRAFT — evidence for the proposal, session ELO-8, under `docs/specs/SPEC-SELFCAL_v1_1.md` (written before "
       "any yearly table was fitted). Generated by `analysis/e18_selfcal_report.py` from "
       "`analysis/aggregates/E18_coverage.json`" + (" and `analysis/aggregates/E18_selfcal.json`" if s_path.exists() else "")
       + ", written from `data/` by the extraction scripts named there; do not edit by hand. Licence: CC BY 4.0 "

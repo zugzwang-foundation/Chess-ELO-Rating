@@ -131,10 +131,16 @@ def holm(rows: list[dict]) -> int:
     return out
 
 
+PAIRS = (("year", "first"), ("year", "l0"), ("first", "l0"), ("year_prevform", "first"), ("year", "year_prevform"),
+         ("year_prevform", "l0"))
+
+
 def evaluate(tables: dict[str, dict], games: dict[str, list], rates: dict[int, float]) -> dict:
     """Log-loss, Brier and calibration of the given forecasts on the given months' games."""
     per_month = {m: {f: {"n": 0, "ll": 0.0, "brier": 0.0} for f in tables} for m in games}
-    diffs = {pair: defaultdict(list) for pair in (("year", "first"), ("year", "l0"), ("first", "l0"))}
+    pairs = [pr for pr in PAIRS if pr[0] in tables and pr[1] in tables]
+    diffs = {pair: defaultdict(list) for pair in pairs}
+    bdiffs = {pair: defaultdict(list) for pair in pairs}
     band_ll = {f: defaultdict(lambda: defaultdict(list)) for f in tables}
     band_diff = {pair: defaultdict(lambda: defaultdict(list)) for pair in diffs}
     cells = {f: defaultdict(lambda: defaultdict(lambda: [0.0, 0, 0.0, 0.0])) for f in tables}
@@ -157,10 +163,10 @@ def evaluate(tables: dict[str, dict], games: dict[str, list], rates: dict[int, f
                 pm["brier"] += (s - ev[f]) ** 2
                 band_ll[f][mid][m].append(ll[f])
             for pair in diffs:
-                if pair[0] in ll and pair[1] in ll:
-                    d = ll[pair[0]] - ll[pair[1]]
-                    diffs[pair][m].append(d)
-                    band_diff[pair][mid][m].append(d)
+                d = ll[pair[0]] - ll[pair[1]]
+                diffs[pair][m].append(d)
+                band_diff[pair][mid][m].append(d)
+                bdiffs[pair][m].append((s - ev[pair[0]]) ** 2 - (s - ev[pair[1]]) ** 2)
             fav_white = x >= 0
             sf_ = s if fav_white else 1.0 - s
             fav = int(w if fav_white else b)
@@ -176,6 +182,7 @@ def evaluate(tables: dict[str, dict], games: dict[str, list], rates: dict[int, f
     tot = {f: {k: sum(per_month[m][f][k] for m in per_month) for k in ("n", "ll", "brier")} for f in tables}
     out["means"] = {f: {"n": v["n"], "ll": v["ll"] / v["n"], "brier": v["brier"] / v["n"]} for f, v in tot.items() if v["n"]}
     out["differences"] = {f"{a}-{b}": e6.boot(dict(diffs[(a, b)])) for (a, b) in diffs if diffs[(a, b)]}
+    out["differences_brier"] = {f"{a}-{b}": e6.boot(dict(bdiffs[(a, b)])) for (a, b) in bdiffs if bdiffs[(a, b)]}
     out["by_band"] = {f: {str(mid): e6.boot(dict(v)) for mid, v in sorted(band_ll[f].items())} for f in tables}
     out["by_band_differences"] = {f"{a}-{b}": {str(mid): e6.boot(dict(v)) for mid, v in sorted(band_diff[(a, b)].items())}
                                   for (a, b) in band_diff if band_diff[(a, b)]}
@@ -190,7 +197,8 @@ def evaluate(tables: dict[str, dict], games: dict[str, list], rates: dict[int, f
                            "outside": holm(rows)}
     out["bands"] = {f: {str(mid): e11.cr1(v) for mid, v in sorted(bands[f].items())} for f in tables}
     out["level_pattern"] = {f: e11.level_pattern(out["bands"][f]) for f in tables}
-    return out, {f"{a}-{b}": dict(v) for (a, b), v in diffs.items() if v}
+    return out, {f"{a}-{b}": dict(v) for (a, b), v in diffs.items() if v}, \
+        {f"{a}-{b}": dict(v) for (a, b), v in bdiffs.items() if v}
 
 
 def derived(table: dict) -> dict:
@@ -202,6 +210,29 @@ def derived(table: dict) -> dict:
         "slope_even": {str(m): sf.slope_at_zero(table, m) for m in (2050, 2450, 2750)},
         "favourite_100_at_2700": sf.expected_effective(table, 100, 2750),
     }
+
+
+def cap_dependence(f: dict) -> dict:
+    """For each derived quantity, the parameters on a bound that move it (a finite-difference test): a quantity that
+    depends on a parameter held at a cap has no honest interval from the draws (review finding ELO8-STAT-4)."""
+    base = derived({"form": f["form"], "par": f["par"]})
+    deps: dict = {}
+
+    def walk(b, path, bumped):
+        if isinstance(b, dict):
+            for k, v in b.items():
+                walk(v, path + [k], bumped)
+            return
+        x = bumped
+        for k in path:
+            x = x[k]
+        if abs(x - b) > 1e-12:
+            deps.setdefault("/".join(path), []).append(name)
+    for name in f["on_bound"]:
+        par = dict(f["par"])
+        par[name] += 1e-4
+        walk(base, [], derived({"form": f["form"], "par": par}))
+    return deps
 
 
 def with_intervals(f: dict) -> dict:
@@ -247,7 +278,7 @@ def main() -> int:
     wins = {str(y): cov.window(y, std_month) for y in cov.YEARS}
     assert wins == covg["windows"], "the windows differ from E18_coverage.json"
     years = [y for y in sorted(wins) if wins[y]["table"]]
-    out: dict = {"spec": "docs/specs/SPEC-SELFCAL_v1_0.md", "cutoff": meta, "table_years": years, "tables": {},
+    out: dict = {"spec": "docs/specs/SPEC-SELFCAL_v1_1.md", "cutoff": meta, "table_years": years, "tables": {},
                  "choice": {}, "confirmation": {}, "three_way": {}, "first_form": FIRST_FORM, "caps": CAPS,
                  "knot_cap": KNOT_CAP, "start": "Freeze 3's standard table (params/table_fit_2026-10b.yaml)"}
     prev = None
@@ -333,9 +364,22 @@ def main() -> int:
                                          if prev is not None else "the first table: v1.1's form for standard"})
             caps = caps_for(form, prev)
             start = start_for(form, prev) if prev is not None else start_for(form, START)
-            f = sf.fit(form, window_cells(cells_by_month, ms), start, caps)
+            cells_w = window_cells(cells_by_month, ms)
+            f = sf.fit(form, cells_w, start, caps)
             tab = {"form": form, "par": f["par"]}
             fitted[y] = tab
+            extra = {}
+            if prev is not None and form != prev["form"]:
+                # the table in the form v1.2's 24 training months would have kept (SPEC-SELFCAL §13), within the caps
+                fk = sf.fit(prev["form"], cells_w, start_for(prev["form"], prev), caps_for(prev["form"], prev))
+                fitted[f"{y}_prevform"] = {"form": prev["form"], "par": fk["par"]}
+                extra["previous_form"] = {"form": prev["form"], "par": fk["par"], "se": fk["se"],
+                                          "on_bound": fk["on_bound"], "loglik": fk["loglik"],
+                                          "derived": derived({"form": prev["form"], "par": fk["par"]})}
+            if f["on_bound"]:
+                fu = sf.fit(form, cells_w, start, None)          # the same form without caps, for comparison
+                extra["uncapped"] = {"par": fu["par"], "se": fu["se"], "loglik": fu["loglik"],
+                                     "derived": derived({"form": form, "par": fu["par"]})}
             out["choice"][y] = choice
             out["tables"][y] = {"window": [ms[0], ms[-1]], "months": len(ms), "games": f["n"], "cells": f["cells"],
                                 "form": form, "par": f["par"], "se": f["se"], "free": f["free"], "cov": f["cov"],
@@ -345,29 +389,39 @@ def main() -> int:
                                 "iterations": f["iterations"], "max_abs_score": f["max_abs_score"],
                                 "eta_whole": {str(m): sf.eta_whole(tab, m) for m in sf.BAND_MIDS},
                                 "kappa_at_band": {str(m): sf.kappa_at(tab, m) for m in sf.BAND_MIDS},
-                                **with_intervals(f)}
+                                "cap_dependence": cap_dependence(f), **extra, **with_intervals(f)}
             prev = tab
     first = years[0]
     pooled_diffs: dict[str, dict] = defaultdict(dict)
+    pooled_bdiffs: dict[str, dict] = defaultdict(dict)
     pooled_sums: dict[str, Counter] = defaultdict(Counter)
     for y in years:
         yr_months = sorted(m for m in games_by_month if m[:4] == y)
         w = wins[y]
         rates = draw_rates(draws_by_month, cov.months(w["from"], w["to"]))
         tables = {"l0": None, "first": fitted[first], "year": fitted[y]}
-        res, raw = evaluate(tables, {m: games_by_month[m] for m in yr_months}, rates)
+        if f"{y}_prevform" in fitted:
+            tables["year_prevform"] = fitted[f"{y}_prevform"]
+        res, raw, braw = evaluate(tables, {m: games_by_month[m] for m in yr_months}, rates)
         res["draw_rates"] = {str(k): v for k, v in sorted(rates.items())}
         out["three_way"][y] = res
         for key, per in raw.items():
-            pooled_diffs[key].update(per)
+            if key in ("year-first", "year-l0", "first-l0"):
+                pooled_diffs[key].update(per)
+        for key, per in braw.items():
+            if key in ("year-first", "year-l0", "first-l0"):
+                pooled_bdiffs[key].update(per)
         for m, fs in res["per_month"].items():
             for f, v in fs.items():
+                if f not in ("l0", "first", "year"):
+                    continue
                 for k in ("n", "ll", "brier"):
                     pooled_sums[f][k] += v[k]
     out["three_way_pooled"] = {      # every year's games, each forecast by that year's table and draw rates
         "years": years,
         "means": {f: {"n": v["n"], "ll": v["ll"] / v["n"], "brier": v["brier"] / v["n"]} for f, v in pooled_sums.items()},
-        "differences": {k: e6.boot(v) for k, v in pooled_diffs.items()}}
+        "differences": {k: e6.boot(v) for k, v in pooled_diffs.items()},
+        "differences_brier": {k: e6.boot(v) for k, v in pooled_bdiffs.items()}}
     out["table_812"] = table_812()
     out["freeze3_reference"] = derived({"form": {"slope": "E", "colour_by_level": False, "tail": True},
                                         "par": dict(START)})

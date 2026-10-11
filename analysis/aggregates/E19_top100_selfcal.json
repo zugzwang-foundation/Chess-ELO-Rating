@@ -8,6 +8,15 @@
   "mean_difference": 11.9,
   "min": -3
  },
+ "bound_cells": {
+  "2700": 36,
+  "2800": 4,
+  "higher": 93,
+  "lower": 5,
+  "max": 29,
+  "mean_difference": 11.21,
+  "min": -2
+ },
  "bound_residuals": {
   "2025": {
    "2350": 0.013204681764185823,
@@ -35854,7 +35863,7 @@
   }
  ],
  "rank_100_rating": 2626,
- "spec": "docs/specs/SPEC-SELFCAL_v1_0.md",
+ "spec": "docs/specs/SPEC-SELFCAL_v1_1.md",
  "tables_used": [
   2025,
   2026

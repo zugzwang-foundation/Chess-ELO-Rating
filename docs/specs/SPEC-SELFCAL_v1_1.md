@@ -1,6 +1,6 @@
-# SPEC-SELFCAL — the self-calibrating table: one table a year, each fitted only on the games before it, v1.0
+# SPEC-SELFCAL — the self-calibrating table: one table a year, each fitted only on the games before it, v1.1
 
-**Status: REVIEW — written before any yearly table is fitted and before any self-calibrating replay is run (ELO-8 brief, Phase 2; rulings R61 and R65, `docs/decisions/D-0014_forecast-test-and-rulings.md`, part B).** Author: The Zugzwang Authors · Licence: CC BY 4.0 (`docs/LICENSE-docs.md`) · Date: 2026-10-11. It applies `docs/specs/SPEC-TABLE-FIT_v1_2.md` (the rules for a yearly fit) year by year, back in time, and fixes what v1.2 leaves to the fit's decision record: the window when data are short, the yearly change caps for the forms v1.2 adds, and how the yearly tables enter the replays. Every value it produces is PROVISIONAL-FITTED. Nothing in it changes the championship comparison: the 2026 U.S. Championships keep Freeze 3's table as frozen (Freezes 3 to 3b).
+**Status: REVIEW — v1.0 written before any yearly table was fitted and before any self-calibrating replay was run (ELO-8 brief, Phase 2; rulings R61 and R65, `docs/decisions/D-0014_forecast-test-and-rulings.md`, part B); v1.1, after the session's review, records the departures from SPEC-TABLE-FIT v1.2 and the amendments made after the counts (§13) and restates W3 (§4), changing no window, table or result.** Author: The Zugzwang Authors · Licence: CC BY 4.0 (`docs/LICENSE-docs.md`) · Date: 2026-10-11 · v1.0 is in git history; E18 and E19 were produced under it. It applies `docs/specs/SPEC-TABLE-FIT_v1_2.md` (the rules for a yearly fit) year by year, back in time, and fixes what v1.2 leaves to the fit's decision record: the window when data are short, the yearly change caps for the forms v1.2 adds, and how the yearly tables enter the replays. Every value it produces is PROVISIONAL-FITTED. Nothing in it changes the championship comparison: the 2026 U.S. Championships keep Freeze 3's table as frozen (Freezes 3 to 3b).
 
 ## 1 What "self-calibrating" means here
 
@@ -35,8 +35,8 @@ For each year Y from 2020 to 2026:
 
 - **W1.** The window is the 36 months before Y: January of Y − 3 to December of Y − 1.
 - **W2. A rule change that moved published ratings cuts it** (SPEC-TABLE-FIT v1.2 §1): no game whose list in force precedes the first list after the change enters the window. The one change in the period is the compression of the March 2024 lists [E5], so a window that would reach before 2024-03 starts at 2024-03.
-- **W3. A year with too few games lengthens it.** A calendar year inside the window with fewer than G = 20,000 standard sample games (pro rata, G × m / 12, for a year with only m months inside the window) adds the 12 months before the window's start, repeatedly, never before the first month of data (2020-01) and never across a cut of W2.
-- **W4. No table without a window.** If, after W3, some year inside the window still has too few games, no table is fitted for Y and the previous year's table stays in force; before the first table, the self-calibrating system has no table of its own and uses table 8.1.2 as FIDE applies it.
+- **W3. A year with too few games lengthens it.** If a calendar year inside the window holds fewer than G = 20,000 standard sample games (pro rata, G × m / 12, for a year with only m months inside the window), the window adds the 12 months before its start, repeatedly, until it holds G games for every 12 of the months W1 and W2 gave it (3G for a 36-month window, pro rata for a cut one), never before the first month of data (2020-01) and never across a cut of W2. (v1.0 tested each year again after lengthening, which could never succeed, since a lengthened window keeps its short year; review finding ELO8-QC-2. No window changes.)
+- **W4. No table without a window.** If, after W3, the window still holds fewer games than W3 asks, no table is fitted for Y and the previous year's table stays in force; before the first table, the self-calibrating system has no table of its own and uses table 8.1.2 as FIDE applies it.
 - **W5. The first table** is therefore the earliest year whose window meets W1 to W3. With data from 2020-01 and no extension possible before it, that is 2023 at the earliest (window 2020-01 to 2022-12), and later if a year of 2020 to 2022 has too few games; with the sample of E18 §1 it is 2025 (window 2024-03 to 2024-12, cut by W2).
 - **G = 20,000** is fixed here before any count is seen: about a quarter of a year of the broadcast archive's standard sample at its 2023–2025 rate (352,737 games in 45 months [E2]), enough for each of a window's years to hold a share of the fit's information; it is PROVISIONAL.
 
@@ -113,3 +113,15 @@ As `docs/specs/SPEC-TOP100_v1_0.md` (E17): the same 100 players, games, validati
 ## 12 Bias statement
 
 As SPEC-TABLE-FIT v1.0 §5: broadcast events are stronger and more international than the rated pool, and the archive covers fewer games in 2020 to 2022 than later; the yearly tables describe the broadcast population. FIDE's tournament reports would settle the method for the pool (annex T8.6).
+
+## 13 Departures from SPEC-TABLE-FIT v1.2, and what was set after the counts (v1.1)
+
+Listed for the architect after the session's review (`docs/review/REDTEAM_v1_0.md`, ELO-8 addendum, ELO8-QC-2 and ELO8-STAT-3). R65 fixes each year's table "by SPEC-TABLE-FIT v1.2's rules"; this specification departs from them, or fixed a detail only after the counts of E18 §1 were known, in four places:
+
+1. **The training months.** v1.2 keeps v1.0 §3's protocol: 24 months of training before the first test month. §5 asks for 10, a rule set after E18 §1's counts had fixed the windows at 10 and 22 months and before any table was fitted. Under 24 months no form could be chosen for 2026 (the first window after the March 2024 cut long enough for that would be 2028's), and the 2026 table would keep 2025's form, E with the draw tail. E18 §3 prints that table beside the chosen one, so that the effect of the departure is measured.
+2. **The first table's form when no choice can be made** (v1.1's form for standard, E with the draw tail, §5), set in Phase 2 after the counts and before any fit.
+3. **The rule for a term the rule of choice drops** (§6) was written in Phase 3 before the fits but committed with them, so its timing cannot be checked from the history. It changed nothing: 2025's μ was 0.0009, inside its cap.
+4. **W3** as v1.0 worded it could never lengthen a window into one that passes; §4 restates it. No window changes (E18 §1).
+
+None changes a table or a result of E18 or E19; the first changes which form the 2026 table takes, and E18 §3 reports both.
+

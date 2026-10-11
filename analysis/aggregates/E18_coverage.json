@@ -70,7 +70,7 @@
   }
  },
  "source": "Lichess broadcast archive (https://database.lichess.org/broadcast/, CC BY-SA 4.0), every monthly file on disk, 2020-01 to 2026-09; E2's sample rules through E10's builder",
- "spec": "docs/specs/SPEC-SELFCAL_v1_0.md",
+ "spec": "docs/specs/SPEC-SELFCAL_v1_1.md",
  "standard_by_month": {
   "2020-01": 12,
   "2021-11": 4,
@@ -243,6 +243,7 @@
    "extended_months": 0,
    "from": "2020-01",
    "games": 180,
+   "games_needed": 60000,
    "months": 36,
    "per_year": {
     "2020": {
@@ -258,7 +259,7 @@
      "months": 12
     }
    },
-   "reason": "a year inside the window has too few games and the window cannot lengthen",
+   "reason": "a year inside the window has too few games and the window cannot lengthen to enough",
    "table": false,
    "to": "2022-12",
    "years_too_few": [
@@ -272,6 +273,7 @@
    "extended_months": 12,
    "from": "2020-01",
    "games": 20622,
+   "games_needed": 60000,
    "months": 48,
    "per_year": {
     "2020": {
@@ -291,7 +293,7 @@
      "months": 12
     }
    },
-   "reason": "a year inside the window has too few games and the window cannot lengthen",
+   "reason": "a year inside the window has too few games and the window cannot lengthen to enough",
    "table": false,
    "to": "2023-12",
    "years_too_few": [
@@ -305,6 +307,7 @@
    "extended_months": 0,
    "from": "2024-03",
    "games": 135622,
+   "games_needed": 16667,
    "months": 10,
    "per_year": {
     "2024": {
@@ -322,6 +325,7 @@
    "extended_months": 0,
    "from": "2024-03",
    "games": 233664,
+   "games_needed": 36667,
    "months": 22,
    "per_year": {
     "2024": {
