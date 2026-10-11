@@ -241,8 +241,11 @@ READINGS = {                                             # how a period's change
 
 def prepare() -> dict:
     """The lists, pages and look-ups that the replays under both readings share."""
-    selected = {str(p["fide_id"]): p["name"] for p in json.loads(SELECTED.read_text(encoding="utf-8"))["players"]
-                if p["fide_id"]}
+    sel = json.loads(SELECTED.read_text(encoding="utf-8"))["players"]
+    selected = {str(p["fide_id"]): p["name"] for p in sel if p["fide_id"]}
+    # ELO10-STAT-1, ELO10-QC-2: the players SPEC-GREATS §2 selects only through their ranks on the lists to April 2000,
+    # which it computes on OlimpBase's transcription (every list on which they ranked 1st to 3rd precedes July 2000)
+    early = {str(p["fide_id"]) for p in sel if p["fide_id"] and p["last_top3"] < "2000-07"}
     plan = fg.plan()
     ids = sorted({x.split(":")[0] for x in plan}, key=int)
     dates = list_dates()
@@ -266,7 +269,8 @@ def prepare() -> dict:
                     needed[m].add(ex.norm(g["name"]))
     first = {p: next((m for m in dates if m >= START and p in lists[m]), None) for p in ids}
     return {
-        "selected": selected, "plan": plan, "ids": ids, "dates": dates, "window": [d for d in dates if START < d <= LAST],
+        "selected": selected, "early": early, "plan": plan, "ids": ids, "dates": dates,
+        "window": [d for d in dates if START < d <= LAST],
         "lists": lists, "key_to_id": {k: p for p in ids for k in keys[p]}, "series": series, "pages": pages,
         "missing": missing, "index": name_index(needed), "first": first,
         "pub": {p: {m: lists[m][p][0] for m in dates if p in lists[m]} for p in ids},
@@ -546,11 +550,13 @@ def players_of(c: dict, r: dict) -> list[dict]:
 
 
 def calibration(c: dict) -> dict:
-    """ELO9-STAT-1's check, at FIDE's own ratings: on every replayed game in which the player of the set is the
-    favourite by 50 to 399 points (the rating FIDE used, or the opponent's rating on the list in force where FIDE
-    printed a capped value), the favourite's residual, score minus expectation, under table 8.1.2 and under the 2025
-    table (FIDE's colour mark, as the method applies it), by level band and overall, with 95 % intervals clustered over
-    the players of the set; and every game row's level band, overall and per player."""
+    """ELO9-STAT-1's check, at FIDE's own ratings: on every game of FIDE's pages (the thin periods' included) in which
+    the player of the set is the favourite by 50 to 399 points (the rating FIDE used, or the opponent's rating on the
+    list in force where FIDE printed a capped value), the favourite's residual, score minus expectation, under table
+    8.1.2 and under the 2025 table (FIDE's colour mark, as the method applies it), by level band and overall, with 95 %
+    intervals clustered over the players of the set, and overall for each of the two groups SPEC-GREATS §2's selection
+    falls into (ELO10-STAT-1: ranked 1st to 3rd only on the lists to April 2000, or on a list from July 2000); and every
+    game row's level band, overall and per player."""
     res: dict[int, list] = defaultdict(list)
     rows_by_band: Counter = Counter()
     per_player: dict[str, Counter] = defaultdict(Counter)
@@ -588,6 +594,8 @@ def calibration(c: dict) -> dict:
 
     every = [r for v in res.values() for r in v]
     return {"gaps": [50, 399], "colour": "FIDE's marks", "overall": summarise(every),
+            "by_selection": {"to_april_2000": summarise([r for r in every if r[0] in c["early"]]),
+                             "from_july_2000": summarise([r for r in every if r[0] not in c["early"]])},
             "by_band": {str(mid): summarise(v) for mid, v in sorted(res.items()) if len(v) >= 30},
             "game_rows_by_band": {str(k): n for k, n in sorted(rows_by_band.items())},
             "per_player_rows": {p: [x["rows"], x["rows_2800"]] for p, x in per_player.items()}}
@@ -626,6 +634,21 @@ def negative_halves(rows: list[tuple[str, str]], periods_by_list: Counter | None
                                "towards_plus_infinity_after_first_away": sum(
                                    1 for t, h in after if h == "towards_plus_infinity" and t > min(
                                        (x for x, y in after if y == "away_from_zero"), default="9999"))}}
+
+
+def selection_groups(c: dict, players: list[dict]) -> dict:
+    """ELO10-STAT-1, ELO10-QC-2: the replayed players by how SPEC-GREATS §2 selected them, ranked 1st to 3rd only on the
+    lists to April 2000 (ranks computed on OlimpBase's transcription) or on a list from July 2000; per group the FIDE
+    IDs, the periods and games replayed, the thin periods and the mean difference on the last list."""
+    out = {}
+    for g, inside in (("to_april_2000", True), ("from_july_2000", False)):
+        rows = [r for r in players if (str(r["fide_id"]) in c["early"]) == inside]
+        out[g] = {"fide_ids": sorted(r["fide_id"] for r in rows), "players": len(rows),
+                  "periods_replayed": sum(r["periods_replayed"] for r in rows),
+                  "games_replayed": sum(r["games_replayed"] for r in rows),
+                  "thin_periods": sum(r["thin_periods"] for r in rows),
+                  "mean_difference": round(sum(r["difference"] for r in rows) / len(rows), 2)}
+    return out
 
 
 def summary(players: list[dict]) -> dict:
@@ -687,6 +710,7 @@ def main() -> int:
         "k_departs_from_fide": dict(r["k_departs"]),
         "colour_marks": dict(r["colour"]),
         "players": players,
+        "selection_groups": selection_groups(c, players),
         "summary": summary(players)}
     json.dump(out, sys.stdout, indent=1, sort_keys=True, default=str)
     sys.stdout.write("\n")

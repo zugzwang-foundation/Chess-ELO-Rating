@@ -86,6 +86,36 @@
     }
    }
   },
+  "by_selection": {
+   "from_july_2000": {
+    "games": 6186,
+    "players": 15,
+    "table_2025": {
+     "hi": 0.0533,
+     "lo": 0.0357,
+     "mean": 0.0445
+    },
+    "table_812": {
+     "hi": 0.0084,
+     "lo": -0.0084,
+     "mean": 0.0
+    }
+   },
+   "to_april_2000": {
+    "games": 3186,
+    "players": 14,
+    "table_2025": {
+     "hi": 0.0261,
+     "lo": 0.009,
+     "mean": 0.0175
+    },
+    "table_812": {
+     "hi": -0.0184,
+     "lo": -0.0346,
+     "mean": -0.0265
+    }
+   }
+  },
   "colour": "FIDE's marks",
   "game_rows_by_band": {
    "2050": 4,
@@ -2564,6 +2594,55 @@
   "last_start_with_350": "2009-06-28"
  },
  "rules": "docs/research/VERIFICATION_RATING-REGULATIONS-2001-2017.md",
+ "selection_groups": {
+  "from_july_2000": {
+   "fide_ids": [
+    623539,
+    1503014,
+    2016192,
+    2020009,
+    2900084,
+    4101588,
+    4116992,
+    4126025,
+    5000017,
+    5202213,
+    8603677,
+    13300474,
+    13401319,
+    14100010,
+    24116068
+   ],
+   "games_replayed": 12682,
+   "mean_difference": 36.4,
+   "periods_replayed": 1086,
+   "players": 15,
+   "thin_periods": 4
+  },
+  "to_april_2000": {
+   "fide_ids": [
+    400025,
+    627089,
+    700037,
+    900010,
+    1000012,
+    1300016,
+    2100010,
+    2209390,
+    2805677,
+    4100026,
+    4600010,
+    4618777,
+    13300016,
+    14602377
+   ],
+   "games_replayed": 5673,
+   "mean_difference": 17.21,
+   "periods_replayed": 679,
+   "players": 14,
+   "thin_periods": 5
+  }
+ },
  "spec": "docs/specs/SPEC-GREATS_v1_0.md",
  "summary": {
   "equal": 1,
