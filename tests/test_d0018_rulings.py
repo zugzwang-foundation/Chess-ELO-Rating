@@ -15,6 +15,8 @@ import e20_greats_report as rep  # noqa: E402
 LABEL = ("Derived from OlimpBase's transcription of FIDE's lists; non-commercial use only; not covered by this "
          "repository's CC BY 4.0 or Apache-2.0 licences.")
 REPLAY = json.loads((ROOT / "analysis" / "aggregates" / "E20_greats_replay.json").read_text(encoding="utf-8"))
+LISTS = json.loads((ROOT / "analysis" / "aggregates" / "E20_greats_lists.json").read_text(encoding="utf-8"))
+SELECTED = json.loads((ROOT / "analysis" / "aggregates" / "GREATS_players.json").read_text(encoding="utf-8"))
 E20 = (ROOT / "docs" / "evidence" / "E20_greats.md").read_text(encoding="utf-8")
 APPENDIX = (ROOT / "analysis" / "OUTPUT_E20_appendix.md").read_text(encoding="utf-8")
 DOCS = ("docs/evidence/E20_greats.md", "docs/proposal/ELO-PROPOSAL_v1_0.md", "analysis/OUTPUT_E20_appendix.md",
@@ -52,16 +54,38 @@ def test_r81_the_backward_replay_has_no_headline_and_its_figures_stay_in_section
             "FIDE's own. That is consistent with calibration changing between eras, with the table's thin support at "
             "the top, or with a sample chosen for success; it proves none of them.") in sec5
     assert "No estimate of the table's own error at the top" in sec5 and "a handful of games (E19 §3)" in sec5
+    # ELO10-STAT-2: the mean difference and range under each reading of the rounding appear in §5 only
+    outside = E20.replace(sec5, "")
+    for x in REPLAY["readings"].values():
+        mean2 = rep.sgn(x["mean_difference"], 2)
+        rng = f"{rep.sgn(x['min_difference'])} to {rep.sgn(x['max_difference'])}"
+        assert mean2 in sec5 and mean2 not in outside and mean2 not in APPENDIX
+        assert rng in sec5 and f"| {rng} |" not in outside
+    # ELO10-STAT-1: the check split by how the players were selected, below the check
+    g, cg = REPLAY["selection_groups"], REPLAY["calibration"]["by_selection"]
+    assert g["to_april_2000"]["players"] + g["from_july_2000"]["players"] == REPLAY["players_replayed"]
+    assert cg["to_april_2000"]["games"] + cg["from_july_2000"]["games"] == REPLAY["calibration"]["overall"]["games"]
+    for k in ("to_april_2000", "from_july_2000"):
+        assert rep.ci(cg[k]["table_812"]) in sec5 and rep.sgn(g[k]["mean_difference"], 2) in sec5
     # Appendix I: two sentences on the backward replay, pointing to E20 §5
     para = next(x for x in APPENDIX.split("\n\n") if x.startswith("E20 §5 also replays"))
     assert para.count(". ") + 1 == 2 and "E20 §5 only" in para
 
 
 def test_r82_the_tie_rules_asymmetry_and_its_source_are_stated():
+    n = len(SELECTED["players"])
+    tie_only = rep.surnames([p["name"] for p in LISTS["players"] if p["top3_only_by_a_shared_third"]])
+    not_in = [t for t in LISTS["printed_ties_at_third"] if not t["selected"]]
+    assert tie_only and not_in
     for text in (E20, APPENDIX):
-        assert "Polugaevsky, Mecking, Beliavsky, Vaganian, Sokolov and Salov" in text
-        assert "Svidler, printed 4th on the 3rd's rating in October 2006, is not among the 36" in text
-        assert "R82" in text and "multiples of five" in text and "FIDE's printed order decides" in text
+        assert tie_only in text
+        for t in not_in:
+            assert (f"{t['name'].split(',')[0]}, printed {rep.ordinal(t['printed_rank'])} on the 3rd's rating in "
+                    f"{rep.month(t['list'])}, is not among the {n}") in text
+        assert "R82" in text and "multiples of five" in text and "FIDE's printed order decides where a printed" in text
+        # ELO10-STAT-3: from July 2000 a shared place still counts on the lists computed without a printed copy
+        late = sorted({d for p in LISTS["players"] for d in p["top3_lists_shared_third"] if d >= "2000-07"})
+        assert late and all(rep.month(d) in text for d in late)
 
 
 def test_r83_every_file_with_olimpbase_derived_figures_carries_the_label_and_readme_names_it():
@@ -70,9 +94,11 @@ def test_r83_every_file_with_olimpbase_derived_figures_carries_the_label_and_rea
     for f in DOCS + AGGREGATES:
         assert f"`{f}`" in licence, f
     for f in DOCS:
-        if f == "docs/review/REDTEAM_v1_0.md":
-            continue            # a verbatim record: the session's review addendum carries the label (D-0018, reading 11 (d))
         assert LABEL in (ROOT / f).read_text(encoding="utf-8"), f
+    # D-0018 reading 11 (d): the review record's verbatim reports are not edited; the ELO-10 addendum carries the label
+    red = (ROOT / "docs" / "review" / "REDTEAM_v1_0.md").read_text(encoding="utf-8")
+    addendum = red.split("## Addendum: session ELO-10")[1]
+    assert LABEL in addendum.split("### The reviewer's report (verbatim)")[0]
     for f in AGGREGATES:
         assert json.loads((ROOT / f).read_text(encoding="utf-8"))["terms"] == LABEL, f
     # every table crediting OlimpBase (R77) carries the label on the same line (R83)

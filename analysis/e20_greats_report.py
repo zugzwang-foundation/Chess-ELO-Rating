@@ -73,7 +73,7 @@ def ordinal(n: int) -> str:
 
 
 def surnames(names: list[str]) -> str:
-    """'Petrosian, Polugaevsky and Tal' from FIDE's 'Surname, Given' forms."""
+    """'Aa, Bb and Cc' from FIDE's 'Aa, X', 'Bb, Y', 'Cc, Z' ('Surname, Given') forms."""
     s = [n.split(",")[0] for n in names]
     return s[0] if len(s) == 1 else ", ".join(s[:-1]) + " and " + s[-1]
 
@@ -145,7 +145,17 @@ def facts(sel: dict, lists: dict, rep: dict, e18: dict) -> dict:
         "top_2800": sorted(rep["players"], key=lambda r: (-r["game_rows_at_2800_or_more"], r["name"]))[:2],
         "left_lists": [r for r in rep["players"] if r["last_list_on_fide"] != rep["window"]["last"]],
         "fixture_cases": len(json.loads(FIXTURES.read_text(encoding="utf-8"))["cases"]),
-        "terms": lists["terms"]}
+        "terms": lists["terms"],
+        # ELO10-STAT-3: from July 2000 the rank is FIDE's printed one where a copy survives, computed (ties shared) elsewhere
+        "printed_from_2000": sel["lists"]["by_source"]["printed top list"],
+        "computed_from_2000": len(sel["lists"]["computed_dates_from_2000_07"]),
+        "late_shares": sorted({d for x in players for d in x["top3_lists_shared_third"] if d >= "2000-07"}),
+        "late_tie_only": [x for x in players if x["top3_only_by_a_shared_third"]
+                          and any(d >= "2000-07" for d in x["top3_lists_shared_third"])],
+        # ELO10-STAT-1, ELO10-QC-2: the replayed players by how SPEC-GREATS §2 selected them
+        "groups": rep["selection_groups"], "cal_groups": rep["calibration"]["by_selection"],
+        "early_names": [r["name"] for r in sorted(rep["players"], key=lambda r: r["name"])
+                        if r["fide_id"] in rep["selection_groups"]["to_april_2000"]["fide_ids"]]}
 
 
 def slips(host: dict) -> str:
@@ -217,7 +227,9 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
       "top-100 lists of July 2000 to December 2019 as the Internet Archive keeps them and FIDE's per-player rating "
       "calculations from the list of April 2008, used on the brief's instruction for analysis only, cached locally and "
       "not redistributed (FIDE reserves all rights; its written permission is to be requested, and until FIDE answers "
-      "nothing changes: only aggregates and differences are committed; R84, DATA-PROBE §3), the "
+      "nothing changes; R84, DATA-PROBE §3). What is committed of FIDE's material: aggregates and differences, the "
+      "single published ratings named by SPEC-GREATS §4 and §6 (R72, R77), and fixed samples of FIDE's calculations "
+      "kept as test fixtures, quoted value by value for verification (R79, R80); the "
       "calculations' full reproduction running locally with only counts committed (R79); OlimpBase's transcription of "
       "FIDE's lists, July 1971 to 2000, under its terms, of which only derived figures are kept (R77), each carrying R83's "
       "label, and which is NOT VERIFIED before 2001 (checked against FIDE's own files of 2001 only); the rules in force "
@@ -241,11 +253,15 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
       "The selection treats ties in two ways, as §2's rule does: on the lists to April 2000, ranked by their ratings, "
       "a shared 3rd place counts, and before 1999 the ratings are multiples of five (DATA-PROBE §4), so "
       f"{words(len(f['tie_only']))} players ({surnames([x['name'] for x in f['tie_only']])}) are in only through a share "
-      "of 3rd place; from July 2000 FIDE's printed order decides, so "
+      "of 3rd place; from July 2000 FIDE's printed order decides where a printed copy survives "
+      f"({f['printed_from_2000']} of the {f['printed_from_2000'] + f['computed_from_2000']} lists), so "
       + "; ".join(f"{x['name'].split(',')[0]}, printed {ordinal(x['printed_rank'])} on the 3rd's rating in "
-                  f"{month(x['list'])}, is not among the {f['n_players']}" for x in not_in) + ". "
+                  f"{month(x['list'])}, is not among the {f['n_players']}" for x in not_in)
+      + f", while on the other {f['computed_from_2000']} the rank is computed and a share counts, as before 2000 ("
+      + ", ".join(month(d) for d in f["late_shares"]) + ")"
+      + (", though no player is in only that way. " if not f["late_tie_only"] else ". ")
       + (f"{surnames(sorted({x['absent'] for x in mt}))}, ranked 1st on the lists either side, is absent from FIDE's "
-         f"lists of {' and '.join(month(x['list']) for x in mt)} (§2)." if mt else ""))
+         f"lists of {' and '.join(month(x['list']) for x in mt)} as OlimpBase transcribes them (§2)." if mt else ""))
     top = f["by_gap2"][:4]
     p("- **The lead over one's own era (§3)**, the best three consecutive years by the mean gap to the list's #2: "
       + "; ".join(f"{x['name']} {sgn(x['best_by_gap2']['mean_gap2'], 1)} ({month(x['best_by_gap2']['first'])} to "
@@ -263,12 +279,14 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
       "2009.")
     p(f"- **Rounding (§4.2, R74, R80).** The 2003, 2007 and 2010 texts round the rated player's new rating, the old "
       "rating plus the change (§10.66 of 2003; §10.53 of 2007; §8.57 of 2010, which adds \"0.5 is rounded to 1\"); with "
-      "0.5 rounded up, that rounds the change with 0.5 towards +∞ (the reading of Rn as the rated player's new rating is "
-      "NOT VERIFIED). " + rounding_line(f) + ". Layer 0 rounds as FIDE's lists do: towards +∞ on every list to October "
-      "2018 and away from zero from the list of November 2018 (R74 before July 2014, a reading changed after partial "
-      "pages had been seen; R80 from July 2014, set after FIDE's pages had been read in the full replay); the list on "
-      "which FIDE's arithmetic changed, one of August to November 2018, is NOT VERIFIED, and the list of January 2009 "
-      f"keeps its periods thin (R80). Thin periods: {rdg['R80']['thin_periods']:,} under R80's reading, "
+      "0.5 rounded up, that rounds the change with 0.5 towards +∞ (the reading of Rn as the rated player's new rating, "
+      "and of the 2007 text's half point, is NOT VERIFIED). " + rounding_line(f) + ". Layer 0 rounds towards +∞ on "
+      "every list to October 2018 and away from zero from the list of November 2018 (R74 before July 2014, a reading "
+      "changed after partial pages had been seen; R80 from July 2014, set after FIDE's pages had been read in the full "
+      "replay): FIDE's own output shows towards +∞ to the list of July 2018, and the lists of August to October 2018 hold "
+      "no negative half point, so the list on which FIDE's arithmetic changed, one of August to November 2018, is NOT "
+      f"VERIFIED; the list of January 2009 keeps its periods thin (R80). Thin periods: {rdg['R80']['thin_periods']:,} "
+      "under R80's reading, "
       f"{rdg['D-0017']['thin_periods']:,} under D-0017's, {rdg['rules record']['thin_periods']:,} under the rules "
       "record's first one.")
     p(f"- **The sources, checked before use (§1).** OlimpBase's transcription equals FIDE's own four files of 2001 in "
@@ -353,12 +371,15 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
       + "; ".join(f"{x['name']} ({', '.join(month(d) for d in x['top3_lists_shared_third'])})" for x in f["tie_only"])
       + ". From July 2000 FIDE's printed list orders players with equal ratings, and the printed rank decides: "
       + "; ".join(f"{t['name']}, printed {ordinal(t['printed_rank'])} on the rating of the printed 3rd in "
-                  f"{month(t['list'])}" + ("" if t["selected"] else ", is therefore not among the 36")
+                  f"{month(t['list'])}" + ("" if t["selected"] else f", is therefore not among the {f['n_players']}")
                   for t in f["printed_ties"] if not t["selected"])
       + f"; {sum(1 for t in f['printed_ties'] if t['selected'])} other such cases concern players selected on other "
         "lists. The asymmetry is the rule's own (SPEC-GREATS §2): it ranks the lists to April 2000 by their ratings, so "
-        "that a shared place counts, and takes from July 2000 the rank FIDE printed; the 36 stand as SPEC-GREATS fixed "
-        "them, with no change after results (§9; R82).")
+        "that a shared place counts, and takes from July 2000 the rank FIDE printed where a printed copy survives "
+        f"({f['printed_from_2000']} lists), computing it, a shared place counting, on the other {f['computed_from_2000']} "
+        "(shares of 3rd on " + " and ".join(month(d) for d in f["late_shares"])
+        + (", though no player is in only through them" if not f["late_tie_only"] else "")
+        + f"); the {f['n_players']} stand as SPEC-GREATS fixed them, with no change after results (§9; R82).")
     if mt:
         by_absent: dict[str, list] = {}
         for x in mt:
@@ -410,11 +431,20 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
       "(DATA-PROBE §2.4), and December 2019, replayed together list by list from their published ratings of January 2008; "
       f"{rep['pages']['read']:,} of FIDE's per-player pages, {v['games']:,} games in {v['tournaments']:,} tournaments. "
       f"Not replayed: {surnames([x['name'] for x in f['not_replayed']])}, who have no standard rating period on FIDE's "
-      f"calculations index in the window, and {surnames(f['no_id'])}, who have no FIDE ID. Opponents outside the set at "
+      f"calculations index in the window, and {surnames(f['no_id'])}, who have {NO_ID}. The replayed set is SPEC-GREATS "
+      f"§2's selection, which rests on OlimpBase's transcription for {f['groups']['to_april_2000']['players']} of the "
+      f"{rep['players_replayed']}: {surnames(f['early_names'])}, ranked 1st to 3rd only on lists to April 2000, whose "
+      "ranks §2 computes on that transcription; they hold "
+      f"{f['groups']['to_april_2000']['periods_replayed']:,} of the {s['periods_replayed']:,} player-periods replayed, "
+      f"{f['groups']['to_april_2000']['games_replayed']:,} of the {s['games_replayed']:,} games and "
+      f"{f['groups']['to_april_2000']['thin_periods']} of the {s['thin_periods']} thin periods, and the other "
+      f"{f['groups']['from_july_2000']['players']} ranked 1st to 3rd on a list from July 2000. Opponents outside the set at "
       "the ratings FIDE's pages print, or, where a page prints a capped value, at the rating of the same name on the list "
       "in force (R58's approximation); opponents inside the set at their replayed ratings. The reproduction runs locally "
       f"from the cached pages; only its counts are committed (R79), and a sample of {words(f['fixture_cases'])} cases chosen "
       "by a fixed rule is kept as test fixtures (`tests/fixtures/fide_greats/`; R79, and R80 for two of them).")
+    p("")
+    p(f"For the selection's figures of this paragraph (who is in the set, and its groups): {f['terms']}")
     p("")
     p("### 4.1 Layer 0 against FIDE")
     p("")
@@ -525,7 +555,9 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
         f"{month(nh['last_list_towards_plus_infinity'])} ({f['neg_later_up']}) and every one away from zero from the list "
         f"of {month(nh['first_list_away_from_zero'])} ({f['neg_later_away']}), as E17 found on the lists from February "
         "2020 (SPEC-L0 F-H07) and before the text of 2022 said \"away from zero\": the same words of 2014 and 2017 were "
-        "applied two ways, FIDE's arithmetic changing between those two lists while the words did not. The lists "
+        "applied two ways, FIDE's arithmetic changing between those two lists while the words, as far as the texts "
+        "transcribed here show, did not (the text in force in 2018 is NOT VERIFIED: the repository transcribes the 2014 "
+        "text and the 2017 text as amended from 1 February 2021). The lists "
         f"between them, {' and '.join(', '.join(month(b['list']) for b in f['between']).rsplit(', ', 1))}, hold "
         f"{sum(b['periods'] for b in f['between'])} replayed periods and "
         + ("none" if not sum(b["negative_half_points"] for b in f["between"]) else
@@ -533,9 +565,10 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
         + " whose sum ends in a negative half point, so FIDE's output does not show on which list from "
         f"{month(f['between'][0]['list'])} to {month(nh['first_list_away_from_zero'])} the change took effect: that list "
         "is NOT VERIFIED, and R80's boundary, the list of November 2018, gives the same counts as any of them. Ruling R80 "
-        "adopts what FIDE's lists show, towards +∞ to October 2018 and away from zero from November 2018, so that Layer 0 "
-        f"reproduces all {f['neg_later_up'] + f['neg_later_away']} of these periods. By the year of the list, every period "
-        "whose sum ended in a negative half point:")
+        "adopts what FIDE's lists show, towards +∞ to the list of July 2018 and away from zero from November 2018, and "
+        "reads the lists of August to October 2018, which hold no such period, as the first, so that Layer 0 reproduces "
+        f"all {f['neg_later_up'] + f['neg_later_away']} of these periods. By the year of the list, every period whose "
+        "sum ended in a negative half point:")
     p("")
     p(FIXED)
     p("")
@@ -546,16 +579,16 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
     p("")
     p("**The readings and the thin periods.** The replay under each reading of the rounding, for Layer 0 and rung 2 "
       "alike: R80's, adopted, which §5 uses; D-0017's beside it, as R80 asks; the rules record's first, as R74 asks; and, "
-      "for information only, towards +∞ on every list (D-0017 reading 2):")
+      "for information only, towards +∞ on every list (D-0017 reading 2). The difference under the 2025 table on the "
+      "last list, under each reading, is in §5 (R80 (iv), R81 (iii)):")
     p("")
     p(FIXED)
     p("")
-    p("| reading | thin periods | player-periods replayed | games replayed | mean difference, last list | range |")
-    p("|---|---|---|---|---|---|")
+    p("| reading | thin periods | player-periods replayed | games replayed |")
+    p("|---|---|---|---|")
     for key in READINGS:
         x = rdg[key]
-        p(f"| {READING_NAMES[key]} | {x['thin_periods']:,} | {x['periods_replayed']:,} | {x['games_replayed']:,} | "
-          f"{sgn(x['mean_difference'], 2)} | {sgn(x['min_difference'])} to {sgn(x['max_difference'])} |")
+        p(f"| {READING_NAMES[key]} | {x['thin_periods']:,} | {x['periods_replayed']:,} | {x['games_replayed']:,} |")
     p("")
     p("Periods that no reading reproduces stay thin and carry FIDE's change (R74). The comparison of §5 uses R80's "
       "reading.")
@@ -604,8 +637,9 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
       "the distance between the 2025 table and table 8.1.2 at these players' gaps, on results 8.1.2 already fits. Its "
       "figures appear here only, and no headline of E20 or of the proposal's appendix carries them.")
     p("")
-    p(f"**First, how the table fits these games** (the review of session ELO-9, ELO9-STAT-1). On every replayed game in "
-      f"which the player of the set was the favourite by {cal['gaps'][0]} to {cal['gaps'][1]} points, at FIDE's own "
+    p(f"**First, how the table fits these games** (the review of session ELO-9, ELO9-STAT-1). On every game of FIDE's "
+      f"{rep['pages']['read']:,} pages, the thin periods' included, in which the player of the set was the favourite by "
+      f"{cal['gaps'][0]} to {cal['gaps'][1]} points, at FIDE's own "
       "ratings (the opponent's found on the list in force where FIDE printed a capped value), the favourite's mean "
       "residual, score minus expectation, under table 8.1.2 and under the 2025 table with FIDE's colour marks, with 95 % "
       "intervals clustered over the players:")
@@ -619,7 +653,32 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
     o = cal["overall"]
     p(f"| every level | {o['games']:,} | {o['players']} | {ci(o['table_812'])} | {ci(o['table_2025'])} |")
     p("")
-    p(f"On these games, {fits(cal)}. " + caveat(cal))
+    p(f"On these games, for the {o['players']} together, {fits(cal)}. " + caveat(cal))
+    p("")
+    g, cg = f["groups"], f["cal_groups"]
+    p("The same check and the difference on the last list, by how SPEC-GREATS §2 selected the players (the review of "
+      "session ELO-10, ELO10-STAT-1): ranked 1st to 3rd only on the lists to April 2000, long before the window, or on a "
+      "list from July 2000:")
+    p("")
+    p(FIXED)
+    p("")
+    p("| players | games | table 8.1.2 | the 2025 table | difference, last list (mean) |")
+    p("|---|---|---|---|---|")
+    p(f"| the {g['to_april_2000']['players']} ranked 1st to 3rd only on the lists to April 2000 | "
+      f"{cg['to_april_2000']['games']:,} | {ci(cg['to_april_2000']['table_812'])} | {ci(cg['to_april_2000']['table_2025'])} "
+      f"| {sgn(g['to_april_2000']['mean_difference'], 2)} |")
+    p(f"| the {g['from_july_2000']['players']} ranked 1st to 3rd on a list from July 2000 | "
+      f"{cg['from_july_2000']['games']:,} | {ci(cg['from_july_2000']['table_812'])} | "
+      f"{ci(cg['from_july_2000']['table_2025'])} | {sgn(g['from_july_2000']['mean_difference'], 2)} |")
+    p(f"| the {o['players']} together | {o['games']:,} | {ci(o['table_812'])} | {ci(o['table_2025'])} | "
+      f"{sgn(s['mean_difference'], 2)} |")
+    p("")
+    a812, b812 = cg["to_april_2000"]["table_812"]["mean"], cg["from_july_2000"]["table_812"]["mean"]
+    p("The selection's effect is not common to the sample: under table 8.1.2 the players chosen on the lists to April "
+      f"2000 score {sgn(a812, 3)} a game against its forecast and those chosen on a list from July 2000 {sgn(b812, 3)}, "
+      "so the order of the two tables on the players together depends on the mix of the two groups (ELO10-STAT-1).")
+    p("")
+    p(f"For the groups, which rest on the lists to 2000: {f['terms']}")
     p("")
     p("The difference below therefore measures how far the 2025 table sits from table 8.1.2 at the gaps these players "
       "played, applied to results that 8.1.2 already fits; it is not a correction the table finds in these games. Here a "
@@ -663,6 +722,18 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
       "replayed here: the difference says what today's table would have made of the same results, not what a table "
       "fitted on that era would have.")
     p("")
+    p("**The difference under each reading of the rounding** (R80 (iv); the method uses R80's), on each player's last "
+      "list:")
+    p("")
+    p(FIXED)
+    p("")
+    p("| reading | mean difference, last list | range |")
+    p("|---|---|---|")
+    for key in READINGS:
+        x = rdg[key]
+        p(f"| {READING_NAMES[key]} | {sgn(x['mean_difference'], 2)} | {sgn(x['min_difference'])} to "
+          f"{sgn(x['max_difference'])} |")
+    p("")
     p("**The difference at each year end** (rung 2 − Layer 0, the method):")
     p("")
     p(FIXED)
@@ -690,22 +761,26 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
     p("- The lists before 2001 are OlimpBase's transcription of FIDE's lists, NOT VERIFIED before 2001 (checked against "
       "FIDE's own files of 2001 only); the ranks before July 2000 are computed by SPEC-GREATS §2's rule, not printed by "
       f"FIDE; before 1999 the ratings are multiples of five, so ties for 3rd bring in {words(len(f['tie_only']))} players "
-      "(§2), while from July 2000 FIDE's printed order breaks ties (R82); FIDE's lists of 1994 lack the player ranked "
-      "1st on the lists either side (§2).")
+      "(§2), while from July 2000 FIDE's printed order breaks ties where a printed copy survives (R82), a shared place "
+      f"still counting on the {f['computed_from_2000']} lists computed without one; FIDE's lists of 1994, as OlimpBase "
+      "transcribes them, lack the player ranked 1st on the lists either side (§2).")
     p("- The replay covers the lists of April 2008 to December 2019 only, the window in which FIDE's calculations give "
       "every game; most of the greats' careers lie outside it, and the greats of the 1970s and 1980s are not replayed.")
     p(f"- Opponents outside the set keep FIDE's ratings (R58's approximation): the mean difference moves by "
       f"{num(f['pass_through'], 2)} points per point of theirs (§5), and a replay of the whole pool would move them too.")
     p("- The colour term uses FIDE's colour marks, NOT VERIFIED before 2020 (E17 checked them against the broadcast "
       "archive from 2020 only).")
-    p("- The 2025 table is applied backwards to an era it was not fitted on, and on these games the favourites' results "
-      "sit nearer table 8.1.2, a check that a sample chosen for success could reverse (§5): the replay shows the rule's "
+    p("- The 2025 table is applied backwards to an era it was not fitted on, and on these games, for the players "
+      "together, the favourites' results sit nearer table 8.1.2, an order that depends on the mix of players chosen "
+      "before and in the window and that a sample chosen for success could reverse (§5): the replay shows the rule's "
       "effect on the same results, not a measure of anyone's strength, and not a comparison across eras; its fit window "
       "holds few games at the top levels where the greats play.")
-    p("- Layer 0's rounding follows FIDE's lists (R74 before July 2014, a reading changed after partial pages were seen; "
-      "R80 from July 2014, set after the full replay had been read): the reading of the texts' Rn as the rated player's "
-      "new rating, and the list on which FIDE's arithmetic changed in 2018, are NOT VERIFIED; the list of January 2009, "
-      "which rounded its negative half points away from zero, keeps those periods thin (§4.2, §4.3).")
+    p("- Layer 0's rounding follows FIDE's output, towards +∞ to the list of July 2018, which R80 extends to October "
+      "2018, and away from zero from November 2018 (R74 before July 2014, a reading changed after partial pages were "
+      "seen; R80 from July 2014, set after the full replay had been read): the reading of the texts' Rn as the rated "
+      "player's new rating and of the 2007 text's half point, the text in force in 2018 and the list on which FIDE's "
+      "arithmetic changed that year are NOT VERIFIED; the list of January 2009, which rounded its negative half points "
+      "away from zero, keeps those periods thin (§4.2, §4.3).")
     p("")
     p(f"For the figures of the first limit: {f['terms']}")
     return out
@@ -729,8 +804,10 @@ def appendix(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[
     q(FIXED)
     q("")
     q("**The data, and their limits.** The study uses FIDE's own data, for analysis only and not redistributed (FIDE "
-      "reserves all rights; its written permission is to be requested, and until FIDE answers nothing changes: only "
-      "aggregates and differences are committed, R84), and OlimpBase's transcription of FIDE's lists under its terms, "
+      "reserves all rights; its written permission is to be requested, and until FIDE answers nothing changes, R84; "
+      "what is committed of it is aggregates and differences, single published ratings, and fixed samples of FIDE's "
+      "calculations kept as test fixtures and quoted value by value for verification), and OlimpBase's transcription "
+      "of FIDE's lists under its terms, "
       "NOT VERIFIED before 2001 (checked against FIDE's own files of 2001 only) (`docs/research/DATA-PROBE_greats.md`): "
       "FIDE's lists (as OlimpBase transcribes them to 2000, FIDE's own files since 2001), FIDE's printed top lists of "
       "2000–2019 as the Internet Archive keeps them, and FIDE's per-player rating calculations, which give every game only "
@@ -748,9 +825,13 @@ def appendix(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[
       f"({month(last_join)}); they stand as SPEC-GREATS fixed them, with no change after results (R82). Its rule treats "
       "ties in two ways: on the lists to April 2000, ranked by their ratings, a shared 3rd place counts, and before 1999 "
       f"the ratings are multiples of five, so {words(len(f['tie_only']))} players are in only that way "
-      f"({surnames([x['name'] for x in f['tie_only']])}); from July 2000 FIDE's printed order decides, so "
+      f"({surnames([x['name'] for x in f['tie_only']])}); from July 2000 FIDE's printed order decides where a printed "
+      f"copy survives ({f['printed_from_2000']} of the {f['printed_from_2000'] + f['computed_from_2000']} lists), so "
       + "; ".join(f"{x['name'].split(',')[0]}, printed {ordinal(x['printed_rank'])} on the 3rd's rating in "
-                  f"{month(x['list'])}, is not among the {f['n_players']}" for x in not_in) + ".")
+                  f"{month(x['list'])}, is not among the {f['n_players']}" for x in not_in)
+      + f", while on the other {f['computed_from_2000']} the rank is computed and a share counts, as before 2000 ("
+      + ", ".join(month(d) for d in f["late_shares"]) + ")"
+      + (", though no player is in only that way." if not f["late_tie_only"] else "."))
     q("")
     q(f"For the figures of this paragraph: {f['terms']}")
     q("")
@@ -771,14 +852,20 @@ def appendix(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[
     q("A lead over one's contemporaries, on lists whose frequency and spread change with the era, and a maximum over a "
       "different number of windows for each player: not a ranking across eras.")
     q("")
-    q(f"**The replay, 2008–2019** [E20 §4]. Of the {f['n_players']}, {rep['players_replayed']} have rated games in "
-      "the window. Given FIDE's own inputs, Layer 0 with the rules in force at each date reproduces FIDE's printed change "
+    q(f"**The replay, 2008–2019** [E20 §4]. Of the {f['n_players']}, {rep['players_replayed']} have a standard rating "
+      "period on FIDE's calculations index between the lists of April 2008 and December 2019; "
+      f"{f['groups']['to_april_2000']['players']} of them are in the selection only through their ranks on the lists "
+      "to April 2000, computed on OlimpBase's transcription. Given FIDE's own inputs, Layer 0 with the rules in force "
+      "at each date reproduces FIDE's printed change "
       f"in {v['games'] - v['game_delta_differs']:,} of {v['games']:,} games; {s['thin_periods']:,} player-periods are "
       "thin and carry FIDE's change. In the greats' games FIDE applied the 350-point rule to tournaments starting up to "
       f"{day(rd['last_start_with_350'])} and the 400-point rule from {day(rd['first_start_beyond_350'])}, a date no text "
-      "gives. " + rounding_line(f) + "; Layer 0 rounds as FIDE's lists do, towards +∞ to October 2018 and away from zero "
-      "from November 2018 (R74 and R80, readings set after FIDE's pages had been seen; the list of the change NOT "
-      "VERIFIED), and the list of January 2009 keeps its periods thin.")
+      "gives. " + rounding_line(f) + "; Layer 0 rounds towards +∞ to October 2018 and away from zero from November 2018 "
+      "(R74 and R80, readings set after FIDE's pages had been seen: FIDE's own output shows towards +∞ to the list of "
+      "July 2018, and the list of the change is NOT VERIFIED), and the list of January 2009 keeps its periods thin.")
+    q("")
+    q(f"For the selection's figures of this paragraph (the {f['n_players']}, the {rep['players_replayed']} and the "
+      f"{f['groups']['to_april_2000']['players']}): {f['terms']}")
     q("")
     q("E20 §5 also replays the same games under E18's 2025 table, **applied backwards, not fitted on that era**, with "
       f"every opponent outside the {rep['players_replayed']} held at FIDE's rating (R58). It measures the distance "

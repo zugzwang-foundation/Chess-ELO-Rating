@@ -30,9 +30,11 @@ session's review corrected the description of the texts (docs/review/REDTEAM_v1_
 (docs/decisions/D-0018_rulings-on-elo-9-questions.md; SPEC-L0 §11, finding F-H10) extends 0.5 towards +infinity to every
 list to October 2018: FIDE's lists of July 2014 to July 2018 round every negative half point that way, as the 2014 and
 2017 words read literally say, "0.5 is rounded up (whether the change is positive or negative)"; from the list of
-November 2018 the change is rounded 0.5 away from zero, FIDE's arithmetic having changed while the words did not (as
-E17 found on the lists from February 2020, F-H07). The switch lies between the lists of August and November 2018, and
-its exact list is NOT VERIFIED; R80 was set after FIDE's pages had been read in the full replay. D-0017's reading, 0.5
+November 2018 the change is rounded 0.5 away from zero, FIDE's arithmetic having changed while the words, as far as
+the texts transcribed show, did not (as E17 found on the lists from February 2020, F-H07; the text in force in 2018 is
+NOT VERIFIED). FIDE's output shows 0.5 towards +infinity to the list of July 2018, and the lists of August to October
+2018 hold no negative half point: the switch lies between the lists of August and November 2018, and its exact list is
+NOT VERIFIED; R80 was set after FIDE's pages had been read in the full replay. D-0017's reading, 0.5
 away from zero from the list of July 2014, is kept beside it (round_change_d0017), as R74 kept the first reading, so
 that E20 prints the counts under both. The score-probability table of every version equals table 8.1.2 (the record,
 §5), so PD comes from Layer 0's table. A version applies to the tournaments that start on or after its date, and a
@@ -107,8 +109,8 @@ def round_change_away(x: Decimal) -> int:
 def round_change_up(x: Decimal) -> int:
     """0.5 towards +infinity whatever the sign: the new rating rounded with 0.5 up (§8.57 of 2010, "0.5 is rounded to
     1"), and the words of §8.57 of 2014 and of 2017, "0.5 is rounded up ( whether the change is positive or negative
-    )", read literally; FIDE's lists to October 2018 follow it (R74 before July 2014, finding F-H09; R80 from July
-    2014, finding F-H10; E20 §4.2)."""
+    )", read literally; FIDE's lists to July 2018 follow it, and R80 applies it to October 2018 (R74 before July 2014,
+    finding F-H09; R80 from July 2014, finding F-H10; E20 §4.2)."""
     return int((Decimal(x) + Decimal("0.5")).to_integral_value(rounding=ROUND_FLOOR))
 
 

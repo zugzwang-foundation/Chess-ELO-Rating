@@ -186,13 +186,14 @@ def main() -> int:
     p("")
     p(f"> {f['footer']}")
     p("")
-    p("As before [V 3]: FIDE's data are analysed and never redistributed in bulk; only aggregates and differences are "
-      "committed (the brief; R72). By the standard §3 applies to every other source, FIDE's footer reserves all rights "
-      "and asks for written permission to store its pages in any medium: FIDE's pages and files are used here on the "
-      "brief's instruction, for analysis only, cached locally (gitignored) and not redistributed. FIDE's written "
-      "permission is to be requested; until FIDE answers nothing changes: FIDE's material is analysed from the local "
-      "cache, and only aggregates and differences are committed (ruling R84; the review of session ELO-9, ELO9-QC-3; the "
-      "row in §3).")
+    p("As before [V 3]: FIDE's data are analysed and not redistributed in bulk. By the standard §3 applies to every "
+      "other source, FIDE's footer reserves all rights and asks for written permission to store its pages in any "
+      "medium: FIDE's pages and files are used here on the brief's instruction, for analysis only, cached locally "
+      "(gitignored). FIDE's written permission is to be requested; until FIDE answers nothing changes: FIDE's material "
+      "is analysed from the local cache, and " + "what is committed of FIDE's material is aggregates and differences, the single published ratings E20 names "
+      "(R72, R77) and fixed samples of FIDE's published calculations and of its online calculator, kept as test "
+      "fixtures under `tests/fixtures/` and quoted value by value for verification (SPEC-L0 §6; R10, R63, R79, R80)" + " (ruling R84; the review of session "
+      "ELO-9, ELO9-QC-3; the review of session ELO-10, ELO10-QC-1; the row in §3).")
     p("")
     p("## 3 The terms of FIDE and of every other candidate source")
     p("")
@@ -203,8 +204,9 @@ def main() -> int:
       f"(§2) | “{f['footer']}” | {fs['url']}, {fs['fetched_utc']}, HTTP {fs['status']} | **used for analysis on the "
       "brief's instruction; FIDE's written permission to be requested** | all rights reserved; storing the pages needs "
       "FIDE's written permission, which is to be requested; until FIDE answers nothing changes: the pages and files are "
-      "analysed from the local cache (gitignored) and never redistributed, and only aggregates and differences are "
-      "committed (R72, R84) |")
+      "analysed from the local cache (gitignored) and not redistributed in bulk, and " + "what is committed of FIDE's material is aggregates and differences, the single published ratings E20 names "
+      "(R72, R77) and fixed samples of FIDE's published calculations and of its online calculator, kept as test "
+      "fixtures under `tests/fixtures/` and quoted value by value for verification (SPEC-L0 §6; R10, R63, R79, R80)" + "; R84 |")
     for o in others:
         q = o.get("quote")
         terms = ("“" + q + "”" + (f" ({o['translation']})" if o.get("translation") else "")) if q else "—"
@@ -254,7 +256,9 @@ def main() -> int:
       "force, text | games with ratings linking eras | usable |")
     p("|---|---|---|---|---|---|---|---|")
     p(f"| 1971–1989 | not online at FIDE; OlimpBase's transcription of FIDE's official lists from July 1971 ({dec['1970s']} "
-      f"lists in the 1970s, {len(ob['supplementary'])} of them supplementary, {dec['1980s']} in the 1980s) | computable from each full list; "
+      f"lists in the 1970s, {sum(1 for x in ob['supplementary'] if x['list'] < '1980')} of them supplementary, "
+      f"{dec['1980s']} in the 1980s, {sum(1 for x in ob['supplementary'] if '1980' <= x['list'] < '1990')} of them "
+      "supplementary) | computable from each full list; "
       "no activity flags (every listed player ranked); rating floors (untitled players under 2250 unlisted in 1971) | "
       "none at FIDE | none | not needed (no replay) | none legitimately usable | FIDE's lists as OlimpBase transcribes "
       "them, cited, for non-commercial analysis |")

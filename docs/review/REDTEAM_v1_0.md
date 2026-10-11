@@ -1097,3 +1097,458 @@ None of this is stated anywhere.
   - Both slips are recorded.
   - R79's fixture has 13 player-periods and no names, IDs or events.
   - The fixed wording stands above every table, and the OlimpBase credit is present where it is required.
+
+## Addendum: session ELO-10, Phase 4 — D-0018, SPEC-L0 v1.5, E20, Appendices F and I, annex T1's guard row, README's licence section and DATA-PROBE §3
+
+Status: REVIEW RECORD · Session ELO-10, Phase 4 · Date: 2026-10-11 · Reviewer: one subagent, read-only, briefed with the R-STAT and R-QC briefs together. It reviewed after Phases 0 to 3 had merged (main at e82bb7f). It read:
+
+- `docs/decisions/D-0018_rulings-on-elo-9-questions.md`;
+- `docs/specs/SPEC-L0_fide-reference-engine_v1_5.md`, against `docs/specs/SPEC-L0_fide-reference-engine_v1_4.md`;
+- E20 with its report and replay scripts, its aggregate, `src/layer0_greats/`, the fixture tool and the fixtures;
+- the proposal's front matter, Appendix F and Appendix I, and the annex's front matter and T1's guard row;
+- README's licence section and `docs/LICENSE-docs.md`;
+- DATA-PROBE §2.6 and §3 with their script;
+- for reference, D-0017, the two rules records, SPEC-GREATS, the three aggregates that carry R83's label, `tools/data/politeness.py` with the fetch tools, and the session's tests.
+
+The rulings R80–R89 were given as fixed, with points on the rulings themselves to be listed separately. It was told to read no result of either 2026 championship, to use no web access and to fetch nothing. It changed no file, and every script it ran reproduced the committed outputs byte for byte. It returned eight findings (five major, three minor), seven points for the architect and a list of what it checked and found correct. Its report is reproduced verbatim below, after what the executor did with it.
+
+### Verification performed by the executor
+
+- **ELO10-STAT-1 was recomputed by the extraction** before anything changed in the text. `calibration` in `analysis/e20_greats_replay_extract.py` now also splits the check by how SPEC-GREATS §2 selected the players, and `selection_groups` splits the difference on the last list in the same way. The figures equal the reviewer's to the fourth decimal:
+  - the 14 ranked 1st to 3rd only on the lists to April 2000: 3,186 games; −0.0265 (−0.0346 to −0.0184) under table 8.1.2 and +0.0175 (+0.0090 to +0.0261) under the 2025 table; mean difference +17.21;
+  - the 15 others: 6,186 games; +0.0000 (−0.0084 to +0.0084) and +0.0445 (+0.0357 to +0.0533); +36.40.
+  - The pooled check is unchanged: −0.0090 and +0.0353 on 9,372 games, which do include the thin periods' games.
+- **ELO10-QC-1.** The fixtures were counted by script. `tests/fixtures/` holds 1,346 game rows, of which 12 are the synthetic event's, so 1,334 are quoted from FIDE's pages: 79 + 5 + 923 in `fide_calculator/`, 231 in `fide_greats/`, 30 in `fide_history/` and 66 in `validation/`. It also holds 32 cases of FIDE's online calculator. F-N01 records a FIDE ID, a year of birth and an event.
+- **ELO10-STAT-2.** E20 §4.2's readings table did carry each reading's mean difference and range.
+- **ELO10-QC-2.** By `selection_groups`, the 14 players hold 679 of the 1,765 player-periods replayed, 5,673 of the 18,355 games and 5 of the 9 thin periods. Their names are Beliavsky, Gelfand, Huebner, Jussupow, Karpov, Korchnoi, Ljubojevic, Mecking, Portisch, Shirov, Short, Sokolov, Timman and Vaganian.
+- **ELO10-QC-3.** This is session ELO-10's Phase 1 measurement: of Freeze 2's 89 entries, 83 equal E3's record and 6 differ.
+  - Two of them, `tools/checks/check_outputs.py` and `tools/set_results.py`, were changed as D-0011 part B and D-0012 authorise.
+  - The other four were re-pointed to each new version of SPEC-L0, and no decision record authorises those changes:
+    - `analysis/l0_ratification_check.py` and its output `analysis/OUTPUT_L0_ratification.md`;
+    - `analysis/l0_fixtures_report.py` and its output `analysis/OUTPUT_L0_fixtures.md`.
+  - The changes came in commit 5ce9fe5 (PR #44, merged 2026-10-11T06:40:24Z), 4ceeed0 (PR #55, 14:36:49Z) and c0aa1d9 (PR #57, 16:00:41Z).
+  - Each changed only the version the files name and the ratification output's status line. That output also gained the test module R63 added, in its rows R-14a, R-22b and R-25.
+  - Pointed at v1.5, the frozen script's own code finds the rule met, with only R-12's row changing. A new test does this without editing the frozen script.
+- **ELO10-QC-4.** The five places that said "to October 2018" were confirmed: SPEC-L0 v1.5's status line, its §11, F-H07, E20 §4.2 and `round_change_up`.
+  - The archive record's §1 is the text of 2017 "with amendments effective from 1 February 2021". The repository therefore holds no text dated 2018.
+- **ELO10-STAT-3.** E20's lists aggregate already recorded, on the lists computed without a printed copy, the shares of 3rd place of December 2015 and December 2017; nobody is in the set only through them. SPEC-GREATS' selection aggregate counts 121 printed and 23 computed lists from July 2000.
+- **ELO10-QC-5.** Each slip was confirmed. By OlimpBase's list dates, the supplementary lists are July 1978 and July 1979 in the 1970s, and July 1980 in the 1980s.
+- **The checks after the fixes.**
+  - Every script that needs `data/` and that the fixes touch reproduces its committed output byte for byte: the replay, the rules record, the selection, the lists and the fixtures.
+  - (a) every other script reproduces its committed output; Freezes 3a to 3d hold.
+  - (b) 685 tests pass.
+  - (c) every reference resolves.
+  - (d) the body has 4,499 words and the brief 900.
+
+### Disposition
+
+**fixed** (where), **fixed in part** (what remains, and for whom), or **answered**. Points on the rulings themselves go to the architect (below); none of R80–R89 was reopened.
+
+| ID | Sev. | Topic | Status |
+|---|---|---|---|
+| ELO10-STAT-1 | major | the caveat's premise against the check; the selection effect differs in sign within the sample | fixed: E20 §5 prints, below the check, the same check and the difference on the last list for the players ranked 1st to 3rd only on the lists to April 2000 and for the others, with one sentence that the selection's effect is not common to the sample, so that the order of the two tables depends on the mix; "for the players together" in §5 and §7; "every game of FIDE's 1,774 pages, the thin periods' included" in place of "every replayed game"; R81's caveat kept word for word; its premise to the architect |
+| ELO10-QC-1 | major | "only aggregates and differences are committed" | fixed: one wording in DATA-PROBE §2.6 and §3's FIDE row, E20's status line and Appendix I. What is committed of FIDE's material is aggregates and differences, the single published ratings E20 names (R72, R77) and fixed samples of FIDE's calculations kept as test fixtures, quoted value by value for verification (SPEC-L0 §6; R10, R63, R79, R80). The list of every kind, with its counts, is in the operator's inventory for the request. R84's own words go to the architect |
+| ELO10-STAT-2 | major | the backward replay's means and ranges in §4.2 | fixed: §4.2's readings table keeps the thin periods, player-periods and games; the mean difference and range under each reading print in §5, under its label, as R80 (iv) and R81 (iii) ask together; the test now checks that they appear in §5 only |
+| ELO10-QC-2 | major | 14 of the 29 replayed players selected through OlimpBase's lists | fixed in part. E20 §4 states that the replayed set is SPEC-GREATS §2's selection, resting on OlimpBase's transcription for the 14, with their share of periods, games and thin periods, and labels the selection's figures. Appendix I's replay paragraph and E20 §5's groups carry the label. F.3 no longer calls the replayed players "ranked 1st to 3rd on FIDE's lists". The report and the tests read the selection's names and counts from the aggregates instead of holding them. This addendum carries the label for the ELO-9 addendum, and the test now checks the file. README states the replayed set's footing. Not done: the replay's values (E20 §4 and §5, Appendix I's replay, F.3, `analysis/aggregates/E20_greats_replay.json`), computed on FIDE's pages and files, carry no label. Whether figures computed on FIDE's data for a sample chosen through OlimpBase's lists are "derived" is R83's scope, for the architect |
+| ELO10-QC-3 | major | Freeze 2's record out of date; the ratification output describes v1.4 | fixed: the four changes are recorded, with their commits, merge times and what changed, in the sentence `analysis/e3_freeze2_record.py` prints in E3 and in this addendum. SPEC-L0 v1.5 states that check (a)'s ratification output is computed on v1.4. `tests/test_spec_l0_ratification_v1_5.py` applies the rule to v1.5 with the frozen script's own code, and the rule is met; only R-12's row changes. v1.4 is left unchanged, as the file the frozen scripts read. Whether the four files stay as they are is for the architect |
+| ELO10-QC-4 | minor | FIDE's 2018 practice stated beyond the evidence | fixed. "To the list of July 2018 (FIDE's output; R80 extends it to October 2018)" now stands in SPEC-L0 v1.5's status line, §11, F-H07 and F-H10, in E20's brief, §4.2 and §7, and in the module's docstrings. The text in force in 2018 is marked NOT VERIFIED in SPEC-L0 §11 and F-H10, E20 §4.2 and §7, the rules record's §5 and the module. F-H07's span is given: November 2018 to December 2019 in the greats' replay, and from February 2020 in E17's (January 2020 read by neither). "And of the 2007 text's half point" is restored to E20's brief |
+| ELO10-STAT-3 | minor | from July 2000 a shared place still counts where no printed copy survives | fixed, from the aggregates, which already held these shares: E20's brief, §2's notes and §7, and Appendix I's "Who", now say that from July 2000 FIDE's printed order decides where a printed copy survives (121 of 144 lists). On the other 23 the rank is computed and a share counts (December 2015, December 2017), though no player is in only that way. R82's words go to the architect |
+| ELO10-QC-5 | minor | wording slips | fixed: the annex's front matter (the R80–R89 clause after the relative clause); Appendix F's "ruling R86 of D-0018"; Appendix I's "a standard rating period on FIDE's calculations index"; DATA-PROBE §4's supplementary lists by decade (2 in the 1970s, 1 in the 1980s); E20's brief, "as OlimpBase transcribes them" |
+
+### For the architect
+
+1. **R81 (ii), the caveat's premise** (the reviewer's point 1): "their results run ahead of any forecast" asserts the sign of the selection's effect.
+   - Table 8.1.2's residual on these games is −0.009 (−0.017 to −0.001).
+   - The two groups of players sit 0.027 apart.
+   - E20 now prints the split beside the caveat, which keeps R81's words.
+2. **R83's scope** (point 2): are figures computed on FIDE's data, for a sample chosen through OlimpBase's lists, themselves derived from its transcription? The executor has labelled the selection's own figures, and not the replay's values.
+3. **R84's words** (point 3): "only aggregates and differences are committed" leaves out the fixtures and the single published ratings, which the documents now name. The request "disclosing the use" would list them.
+4. **R80 (ii), "while the words did not"** (point 4): the text in force in 2018 is not transcribed, and is now marked NOT VERIFIED wherever the documents say so.
+5. **R82, "From July 2000 FIDE's printed order decides"** (point 5): this holds on 121 of the 144 lists from July 2000. On the other 23, shares of 3rd place counted twice, without bringing anyone in.
+6. **R86 (2)** (point 6): "the same rounding words … the list of January 2009 is the exception" joins lists under different texts. F.3 keeps the ruling's wording.
+7. **Freeze 2** (point 7, and D-0018 reading 5): four of its files were changed after the tag without a record. Decide whether to record the changes, revert them or re-point the files.
+   - Reverting the files to the tag would make `analysis/l0_ratification_check.py` read SPEC-L0 v1.1, which the repository no longer holds.
+
+### Errata
+
+**REDTEAM_v0_1's totals and the ELO-4 count** (D-0018, corrections 2 and 3).
+- `docs/review/REDTEAM_v0_1.md` is a record and is not edited.
+  - Its totals line reads "30 findings; 5 blockers, 17 majors, 8 minors".
+  - Its rows give 30 findings: 6 blockers (R-STAT-1, R-STAT-2, R-QC-1, R-QC-2, R-QC-3, R-EXPLOIT-1), 17 majors and 7 minors.
+  - The rows are the reference.
+- The ELO-4 session log (the operator's files) counts 17 findings in `docs/review/REDTEAM_v0_4.md`.
+  - The record lists 15: 6 blockers, 5 majors and 4 minors, in its disposition table and in the reviewer's verbatim report alike.
+  - The record is the reference.
+
+### OlimpBase's label for the ELO-9 addendum
+
+Ruling R83; D-0018, reading 11 (d). The ELO-9 addendum above states figures that rest on OlimpBase's transcription of FIDE's lists:
+- in the executor's verification: ELO9-STAT-3's players with their lists, and ELO9-STAT-5's numbers of windows;
+- in the reviewer's report, which is reproduced verbatim and not edited: ELO9-STAT-3, ELO9-STAT-5 and, under "Checked and correct", the dominance table and the comparison of OlimpBase's lists with FIDE's files of 2001.
+
+This addendum also states such figures: the names of the 14 players and their share of the replay, in the verification above and in the reviewer's report below, which carries its own label lines. For all those figures: Derived from OlimpBase's transcription of FIDE's lists; non-commercial use only; not covered by this repository's CC BY 4.0 or Apache-2.0 licences.
+
+### The reviewer's report (verbatim)
+
+The report is reproduced as returned, from its first heading, its section headings set two levels lower to sit under this addendum. One code span, a test's pytest node ID, is split in two at its "::" so that the reference check (check (c), `tools/checks/check_refs.py`, a file of Freeze 2) can resolve its path; no word is changed.
+
+#### Findings
+
+##### ELO10-STAT-1 — major — The caveat claims a lift that the check itself contradicts, and the selection effect has opposite signs within the sample
+
+**Location:** `docs/evidence/E20_greats.md` §5 (the check's table and the paragraph below it) and §7 (fifth limit); `analysis/e20_greats_report.py` (`fits`, `caveat`). The caveat's words are R81 (ii)'s.
+
+**Problem.** Below the check, E20 prints: "On these games, the favourites' results sit nearer table 8.1.2 than the 2025 table … The players were chosen because they reached the top three, so their results run ahead of any forecast. That lifts both tables' residuals alike; a lift above 0.013 a game would reverse which table sits nearer the results."
+
+The row directly above reads, for table 8.1.2, "−0.009 (−0.017 to −0.001)". On these games the favourites score *below* 8.1.2's forecast, and the interval excludes zero. "Their results run ahead of any forecast" is contradicted by the very check it introduces.
+
+I split the same 9,372 games by when the player entered the set. A scratch script imported `prepare()` and repeated `calibration()`'s selection and player clustering exactly. It reproduces the pooled figures: −0.0090 (−0.0172 to −0.0008) and +0.0353 (+0.0269 to +0.0438).
+
+| players | games | table 8.1.2 | the 2025 table |
+|---|---|---|---|
+| the 14 replayed players whose every top-3 list is on lists to April 2000 | 3,186 | −0.0265 (−0.0346 to −0.0184) | +0.0175 (+0.0090 to +0.0261) |
+| the other 15 | 6,186 | +0.0000 (−0.0084 to +0.0084) | +0.0445 (+0.0357 to +0.0533) |
+
+- **Not a level effect.** In every level band with at least 30 games in each group, the first group sits below the second under 8.1.2: 2300–2399 −0.035 against +0.076; 2400–2499 −0.013 against +0.049; 2500–2599 −0.040 against +0.029; 2600–2699 −0.011 against +0.003; 2700–2799 −0.054 against −0.015.
+- **The two groups point opposite ways.**
+  - The 14 were chosen long before the window. Their results run behind forecast, and the 2025 table already sits nearer them (|+0.018| < |−0.027|). Their midpoint is −0.0045, which `caveat()` refuses to print.
+  - For the 15 others, 8.1.2 fits (0.000).
+- **Consequences for the printed sentences.**
+  - The lift is not common to the sample. The two groups differ by 0.027 a game under either table, about twice the printed threshold. A single "lift above 0.013" therefore does not describe this sample.
+  - "On these games, the favourites' results sit nearer table 8.1.2" is true only for the 29 pooled.
+- **The same split runs through §5's comparison.** The mean difference on the last list is +17.21 for the 14 and +36.40 for the 15 (per-player values from `E20_greats_replay.json`; 14 × 17.21 + 15 × 36.40 = 29 × 27.14).
+- **The threshold's arithmetic is right.** (−0.0090 + 0.0353) / 2 = 0.01315, printed as 0.013. A common lift δ reverses the order exactly when δ > 0.01315.
+- **Separately, "every replayed game" is not quite right.** §5 says "On every replayed game", but `calibration()` reads every game on the 1,774 pages. Of the 9,372 games, 70 lie in the 9 thin periods, which are not replayed.
+
+**Fix.**
+- Keep R81's words.
+- Below the check, print (from the extraction) the same check and the mean difference split by when the player entered the set: all top-3 lists to April 2000, or a top-3 list from July 2000.
+- Add one sentence: the selection's effect differs in sign between players chosen before the window and players chosen in it, so the pooled order of the two tables depends on the mix.
+- In §5 and §7, scope "sit nearer table 8.1.2" to "the 29 together".
+- Replace "every replayed game" with "every game on FIDE's pages".
+- The caveat's premise goes to the architect (below).
+
+For the figures of this finding that rest on the lists to 2000: Derived from OlimpBase's transcription of FIDE's lists; non-commercial use only; not covered by this repository's CC BY 4.0 or Apache-2.0 licences.
+
+##### ELO10-QC-1 — major — "Only aggregates and differences are committed" is not what the repository commits
+
+**Location:** `docs/research/DATA-PROBE_greats.md` §2.6 and §3 (FIDE's row); E20's status line (data paragraph); Appendix I, "The data, and their limits".
+
+**Problem.** The four places say:
+- §3's row: "until FIDE answers nothing changes: the pages and files are analysed from the local cache (gitignored) and never redistributed, and only aggregates and differences are committed (R72, R84)".
+- §2.6: "FIDE's data are analysed and never redistributed in bulk; only aggregates and differences are committed".
+- E20 and Appendix I: "only aggregates and differences are committed".
+
+The repository commits FIDE's per-game values as test fixtures:
+- **Game rows.** Counted by script over `tests/fixtures/`, there are 1,334 game rows quoted from FIDE's calculation pages and tournament report, each with the opponent's rating, the score and FIDE's change:
+  - fide_calculator: 79 + 5 + 923;
+  - fide_greats: 231 in 16 cases (one period appears twice, as F-G03 and F-G11);
+  - fide_history: 30;
+  - validation: 66.
+- **Calculator cases.** There are also 32 cases from FIDE's online calculator.
+- **A named player.** `published_initial_rating.json` (F-N01) records a player's FIDE ID, birth year and event.
+- **Added this session.** F-G15 (8 games) and F-G16 (19 games) were added in this session (Phase 2), after R84's "Until FIDE answers nothing changes"; R80 (iv) asked for them.
+
+E20 itself also commits single published ratings: the peaks in §2 and §5's "highest under FIDE's rules". Its §4 says "a sample of sixteen cases … is kept as test fixtures", which contradicts its own status line. §2.6 ("in bulk") and §3 ("never redistributed") also disagree with each other.
+
+R84 asks that the permission request disclose the use. The repository's own description of that use leaves out the fixtures.
+
+**Fix.**
+- In all four places, say what is committed:
+  - aggregates and differences;
+  - the single published ratings named by SPEC-GREATS §4 and §6, R72 and R77;
+  - the fixed samples of FIDE's per-player calculations kept as test fixtures (R10, R63, R79, R80; `tests/fixtures/`), quoted value by value for verification.
+- Use one wording in §2.6 and §3.
+- Give the operator that list for the request.
+- The ruling's own words go to the architect.
+
+##### ELO10-STAT-2 — major — §4 prints the backward replay's mean and range outside §5 and without its label (R81 (iii))
+
+**Location:** E20 §4.2, the "readings and the thin periods" table; E20's "In brief"; Appendix I; `tests/test_d0018_rulings.py`::`test_r81_the_backward_replay_has_no_headline_and_its_figures_stay_in_section_5`.
+
+**Problem.** R81 (iii) says "+27.0, its range and the per-player figures under the 2025 table appear only in E20 §5, under its label", and R81 (i) makes §4 a headline section.
+
+§4.2's table nonetheless carries the columns "mean difference, last list | range":
+
+| reading | mean difference, last list | range |
+|---|---|---|
+| R80 | +27.14 | −9 to +62 |
+| D-0017 | +27.03 | −9 to +62 |
+| rules record | +27.07 | −10 to +62 |
+| towards +∞ throughout | +26.69 | −9 to +61 |
+
+The table is introduced only as "The replay under each reading of the rounding, for Layer 0 and rung 2 alike", with no "applied backwards, not fitted on that era" beside it.
+
+As a result, two statements about the page are untrue:
+- E20's brief: "Its figures … are in §5 only."
+- Appendix I: "its figures, and the caveat on reading them, are in E20 §5 only."
+
+The test checks only the brief and the appendix, not §1–§4 or §6–§7.
+
+**Fix.**
+- R80 (iv) asks only that E20 print §5's comparison under both readings. Print the mean difference and range under each reading in §5, under the label.
+- Keep the thin periods, player-periods and games in §4.2.
+- Extend the test so that the two-decimal means and the ranges appear in no section but §5.
+
+##### ELO10-QC-2 — major — 14 of the replay's 29 players were selected through OlimpBase's lists; the labels and README treat §4–§5 as free of it
+
+**Location:** README's licence section (E20 "(its brief, §1 to §3 and §7)"); D-0018 reading 11 ("The replay of 2008–2019 rests on FIDE's pages and FIDE's own files"); E20 §4 ("What is replayed") and §5; Appendix I, "The replay, 2008–2019"; the opening of F.3; `analysis/aggregates/E20_greats_replay.json` (no `terms`); `tests/test_d0018_rulings.py`; `analysis/e20_greats_report.py`; `docs/review/REDTEAM_v1_0.md`.
+
+**Problem.** The claim is sound for the replay's values but not for its sample.
+
+- **Values: sound.** The only place the replay reads the 1971–2000 series is `reached`, for the K rules' "ever 2400 / ever 2300" flags. No replayed player's flag changes when the lists before 2001 are dropped. I checked all 29: each player's first 2400 on FIDE's own files falls before it is needed, or, for Ding and Giri, the series starts after 2001 anyway.
+- **Sample: not sound.** Reading 11 counts "the selection" as derived.
+  - 14 of the 29 replayed players have every top-3 list on lists to April 2000, all computed on OlimpBase's transcription: Beliavsky, Gelfand, Huebner, Jussupow, Karpov, Korchnoi, Ljubojevic, Mecking, Portisch, Shirov, Short, Sokolov, Timman and Vaganian.
+  - They hold 679 of the 1,765 replayed periods, 5,673 of the 18,355 games, 5 of the 9 thin periods and 3,186 of the calibration check's 9,372 games.
+  - Which opponents count as "inside the set" (replayed rather than held at FIDE's ratings) follows from the same selection.
+  - §5's mean difference is +17.2 for these 14 and +36.4 for the rest (ELO10-STAT-1).
+
+Whatever the architect decides, some figures are unlabelled under any reading:
+- Appendix I's replay paragraph opens "Of the 36, 29 have rated games in the window". It sits after the "Who" label, which covers only "this paragraph".
+- E20 §4 names those "who have no FIDE ID" (on OlimpBase's lists).
+- `tests/test_d0018_rulings.py` and `analysis/e20_greats_report.py` hard-code R82's names or the count 36, and README does not name either file.
+- `REDTEAM_v1_0.md` still carries no label. Reading 11 (d) leaves it to this session's addendum, and `test_r83_every_file_with_olimpbase_derived_figures_carries_the_label_and_readme_names_it` skips the file, so nothing will check the addendum.
+- F.3 opens "Replaying the players ranked 1st to 3rd on FIDE's lists". It is 29 of the 36, and for 14 of them the ranks were computed on OlimpBase's transcription, not printed by FIDE.
+
+**Fix.**
+- State in E20 §4 and in README that the replayed set is SPEC-GREATS §2's selection, which rests on OlimpBase's lists for 14 of the 29.
+- Then do one of the following:
+  - **(a) Treat §4–§5 as derived.** Label §4–§5, Appendix I's replay paragraphs, F.3 and `E20_greats_replay.json` (with a `terms` field), and name them in README.
+  - **(b) Record a reading.** Record the architect's reading that a sample's membership does not make figures computed on FIDE's data "derived".
+- In either case:
+  - label "Of the 36" and E20 §4's sentence;
+  - name the two code files in README or reword them;
+  - carry the label in this session's addendum, and make the test check it.
+
+For the figures of this finding that rest on the lists to 2000: Derived from OlimpBase's transcription of FIDE's lists; non-commercial use only; not covered by this repository's CC BY 4.0 or Apache-2.0 licences.
+
+##### ELO10-QC-3 — major — Freeze 2's record is out of date (six of its files differ from the tag, not two), and the live ratification check reads v1.4
+
+**Location:** `docs/evidence/E3_us-championship-2026.md`, the Freeze 2 static record printed by `analysis/e3_freeze2_record.py`; D-0018 reading 5; `analysis/l0_ratification_check.py` (`SPEC` = v1.4).
+
+**Problem.** E3 says: "As at D-0012, two of the files differ from their hash here: `tools/checks/check_outputs.py` … and `tools/set_results.py`."
+
+I hashed every file path of the record at HEAD. Six of the 87 files differ: the two named, plus:
+- `analysis/l0_ratification_check.py`
+- `analysis/OUTPUT_L0_ratification.md`
+- `analysis/l0_fixtures_report.py`
+- `analysis/OUTPUT_L0_fixtures.md`
+
+`git log freeze-2..HEAD` shows these four changed in three commits, each re-pointing SPEC-L0 (v1.1 → v1.2 → v1.3 → v1.4):
+- 5ce9fe5 (#44, ELO-8), whose message says "no frozen file changes (checks (a) and (a′) hold)";
+- 4ceeed0 (#55);
+- c0aa1d9 (#57).
+
+These are exactly the four citations that led reading 5 to keep v1.4. The ELO-10 brief says Freeze 2's files "never change … the rule alone protects them". Reading 5 sends "how those four files came to cite v1.4" to the close-out, which lies outside the repository. No file in the repository records it.
+
+As a consequence, check (a)'s ratification output describes v1.4, not the current specification:
+- I pointed the same script at v1.5 in scratch. It meets the rule ("The pre-agreed ratification rule is met: True"); the only change is R-12's NOT VERIFIED column, False → True.
+- v1.4 still reads "Status: RATIFIED", with no pointer to v1.5.
+
+None of this touches the championship comparison: Freeze 3a's live manifest of 51 files holds.
+
+**Fix.**
+- Record the four changes (commits, dates, what changed) in this session's review addendum and in the sentence `analysis/e3_freeze2_record.py` prints. That script is in no freeze.
+- State in v1.5 that check (a)'s ratification output is computed on v1.4.
+- Add a non-frozen test that applies the ratification rule to v1.5.
+- Whether the four files stay as they are is the architect's call.
+
+##### ELO10-QC-4 — minor — SPEC-L0 v1.5 and E20 state FIDE's 2018 practice beyond the evidence and without the labels it needs
+
+**Location:** SPEC-L0 v1.5's status line, §11's opening paragraph, and the F-H07 and F-H10 rows; E20 §4.2 and its brief; `src/layer0_greats/__init__.py` (`round_change_up`); the rules record §5.
+
+**Problem.**
+
+(a) **FIDE's output is overstated to October 2018.** The texts say:
+- status line: F-H10 records "the rounding FIDE's lists followed from July 2014, towards +infinity to October 2018";
+- §11: "the rounding the same replay read on FIDE's lists from July 2014, towards +infinity on every list to October 2018";
+- F-H07's new clause: "on the lists of July 2017 to October 2018 FIDE rounded the same words towards +infinity";
+- E20 §4.2: "Ruling R80 adopts what FIDE's lists show, towards +∞ to October 2018";
+- `round_change_up`'s docstring: "FIDE's lists to October 2018 follow it".
+
+FIDE's output shows towards +∞ only up to July 2018. The lists of August to October 2018 hold 24 periods (6 + 13 + 5, from the aggregate) and no negative half point. F-H10 itself rightly marks the list of the switch (August to November 2018) NOT VERIFIED. "To October 2018" is R80's rule for Layer 0, not something observed in FIDE's lists.
+
+F-H07's "it holds on FIDE's lists from November 2018" also covers January 2020, which neither replay reads: E20 ends in December 2019, and E17's first list is February 2020.
+
+(b) **"The words did not change" is unverified.** This appears in F-H10 ("from November 2018 FIDE's arithmetic changed while the words did not"), E20 §4.2 ("while the words did not") and the rules record §5 ("the words unchanged"). The repository transcribes the 2014 text, and the 2017 text only as "Effective from 1 July 2017 (with amendments effective from 1 February 2021)" (archive record §1). The text in force in 2018 is not transcribed, and no NOT VERIFIED label goes with the claim (CLAUDE.md rule 3).
+
+(c) **E20's brief drops part of R80 (i)'s label.** The brief labels only "the reading of Rn as the rated player's new rating". R80 (i) also keeps the 2007 text's half point NOT VERIFIED, as E20 §4.2 and F-H09 do.
+
+**Fix.**
+- In the five places, write "towards +infinity to the list of July 2018 (FIDE's output; R80 extends it to October 2018)".
+- Mark the 2018 wording NOT VERIFIED: it is known only from the 2014 copy and from the 2017 text as amended from 1 February 2021.
+- Restore "and of the 2007 text's half point" to E20's brief.
+
+##### ELO10-STAT-3 — minor — The asymmetry's source is misstated: from July 2000 a shared place still counts on the 23 lists without a printed copy
+
+**Location:** E20's brief, §2 (notes) and §7 (first limit); Appendix I, "Who". These sentences follow R82's wording.
+
+**Problem.** E20 says "from July 2000 FIDE's printed order decides" and "takes from July 2000 the rank FIDE printed". SPEC-GREATS §2 does something narrower. Wherever no printed copy of a list survives, it computes the rank from FIDE's full list, with "players tied sharing a rank". That applies to 23 of the 144 lists from July 2000 (`computed_dates_from_2000_07` in `GREATS_players.json`).
+
+I reran the rule's `computed()` on those 23 lists. It finds two shares of 3rd place:
+- December 2015: Anand and Kramnik, both at 2796;
+- December 2017: Caruana and Mamedyarov, both at 2799, which is Mamedyarov's first top-3 list.
+
+None of these players is in the set only through a share: each has many other top-3 lists (Mamedyarov 14). So the six names and Svidler stand. On the printed list of October 2006 Svidler is 4th on Kramnik's 2750; the printed lists from July 2000 hold 9 such cases in all.
+
+But the asymmetry's stated source is wrong: it is printed lists against computed ranks, not before and after 2000.
+
+**Fix.**
+- Write "from July 2000 FIDE's printed order decides where a printed copy survives (121 of 144 lists); on the other 23 the rank is computed and a share counts, as before 2000 (December 2015, December 2017), though no player is in only that way".
+- Compute this in the lists aggregate.
+
+For the figures of this finding that rest on the lists to 2000: Derived from OlimpBase's transcription of FIDE's lists; non-commercial use only; not covered by this repository's CC BY 4.0 or Apache-2.0 licences.
+
+##### ELO10-QC-5 — minor — Wording slips
+
+- **Annex front matter (line 5).** The insertion leaves "…and by the rulings R80–R89 of session ELO-10 (…), whose executor's readings are cited as "D-0009, reading n", "D-0011, reading n" and "D-0012, reading n"". The relative clause now attaches to R80–R89.
+  *Fix:* put the R80–R89 clause after the relative clause.
+- **Appendix F.** It says "founder defaults: D-0008, R14; D-0014, R64; and D-0018, R86". D-0018 marks only R83, R84, R85 and R89 as founder decisions.
+  *Fix:* write "and ruling R86 of D-0018".
+- **Appendix I.** "Of the 36, 29 have rated games in the window." E20 §4 shows only that Fischer, Spassky, Kasparov and Salov "have no standard rating period on FIDE's calculations index in the window".
+  *Fix:* use E20's words.
+- **DATA-PROBE §4, row 1971–1989.** It says "11 lists in the 1970s, 3 of them supplementary, 20 in the 1980s". Counting `PROBE_greats.json`'s list dates from July 1971: 2 of the 11 in the 1970s are supplementary (July 1978, July 1979), and 1 of the 20 in the 1980s (July 1980).
+  *Fix:* write "2 of them supplementary, 20 in the 1980s, 1 of them supplementary".
+- **E20's brief.** "Kasparov … is absent from FIDE's lists of January 1994 and July 1994 (§2)" drops §2's "as OlimpBase transcribes them", although OlimpBase's transcription is NOT VERIFIED before 2001.
+  *Fix:* restore the words.
+
+For the figures of this finding that rest on the lists to 2000: Derived from OlimpBase's transcription of FIDE's lists; non-commercial use only; not covered by this repository's CC BY 4.0 or Apache-2.0 licences.
+
+#### For the architect
+
+1. **R81 (ii), the caveat's premise.** "The players were chosen because they reached the top three, so their results run ahead of any forecast" asserts the sign of the selection effect.
+   - Table 8.1.2's own residual on these games is −0.009 (−0.017 to −0.001).
+   - The 14 replayed players chosen only on lists to April 2000 run 0.027 behind it, while the 15 others sit at 0.000.
+   - A single threshold for a "common" lift (0.013) therefore does not describe this sample.
+
+   Consider a caveat that does not assert the sign, and allowing E20 to print the split (ELO10-STAT-1).
+2. **R83's scope.** Are figures computed on FIDE's data, for a sample chosen with OlimpBase-derived ranks, themselves "derived from OlimpBase's transcription"? This covers E20 §4–§5, Appendix I's replay paragraphs, F.3 and `E20_greats_replay.json`.
+   - 14 of the 29 replayed players are in the sample only through OlimpBase's lists.
+   - Their mean difference is +17.2 against +36.4 for the others.
+
+   Under R83's non-commercial terms, the answer decides what CC BY 4.0 may cover.
+3. **R84's words "only aggregates and differences are committed".** These sit against:
+   - the fixtures that R10, R63, R79 and R80 (iv) commit: 1,334 game rows quoted from FIDE's pages, and F-N01 with a FIDE ID, birth year and event;
+   - the single published ratings that R72 and R77 keep.
+
+   The request "disclosing the use" should list them. The FIDE row also omits "disclosing the use", not only "by the operator" (reading 12 noted only the latter). FIDE's footer requires written permission for storing, and the local cache stores before permission. R84 accepts this, but a reader from the QC will see it.
+4. **R80 (ii), "from November 2018 FIDE's arithmetic changed while the words did not".** The repository holds the 2014 text and the 2017 text with the amendments of 1 February 2021, not the text in force in 2018. Consider NOT VERIFIED for the words in force in 2018.
+5. **R82, "From July 2000 FIDE's printed order decides".** This holds on the 121 lists with a printed copy. On the other 23, the rule computes ranks with shared places: there are shares of 3rd in December 2015 and December 2017, and no player is in only that way.
+6. **R86 (2), "the same rounding words were applied two ways … the list of January 2009 is the exception".** This joins lists under different texts.
+   - Before July 2014, the 2007 and 2010 texts round the new rating "to the nearest 1 or 0", and the 2007 text states no half point.
+   - The list of January 2009 ran under the 2007 text, not under the 2014/2017 words.
+
+   F.3 reproduces the ruling's wording. Consider: "the 2014 and 2017 words were applied two ways (towards +∞ to July 2018, away from zero from November 2018); before July 2014, under the 2007 and 2010 texts, FIDE's lists rounded negative half points towards +∞ except on the list of January 2009".
+7. **Reading 5 and Freeze 2.** Four Freeze 2 files were edited after the tag (#44, #55, #57). Decide whether to record, revert or re-point them. Until then, check (a)'s ratification output describes v1.4.
+
+#### Checked and correct
+
+**Reproduction.**
+- Byte-identical regeneration into scratch (repository untouched; `git status` clean throughout):
+  - `analysis/aggregates/E20_greats_replay.json` (34 s);
+  - `tests/fixtures/fide_greats/published_periods.json`;
+  - `GREATS_players.json`;
+  - `PROBE_greats.json`;
+  - the rules record 2001–2017;
+  - E20;
+  - `analysis/OUTPUT_E20_appendix.md`;
+  - DATA-PROBE.
+- Appendix I (proposal lines 663–696) equals `OUTPUT_E20_appendix.md` verbatim.
+- Automated checks:
+  - (a) passes, with Freeze 3a's 51 files equal to D-0012's manifest;
+  - (a′), (a″) and (a‴) pass;
+  - (c): 73 files, 0 unresolved;
+  - (d): body 4,499 and brief 900.
+- 683 tests pass. STATUS.md's figure of 672 is for the close-out to update.
+- None of the session's 45 changed paths is in E3's Freeze 1 or Freeze 2 hash tables or in E13's.
+- Nothing was fetched: the newest manifest entry is 2026-10-11T14:13:01Z.
+
+**R80 implementation.**
+- `round_change` applies `round_change_up` (floor(x + 0.5)) for lists before "2018-11" and `round_change_away` from it.
+- `round_change_d0017` keeps D-0017's reading, with its boundary at "2014-07".
+- The list of January 2009 gets no exception.
+
+**The four readings.** E20's counts reproduce from the per-era rows (1,766 periods with no gap in FIDE's files, plus 8 periods checked against the next file; 1,774 pages in all):
+
+| reading | periods reproduced (sum of the four era rows) | thin periods |
+|---|---|---|
+| R80 | 825 + 530 + 215 + 187 | 9 |
+| D-0017 | 825 + 513 + 205 + 187 | 36 |
+| rules record | 798 + 513 + 205 + 187 | 63, plus a two-period gap stretch = 65 |
+| towards +∞ throughout | 825 + 530 + 215 + 175 | 21 (= 36 − 27 + 12) |
+
+- The rules-record reading's own `thin_by_cause` sums to 64 because it counts that stretch once; it is not printed.
+- Under R80 and D-0017 the mean differences are +27.14 and +27.03.
+
+**Negative half points.**
+- Totals: 33 + 17 + 10 + 12 = 72. By year, 57 went towards +∞ and 15 away from zero.
+- From July 2014, 27 went towards +∞ (the last on 2018-07) and 12 away from zero (the first on 2018-11).
+- On 2018-07, F-G15's period is the only one. On 2018-11 there are two, and F-G16 is the lower FIDE ID.
+- Before July 2014:
+  - every negative half point went towards +∞ on 22 of the 23 lists that hold one;
+  - on January 2009, 3 of 3 went away from zero;
+  - of the 78 half points, towards +∞ reproduces 73 (30 + 43) and away from zero 46 (3 + 43);
+  - 2 of the 5 exceptions are exact in floating point.
+- The "switch's list NOT VERIFIED" claim is supported: August, September and October 2018 hold 6, 13 and 5 periods, none ending in a negative half point, and positive half points cannot discriminate between the two roundings.
+- R80 (iv)'s disclosure is present in E20 (brief, §4.2, §7), Appendix I, F-H10 and §11 of SPEC-L0, the rules record §5 and `layer0_greats`' docstring.
+
+**F-G15 and F-G16.**
+- F-G15: list 2018-07, sum −1.50, published −1; one tournament, 8 games.
+- F-G16: list 2018-11, sum −1.50, published −2; two tournaments, 19 games.
+- Both were chosen by the assembler's code exactly as reading 4 states.
+- The sample is 16 cases and 15 player-periods (F-G03 = F-G11), within R79's 30.
+
+**SPEC-L0 v1.5 against v1.4.**
+- The diff touches only: the title; the status and author lines; R-12's label; §8's note and Q-12; §11's heading and opening paragraph; and the F-H07, F-H09 and F-H10 rows.
+- No rule of §3 changes beyond R-12's label.
+- Q-12 is coherent with R-12, and R-12 has its synthetic test.
+- F-H10's three quotations match the rules record §4 and the archive record §1 and §2.
+- F-H09's counts are correct: 78 / 73 / 46; 22 of 23; 3 of 3; one period not a rounding of its sum.
+- v1.5 is named by the proposal, the annex, `pyproject.toml`, STATUS, `tests/l0_helpers.py`, the fixtures READMEs and `assemble_tested_readings.py`. v1.4 is named only by the four Freeze 2 files.
+
+**R81.**
+- Calibration: 9,372 games and 29 players; −0.0090 (−0.0172 to −0.0008) for 8.1.2 and +0.0353 (+0.0269 to +0.0438) for the 2025 table. The threshold is 0.01315, printed as 0.013.
+- R81 (iv)'s and (v)'s sentences are verbatim. The supporting figures check:
+  - 936 game rows at 2800 or more and 8,436 at 2700–2799;
+  - the 2024 fit window holds 539 and 9 such games [E18 §1];
+  - E19 §3 says "a handful of games".
+- The brief and Appendix I hold no +27.1, no 2945 and no per-player table, and Appendix I's backward-replay paragraph is two sentences.
+- §5's per-player table checks:
+  - differences 787 / 29 = +27.14; the table's effect 794 / 29 = +27.38; colour's −7 / 29 = −0.24;
+  - with outside opponents at −10 / +10: +17.93 / +36.55, i.e. 0.93 points per point.
+
+**R82.**
+- The six names are in E20 and in Appendix I.
+- On the printed list of October 2006, Svidler is 4th on Kramnik's 2750; 8 other printed ties at 3rd from July 2000 concern selected players.
+
+**R83.**
+- All 11 rendered instances of the label are exact.
+- The three aggregates' `terms` field equals the label.
+- README's carve-out and `LICENSE-docs.md`'s sentence are present.
+- E20 §1's 152,963 of 152,966 equals the sum of the four 2001 lists.
+
+**R84.** The FIDE row's status and why cells carry no date; the "read" cell's 2026-10-11T10:37:05Z is the footer's retrieval time.
+
+**R85.**
+- The User-Agent is exact and carries no email.
+- The five tools outside the freezes import `politeness`.
+- The three frozen tools keep "Mozilla/5.0".
+
+**R86 (F.3).**
+- Every number traces to E20 §4.2 or §1: 28 June 2009, 9 July 2009, July 2018, November 2018, 3 of 3, 41 points.
+- The raw APR03FRL.TXT holds 2315 for ID 1503014, as the converted file does.
+- F.3 cites E20 only.
+
+**R87.** T1's value cell is exact: "2300, 400, 50, 735 (fixed by ruling, R24; PROVISIONAL until set on FIDE's data, R47)".
+
+**The corrections in D-0018.** All four check against the files:
+- **REDTEAM_v0_1.**
+  - Rows: 30 findings, 6 blockers / 17 majors / 7 minors (R-STAT 2/6/2, R-QC 3/6/1, R-EXPLOIT 1/5/4).
+  - Status cells for the 23 blockers and majors: 18 fixed, 1 justified, 4 with two statuses.
+  - Status cells for the 7 minors: 4 fixed, 2 justified, 1 with two statuses.
+  - The totals line reads 5 / 17 / 8.
+- **REDTEAM_v0_4.** 15 findings (6 / 5 / 4), the same in the disposition table and in the verbatim report. The ELO-4 session log in the operator's files does read "17 findings: 7 blockers, 6 majors, 4 minors".
+- **E4.** Lines 266 and 429 carry the NOT VERIFIED wording. [VT 3] gives 101 of 101.
+- **"Fixed by ruling".** The quotes from E12 and SPEC-TOP100 are exact.
+
+For the figures of this section that rest on the lists to 2000: Derived from OlimpBase's transcription of FIDE's lists; non-commercial use only; not covered by this repository's CC BY 4.0 or Apache-2.0 licences.

@@ -153,7 +153,13 @@ def static_section() -> str:
       "file no longer changes this page. The script refuses to print unless the record's manifest equals the one D-0010 "
       "records. As at D-0012, two of the files differ from their hash here: `tools/checks/check_outputs.py`, changed by "
       "Freeze 3 and again by Freeze 3a, and `tools/set_results.py`, changed by Freeze 3a (R43); both are in Freeze 3a's "
-      "manifest.\n")
+      "manifest. Four more differ since (the review of session ELO-10, ELO10-QC-3, in `docs/review/REDTEAM_v1_0.md`): "
+      "`analysis/l0_ratification_check.py` with its output `analysis/OUTPUT_L0_ratification.md`, and "
+      "`analysis/l0_fixtures_report.py` with its output `analysis/OUTPUT_L0_fixtures.md`, re-pointed from SPEC-L0 v1.1 "
+      "to v1.2, v1.3 and v1.4 by commits 5ce9fe5 (PR #44, merged 2026-10-11T06:40:24Z), 4ceeed0 (PR #55, "
+      "14:36:49Z) and c0aa1d9 (PR #57, 16:00:41Z), the ratification output also gaining a test module in three of its "
+      "rows; no decision record authorises those changes. None of the four is in Freeze 3a's manifest, and none carries "
+      "a number of the comparison.\n")
     P("| File | SHA-256 at the tag freeze-2 |")
     P("|---|---|")
     for f, h in FREEZE2_AT_TAG:
