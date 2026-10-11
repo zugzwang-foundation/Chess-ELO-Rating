@@ -29,7 +29,7 @@ Status: DRAFT — where the project stands, in plain words; updated at every ses
 | item | real state |
 |---|---|
 | Proposal, annex, brief v1.0 | DRAFT, not for publication. Body 4,499 of 4,500 words; brief 900 of 900. Section 10 holds the method and the values fixed by the pairings. Its results stay blank until after the event, and its Layer 0 match until after the 1 November list |
-| Layer 0 and its specification (SPEC-L0 v1.4) | Specification RATIFIED. The engine is frozen until the 1 November check. Rung 1 is "recommended now", subject to that check |
+| Layer 0 and its specification (SPEC-L0 v1.5) | Specification RATIFIED. The engine is frozen until the 1 November check. Rung 1 is "recommended now", subject to that check |
 | Evidence E0–E20 | REVIEW, except E3, E13 and E18 (DRAFT). E3 and E13, the championship pages, are marked as in progress. E17 is kept as a record, superseded by E19 |
 | Appendices G–I (top 100; self-calibrating; the leading players since 1971) | in the draft proposal. G is superseded by H. I says what its data can and cannot show, and its data terms are still under review |
 | Specifications | REVIEW, except SPEC-L0 (RATIFIED) |

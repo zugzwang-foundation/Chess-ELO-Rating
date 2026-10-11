@@ -2,9 +2,10 @@
 """Assemble tests/fixtures/fide_greats/published_periods.json: a small sample of FIDE's published calculations of the
 greats' periods (ruling R79, docs/decisions/D-0017_rulings-on-the-greats.md: at most 30 player-periods, chosen by a
 fixed rule), for the rules src/layer0_greats/ transcribes from the texts in force before July 2017 (SPEC-GREATS v1.0 §6;
-docs/research/VERIFICATION_RATING-REGULATIONS-2001-2017.md) and the rounding ruling R74 adopts (SPEC-L0 §11,
-F-H09). The full reproduction runs locally from the gitignored cache (analysis/e20_greats_replay_extract.py), and
-only its counts are committed.
+docs/research/VERIFICATION_RATING-REGULATIONS-2001-2017.md) and the rounding the rulings R74 and R80 adopt (SPEC-L0 §11,
+F-H09 and F-H10; R80, docs/decisions/D-0018_rulings-on-elo-9-questions.md, adds F-G15 and F-G16 within R79's cap). The
+full reproduction runs locally from the gitignored cache (analysis/e20_greats_replay_extract.py), and only its counts
+are committed.
 
 Needs data/ (the calculations cached by tools/data/fetch_greats_calculations.py and FIDE's lists). Every case is
 chosen among the periods Layer 0 with the rules in force reproduces (every game, every tournament and the published
@@ -25,7 +26,13 @@ change), in the order of (list, FIDE ID) unless stated otherwise:
          and 2017 (from 1 July 2017, layer0_history's);
   F-G11, F-G12  either side of 1 July 2009: the period holding the tournament with the latest start before it, and
          the one holding the earliest start on or after it (ties in the order of list and FIDE ID);
-  F-G13, F-G14  the same either side of 1 July 2014.
+  F-G13, F-G14  the same either side of 1 July 2014;
+  F-G15  R80's last period before the switch: on the latest list published before November 2018 that holds one, the
+         first period whose sum ends in a negative half point, the published change rounded towards +infinity, not
+         reproduced by rounding away from zero;
+  F-G16  R80's first period after it: the first period on a list published from November 2018 whose sum ends in a
+         negative half point, the published change rounded away from zero, not reproduced by rounding towards
+         +infinity.
 Each case records, per tournament, its start, the player's Ro, K and K x sum, and per game the opponent's rating (the
 rating FIDE used, or, where FIDE printed the capped value, the opponent's rating on the list in force, found as
 analysis/e20_greats_replay_extract.py finds it), the rating FIDE printed, FIDE's cap mark, the score and FIDE's chg;
@@ -50,7 +57,7 @@ import e20_greats_replay_extract as rx  # noqa: E402  (the replay's lists, pages
 import layer0  # noqa: E402
 import layer0_greats as lg  # noqa: E402
 
-IDS = tuple(f"F-G{i:02d}" for i in range(1, 15))
+IDS = tuple(f"F-G{i:02d}" for i in range(1, 17))
 MAX_PERIODS = 30                # R79
 
 
@@ -83,6 +90,7 @@ def main() -> int:
     index = rx.name_index(needed)
     found: dict[str, dict] = {}
     edge: dict[str, tuple] = {}             # either side of a date: (start, list, FIDE ID) and the case
+    switch: dict[str, tuple] = {}           # R80: the last period before the switch (list, case), the first after it
     for (pid, t), page in sorted(pages.items(), key=lambda x: (x[0][1], int(x[0][0]))):
         if t not in dates or t <= rx.START:
             continue
@@ -139,14 +147,19 @@ def main() -> int:
         change = lists[t][pid][0] - lists[prev][pid][0]
         if lg.round_change(total, t) != change:
             continue
-        if t < lg.ROUNDING_2014_LIST and total < 0 and abs(total) % 1 == Decimal("0.5") and \
-                lg.round_change_away(total) != change:
+        negative_half = total < 0 and abs(total) % 1 == Decimal("0.5")
+        if t < lg.ROUNDING_2014_LIST and negative_half and lg.round_change_away(total) != change:
             flags.add("F-G06")
         case = {"list": t, "published_change": change, "sum": str(total),
                 "ever_2400_before": any(r >= 2400 for mm, r in series[pid].items() if mm <= prev), "tournaments": tours}
         for fid in sorted(flags):
             if fid not in found:
                 found[fid] = {"id": fid, **case}
+        if negative_half and t < lg.ROUNDING_2018_LIST and lg.round_change_away(total) != change and \
+                ("F-G15" not in switch or t > switch["F-G15"][0]):
+            switch["F-G15"] = (t, {"id": "F-G15", **case})
+        if negative_half and t >= lg.ROUNDING_2018_LIST and lg.round_change_up(total) != change and "F-G16" not in switch:
+            switch["F-G16"] = (t, {"id": "F-G16", **case})
         for d0, before, after in (("2009-07-01", "F-G11", "F-G12"), ("2014-07-01", "F-G13", "F-G14")):
             lo = max((x for x in starts if x < d0), default=None)
             hi = min((x for x in starts if x >= d0), default=None)
@@ -155,13 +168,16 @@ def main() -> int:
             if hi is not None and (after not in edge or hi < edge[after][0]):
                 edge[after] = (hi, {"id": after, **case})
     found.update({k: v for k, (_s, v) in edge.items()})
+    found.update({k: v for k, (_t, v) in switch.items()})
     out = {"source": "FIDE's published per-player rating calculations (ratings.fide.com/calculations.phtml, data endpoint "
                      "/a_indv_calculation.php), cached by tools/data/fetch_greats_calculations.py; FIDE's standard lists "
                      "for the published change and the opponents' ratings",
            "selection": "tools/data/assemble_greats_fixtures.py (R79: at most 30 player-periods, a fixed rule): for each "
                         "rule, the first period in the order of (list, FIDE ID) that shows it in a tournament the "
-                        "neighbouring reading does not reproduce, the first period of each version, and the periods either "
-                        "side of 1 July 2009 and of 1 July 2014, among periods Layer 0 with the rules in force reproduces",
+                        "neighbouring reading does not reproduce, the first period of each version, the periods either "
+                        "side of 1 July 2009 and of 1 July 2014, and R80's periods either side of the switch of rounding "
+                        "(the last before November 2018 and the first from it whose sum ends in a negative half point), "
+                        "among periods Layer 0 with the rules in force reproduces",
            "list_values_note": "published_change, opponent_rating and printed_rating are single values quoted from FIDE's "
                                "lists and calculations for verification; the lists themselves are not redistributed",
            "missing": [f for f in IDS if f not in found],
