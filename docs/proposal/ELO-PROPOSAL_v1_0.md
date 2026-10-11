@@ -3,9 +3,9 @@
 **Status: DRAFT v1.0 — not for publication**
 Author: The Zugzwang Authors · Licence: CC BY 4.0 (`docs/LICENSE-docs.md`) · Date: 2026-10-11
 Audience: FIDE's Qualification Commission (QC) and the chess public. Plain language first; the mathematics is in the technical annex.
-Companion documents: the technical annex `docs/proposal/ELO-TECHNICAL-ANNEX_v1_0.md` (sections T1–T11), which holds every formula, proof sketch and worked example and is cross-referenced as [T n]; and a 900-word plain-language brief, `docs/proposal/ELO-BRIEF_v1_0.md`. Version 1.0 applies the architect's rulings R66–R73 (`docs/decisions/D-0016_rulings-on-elo-8-questions.md`: the forecast test's reading confirmed, with Freeze 3d; the rules for choosing and refitting the self-calibrating tables, the caps after a rule change, name matching and what the aggregates keep), R54–R65 (`docs/decisions/D-0014_forecast-test-and-rulings.md`: part A, the forecast test and Freeze 3b; part B, the other questions, with the self-calibrating replays to come; the forecast test's reading in `docs/decisions/D-0015_forecast-test-reading.md`), R43–R53 (`docs/decisions/D-0012_pre-results-amendments.md`, with the reading of R43 in `docs/decisions/D-0013_games-not-counted.md`, confirmed by R57), R24–R42 (`docs/decisions/D-0011_rulings-and-freeze-3.md`) and R15–R23 (`docs/decisions/D-0009_architect-rulings-elo-5.md`) on top of R1–R14 (`docs/decisions/D-0008_architect-rulings-elo-4.md`) and decisions D1–D18 (`docs/decisions/D-0005_architect-decisions-v0.3.md`), and folds in the evidence of sessions ELO-5 and ELO-6: K from FIDE's activity record [E8], the farming guard [E10], the table calibrated by level [E11], the guard re-decided [E12], the amended championship comparison [E13], the simulator rerun on that table [E14], Layer 1's grids widened [E15] and rung 2 under review, restated at today's K [E16]; and of session ELO-7: today's top 100 replayed from January 2020 under FIDE's rules and under rung 2 [E17] (Appendix G); and of session ELO-8: the self-calibrating tables, each year's table fitted only on the games before it (`docs/specs/SPEC-SELFCAL_v1_2.md`) [E18], and today's top 100 under them [E19] (Appendix H), superseding E17's figures (R59).
+Companion documents: the technical annex `docs/proposal/ELO-TECHNICAL-ANNEX_v1_0.md` (sections T1–T11), which holds every formula, proof sketch and worked example and is cross-referenced as [T n]; and a 900-word plain-language brief, `docs/proposal/ELO-BRIEF_v1_0.md`. Version 1.0 applies the architect's rulings R66–R73 (`docs/decisions/D-0016_rulings-on-elo-8-questions.md`: the forecast test's reading confirmed, with Freeze 3d; the rules for choosing and refitting the self-calibrating tables, the caps after a rule change, name matching and what the aggregates keep), R54–R65 (`docs/decisions/D-0014_forecast-test-and-rulings.md`: part A, the forecast test and Freeze 3b; part B, the other questions, with the self-calibrating replays to come; the forecast test's reading in `docs/decisions/D-0015_forecast-test-reading.md`), R43–R53 (`docs/decisions/D-0012_pre-results-amendments.md`, with the reading of R43 in `docs/decisions/D-0013_games-not-counted.md`, confirmed by R57), R24–R42 (`docs/decisions/D-0011_rulings-and-freeze-3.md`) and R15–R23 (`docs/decisions/D-0009_architect-rulings-elo-5.md`) on top of R1–R14 (`docs/decisions/D-0008_architect-rulings-elo-4.md`) and decisions D1–D18 (`docs/decisions/D-0005_architect-decisions-v0.3.md`), and folds in the evidence of sessions ELO-5 and ELO-6: K from FIDE's activity record [E8], the farming guard [E10], the table calibrated by level [E11], the guard re-decided [E12], the amended championship comparison [E13], the simulator rerun on that table [E14], Layer 1's grids widened [E15] and rung 2 under review, restated at today's K [E16]; and of session ELO-7: today's top 100 replayed from January 2020 under FIDE's rules and under rung 2 [E17] (Appendix G); and of session ELO-8: the self-calibrating tables, each year's table fitted only on the games before it (`docs/specs/SPEC-SELFCAL_v1_2.md`) [E18], and today's top 100 under them [E19] (Appendix H), superseding E17's figures (R59); and of session ELO-9: the greats, the players ranked 1st to 3rd on FIDE's lists since 1971, on FIDE's own data (`docs/specs/SPEC-GREATS_v1_0.md`, with the rulings R74–R79 of `docs/decisions/D-0017_rulings-on-the-greats.md`) [E20] (Appendix I).
 
-How to read the citations. `[R §x]` points to a section of the research report `docs/research/ELO-RESEARCH_v1_0.md`; `[R n]` to the report's numbered source n; `[V k]` to item k of the primary-source sweep `docs/research/VERIFICATION_2026-10-09.md`; `[VT k]` to item k of the titles sweep `docs/research/VERIFICATION_TITLES.md`; `[VP k]` to item k of the prior-work sweep `docs/research/VERIFICATION_PRIOR-WORK.md`; `[T n]` to section n of the technical annex; `[E n]` to evidence report n under `docs/evidence/`, each the output of a committed script (E0 Layer 0 against FIDE, E1 FIDE's monthly lists, E2 the broadcast calibration, E3 the 2026 U.S. Championships, E4 the community register, E5 deflation, E6 the rungs on history, E7 federation residuals, E8 K from the activity record, E9 the simulator, E10 the farming guard, E11 the table by level, E12 the guard re-decided, E13 the championships under Freezes 3 to 3d, E14 the simulator on the v2 table, E15 Layer 1's grids widened, E16 rung 2 under review, E17 today's top 100 replayed, with a one-page summary, superseded by E19, E18 the self-calibrating tables, E19 today's top 100 under them). Calculated numbers not cited to an evidence report come from `analysis/v10_calculations.py` (output `analysis/OUTPUT_v1_0.md`, cited as "script §n") and, for the table calibrated by level, from `analysis/elo6_calculations.py` (output `analysis/OUTPUT_ELO6.md`, cited as "script v2 §n"). Every FIDE rule quoted here is transcribed from [V 1] (standard) or [V 2] (rapid and blitz). Every parameter value is PROVISIONAL, a placeholder to be replaced by an estimate from data, except the expected-score table's, which are PROVISIONAL-FITTED on broadcast games [E2] [E11]. The broadcast games behind E2, E6, E7, E8, E10, E11 and E12 are stronger and more international than the rated pool; their results hold for that population until FIDE's game archive tests them. The simulator's pool is synthetic [E9] [E14].
+How to read the citations. `[R §x]` points to a section of the research report `docs/research/ELO-RESEARCH_v1_0.md`; `[R n]` to the report's numbered source n; `[V k]` to item k of the primary-source sweep `docs/research/VERIFICATION_2026-10-09.md`; `[VT k]` to item k of the titles sweep `docs/research/VERIFICATION_TITLES.md`; `[VP k]` to item k of the prior-work sweep `docs/research/VERIFICATION_PRIOR-WORK.md`; `[T n]` to section n of the technical annex; `[E n]` to evidence report n under `docs/evidence/`, each the output of a committed script (E0 Layer 0 against FIDE, E1 FIDE's monthly lists, E2 the broadcast calibration, E3 the 2026 U.S. Championships, E4 the community register, E5 deflation, E6 the rungs on history, E7 federation residuals, E8 K from the activity record, E9 the simulator, E10 the farming guard, E11 the table by level, E12 the guard re-decided, E13 the championships under Freezes 3 to 3d, E14 the simulator on the v2 table, E15 Layer 1's grids widened, E16 rung 2 under review, E17 today's top 100 replayed, with a one-page summary, superseded by E19, E18 the self-calibrating tables, E19 today's top 100 under them, E20 the greats on FIDE's own data). Calculated numbers not cited to an evidence report come from `analysis/v10_calculations.py` (output `analysis/OUTPUT_v1_0.md`, cited as "script §n") and, for the table calibrated by level, from `analysis/elo6_calculations.py` (output `analysis/OUTPUT_ELO6.md`, cited as "script v2 §n"). Every FIDE rule quoted here is transcribed from [V 1] (standard) or [V 2] (rapid and blitz). Every parameter value is PROVISIONAL, a placeholder to be replaced by an estimate from data, except the expected-score table's, which are PROVISIONAL-FITTED on broadcast games [E2] [E11]. The broadcast games behind E2, E6, E7, E8, E10, E11 and E12 are stronger and more international than the rated pool; their results hold for that population until FIDE's game archive tests them. The simulator's pool is synthetic [E9] [E14].
 
 ---
 
@@ -649,6 +649,54 @@ Read with these caveats [E18 §5] [E19 §8]:
 - The figures describe the rule, not the players: who is stronger is not their question.
 
 *Under this rule, with the same results — not anyone's true strength.*
+
+---
+
+## Appendix I The greats, on FIDE's own data
+
+Outside the body's word count. From E20 (`docs/evidence/E20_greats.md`), under SPEC-GREATS v1.0, fixed before any analysis, and the rulings R74 to R79. Every table here, as in E20, reads:
+
+*Under this rule, with the same results — not anyone's true strength. A rating measures strength against one's own era.*
+
+**The data, and their limits.** The study uses only what the data probe found legitimately available (`docs/research/DATA-PROBE_greats.md`): FIDE's lists (as OlimpBase transcribes them to 2000, FIDE's own files since 2001), FIDE's printed top lists of 2000–2019 as the Internet Archive keeps them, and FIDE's per-player rating calculations, which give every game only from the list of April 2008. **TWIC and Chessmetrics were not used**, nor ChessBase or any other game collection whose terms need permission. So the greats' lists and their lead over their own era can be shown from 1971, but their games can be replayed only from 2008, and no comparison across eras is possible.
+
+**Who.** The 36 players ranked 1st to 3rd on any FIDE list from July 1971 to December 2019 [E20 §2], from Fischer, Korchnoi and Spassky on the first list (July 1971) to Ding, the last to join (February 2019).
+
+**Their lead over their own era** [E20 §3]: the best three consecutive years by the mean gap to the list's #2, the six largest.
+
+*Under this rule, with the same results — not anyone's true strength. A rating measures strength against one's own era.*
+
+| name | best three years | lists | mean gap to #2 | mean gap to #10 |
+|---|---|---|---|---|
+| Fischer, Robert J | July 1972 – January 1975 | 4 | +100.0 | +160.0 |
+| Kasparov, Garry | July 1990 – January 1993 | 6 | +64.2 | +145.0 |
+| Carlsen, Magnus | December 2012 – November 2015 | 36 | +53.7 | +101.2 |
+| Karpov, Anatoly | January 1976 – January 1978 | 3 | +43.3 | +85.0 |
+| Anand, Viswanathan | April 2006 – January 2009 | 12 | +6.0 | +54.5 |
+| Topalov, Veselin | October 2006 – September 2009 | 13 | +4.4 | +47.9 |
+
+Lists to 2000: OlimpBase's transcription of FIDE's lists, by Wojciech Bartelski (https://www.olimpbase.org/Elo/summary.html), used under its terms: free of charge, citing the source, non-commercial use only (DATA-PROBE §3); only figures derived from it are kept here (R77).
+
+A lead over one's contemporaries, on lists whose frequency and spread change with the era: not a ranking across eras.
+
+**The replay, 2008–2019** [E20 §4–§5]. Of the 36, 29 have rated games in the window. Layer 0, with the rules in force at each date, reproduces FIDE's printed change in 18,490 of 18,490 games; 36 player-periods are thin and carry FIDE's change. FIDE's pages date the end of the 350-point rule: last applied to a tournament starting 28 June 2009, the 400-point rule from 9 July 2009. Before July 2014 FIDE rounded a half point towards +∞, which Layer 0 adopts (R74), a reading changed after partial pages had been seen (65 thin periods under the reading first recorded). Under the 2025 table, **applied backwards, not fitted on that era**, the greats end 2019 27.0 points above FIDE's ratings on average (from −9 to +62):
+
+*Under this rule, with the same results — not anyone's true strength. A rating measures strength against one's own era.*
+
+| name | games | highest under FIDE's rules, 2008–2019 | highest under the 2025 table | difference, December 2019 |
+|---|---|---|---|---|
+| Carlsen, Magnus | 777 | 2882 (May 2014) | 2945 (August 2019) | +62 |
+| Caruana, Fabiano | 1,208 | 2844 (October 2014) | 2882 (December 2018) | +55 |
+| Aronian, Levon | 881 | 2830 (March 2014) | 2875 (March 2014) | +34 |
+| So, Wesley | 1,019 | 2822 (February 2017) | 2857 (February 2017) | +37 |
+| Mamedyarov, Shakhriyar | 854 | 2820 (September 2018) | 2858 (September 2018) | +37 |
+| Vachier-Lagrave, Maxime | 1,145 | 2819 (August 2016) | 2848 (August 2016) | +35 |
+| Anand, Viswanathan | 590 | 2817 (March 2011) | 2847 (July 2015) | +32 |
+| Kramnik, Vladimir | 566 | 2817 (October 2016) | 2855 (October 2016) | +40 |
+| Ding, Liren | 859 | 2816 (November 2018) | 2854 (September 2019) | +41 |
+| Nakamura, Hikaru | 972 | 2816 (October 2015) | 2851 (October 2015) | +33 |
+
+**What permission would add.** With written permission from TWIC, ChessBase or Chessmetrics, the full study becomes possible: every game of the greats' careers replayed under both systems, not only those of 2008–2019, and the games that link one era's players to the next. Permission has not been sought.
 
 ---
 
