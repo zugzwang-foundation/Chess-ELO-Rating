@@ -155,6 +155,12 @@
    "url": "https://web.archive.org/web/20220201233541id_/https://ratings.fide.com/download.phtml?period=2002-04-01"
   },
   "footer": "© 2026 FIDE International Chess Federation. All Rights Reserved. No part of this site may be reproduced, stored in a retrieval system or transmitted in any way or by any means (including photocopying, recording or storing it in any medium by electronic means), without the written permission of FIDE International Chess Federation.",
+  "footer_source": {
+   "bytes": 52021,
+   "fetched_utc": "2026-10-11T10:37:05Z",
+   "status": "200",
+   "url": "https://ratings.fide.com/"
+  },
   "handbook": {
    "b022014": {
     "fetched_utc": "2026-10-11T10:44:08Z"

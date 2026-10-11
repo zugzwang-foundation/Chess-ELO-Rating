@@ -3,7 +3,8 @@
 The rules are those transcribed in docs/research/VERIFICATION_RATING-REGULATIONS-2001-2017.md: the 350-point rule of the
 October 2007 text, the 400-point rule of the June 2010 text (read as applying to tournaments from 1 July 2009, which
 FIDE's pages bear out), K 25/15/10 and, from 1 July 2014, 40/20/10; the rounding of the lists before July 2014, 0.5
-towards +infinity (ruling R74, SPEC-L0 v1.3 §11, F-H09), and from July 2014 the 2014 clause read as away from zero.
+towards +infinity (ruling R74, SPEC-L0 §11, F-H09: the 2007 and 2010 texts round the new rating, §10.53 and §8.57),
+and from July 2014 the 2014 clause read as away from zero.
 The fixtures are a small sample of FIDE's published calculations of the greats' periods chosen by a fixed rule (R79:
 at most 30 player-periods; tests/fixtures/fide_greats/published_periods.json, written by
 tools/data/assemble_greats_fixtures.py): every game's Delta R, every tournament's K x sum and the list change,
@@ -52,8 +53,8 @@ def test_k_rules_of_each_version():
 
 
 def test_rounding_by_the_list():
-    # R74: on the lists before July 2014 (no clause in the 2007 and 2010 texts) 0.5 towards +infinity, the 2014 words
-    # "0.5 is rounded up ( whether the change is positive or negative )" read literally, as FIDE's lists show (F-H09);
+    # R74: on the lists before July 2014 0.5 towards +infinity: the 2007 and 2010 texts round the new rating (§10.53;
+    # §8.57, "0.5 is rounded to 1"), as FIDE's lists show (F-H09);
     # from the list of July 2014 the 2014 clause read as away from zero, as E17 found the same words of 2017 applied.
     assert lg.round_change(Decimal("-8.5"), "2014-06") == -8 and lg.round_change(Decimal("8.5"), "2014-06") == 9
     assert lg.round_change(Decimal("-8.5"), "2014-07") == -9 and lg.round_change(Decimal("8.5"), "2014-07") == 9

@@ -1,4 +1,122 @@
 {
+ "calibration": {
+  "by_band": {
+   "2350": {
+    "games": 212,
+    "players": 12,
+    "table_2025": {
+     "hi": 0.0922,
+     "lo": -0.0399,
+     "mean": 0.0261
+    },
+    "table_812": {
+     "hi": 0.0532,
+     "lo": -0.0794,
+     "mean": -0.0131
+    }
+   },
+   "2450": {
+    "games": 1075,
+    "players": 18,
+    "table_2025": {
+     "hi": 0.0635,
+     "lo": 0.0191,
+     "mean": 0.0413
+    },
+    "table_812": {
+     "hi": 0.0162,
+     "lo": -0.0254,
+     "mean": -0.0046
+    }
+   },
+   "2550": {
+    "games": 2121,
+    "players": 25,
+    "table_2025": {
+     "hi": 0.0504,
+     "lo": 0.0089,
+     "mean": 0.0297
+    },
+    "table_812": {
+     "hi": 0.005,
+     "lo": -0.0352,
+     "mean": -0.0151
+    }
+   },
+   "2650": {
+    "games": 2806,
+    "players": 20,
+    "table_2025": {
+     "hi": 0.0578,
+     "lo": 0.0336,
+     "mean": 0.0457
+    },
+    "table_812": {
+     "hi": 0.0118,
+     "lo": -0.0123,
+     "mean": -0.0003
+    }
+   },
+   "2750": {
+    "games": 2858,
+    "players": 17,
+    "table_2025": {
+     "hi": 0.0379,
+     "lo": 0.0148,
+     "mean": 0.0264
+    },
+    "table_812": {
+     "hi": -0.0051,
+     "lo": -0.0269,
+     "mean": -0.016
+    }
+   },
+   "2850": {
+    "games": 271,
+    "players": 3,
+    "table_2025": {
+     "hi": 0.0409,
+     "lo": 0.026,
+     "mean": 0.0335
+    },
+    "table_812": {
+     "hi": -0.0032,
+     "lo": -0.0159,
+     "mean": -0.0096
+    }
+   }
+  },
+  "colour": "FIDE's marks",
+  "game_rows_by_band": {
+   "2050": 4,
+   "2150": 36,
+   "2250": 115,
+   "2350": 432,
+   "2450": 1346,
+   "2550": 3017,
+   "2650": 4168,
+   "2750": 8436,
+   "2850": 936
+  },
+  "gaps": [
+   50,
+   399
+  ],
+  "overall": {
+   "games": 9372,
+   "players": 29,
+   "table_2025": {
+    "hi": 0.0438,
+    "lo": 0.0269,
+    "mean": 0.0353
+   },
+   "table_812": {
+    "hi": -0.0008,
+    "lo": -0.0172,
+    "mean": -0.009
+   }
+  }
+ },
  "checked_with_next_file": [
   [
    "13401319",
@@ -34,6 +152,12 @@
   "15": 5
  },
  "negative_half_points": {
+  "before_july_2014_lists": 23,
+  "before_july_2014_lists_with_away_from_zero": {
+   "2009-01": {
+    "away_from_zero": 3
+   }
+  },
   "by_year": {
    "2008": {
     "towards_plus_infinity": 1
@@ -95,6 +219,8 @@
    "difference_outside_plus10": 43,
    "fide_id": 400025,
    "first_period": "2008-04",
+   "game_rows": 739,
+   "game_rows_at_2800_or_more": 0,
    "games_in_thin_periods": 0,
    "games_replayed": 739,
    "highest_layer0": {
@@ -116,6 +242,7 @@
     ],
     "rating": 2728
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-12",
    "name": "Short, Nigel D",
    "periods_on_index": 72,
@@ -141,6 +268,8 @@
    "difference_outside_plus10": 45,
    "fide_id": 623539,
    "first_period": "2008-04",
+   "game_rows": 1145,
+   "game_rows_at_2800_or_more": 36,
    "games_in_thin_periods": 0,
    "games_replayed": 1145,
    "highest_layer0": {
@@ -161,6 +290,7 @@
     ],
     "rating": 2849
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-12",
    "name": "Vachier-Lagrave, Maxime",
    "periods_on_index": 93,
@@ -186,6 +316,8 @@
    "difference_outside_plus10": 32,
    "fide_id": 627089,
    "first_period": "2008-04",
+   "game_rows": 781,
+   "game_rows_at_2800_or_more": 0,
    "games_in_thin_periods": 29,
    "games_replayed": 752,
    "highest_layer0": {
@@ -207,6 +339,7 @@
     ],
     "rating": 2613
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-12",
    "name": "Sokolov, Andrei",
    "periods_on_index": 95,
@@ -249,6 +382,8 @@
    "difference_outside_plus10": 16,
    "fide_id": 700037,
    "first_period": "2008-04",
+   "game_rows": 119,
+   "game_rows_at_2800_or_more": 0,
    "games_in_thin_periods": 0,
    "games_replayed": 119,
    "highest_layer0": {
@@ -272,6 +407,7 @@
     ],
     "rating": 2547
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2014-07",
    "name": "Portisch, Lajos",
    "periods_on_index": 13,
@@ -297,6 +433,8 @@
    "difference_outside_plus10": -7,
    "fide_id": 900010,
    "first_period": "2008-04",
+   "game_rows": 37,
+   "game_rows_at_2800_or_more": 0,
    "games_in_thin_periods": 0,
    "games_replayed": 37,
    "highest_layer0": {
@@ -323,6 +461,7 @@
     ],
     "rating": 2565
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2010-09",
    "name": "Ljubojevic, Ljubomir",
    "periods_on_index": 5,
@@ -348,6 +487,8 @@
    "difference_outside_plus10": 30,
    "fide_id": 1000012,
    "first_period": "2008-04",
+   "game_rows": 533,
+   "game_rows_at_2800_or_more": 0,
    "games_in_thin_periods": 18,
    "games_replayed": 515,
    "highest_layer0": {
@@ -368,6 +509,7 @@
     ],
     "rating": 2641
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-12",
    "name": "Timman, Jan H",
    "periods_on_index": 90,
@@ -414,6 +556,8 @@
    "difference_outside_plus10": 34,
    "fide_id": 1300016,
    "first_period": "2008-04",
+   "game_rows": 265,
+   "game_rows_at_2800_or_more": 0,
    "games_in_thin_periods": 28,
    "games_replayed": 237,
    "highest_layer0": {
@@ -434,6 +578,7 @@
     ],
     "rating": 2602
    },
+   "last_list_on_fide": "2016-05",
    "last_period": "2012-11",
    "name": "Korchnoi, Viktor",
    "periods_on_index": 21,
@@ -464,6 +609,8 @@
    "difference_outside_plus10": 73,
    "fide_id": 1503014,
    "first_period": "2008-04",
+   "game_rows": 785,
+   "game_rows_at_2800_or_more": 355,
    "games_in_thin_periods": 8,
    "games_replayed": 777,
    "highest_layer0": {
@@ -485,6 +632,7 @@
     ],
     "rating": 2945
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-12",
    "name": "Carlsen, Magnus",
    "periods_on_index": 69,
@@ -515,6 +663,8 @@
    "difference_outside_plus10": 43,
    "fide_id": 2016192,
    "first_period": "2008-04",
+   "game_rows": 972,
+   "game_rows_at_2800_or_more": 47,
    "games_in_thin_periods": 0,
    "games_replayed": 972,
    "highest_layer0": {
@@ -535,6 +685,7 @@
     ],
     "rating": 2852
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-12",
    "name": "Nakamura, Hikaru",
    "periods_on_index": 82,
@@ -560,6 +711,8 @@
    "difference_outside_plus10": 66,
    "fide_id": 2020009,
    "first_period": "2008-04",
+   "game_rows": 1224,
+   "game_rows_at_2800_or_more": 110,
    "games_in_thin_periods": 16,
    "games_replayed": 1208,
    "highest_layer0": {
@@ -580,6 +733,7 @@
     ],
     "rating": 2883
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-11",
    "name": "Caruana, Fabiano",
    "periods_on_index": 90,
@@ -614,6 +768,8 @@
    "difference_outside_plus10": 3,
    "fide_id": 2100010,
    "first_period": "2008-07",
+   "game_rows": 180,
+   "game_rows_at_2800_or_more": 0,
    "games_in_thin_periods": 9,
    "games_replayed": 171,
    "highest_layer0": {
@@ -778,6 +934,7 @@
     ],
     "rating": 2595
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-10",
    "name": "Mecking, Henrique",
    "periods_on_index": 18,
@@ -808,6 +965,8 @@
    "difference_outside_plus10": 39,
    "fide_id": 2209390,
    "first_period": "2008-04",
+   "game_rows": 971,
+   "game_rows_at_2800_or_more": 0,
    "games_in_thin_periods": 0,
    "games_replayed": 971,
    "highest_layer0": {
@@ -831,6 +990,7 @@
     ],
     "rating": 2774
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-12",
    "name": "Shirov, Alexei",
    "periods_on_index": 92,
@@ -856,6 +1016,8 @@
    "difference_outside_plus10": 29,
    "fide_id": 2805677,
    "first_period": "2008-04",
+   "game_rows": 699,
+   "game_rows_at_2800_or_more": 4,
    "games_in_thin_periods": 9,
    "games_replayed": 690,
    "highest_layer0": {
@@ -882,6 +1044,7 @@
     ],
     "rating": 2795
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-11",
    "name": "Gelfand, Boris",
    "periods_on_index": 65,
@@ -916,6 +1079,8 @@
    "difference_outside_plus10": 34,
    "fide_id": 2900084,
    "first_period": "2008-04",
+   "game_rows": 451,
+   "game_rows_at_2800_or_more": 23,
    "games_in_thin_periods": 0,
    "games_replayed": 451,
    "highest_layer0": {
@@ -942,6 +1107,7 @@
     ],
     "rating": 2850
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-12",
    "name": "Topalov, Veselin",
    "periods_on_index": 46,
@@ -967,6 +1133,8 @@
    "difference_outside_plus10": 5,
    "fide_id": 4100026,
    "first_period": "2008-07",
+   "game_rows": 42,
+   "game_rows_at_2800_or_more": 0,
    "games_in_thin_periods": 0,
    "games_replayed": 42,
    "highest_layer0": {
@@ -987,6 +1155,7 @@
     ],
     "rating": 2655
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-06",
    "name": "Karpov, Anatoly",
    "periods_on_index": 17,
@@ -1012,6 +1181,8 @@
    "difference_outside_plus10": 51,
    "fide_id": 4101588,
    "first_period": "2008-04",
+   "game_rows": 586,
+   "game_rows_at_2800_or_more": 51,
    "games_in_thin_periods": 20,
    "games_replayed": 566,
    "highest_layer0": {
@@ -1032,6 +1203,7 @@
     ],
     "rating": 2856
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-02",
    "name": "Kramnik, Vladimir",
    "periods_on_index": 54,
@@ -1062,6 +1234,8 @@
    "difference_outside_plus10": 32,
    "fide_id": 4116992,
    "first_period": "2008-04",
+   "game_rows": 390,
+   "game_rows_at_2800_or_more": 2,
    "games_in_thin_periods": 20,
    "games_replayed": 370,
    "highest_layer0": {
@@ -1083,6 +1257,7 @@
     ],
     "rating": 2802
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-07",
    "name": "Morozevich, Alexander",
    "periods_on_index": 39,
@@ -1113,6 +1288,8 @@
    "difference_outside_plus10": 44,
    "fide_id": 4126025,
    "first_period": "2008-04",
+   "game_rows": 742,
+   "game_rows_at_2800_or_more": 11,
    "games_in_thin_periods": 31,
    "games_replayed": 711,
    "highest_layer0": {
@@ -1139,6 +1316,7 @@
     ],
     "rating": 2844
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-12",
    "name": "Grischuk, Alexander",
    "periods_on_index": 66,
@@ -1181,6 +1359,8 @@
    "difference_outside_plus10": 39,
    "fide_id": 4600010,
    "first_period": "2008-04",
+   "game_rows": 208,
+   "game_rows_at_2800_or_more": 0,
    "games_in_thin_periods": 1,
    "games_replayed": 207,
    "highest_layer0": {
@@ -1202,6 +1382,7 @@
     ],
     "rating": 2628
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-11",
    "name": "Huebner, Robert",
    "periods_on_index": 59,
@@ -1232,6 +1413,8 @@
    "difference_outside_plus10": 37,
    "fide_id": 4618777,
    "first_period": "2008-04",
+   "game_rows": 314,
+   "game_rows_at_2800_or_more": 0,
    "games_in_thin_periods": 1,
    "games_replayed": 313,
    "highest_layer0": {
@@ -1261,6 +1444,7 @@
     ],
     "rating": 2627
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-05",
    "name": "Jussupow, Artur",
    "periods_on_index": 56,
@@ -1291,6 +1475,8 @@
    "difference_outside_plus10": 43,
    "fide_id": 5000017,
    "first_period": "2008-04",
+   "game_rows": 599,
+   "game_rows_at_2800_or_more": 81,
    "games_in_thin_periods": 9,
    "games_replayed": 590,
    "highest_layer0": {
@@ -1318,6 +1504,7 @@
     ],
     "rating": 2846
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-11",
    "name": "Anand, Viswanathan",
    "periods_on_index": 62,
@@ -1348,6 +1535,8 @@
    "difference_outside_plus10": 47,
    "fide_id": 5202213,
    "first_period": "2008-04",
+   "game_rows": 1019,
+   "game_rows_at_2800_or_more": 35,
    "games_in_thin_periods": 0,
    "games_replayed": 1019,
    "highest_layer0": {
@@ -1374,6 +1563,7 @@
     ],
     "rating": 2858
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-11",
    "name": "So, Wesley",
    "periods_on_index": 75,
@@ -1399,6 +1589,8 @@
    "difference_outside_plus10": 51,
    "fide_id": 8603677,
    "first_period": "2008-07",
+   "game_rows": 926,
+   "game_rows_at_2800_or_more": 18,
    "games_in_thin_periods": 67,
    "games_replayed": 859,
    "highest_layer0": {
@@ -1421,6 +1613,7 @@
     ],
     "rating": 2854
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-11",
    "name": "Ding, Liren",
    "periods_on_index": 83,
@@ -1463,6 +1656,8 @@
    "difference_outside_plus10": 29,
    "fide_id": 13300016,
    "first_period": "2008-07",
+   "game_rows": 192,
+   "game_rows_at_2800_or_more": 0,
    "games_in_thin_periods": 0,
    "games_replayed": 192,
    "highest_layer0": {
@@ -1483,6 +1678,7 @@
     ],
     "rating": 2617
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-12",
    "name": "Vaganian, Rafael A",
    "periods_on_index": 23,
@@ -1508,6 +1704,8 @@
    "difference_outside_plus10": 44,
    "fide_id": 13300474,
    "first_period": "2008-04",
+   "game_rows": 899,
+   "game_rows_at_2800_or_more": 93,
    "games_in_thin_periods": 18,
    "games_replayed": 881,
    "highest_layer0": {
@@ -1528,6 +1726,7 @@
     ],
     "rating": 2876
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-12",
    "name": "Aronian, Levon",
    "periods_on_index": 83,
@@ -1562,6 +1761,8 @@
    "difference_outside_plus10": 48,
    "fide_id": 13401319,
    "first_period": "2008-04",
+   "game_rows": 854,
+   "game_rows_at_2800_or_more": 34,
    "games_in_thin_periods": 0,
    "games_replayed": 854,
    "highest_layer0": {
@@ -1585,6 +1786,7 @@
     ],
     "rating": 2858
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-12",
    "name": "Mamedyarov, Shakhriyar",
    "periods_on_index": 78,
@@ -1610,6 +1812,8 @@
    "difference_outside_plus10": 36,
    "fide_id": 14100010,
    "first_period": "2008-04",
+   "game_rows": 971,
+   "game_rows_at_2800_or_more": 4,
    "games_in_thin_periods": 10,
    "games_replayed": 961,
    "highest_layer0": {
@@ -1630,6 +1834,7 @@
     ],
     "rating": 2809
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-12",
    "name": "Ivanchuk, Vassily",
    "periods_on_index": 77,
@@ -1664,6 +1869,8 @@
    "difference_outside_plus10": 24,
    "fide_id": 14602377,
    "first_period": "2008-04",
+   "game_rows": 644,
+   "game_rows_at_2800_or_more": 0,
    "games_in_thin_periods": 29,
    "games_replayed": 615,
    "highest_layer0": {
@@ -1684,6 +1891,7 @@
     ],
     "rating": 2686
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-04",
    "name": "Beliavsky, Alexander G",
    "periods_on_index": 58,
@@ -1718,6 +1926,8 @@
    "difference_outside_plus10": 44,
    "fide_id": 24116068,
    "first_period": "2008-04",
+   "game_rows": 1203,
+   "game_rows_at_2800_or_more": 32,
    "games_in_thin_periods": 7,
    "games_replayed": 1196,
    "highest_layer0": {
@@ -1742,6 +1952,7 @@
     ],
     "rating": 2835
    },
+   "last_list_on_fide": "2019-12",
    "last_period": "2019-12",
    "name": "Giri, Anish",
    "periods_on_index": 93,
@@ -1872,7 +2083,7 @@
    "reproduced_once_per_tournament": 484,
    "reproduced_towards_plus_infinity": 530
   },
-  "lists to June 2014 (no clause)": {
+  "lists to June 2014 (the 2007 and 2010 texts)": {
    "half_float_exact": 33,
    "half_float_exact_away_from_zero": 20,
    "half_float_exact_towards_zero": 12,

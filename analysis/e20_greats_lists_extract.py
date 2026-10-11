@@ -73,8 +73,9 @@ def check_histories() -> dict:
                 continue
             row = next((r for r in gs.rows(path) if r["id"] == pid), None)
             checked += 1
-            if row is None or row["rating"] != x["rating"]:
-                differ.append({"id": pid, "list": period, "history": x["rating"], "file": row["rating"] if row else None})
+            if row is None or row["rating"] != x["rating"]:            # the size of the difference only (ELO9-QC-4)
+                differ.append({"id": pid, "list": period,
+                               "history_minus_file": int(x["rating"]) - int(row["rating"]) if row else None})
     return {"points": checked, "differ": differ}
 
 
@@ -144,8 +145,9 @@ def main() -> int:
             ranks = {k: 1 + sum(1 for x in ratings if x > r) for k, r in rk if k in keys}
             vals = {k: r for k, r in rk if k in keys}
             src = "computed"
+        tie3 = src == "computed" and sum(1 for x in ratings if x >= ratings[2]) > 3     # several share 3rd
         board[period] = {"source": src, "r1": ratings[0], "r2": ratings[1], "r10": ratings[9], "ranks": ranks,
-                         "ratings": vals}
+                         "ratings": vals, "tie3": tie3, "third": ratings[2]}
     board_dates = sorted(board)
     players = []
     for key, p in sorted(keys.items(), key=lambda kv: (kv[1]["first_top3"], kv[1]["name"])):
@@ -156,7 +158,7 @@ def main() -> int:
         gap10 = {d: board[d]["ratings"][key] - board[d]["r10"] for d in ranks}
 
         def best(gap: dict[str, int]) -> dict | None:
-            top = None
+            top, scores = None, []
             for t in board_dates:
                 # a window reaching past December 2019 holds lists on which no rank is defined (SPEC-GREATS §2, §5)
                 if t not in gap or gs.months_between(t, RANKS_END) < WINDOW:
@@ -165,20 +167,46 @@ def main() -> int:
                 if any(d not in gap for d in win):
                     continue
                 score = sum(gap[d] for d in win) / len(win)
+                scores.append(score)
                 if top is None or score > top["mean"]:
                     top = {"first": win[0], "last": win[-1], "lists": len(win), "mean": round(score, 1),
                            "mean_gap2": round(sum(gap2[d] for d in win) / len(win), 1),
                            "mean_gap10": round(sum(gap10[d] for d in win) / len(win), 1),
                            "lists_at_1": sum(1 for d in win if ranks[d] == 1)}
+            if top is not None:                  # ELO9-STAT-5: the maximum over how many windows, and their median
+                ss = sorted(scores)
+                mid = len(ss) // 2
+                top["windows"] = len(ss)
+                top["median_window_mean"] = round(ss[mid] if len(ss) % 2 else (ss[mid - 1] + ss[mid]) / 2, 1)
             return top
+        top3 = [d for d, r in ranks.items() if r <= 3]
+        span = [d for d in rank_dates if s and min(s) <= d <= max(s)]
         players.append({
             "key": key, "fide_id": p["fide_id"], "name": p["name"], "federation": p["federation"],
+            "top3_only_by_a_shared_third": bool(top3) and all(ranks[d] == 3 and board[d]["tie3"] for d in top3),
+            "top3_lists_shared_third": sorted(d for d in top3 if ranks[d] == 3 and board[d]["tie3"]),
+            "absent_from_lists_in_span": [d for d in span if d not in s and d in entries],
             "first_list": min(s) if s else None, "last_list": max(s) if s else None, "lists": len(s),
             "peak": peak, "peak_lists": [d for d, r in sorted(s.items()) if r == peak],
             "lists_rank1": sum(1 for r in ranks.values() if r == 1),
             "lists_top3": sum(1 for r in ranks.values() if r <= 3),
             "lists_top10": sum(1 for r in ranks.values() if r <= 10),
             "best_by_gap2": best(gap2), "best_by_gap10": best(gap10)})
+    # ELO9-STAT-3: lists that lack a player ranked 1st to 3rd on the ranked lists either side of them
+    names = {k: v["name"] for k, v in keys.items()}
+    missing_top3 = []
+    for key in keys:
+        rk = {d: board[d]["ranks"][key] for d in board_dates if key in board[d]["ranks"]}
+        for d in board_dates:
+            if key in board[d]["ranks"] or not rk:
+                continue
+            before = [x for x in rk if x < d]
+            after = [x for x in rk if x > d]
+            if before and after and rk[max(before)] <= 3 and rk[min(after)] <= 3:
+                missing_top3.append({"list": d, "absent": names[key], "ranked_before": rk[max(before)],
+                                     "ranked_after": rk[min(after)],
+                                     "top3_on_the_list": sorted([[names[k], r] for k, r in board[d]["ranks"].items()
+                                                                 if r <= 3], key=lambda x: (x[1], x[0]))})
     CACHE.parent.mkdir(parents=True, exist_ok=True)
     CACHE.write_text(json.dumps({k: series.get(k, {}) for k in keys}, indent=1, sort_keys=True) + "\n",
                      encoding="utf-8")
@@ -190,7 +218,13 @@ def main() -> int:
            "lists": {"series": {"first": dates[0], "last": dates[-1], "dates": len(dates)},
                      "ranks": {"first": board_dates[0], "last": board_dates[-1], "dates": len(board_dates),
                                "printed": sum(1 for d in board_dates if board[d]["source"] == "printed")}},
-           "window_months": WINDOW, "players": players}
+           "window_months": WINDOW, "players": players,
+           "lists_missing_a_top3_player": sorted(missing_top3, key=lambda x: (x["list"], x["absent"])),
+           # ELO9-STAT-3: on FIDE's printed lists ties are broken in FIDE's order; who shared the 3rd's rating there
+           "printed_ties_at_third": [{"list": d, "name": r["name"], "printed_rank": int(r["rank"]),
+                                      "selected": (r["id"] or f"name:{r['name']}") in keys}
+                                     for d, top in sorted(printed.items())
+                                     for r in top if int(r["rank"]) > 3 and int(r["rating"]) == board[d]["third"]]}
     json.dump(out, sys.stdout, indent=1, sort_keys=True, ensure_ascii=False)
     sys.stdout.write("\n")
     return 0

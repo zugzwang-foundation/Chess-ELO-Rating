@@ -206,7 +206,7 @@ def resolve(g: dict, ro: int, idx: dict) -> int | None:
 
 def rounding_era(t: str) -> str:
     """The rounding clause of the regulations in force when the list t was published."""
-    return "lists to June 2014 (no clause)" if t < lg.ROUNDING_2014_LIST else (
+    return "lists to June 2014 (the 2007 and 2010 texts)" if t < lg.ROUNDING_2014_LIST else (
         "lists of July 2014 to June 2017 (the 2014 clause)" if t < "2017-07" else "lists from July 2017 (the 2017 clause)")
 
 
@@ -516,10 +516,12 @@ def players_of(c: dict, r: dict) -> list[dict]:
             continue
         L0, R2, st = r["L0"][p], {v: r["R2"][v][p] for v in VARIANTS}, r["stats"][p]
         last = max(m for m in L0 if m <= LAST)
+        on_file = max(m for m in c["window"] if p in c["lists"][m])
         d = {v: R2[v][last] - L0[last] for v in VARIANTS}
         played = [x.split(":")[1] for x in c["plan"] if x.split(":")[0] == p]
         out.append({
             "fide_id": int(p), "name": c["selected"].get(p, ""), "periods_on_index": len(played),
+            "last_list_on_fide": on_file,
             "first_period": min(played), "last_period": max(played),
             "periods_replayed": st["periods"], "games_replayed": st["games"],
             "thin_periods": len(r["thin"][p]), "games_in_thin_periods": st["games_thin"], "thin": r["thin"][p],
@@ -530,6 +532,54 @@ def players_of(c: dict, r: dict) -> list[dict]:
     return out
 
 
+def calibration(c: dict) -> dict:
+    """ELO9-STAT-1's check, at FIDE's own ratings: on every replayed game in which the player of the set is the
+    favourite by 50 to 399 points (the rating FIDE used, or the opponent's rating on the list in force where FIDE
+    printed a capped value), the favourite's residual, score minus expectation, under table 8.1.2 and under the 2025
+    table (FIDE's colour mark, as the method applies it), by level band and overall, with 95 % intervals clustered over
+    the players of the set; and every game row's level band, overall and per player."""
+    res: dict[int, list] = defaultdict(list)
+    rows_by_band: Counter = Counter()
+    per_player: dict[str, Counter] = defaultdict(Counter)
+    for (p, t), page in c["pages"].items():
+        for tr in page["tournaments"]:
+            m = list_for_ro(c["lists"], c["dates"], p, tr["ro"], tr["start"], t)
+            for g in tr["games"]:
+                opp = g["rating"]
+                if maybe_capped(g, tr["ro"]):
+                    r = resolve(g, tr["ro"], c["index"].get(m, {}))
+                    opp = r if r is not None else opp
+                own = tr["ro"]
+                mid = ex.t2.band_mid((own + opp) // 2)
+                rows_by_band[mid] += 1
+                per_player[p]["rows"] += 1
+                per_player[p]["rows_2800"] += mid >= 2850
+                if 50 <= own - opp < 400:
+                    w = 1 if g["mark"] == "white" else -1
+                    e812 = layer0.expected_score(own - opp)
+                    e25 = e19.sc_expectation(TABLE, own, opp, w)
+                    res[mid].append((p, float(g["score"] - e812), float(g["score"] - e25)))
+
+    def summarise(rows: list) -> dict:
+        n = len(rows)
+        out = {"games": n, "players": len({p for p, _a, _b in rows})}
+        for k, i in (("table_812", 1), ("table_2025", 2)):
+            mean = sum(r[i] for r in rows) / n
+            by: dict[str, float] = defaultdict(float)
+            for r in rows:
+                by[r[0]] += r[i] - mean
+            g = len(by)
+            se = (sum(v * v for v in by.values()) * g / (g - 1)) ** 0.5 / n if g > 1 else 0.0
+            out[k] = {"mean": round(mean, 4), "lo": round(mean - 1.96 * se, 4), "hi": round(mean + 1.96 * se, 4)}
+        return out
+
+    every = [r for v in res.values() for r in v]
+    return {"gaps": [50, 399], "colour": "FIDE's marks", "overall": summarise(every),
+            "by_band": {str(mid): summarise(v) for mid, v in sorted(res.items()) if len(v) >= 30},
+            "game_rows_by_band": {str(k): n for k, n in sorted(rows_by_band.items())},
+            "per_player_rows": {p: [x["rows"], x["rows_2800"]] for p, x in per_player.items()}}
+
+
 def negative_halves(rows: list[tuple[str, str]]) -> dict:
     """How FIDE's lists rounded a period's sum ending in a negative half point, by year of the list, and the lists from
     July 2014 on which the direction last went up and first went away from zero (counts and list dates only)."""
@@ -537,7 +587,14 @@ def negative_halves(rows: list[tuple[str, str]]) -> dict:
     for t, how in rows:
         by_year[t[:4]][how] += 1
     after = [(t, how) for t, how in rows if t >= lg.ROUNDING_2014_LIST]
+    early = defaultdict(Counter)
+    for t, how in rows:
+        if t < lg.ROUNDING_2014_LIST:
+            early[t][how] += 1
     return {"by_year": {y: dict(sorted(c.items())) for y, c in sorted(by_year.items())},
+            "before_july_2014_lists_with_away_from_zero": {t: dict(sorted(c.items())) for t, c in sorted(early.items())
+                                                           if c.get("away_from_zero")},
+            "before_july_2014_lists": len(early),
             "from_july_2014": {"last_list_towards_plus_infinity": max((t for t, h in after if h == "towards_plus_infinity"),
                                                                        default=None),
                                "first_list_away_from_zero": min((t for t, h in after if h == "away_from_zero"),
@@ -572,8 +629,13 @@ def main() -> int:
     up = run(c, READINGS["towards +infinity throughout"])
     players, players_alt, players_up = players_of(c, r), players_of(c, alt), players_of(c, up)
     evidence = {k: dict(x) for k, x in sorted(r["cap_evidence"].items())}
+    cal = calibration(c)
+    for pl in players:
+        pl["game_rows"], pl["game_rows_at_2800_or_more"] = cal["per_player_rows"].get(str(pl["fide_id"]), [0, 0])
+    del cal["per_player_rows"]
     out = {
         "spec": "docs/specs/SPEC-GREATS_v1_0.md", "rules": "docs/research/VERIFICATION_RATING-REGULATIONS-2001-2017.md",
+        "calibration": cal,
         "window": {"start_list": START, "first": c["window"][0], "last": LAST, "lists": len(c["window"])},
         "table": {"year": 2025, "form": TABLE["form"], "label": "applied backwards, not fitted on that era"},
         "pages": {"planned": len(c["plan"]), "read": len(c["pages"]), "missing": c["missing"],

@@ -52,7 +52,8 @@ def _keys(o, out=None) -> set:
 
 def test_no_list_and_no_series_of_published_ratings():
     allowed = {"best_by_gap10", "best_by_gap2", "federation", "fide_id", "first_list", "key", "last_list", "lists",
-               "lists_rank1", "lists_top10", "lists_top3", "name", "peak", "peak_lists"}
+               "lists_rank1", "lists_top10", "lists_top3", "name", "peak", "peak_lists",
+               "top3_only_by_a_shared_third", "top3_lists_shared_third", "absent_from_lists_in_span"}   # dates, flags
     for p in LISTS["players"]:
         assert set(p) <= allowed, p["name"]
         assert isinstance(p["peak"], int) and all(len(m) == 7 for m in p["peak_lists"])
@@ -88,6 +89,15 @@ def test_r74_both_readings_and_the_third_are_reported():
     assert set(rd) == {"R74", "rules record", "towards +infinity throughout"}
     assert rd["R74"]["thin_periods"] == REPLAY["summary"]["thin_periods"]
     assert rd["R74"]["mean_difference"] == REPLAY["summary"]["mean_difference"]
-    early = REPLAY["rounding"]["lists to June 2014 (no clause)"]
+    early = REPLAY["rounding"]["lists to June 2014 (the 2007 and 2010 texts)"]
     # R74's reading is the better of the two on the lists before July 2014 (towards +infinity there)
     assert early["reproduced"] == early["reproduced_towards_plus_infinity"] >= early["reproduced_away_from_zero"]
+
+
+def test_no_unrendered_placeholder_in_the_generated_pages():
+    # ELO9-QC-4: a string missing its f prefix printed "{rdg['R74']...}" into E20; no generated page may carry one.
+    import re
+    for page in ("docs/evidence/E20_greats.md", "analysis/OUTPUT_E20_appendix.md", "docs/research/DATA-PROBE_greats.md",
+                 "docs/research/VERIFICATION_RATING-REGULATIONS-2001-2017.md"):
+        text = (ROOT / page).read_text(encoding="utf-8")
+        assert not re.search(r"\{[A-Za-z_][A-Za-z0-9_]*(\[|\(|\.|:|\})", text), page

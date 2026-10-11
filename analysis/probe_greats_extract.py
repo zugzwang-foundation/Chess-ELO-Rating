@@ -206,6 +206,7 @@ def fide() -> dict:
                          re.findall(r"Disallow: (\S+)", (PROBE / "robots_old.fide.com.txt").read_text(encoding="utf-8")))}
     out["footer"] = quote("fide_ratings_home", "© 2026 FIDE International Chess Federation. All Rights Reserved.",
                           "without the written permission of FIDE International Chess Federation.")
+    out["footer_source"] = fetched("fide_ratings_home")
     out["requests"] = requests_to_fide()
     return out
 

@@ -2,7 +2,7 @@
 """Assemble tests/fixtures/fide_greats/published_periods.json: a small sample of FIDE's published calculations of the
 greats' periods (ruling R79, docs/decisions/D-0017_rulings-on-the-greats.md: at most 30 player-periods, chosen by a
 fixed rule), for the rules src/layer0_greats/ transcribes from the texts in force before July 2017 (SPEC-GREATS v1.0 §6;
-docs/research/VERIFICATION_RATING-REGULATIONS-2001-2017.md) and the rounding ruling R74 adopts (SPEC-L0 v1.3 §11,
+docs/research/VERIFICATION_RATING-REGULATIONS-2001-2017.md) and the rounding ruling R74 adopts (SPEC-L0 §11,
 F-H09). The full reproduction runs locally from the gitignored cache (analysis/e20_greats_replay_extract.py), and
 only its counts are committed.
 
