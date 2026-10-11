@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Assemble tests/fixtures/fide_history/tested_readings.json: the readings of the rating regulations that the replay of
 today's top 100 (E17) tested on FIDE's output, recorded as fixtures (ruling R63, docs/decisions/
-D-0014_forecast-test-and-rulings.md, part B; docs/specs/SPEC-L0_fide-reference-engine_v1_4.md §11).
+D-0014_forecast-test-and-rulings.md, part B; docs/specs/SPEC-L0_fide-reference-engine_v1_5.md §11).
 
 Needs data/ (the calculations cached by tools/data/fetch_top100_calculations.py and FIDE's lists). Over every period of
 the replay, in the order of (list, FIDE ID), with E17's own functions (analysis/e17_top100_extract.py):

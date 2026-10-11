@@ -26,10 +26,17 @@ new player's rating and read the lists before July 2014 as the 2014 clause appli
 same words of 2017, 0.5 away from zero; FIDE's pages contradict that reading, ruling R74
 (docs/decisions/D-0017_rulings-on-the-greats.md; SPEC-L0 §11, finding F-H09) adopts 0.5 towards +infinity for every
 list published before July 2014 (the switch made after partial pages had been seen, before the full replay), and the
-session's review corrected the description of the texts (docs/review/REDTEAM_v1_0.md, ELO9-QC-1). From the list of July 2014 the change is rounded 0.5 away from zero, as before. The
-score-probability table of every version equals table 8.1.2 (the record, §5), so PD comes from Layer 0's table. A
-version applies to the tournaments that start on or after its date, and a rounding to the lists published on or after
-its date. Python standard library only.
+session's review corrected the description of the texts (docs/review/REDTEAM_v1_0.md, ELO9-QC-1). Ruling R80
+(docs/decisions/D-0018_rulings-on-elo-9-questions.md; SPEC-L0 §11, finding F-H10) extends 0.5 towards +infinity to every
+list to October 2018: FIDE's lists of July 2014 to July 2018 round every negative half point that way, as the 2014 and
+2017 words read literally say, "0.5 is rounded up (whether the change is positive or negative)"; from the list of
+November 2018 the change is rounded 0.5 away from zero, FIDE's arithmetic having changed while the words did not (as
+E17 found on the lists from February 2020, F-H07). The switch lies between the lists of August and November 2018, and
+its exact list is NOT VERIFIED; R80 was set after FIDE's pages had been read in the full replay. D-0017's reading, 0.5
+away from zero from the list of July 2014, is kept beside it (round_change_d0017), as R74 kept the first reading, so
+that E20 prints the counts under both. The score-probability table of every version equals table 8.1.2 (the record,
+§5), so PD comes from Layer 0's table. A version applies to the tournaments that start on or after its date, and a
+rounding to the lists published on or after its date. Python standard library only.
 """
 from __future__ import annotations
 
@@ -43,6 +50,7 @@ V2009 = date(2009, 7, 1)          # the 400-point rule (reading: the first date 
 V2014 = date(2014, 7, 1)          # "effective from 1 July 2014 till 30 June 2017"
 V2017 = date(2017, 7, 1)          # layer0_history's first version
 ROUNDING_2014_LIST = "2014-07"    # the first list published under the 2014 regulations (R74: before it, 0.5 up)
+ROUNDING_2018_LIST = "2018-11"    # R80: the first list rounding 0.5 away from zero (before it, 0.5 up)
 
 
 def version(start: date) -> str:
@@ -76,21 +84,31 @@ def deltas(own: int, games: list[tuple[int, Decimal]], start: date) -> list[Deci
 
 
 def round_change(x: Decimal, list_month: str) -> int:
-    """The period's change on the list `list_month` rounded to a whole number: on the lists before July 2014, 0.5
-    towards +infinity (R74; round_change_up); from the list of July 2014, 0.5 away from zero (round_change_away)."""
+    """The period's change on the list `list_month` rounded to a whole number (R80): on every list to October 2018, 0.5
+    towards +infinity (round_change_up; R74 before July 2014, R80 from it); from the list of November 2018, 0.5 away
+    from zero (round_change_away)."""
+    return round_change_up(x) if list_month < ROUNDING_2018_LIST else round_change_away(x)
+
+
+def round_change_d0017(x: Decimal, list_month: str) -> int:
+    """D-0017's reading, which R80 supersedes from the list of July 2014 and which is kept for the counts E20 prints
+    beside R80's: 0.5 towards +infinity on the lists before July 2014 (R74), away from zero from the list of July
+    2014."""
     return round_change_up(x) if list_month < ROUNDING_2014_LIST else round_change_away(x)
 
 
 def round_change_away(x: Decimal) -> int:
-    """0.5 away from zero: §8.57 of 2014 as E17 found FIDE's lists apply the same words of 2017, and the rules record's
-    first reading for the lists before July 2014, which FIDE's pages contradict (R74); kept for that test."""
+    """0.5 away from zero: FIDE's lists from November 2018 (R80), as E17 found them from February 2020 for the same
+    words of 2017 (F-H07), and as the 2022 text says outright; also the rules record's first reading for every list,
+    which FIDE's pages contradict before November 2018 (R74, R80), kept for that test."""
     return layer0.round_change(Decimal(x))
 
 
 def round_change_up(x: Decimal) -> int:
     """0.5 towards +infinity whatever the sign: the new rating rounded with 0.5 up (§8.57 of 2010, "0.5 is rounded to
-    1"), and the words of §8.57 of 2014, "0.5 is rounded up ( whether the change is positive or negative )", read
-    literally; FIDE's lists before July 2014 follow it (R74, finding F-H09; E20 §4.2)."""
+    1"), and the words of §8.57 of 2014 and of 2017, "0.5 is rounded up ( whether the change is positive or negative
+    )", read literally; FIDE's lists to October 2018 follow it (R74 before July 2014, finding F-H09; R80 from July
+    2014, finding F-H10; E20 §4.2)."""
     return int((Decimal(x) + Decimal("0.5")).to_integral_value(rounding=ROUND_FLOOR))
 
 

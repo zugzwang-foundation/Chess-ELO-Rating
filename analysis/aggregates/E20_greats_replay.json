@@ -203,7 +203,24 @@
    "first_list_away_from_zero": "2018-11",
    "last_list_towards_plus_infinity": "2018-07",
    "towards_plus_infinity_after_first_away": 0
-  }
+  },
+  "lists_between_the_last_up_and_the_first_away": [
+   {
+    "list": "2018-08",
+    "negative_half_points": 0,
+    "periods": 6
+   },
+   {
+    "list": "2018-09",
+    "negative_half_points": 0,
+    "periods": 13
+   },
+   {
+    "list": "2018-10",
+    "negative_half_points": 0,
+    "periods": 5
+   }
+  ]
  },
  "pages": {
   "missing": [],
@@ -310,16 +327,16 @@
    }
   },
   {
-   "colour_effect": 1,
-   "difference": 22,
-   "difference_outside_minus10": 13,
-   "difference_outside_plus10": 32,
+   "colour_effect": 2,
+   "difference": 24,
+   "difference_outside_minus10": 14,
+   "difference_outside_plus10": 33,
    "fide_id": 627089,
    "first_period": "2008-04",
    "game_rows": 781,
    "game_rows_at_2800_or_more": 0,
-   "games_in_thin_periods": 29,
-   "games_replayed": 752,
+   "games_in_thin_periods": 12,
+   "games_replayed": 769,
    "highest_layer0": {
     "lists": [
      "2008-04",
@@ -343,17 +360,9 @@
    "last_period": "2019-12",
    "name": "Sokolov, Andrei",
    "periods_on_index": 95,
-   "periods_replayed": 91,
-   "table_effect": 21,
+   "periods_replayed": 93,
+   "table_effect": 22,
    "thin": [
-    [
-     "2016-12",
-     "a half point, rounded the other way"
-    ],
-    [
-     "2017-12",
-     "a half point, rounded the other way"
-    ],
     [
      "2018-06",
      "the list's change is not a rounding of the page's sum"
@@ -363,16 +372,16 @@
      "rounded once per tournament"
     ]
    ],
-   "thin_periods": 4,
+   "thin_periods": 2,
    "year_end_difference": {
     "2012": 19,
     "2013": 18,
     "2014": 17,
-    "2015": 21,
-    "2016": 23,
-    "2017": 19,
-    "2018": 17,
-    "2019": 22
+    "2015": 22,
+    "2016": 25,
+    "2017": 21,
+    "2018": 19,
+    "2019": 24
    }
   },
   {
@@ -489,8 +498,8 @@
    "first_period": "2008-04",
    "game_rows": 533,
    "game_rows_at_2800_or_more": 0,
-   "games_in_thin_periods": 18,
-   "games_replayed": 515,
+   "games_in_thin_periods": 11,
+   "games_replayed": 522,
    "highest_layer0": {
     "lists": [
      "2014-03"
@@ -513,7 +522,7 @@
    "last_period": "2019-12",
    "name": "Timman, Jan H",
    "periods_on_index": 90,
-   "periods_replayed": 85,
+   "periods_replayed": 88,
    "table_effect": 20,
    "thin": [
     [
@@ -523,28 +532,16 @@
     [
      "2009-01",
      "the list's change is not a rounding of the page's sum"
-    ],
-    [
-     "2014-12",
-     "a half point, rounded the other way"
-    ],
-    [
-     "2016-01",
-     "a half point, rounded the other way"
-    ],
-    [
-     "2018-01",
-     "a half point, rounded the other way"
     ]
    ],
-   "thin_periods": 5,
+   "thin_periods": 2,
    "year_end_difference": {
     "2012": 20,
     "2013": 18,
-    "2014": 13,
-    "2015": 16,
-    "2016": 16,
-    "2017": 19,
+    "2014": 14,
+    "2015": 17,
+    "2016": 17,
+    "2017": 20,
     "2018": 21,
     "2019": 21
    }
@@ -611,8 +608,8 @@
    "first_period": "2008-04",
    "game_rows": 785,
    "game_rows_at_2800_or_more": 355,
-   "games_in_thin_periods": 8,
-   "games_replayed": 777,
+   "games_in_thin_periods": 0,
+   "games_replayed": 785,
    "highest_layer0": {
     "lists": [
      "2014-05",
@@ -636,15 +633,10 @@
    "last_period": "2019-12",
    "name": "Carlsen, Magnus",
    "periods_on_index": 69,
-   "periods_replayed": 68,
+   "periods_replayed": 69,
    "table_effect": 63,
-   "thin": [
-    [
-     "2018-07",
-     "a half point, rounded the other way"
-    ]
-   ],
-   "thin_periods": 1,
+   "thin": [],
+   "thin_periods": 0,
    "year_end_difference": {
     "2012": 46,
     "2013": 58,
@@ -713,8 +705,8 @@
    "first_period": "2008-04",
    "game_rows": 1224,
    "game_rows_at_2800_or_more": 110,
-   "games_in_thin_periods": 16,
-   "games_replayed": 1208,
+   "games_in_thin_periods": 0,
+   "games_replayed": 1224,
    "highest_layer0": {
     "lists": [
      "2014-10"
@@ -731,47 +723,38 @@
     "lists": [
      "2018-12"
     ],
-    "rating": 2883
+    "rating": 2882
    },
    "last_list_on_fide": "2019-12",
    "last_period": "2019-11",
    "name": "Caruana, Fabiano",
    "periods_on_index": 90,
-   "periods_replayed": 88,
+   "periods_replayed": 90,
    "table_effect": 55,
-   "thin": [
-    [
-     "2016-08",
-     "a half point, rounded the other way"
-    ],
-    [
-     "2017-07",
-     "a half point, rounded the other way"
-    ]
-   ],
-   "thin_periods": 2,
+   "thin": [],
+   "thin_periods": 0,
    "year_end_difference": {
     "2012": 32,
     "2013": 32,
     "2014": 38,
     "2015": 43,
-    "2016": 43,
+    "2016": 42,
     "2017": 45,
     "2018": 50,
     "2019": 55
    }
   },
   {
-   "colour_effect": -1,
-   "difference": -3,
-   "difference_outside_minus10": -11,
-   "difference_outside_plus10": 3,
+   "colour_effect": -2,
+   "difference": -2,
+   "difference_outside_minus10": -9,
+   "difference_outside_plus10": 6,
    "fide_id": 2100010,
    "first_period": "2008-07",
    "game_rows": 180,
    "game_rows_at_2800_or_more": 0,
-   "games_in_thin_periods": 9,
-   "games_replayed": 171,
+   "games_in_thin_periods": 0,
+   "games_replayed": 180,
    "highest_layer0": {
     "lists": [
      "2013-02",
@@ -938,24 +921,19 @@
    "last_period": "2019-10",
    "name": "Mecking, Henrique",
    "periods_on_index": 18,
-   "periods_replayed": 17,
-   "table_effect": -2,
-   "thin": [
-    [
-     "2017-03",
-     "a half point, rounded the other way"
-    ]
-   ],
-   "thin_periods": 1,
+   "periods_replayed": 18,
+   "table_effect": 0,
+   "thin": [],
+   "thin_periods": 0,
    "year_end_difference": {
     "2012": -11,
     "2013": -11,
     "2014": -11,
     "2015": -11,
     "2016": -11,
-    "2017": -11,
-    "2018": -9,
-    "2019": -3
+    "2017": -9,
+    "2018": -8,
+    "2019": -2
    }
   },
   {
@@ -1018,8 +996,8 @@
    "first_period": "2008-04",
    "game_rows": 699,
    "game_rows_at_2800_or_more": 4,
-   "games_in_thin_periods": 9,
-   "games_replayed": 690,
+   "games_in_thin_periods": 0,
+   "games_replayed": 699,
    "highest_layer0": {
     "lists": [
      "2013-11",
@@ -1048,19 +1026,10 @@
    "last_period": "2019-11",
    "name": "Gelfand, Boris",
    "periods_on_index": 65,
-   "periods_replayed": 63,
+   "periods_replayed": 65,
    "table_effect": 18,
-   "thin": [
-    [
-     "2018-01",
-     "a half point, rounded the other way"
-    ],
-    [
-     "2018-06",
-     "a half point, rounded the other way"
-    ]
-   ],
-   "thin_periods": 2,
+   "thin": [],
+   "thin_periods": 0,
    "year_end_difference": {
     "2012": 14,
     "2013": 17,
@@ -1068,14 +1037,14 @@
     "2015": 21,
     "2016": 23,
     "2017": 24,
-    "2018": 26,
+    "2018": 25,
     "2019": 19
    }
   },
   {
    "colour_effect": -2,
    "difference": 24,
-   "difference_outside_minus10": 14,
+   "difference_outside_minus10": 15,
    "difference_outside_plus10": 34,
    "fide_id": 2900084,
    "first_period": "2008-04",
@@ -1175,8 +1144,8 @@
    }
   },
   {
-   "colour_effect": -1,
-   "difference": 40,
+   "colour_effect": 0,
+   "difference": 41,
    "difference_outside_minus10": 30,
    "difference_outside_plus10": 51,
    "fide_id": 4101588,
@@ -1221,17 +1190,17 @@
     "2013": 37,
     "2014": 35,
     "2015": 35,
-    "2016": 40,
-    "2017": 40,
-    "2018": 42,
-    "2019": 40
+    "2016": 41,
+    "2017": 41,
+    "2018": 43,
+    "2019": 41
    }
   },
   {
    "colour_effect": -2,
    "difference": 22,
-   "difference_outside_minus10": 12,
-   "difference_outside_plus10": 32,
+   "difference_outside_minus10": 13,
+   "difference_outside_plus10": 33,
    "fide_id": 4116992,
    "first_period": "2008-04",
    "game_rows": 390,
@@ -1282,7 +1251,7 @@
    }
   },
   {
-   "colour_effect": 0,
+   "colour_effect": -1,
    "difference": 33,
    "difference_outside_minus10": 23,
    "difference_outside_plus10": 44,
@@ -1290,8 +1259,8 @@
    "first_period": "2008-04",
    "game_rows": 742,
    "game_rows_at_2800_or_more": 11,
-   "games_in_thin_periods": 31,
-   "games_replayed": 711,
+   "games_in_thin_periods": 0,
+   "games_replayed": 742,
    "highest_layer0": {
     "lists": [
      "2014-12",
@@ -1306,7 +1275,7 @@
      "2015-01",
      "2015-02"
     ],
-    "rating": 2841
+    "rating": 2842
    },
    "highest_rung2_no_colour": {
     "lists": [
@@ -1320,32 +1289,15 @@
    "last_period": "2019-12",
    "name": "Grischuk, Alexander",
    "periods_on_index": 66,
-   "periods_replayed": 62,
-   "table_effect": 33,
-   "thin": [
-    [
-     "2014-09",
-     "a half point, rounded the other way"
-    ],
-    [
-     "2015-05",
-     "a half point, rounded the other way"
-    ],
-    [
-     "2016-06",
-     "a half point, rounded the other way"
-    ],
-    [
-     "2017-11",
-     "a half point, rounded the other way"
-    ]
-   ],
-   "thin_periods": 4,
+   "periods_replayed": 66,
+   "table_effect": 34,
+   "thin": [],
+   "thin_periods": 0,
    "year_end_difference": {
     "2012": 26,
     "2013": 29,
-    "2014": 31,
-    "2015": 32,
+    "2014": 32,
+    "2015": 33,
     "2016": 33,
     "2017": 34,
     "2018": 34,
@@ -1355,14 +1307,14 @@
   {
    "colour_effect": -1,
    "difference": 29,
-   "difference_outside_minus10": 20,
+   "difference_outside_minus10": 19,
    "difference_outside_plus10": 39,
    "fide_id": 4600010,
    "first_period": "2008-04",
    "game_rows": 208,
    "game_rows_at_2800_or_more": 0,
-   "games_in_thin_periods": 1,
-   "games_replayed": 207,
+   "games_in_thin_periods": 0,
+   "games_replayed": 208,
    "highest_layer0": {
     "lists": [
      "2009-07",
@@ -1386,21 +1338,16 @@
    "last_period": "2019-11",
    "name": "Huebner, Robert",
    "periods_on_index": 59,
-   "periods_replayed": 58,
+   "periods_replayed": 59,
    "table_effect": 30,
-   "thin": [
-    [
-     "2015-03",
-     "a half point, rounded the other way"
-    ]
-   ],
-   "thin_periods": 1,
+   "thin": [],
+   "thin_periods": 0,
    "year_end_difference": {
     "2012": 24,
     "2013": 26,
     "2014": 26,
-    "2015": 27,
-    "2016": 28,
+    "2015": 26,
+    "2016": 27,
     "2017": 27,
     "2018": 27,
     "2019": 29
@@ -1408,15 +1355,15 @@
   },
   {
    "colour_effect": 4,
-   "difference": 29,
-   "difference_outside_minus10": 19,
-   "difference_outside_plus10": 37,
+   "difference": 28,
+   "difference_outside_minus10": 18,
+   "difference_outside_plus10": 36,
    "fide_id": 4618777,
    "first_period": "2008-04",
    "game_rows": 314,
    "game_rows_at_2800_or_more": 0,
-   "games_in_thin_periods": 1,
-   "games_replayed": 313,
+   "games_in_thin_periods": 0,
+   "games_replayed": 314,
    "highest_layer0": {
     "lists": [
      "2012-11",
@@ -1448,28 +1395,23 @@
    "last_period": "2019-05",
    "name": "Jussupow, Artur",
    "periods_on_index": 56,
-   "periods_replayed": 55,
-   "table_effect": 25,
-   "thin": [
-    [
-     "2016-06",
-     "a half point, rounded the other way"
-    ]
-   ],
-   "thin_periods": 1,
+   "periods_replayed": 56,
+   "table_effect": 24,
+   "thin": [],
+   "thin_periods": 0,
    "year_end_difference": {
     "2012": 15,
     "2013": 20,
     "2014": 22,
     "2015": 25,
-    "2016": 29,
-    "2017": 28,
-    "2018": 28,
-    "2019": 29
+    "2016": 28,
+    "2017": 27,
+    "2018": 27,
+    "2019": 28
    }
   },
   {
-   "colour_effect": -2,
+   "colour_effect": -1,
    "difference": 32,
    "difference_outside_minus10": 22,
    "difference_outside_plus10": 43,
@@ -1477,8 +1419,8 @@
    "first_period": "2008-04",
    "game_rows": 599,
    "game_rows_at_2800_or_more": 81,
-   "games_in_thin_periods": 9,
-   "games_replayed": 590,
+   "games_in_thin_periods": 0,
+   "games_replayed": 599,
    "highest_layer0": {
     "lists": [
      "2011-03",
@@ -1508,15 +1450,10 @@
    "last_period": "2019-11",
    "name": "Anand, Viswanathan",
    "periods_on_index": 62,
-   "periods_replayed": 61,
-   "table_effect": 34,
-   "thin": [
-    [
-     "2017-07",
-     "a half point, rounded the other way"
-    ]
-   ],
-   "thin_periods": 1,
+   "periods_replayed": 62,
+   "table_effect": 33,
+   "thin": [],
+   "thin_periods": 0,
    "year_end_difference": {
     "2012": 33,
     "2013": 29,
@@ -1586,13 +1523,13 @@
    "colour_effect": -1,
    "difference": 41,
    "difference_outside_minus10": 31,
-   "difference_outside_plus10": 51,
+   "difference_outside_plus10": 52,
    "fide_id": 8603677,
    "first_period": "2008-07",
    "game_rows": 926,
    "game_rows_at_2800_or_more": 18,
-   "games_in_thin_periods": 67,
-   "games_replayed": 859,
+   "games_in_thin_periods": 44,
+   "games_replayed": 882,
    "highest_layer0": {
     "lists": [
      "2018-11"
@@ -1617,7 +1554,7 @@
    "last_period": "2019-11",
    "name": "Ding, Liren",
    "periods_on_index": 83,
-   "periods_replayed": 79,
+   "periods_replayed": 81,
    "table_effect": 42,
    "thin": [
     [
@@ -1627,23 +1564,15 @@
     [
      "2011-09",
      "the list's change is not a rounding of the page's sum"
-    ],
-    [
-     "2014-10",
-     "a half point, rounded the other way"
-    ],
-    [
-     "2017-03",
-     "a half point, rounded the other way"
     ]
    ],
-   "thin_periods": 4,
+   "thin_periods": 2,
    "year_end_difference": {
     "2012": 19,
     "2013": 25,
-    "2014": 27,
-    "2015": 31,
-    "2016": 29,
+    "2014": 28,
+    "2015": 30,
+    "2016": 30,
     "2017": 35,
     "2018": 35,
     "2019": 41
@@ -1706,8 +1635,8 @@
    "first_period": "2008-04",
    "game_rows": 899,
    "game_rows_at_2800_or_more": 93,
-   "games_in_thin_periods": 18,
-   "games_replayed": 881,
+   "games_in_thin_periods": 0,
+   "games_replayed": 899,
    "highest_layer0": {
     "lists": [
      "2014-03"
@@ -1730,23 +1659,14 @@
    "last_period": "2019-12",
    "name": "Aronian, Levon",
    "periods_on_index": 83,
-   "periods_replayed": 81,
+   "periods_replayed": 83,
    "table_effect": 37,
-   "thin": [
-    [
-     "2014-07",
-     "a half point, rounded the other way"
-    ],
-    [
-     "2018-01",
-     "a half point, rounded the other way"
-    ]
-   ],
-   "thin_periods": 2,
+   "thin": [],
+   "thin_periods": 0,
    "year_end_difference": {
     "2012": 42,
     "2013": 43,
-    "2014": 46,
+    "2014": 45,
     "2015": 40,
     "2016": 39,
     "2017": 39,
@@ -1757,7 +1677,7 @@
   {
    "colour_effect": -1,
    "difference": 37,
-   "difference_outside_minus10": 26,
+   "difference_outside_minus10": 27,
    "difference_outside_plus10": 48,
    "fide_id": 13401319,
    "first_period": "2008-04",
@@ -1784,7 +1704,7 @@
      "2018-09",
      "2018-10"
     ],
-    "rating": 2858
+    "rating": 2859
    },
    "last_list_on_fide": "2019-12",
    "last_period": "2019-12",
@@ -1806,16 +1726,16 @@
    }
   },
   {
-   "colour_effect": -1,
-   "difference": 26,
+   "colour_effect": 0,
+   "difference": 27,
    "difference_outside_minus10": 16,
-   "difference_outside_plus10": 36,
+   "difference_outside_plus10": 37,
    "fide_id": 14100010,
    "first_period": "2008-04",
    "game_rows": 971,
    "game_rows_at_2800_or_more": 4,
-   "games_in_thin_periods": 10,
-   "games_replayed": 961,
+   "games_in_thin_periods": 0,
+   "games_replayed": 971,
    "highest_layer0": {
     "lists": [
      "2008-10"
@@ -1838,28 +1758,19 @@
    "last_period": "2019-12",
    "name": "Ivanchuk, Vassily",
    "periods_on_index": 77,
-   "periods_replayed": 75,
+   "periods_replayed": 77,
    "table_effect": 27,
-   "thin": [
-    [
-     "2015-12",
-     "a half point, rounded the other way"
-    ],
-    [
-     "2017-02",
-     "a half point, rounded the other way"
-    ]
-   ],
-   "thin_periods": 2,
+   "thin": [],
+   "thin_periods": 0,
    "year_end_difference": {
     "2012": 32,
     "2013": 20,
-    "2014": 24,
-    "2015": 22,
-    "2016": 22,
-    "2017": 27,
-    "2018": 30,
-    "2019": 26
+    "2014": 25,
+    "2015": 23,
+    "2016": 23,
+    "2017": 28,
+    "2018": 31,
+    "2019": 27
    }
   },
   {
@@ -1871,8 +1782,8 @@
    "first_period": "2008-04",
    "game_rows": 644,
    "game_rows_at_2800_or_more": 0,
-   "games_in_thin_periods": 29,
-   "games_replayed": 615,
+   "games_in_thin_periods": 0,
+   "games_replayed": 644,
    "highest_layer0": {
     "lists": [
      "2009-07"
@@ -1895,24 +1806,15 @@
    "last_period": "2019-04",
    "name": "Beliavsky, Alexander G",
    "periods_on_index": 58,
-   "periods_replayed": 56,
+   "periods_replayed": 58,
    "table_effect": 13,
-   "thin": [
-    [
-     "2014-09",
-     "a half point, rounded the other way"
-    ],
-    [
-     "2016-06",
-     "a half point, rounded the other way"
-    ]
-   ],
-   "thin_periods": 2,
+   "thin": [],
+   "thin_periods": 0,
    "year_end_difference": {
     "2012": 21,
     "2013": 16,
-    "2014": 23,
-    "2015": 22,
+    "2014": 22,
+    "2015": 21,
     "2016": 17,
     "2017": 15,
     "2018": 9,
@@ -1920,16 +1822,16 @@
    }
   },
   {
-   "colour_effect": 1,
-   "difference": 34,
+   "colour_effect": 0,
+   "difference": 33,
    "difference_outside_minus10": 24,
    "difference_outside_plus10": 44,
    "fide_id": 24116068,
    "first_period": "2008-04",
    "game_rows": 1203,
    "game_rows_at_2800_or_more": 32,
-   "games_in_thin_periods": 7,
-   "games_replayed": 1196,
+   "games_in_thin_periods": 0,
+   "games_replayed": 1203,
    "highest_layer0": {
     "lists": [
      "2015-10",
@@ -1956,30 +1858,25 @@
    "last_period": "2019-12",
    "name": "Giri, Anish",
    "periods_on_index": 93,
-   "periods_replayed": 92,
+   "periods_replayed": 93,
    "table_effect": 33,
-   "thin": [
-    [
-     "2017-11",
-     "a half point, rounded the other way"
-    ]
-   ],
-   "thin_periods": 1,
+   "thin": [],
+   "thin_periods": 0,
    "year_end_difference": {
     "2012": 22,
     "2013": 23,
     "2014": 29,
     "2015": 36,
     "2016": 32,
-    "2017": 33,
-    "2018": 33,
-    "2019": 34
+    "2017": 32,
+    "2018": 32,
+    "2019": 33
    }
   }
  ],
  "players_replayed": 29,
  "readings": {
-  "R74": {
+  "D-0017": {
    "equal": 1,
    "games_replayed": 18160,
    "higher": 26,
@@ -1999,6 +1896,27 @@
     "unexplained": 1
    },
    "thin_periods": 36
+  },
+  "R80": {
+   "equal": 1,
+   "games_replayed": 18355,
+   "higher": 26,
+   "lower": 2,
+   "max_difference": 62,
+   "mean_colour_effect": -0.24,
+   "mean_difference": 27.14,
+   "mean_table_effect": 27.38,
+   "min_difference": -9,
+   "periods_replayed": 1765,
+   "rule": "0.5 towards +infinity on every list to October 2018, away from zero from November 2018",
+   "thin_by_cause": {
+    "a half point, rounded the other way": 3,
+    "a positive half point rounded down": 1,
+    "rounded once per tournament": 1,
+    "the list's change is not a rounding of the page's sum": 3,
+    "unexplained": 1
+   },
+   "thin_periods": 9
   },
   "rules record": {
    "equal": 1,
@@ -2045,25 +1963,25 @@
   }
  },
  "rounding": {
-  "lists from July 2017 (the 2017 clause)": {
-   "half_float_exact": 17,
-   "half_float_exact_away_from_zero": 14,
-   "half_float_exact_towards_zero": 3,
-   "half_negative": 22,
+  "lists from November 2018 (the 2017 clause)": {
+   "half_float_exact": 10,
+   "half_float_exact_away_from_zero": 10,
+   "half_float_exact_towards_zero": 0,
+   "half_negative": 12,
    "half_negative_away_from_zero": 12,
-   "half_negative_towards_plus_infinity": 10,
-   "half_negative_towards_zero": 10,
+   "half_negative_towards_plus_infinity": 0,
+   "half_negative_towards_zero": 0,
    "half_not_towards_plus_infinity": 12,
    "half_not_towards_plus_infinity_float_exact": 7,
-   "half_positive": 16,
-   "half_positive_away_from_zero": 16,
-   "half_positive_towards_plus_infinity": 16,
+   "half_positive": 7,
+   "half_positive_away_from_zero": 7,
+   "half_positive_towards_plus_infinity": 7,
    "half_positive_towards_zero": 0,
-   "periods": 404,
-   "reproduced": 392,
-   "reproduced_away_from_zero": 392,
-   "reproduced_once_per_tournament": 357,
-   "reproduced_towards_plus_infinity": 390
+   "periods": 187,
+   "reproduced": 187,
+   "reproduced_away_from_zero": 187,
+   "reproduced_once_per_tournament": 167,
+   "reproduced_towards_plus_infinity": 175
   },
   "lists of July 2014 to June 2017 (the 2014 clause)": {
    "half_float_exact": 24,
@@ -2078,10 +1996,28 @@
    "half_positive_towards_plus_infinity": 26,
    "half_positive_towards_zero": 0,
    "periods": 530,
-   "reproduced": 513,
+   "reproduced": 530,
    "reproduced_away_from_zero": 513,
-   "reproduced_once_per_tournament": 484,
+   "reproduced_once_per_tournament": 489,
    "reproduced_towards_plus_infinity": 530
+  },
+  "lists of July 2017 to October 2018 (the 2017 clause)": {
+   "half_float_exact": 7,
+   "half_float_exact_away_from_zero": 4,
+   "half_float_exact_towards_zero": 3,
+   "half_negative": 10,
+   "half_negative_away_from_zero": 0,
+   "half_negative_towards_plus_infinity": 10,
+   "half_negative_towards_zero": 10,
+   "half_positive": 9,
+   "half_positive_away_from_zero": 9,
+   "half_positive_towards_plus_infinity": 9,
+   "half_positive_towards_zero": 0,
+   "periods": 217,
+   "reproduced": 215,
+   "reproduced_away_from_zero": 205,
+   "reproduced_once_per_tournament": 196,
+   "reproduced_towards_plus_infinity": 215
   },
   "lists to June 2014 (the 2007 and 2010 texts)": {
    "half_float_exact": 33,
@@ -2631,16 +2567,16 @@
  "spec": "docs/specs/SPEC-GREATS_v1_0.md",
  "summary": {
   "equal": 1,
-  "games_replayed": 18160,
+  "games_replayed": 18355,
   "higher": 26,
   "lower": 2,
   "max_difference": 62,
-  "mean_colour_effect": -0.28,
-  "mean_difference": 27.03,
-  "mean_table_effect": 27.31,
+  "mean_colour_effect": -0.24,
+  "mean_difference": 27.14,
+  "mean_table_effect": 27.38,
   "min_difference": -9,
-  "periods_replayed": 1738,
-  "thin_periods": 36
+  "periods_replayed": 1765,
+  "thin_periods": 9
  },
  "table": {
   "form": {
@@ -2652,7 +2588,7 @@
   "year": 2025
  },
  "thin_by_cause": {
-  "a half point, rounded the other way": 30,
+  "a half point, rounded the other way": 3,
   "a positive half point rounded down": 1,
   "rounded once per tournament": 1,
   "the list's change is not a rounding of the page's sum": 3,
@@ -2668,7 +2604,7 @@
   "games_not_n": 0,
   "k_rule_differs": 0,
   "no_page": 0,
-  "period_change_differs": 36,
+  "period_change_differs": 9,
   "periods_with_page": 1774,
   "set_games": 4885,
   "set_name_unconfirmed": 11,

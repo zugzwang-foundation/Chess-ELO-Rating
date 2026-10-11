@@ -2,12 +2,13 @@
 """E20 report: the greats on FIDE's own data; writes docs/evidence/E20_greats.md from analysis/aggregates/
 GREATS_players.json, E20_greats_lists.json and E20_greats_replay.json (analysis/greats_select.py,
 analysis/e20_greats_lists_extract.py and analysis/e20_greats_replay_extract.py, which need data/), under
-docs/specs/SPEC-GREATS_v1_0.md, with the rulings R74 to R79 (docs/decisions/D-0017_rulings-on-the-greats.md) and the
-fixes of the ELO-9 review (docs/review/REDTEAM_v1_0.md); the OlimpBase page it credits is read from
+docs/specs/SPEC-GREATS_v1_0.md, with the rulings R74 to R79 (docs/decisions/D-0017_rulings-on-the-greats.md), the
+fixes of the ELO-9 review (docs/review/REDTEAM_v1_0.md) and ruling R80 (docs/decisions/D-0018_rulings-on-elo-9-
+questions.md); the OlimpBase page it credits is read from
 analysis/aggregates/PROBE_greats.json, and the 2025 table's fit window by level from analysis/aggregates/
 E18_coverage.json. Every table carries the fixed wording of SPEC-GREATS §1, the era caveat included, and every table
-that uses OlimpBase's lists a line crediting it (R77). Session ELO-9, Phases 3 and 5. Python standard library only;
-deterministic.
+that uses OlimpBase's lists a line crediting it (R77). Sessions ELO-9, Phases 3 and 5, and ELO-10, Phase 2. Python
+standard library only; deterministic.
 
 Usage: python3 analysis/e20_greats_report.py > docs/evidence/E20_greats.md
        python3 analysis/e20_greats_report.py --appendix > analysis/OUTPUT_E20_appendix.md (the proposal's appendix
@@ -21,17 +22,23 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 AGG = ROOT / "analysis" / "aggregates"
+FIXTURES = ROOT / "tests" / "fixtures" / "fide_greats" / "published_periods.json"   # the sample R79 keeps
 FIXED = ("*Under this rule, with the same results — not anyone's true strength. A rating measures strength against one's "
          "own era.*")
 NO_ID = "no FIDE ID on OlimpBase's lists"
-WORDS = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten"}
+WORDS = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten",
+         14: "fourteen", 16: "sixteen"}
 MONTHS = ("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November",
           "December")
 EARLY = "lists to June 2014 (the 2007 and 2010 texts)"
-ERAS = (EARLY, "lists of July 2014 to June 2017 (the 2014 clause)", "lists from July 2017 (the 2017 clause)")
-READING_NAMES = {"R74": "R74, adopted: 0.5 towards +∞ on the lists before July 2014, away from zero from July 2014",
+ERAS = (EARLY, "lists of July 2014 to June 2017 (the 2014 clause)", "lists of July 2017 to October 2018 (the 2017 clause)",
+        "lists from November 2018 (the 2017 clause)")
+READINGS = ("R80", "D-0017", "rules record", "towards +infinity throughout")
+READING_NAMES = {"R80": "R80, adopted: 0.5 towards +∞ on every list to October 2018, away from zero from November 2018",
+                 "D-0017": "D-0017's reading, superseded by R80 from July 2014: 0.5 towards +∞ on the lists before July "
+                           "2014, away from zero from July 2014",
                  "rules record": "the rules record's first reading: 0.5 away from zero on every list",
-                 "towards +infinity throughout": "for the architect, beyond R74: 0.5 towards +∞ on every list to "
+                 "towards +infinity throughout": "for information (D-0017 reading 2): 0.5 towards +∞ on every list to "
                                                  "December 2019"}
 MARK = "FIDE's mark"
 OTHER_WAY = "a half point, rounded the other way"
@@ -128,14 +135,15 @@ def facts(sel: dict, lists: dict, rep: dict, e18: dict) -> dict:
         "neg_later_up": sum(rnd[e].get("half_negative_towards_plus_infinity", 0) for e in later),
         "neg_later_away": sum(rnd[e].get("half_negative_away_from_zero", 0) for e in later),
         "nh": nh["from_july_2014"], "away_lists": away_lists, "early_lists": nh["before_july_2014_lists"],
-        "thin_other_way_later": sum(1 for _n, t, c in thin if t >= "2014-07" and c == OTHER_WAY),
+        "between": nh["lists_between_the_last_up_and_the_first_away"],
         "not_rounding_on": {t: sum(1 for _n, tt, c in thin if tt == t and c == NOT_ROUNDING) for t in away_lists},
         "cal": cal, "shift": shift, "pass_through": (shift["plus"] - shift["minus"]) / 20,
         "fit_year": fit_year, "fit_2750": e18["standard_by_year_band"][fit_year]["2750"],
         "fit_2850": e18["standard_by_year_band"][fit_year]["2850"],
         "rows_2750": cal["game_rows_by_band"].get("2750", 0), "rows_2850": cal["game_rows_by_band"].get("2850", 0),
         "top_2800": sorted(rep["players"], key=lambda r: (-r["game_rows_at_2800_or_more"], r["name"]))[:2],
-        "left_lists": [r for r in rep["players"] if r["last_list_on_fide"] != rep["window"]["last"]]}
+        "left_lists": [r for r in rep["players"] if r["last_list_on_fide"] != rep["window"]["last"]],
+        "fixture_cases": len(json.loads(FIXTURES.read_text(encoding="utf-8"))["cases"])}
 
 
 def slips(host: dict) -> str:
@@ -181,7 +189,8 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
     p("")
     p("Status: REVIEW — evidence for the proposal, session ELO-9, Phases 3 and 5, under `docs/specs/SPEC-GREATS_v1_0.md` "
       "(fixed before any analysis), the rulings R74 to R79 (`docs/decisions/D-0017_rulings-on-the-greats.md`) and the "
-      "fixes of the session's review (`docs/review/REDTEAM_v1_0.md`, ELO-9 addendum). Generated by "
+      "fixes of the session's review (`docs/review/REDTEAM_v1_0.md`, ELO-9 addendum); session ELO-10, Phase 2, under "
+      "ruling R80 (`docs/decisions/D-0018_rulings-on-elo-9-questions.md`). Generated by "
       "`analysis/e20_greats_report.py` from `analysis/aggregates/GREATS_players.json`, "
       "`analysis/aggregates/E20_greats_lists.json` and `analysis/aggregates/E20_greats_replay.json`, which "
       "`analysis/greats_select.py`, `analysis/e20_greats_lists_extract.py` and `analysis/e20_greats_replay_extract.py` "
@@ -234,13 +243,16 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
       "are thin (§4.3) and carry FIDE's change for both systems. In the greats' games, FIDE applied the 350-point rule "
       f"to tournaments that started up to {day(rd['last_start_with_350'])} and the 400-point rule from "
       f"{day(rd['first_start_beyond_350'])}, consistent with the rules record's reading of 1 July 2009.")
-    p(f"- **Rounding (§4.2, R74).** The 2007 and 2010 texts round the rated player's new rating, the old rating plus the "
-      "change (§10.53; §8.57, which adds \"0.5 is rounded to 1\"); with 0.5 rounded up, that rounds the change with "
-      "0.5 towards +∞. "
-      + rounding_line(f) + ". Layer 0 adopts towards +∞ before July 2014 (R74), a reading changed after partial pages "
-      f"had been seen and before the full replay. Thin periods: {rdg['R74']['thin_periods']:,} under R74's reading, "
-      f"{rdg['rules record']['thin_periods']:,} under the rules record's first one; {f['thin_other_way_later']} of R74's "
-      "follow from the reading kept on the lists of July 2014 to the change, left to the architect.")
+    p(f"- **Rounding (§4.2, R74, R80).** The 2003, 2007 and 2010 texts round the rated player's new rating, the old "
+      "rating plus the change (§10.66 of 2003; §10.53 of 2007; §8.57 of 2010, which adds \"0.5 is rounded to 1\"); with "
+      "0.5 rounded up, that rounds the change with 0.5 towards +∞ (the reading of Rn as the rated player's new rating is "
+      "NOT VERIFIED). " + rounding_line(f) + ". Layer 0 rounds as FIDE's lists do: towards +∞ on every list to October "
+      "2018 and away from zero from the list of November 2018 (R74 before July 2014, a reading changed after partial "
+      "pages had been seen; R80 from July 2014, set after FIDE's pages had been read in the full replay); the list on "
+      "which FIDE's arithmetic changed, one of August to November 2018, is NOT VERIFIED, and the list of January 2009 "
+      f"keeps its periods thin (R80). Thin periods: {rdg['R80']['thin_periods']:,} under R80's reading, "
+      f"{rdg['D-0017']['thin_periods']:,} under D-0017's, {rdg['rules record']['thin_periods']:,} under the rules "
+      "record's first one.")
     p(f"- **Under the 2025 table applied backwards (§5)**, against opponents outside the set held at FIDE's ratings "
       f"(R58): {sgn(s['mean_difference'], 1)} points on average over the {rep['players_replayed']} players on each "
       f"player's last list, from {sgn(s['min_difference'])} to {sgn(s['max_difference'])} "
@@ -369,8 +381,8 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
       f"calculations index in the window, and {surnames(f['no_id'])}, who have no FIDE ID. Opponents outside the set at "
       "the ratings FIDE's pages print, or, where a page prints a capped value, at the rating of the same name on the list "
       "in force (R58's approximation); opponents inside the set at their replayed ratings. The reproduction runs locally "
-      "from the cached pages; only its counts are committed (R79), and a sample of fourteen cases chosen by a fixed rule "
-      "is kept as test fixtures (`tests/fixtures/fide_greats/`).")
+      f"from the cached pages; only its counts are committed (R79), and a sample of {words(f['fixture_cases'])} cases chosen "
+      "by a fixed rule is kept as test fixtures (`tests/fixtures/fide_greats/`; R79, and R80 for two of them).")
     p("")
     p("### 4.1 Layer 0 against FIDE")
     p("")
@@ -424,21 +436,29 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
       "marks show how the pages print a capped rating: as the player's own minus 350, unmarked, before July 2009, and "
       "with FIDE's asterisk after it.")
     p("")
-    p("**Rounding (R74).** The 2007 and 2010 texts round the rated player's new rating, the old rating plus the change: "
-      "\"Rn is rounded off to the nearest 1 or 0\" (§10.53 of 2007) and \"R n is rounded off to the nearest 1 or 0, 0.5 "
-      "is rounded to 1\" (§8.57 of 2010) (the rules record, §5). With a whole old rating, a new rating rounded with 0.5 "
-      "up rounds the change with 0.5 towards +∞. The rules record, written before FIDE's pages were seen, described "
-      "these clauses as rounding a new player's rating and read the lists before July 2014 as the 2014 clause applied as "
-      "E17 found the same words of 2017 applied, 0.5 away from zero; the session's review corrected the description "
-      "(ELO9-QC-1). FIDE's pages contradicted that reading: on the pages then fetched, 0.5 towards +∞ reproduced 44 of "
-      "49 half-point periods and away from zero 27. Ruling R74 (`docs/decisions/D-0017_rulings-on-the-greats.md`) "
-      "adopts towards +∞ for every list published before July 2014 (SPEC-L0 §11, finding F-H09); the switch was made "
-      "after those partial pages and before the full replay. On every period with a page and no gap in FIDE's files, "
-      "by the text in force when the list was published:")
+    p("**Rounding (R74, R80).** The 2003, 2007 and 2010 texts round the rated player's new rating, the old rating plus "
+      "the change: \"Rn is rounded off to the nearest 1 or 0\" (§10.66 of 2003; §10.53 of 2007) and \"R n is rounded off "
+      "to the nearest 1 or 0, 0.5 is rounded to 1\" (§8.57 of 2010) (the rules record, §5); the reading of Rn as the "
+      "rated player's new rating, and of the 2007 text's half point, is NOT VERIFIED. With a whole old rating, a new "
+      "rating rounded with 0.5 up rounds the change with 0.5 towards +∞. The 2014 and 2017 texts round the change, in the "
+      "same words: \"0.5 is rounded up (whether the change is positive or negative)\" (§8.57 of 2017, "
+      "`docs/research/VERIFICATION_RATING-REGULATIONS-ARCHIVE.md`; §8.57 of 2014, the rules record); the text of 2022 "
+      "says \"0.5 is rounded away from zero\" (§8.3.4, the same archive record). The rules record, written before "
+      "FIDE's pages were seen, described the clauses of 2007 and 2010 as rounding a new player's rating and read every "
+      "list as E17 found the words of 2017 applied, 0.5 away from zero; the review of session ELO-9 corrected the "
+      "description (ELO9-QC-1). FIDE's pages contradicted that reading: on the pages then fetched, 0.5 towards +∞ "
+      "reproduced 44 of 49 half-point periods and away from zero 27. Ruling R74 "
+      "(`docs/decisions/D-0017_rulings-on-the-greats.md`) adopted towards +∞ for every list published before July 2014 "
+      "(SPEC-L0 §11, finding F-H09), after those partial pages and before the full replay, and D-0017 kept away from "
+      "zero from July 2014. Ruling R80 (`docs/decisions/D-0018_rulings-on-elo-9-questions.md`; SPEC-L0 §11, finding "
+      "F-H10) extends towards +∞ to every list to October 2018 and rounds away from zero from the list of November 2018, "
+      "as FIDE's lists show below; it was set after FIDE's pages had been read in the full replay. On every period with "
+      "a page and no gap in FIDE's files, by the text in force when the list was published, the 2017 clause split at "
+      "R80's switch:")
     p("")
     p(FIXED)
     p("")
-    p("| lists | periods | reproduced as Layer 0 rounds (R74) | rounding 0.5 away from zero | rounding 0.5 towards +∞ "
+    p("| lists | periods | reproduced as Layer 0 rounds (R80) | rounding 0.5 away from zero | rounding 0.5 towards +∞ "
       "| rounding once per tournament | negative half points: towards +∞ / away from zero | positive half points: "
       "towards +∞ / towards zero |")
     p("|---|---|---|---|---|---|---|---|")
@@ -462,19 +482,27 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
                   f"{c.get('away_from_zero', 0) + c.get('towards_plus_infinity', 0)} went away from zero, and the same "
                   f"list holds {f['not_rounding_on'][t]} period{'s' if f['not_rounding_on'][t] != 1 else ''} whose "
                   "published change is not a rounding of its sum at all" for t, c in al.items())
-      + ". "
+      + "; the list gets no exception of its own (R80): those periods stay thin, a finding (§4.3). "
       + (f"Floating-point sums do not explain all of the {exc} exceptions to towards +∞: {exc_exact} of them are half "
          "points that a binary floating-point sum gives exactly, game by game and tournament by tournament, so no "
          "floating-point error can have tipped those. " if exc_exact else
          f"None of the {exc} exceptions to towards +∞ is a half point a binary floating-point sum gives exactly, so the "
          "floating-point sums FIDE's software may use could explain them. ")
-      + f"From the list of July 2014, outside R74, FIDE's lists rounded every negative half point towards +∞ up to the "
-        f"list of {month(nh['last_list_towards_plus_infinity'])} ({f['neg_later_up']}) and every one away from zero "
-        f"from the list of {month(nh['first_list_away_from_zero'])} ({f['neg_later_away']}), consistent with E17's "
-        "finding of away from zero on the lists from February 2020 (SPEC-L0 F-H07): FIDE's arithmetic changed between "
-        "those two lists. The reading kept from July 2014, away from zero, leaves the periods before the change thin; "
-        "which reading those lists follow is left to the architect. By the year of the list, every period whose sum "
-        "ended in a negative half point:")
+      + f"From the list of July 2014 FIDE's lists rounded every negative half point towards +∞ up to the list of "
+        f"{month(nh['last_list_towards_plus_infinity'])} ({f['neg_later_up']}) and every one away from zero from the list "
+        f"of {month(nh['first_list_away_from_zero'])} ({f['neg_later_away']}), as E17 found on the lists from February "
+        "2020 (SPEC-L0 F-H07) and before the text of 2022 said \"away from zero\": the same words of 2014 and 2017 were "
+        "applied two ways, FIDE's arithmetic changing between those two lists while the words did not. The lists "
+        f"between them, {' and '.join(', '.join(month(b['list']) for b in f['between']).rsplit(', ', 1))}, hold "
+        f"{sum(b['periods'] for b in f['between'])} replayed periods and "
+        + ("none" if not sum(b["negative_half_points"] for b in f["between"]) else
+           str(sum(b["negative_half_points"] for b in f["between"])))
+        + " whose sum ends in a negative half point, so FIDE's output does not show on which list from "
+        f"{month(f['between'][0]['list'])} to {month(nh['first_list_away_from_zero'])} the change took effect: that list "
+        "is NOT VERIFIED, and R80's boundary, the list of November 2018, gives the same counts as any of them. Ruling R80 "
+        "adopts what FIDE's lists show, towards +∞ to October 2018 and away from zero from November 2018, so that Layer 0 "
+        f"reproduces all {f['neg_later_up'] + f['neg_later_away']} of these periods. By the year of the list, every period "
+        "whose sum ended in a negative half point:")
     p("")
     p(FIXED)
     p("")
@@ -483,19 +511,20 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
     for y, c in rep["negative_half_points"]["by_year"].items():
         p(f"| {y} | {c.get('towards_plus_infinity', 0)} | {c.get('away_from_zero', 0)} | {c.get('neither', 0)} |")
     p("")
-    p("**The readings and the thin periods.** The replay under each reading of the rounding (R74 asks for both; the "
-      "third is information for the architect):")
+    p("**The readings and the thin periods.** The replay under each reading of the rounding, for Layer 0 and rung 2 "
+      "alike: R80's, adopted, which §5 uses; D-0017's beside it, as R80 asks; the rules record's first, as R74 asks; and, "
+      "for information only, towards +∞ on every list (D-0017 reading 2):")
     p("")
     p(FIXED)
     p("")
     p("| reading | thin periods | player-periods replayed | games replayed | mean difference, last list | range |")
     p("|---|---|---|---|---|---|")
-    for key in ("R74", "rules record", "towards +infinity throughout"):
+    for key in READINGS:
         x = rdg[key]
         p(f"| {READING_NAMES[key]} | {x['thin_periods']:,} | {x['periods_replayed']:,} | {x['games_replayed']:,} | "
           f"{sgn(x['mean_difference'], 2)} | {sgn(x['min_difference'])} to {sgn(x['max_difference'])} |")
     p("")
-    p("Periods that no reading reproduces stay thin and carry FIDE's change (R74). The comparison of §5 uses R74's "
+    p("Periods that no reading reproduces stay thin and carry FIDE's change (R74). The comparison of §5 uses R80's "
       "reading.")
     p("")
     p("### 4.3 Thin periods")
@@ -503,7 +532,7 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
     p("A period is thin when FIDE's page is missing, or when Layer 0 does not reproduce its published change; both "
       "systems then take FIDE's published change, so that the difference between them is carried unchanged through it "
       "(SPEC-GREATS §6). Where FIDE's own list file of a date lacks a player of the set, the periods to the next file "
-      "that carries the player are checked together against it. Under R74's reading:")
+      "that carries the player are checked together against it. Under R80's reading:")
     p("")
     p(FIXED)
     p("")
@@ -534,7 +563,8 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
       f"(White {rep['colour_marks'].get('white', 0):,}, Black {rep['colour_marks'].get('black', 0):,}: every replayed "
       "game carries one; E17 found them 98.4 % in agreement with the broadcast archive in 2020–2026, and they are "
       "unchecked before 2020); K by FIDE's K rules on each system's own rating (R61: the rules change K in "
-      f"{rep['k_departs_from_fide']['r2']} tournaments of the method); each period's change rounded as Layer 0 rounds it. "
+      f"{rep['k_departs_from_fide']['r2']} tournaments of the method); each period's change rounded as Layer 0 rounds it "
+      "(R80). "
       "Opponents outside the set are held at FIDE's ratings (R58); a replay of the whole pool, in which they would move "
       "too, needs FIDE's tournament reports. The difference is rung 2 minus Layer 0 on each player's last list in the "
       "window; Layer 0 equals FIDE's published rating on every list it reproduces.")
@@ -629,9 +659,10 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
       "favourites better (§5): the replay shows the rule's effect on the same results, not a measure of anyone's "
       "strength, and not a comparison across eras; its fit window holds few games at the top levels where the greats "
       "play.")
-    p("- The rounding before July 2014 follows the texts' rounding of the new rating and FIDE's pages (R74), a reading "
-      "changed after partial pages were seen; the rounding of July 2014 to the change of 2018 keeps a reading FIDE's "
-      "pages contradict for negative half points, and those periods are thin (§4.2).")
+    p("- Layer 0's rounding follows FIDE's lists (R74 before July 2014, a reading changed after partial pages were seen; "
+      "R80 from July 2014, set after the full replay had been read): the reading of the texts' Rn as the rated player's "
+      "new rating, and the list on which FIDE's arithmetic changed in 2018, are NOT VERIFIED; the list of January 2009, "
+      "which rounded its negative half points away from zero, keeps those periods thin (§4.2, §4.3).")
     return out
 
 
@@ -689,9 +720,9 @@ def appendix(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[
       f"in {v['games'] - v['game_delta_differs']:,} of {v['games']:,} games; {s['thin_periods']:,} player-periods are "
       "thin and carry FIDE's change. In the greats' games FIDE applied the 350-point rule to tournaments starting up to "
       f"{day(rd['last_start_with_350'])} and the 400-point rule from {day(rd['first_start_beyond_350'])}. "
-      + rounding_line(f) + "; Layer 0 reads towards +∞ before July 2014 (R74, a reading changed after partial pages had "
-      f"been seen) and away from zero after, and {f['thin_other_way_later']} of its {s['thin_periods']} thin periods "
-      "follow from that reading on the lists of July 2014 to the change, which is left to the architect. Under the 2025 "
+      + rounding_line(f) + "; Layer 0 rounds as FIDE's lists do, towards +∞ to October 2018 and away from zero from "
+      "November 2018 (R74 and R80, readings set after FIDE's pages had been seen; the list of the change NOT VERIFIED), "
+      "and the list of January 2009 keeps its periods thin. Under the 2025 "
       "table, **applied backwards, not fitted on that era**, with every opponent outside the "
       f"{rep['players_replayed']} held at FIDE's rating (R58), the greats end the window "
       f"{num(abs(s['mean_difference']))} points {'above' if s['mean_difference'] > 0 else 'below'} FIDE's ratings on "

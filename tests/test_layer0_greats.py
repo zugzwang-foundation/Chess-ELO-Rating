@@ -2,9 +2,10 @@
 
 The rules are those transcribed in docs/research/VERIFICATION_RATING-REGULATIONS-2001-2017.md: the 350-point rule of the
 October 2007 text, the 400-point rule of the June 2010 text (read as applying to tournaments from 1 July 2009, which
-FIDE's pages bear out), K 25/15/10 and, from 1 July 2014, 40/20/10; the rounding of the lists before July 2014, 0.5
-towards +infinity (ruling R74, SPEC-L0 §11, F-H09: the 2007 and 2010 texts round the new rating, §10.53 and §8.57),
-and from July 2014 the 2014 clause read as away from zero.
+FIDE's pages bear out), K 25/15/10 and, from 1 July 2014, 40/20/10; the rounding of every list to October 2018, 0.5
+towards +infinity (ruling R74 before July 2014, SPEC-L0 §11, F-H09: the 2007 and 2010 texts round the new rating, §10.53
+and §8.57; ruling R80 from July 2014, F-H10: the 2014 and 2017 words read literally), and from the list of November 2018
+0.5 away from zero (R80), with D-0017's reading (away from zero from July 2014) kept beside it.
 The fixtures are a small sample of FIDE's published calculations of the greats' periods chosen by a fixed rule (R79:
 at most 30 player-periods; tests/fixtures/fide_greats/published_periods.json, written by
 tools/data/assemble_greats_fixtures.py): every game's Delta R, every tournament's K x sum and the list change,
@@ -55,17 +56,30 @@ def test_k_rules_of_each_version():
 def test_rounding_by_the_list():
     # R74: on the lists before July 2014 0.5 towards +infinity: the 2007 and 2010 texts round the new rating (§10.53;
     # §8.57, "0.5 is rounded to 1"), as FIDE's lists show (F-H09);
-    # from the list of July 2014 the 2014 clause read as away from zero, as E17 found the same words of 2017 applied.
+    # R80: the same on every list to October 2018 (the 2014 and 2017 words read literally, F-H10), and from the list of
+    # November 2018 away from zero, as E17 found the same words of 2017 applied from February 2020 (F-H07).
     assert lg.round_change(Decimal("-8.5"), "2014-06") == -8 and lg.round_change(Decimal("8.5"), "2014-06") == 9
-    assert lg.round_change(Decimal("-8.5"), "2014-07") == -9 and lg.round_change(Decimal("8.5"), "2014-07") == 9
+    assert lg.round_change(Decimal("-8.5"), "2014-07") == -8 and lg.round_change(Decimal("8.5"), "2014-07") == 9
+    assert lg.round_change(Decimal("-8.5"), "2018-10") == -8 and lg.round_change(Decimal("8.5"), "2018-10") == 9
+    assert lg.round_change(Decimal("-8.5"), "2018-11") == -9 and lg.round_change(Decimal("8.5"), "2018-11") == 9
+    assert lg.round_change(Decimal("-8.5"), "2019-12") == -9
     assert lg.round_change(Decimal("-8.4"), "2010-01") == -8 and lg.round_change(Decimal("-8.6"), "2010-01") == -9
+    assert lg.round_change(Decimal("-8.4"), "2019-01") == -8 and lg.round_change(Decimal("-8.6"), "2019-01") == -9
     assert lg.round_change_up(Decimal("-2.5")) == -2 and lg.round_change_away(Decimal("-2.5")) == -3
     assert lg.round_change_away(Decimal("2.5")) == layer0.round_change(Decimal("2.5")) == 3
 
 
+def test_d0017s_reading_is_kept_beside_r80():
+    # R80 supersedes D-0017 reading 1 from the list of July 2014; the reading is kept so that E20 prints both counts.
+    assert lg.round_change_d0017(Decimal("-8.5"), "2014-06") == -8 == lg.round_change(Decimal("-8.5"), "2014-06")
+    assert lg.round_change_d0017(Decimal("-8.5"), "2014-07") == -9 != lg.round_change(Decimal("-8.5"), "2014-07")
+    assert lg.round_change_d0017(Decimal("-8.5"), "2018-11") == -9 == lg.round_change(Decimal("-8.5"), "2018-11")
+    assert lg.ROUNDING_2014_LIST == "2014-07" and lg.ROUNDING_2018_LIST == "2018-11"
+
+
 def test_the_sample_is_small_and_complete():
-    # R79: at most 30 player-periods, chosen by the fixed rule of tools/data/assemble_greats_fixtures.py
-    assert not FX["missing"] and [c["id"] for c in FX["cases"]] == [f"F-G{i:02d}" for i in range(1, 15)]
+    # R79: at most 30 player-periods, chosen by the fixed rule of tools/data/assemble_greats_fixtures.py; R80 adds two
+    assert not FX["missing"] and [c["id"] for c in FX["cases"]] == [f"F-G{i:02d}" for i in range(1, 17)]
     periods = {(c["list"], c["sum"], json.dumps(c["tournaments"], sort_keys=True)) for c in FX["cases"]}
     assert len(periods) == FX["player_periods"] <= 30
 
@@ -123,6 +137,20 @@ def test_f_g06_a_negative_half_point_before_july_2014_went_up():
     total = Decimal(c["sum"])
     assert c["list"] < "2014-07" and total < 0 and abs(total) % 1 == Decimal("0.5")
     assert lg.round_change_up(total) == c["published_change"] != lg.round_change_away(total)
+
+
+def test_f_g15_and_f_g16_either_side_of_the_2018_switch():
+    # F-H10 (R80): the last period before November 2018 whose sum ends in a negative half point went towards +infinity,
+    # the first from November 2018 away from zero; each is not reproduced by the other rounding.
+    c15, c16 = (next(c for c in FX["cases"] if c["id"] == i) for i in ("F-G15", "F-G16"))
+    for c in (c15, c16):
+        total = Decimal(c["sum"])
+        assert total < 0 and abs(total) % 1 == Decimal("0.5")
+    assert "2014-07" <= c15["list"] < "2018-11" <= c16["list"]
+    assert lg.round_change_up(Decimal(c15["sum"])) == c15["published_change"] != lg.round_change_away(Decimal(c15["sum"]))
+    assert lg.round_change_away(Decimal(c16["sum"])) == c16["published_change"] != lg.round_change_up(Decimal(c16["sum"]))
+    # D-0017's reading fails F-G15, which R80 reproduces
+    assert lg.round_change_d0017(Decimal(c15["sum"]), c15["list"]) != c15["published_change"]
 
 
 def test_first_period_of_each_version_and_either_side_of_the_switches():

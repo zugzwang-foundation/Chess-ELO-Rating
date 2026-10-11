@@ -28,10 +28,13 @@ data/interim/fide/standard/ and, for names, data/raw/fide/standard/ from Februar
 The readings the rules record leaves open are tested on FIDE's own pages: the date the 350-point rule became the
 400-point rule (on every game whose gap exceeds 350 points and whose opponent's rating is known), and the rounding
 (once per period against once per tournament, and every period whose sum ends in a half point, by the list's date).
-Ruling R74 (docs/decisions/D-0017_rulings-on-the-greats.md) adopts 0.5 towards +infinity on the lists before July 2014;
-the replay runs under that reading, under the rules record's first reading (away from zero on every list) as R74 asks,
-and, for the architect only, with 0.5 towards +infinity on every list of the window, and reports the thin periods and
-the difference under each. Writes analysis/aggregates/E20_greats_replay.json: the validation as counts (R79: the full
+Ruling R74 (docs/decisions/D-0017_rulings-on-the-greats.md) adopts 0.5 towards +infinity on the lists before July 2014,
+and ruling R80 (docs/decisions/D-0018_rulings-on-elo-9-questions.md) on every list to October 2018, away from zero from
+the list of November 2018; the replay runs under R80's reading, under D-0017's (towards +infinity before July 2014, away
+from zero from it) as R80 asks, under the rules record's first reading (away from zero on every list) as R74 asks, and,
+for information only (D-0017 reading 2), with 0.5 towards +infinity on every list of the window, and reports the thin
+periods and the difference under each, with the lists between FIDE's last negative half point rounded towards +infinity
+and its first rounded away from zero. Writes analysis/aggregates/E20_greats_replay.json: the validation as counts (R79: the full
 reproduction runs locally from the cache), and per player the games and periods replayed, the lists of the thin
 periods with their causes, the difference rung 2 - Layer 0 at each year end and on the last list, split into the
 table's effect and colour's, and the highest rating within the window under each system with its lists; no page, no
@@ -205,9 +208,15 @@ def resolve(g: dict, ro: int, idx: dict) -> int | None:
 
 
 def rounding_era(t: str) -> str:
-    """The rounding clause of the regulations in force when the list t was published."""
-    return "lists to June 2014 (the 2007 and 2010 texts)" if t < lg.ROUNDING_2014_LIST else (
-        "lists of July 2014 to June 2017 (the 2014 clause)" if t < "2017-07" else "lists from July 2017 (the 2017 clause)")
+    """The rounding clause of the regulations in force when the list t was published, the 2017 clause split at the list
+    from which FIDE's lists round 0.5 away from zero (R80)."""
+    if t < lg.ROUNDING_2014_LIST:
+        return "lists to June 2014 (the 2007 and 2010 texts)"
+    if t < "2017-07":
+        return "lists of July 2014 to June 2017 (the 2014 clause)"
+    if t < lg.ROUNDING_2018_LIST:
+        return "lists of July 2017 to October 2018 (the 2017 clause)"
+    return "lists from November 2018 (the 2017 clause)"
 
 
 def k_rule(ver: str, rating: int, ever2400: bool, ever2300: bool, list_month: str, birth: int | None) -> int:
@@ -223,9 +232,10 @@ VAL_KEYS = ("games", "game_delta_differs", "games_not_n", "tournaments", "tourna
             "total_shown_differs", "no_page", "cap_candidates", "cap_resolved", "cap_unresolved", "cap_marks",
             "set_games", "set_name_unconfirmed")
 READINGS = {                                             # how a period's change on the list t is rounded
-    "R74": lambda x, t: lg.round_change(x, t),           # 0.5 towards +infinity before July 2014 (R74), away from it after
+    "R80": lambda x, t: lg.round_change(x, t),           # 0.5 towards +infinity to October 2018 (R74, R80), away from it after
+    "D-0017": lambda x, t: lg.round_change_d0017(x, t),  # D-0017's: towards +infinity before July 2014, away from it after
     "rules record": lambda x, t: lg.round_change_away(x),    # the rules record's first reading: away from zero throughout
-    "towards +infinity throughout": lambda x, t: lg.round_change_up(x),   # for the architect: the words read literally
+    "towards +infinity throughout": lambda x, t: lg.round_change_up(x),   # for information (D-0017 reading 2)
 }
 
 
@@ -297,6 +307,7 @@ def run(c: dict, rnd) -> dict:
     val = Counter({k: 0 for k in VAL_KEYS})
     k_printed, by_cause = Counter(), Counter()
     neg_halves: list[tuple[str, str]] = []     # (list, how FIDE rounded a negative half point) in ordinary periods
+    periods_by_list: Counter = Counter()       # ordinary periods (a page, no gap in FIDE's files) by list
     cap_evidence: dict[str, Counter] = defaultdict(Counter)       # month of the start -> what FIDE applied
     cap_by_version: dict[str, Counter] = defaultdict(Counter)
     cap_dates = {"last_350": "", "first_beyond_350": "9999"}      # tournament starts
@@ -431,6 +442,7 @@ def run(c: dict, rnd) -> dict:
                 era = rounding_era(t)
                 s0 = res["sum0"]
                 rounding[era]["periods"] += 1
+                periods_by_list[t] += 1
                 rounding[era]["reproduced"] += res["ch0"] == pc
                 rounding[era]["reproduced_away_from_zero"] += lg.round_change_away(s0) == pc
                 rounding[era]["reproduced_towards_plus_infinity"] += lg.round_change_up(s0) == pc
@@ -500,7 +512,8 @@ def run(c: dict, rnd) -> dict:
                 R2[v][p][tt] = R2[v][p][anchor[p]]
     return {"L0": L0, "R2": R2, "val": val, "k_printed": k_printed, "by_cause": by_cause, "cap_evidence": cap_evidence,
             "cap_by_version": cap_by_version, "cap_dates": cap_dates, "rounding": rounding, "k_departs": k_departs,
-            "colour": colour, "stats": stats, "thin": thin, "checked": checked, "neg_halves": neg_halves}
+            "colour": colour, "stats": stats, "thin": thin, "checked": checked, "neg_halves": neg_halves,
+            "periods_by_list": periods_by_list}
 
 
 # ------------------------------------------------------------------ the aggregate
@@ -580,9 +593,11 @@ def calibration(c: dict) -> dict:
             "per_player_rows": {p: [x["rows"], x["rows_2800"]] for p, x in per_player.items()}}
 
 
-def negative_halves(rows: list[tuple[str, str]]) -> dict:
+def negative_halves(rows: list[tuple[str, str]], periods_by_list: Counter | None = None,
+                    window: list[str] | None = None) -> dict:
     """How FIDE's lists rounded a period's sum ending in a negative half point, by year of the list, and the lists from
-    July 2014 on which the direction last went up and first went away from zero (counts and list dates only)."""
+    July 2014 on which the direction last went up and first went away from zero, with every list of the window between
+    them, its ordinary periods and their negative half points (counts and list dates only)."""
     by_year: dict[str, Counter] = defaultdict(Counter)
     for t, how in rows:
         by_year[t[:4]][how] += 1
@@ -591,7 +606,13 @@ def negative_halves(rows: list[tuple[str, str]]) -> dict:
     for t, how in rows:
         if t < lg.ROUNDING_2014_LIST:
             early[t][how] += 1
+    last_up = max((t for t, h in after if h == "towards_plus_infinity"), default=None)
+    first_away = min((t for t, h in after if h == "away_from_zero"), default=None)
+    between = [{"list": t, "periods": (periods_by_list or {}).get(t, 0),
+                "negative_half_points": sum(1 for x, _h in rows if x == t)}
+               for t in (window or []) if last_up and first_away and last_up < t < first_away]
     return {"by_year": {y: dict(sorted(c.items())) for y, c in sorted(by_year.items())},
+            "lists_between_the_last_up_and_the_first_away": between,
             "before_july_2014_lists_with_away_from_zero": {t: dict(sorted(c.items())) for t, c in sorted(early.items())
                                                            if c.get("away_from_zero")},
             "before_july_2014_lists": len(early),
@@ -624,10 +645,12 @@ def summary(players: list[dict]) -> dict:
 
 def main() -> int:
     c = prepare()
-    r = run(c, READINGS["R74"])
+    r = run(c, READINGS["R80"])
+    d17 = run(c, READINGS["D-0017"])
     alt = run(c, READINGS["rules record"])
     up = run(c, READINGS["towards +infinity throughout"])
-    players, players_alt, players_up = players_of(c, r), players_of(c, alt), players_of(c, up)
+    players, players_d17 = players_of(c, r), players_of(c, d17)
+    players_alt, players_up = players_of(c, alt), players_of(c, up)
     evidence = {k: dict(x) for k, x in sorted(r["cap_evidence"].items())}
     cal = calibration(c)
     for pl in players:
@@ -650,13 +673,15 @@ def main() -> int:
                             "first_start_beyond_350": None if r["cap_dates"]["first_beyond_350"] == "9999" else
                             r["cap_dates"]["first_beyond_350"]},
         "rounding": {k: dict(sorted(x.items())) for k, x in sorted(r["rounding"].items())},
-        "negative_half_points": negative_halves(r["neg_halves"]),
-        "readings": {  # R74: the replay under the adopted reading and under the rules record's first one
-            "R74": {"rule": "0.5 towards +infinity on the lists before July 2014, away from zero from July 2014",
+        "negative_half_points": negative_halves(r["neg_halves"], r["periods_by_list"], c["window"]),
+        "readings": {  # R80 adopted, D-0017's beside it (R80), the rules record's first (R74), and one for information
+            "R80": {"rule": "0.5 towards +infinity on every list to October 2018, away from zero from November 2018",
                     **summary(players), "thin_by_cause": dict(sorted(r["by_cause"].items()))},
+            "D-0017": {"rule": "0.5 towards +infinity on the lists before July 2014, away from zero from July 2014",
+                       **summary(players_d17), "thin_by_cause": dict(sorted(d17["by_cause"].items()))},
             "rules record": {"rule": "0.5 away from zero on every list", **summary(players_alt),
                              "thin_by_cause": dict(sorted(alt["by_cause"].items()))},
-            "towards +infinity throughout": {  # beyond R74's scope, for the architect: the 2014 and 2017 words literally
+            "towards +infinity throughout": {  # for information only (D-0017 reading 2): the 2014 and 2017 words literally
                 "rule": "0.5 towards +infinity on every list of the window, to December 2019", **summary(players_up),
                 "thin_by_cause": dict(sorted(up["by_cause"].items()))}},
         "k_departs_from_fide": dict(r["k_departs"]),

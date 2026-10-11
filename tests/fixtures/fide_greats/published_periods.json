@@ -1,6 +1,6 @@
 {
  "source": "FIDE's published per-player rating calculations (ratings.fide.com/calculations.phtml, data endpoint /a_indv_calculation.php), cached by tools/data/fetch_greats_calculations.py; FIDE's standard lists for the published change and the opponents' ratings",
- "selection": "tools/data/assemble_greats_fixtures.py (R79: at most 30 player-periods, a fixed rule): for each rule, the first period in the order of (list, FIDE ID) that shows it in a tournament the neighbouring reading does not reproduce, the first period of each version, and the periods either side of 1 July 2009 and of 1 July 2014, among periods Layer 0 with the rules in force reproduces",
+ "selection": "tools/data/assemble_greats_fixtures.py (R79: at most 30 player-periods, a fixed rule): for each rule, the first period in the order of (list, FIDE ID) that shows it in a tournament the neighbouring reading does not reproduce, the first period of each version, the periods either side of 1 July 2009 and of 1 July 2014, and R80's periods either side of the switch of rounding (the last before November 2018 and the first from it whose sum ends in a negative half point), among periods Layer 0 with the rules in force reproduces",
  "list_values_note": "published_change, opponent_rating and printed_rating are single values quoted from FIDE's lists and calculations for verification; the lists themselves are not redistributed",
  "missing": [],
  "cases": [
@@ -1765,7 +1765,238 @@
      ]
     }
    ]
+  },
+  {
+   "id": "F-G15",
+   "list": "2018-07",
+   "published_change": -1,
+   "sum": "-1.50",
+   "ever_2400_before": true,
+   "tournaments": [
+    {
+     "start": "2018-05-28",
+     "ro": 2843,
+     "k": 10,
+     "k_chg": "-1.50",
+     "games": [
+      {
+       "opponent_rating": 2822,
+       "printed_rating": 2822,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.47"
+      },
+      {
+       "opponent_rating": 2782,
+       "printed_rating": 2782,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.08"
+      },
+      {
+       "opponent_rating": 2764,
+       "printed_rating": 2764,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.39"
+      },
+      {
+       "opponent_rating": 2769,
+       "printed_rating": 2769,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.10"
+      },
+      {
+       "opponent_rating": 2760,
+       "printed_rating": 2760,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.11"
+      },
+      {
+       "opponent_rating": 2778,
+       "printed_rating": 2778,
+       "capped_mark": false,
+       "score": "0",
+       "chg": "-0.59"
+      },
+      {
+       "opponent_rating": 2808,
+       "printed_rating": 2808,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.05"
+      },
+      {
+       "opponent_rating": 2789,
+       "printed_rating": 2789,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.08"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-G16",
+   "list": "2018-11",
+   "published_change": -2,
+   "sum": "-1.50",
+   "ever_2400_before": true,
+   "tournaments": [
+    {
+     "start": "2018-09-24",
+     "ro": 2780,
+     "k": 10,
+     "k_chg": "0.20",
+     "games": [
+      {
+       "opponent_rating": 2477,
+       "printed_rating": 2477,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.14"
+      },
+      {
+       "opponent_rating": 2501,
+       "printed_rating": 2501,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.16"
+      },
+      {
+       "opponent_rating": 2715,
+       "printed_rating": 2715,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.09"
+      },
+      {
+       "opponent_rating": 2739,
+       "printed_rating": 2739,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.44"
+      },
+      {
+       "opponent_rating": 2712,
+       "printed_rating": 2712,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.09"
+      },
+      {
+       "opponent_rating": 2690,
+       "printed_rating": 2690,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.38"
+      },
+      {
+       "opponent_rating": 2703,
+       "printed_rating": 2703,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.11"
+      },
+      {
+       "opponent_rating": 2661,
+       "printed_rating": 2661,
+       "capped_mark": false,
+       "score": "0",
+       "chg": "-0.66"
+      },
+      {
+       "opponent_rating": 2689,
+       "printed_rating": 2689,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.12"
+      },
+      {
+       "opponent_rating": 2760,
+       "printed_rating": 2760,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.03"
+      }
+     ]
+    },
+    {
+     "start": "2018-10-20",
+     "ro": 2780,
+     "k": 10,
+     "k_chg": "-1.70",
+     "games": [
+      {
+       "opponent_rating": 2447,
+       "printed_rating": 2447,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.12"
+      },
+      {
+       "opponent_rating": 2547,
+       "printed_rating": 2547,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.21"
+      },
+      {
+       "opponent_rating": 2618,
+       "printed_rating": 2618,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.29"
+      },
+      {
+       "opponent_rating": 2656,
+       "printed_rating": 2656,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.17"
+      },
+      {
+       "opponent_rating": 2623,
+       "printed_rating": 2623,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.21"
+      },
+      {
+       "opponent_rating": 2605,
+       "printed_rating": 2605,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.27"
+      },
+      {
+       "opponent_rating": 2721,
+       "printed_rating": 2721,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.08"
+      },
+      {
+       "opponent_rating": 2722,
+       "printed_rating": 2722,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.08"
+      },
+      {
+       "opponent_rating": 2769,
+       "printed_rating": 2769,
+       "capped_mark": false,
+       "score": "0",
+       "chg": "-0.52"
+      }
+     ]
+    }
+   ]
   }
  ],
- "player_periods": 13
+ "player_periods": 15
 }

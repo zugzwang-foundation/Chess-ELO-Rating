@@ -101,7 +101,7 @@ One core skill per player, with an offset, table and volatility per time control
    └──────────────────────────────────────────────────────────────────────────────┘
 ```
 
-**Layer 0, the reference engine**, is rung 1: an exact implementation of the FIDE Rating Regulations as amended 1 October 2025 [V 1] and of the Rapid and Blitz Rating Regulations [V 2] (`docs/specs/SPEC-L0_fide-reference-engine_v1_4.md`), verified against FIDE's published calculations [E0] (section 8); FIDE's online calculator is out of date (Appendix F).
+**Layer 0, the reference engine**, is rung 1: an exact implementation of the FIDE Rating Regulations as amended 1 October 2025 [V 1] and of the Rapid and Blitz Rating Regulations [V 2] (`docs/specs/SPEC-L0_fide-reference-engine_v1_5.md`), verified against FIDE's published calculations [E0] (section 8); FIDE's online calculator is out of date (Appendix F).
 
 **Layer 1, the model** [T2], gives each player a shared skill with an age-dependent drift and an offset per time control, refitted monthly on 36 months of games by Whole-History Rating's method [VP 11], with priors by age only, never federation, and a scale anchored to steadily active adults [VP 12] (`docs/specs/SPEC-L1_v1_0.md`). Its estimates of named players are for the QC only. **It never edits a published rating.**
 
@@ -679,21 +679,21 @@ Lists to 2000: OlimpBase's transcription of FIDE's lists, by Wojciech Bartelski 
 
 A lead over one's contemporaries, on lists whose frequency and spread change with the era, and a maximum over a different number of windows for each player: not a ranking across eras.
 
-**The replay, 2008–2019** [E20 §4–§5]. Of the 36, 29 have rated games in the window. Given FIDE's own inputs, Layer 0 with the rules in force at each date reproduces FIDE's printed change in 18,490 of 18,490 games; 36 player-periods are thin and carry FIDE's change. In the greats' games FIDE applied the 350-point rule to tournaments starting up to 28 June 2009 and the 400-point rule from 9 July 2009. FIDE's lists rounded a period's half point towards +∞ up to the list of July 2018 (73 of 78 half points before July 2014, every one of the 27 negative ones from July 2014), except on the list of January 2009 (3 of 3 away from zero), and away from zero from the list of November 2018 (every one of the 12 negative ones); Layer 0 reads towards +∞ before July 2014 (R74, a reading changed after partial pages had been seen) and away from zero after, and 27 of its 36 thin periods follow from that reading on the lists of July 2014 to the change, which is left to the architect. Under the 2025 table, **applied backwards, not fitted on that era**, with every opponent outside the 29 held at FIDE's rating (R58), the greats end the window 27.0 points above FIDE's ratings on average (from −9 to +62; +17.8 to +36.3 with those opponents 10 points lower or higher; a replay of the whole pool, in which they would move too, needs FIDE's tournament reports). On these games table 8.1.2 fits the favourites better (mean residual −0.009 against +0.035 for the 2025 table): the difference measures how far the 2025 table sits from 8.1.2 at these players' gaps, and the highest ratings below rest most on levels where the table was fitted on fewest games:
+**The replay, 2008–2019** [E20 §4–§5]. Of the 36, 29 have rated games in the window. Given FIDE's own inputs, Layer 0 with the rules in force at each date reproduces FIDE's printed change in 18,490 of 18,490 games; 9 player-periods are thin and carry FIDE's change. In the greats' games FIDE applied the 350-point rule to tournaments starting up to 28 June 2009 and the 400-point rule from 9 July 2009. FIDE's lists rounded a period's half point towards +∞ up to the list of July 2018 (73 of 78 half points before July 2014, every one of the 27 negative ones from July 2014), except on the list of January 2009 (3 of 3 away from zero), and away from zero from the list of November 2018 (every one of the 12 negative ones); Layer 0 rounds as FIDE's lists do, towards +∞ to October 2018 and away from zero from November 2018 (R74 and R80, readings set after FIDE's pages had been seen; the list of the change NOT VERIFIED), and the list of January 2009 keeps its periods thin. Under the 2025 table, **applied backwards, not fitted on that era**, with every opponent outside the 29 held at FIDE's rating (R58), the greats end the window 27.1 points above FIDE's ratings on average (from −9 to +62; +17.9 to +36.6 with those opponents 10 points lower or higher; a replay of the whole pool, in which they would move too, needs FIDE's tournament reports). On these games table 8.1.2 fits the favourites better (mean residual −0.009 against +0.035 for the 2025 table): the difference measures how far the 2025 table sits from 8.1.2 at these players' gaps, and the highest ratings below rest most on levels where the table was fitted on fewest games:
 
 *Under this rule, with the same results — not anyone's true strength. A rating measures strength against one's own era.*
 
 | name | games | highest under FIDE's rules, 2008–2019 | highest under the 2025 table | difference, last list |
 |---|---|---|---|---|
-| Carlsen, Magnus | 777 | 2882 (May 2014) | 2945 (August 2019) | +62 |
-| Caruana, Fabiano | 1,208 | 2844 (October 2014) | 2882 (December 2018) | +55 |
-| Aronian, Levon | 881 | 2830 (March 2014) | 2875 (March 2014) | +34 |
+| Carlsen, Magnus | 785 | 2882 (May 2014) | 2945 (August 2019) | +62 |
+| Caruana, Fabiano | 1,224 | 2844 (October 2014) | 2882 (December 2018) | +55 |
+| Aronian, Levon | 899 | 2830 (March 2014) | 2875 (March 2014) | +34 |
 | So, Wesley | 1,019 | 2822 (February 2017) | 2857 (February 2017) | +37 |
 | Mamedyarov, Shakhriyar | 854 | 2820 (September 2018) | 2858 (September 2018) | +37 |
 | Vachier-Lagrave, Maxime | 1,145 | 2819 (August 2016) | 2848 (August 2016) | +35 |
-| Anand, Viswanathan | 590 | 2817 (March 2011) | 2847 (July 2015) | +32 |
-| Kramnik, Vladimir | 566 | 2817 (October 2016) | 2855 (October 2016) | +40 |
-| Ding, Liren | 859 | 2816 (November 2018) | 2854 (September 2019) | +41 |
+| Anand, Viswanathan | 599 | 2817 (March 2011) | 2847 (July 2015) | +32 |
+| Kramnik, Vladimir | 566 | 2817 (October 2016) | 2855 (October 2016) | +41 |
+| Ding, Liren | 882 | 2816 (November 2018) | 2854 (September 2019) | +41 |
 | Nakamura, Hikaru | 972 | 2816 (October 2015) | 2851 (October 2015) | +33 |
 
 **What permission would add.** With written permission from TWIC, ChessBase or Chessmetrics, the full study becomes possible: the replay could extend to the games those collections hold, across the greats' careers. FIDE's own calculations, against which a replay is checked, exist only from 2008; those collections do not record which games FIDE rated; and any comparison across eras would rest on a model's assumptions. Permission has not been sought.

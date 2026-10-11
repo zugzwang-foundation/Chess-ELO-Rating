@@ -84,14 +84,26 @@ def test_r79_the_replay_commits_counts_only():
         assert len(c) == 4 and c[3] in ("reproduced", "not reproduced")
 
 
-def test_r74_both_readings_and_the_third_are_reported():
+def test_r80_and_the_other_readings_are_reported():
+    # R80 (D-0018): E20 prints the thin periods and §5's mean under D-0017's reading and under R80's, which §5 uses;
+    # R74 asks for the rules record's first reading; the fourth is for information only (D-0017 reading 2).
     rd = REPLAY["readings"]
-    assert set(rd) == {"R74", "rules record", "towards +infinity throughout"}
-    assert rd["R74"]["thin_periods"] == REPLAY["summary"]["thin_periods"]
-    assert rd["R74"]["mean_difference"] == REPLAY["summary"]["mean_difference"]
-    early = REPLAY["rounding"]["lists to June 2014 (the 2007 and 2010 texts)"]
-    # R74's reading is the better of the two on the lists before July 2014 (towards +infinity there)
+    assert set(rd) == {"R80", "D-0017", "rules record", "towards +infinity throughout"}
+    assert rd["R80"]["thin_periods"] == REPLAY["summary"]["thin_periods"]
+    assert rd["R80"]["mean_difference"] == REPLAY["summary"]["mean_difference"]
+    assert rd["R80"]["thin_periods"] <= min(x["thin_periods"] for x in rd.values())
+    rnd = REPLAY["rounding"]
+    early = rnd["lists to June 2014 (the 2007 and 2010 texts)"]
+    # towards +infinity on the lists before July 2014 (R74) and to October 2018 (R80); away from zero after (R80)
     assert early["reproduced"] == early["reproduced_towards_plus_infinity"] >= early["reproduced_away_from_zero"]
+    for era in ("lists of July 2014 to June 2017 (the 2014 clause)", "lists of July 2017 to October 2018 (the 2017 clause)"):
+        assert rnd[era]["half_negative_away_from_zero"] == 0 < rnd[era]["half_negative_towards_plus_infinity"]
+    late = rnd["lists from November 2018 (the 2017 clause)"]
+    assert late["half_negative_towards_plus_infinity"] == 0 < late["half_negative_away_from_zero"]
+    nh = REPLAY["negative_half_points"]
+    assert nh["from_july_2014"]["last_list_towards_plus_infinity"] < "2018-11" <= nh["from_july_2014"]["first_list_away_from_zero"]
+    between = nh["lists_between_the_last_up_and_the_first_away"]
+    assert between and all(b["negative_half_points"] == 0 for b in between)     # the switch's list is not dated
 
 
 def test_no_unrendered_placeholder_in_the_generated_pages():
