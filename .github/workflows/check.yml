@@ -24,6 +24,10 @@ jobs:
       - name: (a) every analysis script reproduces its committed output exactly
         run: python tools/checks/check_outputs.py
 
+      - name: (a′) Freeze 3b — the championship comparison's frozen files equal D-0014's manifest
+        if: ${{ !cancelled() }}
+        run: python tools/checks/check_freeze3b.py
+
       - name: (b) pytest
         if: ${{ !cancelled() }}
         run: |

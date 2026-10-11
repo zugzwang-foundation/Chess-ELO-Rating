@@ -1,0 +1,100 @@
+{
+ "bands": {
+  "1450": {
+   "draws": 545,
+   "games": 2619,
+   "rate": 0.208095
+  },
+  "1550": {
+   "draws": 2074,
+   "games": 10519,
+   "rate": 0.197167
+  },
+  "1650": {
+   "draws": 3944,
+   "games": 18549,
+   "rate": 0.212626
+  },
+  "1750": {
+   "draws": 5665,
+   "games": 25124,
+   "rate": 0.225482
+  },
+  "1850": {
+   "draws": 8311,
+   "games": 32825,
+   "rate": 0.253191
+  },
+  "1950": {
+   "draws": 9759,
+   "games": 36678,
+   "rate": 0.266072
+  },
+  "2050": {
+   "draws": 11247,
+   "games": 39383,
+   "rate": 0.28558
+  },
+  "2150": {
+   "draws": 11917,
+   "games": 40709,
+   "rate": 0.292736
+  },
+  "2250": {
+   "draws": 13130,
+   "games": 41273,
+   "rate": 0.318126
+  },
+  "2350": {
+   "draws": 14636,
+   "games": 39509,
+   "rate": 0.370447
+  },
+  "2450": {
+   "draws": 13113,
+   "games": 29801,
+   "rate": 0.440019
+  },
+  "2550": {
+   "draws": 7524,
+   "games": 14727,
+   "rate": 0.510898
+  },
+  "2650": {
+   "draws": 3541,
+   "games": 6158,
+   "rate": 0.575024
+  },
+  "2750": {
+   "draws": 945,
+   "games": 1586,
+   "rate": 0.595839
+  },
+  "2850": {
+   "draws": 10,
+   "games": 25,
+   "rate": 0.4
+  }
+ },
+ "cutoff": {
+  "dropped_after_cutoff": 7
+ },
+ "generated_by": "analysis/us26_draw_rate_extract.py",
+ "reproduces_E11": {
+  "E11_cells": 33386,
+  "E11_games": 339485,
+  "E11_loglik": -316260.136125,
+  "cells": 33386,
+  "games": 339485,
+  "loglik_at_E11_fit": -316260.136125
+ },
+ "source": "Lichess broadcast archive (https://database.lichess.org/broadcast/, CC BY-SA 4.0), E11's sample: files 2023-01 to 2026-09, games dated to 2026-09-30, both players on FIDE's standard list in force",
+ "status": "MEASURED on broadcast games, PROVISIONAL: frozen in Freeze 3b (D-0014) before any result of the 2026 U.S. Championships was read",
+ "table": "params/table_fit_2026-10b.yaml",
+ "time_control": "standard",
+ "use": "column (a)'s three-outcome forecast in the championships' forecast test (R54): FIDE's expected score split with the draw rate of the game's 100-point level band (E2's construction, SPEC-TABLE-FIT v1.0 \u00a73)",
+ "window": [
+  "2023-10",
+  "2026-09"
+ ]
+}
