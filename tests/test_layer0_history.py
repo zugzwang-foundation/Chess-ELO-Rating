@@ -62,8 +62,8 @@ def test_fides_published_calculations_are_reproduced():
             start = date.fromisoformat(tr["start"])
             games = [(g["opponent_rating"], Decimal(g["score"])) for g in tr["games"]]
             ds = lh.deltas(tr["ro"], games, start)
-            assert [str(d) for d in ds] == [g["chg"] for g in tr["games"]], (case["id"], tr["event"])
-            assert Decimal(tr["k"]) * sum(ds, Decimal(0)) == Decimal(tr["k_chg"]), (case["id"], tr["event"])
+            assert [str(d) for d in ds] == [g["chg"] for g in tr["games"]], (case["id"], tr["start"])
+            assert Decimal(tr["k"]) * sum(ds, Decimal(0)) == Decimal(tr["k_chg"]), (case["id"], tr["start"])
             total += Decimal(tr["k"]) * sum(ds, Decimal(0))
         assert lh.round_change(total, case["list"]) == case["published_change"], case["id"]
 
@@ -109,9 +109,10 @@ import e17_top100_extract as ex  # noqa: E402
 
 
 def test_name_keys_meet_across_word_order_and_accents():
-    assert ex.norm("Sarin, Nihal") == ex.norm("Nihal Sarin") == ex.norm("SARIN  nihal")
-    assert ex.norm("Dominguez Pérez, Leinier") == ex.norm("Leinier Dominguez Perez")
-    assert ex.norm("Giri, Anish") != ex.norm("Giri, Anisha")
+    # Synthetic names: no real player is named in a committed file (SPEC-TOP100 §2, §8).
+    assert ex.norm("Doe, Jane") == ex.norm("Jane Doe") == ex.norm("DOE  jane")
+    assert ex.norm("Núñez Pérez, Ana") == ex.norm("Ana Nunez Perez")
+    assert ex.norm("Roe, Sam") != ex.norm("Roe, Samuel")
 
 
 def test_the_list_a_tournament_uses():

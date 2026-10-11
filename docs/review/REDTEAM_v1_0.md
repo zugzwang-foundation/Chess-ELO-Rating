@@ -473,3 +473,149 @@ That runs against R32's own rationale; §5 mentions only standard.
 - **The simulator's farming figures,** 0.241 and 0.053, are the five-seed means in E14's aggregate (0.2407, 0.0534).
 - **T11's §8.2.3 figures** match script v2 §7 and table 8.1.1 in `src/layer0`.
 - **Freeze times.** GitHub merge times are 19:59:46Z on 9 October, then 13:58:33Z and 15:22:53Z on 10 October. Both tags are annotated.
+
+## Addendum: session ELO-7, Phase 4 — D-0012, E17 and the sections changed in ELO-7
+
+Status: REVIEW RECORD · Session ELO-7, Phase 4 · Date: 2026-10-11 · Reviewer: one subagent, read-only, briefed with the R-STAT and R-QC briefs together, after Phases 0 to 3 had merged (main at 586c7d2). It read `docs/decisions/D-0012_pre-results-amendments.md` with its implementation (`tools/set_results.py`, `tools/compare_event_v3a.py`, `analysis/e13_us_championships_freeze3a.py`, `tools/checks/check_outputs.py`, `tests/test_compare_event_v3a.py`, E13, and `analysis/e3_freeze2_record.py` with E3); E17 (`docs/specs/SPEC-TOP100_v1_0.md`, `docs/research/VERIFICATION_RATING-REGULATIONS-ARCHIVE.md`, `src/layer0_history/__init__.py`, the extraction, report and summary scripts with their outputs, the tests and the fixtures); and the sections changed in this session: the proposal's header, §1, §5, §8, §10, §13, §14, §15 and Appendix G, the brief, the annex's sections that carry rung 2 at today's K, E14, E16 and `docs/specs/SPEC-TABLE-FIT_v1_2.md`. The rulings R43–R53 were given as fixed, with ruling-level points to be listed separately. It returned ten findings, ranked, each with severity, location and fix, four points for the architect and a list of what it checked and found correct. The report is reproduced verbatim below, after what the executor did with it.
+
+### Verification performed by the executor
+
+- **ELO7-STAT-1 was checked on the 2025 event with the frozen tool, in memory only.** (b′)'s mean and largest difference (1.94, −4.30) and (b0)'s (3.33, −7.00) come out the same under four sets of results: the real ones, all draws and two random sets. (b)'s move with the results (mean 5.49, 2.22, 8.15 and 8.86), through m. The identity (b′) − (a) = K Σ(PD − E) holds whenever K and the counted games are fixed. The executor computed and printed no 2026 value; the reviewer's are its own (For the architect, item 1).
+- **E17's new figures come from the committed extraction, rerun on the cached data:**
+  - the first-order sensitivity to the opponents outside the 100: 2.44 points of mean difference for each point those opponents would differ, 0.07 to 7.85 by player;
+  - the games beyond 400 points: 2,014, of which 2,013 reproduced;
+  - the 85 unidentified capped games: they fall to 30 players, at most 14 for one;
+  - the 26 tournaments that straddle a change of rules: all reproduced, only one with a game beyond 400 points;
+  - the 2017 rounding reading: 28 of 28 periods.
+
+  Two figures of the review now have their own lines in E17 §9: the reviewer's 1.9 to 2.7 points a point becomes 2.44, and its 14 points a player for each 0.01 of residual is printed as computed. The reassembled fixtures hold the same five cases without IDs.
+- **No frozen file changed.** Freeze 3a's manifest still equals D-0012's (check (a)). D-0013 records a reading under R43 before any result is read, as D-0012 provides, and changes no file of any freeze.
+- **The checks after the fixes:**
+  - (a) every script that needs no data reproduces its committed output, and the manifest holds;
+  - (b) 609 tests pass;
+  - (c) every reference resolves;
+  - (d) the body has 4,496 words and the brief 899.
+
+### Disposition
+
+**fixed** (where); ruling-level points go to the architect (below); none of R43–R53 was reopened.
+
+| ID | Sev. | Topic | Status |
+|---|---|---|---|
+| ELO7-STAT-1 | major | §10's main blanks are set by the pairings | fixed: §10's table rows (outside the cap) say which blanks the pairings and the October list's ratings set, since the score cancels, and that results move them only through games not played; §1 drops "runs blind"; the brief says "its main figures depend on the pairings, not the results"; the wording for `{{US26_READING}}` is in the steps for 22–23 October (session close-out). Printing the 2026 values now would change how §10 is run: for the architect |
+| ELO7-STAT-2 | major | E17's mean and counts rest on opponents held fixed | fixed: E17's brief and §9 give the first-order sensitivity (2.4 points of mean difference a point); the summary and Appendix G open with "with the opponents outside the 100 held at their published ratings" and carry the sensitivity; E17 §9, the summary and Appendix G note beside the counts that they compare two scales (annex T3.5) |
+| ELO7-STAT-3 | major | part of the gain is rung 2's own residual at the top | fixed: E17 §9 "Rung 2's own error" (E16 §1 and §5's residuals; 13,996 games as favourite at gaps of 100 to 399, about 14 points a player for each 0.01 at K = 10); the summary's "Why" and "What we did" no longer say "refitted on what players actually score" or "on real results", and both plain-language pages say the replay cannot separate the two errors |
+| ELO7-QC-1 | major | the brief misdates the amendments; §10 lost Freeze 2's time | fixed: the brief ("amended it twice after round 1 … all before reading any result"; the replica sentence reordered so that "on broadcast games" qualifies only the table); §10 gives Freeze 2's time again (13:58 UTC on 10 October, after round 1), with Freeze 3's and 3a's times written shorter to stay within the cap |
+| ELO7-QC-2 | minor | the marker against §5.1's full test | fixed: `docs/decisions/D-0013_games-not-counted.md` transcribes all of §5.1 [V 1] and sets the marker for every game §5.1 does not count or rate (not played; a player made no move, by the official game score; declared unrated for force majeure or under Fair Play by the time of entry); §10's row is now "games counted" |
+| ELO7-QC-3 | minor | E3 and E13 print different values under the same blank names | fixed: `analysis/e3_freeze2_record.py` renames E3's blanks with the prefix F2_ and labels the section as Freeze 2's, superseded, saying that the PILOT there sits on Freeze 2's (b), without m (E3 regenerated); that the PILOT of §10 carries K × m is in the steps for the reading |
+| ELO7-STAT-4 | minor | E17's validation covers less than its wording suggests | fixed: "given FIDE's own inputs" in E17's brief, the summary and Appendix G; E17 §2 "What the validation tests" (33,607 games within 400 points test the table and the sums; 2,014 beyond, 85 of them by construction, 30 players, at most 14; 26 tournaments straddle a change of rules, one with a game beyond 400, so the start-date reading is barely tested); the rounding paragraph gives 28 of 28 under the 2017 text; §4's wording corrected |
+| ELO7-QC-4 | minor | the plain-language pages drop the NOT VERIFIED rule | fixed: the summary and Appendix G state the reading of March 2024 to September 2025 as NOT VERIFIED, with FIDE's calculations agreeing in all 111 tournaments that can tell; Appendix G now lists every limit of E17 §9 |
+| ELO7-QC-5 | minor | real names in a test, IDs in a fixture | fixed: synthetic names in `tests/test_layer0_history.py`; FIDE IDs and event IDs dropped from the fixture (`tools/data/assemble_history_fixtures.py` rerun: the same five cases) |
+| ELO7-QC-6 | minor | SPEC-TABLE-FIT v1.2 reimposes γ ≤ ½ | fixed: v1.2 §2 reads γ_tc(L) ≥ 0 with no upper bound, a fit on any boundary a calibration flag for the QC (R7) |
+
+### For the architect
+
+Consolidated from the report, with the executor's evidence beside each; none is decided here.
+
+1. **§10 measures the pairings** (ELO7-STAT-1). (b′)'s and (b0)'s blanks, and the PILOT's difference, do not depend on the results; only the number of games counted, the rounded counts, (b)'s blanks (through m) and L0_MATCH do. Two questions follow. Should §10 also carry a measure that depends on the results, such as the per-game log-loss of (a)'s and (b′)'s expectations? And should the values the pairings fix be printed now from a script outside the freezes? The executor did neither, because §10 runs the comparison once, after the last round.
+2. **The PILOT's m** (D-0012, reading 6). The PILOT stays on (b), with K × m. The reviewer computed its open blank from the pairings as +24.22, against +14.73 at today's K; these are the reviewer's figures, and no committed script prints them.
+3. **Publishing E17's per-player figures.** E17 and Appendix G print 100 identifiable players' published and hypothetical ratings by FIDE ID. SPEC-TOP100 §8 allows it, but FIDE's list pages reserve reproduction [V 3], so publication is the operator's decision.
+4. **K under rung 2 in E17.** The replay holds FIDE's K under rung 2, although a junior's K would follow their rung-2 rating (FIDE ID 44599790 played at K 40 in 2022).
+
+### The reviewer's report (verbatim)
+
+The report as returned; its headings already sit four levels down, and nothing is changed.
+
+#### Red-team review, session ELO-7: D-0012, E17 and the changed sections (R-STAT and R-QC)
+
+Read-only at 586c7d2. "Computed" figures are mine, from committed files under `.venv/bin/python`; hypothetical results were held in memory and no 2026 result was read.
+
+##### Findings
+
+###### ELO7-STAT-1 — major — Most of §10's blanks are set by the pairings, not the results
+
+**Where:** proposal §1 ("runs blind") and §10 ("Results, computed after the event"); the brief's "A test run blind"; D-0012's blanks.
+**Problem:** per player, (b′) − (a) = K·Σ(PD − E), and likewise (b0) − (a): the score cancels. The PILOT's opponent difference, K·m·Σ(E_b − E_p), is result-free too. Running `compare_event_v3a` on the frozen 2026 pairings with all draws and with random results gives identical values (computed): open (b′) 2.09 / +4.70, (b0) 3.28 / +7.40, PILOT 20 / +24.22; women's 2.44 / −7.58, 3.47 / −10.10, 9 / +0.89. Only an unplayed game changes them. 2025's 1.94 / −4.30 also survive all-draw results. Only GAMES, N_DIFFER (for players whose difference is under a point), (b)'s blanks (through m) and L0_MATCH depend on results.
+**Fix:** say so in §10's table rows, which fall outside the cap ("set by the pairings and ratings frozen before round 1"). Reword §1 and the brief without adding words, and say the same in `{{US26_READING}}`. Optionally, print the values now from a script that is not frozen (E16, for example).
+
+###### ELO7-STAT-2 — major — E17's mean and its 2700/2800 counts depend on opponents held fixed
+
+**Where:** E17's "In brief" and §9; Appendix G, paragraphs 2–3; the summary's "What changes".
+**Problem:** the whole gain comes from 24,085 games against opponents frozen at published ratings (+24.32 a player); the −0.05 within the 100 is near zero by construction. At the v2 table's slope there (0.0008–0.0012 a point), each point those opponents would differ on average moves the mean by about 1.9–2.7 points (computed). Their own drift under rung 2 is estimated neither in size nor in direction. The counts also compare two scales, because a flatter table spreads ratings (T3.5). Yet the summary opens with "rung 2 would rate these players 23.3 points higher".
+**Fix:** add this sensitivity to E17 §9 and to both plain-language pages. Open with "with opponents outside the 100 held at their published ratings", and note the change of scale beside the counts.
+
+###### ELO7-STAT-3 — major — Part of the gain is rung 2's own residual at the top
+
+**Where:** the summary's "Why"; Appendix G; E17 §9.
+**Problem:** the summary credits a table "refitted on what players actually score". On held-out months, favourites at levels 2300–2799 and gaps of 100–399 score +0.0170 above the v2 table (SE 0.0019), +0.0217 at 2400–2499 [E16 §1]. By band, 2300–2499 is +0.0135 and +0.0173, while above 2500 the residual is within ±0.01 but with SE 0.004–0.009 [E16 §5]. The 100 played 13,996 games as favourites at gaps of 100–399 [E17 §4], so each 0.01 of residual is worth about 14 points a player at K = 10 (computed), the order of +23.3. The replay cannot separate FIDE's error from rung 2's.
+**Fix:** add this limit to E17 §9, Appendix G and the summary. Replace the phrase with "fitted on broadcast games; at 2300–2499 it still expects too little of favourites [E16]".
+
+###### ELO7-QC-1 — major — The brief misdates the amendments, and §10 lost Freeze 2's time
+
+**Where:** the brief's "A test run blind" and "How we test it"; proposal §10.
+**Problem:** the brief says "We amended it twice before any result". In fact round 1 had been played before Freeze 3 (15:22:53 UTC on 10 October) and Freeze 3a (20:31:23 UTC, after round 2 began). The proposal and annex T8.10 say "after round 1". This session also deleted "after round 1" from §10's Freeze 3 and from the rung-5 inputs frozen in Freeze 2 (13:58:33 UTC), reversing the ELO6-EXPLOIT-6 fix: §10 now times every freeze but Freeze 2. The brief's "On broadcast games the replica matches FIDE's published calculations" also miscites E0.
+**Fix:** in the brief, write "twice after round 1, before reading any result" and "The replica matches FIDE's published calculations; on broadcast games the new table…". In §10, write "Freeze 2 (D-0010, 13:58 UTC on 10 October, after round 1)", trimming equal words elsewhere (4,499 of 4,500; 899 of 900).
+
+###### ELO7-QC-2 — minor — The marker follows the official page, not §5.1's test
+
+**Where:** D-0012, item 1 and reading 1; §10's row "games rated".
+**Problem:** D-0012 quotes only the first sentence of §5.1. [V 1] continues: "Except in case of force majeure, any game where both players have made at least one move will be rated, unless the regulations relating to Fair Play require otherwise." Two cases are left to judgment after the results: a game with a result although one player never moved, and a game annulled under Fair Play or for force majeure. Column (a) would then differ from FIDE.
+**Fix:** before any result is read, write a short record that transcribes all of §5.1 and sets `unplayed` for every game §5.1 does not rate, judged from the official game score. No frozen file changes. Rename the row "games counted".
+
+###### ELO7-QC-3 — minor — E3 and E13 will print different values under the same blank names
+
+**Where:** `analysis/e3_freeze2_record.py` (outside Freeze 3a) and E3's section "The blanks of the proposal's §10 (D-0010)"; E13's PILOT table.
+**Problem:** on a complete synthetic event (computed, in memory), E3 prints `{{US26_*_MEAN_ABS_DIFF}}`, `MAX_DIFF` and `N_DIFFER` with (b0)'s values, while E13 prints (b′)'s under the same names. E3's `{{US26_*_R5_DIFF}}` is Freeze 2's PILOT: +11.62 for the open against E13's +24.22 (computed from the pairings). D-0012 has both pages regenerated. E13's PILOT table also labels (b) "rung 2 v2", without K × m.
+**Fix:** make the record script relabel E3's section "Freeze 2's blanks, superseded: §10's are E13's" and rename the blanks (F2_…). The reading should say the PILOT's (b) carries K × m.
+
+###### ELO7-STAT-4 — minor — E17's validation covers less than its wording suggests
+
+**Where:** E17's "In brief", §2 and §4; Appendix G; the summary ("We checked our copy of FIDE's rules first").
+**Problem:**
+- Games take FIDE's own Ro, opponent rating and K, so the roughly 33,600 games within 400 points test only the table lookup.
+- The rule versions rest on 2,020 games at gaps of 400 or more. 85 of them (capped, opponent unidentified) are reproduced by construction through the ±1,000 device, and in those games rung 2 reads the capped gap and so understates the guard.
+- Tournaments straddling a version boundary are not counted.
+- The 2017 rounding reading rests on 28 periods, not 167.
+- §4's "before the ratings move apart" is wrong: `e_rung2` uses the ratings after they have moved apart.
+
+**Fix:** state these limits, adding "given FIDE's own inputs". Report the boundary cases and each player's share of the 85, and correct §4.
+
+###### ELO7-QC-4 — minor — The plain-language pages drop a rule marked NOT VERIFIED
+
+**Where:** Appendix G, paragraphs 1 and 3 ("four caveats [E17 §9]"); E17_summary.
+**Problem:** both apply "the rules in force at each date" without saying that the 400-point rule of March 2024 to September 2025 is a NOT VERIFIED reading (CLAUDE.md rule 3). Appendix G keeps four of E17 §9's six limits.
+**Fix:** add "the 400-point rule of March 2024–September 2025 is read as the plain cap, NOT VERIFIED; FIDE's calculations agree in all 111 tournaments that discriminate [E17 §2]". Appendix G is outside the cap.
+
+###### ELO7-QC-5 — minor — Two committed test files depart from SPEC-TOP100 §8
+
+**Where:** `tests/test_layer0_history.py`, lines 112–114; `tests/fixtures/fide_history/published_periods.json`.
+**Problem:** SPEC-TOP100 §2 and §8 bar names and FIDE's pages from committed files. Yet the test names three real top players, and the fixture carries FIDE IDs, event IDs, Ro, and each game's rating and chg from five FIDE pages.
+**Fix:** use synthetic names in the test. Either drop `fide_id` and `event` from the fixture, or allow verification fixtures in a SPEC-TOP100 v1.1, as SPEC-L0 does.
+
+###### ELO7-QC-6 — minor — SPEC-TABLE-FIT v1.2 reimposes γ ≤ ½, against R7
+
+**Where:** SPEC-TABLE-FIT v1.2, §2.
+**Problem:** "0 ≤ γ_tc(L) ≤ ½ at each band midpoint" contradicts R7 (γ ≥ 0, no upper bound; a boundary fit is a flag) and annex T3.1 and T3.3.
+**Fix:** write "γ_tc(L) ≥ 0 (R7); a fit on a boundary is a calibration flag for the QC".
+
+##### For the architect
+
+- **§10's main column.** R45's main column compares two tables on fixed pairings. Whether §10 should also carry a measure that depends on the results (for example, the per-game log-loss of (a)'s and (b′)'s expectations) is a matter for a ruling.
+- **The PILOT's m (reading 6).** The PILOT on (b) carries m: computed from the pairings, its open blank is +24.22, against +14.73 at today's K.
+- **Publishing per-player figures.** E17 and Appendix G publish 100 identifiable players' ratings by FIDE ID, beside hypothetical ones. SPEC-TOP100 §8 allows it, but [V 3]'s footer reserves reproduction, so publication is the operator's call.
+- **K under rung 2.** E17 holds FIDE's K under rung 2, although juniors' K would follow their rung-2 ratings (FIDE ID 44599790 was at K 40 in 2022).
+
+##### Checked and correct
+
+- **Freezes:** Freeze 3a's manifest `44954559…` (51 entries) reproduces, and no frozen file has changed since `freeze-3a`. Only `tools/set_results.py` and `tools/checks/check_outputs.py` differ from the hashes at the `freeze-3` and `freeze-2` tags. D-0010's manifest reproduces, and the tag times are as stated (computed).
+- **Checks and tests:** check (a) passes (E13 also under Python 3.9). All 609 tests pass, check (c) is clean, and the word counts are 4,499 and 899.
+- **The unplayed marker:** unplayed games are excluded from every column and from K × n, and leave the event hash unchanged. E3 and E13 regenerate after a withdrawal (computed, in memory).
+- **§10's columns:** (b′) is (b) without m; (b) and (b0) are labelled in E13's main tables; the 2025 figures match E16 §7.
+- **E17's figures:**
+  - The mean is 23.29, with table 23.68, colour −0.39 and FIDE's colour marks 23.25.
+  - The favourite share is 76.7 %, and the gap and opponent splits both sum to 24.27.
+  - All 28 old-text half-points were rounded away from zero.
+  - The 400-point patterns, the handling of the cap mark and the mismatch causes match the aggregate.
+  - The colourless v2 table lies below table 8.1.2 at every gap from 4 to 399 in bands 2250–2850 (computed).
+- **The archive:** each transcription gives URL, timestamp and SHA-256, and the readings are coded as transcribed.
+- **Rung-2 figures:** those in §5, §8, §13, T3.6, T5 and T8.10 are at today's K and match E14, E16 and OUTPUT_ELO6. E14's rerun changed only rung 2's ledgers (computed). R49 is quoted verbatim. No committed E17 output carries names or monthly rating series.

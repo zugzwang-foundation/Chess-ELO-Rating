@@ -1,7 +1,7 @@
 # Fixing the FIDE rating one step at a time: a brief
 
 **Status: DRAFT v1.0 — not for publication**
-The Zugzwang Authors · CC BY 4.0 · 2026-10-10. A plain-language summary of `docs/proposal/ELO-PROPOSAL_v1_0.md`; the mathematics is in `docs/proposal/ELO-TECHNICAL-ANNEX_v1_0.md`. Every number below is PROVISIONAL unless it is quoted from FIDE's rules [V 1], from our evidence reports [E n] or from the research report [R n].
+The Zugzwang Authors · CC BY 4.0 · 2026-10-11. A plain-language summary of `docs/proposal/ELO-PROPOSAL_v1_0.md`; the mathematics is in `docs/proposal/ELO-TECHNICAL-ANNEX_v1_0.md`. Every number below is PROVISIONAL unless it is quoted from FIDE's rules [V 1], from our evidence reports [E n] or from the research report [R n].
 
 ## What is wrong
 
@@ -35,14 +35,14 @@ Ratings change only when you play. Nothing decays, nothing is rescaled, nothing 
 
 ## How we test it
 
-Each step is tested against today's rules on the problem it targets and must not make predictions worse overall. On broadcast games the replica matches FIDE's published calculations, the new table passes its calibration tests and its guard makes farming lose, and the junior step removes most of adults' losses to juniors, unevenly by level [E0] [E6] [E11] [E12]. A simulated chess world with known true strengths shows today's rules draining the top [E14].
+Each step is tested against today's rules on the problem it targets and must not make predictions worse overall. The replica matches FIDE's published calculations; on broadcast games the new table passes its calibration tests and its guard makes farming lose, and the junior step removes most of adults' losses to juniors, unevenly by level [E0] [E6] [E11] [E12]. A simulated chess world with known true strengths shows today's rules draining the top [E14].
 
 ## What we ask of FIDE
 
 Above all, FIDE's tournament reports, which hold every rated game, under a data agreement: only they can test steps 3 to 7 for the whole pool, not just broadcast games. Also a review by the Qualification Commission with public comment, and a twelve-month shadow list before anything changes for anyone.
 
-## A test run blind
+## A comparison fixed in advance
 
-For the 2026 U.S. Championships we fixed the comparison of today's rules and the new table and locked the code before reading any result. We amended it twice before any result: after a review found the first table off at the top, and to use today's K. Earlier versions stay beside it; the numbers come after the last round.
+For the 2026 U.S. Championships we fixed the comparison of today's rules and the new table, locked the code and amended it twice after round 1 (a review found the first table off at the top; then today's K), all before reading any result. Earlier versions stay beside it; its main figures depend on the pairings, not the results.
 
 This is not a black box: a statistical model whose only power is to set the numbers in two public files, within published limits.

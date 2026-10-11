@@ -282,13 +282,15 @@ def replay(lists, ids, pages, names, index, bc_by_day) -> dict:
     val = {"games": 0, "game_delta_differs": [], "tournaments": 0, "tournament_k_chg_differs": [], "k_differs": [],
            "periods": 0, "period_change_differs": [], "carried_differs": [], "missing_pages": [],
            "change_without_games": [], "total_shown_differs": [], "capped_unresolved": 0, "opp_unresolved": 0,
-           "negative_half_periods": [], "several_beyond_400": defaultdict(Counter), "cap_marks": 0, "mark_not_at_400": []}
+           "negative_half_periods": [], "several_beyond_400": defaultdict(Counter), "cap_marks": 0, "mark_not_at_400": [],
+           "beyond_400_games": 0, "beyond_400_reproduced": 0, "version_boundary": []}
     colour = Counter()
     per_year_colour = defaultdict(Counter)
     stats = {p: Counter() for p in ids}
     gaps = {p: [] for p in ids}
     by_gap = defaultdict(lambda: {"games": 0, "e_gap": Decimal(0), "k_e_gap": Decimal(0)})
     by_opp = defaultdict(lambda: {"games": 0, "e_gap": Decimal(0), "k_e_gap": Decimal(0)})
+    sens = {p: Decimal(0) for p in ids}     # points per player if every opponent outside the 100 were one point higher
     for t in MONTHS[1:]:
         prev = layer0.month_add(t, -1)
         for p in ids:
@@ -342,6 +344,7 @@ def replay(lists, ids, pages, names, index, bc_by_day) -> dict:
                             # beyond the cap and, under the 2022 rule, as the one that keeps the upgrade (FIDE's choice);
                             # rung 2 reads the capped value, the closest consistent rating, and the case is counted.
                             val["capped_unresolved"] += 1
+                            stats[p]["capped_unresolved"] += 1
                             l0_rating = g["rating"] + (-1000 if g["rating"] < tr["ro"] else 1000)
                     opp_actual.append(actual)
                     opp_l0.append(l0_rating)
@@ -370,6 +373,14 @@ def replay(lists, ids, pages, names, index, bc_by_day) -> dict:
                 kt = Decimal(tr["k"])
                 tsum0 = Decimal(0)
                 fav_marks = sum(1 for g in tr["games"] if g["capped"] and g["rating"] < tr["ro"])
+                if tr["start"] and tr["end"] and lh.version(start) != lh.version(d_of(tr["end"])):
+                    val["version_boundary"].append((p, t, tr["event"], lh.version(start), lh.version(d_of(tr["end"])),
+                                                    any(abs(tr["ro"] - r) > 400 for r in opp_l0),
+                                                    all(dl == g["chg"] for g, dl in zip(tr["games"], d0))))
+                for g, dlt, r0 in zip(tr["games"], d0, opp_l0):
+                    if abs(tr["ro"] - r0) > 400:
+                        val["beyond_400_games"] += 1
+                        val["beyond_400_reproduced"] += dlt == g["chg"]
                 for g, dlt, actual in zip(tr["games"], d0, opp_actual):
                     val["games"] += 1
                     if dlt != g["chg"]:
@@ -404,6 +415,8 @@ def replay(lists, ids, pages, names, index, bc_by_day) -> dict:
                         opp2 = actual + (diff(R2[v], L0, oid, m) if oid in top else 0)
                         e2 = e_rung2(own2, opp2, w)
                         sums[v] += kt * (g["score"] - e2)
+                        if v == "r2" and oid not in top:      # first order: K times the fall in expectation
+                            sens[p] += kt * (e2 - e_rung2(own2, opp2 + 1, w))
                         if v == "r2nc":     # where the table's effect comes from: FIDE's expectation minus rung 2's
                             for b in (by_gap[gap_band(tr["ro"] - actual)],
                                       by_opp["in the 100" if oid in top else "outside the 100"]):
@@ -435,7 +448,7 @@ def replay(lists, ids, pages, names, index, bc_by_day) -> dict:
             for v in VARIANTS:
                 R2[v][p][t] = R2[v][p][prev] + lh.round_change(sums[v], t)
     return {"L0": L0, "R2": R2, "val": val, "colour": colour, "per_year_colour": per_year_colour, "stats": stats,
-            "gaps": gaps, "by_gap": by_gap, "by_opp": by_opp}
+            "gaps": gaps, "by_gap": by_gap, "by_opp": by_opp, "sens": sens}
 
 
 # ------------------------------------------------------------------ summaries
@@ -513,7 +526,14 @@ def summarise(lists, ids, res) -> dict:
         "colour": dict(res["colour"]), "colour_by_year": {y: dict(c) for y, c in sorted(res["per_year_colour"].items())},
         "players_table": out_players, "by_list": counts, "by_year": years,
         "by_gap": {lab: effect_source(res["by_gap"][lab], len(ids)) for _lo, _hi, lab in GAP_BANDS},
-        "by_opponent": {lab: effect_source(res["by_opp"][lab], len(ids)) for lab in ("in the 100", "outside the 100")}}
+        "by_opponent": {lab: effect_source(res["by_opp"][lab], len(ids)) for lab in ("in the 100", "outside the 100")},
+        "outside_sensitivity": {  # to first order: the change of a player's difference if every outside opponent were
+            # one point higher (and, with the sign reversed, lower), from rung 2's expectations in the replay
+            "mean_points_per_point": round(float(sum(res["sens"].values())) / len(ids), 2),
+            "min": round(float(min(res["sens"].values())), 2), "max": round(float(max(res["sens"].values())), 2)},
+        "capped_unresolved_by_player": {
+            "players": sum(1 for p in ids if res["stats"][p]["capped_unresolved"]),
+            "max": max(res["stats"][p]["capped_unresolved"] for p in ids)}}
 
 
 def effect_source(b: dict, n: int) -> dict:

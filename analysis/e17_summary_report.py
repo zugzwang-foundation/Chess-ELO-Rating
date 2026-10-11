@@ -60,6 +60,9 @@ def facts(a: dict) -> dict:
                     and all(a["by_gap"][b]["mean_expectation_gap"] < 0 for b in UNDERDOG_BANDS)),
         "in100": a["by_opponent"]["in the 100"]["points_per_player"],
         "out100": a["by_opponent"]["outside the 100"]["points_per_player"],
+        "sens": a["outside_sensitivity"]["mean_points_per_point"],
+        "plain_cap_2024": v["several_beyond_400"].get("2024", {}).get("all", 0),
+        "tested_2024": sum(c for k, c in v["several_beyond_400"].get("2024", {}).items() if not k.startswith("left")),
     }
 
 
@@ -79,36 +82,47 @@ def summary(a: dict) -> list[str]:
     P(f"**What we did.** We took the {n} highest-rated active players on FIDE's October 2026 list and replayed every "
       "standard game FIDE rated for them from January 2020 to October 2026 — the same games, the same results, the same "
       "K — twice: once under FIDE's rules as they stood at each date, and once under rung 2 of our proposal, an "
-      "expected-score table refitted on real results that prices White's edge and lets the curve change with the level.")
+      "expected-score table fitted on broadcast games that prices White's edge and lets the curve change with the "
+      "level.")
     P("")
     others = n - f["exact"]
-    P(f"**We checked our copy of FIDE's rules first.** It reproduces FIDE's published calculation in {f['games_ok']:,} of "
-      f"{v['games']:,} games, and FIDE's published rating on every list from February 2020 to October 2026 for "
+    P(f"**We checked our copy of FIDE's rules first.** Given the inputs FIDE used, it reproduces FIDE's published "
+      f"calculation in {f['games_ok']:,} of {v['games']:,} games, and FIDE's published rating on every list from "
+      f"February 2020 to October 2026 for "
       f"{f['exact']} of the {n} players"
       + ("." if not others else
          f"; for the other {others} it is off by at most {f['max_offset']} point{'s' if f['max_offset'] != 1 else ''} "
          f"on some lists, where FIDE's list departs from its own calculation or FIDE corrected a rating, and "
-         f"{others - (n - f['oct_exact'])} of them are level again by October 2026. Each case is listed in the evidence."))
+         f"{others - (n - f['oct_exact'])} of them are level again by October 2026. Each case is listed in the evidence.")
+      + " One rule is our reading: FIDE's archive does not show the 400-point rule of March 2024 to September 2025, "
+        "which we read as a plain cap (NOT VERIFIED); FIDE's own calculations agree with that reading in "
+        + (f"all {f['tested_2024']}" if f["plain_cap_2024"] == f["tested_2024"] else
+           f"{f['plain_cap_2024']} of the {f['tested_2024']}")
+        + " tournaments that can tell.")
     P("")
     same = n - f["gain"] - f["lose"]
-    P(f"**What changes.** In October 2026 rung 2 would rate these players {abs(f['mean_d']):.1f} points "
+    P(f"**What changes.** With the opponents outside the 100 held at their published ratings, in October 2026 rung 2 "
+      f"would rate these players {abs(f['mean_d']):.1f} points "
       f"{'higher' if f['mean_d'] >= 0 else 'lower'} on average than FIDE's rules do: {f['gain']} higher, {f['lose']} "
       f"lower{'' if not same else f', {same} the same'}, from {sgn(f['lo'])} to {sgn(f['hi'])}. {f['moved']} of them "
       f"change places within the 100, by at most {f['max_move']} places. Under FIDE's rules, "
       f"{bl[last]['published']['2700']} of them are rated 2700 or more and {bl[last]['published']['2800']} "
       f"{'is' if bl[last]['published']['2800'] == 1 else 'are'} rated 2800 or more; under rung 2, "
-      f"{bl[last]['rung2']['2700']} and {bl[last]['rung2']['2800']}.")
+      f"{bl[last]['rung2']['2700']} and {bl[last]['rung2']['2800']}, though rung 2's flatter table also spreads "
+      "ratings further apart at the top, so these counts compare two scales as well as two rules.")
     P("")
     lead = "the table" if abs(f["mean_t"]) >= abs(f["mean_c"]) else "colour"
-    why = (f"in these players' games rung 2's table, refitted on what players actually score, expects less of the "
+    why = (f"in these players' games rung 2's table, fitted on broadcast games, expects less of the "
            f"favourite than FIDE's table wherever the gap is below 400 points (by {f['fav_lo']:.3f} to "
            f"{f['fav_hi']:.3f} of a point a game) and more of the underdog, and these players are the favourite in "
            f"{100 * f['fav']:.0f} % of their games, so they keep more points" if f["pattern"] else
            "rung 2's table departs from FIDE's by the gap in the game, as E17 §4 shows")
     P(f"**Why.** Most of it is {lead}: the table's effect is {sgn(f['mean_t'], 1)} points on average, colour's "
       f"{sgn(f['mean_c'], 1)} (colour counts only where a broadcast gives it, {100 * f['matched']:.0f} % of the games). "
-      f"The reason: {why}. The points come from their games against players outside the 100 "
-      f"({sgn(f['out100'], 1)} per player); among themselves the exchange balances ({sgn(f['in100'], 2)}).")
+      f"The reason: {why}. Part of that is rung 2's own error: at levels 2300 to 2499 its table still expects too "
+      "little of favourites [E16], and the replay cannot tell FIDE's error from rung 2's. The points come from their "
+      f"games against players outside the 100 ({sgn(f['out100'], 1)} per player); among themselves the exchange "
+      f"balances ({sgn(f['in100'], 2)}).")
     P("")
     P(f"The five largest differences and the five smallest ({f['lose']} of the {n} fall{'s' if f['lose'] == 1 else ''}):")
     P("")
@@ -122,8 +136,9 @@ def summary(a: dict) -> list[str]:
     P("")
     P("**What this is not.** It is not a verdict on anyone's strength: the results are the same, only the rule that turns "
       "them into ratings differs. It is not a full replay either: the opponents outside the 100 keep their published "
-      "ratings, though under rung 2 theirs would change too, and that is where the 100's points come from, so the "
-      "figures, the counts above 2700 and 2800 most of all, rest on that approximation. The table was fitted on games "
+      "ratings, though under rung 2 theirs would change too, and that is where the 100's points come from: each point "
+      f"by which those opponents would be rated higher or lower moves the average by about {abs(f['sens']):.1f} points. "
+      "So the figures, the counts above 2700 and 2800 most of all, rest on that approximation. The table was fitted on games "
       "from October 2023 to September 2026, so the replay is in sample from late 2023 and out of sample before. The "
       "100 are chosen in October 2026, so players who fell out of the top earlier are not replayed. The method, the "
       "checks and every player's figures are in E17.")
@@ -143,26 +158,43 @@ def appendix(a: dict) -> list[str]:
       "game FIDE rated for them from January 2020 had been rated by rung 2 as recommended (section 8: the table "
       "calibrated by level, with the narrowed guard, at today's K), with the same results and the same K [E17]. Each "
       "player starts from the January 2020 list, and the 100 are replayed together, month by month, from FIDE's "
-      "published per-player calculations. Layer 0, applying the rules in force at each date, was checked first: it "
-      f"reproduces FIDE's calculation in {f['games_ok']:,} of {v['games']:,} games and the published rating on every "
+      "published per-player calculations. Layer 0, applying the rules in force at each date, was checked first: given "
+      f"FIDE's own inputs, it reproduces FIDE's calculation in {f['games_ok']:,} of {v['games']:,} games and the "
+      "published rating on every "
       f"list for {f['exact']} of the {n} players, the October 2026 rating for {f['oct_exact']} [E17 §2]. The "
       "difference is rung 2's replay minus Layer 0's; the rung-2 rating is the published rating plus the difference. "
       f"Colours come from broadcast games, {100 * f['matched']:.0f} % of the games; a game without a known colour "
       "carries no colour term [E17 §8].")
     P("")
-    P(f"In October 2026 the mean difference is {sgn(f['mean_d'], 1)} points (the table {sgn(f['mean_t'], 1)}, colour "
+    P(f"With the opponents outside the 100 held at their published ratings, in October 2026 the mean difference is "
+      f"{sgn(f['mean_d'], 1)} points (the table {sgn(f['mean_t'], 1)}, colour "
       f"{sgn(f['mean_c'], 1)}), from {sgn(f['lo'])} to {sgn(f['hi'])}; {f['moved']} of the {n} change rank, by at most "
       f"{f['max_move']} places; under FIDE's rules {bl[last]['published']['2700']} are rated 2700 or more and "
       f"{bl[last]['published']['2800']} {'is' if bl[last]['published']['2800'] == 1 else 'are'} rated 2800 or more, "
-      f"under rung 2 {bl[last]['rung2']['2700']} and {bl[last]['rung2']['2800']} [E17 §3–§5].")
+      f"under rung 2, {bl[last]['rung2']['2700']} and {bl[last]['rung2']['2800']} [E17 §3–§5].")
     P("")
-    P("Read with four caveats [E17 §9]. Opponents outside the 100 keep their published ratings, although under rung 2 "
-      "theirs would differ too, and the group's gain comes from those games: within the 100 the exchange balances "
-      f"({sgn(f['in100'], 2)} points per player, against {sgn(f['out100'], 1)} from the games outside it) [E17 §4], so "
-      "the figures, and the counts above 2700 and 2800 most of all, rest on this approximation. The table was fitted on "
-      "broadcast games of October 2023 to September 2026, so the replay is in sample from the November 2023 list and "
-      "out of sample before it. The 100 are chosen in October 2026, so players who left the top earlier are not "
-      "replayed. And the figures describe the rule, not the players: who is stronger is not their question.")
+    P("Read with these caveats [E17 §9]:")
+    P("")
+    P("- Opponents outside the 100 keep their published ratings, although under rung 2 theirs would differ too, and the "
+      "group's gain comes from those games: within the 100 the exchange balances "
+      f"({sgn(f['in100'], 2)} points per player, against {sgn(f['out100'], 1)} from the games outside it) [E17 §4]. To "
+      "first order, each point by which those opponents would on average be rated higher or lower moves the mean "
+      f"difference by about {abs(f['sens']):.1f} points, so the figures, and the counts above 2700 and 2800 most of "
+      "all, rest on this approximation.")
+    P("- The difference mixes FIDE's error with rung 2's: on held-out months the v2 table still expects too little of "
+      "favourites at levels 2300 to 2499 [E16 §1, §5], and the replay cannot separate the two.")
+    P("- Near equal ratings the v2 table is flatter than table 8.1.2 at the top (annex T3.5), so counts above 2700 and "
+      "2800 compare two scales as well as two rules.")
+    P("- The table was fitted on broadcast games of October 2023 to September 2026, so the replay is in sample from the "
+      "November 2023 list and out of sample before it.")
+    P("- The 100 are chosen in October 2026, so players who left the top earlier are not replayed.")
+    P(f"- Colours come from broadcasts, {100 * f['matched']:.0f} % of the games [E17 §8].")
+    P("- Layer 0 reads the 400-point rule of March 2024 to September 2025 as the plain cap, NOT VERIFIED against the "
+      "handbook; FIDE's calculations agree with that reading in "
+      + (f"all {f['tested_2024']}" if f["plain_cap_2024"] == f["tested_2024"] else
+         f"{f['plain_cap_2024']} of the {f['tested_2024']}")
+      + " tournaments that can tell [E17 §2].")
+    P("- The figures describe the rule, not the players: who is stronger is not their question.")
     P("")
     P(FIXED)
     P("")
@@ -176,7 +208,8 @@ def appendix(a: dict) -> list[str]:
           f"{sgn(r['colour_balance'])} of {r['colour_matched']} | {r['rank_rung2']} |")
     P("")
     P(f"{FIXED} Generated by `analysis/e17_summary_report.py --appendix` from E17's aggregate; the table is E17 §3. Mean "
-      "gap: the player's rating minus the opponent's, as FIDE used them; share as favourite: the games against a "
+      "gap: the player's rating minus the opponent's, both from the list the tournament used; share as favourite: the "
+      "games against a "
       "lower-rated opponent; colour balance: Whites minus Blacks among the games whose colour a broadcast gives. The "
       "counts above 2700 and 2800 on every list, each year's split into the table's and colour's effects, the "
       "validation and the method are in E17; a one-page summary is `docs/evidence/E17_summary.md`.")

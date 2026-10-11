@@ -58,9 +58,11 @@ Rung 5 is a PILOT rung (R22): it is printed here, separately, and never in the m
 - U.S. Championship, PILOT: pending: runs after the event ends, with the model frozen beforehand.
 - U.S. Women's Championship, PILOT: pending: runs after the event ends, with the model frozen beforehand.
 
-## The blanks of the proposal's §10 (D-0010)
+## Freeze 2's blanks (D-0010), superseded
 
-**pending: runs after the event ends, with the model frozen beforehand.** Each blank is computed here, from the two tables above, once both events are complete; `{{US26_*_L0_MATCH}}` after the 1 November 2026 list, from FIDE's published calculations, and `{{US26_READING}}` by hand (D-0010).
+Freeze 2's blanks, kept with Freeze 2's definitions and renamed with the prefix F2_ so that they cannot be taken for the proposal's: §10 takes its blanks, under the names without the prefix, from `docs/evidence/E13_us-championship-2026-freeze-3.md` (D-0012), where (b′) is the main column, Freeze 2's column (b) is (b0) and the PILOT sits on Freeze 3's column (b), with K × m. Freeze 2's PILOT below sits on Freeze 2's column (b), without m, so it measures something other than E13's.
+
+**pending: runs after the event ends, with the model frozen beforehand.** Each blank is computed here, from the two tables above, once both events are complete; `{{F2_US26_*_L0_MATCH}}` after the 1 November 2026 list, from FIDE's published calculations, and `{{F2_US26_READING}}` by hand (D-0010).
 
 
 ## The farming guard (R17)

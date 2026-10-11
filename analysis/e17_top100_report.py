@@ -63,7 +63,8 @@ def main() -> int:
     p("")
     p("**In brief.**")
     p("")
-    p(f"- **Validation first.** Layer 0 with the rules in force at each date reproduces FIDE's published Delta R in "
+    p(f"- **Validation first.** Layer 0 with the rules in force at each date, given FIDE's own inputs (each game's Ro, "
+      f"the opponent's rating and K as FIDE's pages print them), reproduces FIDE's published Delta R in "
       f"{v['games'] - v['game_delta_differs']:,} of {v['games']:,} games and K × ΣΔR in "
       f"{v['tournaments'] - v['tournament_k_chg_differs']:,} of {v['tournaments']:,} tournaments; the published change "
       f"in {v['periods'] - v['period_change_differs']:,} of {v['periods']:,} player-periods with games; and, carried "
@@ -88,7 +89,9 @@ def main() -> int:
       f"({sgn(bo['in the 100']['points_per_player'], 2)} points per player over the window); the group's gain comes "
       f"from its {bo['outside the 100']['games']:,} games against opponents outside the 100 "
       f"({sgn(bo['outside the 100']['points_per_player'], 1)} per player), whose ratings the replay leaves as published "
-      "(section 4).")
+      f"(section 4): to first order, each point by which they would on average differ moves the mean by about "
+      f"{abs(a['outside_sensitivity']['mean_points_per_point']):.1f} points (section 9). Part of the gain is rung 2's own "
+      "error at the top, which the replay cannot separate from FIDE's (section 9).")
     p(f"- **Ranks within the 100:** {len(moved)} players change rank; the largest move is "
       f"{max(abs(r['rank_rung2'] - r['rank_oct_2026']) for r in rows)} places.")
     p(f"- **2700 and 2800 on the October 2026 list:** {bl[last]['published']['2700']} and {bl[last]['published']['2800']} "
@@ -141,6 +144,19 @@ def main() -> int:
       f"capped rating and the opponent could not be identified ({v['capped_unresolved']} games), Layer 0 takes the game as "
       "beyond the cap and rung 2 reads the capped value.")
     p("")
+    vb = vd["version_boundary"]
+    cu = a["capped_unresolved_by_player"]
+    p(f"**What the validation tests.** Each game is computed from FIDE's own Ro, opponent's rating and K, so the "
+      f"{v['games'] - v['beyond_400_games']:,} games within 400 points test the table and the sums, not those inputs. "
+      f"The rule versions are tested by the {v['beyond_400_games']:,} games beyond 400 points ({v['beyond_400_reproduced']:,} "
+      f"reproduced), {v['capped_unresolved']} of which, where FIDE printed a capped rating and the opponent is not "
+      f"identified, are reproduced by construction, since Layer 0 then takes the game as beyond the cap; they fall to "
+      f"{cu['players']} players, at most {cu['max']} for one, and in them rung 2 reads the capped gap and so understates "
+      f"its guard. {len(vb)} tournaments straddle a change of rules (their start and end fall under different versions); "
+      f"Layer 0 applies the version in force at the start and reproduces every game of "
+      f"{sum(1 for x in vb if x[6] == 'True')} of them, but only {sum(1 for x in vb if x[5] == 'True')} has a game beyond "
+      "400 points, so the reading by the start date is barely tested.")
+    p("")
     mk = vd.get("mark_not_at_400", [])
     p(f"**FIDE's cap mark.** FIDE prints an asterisk beside an opponent's rating that the 400-point rule replaced: "
       f"{v['cap_marks'] - len(mk):,} of its {v['cap_marks']:,} marks stand exactly 400 points from the player's Ro."
@@ -154,10 +170,13 @@ def main() -> int:
     lit = sum(1 for x in nhalf if x[2] == x[4])
     away = sum(1 for x in nhalf if x[2] == x[3])
     old = sum(1 for x in nhalf if x[5] == "True")
-    p(f"**Rounding.** In {len(nhalf)} player-periods the sum ended in a negative half point ({old} on lists to December "
-      f"2021, under the 2017 text \"0.5 is rounded up (whether the change is positive or negative)\"); the published "
-      f"change was rounded away from zero in {away} and towards +infinity in {lit}. Layer 0 therefore reads the 2017 text "
-      "as rounding up in size, which is what the 2022 text says outright.")
+    away_old = sum(1 for x in nhalf if x[5] == "True" and x[2] == x[3])
+    lit_old = sum(1 for x in nhalf if x[5] == "True" and x[2] == x[4])
+    p(f"**Rounding.** In {len(nhalf)} player-periods the sum ended in a negative half point; {old} of them are on lists to "
+      f"December 2021, under the 2017 text \"0.5 is rounded up (whether the change is positive or negative)\", and there "
+      f"the published change was rounded away from zero in {away_old} and towards +infinity in {lit_old} (in all "
+      f"{len(nhalf)}: {away} and {lit}). Layer 0 therefore reads the 2017 text as rounding up in size, which is what the "
+      f"2022 text says outright; the reading rests on those {old} periods.")
     p("")
     sb = v.get("several_beyond_400", {})
     if sb:
@@ -299,8 +318,8 @@ def main() -> int:
     p("**Where the table's effect comes from.** For every game of the replay without colour, FIDE's expectation (table "
       "8.1.2 with the 400-point rule in force) minus rung 2's, by the gap in the game (the player's rating minus the "
       "opponent's, as for the mean gap): a positive difference means rung 2 expects less of the player, who keeps more points. The "
-      "points are K times that difference summed over the games, per player over the window, before rounding and "
-      "before the ratings move apart:")
+      "points are K times that difference summed over the games, per player over the window, before rounding, with rung "
+      "2's expectation read on the replay's own ratings, which have moved apart from the published ones:")
     p("")
     p(FIXED)
     p("")
@@ -394,10 +413,23 @@ def main() -> int:
       "lists from November 2023 are in sample, those of 2020 to October 2023 out of sample.")
     p("- **Chosen at the end.** The 100 are October 2026's; players who left the top by then are not replayed, so the "
       "counts of section 5 for earlier lists describe these players only.")
+    so = a["outside_sensitivity"]
+    fav_games = sum(a["by_gap"][b]["games"] for b in GAP_ORDER[3:6])
     p("- **Opponents outside the 100** keep their published ratings; under rung 2 theirs would differ too, by amounts this "
-      "replay does not estimate. The group's net gain comes from those games, since within the 100 the exchange "
-      "balances (section 4), so the rung-2 figures, and the counts above 2700 and 2800 most of all, rest on this "
-      "approximation.")
+      "replay does not estimate, in size or direction. The group's net gain comes from those games, since within the "
+      "100 the exchange balances (section 4), so the rung-2 figures, and the counts above 2700 and 2800 most of all, "
+      f"rest on this approximation: to first order, each point by which those opponents would on average be rated higher "
+      f"(lower) moves the mean difference by about {sgn(so['mean_points_per_point'], 1)} "
+      f"({sgn(-so['mean_points_per_point'], 1)}) points (from {sgn(so['min'], 1)} to {sgn(so['max'], 1)} by player).")
+    p(f"- **Rung 2's own error.** The difference mixes FIDE's error with rung 2's, and the replay cannot separate them. On "
+      "held-out broadcast months favourites at levels 2300–2799 and gaps of 100 to 399 score 0.023 below FIDE's "
+      "table and 0.017 above the v2 table [E16 §1]; by level band the favourite's residual under the v2 table is "
+      "+0.0135 at 2300–2399 and +0.0173 at 2400–2499, and within ±0.01 at 2500–2799 on fewer games [E16 §5]. These "
+      f"players played {fav_games:,} games as favourite at gaps of 100 to 399; at K = 10, each 0.01 of residual in them "
+      f"is worth about {fav_games / n * 10 * 0.01:.0f} points a player over the window.")
+    p("- **Two scales.** Near equal ratings the v2 table behaves like a logistic scale of 604 to 721 points at "
+      "2300–2799 against table 8.1.2's 400 (annex T3.5): rated by it for long enough, the same results spread "
+      "ratings further apart, so counts above a fixed 2700 or 2800 compare two scales as well as two rules.")
     p("- **Colours** come from broadcasts, which cover fewer games in 2020–2022; a game without a matched colour carries no "
       "colour term. FIDE's own marks, shown in section 8, almost always agree where both exist.")
     p("- **The rules** of 1 March 2024 to 30 September 2025 for the 400-point rule are read as the plain cap, NOT VERIFIED "
