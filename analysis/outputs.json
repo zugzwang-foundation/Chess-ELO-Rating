@@ -45,7 +45,9 @@
     {"script": "analysis/e15_l1_grid_extract.py", "args": [], "output": "analysis/aggregates/E15_l1_grid.json", "needs_data": true},
     {"script": "analysis/e15_l1_grid_report.py", "args": [], "output": "docs/evidence/E15_l1-grid.md", "needs_data": false},
     {"script": "analysis/e16_post_compression_extract.py", "args": [], "output": "analysis/aggregates/E16_post_compression.json", "needs_data": true},
-    {"script": "analysis/e16_rung2_review_report.py", "args": [], "output": "docs/evidence/E16_rung2-under-review.md", "needs_data": false}
+    {"script": "analysis/e16_rung2_review_report.py", "args": [], "output": "docs/evidence/E16_rung2-under-review.md", "needs_data": false},
+    {"script": "analysis/e17_top100_extract.py", "args": [], "output": "analysis/aggregates/E17_top100.json", "needs_data": true},
+    {"script": "analysis/e17_top100_report.py", "args": [], "output": "docs/evidence/E17_top100-replay.md", "needs_data": false}
   ],
   "modules": ["analysis/e13_us_championships_freeze3.py", "analysis/e3_us_championships.py", "analysis/fide_panel.py", "analysis/l1_common.py", "analysis/table_v2_fit.py"]
 }

@@ -1,0 +1,6493 @@
+{
+ "active_e5": 100,
+ "by_gap": {
+  "0 to 99": {
+   "games": 11405,
+   "mean_expectation_gap": 0.0129,
+   "points_per_player": 14.84
+  },
+  "100 to 199": {
+   "games": 8217,
+   "mean_expectation_gap": 0.0259,
+   "points_per_player": 21.4
+  },
+  "200 to 299": {
+   "games": 4076,
+   "mean_expectation_gap": 0.023,
+   "points_per_player": 9.53
+  },
+  "300 to 399": {
+   "games": 1703,
+   "mean_expectation_gap": 0.0178,
+   "points_per_player": 3.11
+  },
+  "400 or more": {
+   "games": 2020,
+   "mean_expectation_gap": -0.0286,
+   "points_per_player": -6.07
+  },
+  "below \u2212100": {
+   "games": 1323,
+   "mean_expectation_gap": -0.0354,
+   "points_per_player": -5.27
+  },
+  "\u2212100 to \u22121": {
+   "games": 6877,
+   "mean_expectation_gap": -0.0192,
+   "points_per_player": -13.27
+  }
+ },
+ "by_list": {
+  "2020-01": {
+   "layer0": {
+    "2700": 31,
+    "2800": 3
+   },
+   "mean_difference": 0.0,
+   "mean_table_effect": 0.0,
+   "published": {
+    "2700": 31,
+    "2800": 3
+   },
+   "rung2": {
+    "2700": 31,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 31,
+    "2800": 3
+   }
+  },
+  "2020-02": {
+   "layer0": {
+    "2700": 31,
+    "2800": 3
+   },
+   "mean_difference": 0.26,
+   "mean_table_effect": 0.26,
+   "published": {
+    "2700": 31,
+    "2800": 3
+   },
+   "rung2": {
+    "2700": 32,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 32,
+    "2800": 3
+   }
+  },
+  "2020-03": {
+   "layer0": {
+    "2700": 31,
+    "2800": 3
+   },
+   "mean_difference": 1.26,
+   "mean_table_effect": 1.39,
+   "published": {
+    "2700": 31,
+    "2800": 3
+   },
+   "rung2": {
+    "2700": 32,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 32,
+    "2800": 3
+   }
+  },
+  "2020-04": {
+   "layer0": {
+    "2700": 31,
+    "2800": 2
+   },
+   "mean_difference": 1.4,
+   "mean_table_effect": 1.54,
+   "published": {
+    "2700": 31,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 31,
+    "2800": 2
+   },
+   "rung2_no_colour": {
+    "2700": 31,
+    "2800": 2
+   }
+  },
+  "2020-05": {
+   "layer0": {
+    "2700": 31,
+    "2800": 2
+   },
+   "mean_difference": 1.4,
+   "mean_table_effect": 1.54,
+   "published": {
+    "2700": 31,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 31,
+    "2800": 2
+   },
+   "rung2_no_colour": {
+    "2700": 31,
+    "2800": 2
+   }
+  },
+  "2020-06": {
+   "layer0": {
+    "2700": 31,
+    "2800": 2
+   },
+   "mean_difference": 1.4,
+   "mean_table_effect": 1.54,
+   "published": {
+    "2700": 31,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 31,
+    "2800": 2
+   },
+   "rung2_no_colour": {
+    "2700": 31,
+    "2800": 2
+   }
+  },
+  "2020-07": {
+   "layer0": {
+    "2700": 31,
+    "2800": 2
+   },
+   "mean_difference": 1.45,
+   "mean_table_effect": 1.59,
+   "published": {
+    "2700": 31,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 31,
+    "2800": 2
+   },
+   "rung2_no_colour": {
+    "2700": 31,
+    "2800": 2
+   }
+  },
+  "2020-08": {
+   "layer0": {
+    "2700": 30,
+    "2800": 2
+   },
+   "mean_difference": 1.59,
+   "mean_table_effect": 1.72,
+   "published": {
+    "2700": 30,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 30,
+    "2800": 2
+   },
+   "rung2_no_colour": {
+    "2700": 30,
+    "2800": 2
+   }
+  },
+  "2020-09": {
+   "layer0": {
+    "2700": 30,
+    "2800": 2
+   },
+   "mean_difference": 1.66,
+   "mean_table_effect": 1.78,
+   "published": {
+    "2700": 30,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 30,
+    "2800": 2
+   },
+   "rung2_no_colour": {
+    "2700": 30,
+    "2800": 2
+   }
+  },
+  "2020-10": {
+   "layer0": {
+    "2700": 30,
+    "2800": 2
+   },
+   "mean_difference": 2.01,
+   "mean_table_effect": 2.17,
+   "published": {
+    "2700": 30,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 30,
+    "2800": 2
+   },
+   "rung2_no_colour": {
+    "2700": 30,
+    "2800": 2
+   }
+  },
+  "2020-11": {
+   "layer0": {
+    "2700": 30,
+    "2800": 2
+   },
+   "mean_difference": 2.14,
+   "mean_table_effect": 2.31,
+   "published": {
+    "2700": 30,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 30,
+    "2800": 2
+   },
+   "rung2_no_colour": {
+    "2700": 30,
+    "2800": 2
+   }
+  },
+  "2020-12": {
+   "layer0": {
+    "2700": 31,
+    "2800": 2
+   },
+   "mean_difference": 2.33,
+   "mean_table_effect": 2.5,
+   "published": {
+    "2700": 31,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 31,
+    "2800": 2
+   },
+   "rung2_no_colour": {
+    "2700": 31,
+    "2800": 2
+   }
+  },
+  "2021-01": {
+   "layer0": {
+    "2700": 31,
+    "2800": 2
+   },
+   "mean_difference": 2.31,
+   "mean_table_effect": 2.5,
+   "published": {
+    "2700": 31,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 31,
+    "2800": 2
+   },
+   "rung2_no_colour": {
+    "2700": 31,
+    "2800": 2
+   }
+  },
+  "2021-02": {
+   "layer0": {
+    "2700": 31,
+    "2800": 2
+   },
+   "mean_difference": 2.27,
+   "mean_table_effect": 2.46,
+   "published": {
+    "2700": 31,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 31,
+    "2800": 2
+   },
+   "rung2_no_colour": {
+    "2700": 31,
+    "2800": 2
+   }
+  },
+  "2021-03": {
+   "layer0": {
+    "2700": 32,
+    "2800": 2
+   },
+   "mean_difference": 2.41,
+   "mean_table_effect": 2.61,
+   "published": {
+    "2700": 32,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 33,
+    "2800": 2
+   },
+   "rung2_no_colour": {
+    "2700": 33,
+    "2800": 2
+   }
+  },
+  "2021-04": {
+   "layer0": {
+    "2700": 32,
+    "2800": 2
+   },
+   "mean_difference": 2.48,
+   "mean_table_effect": 2.68,
+   "published": {
+    "2700": 32,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 33,
+    "2800": 2
+   },
+   "rung2_no_colour": {
+    "2700": 33,
+    "2800": 2
+   }
+  },
+  "2021-05": {
+   "layer0": {
+    "2700": 32,
+    "2800": 2
+   },
+   "mean_difference": 2.66,
+   "mean_table_effect": 2.85,
+   "published": {
+    "2700": 32,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 34,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 34,
+    "2800": 3
+   }
+  },
+  "2021-06": {
+   "layer0": {
+    "2700": 32,
+    "2800": 2
+   },
+   "mean_difference": 3.18,
+   "mean_table_effect": 3.38,
+   "published": {
+    "2700": 32,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 35,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 35,
+    "2800": 3
+   }
+  },
+  "2021-07": {
+   "layer0": {
+    "2700": 32,
+    "2800": 2
+   },
+   "mean_difference": 3.28,
+   "mean_table_effect": 3.51,
+   "published": {
+    "2700": 32,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 35,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 36,
+    "2800": 3
+   }
+  },
+  "2021-08": {
+   "layer0": {
+    "2700": 34,
+    "2800": 2
+   },
+   "mean_difference": 3.89,
+   "mean_table_effect": 4.1,
+   "published": {
+    "2700": 34,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 36,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 37,
+    "2800": 3
+   }
+  },
+  "2021-09": {
+   "layer0": {
+    "2700": 32,
+    "2800": 2
+   },
+   "mean_difference": 4.59,
+   "mean_table_effect": 4.79,
+   "published": {
+    "2700": 32,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 36,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 36,
+    "2800": 3
+   }
+  },
+  "2021-10": {
+   "layer0": {
+    "2700": 34,
+    "2800": 2
+   },
+   "mean_difference": 4.83,
+   "mean_table_effect": 5.06,
+   "published": {
+    "2700": 34,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 36,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 37,
+    "2800": 3
+   }
+  },
+  "2021-11": {
+   "layer0": {
+    "2700": 35,
+    "2800": 1
+   },
+   "mean_difference": 5.59,
+   "mean_table_effect": 5.8,
+   "published": {
+    "2700": 35,
+    "2800": 1
+   },
+   "rung2": {
+    "2700": 37,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 37,
+    "2800": 3
+   }
+  },
+  "2021-12": {
+   "layer0": {
+    "2700": 35,
+    "2800": 2
+   },
+   "mean_difference": 6.06,
+   "mean_table_effect": 6.28,
+   "published": {
+    "2700": 35,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 36,
+    "2800": 4
+   },
+   "rung2_no_colour": {
+    "2700": 38,
+    "2800": 4
+   }
+  },
+  "2022-01": {
+   "layer0": {
+    "2700": 35,
+    "2800": 2
+   },
+   "mean_difference": 6.19,
+   "mean_table_effect": 6.41,
+   "published": {
+    "2700": 35,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 36,
+    "2800": 4
+   },
+   "rung2_no_colour": {
+    "2700": 39,
+    "2800": 4
+   }
+  },
+  "2022-02": {
+   "layer0": {
+    "2700": 35,
+    "2800": 2
+   },
+   "mean_difference": 6.63,
+   "mean_table_effect": 6.86,
+   "published": {
+    "2700": 35,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 36,
+    "2800": 4
+   },
+   "rung2_no_colour": {
+    "2700": 39,
+    "2800": 4
+   }
+  },
+  "2022-03": {
+   "layer0": {
+    "2700": 35,
+    "2800": 2
+   },
+   "mean_difference": 6.85,
+   "mean_table_effect": 7.09,
+   "published": {
+    "2700": 35,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 37,
+    "2800": 4
+   },
+   "rung2_no_colour": {
+    "2700": 38,
+    "2800": 4
+   }
+  },
+  "2022-04": {
+   "layer0": {
+    "2700": 33,
+    "2800": 2
+   },
+   "mean_difference": 7.2,
+   "mean_table_effect": 7.45,
+   "published": {
+    "2700": 33,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 37,
+    "2800": 4
+   },
+   "rung2_no_colour": {
+    "2700": 37,
+    "2800": 4
+   }
+  },
+  "2022-05": {
+   "layer0": {
+    "2700": 34,
+    "2800": 3
+   },
+   "mean_difference": 7.83,
+   "mean_table_effect": 8.05,
+   "published": {
+    "2700": 34,
+    "2800": 3
+   },
+   "rung2": {
+    "2700": 38,
+    "2800": 4
+   },
+   "rung2_no_colour": {
+    "2700": 38,
+    "2800": 4
+   }
+  },
+  "2022-06": {
+   "layer0": {
+    "2700": 36,
+    "2800": 2
+   },
+   "mean_difference": 8.18,
+   "mean_table_effect": 8.36,
+   "published": {
+    "2700": 36,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 39,
+    "2800": 4
+   },
+   "rung2_no_colour": {
+    "2700": 40,
+    "2800": 4
+   }
+  },
+  "2022-07": {
+   "layer0": {
+    "2700": 32,
+    "2800": 2
+   },
+   "mean_difference": 8.7,
+   "mean_table_effect": 8.9,
+   "published": {
+    "2700": 32,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 40,
+    "2800": 4
+   },
+   "rung2_no_colour": {
+    "2700": 42,
+    "2800": 4
+   }
+  },
+  "2022-08": {
+   "layer0": {
+    "2700": 33,
+    "2800": 2
+   },
+   "mean_difference": 9.35,
+   "mean_table_effect": 9.54,
+   "published": {
+    "2700": 33,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 41,
+    "2800": 2
+   },
+   "rung2_no_colour": {
+    "2700": 42,
+    "2800": 3
+   }
+  },
+  "2022-09": {
+   "layer0": {
+    "2700": 36,
+    "2800": 2
+   },
+   "mean_difference": 10.32,
+   "mean_table_effect": 10.43,
+   "published": {
+    "2700": 36,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 43,
+    "2800": 2
+   },
+   "rung2_no_colour": {
+    "2700": 44,
+    "2800": 2
+   }
+  },
+  "2022-10": {
+   "layer0": {
+    "2700": 35,
+    "2800": 2
+   },
+   "mean_difference": 10.67,
+   "mean_table_effect": 10.81,
+   "published": {
+    "2700": 35,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 45,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 44,
+    "2800": 4
+   }
+  },
+  "2022-11": {
+   "layer0": {
+    "2700": 36,
+    "2800": 2
+   },
+   "mean_difference": 11.21,
+   "mean_table_effect": 11.41,
+   "published": {
+    "2700": 36,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 46,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 46,
+    "2800": 4
+   }
+  },
+  "2022-12": {
+   "layer0": {
+    "2700": 36,
+    "2800": 2
+   },
+   "mean_difference": 11.57,
+   "mean_table_effect": 11.79,
+   "published": {
+    "2700": 36,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 46,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 44,
+    "2800": 4
+   }
+  },
+  "2023-01": {
+   "layer0": {
+    "2700": 37,
+    "2800": 2
+   },
+   "mean_difference": 12.22,
+   "mean_table_effect": 12.44,
+   "published": {
+    "2700": 37,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 45,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 44,
+    "2800": 4
+   }
+  },
+  "2023-02": {
+   "layer0": {
+    "2700": 37,
+    "2800": 1
+   },
+   "mean_difference": 12.32,
+   "mean_table_effect": 12.59,
+   "published": {
+    "2700": 37,
+    "2800": 1
+   },
+   "rung2": {
+    "2700": 44,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 44,
+    "2800": 4
+   }
+  },
+  "2023-03": {
+   "layer0": {
+    "2700": 37,
+    "2800": 1
+   },
+   "mean_difference": 12.56,
+   "mean_table_effect": 12.79,
+   "published": {
+    "2700": 37,
+    "2800": 1
+   },
+   "rung2": {
+    "2700": 46,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 45,
+    "2800": 4
+   }
+  },
+  "2023-04": {
+   "layer0": {
+    "2700": 38,
+    "2800": 1
+   },
+   "mean_difference": 12.92,
+   "mean_table_effect": 13.14,
+   "published": {
+    "2700": 38,
+    "2800": 1
+   },
+   "rung2": {
+    "2700": 45,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 44,
+    "2800": 4
+   }
+  },
+  "2023-05": {
+   "layer0": {
+    "2700": 38,
+    "2800": 1
+   },
+   "mean_difference": 13.18,
+   "mean_table_effect": 13.4,
+   "published": {
+    "2700": 38,
+    "2800": 1
+   },
+   "rung2": {
+    "2700": 47,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 46,
+    "2800": 4
+   }
+  },
+  "2023-06": {
+   "layer0": {
+    "2700": 32,
+    "2800": 1
+   },
+   "mean_difference": 13.4,
+   "mean_table_effect": 13.62,
+   "published": {
+    "2700": 32,
+    "2800": 1
+   },
+   "rung2": {
+    "2700": 46,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 47,
+    "2800": 4
+   }
+  },
+  "2023-07": {
+   "layer0": {
+    "2700": 32,
+    "2800": 1
+   },
+   "mean_difference": 13.64,
+   "mean_table_effect": 13.96,
+   "published": {
+    "2700": 32,
+    "2800": 1
+   },
+   "rung2": {
+    "2700": 46,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 47,
+    "2800": 3
+   }
+  },
+  "2023-08": {
+   "layer0": {
+    "2700": 33,
+    "2800": 1
+   },
+   "mean_difference": 14.17,
+   "mean_table_effect": 14.5,
+   "published": {
+    "2700": 33,
+    "2800": 1
+   },
+   "rung2": {
+    "2700": 47,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 49,
+    "2800": 3
+   }
+  },
+  "2023-09": {
+   "layer0": {
+    "2700": 33,
+    "2800": 1
+   },
+   "mean_difference": 14.69,
+   "mean_table_effect": 14.97,
+   "published": {
+    "2700": 33,
+    "2800": 1
+   },
+   "rung2": {
+    "2700": 48,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 48,
+    "2800": 3
+   }
+  },
+  "2023-10": {
+   "layer0": {
+    "2700": 34,
+    "2800": 1
+   },
+   "mean_difference": 14.67,
+   "mean_table_effect": 14.96,
+   "published": {
+    "2700": 34,
+    "2800": 1
+   },
+   "rung2": {
+    "2700": 48,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 48,
+    "2800": 3
+   }
+  },
+  "2023-11": {
+   "layer0": {
+    "2700": 36,
+    "2800": 1
+   },
+   "mean_difference": 15.22,
+   "mean_table_effect": 15.48,
+   "published": {
+    "2700": 36,
+    "2800": 1
+   },
+   "rung2": {
+    "2700": 43,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 44,
+    "2800": 3
+   }
+  },
+  "2023-12": {
+   "layer0": {
+    "2700": 34,
+    "2800": 1
+   },
+   "mean_difference": 15.53,
+   "mean_table_effect": 15.81,
+   "published": {
+    "2700": 34,
+    "2800": 1
+   },
+   "rung2": {
+    "2700": 47,
+    "2800": 4
+   },
+   "rung2_no_colour": {
+    "2700": 46,
+    "2800": 4
+   }
+  },
+  "2024-01": {
+   "layer0": {
+    "2700": 36,
+    "2800": 2
+   },
+   "mean_difference": 15.85,
+   "mean_table_effect": 16.13,
+   "published": {
+    "2700": 36,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 48,
+    "2800": 4
+   },
+   "rung2_no_colour": {
+    "2700": 48,
+    "2800": 4
+   }
+  },
+  "2024-02": {
+   "layer0": {
+    "2700": 35,
+    "2800": 2
+   },
+   "mean_difference": 15.97,
+   "mean_table_effect": 16.26,
+   "published": {
+    "2700": 35,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 46,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 46,
+    "2800": 3
+   }
+  },
+  "2024-03": {
+   "layer0": {
+    "2700": 36,
+    "2800": 2
+   },
+   "mean_difference": 16.11,
+   "mean_table_effect": 16.43,
+   "published": {
+    "2700": 36,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 46,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 47,
+    "2800": 3
+   }
+  },
+  "2024-04": {
+   "layer0": {
+    "2700": 37,
+    "2800": 2
+   },
+   "mean_difference": 16.4,
+   "mean_table_effect": 16.73,
+   "published": {
+    "2700": 37,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 46,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 47,
+    "2800": 3
+   }
+  },
+  "2024-05": {
+   "layer0": {
+    "2700": 36,
+    "2800": 2
+   },
+   "mean_difference": 16.58,
+   "mean_table_effect": 16.92,
+   "published": {
+    "2700": 36,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 46,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 46,
+    "2800": 3
+   }
+  },
+  "2024-06": {
+   "layer0": {
+    "2700": 33,
+    "2800": 2
+   },
+   "mean_difference": 17.22,
+   "mean_table_effect": 17.59,
+   "published": {
+    "2700": 33,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 45,
+    "2800": 3
+   },
+   "rung2_no_colour": {
+    "2700": 45,
+    "2800": 3
+   }
+  },
+  "2024-07": {
+   "layer0": {
+    "2700": 36,
+    "2800": 2
+   },
+   "mean_difference": 17.31,
+   "mean_table_effect": 17.69,
+   "published": {
+    "2700": 36,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 46,
+    "2800": 4
+   },
+   "rung2_no_colour": {
+    "2700": 46,
+    "2800": 4
+   }
+  },
+  "2024-08": {
+   "layer0": {
+    "2700": 36,
+    "2800": 2
+   },
+   "mean_difference": 17.55,
+   "mean_table_effect": 17.96,
+   "published": {
+    "2700": 36,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 47,
+    "2800": 4
+   },
+   "rung2_no_colour": {
+    "2700": 47,
+    "2800": 4
+   }
+  },
+  "2024-09": {
+   "layer0": {
+    "2700": 34,
+    "2800": 2
+   },
+   "mean_difference": 17.78,
+   "mean_table_effect": 18.24,
+   "published": {
+    "2700": 34,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 47,
+    "2800": 4
+   },
+   "rung2_no_colour": {
+    "2700": 47,
+    "2800": 4
+   }
+  },
+  "2024-10": {
+   "layer0": {
+    "2700": 33,
+    "2800": 2
+   },
+   "mean_difference": 18.14,
+   "mean_table_effect": 18.56,
+   "published": {
+    "2700": 33,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 46,
+    "2800": 6
+   },
+   "rung2_no_colour": {
+    "2700": 46,
+    "2800": 6
+   }
+  },
+  "2024-11": {
+   "layer0": {
+    "2700": 32,
+    "2800": 3
+   },
+   "mean_difference": 18.51,
+   "mean_table_effect": 18.92,
+   "published": {
+    "2700": 32,
+    "2800": 3
+   },
+   "rung2": {
+    "2700": 47,
+    "2800": 6
+   },
+   "rung2_no_colour": {
+    "2700": 47,
+    "2800": 6
+   }
+  },
+  "2024-12": {
+   "layer0": {
+    "2700": 32,
+    "2800": 4
+   },
+   "mean_difference": 18.81,
+   "mean_table_effect": 19.22,
+   "published": {
+    "2700": 32,
+    "2800": 4
+   },
+   "rung2": {
+    "2700": 47,
+    "2800": 6
+   },
+   "rung2_no_colour": {
+    "2700": 47,
+    "2800": 6
+   }
+  },
+  "2025-01": {
+   "layer0": {
+    "2700": 30,
+    "2800": 4
+   },
+   "mean_difference": 19.21,
+   "mean_table_effect": 19.65,
+   "published": {
+    "2700": 30,
+    "2800": 4
+   },
+   "rung2": {
+    "2700": 47,
+    "2800": 5
+   },
+   "rung2_no_colour": {
+    "2700": 46,
+    "2800": 5
+   }
+  },
+  "2025-02": {
+   "layer0": {
+    "2700": 31,
+    "2800": 4
+   },
+   "mean_difference": 19.37,
+   "mean_table_effect": 19.83,
+   "published": {
+    "2700": 31,
+    "2800": 4
+   },
+   "rung2": {
+    "2700": 45,
+    "2800": 5
+   },
+   "rung2_no_colour": {
+    "2700": 45,
+    "2800": 5
+   }
+  },
+  "2025-03": {
+   "layer0": {
+    "2700": 32,
+    "2800": 2
+   },
+   "mean_difference": 19.5,
+   "mean_table_effect": 19.95,
+   "published": {
+    "2700": 32,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 45,
+    "2800": 6
+   },
+   "rung2_no_colour": {
+    "2700": 44,
+    "2800": 6
+   }
+  },
+  "2025-04": {
+   "layer0": {
+    "2700": 31,
+    "2800": 2
+   },
+   "mean_difference": 19.85,
+   "mean_table_effect": 20.35,
+   "published": {
+    "2700": 31,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 43,
+    "2800": 6
+   },
+   "rung2_no_colour": {
+    "2700": 43,
+    "2800": 6
+   }
+  },
+  "2025-05": {
+   "layer0": {
+    "2700": 32,
+    "2800": 2
+   },
+   "mean_difference": 20.06,
+   "mean_table_effect": 20.56,
+   "published": {
+    "2700": 32,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 45,
+    "2800": 6
+   },
+   "rung2_no_colour": {
+    "2700": 44,
+    "2800": 6
+   }
+  },
+  "2025-06": {
+   "layer0": {
+    "2700": 31,
+    "2800": 2
+   },
+   "mean_difference": 20.4,
+   "mean_table_effect": 20.85,
+   "published": {
+    "2700": 31,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 43,
+    "2800": 5
+   },
+   "rung2_no_colour": {
+    "2700": 43,
+    "2800": 5
+   }
+  },
+  "2025-07": {
+   "layer0": {
+    "2700": 31,
+    "2800": 2
+   },
+   "mean_difference": 20.54,
+   "mean_table_effect": 21.06,
+   "published": {
+    "2700": 31,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 44,
+    "2800": 7
+   },
+   "rung2_no_colour": {
+    "2700": 44,
+    "2800": 7
+   }
+  },
+  "2025-08": {
+   "layer0": {
+    "2700": 30,
+    "2800": 2
+   },
+   "mean_difference": 20.6,
+   "mean_table_effect": 21.16,
+   "published": {
+    "2700": 30,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 48,
+    "2800": 7
+   },
+   "rung2_no_colour": {
+    "2700": 48,
+    "2800": 7
+   }
+  },
+  "2025-09": {
+   "layer0": {
+    "2700": 31,
+    "2800": 2
+   },
+   "mean_difference": 20.8,
+   "mean_table_effect": 21.34,
+   "published": {
+    "2700": 31,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 45,
+    "2800": 6
+   },
+   "rung2_no_colour": {
+    "2700": 45,
+    "2800": 6
+   }
+  },
+  "2025-10": {
+   "layer0": {
+    "2700": 32,
+    "2800": 2
+   },
+   "mean_difference": 20.97,
+   "mean_table_effect": 21.44,
+   "published": {
+    "2700": 32,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 44,
+    "2800": 5
+   },
+   "rung2_no_colour": {
+    "2700": 44,
+    "2800": 5
+   }
+  },
+  "2025-11": {
+   "layer0": {
+    "2700": 34,
+    "2800": 2
+   },
+   "mean_difference": 21.09,
+   "mean_table_effect": 21.62,
+   "published": {
+    "2700": 34,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 43,
+    "2800": 7
+   },
+   "rung2_no_colour": {
+    "2700": 43,
+    "2800": 8
+   }
+  },
+  "2025-12": {
+   "layer0": {
+    "2700": 34,
+    "2800": 2
+   },
+   "mean_difference": 21.25,
+   "mean_table_effect": 21.75,
+   "published": {
+    "2700": 34,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 43,
+    "2800": 5
+   },
+   "rung2_no_colour": {
+    "2700": 43,
+    "2800": 5
+   }
+  },
+  "2026-01": {
+   "layer0": {
+    "2700": 35,
+    "2800": 2
+   },
+   "mean_difference": 21.41,
+   "mean_table_effect": 21.9,
+   "published": {
+    "2700": 35,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 43,
+    "2800": 5
+   },
+   "rung2_no_colour": {
+    "2700": 43,
+    "2800": 5
+   }
+  },
+  "2026-02": {
+   "layer0": {
+    "2700": 35,
+    "2800": 2
+   },
+   "mean_difference": 21.48,
+   "mean_table_effect": 21.96,
+   "published": {
+    "2700": 35,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 43,
+    "2800": 5
+   },
+   "rung2_no_colour": {
+    "2700": 43,
+    "2800": 5
+   }
+  },
+  "2026-03": {
+   "layer0": {
+    "2700": 34,
+    "2800": 2
+   },
+   "mean_difference": 21.55,
+   "mean_table_effect": 22.04,
+   "published": {
+    "2700": 34,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 43,
+    "2800": 5
+   },
+   "rung2_no_colour": {
+    "2700": 43,
+    "2800": 5
+   }
+  },
+  "2026-04": {
+   "layer0": {
+    "2700": 34,
+    "2800": 2
+   },
+   "mean_difference": 21.89,
+   "mean_table_effect": 22.35,
+   "published": {
+    "2700": 34,
+    "2800": 2
+   },
+   "rung2": {
+    "2700": 43,
+    "2800": 5
+   },
+   "rung2_no_colour": {
+    "2700": 44,
+    "2800": 5
+   }
+  },
+  "2026-05": {
+   "layer0": {
+    "2700": 34,
+    "2800": 1
+   },
+   "mean_difference": 22.27,
+   "mean_table_effect": 22.71,
+   "published": {
+    "2700": 34,
+    "2800": 1
+   },
+   "rung2": {
+    "2700": 43,
+    "2800": 6
+   },
+   "rung2_no_colour": {
+    "2700": 43,
+    "2800": 6
+   }
+  },
+  "2026-06": {
+   "layer0": {
+    "2700": 33,
+    "2800": 1
+   },
+   "mean_difference": 22.5,
+   "mean_table_effect": 22.91,
+   "published": {
+    "2700": 33,
+    "2800": 1
+   },
+   "rung2": {
+    "2700": 43,
+    "2800": 8
+   },
+   "rung2_no_colour": {
+    "2700": 43,
+    "2800": 8
+   }
+  },
+  "2026-07": {
+   "layer0": {
+    "2700": 32,
+    "2800": 1
+   },
+   "mean_difference": 22.69,
+   "mean_table_effect": 23.13,
+   "published": {
+    "2700": 32,
+    "2800": 1
+   },
+   "rung2": {
+    "2700": 42,
+    "2800": 8
+   },
+   "rung2_no_colour": {
+    "2700": 42,
+    "2800": 8
+   }
+  },
+  "2026-08": {
+   "layer0": {
+    "2700": 32,
+    "2800": 1
+   },
+   "mean_difference": 22.8,
+   "mean_table_effect": 23.26,
+   "published": {
+    "2700": 32,
+    "2800": 1
+   },
+   "rung2": {
+    "2700": 42,
+    "2800": 8
+   },
+   "rung2_no_colour": {
+    "2700": 42,
+    "2800": 8
+   }
+  },
+  "2026-09": {
+   "layer0": {
+    "2700": 32,
+    "2800": 1
+   },
+   "mean_difference": 23.0,
+   "mean_table_effect": 23.45,
+   "published": {
+    "2700": 32,
+    "2800": 1
+   },
+   "rung2": {
+    "2700": 41,
+    "2800": 8
+   },
+   "rung2_no_colour": {
+    "2700": 41,
+    "2800": 8
+   }
+  },
+  "2026-10": {
+   "layer0": {
+    "2700": 33,
+    "2800": 1
+   },
+   "mean_difference": 23.29,
+   "mean_table_effect": 23.68,
+   "published": {
+    "2700": 33,
+    "2800": 1
+   },
+   "rung2": {
+    "2700": 42,
+    "2800": 6
+   },
+   "rung2_no_colour": {
+    "2700": 42,
+    "2800": 7
+   }
+  }
+ },
+ "by_opponent": {
+  "in the 100": {
+   "games": 11536,
+   "mean_expectation_gap": 0.0,
+   "points_per_player": -0.05
+  },
+  "outside the 100": {
+   "games": 24085,
+   "mean_expectation_gap": 0.0103,
+   "points_per_player": 24.32
+  }
+ },
+ "by_year": {
+  "2020": {
+   "from": "2020-01",
+   "mean_colour_effect": -0.17,
+   "mean_table_effect": 2.5,
+   "players_table_down": 16,
+   "players_table_up": 65,
+   "to": "2020-12"
+  },
+  "2021": {
+   "from": "2020-12",
+   "mean_colour_effect": -0.05,
+   "mean_table_effect": 3.78,
+   "players_table_down": 12,
+   "players_table_up": 73,
+   "to": "2021-12"
+  },
+  "2022": {
+   "from": "2021-12",
+   "mean_colour_effect": 0.0,
+   "mean_table_effect": 5.51,
+   "players_table_down": 5,
+   "players_table_up": 86,
+   "to": "2022-12"
+  },
+  "2023": {
+   "from": "2022-12",
+   "mean_colour_effect": -0.06,
+   "mean_table_effect": 4.02,
+   "players_table_down": 11,
+   "players_table_up": 79,
+   "to": "2023-12"
+  },
+  "2024": {
+   "from": "2023-12",
+   "mean_colour_effect": -0.13,
+   "mean_table_effect": 3.41,
+   "players_table_down": 10,
+   "players_table_up": 81,
+   "to": "2024-12"
+  },
+  "2025": {
+   "from": "2024-12",
+   "mean_colour_effect": -0.09,
+   "mean_table_effect": 2.53,
+   "players_table_down": 16,
+   "players_table_up": 68,
+   "to": "2025-12"
+  },
+  "2026": {
+   "from": "2025-12",
+   "mean_colour_effect": 0.11,
+   "mean_table_effect": 1.93,
+   "players_table_down": 17,
+   "players_table_up": 72,
+   "to": "2026-10"
+  }
+ },
+ "carried": {
+  "players": {
+   "12923044": {
+    "first_list": "2020-02",
+    "lists": 81,
+    "oct_2026_offset": 1,
+    "runs": [
+     {
+      "from": "2020-02",
+      "offset": 1,
+      "to": "2026-10"
+     }
+    ]
+   },
+   "2047640": {
+    "first_list": "2024-04",
+    "lists": 1,
+    "oct_2026_offset": 0,
+    "runs": [
+     {
+      "from": "2024-04",
+      "offset": -1,
+      "to": "2024-04"
+     }
+    ]
+   },
+   "35093487": {
+    "first_list": "2022-05",
+    "lists": 1,
+    "oct_2026_offset": 0,
+    "runs": [
+     {
+      "from": "2022-05",
+      "offset": 1,
+      "to": "2022-05"
+     }
+    ]
+   },
+   "4107012": {
+    "first_list": "2024-04",
+    "lists": 1,
+    "oct_2026_offset": 0,
+    "runs": [
+     {
+      "from": "2024-04",
+      "offset": -1,
+      "to": "2024-04"
+     }
+    ]
+   },
+   "44155573": {
+    "first_list": "2022-12",
+    "lists": 17,
+    "oct_2026_offset": 0,
+    "runs": [
+     {
+      "from": "2022-12",
+      "offset": -1,
+      "to": "2024-04"
+     }
+    ]
+   }
+  },
+  "players_exact_on_every_list": 95
+ },
+ "colour": {
+  "agree_fide_mark": 21890,
+  "disagree_fide_mark": 351,
+  "games": 35621,
+  "matched": 22241
+ },
+ "colour_by_year": {
+  "2020": {
+   "games": 2260,
+   "matched": 952
+  },
+  "2021": {
+   "games": 4837,
+   "matched": 2525
+  },
+  "2022": {
+   "games": 5719,
+   "matched": 3699
+  },
+  "2023": {
+   "games": 6257,
+   "matched": 4642
+  },
+  "2024": {
+   "games": 5863,
+   "matched": 4418
+  },
+  "2025": {
+   "games": 6313,
+   "matched": 3412
+  },
+  "2026": {
+   "games": 4372,
+   "matched": 2593
+  }
+ },
+ "eta": 36,
+ "fit_window_from": "2023-10",
+ "guard_applies": true,
+ "pages": {
+  "planned": 3685,
+  "read": 3685
+ },
+ "players": 100,
+ "players_table": [
+  {
+   "colour_balance": 5,
+   "colour_effect": -2,
+   "colour_matched": 171,
+   "cumulative": {
+    "2020-12": 9,
+    "2021-12": 20,
+    "2022-12": 30,
+    "2023-12": 36,
+    "2024-12": 37,
+    "2025-12": 40,
+    "2026-10": 45
+   },
+   "difference": 45,
+   "difference_fide_marks": 43,
+   "favourite_share": 1.0,
+   "fide_id": 1503014,
+   "games": 230,
+   "layer0_replay": 2823,
+   "mean_gap": 166.3,
+   "oct_2026": 2823,
+   "rank_oct_2026": 1,
+   "rank_rung2": 1,
+   "rung2": 2868,
+   "table_effect": 47
+  },
+  {
+   "colour_balance": -2,
+   "colour_effect": -1,
+   "colour_matched": 72,
+   "cumulative": {
+    "2020-12": 0,
+    "2021-12": 0,
+    "2022-12": 1,
+    "2023-12": 16,
+    "2024-12": 22,
+    "2025-12": 20,
+    "2026-10": 26
+   },
+   "difference": 26,
+   "difference_fide_marks": 24,
+   "favourite_share": 0.791,
+   "fide_id": 2016192,
+   "games": 158,
+   "layer0_replay": 2792,
+   "mean_gap": 133.2,
+   "oct_2026": 2792,
+   "rank_oct_2026": 2,
+   "rank_rung2": 4,
+   "rung2": 2818,
+   "table_effect": 27
+  },
+  {
+   "colour_balance": 5,
+   "colour_effect": -1,
+   "colour_matched": 281,
+   "cumulative": {
+    "2020-12": 8,
+    "2021-12": 21,
+    "2022-12": 26,
+    "2023-12": 31,
+    "2024-12": 40,
+    "2025-12": 42,
+    "2026-10": 45
+   },
+   "difference": 45,
+   "difference_fide_marks": 44,
+   "favourite_share": 0.906,
+   "fide_id": 2020009,
+   "games": 466,
+   "layer0_replay": 2784,
+   "mean_gap": 83.0,
+   "oct_2026": 2784,
+   "rank_oct_2026": 3,
+   "rank_rung2": 2,
+   "rung2": 2829,
+   "table_effect": 46
+  },
+  {
+   "colour_balance": 4,
+   "colour_effect": 1,
+   "colour_matched": 270,
+   "cumulative": {
+    "2020-12": 3,
+    "2021-12": -3,
+    "2022-12": 4,
+    "2023-12": 10,
+    "2024-12": 18,
+    "2025-12": 27,
+    "2026-10": 34
+   },
+   "difference": 34,
+   "difference_fide_marks": 32,
+   "favourite_share": 0.678,
+   "fide_id": 14205483,
+   "games": 379,
+   "layer0_replay": 2782,
+   "mean_gap": 73.0,
+   "oct_2026": 2782,
+   "rank_oct_2026": 4,
+   "rank_rung2": 5,
+   "rung2": 2816,
+   "table_effect": 33
+  },
+  {
+   "colour_balance": -2,
+   "colour_effect": -1,
+   "colour_matched": 336,
+   "cumulative": {
+    "2020-12": 5,
+    "2021-12": 13,
+    "2022-12": 18,
+    "2023-12": 21,
+    "2024-12": 27,
+    "2025-12": 33,
+    "2026-10": 39
+   },
+   "difference": 39,
+   "difference_fide_marks": 39,
+   "favourite_share": 0.803,
+   "fide_id": 14204118,
+   "games": 461,
+   "layer0_replay": 2780,
+   "mean_gap": 88.9,
+   "oct_2026": 2780,
+   "rank_oct_2026": 5,
+   "rank_rung2": 3,
+   "rung2": 2819,
+   "table_effect": 40
+  },
+  {
+   "colour_balance": -3,
+   "colour_effect": 0,
+   "colour_matched": 195,
+   "cumulative": {
+    "2020-12": 2,
+    "2021-12": 9,
+    "2022-12": 21,
+    "2023-12": 26,
+    "2024-12": 29,
+    "2025-12": 31,
+    "2026-10": 32
+   },
+   "difference": 32,
+   "difference_fide_marks": 33,
+   "favourite_share": 0.71,
+   "fide_id": 5202213,
+   "games": 314,
+   "layer0_replay": 2770,
+   "mean_gap": 49.3,
+   "oct_2026": 2770,
+   "rank_oct_2026": 6,
+   "rank_rung2": 6,
+   "rung2": 2802,
+   "table_effect": 32
+  },
+  {
+   "colour_balance": -9,
+   "colour_effect": 0,
+   "colour_matched": 379,
+   "cumulative": {
+    "2020-12": 3,
+    "2021-12": 10,
+    "2022-12": 17,
+    "2023-12": 20,
+    "2024-12": 25,
+    "2025-12": 37,
+    "2026-10": 35
+   },
+   "difference": 35,
+   "difference_fide_marks": 35,
+   "favourite_share": 0.676,
+   "fide_id": 25059530,
+   "games": 509,
+   "layer0_replay": 2763,
+   "mean_gap": 72.3,
+   "oct_2026": 2763,
+   "rank_oct_2026": 7,
+   "rank_rung2": 8,
+   "rung2": 2798,
+   "table_effect": 35
+  },
+  {
+   "colour_balance": 9,
+   "colour_effect": -2,
+   "colour_matched": 381,
+   "cumulative": {
+    "2020-12": -4,
+    "2021-12": -5,
+    "2022-12": 6,
+    "2023-12": 13,
+    "2024-12": 20,
+    "2025-12": 34,
+    "2026-10": 37
+   },
+   "difference": 37,
+   "difference_fide_marks": 37,
+   "favourite_share": 0.668,
+   "fide_id": 12940690,
+   "games": 458,
+   "layer0_replay": 2761,
+   "mean_gap": 42.6,
+   "oct_2026": 2761,
+   "rank_oct_2026": 8,
+   "rank_rung2": 7,
+   "rung2": 2798,
+   "table_effect": 39
+  },
+  {
+   "colour_balance": 4,
+   "colour_effect": -2,
+   "colour_matched": 124,
+   "cumulative": {
+    "2020-12": 0,
+    "2021-12": 8,
+    "2022-12": 8,
+    "2023-12": 9,
+    "2024-12": 16,
+    "2025-12": 24,
+    "2026-10": 28
+   },
+   "difference": 28,
+   "difference_fide_marks": 28,
+   "favourite_share": 0.796,
+   "fide_id": 8603405,
+   "games": 196,
+   "layer0_replay": 2758,
+   "mean_gap": 108.2,
+   "oct_2026": 2758,
+   "rank_oct_2026": 9,
+   "rank_rung2": 12,
+   "rung2": 2786,
+   "table_effect": 30
+  },
+  {
+   "colour_balance": 6,
+   "colour_effect": 0,
+   "colour_matched": 188,
+   "cumulative": {
+    "2020-12": -2,
+    "2021-12": 8,
+    "2022-12": 14,
+    "2023-12": 20,
+    "2024-12": 21,
+    "2025-12": 26,
+    "2026-10": 31
+   },
+   "difference": 31,
+   "difference_fide_marks": 31,
+   "favourite_share": 0.688,
+   "fide_id": 12573981,
+   "games": 276,
+   "layer0_replay": 2757,
+   "mean_gap": 45.6,
+   "oct_2026": 2757,
+   "rank_oct_2026": 10,
+   "rank_rung2": 11,
+   "rung2": 2788,
+   "table_effect": 31
+  },
+  {
+   "colour_balance": -4,
+   "colour_effect": 0,
+   "colour_matched": 290,
+   "cumulative": {
+    "2020-12": 1,
+    "2021-12": 9,
+    "2022-12": 18,
+    "2023-12": 28,
+    "2024-12": 30,
+    "2025-12": 37,
+    "2026-10": 38
+   },
+   "difference": 38,
+   "difference_fide_marks": 38,
+   "favourite_share": 0.782,
+   "fide_id": 24116068,
+   "games": 377,
+   "layer0_replay": 2752,
+   "mean_gap": 65.0,
+   "oct_2026": 2752,
+   "rank_oct_2026": 11,
+   "rank_rung2": 9,
+   "rung2": 2790,
+   "table_effect": 38
+  },
+  {
+   "colour_balance": 4,
+   "colour_effect": 0,
+   "colour_matched": 456,
+   "cumulative": {
+    "2020-12": 4,
+    "2021-12": 16,
+    "2022-12": 21,
+    "2023-12": 24,
+    "2024-12": 35,
+    "2025-12": 39,
+    "2026-10": 43
+   },
+   "difference": 43,
+   "difference_fide_marks": 41,
+   "favourite_share": 0.877,
+   "fide_id": 35009192,
+   "games": 635,
+   "layer0_replay": 2746,
+   "mean_gap": 136.6,
+   "oct_2026": 2746,
+   "rank_oct_2026": 12,
+   "rank_rung2": 10,
+   "rung2": 2789,
+   "table_effect": 43
+  },
+  {
+   "colour_balance": 4,
+   "colour_effect": -3,
+   "colour_matched": 172,
+   "cumulative": {
+    "2020-12": 4,
+    "2021-12": 9,
+    "2022-12": 10,
+    "2023-12": 15,
+    "2024-12": 19,
+    "2025-12": 18,
+    "2026-10": 20
+   },
+   "difference": 20,
+   "difference_fide_marks": 23,
+   "favourite_share": 0.647,
+   "fide_id": 1170546,
+   "games": 218,
+   "layer0_replay": 2741,
+   "mean_gap": 46.1,
+   "oct_2026": 2741,
+   "rank_oct_2026": 13,
+   "rank_rung2": 14,
+   "rung2": 2761,
+   "table_effect": 23
+  },
+  {
+   "colour_balance": 2,
+   "colour_effect": -2,
+   "colour_matched": 48,
+   "cumulative": {
+    "2020-12": 1,
+    "2021-12": 3,
+    "2022-12": 6,
+    "2023-12": 8,
+    "2024-12": 9,
+    "2025-12": 9,
+    "2026-10": 9
+   },
+   "difference": 9,
+   "difference_fide_marks": 9,
+   "favourite_share": 0.784,
+   "fide_id": 5000017,
+   "games": 51,
+   "layer0_replay": 2739,
+   "mean_gap": 67.0,
+   "oct_2026": 2739,
+   "rank_oct_2026": 14,
+   "rank_rung2": 20,
+   "rung2": 2748,
+   "table_effect": 11
+  },
+  {
+   "colour_balance": -5,
+   "colour_effect": 2,
+   "colour_matched": 51,
+   "cumulative": {
+    "2020-12": 0,
+    "2021-12": 6,
+    "2022-12": 12,
+    "2023-12": 15,
+    "2024-12": 19,
+    "2025-12": 18,
+    "2026-10": 18
+   },
+   "difference": 18,
+   "difference_fide_marks": 18,
+   "favourite_share": 0.645,
+   "fide_id": 3503240,
+   "games": 152,
+   "layer0_replay": 2732,
+   "mean_gap": 78.2,
+   "oct_2026": 2732,
+   "rank_oct_2026": 15,
+   "rank_rung2": 17,
+   "rung2": 2750,
+   "table_effect": 16
+  },
+  {
+   "colour_balance": -1,
+   "colour_effect": 0,
+   "colour_matched": 71,
+   "cumulative": {
+    "2020-12": 5,
+    "2021-12": 5,
+    "2022-12": 7,
+    "2023-12": 11,
+    "2024-12": 14,
+    "2025-12": 18,
+    "2026-10": 19
+   },
+   "difference": 19,
+   "difference_fide_marks": 18,
+   "favourite_share": 0.872,
+   "fide_id": 12401137,
+   "games": 86,
+   "layer0_replay": 2732,
+   "mean_gap": 78.4,
+   "oct_2026": 2732,
+   "rank_oct_2026": 16,
+   "rank_rung2": 15,
+   "rung2": 2751,
+   "table_effect": 19
+  },
+  {
+   "colour_balance": 6,
+   "colour_effect": 1,
+   "colour_matched": 276,
+   "cumulative": {
+    "2020-12": -4,
+    "2021-12": -37,
+    "2022-12": -10,
+    "2023-12": -5,
+    "2024-12": 8,
+    "2025-12": 9,
+    "2026-10": 13
+   },
+   "difference": 13,
+   "difference_fide_marks": 12,
+   "favourite_share": 0.51,
+   "fide_id": 44599790,
+   "games": 465,
+   "layer0_replay": 2731,
+   "mean_gap": 64.6,
+   "oct_2026": 2731,
+   "rank_oct_2026": 17,
+   "rank_rung2": 25,
+   "rung2": 2744,
+   "table_effect": 12
+  },
+  {
+   "colour_balance": -7,
+   "colour_effect": -1,
+   "colour_matched": 357,
+   "cumulative": {
+    "2020-12": 4,
+    "2021-12": 5,
+    "2022-12": 15,
+    "2023-12": 23,
+    "2024-12": 29,
+    "2025-12": 31,
+    "2026-10": 34
+   },
+   "difference": 34,
+   "difference_fide_marks": 34,
+   "favourite_share": 0.809,
+   "fide_id": 12521213,
+   "games": 519,
+   "layer0_replay": 2728,
+   "mean_gap": 114.4,
+   "oct_2026": 2728,
+   "rank_oct_2026": 18,
+   "rank_rung2": 13,
+   "rung2": 2762,
+   "table_effect": 35
+  },
+  {
+   "colour_balance": -2,
+   "colour_effect": 0,
+   "colour_matched": 176,
+   "cumulative": {
+    "2020-12": 3,
+    "2021-12": 9,
+    "2022-12": 18,
+    "2023-12": 24,
+    "2024-12": 22,
+    "2025-12": 26,
+    "2026-10": 26
+   },
+   "difference": 26,
+   "difference_fide_marks": 27,
+   "favourite_share": 0.698,
+   "fide_id": 13300474,
+   "games": 288,
+   "layer0_replay": 2725,
+   "mean_gap": 50.2,
+   "oct_2026": 2725,
+   "rank_oct_2026": 19,
+   "rank_rung2": 16,
+   "rung2": 2751,
+   "table_effect": 26
+  },
+  {
+   "colour_balance": 3,
+   "colour_effect": -3,
+   "colour_matched": 107,
+   "cumulative": {
+    "2020-12": 1,
+    "2021-12": 4,
+    "2022-12": 17,
+    "2023-12": 20,
+    "2024-12": 22,
+    "2025-12": 15,
+    "2026-10": 18
+   },
+   "difference": 18,
+   "difference_fide_marks": 19,
+   "favourite_share": 0.706,
+   "fide_id": 8603677,
+   "games": 180,
+   "layer0_replay": 2723,
+   "mean_gap": 72.8,
+   "oct_2026": 2723,
+   "rank_oct_2026": 20,
+   "rank_rung2": 27,
+   "rung2": 2741,
+   "table_effect": 21
+  },
+  {
+   "colour_balance": 1,
+   "colour_effect": 0,
+   "colour_matched": 133,
+   "cumulative": {
+    "2020-12": 1,
+    "2021-12": 6,
+    "2022-12": 9,
+    "2023-12": 16,
+    "2024-12": 24,
+    "2025-12": 30,
+    "2026-10": 31
+   },
+   "difference": 31,
+   "difference_fide_marks": 32,
+   "favourite_share": 0.785,
+   "fide_id": 4168119,
+   "games": 251,
+   "layer0_replay": 2719,
+   "mean_gap": 61.9,
+   "oct_2026": 2719,
+   "rank_oct_2026": 21,
+   "rank_rung2": 18,
+   "rung2": 2750,
+   "table_effect": 31
+  },
+  {
+   "colour_balance": -1,
+   "colour_effect": -2,
+   "colour_matched": 285,
+   "cumulative": {
+    "2020-12": 6,
+    "2021-12": 18,
+    "2022-12": 21,
+    "2023-12": 26,
+    "2024-12": 23,
+    "2025-12": 28,
+    "2026-10": 28
+   },
+   "difference": 28,
+   "difference_fide_marks": 29,
+   "favourite_share": 0.637,
+   "fide_id": 623539,
+   "games": 383,
+   "layer0_replay": 2717,
+   "mean_gap": 64.5,
+   "oct_2026": 2717,
+   "rank_oct_2026": 22,
+   "rank_rung2": 23,
+   "rung2": 2745,
+   "table_effect": 30
+  },
+  {
+   "colour_balance": 1,
+   "colour_effect": -1,
+   "colour_matched": 409,
+   "cumulative": {
+    "2020-12": 7,
+    "2021-12": 16,
+    "2022-12": 17,
+    "2023-12": 23,
+    "2024-12": 26,
+    "2025-12": 31,
+    "2026-10": 32
+   },
+   "difference": 32,
+   "difference_fide_marks": 32,
+   "favourite_share": 0.801,
+   "fide_id": 2093596,
+   "games": 821,
+   "layer0_replay": 2717,
+   "mean_gap": 116.7,
+   "oct_2026": 2717,
+   "rank_oct_2026": 23,
+   "rank_rung2": 19,
+   "rung2": 2749,
+   "table_effect": 33
+  },
+  {
+   "colour_balance": 6,
+   "colour_effect": -2,
+   "colour_matched": 472,
+   "cumulative": {
+    "2020-12": 0,
+    "2021-12": 9,
+    "2022-12": 17,
+    "2023-12": 25,
+    "2024-12": 26,
+    "2025-12": 30,
+    "2026-10": 28
+   },
+   "difference": 28,
+   "difference_fide_marks": 30,
+   "favourite_share": 0.765,
+   "fide_id": 1039784,
+   "games": 605,
+   "layer0_replay": 2716,
+   "mean_gap": 92.2,
+   "oct_2026": 2716,
+   "rank_oct_2026": 24,
+   "rank_rung2": 24,
+   "rung2": 2744,
+   "table_effect": 30
+  },
+  {
+   "colour_balance": 2,
+   "colour_effect": 0,
+   "colour_matched": 64,
+   "cumulative": {
+    "2020-12": 3,
+    "2021-12": 10,
+    "2022-12": 9,
+    "2023-12": 9,
+    "2024-12": 14,
+    "2025-12": 17,
+    "2026-10": 21
+   },
+   "difference": 21,
+   "difference_fide_marks": 20,
+   "favourite_share": 0.838,
+   "fide_id": 4158814,
+   "games": 99,
+   "layer0_replay": 2714,
+   "mean_gap": 94.6,
+   "oct_2026": 2714,
+   "rank_oct_2026": 25,
+   "rank_rung2": 30,
+   "rung2": 2735,
+   "table_effect": 21
+  },
+  {
+   "colour_balance": -1,
+   "colour_effect": -2,
+   "colour_matched": 301,
+   "cumulative": {
+    "2020-12": 6,
+    "2021-12": 6,
+    "2022-12": 9,
+    "2023-12": 14,
+    "2024-12": 21,
+    "2025-12": 24,
+    "2026-10": 22
+   },
+   "difference": 22,
+   "difference_fide_marks": 23,
+   "favourite_share": 0.704,
+   "fide_id": 14203987,
+   "games": 469,
+   "layer0_replay": 2712,
+   "mean_gap": 100.0,
+   "oct_2026": 2712,
+   "rank_oct_2026": 26,
+   "rank_rung2": 32,
+   "rung2": 2734,
+   "table_effect": 24
+  },
+  {
+   "colour_balance": 1,
+   "colour_effect": -3,
+   "colour_matched": 237,
+   "cumulative": {
+    "2020-12": 4,
+    "2021-12": 8,
+    "2022-12": 16,
+    "2023-12": 21,
+    "2024-12": 21,
+    "2025-12": 29,
+    "2026-10": 30
+   },
+   "difference": 30,
+   "difference_fide_marks": 30,
+   "favourite_share": 0.794,
+   "fide_id": 738590,
+   "games": 310,
+   "layer0_replay": 2711,
+   "mean_gap": 75.9,
+   "oct_2026": 2711,
+   "rank_oct_2026": 27,
+   "rank_rung2": 26,
+   "rung2": 2741,
+   "table_effect": 33
+  },
+  {
+   "colour_balance": 8,
+   "colour_effect": -2,
+   "colour_matched": 284,
+   "cumulative": {
+    "2020-12": 3,
+    "2021-12": 10,
+    "2022-12": 21,
+    "2023-12": 26,
+    "2024-12": 28,
+    "2025-12": 33,
+    "2026-10": 36
+   },
+   "difference": 36,
+   "difference_fide_marks": 36,
+   "favourite_share": 0.855,
+   "fide_id": 13401319,
+   "games": 337,
+   "layer0_replay": 2710,
+   "mean_gap": 107.4,
+   "oct_2026": 2710,
+   "rank_oct_2026": 28,
+   "rank_rung2": 21,
+   "rung2": 2746,
+   "table_effect": 38
+  },
+  {
+   "colour_balance": 5,
+   "colour_effect": -2,
+   "colour_matched": 395,
+   "cumulative": {
+    "2020-12": 6,
+    "2021-12": 15,
+    "2022-12": 22,
+    "2023-12": 28,
+    "2024-12": 27,
+    "2025-12": 37,
+    "2026-10": 36
+   },
+   "difference": 36,
+   "difference_fide_marks": 36,
+   "favourite_share": 0.777,
+   "fide_id": 46616543,
+   "games": 588,
+   "layer0_replay": 2710,
+   "mean_gap": 118.9,
+   "oct_2026": 2710,
+   "rank_oct_2026": 29,
+   "rank_rung2": 22,
+   "rung2": 2746,
+   "table_effect": 38
+  },
+  {
+   "colour_balance": 8,
+   "colour_effect": -2,
+   "colour_matched": 322,
+   "cumulative": {
+    "2020-12": 0,
+    "2021-12": 7,
+    "2022-12": 15,
+    "2023-12": 20,
+    "2024-12": 24,
+    "2025-12": 28,
+    "2026-10": 31
+   },
+   "difference": 31,
+   "difference_fide_marks": 31,
+   "favourite_share": 0.789,
+   "fide_id": 25092340,
+   "games": 446,
+   "layer0_replay": 2709,
+   "mean_gap": 115.4,
+   "oct_2026": 2709,
+   "rank_oct_2026": 30,
+   "rank_rung2": 28,
+   "rung2": 2740,
+   "table_effect": 33
+  },
+  {
+   "colour_balance": 9,
+   "colour_effect": 0,
+   "colour_matched": 127,
+   "cumulative": {
+    "2020-12": 0,
+    "2021-12": 1,
+    "2022-12": 4,
+    "2023-12": 12,
+    "2024-12": 16,
+    "2025-12": 20,
+    "2026-10": 19
+   },
+   "difference": 19,
+   "difference_fide_marks": 18,
+   "favourite_share": 0.663,
+   "fide_id": 2040506,
+   "games": 252,
+   "layer0_replay": 2708,
+   "mean_gap": 41.9,
+   "oct_2026": 2708,
+   "rank_oct_2026": 31,
+   "rank_rung2": 33,
+   "rung2": 2727,
+   "table_effect": 19
+  },
+  {
+   "colour_balance": 11,
+   "colour_effect": 0,
+   "colour_matched": 365,
+   "cumulative": {
+    "2020-12": 4,
+    "2021-12": 15,
+    "2022-12": 17,
+    "2023-12": 23,
+    "2024-12": 29,
+    "2025-12": 27,
+    "2026-10": 31
+   },
+   "difference": 31,
+   "difference_fide_marks": 30,
+   "favourite_share": 0.819,
+   "fide_id": 12539929,
+   "games": 470,
+   "layer0_replay": 2705,
+   "mean_gap": 106.7,
+   "oct_2026": 2705,
+   "rank_oct_2026": 32,
+   "rank_rung2": 29,
+   "rung2": 2736,
+   "table_effect": 31
+  },
+  {
+   "colour_balance": 12,
+   "colour_effect": -3,
+   "colour_matched": 232,
+   "cumulative": {
+    "2020-12": -1,
+    "2021-12": 6,
+    "2022-12": 16,
+    "2023-12": 25,
+    "2024-12": 28,
+    "2025-12": 31,
+    "2026-10": 31
+   },
+   "difference": 31,
+   "difference_fide_marks": 28,
+   "favourite_share": 0.886,
+   "fide_id": 8603820,
+   "games": 299,
+   "layer0_replay": 2704,
+   "mean_gap": 121.6,
+   "oct_2026": 2704,
+   "rank_oct_2026": 33,
+   "rank_rung2": 31,
+   "rung2": 2735,
+   "table_effect": 34
+  },
+  {
+   "colour_balance": -4,
+   "colour_effect": 2,
+   "colour_matched": 20,
+   "cumulative": {
+    "2020-12": 5,
+    "2021-12": 7,
+    "2022-12": 7,
+    "2023-12": 8,
+    "2024-12": 8,
+    "2025-12": 8,
+    "2026-10": 8
+   },
+   "difference": 8,
+   "difference_fide_marks": 7,
+   "favourite_share": 0.75,
+   "fide_id": 2900084,
+   "games": 32,
+   "layer0_replay": 2695,
+   "mean_gap": 67.0,
+   "oct_2026": 2695,
+   "rank_oct_2026": 34,
+   "rank_rung2": 41,
+   "rung2": 2703,
+   "table_effect": 6
+  },
+  {
+   "colour_balance": -6,
+   "colour_effect": 0,
+   "colour_matched": 72,
+   "cumulative": {
+    "2020-12": 3,
+    "2021-12": 3,
+    "2022-12": 8,
+    "2023-12": 15,
+    "2024-12": 18,
+    "2025-12": 22,
+    "2026-10": 25
+   },
+   "difference": 25,
+   "difference_fide_marks": 25,
+   "favourite_share": 0.838,
+   "fide_id": 8602883,
+   "games": 136,
+   "layer0_replay": 2694,
+   "mean_gap": 126.8,
+   "oct_2026": 2694,
+   "rank_oct_2026": 35,
+   "rank_rung2": 36,
+   "rung2": 2719,
+   "table_effect": 25
+  },
+  {
+   "colour_balance": 1,
+   "colour_effect": 0,
+   "colour_matched": 187,
+   "cumulative": {
+    "2020-12": 1,
+    "2021-12": 3,
+    "2022-12": 11,
+    "2023-12": 19,
+    "2024-12": 21,
+    "2025-12": 26,
+    "2026-10": 26
+   },
+   "difference": 26,
+   "difference_fide_marks": 27,
+   "favourite_share": 0.755,
+   "fide_id": 5029465,
+   "games": 261,
+   "layer0_replay": 2693,
+   "mean_gap": 64.7,
+   "oct_2026": 2693,
+   "rank_oct_2026": 36,
+   "rank_rung2": 35,
+   "rung2": 2719,
+   "table_effect": 26
+  },
+  {
+   "colour_balance": 11,
+   "colour_effect": -1,
+   "colour_matched": 331,
+   "cumulative": {
+    "2020-12": 9,
+    "2021-12": 16,
+    "2022-12": 17,
+    "2023-12": 23,
+    "2024-12": 25,
+    "2025-12": 31,
+    "2026-10": 32
+   },
+   "difference": 32,
+   "difference_fide_marks": 32,
+   "favourite_share": 0.849,
+   "fide_id": 24130737,
+   "games": 425,
+   "layer0_replay": 2691,
+   "mean_gap": 109.3,
+   "oct_2026": 2691,
+   "rank_oct_2026": 37,
+   "rank_rung2": 34,
+   "rung2": 2723,
+   "table_effect": 33
+  },
+  {
+   "colour_balance": -1,
+   "colour_effect": -1,
+   "colour_matched": 59,
+   "cumulative": {
+    "2020-12": 0,
+    "2021-12": 3,
+    "2022-12": 4,
+    "2023-12": 9,
+    "2024-12": 15,
+    "2025-12": 17,
+    "2026-10": 18
+   },
+   "difference": 18,
+   "difference_fide_marks": 18,
+   "favourite_share": 0.684,
+   "fide_id": 13400924,
+   "games": 76,
+   "layer0_replay": 2689,
+   "mean_gap": 69.2,
+   "oct_2026": 2689,
+   "rank_oct_2026": 38,
+   "rank_rung2": 39,
+   "rung2": 2707,
+   "table_effect": 19
+  },
+  {
+   "colour_balance": 4,
+   "colour_effect": -2,
+   "colour_matched": 128,
+   "cumulative": {
+    "2020-12": 0,
+    "2021-12": 1,
+    "2022-12": 6,
+    "2023-12": 17,
+    "2024-12": 11,
+    "2025-12": 11,
+    "2026-10": 23
+   },
+   "difference": 23,
+   "difference_fide_marks": 24,
+   "favourite_share": 0.851,
+   "fide_id": 2056437,
+   "games": 376,
+   "layer0_replay": 2685,
+   "mean_gap": 237.7,
+   "oct_2026": 2685,
+   "rank_oct_2026": 39,
+   "rank_rung2": 37,
+   "rung2": 2708,
+   "table_effect": 25
+  },
+  {
+   "colour_balance": -3,
+   "colour_effect": 0,
+   "colour_matched": 279,
+   "cumulative": {
+    "2020-12": 9,
+    "2021-12": 16,
+    "2022-12": 24,
+    "2023-12": 21,
+    "2024-12": 27,
+    "2025-12": 28,
+    "2026-10": 28
+   },
+   "difference": 28,
+   "difference_fide_marks": 27,
+   "favourite_share": 0.763,
+   "fide_id": 24175439,
+   "games": 524,
+   "layer0_replay": 2680,
+   "mean_gap": 102.2,
+   "oct_2026": 2680,
+   "rank_oct_2026": 40,
+   "rank_rung2": 38,
+   "rung2": 2708,
+   "table_effect": 28
+  },
+  {
+   "colour_balance": -2,
+   "colour_effect": -3,
+   "colour_matched": 412,
+   "cumulative": {
+    "2020-12": 0,
+    "2021-12": 8,
+    "2022-12": 11,
+    "2023-12": 3,
+    "2024-12": 18,
+    "2025-12": 19,
+    "2026-10": 19
+   },
+   "difference": 19,
+   "difference_fide_marks": 20,
+   "favourite_share": 0.679,
+   "fide_id": 13413937,
+   "games": 567,
+   "layer0_replay": 2679,
+   "mean_gap": 70.0,
+   "oct_2026": 2679,
+   "rank_oct_2026": 41,
+   "rank_rung2": 44,
+   "rung2": 2698,
+   "table_effect": 22
+  },
+  {
+   "colour_balance": 7,
+   "colour_effect": -2,
+   "colour_matched": 309,
+   "cumulative": {
+    "2020-12": 1,
+    "2021-12": 9,
+    "2022-12": 15,
+    "2023-12": 16,
+    "2024-12": 23,
+    "2025-12": 30,
+    "2026-10": 27
+   },
+   "difference": 27,
+   "difference_fide_marks": 26,
+   "favourite_share": 0.789,
+   "fide_id": 5072786,
+   "games": 399,
+   "layer0_replay": 2677,
+   "mean_gap": 140.5,
+   "oct_2026": 2677,
+   "rank_oct_2026": 42,
+   "rank_rung2": 40,
+   "rung2": 2704,
+   "table_effect": 29
+  },
+  {
+   "colour_balance": 11,
+   "colour_effect": 0,
+   "colour_matched": 357,
+   "cumulative": {
+    "2020-12": -11,
+    "2021-12": -11,
+    "2022-12": 11,
+    "2023-12": 10,
+    "2024-12": 14,
+    "2025-12": 16,
+    "2026-10": 22
+   },
+   "difference": 22,
+   "difference_fide_marks": 22,
+   "favourite_share": 0.71,
+   "fide_id": 25060783,
+   "games": 596,
+   "layer0_replay": 2677,
+   "mean_gap": 144.9,
+   "oct_2026": 2677,
+   "rank_oct_2026": 43,
+   "rank_rung2": 43,
+   "rung2": 2699,
+   "table_effect": 22
+  },
+  {
+   "colour_balance": 21,
+   "colour_effect": -1,
+   "colour_matched": 277,
+   "cumulative": {
+    "2020-12": -15,
+    "2021-12": -15,
+    "2022-12": 2,
+    "2023-12": 16,
+    "2024-12": 15,
+    "2025-12": 19,
+    "2026-10": 20
+   },
+   "difference": 20,
+   "difference_fide_marks": 21,
+   "favourite_share": 0.756,
+   "fide_id": 35028600,
+   "games": 566,
+   "layer0_replay": 2674,
+   "mean_gap": 154.0,
+   "oct_2026": 2674,
+   "rank_oct_2026": 44,
+   "rank_rung2": 45,
+   "rung2": 2694,
+   "table_effect": 21
+  },
+  {
+   "colour_balance": -4,
+   "colour_effect": 2,
+   "colour_matched": 370,
+   "cumulative": {
+    "2020-12": 8,
+    "2021-12": 12,
+    "2022-12": 18,
+    "2023-12": 19,
+    "2024-12": 25,
+    "2025-12": 29,
+    "2026-10": 30
+   },
+   "difference": 30,
+   "difference_fide_marks": 30,
+   "favourite_share": 0.828,
+   "fide_id": 24133795,
+   "games": 499,
+   "layer0_replay": 2671,
+   "mean_gap": 116.3,
+   "oct_2026": 2671,
+   "rank_oct_2026": 45,
+   "rank_rung2": 42,
+   "rung2": 2701,
+   "table_effect": 28
+  },
+  {
+   "colour_balance": 5,
+   "colour_effect": 1,
+   "colour_matched": 397,
+   "cumulative": {
+    "2020-12": 5,
+    "2021-12": 15,
+    "2022-12": 15,
+    "2023-12": 20,
+    "2024-12": 23,
+    "2025-12": 23,
+    "2026-10": 21
+   },
+   "difference": 21,
+   "difference_fide_marks": 20,
+   "favourite_share": 0.762,
+   "fide_id": 24651516,
+   "games": 530,
+   "layer0_replay": 2666,
+   "mean_gap": 87.0,
+   "oct_2026": 2666,
+   "rank_oct_2026": 46,
+   "rank_rung2": 49,
+   "rung2": 2687,
+   "table_effect": 20
+  },
+  {
+   "colour_balance": -6,
+   "colour_effect": 0,
+   "colour_matched": 54,
+   "cumulative": {
+    "2020-12": 7,
+    "2021-12": 10,
+    "2022-12": 9,
+    "2023-12": 12,
+    "2024-12": 16,
+    "2025-12": 16,
+    "2026-10": 17
+   },
+   "difference": 17,
+   "difference_fide_marks": 18,
+   "favourite_share": 0.767,
+   "fide_id": 410608,
+   "games": 116,
+   "layer0_replay": 2665,
+   "mean_gap": 122.8,
+   "oct_2026": 2665,
+   "rank_oct_2026": 47,
+   "rank_rung2": 53,
+   "rung2": 2682,
+   "table_effect": 17
+  },
+  {
+   "colour_balance": -3,
+   "colour_effect": 1,
+   "colour_matched": 75,
+   "cumulative": {
+    "2020-12": 0,
+    "2021-12": 6,
+    "2022-12": 13,
+    "2023-12": 16,
+    "2024-12": 18,
+    "2025-12": 19,
+    "2026-10": 20
+   },
+   "difference": 20,
+   "difference_fide_marks": 21,
+   "favourite_share": 0.941,
+   "fide_id": 14200244,
+   "games": 102,
+   "layer0_replay": 2665,
+   "mean_gap": 155.6,
+   "oct_2026": 2665,
+   "rank_oct_2026": 48,
+   "rank_rung2": 50,
+   "rung2": 2685,
+   "table_effect": 19
+  },
+  {
+   "colour_balance": -8,
+   "colour_effect": -1,
+   "colour_matched": 198,
+   "cumulative": {
+    "2020-12": 3,
+    "2021-12": 16,
+    "2022-12": 15,
+    "2023-12": 18,
+    "2024-12": 24,
+    "2025-12": 26,
+    "2026-10": 25
+   },
+   "difference": 25,
+   "difference_fide_marks": 26,
+   "favourite_share": 0.876,
+   "fide_id": 14102951,
+   "games": 315,
+   "layer0_replay": 2664,
+   "mean_gap": 123.4,
+   "oct_2026": 2664,
+   "rank_oct_2026": 49,
+   "rank_rung2": 47,
+   "rung2": 2689,
+   "table_effect": 26
+  },
+  {
+   "colour_balance": -5,
+   "colour_effect": 1,
+   "colour_matched": 31,
+   "cumulative": {
+    "2020-12": -1,
+    "2021-12": -1,
+    "2022-12": -1,
+    "2023-12": 0,
+    "2024-12": 2,
+    "2025-12": 5,
+    "2026-10": 9
+   },
+   "difference": 9,
+   "difference_fide_marks": 9,
+   "favourite_share": 0.714,
+   "fide_id": 703303,
+   "games": 35,
+   "layer0_replay": 2663,
+   "mean_gap": 59.5,
+   "oct_2026": 2663,
+   "rank_oct_2026": 50,
+   "rank_rung2": 67,
+   "rung2": 2672,
+   "table_effect": 8
+  },
+  {
+   "colour_balance": 7,
+   "colour_effect": 1,
+   "colour_matched": 215,
+   "cumulative": {
+    "2020-12": 3,
+    "2021-12": 11,
+    "2022-12": 13,
+    "2023-12": 22,
+    "2024-12": 26,
+    "2025-12": 24,
+    "2026-10": 26
+   },
+   "difference": 26,
+   "difference_fide_marks": 25,
+   "favourite_share": 0.869,
+   "fide_id": 4152956,
+   "games": 298,
+   "layer0_replay": 2663,
+   "mean_gap": 83.7,
+   "oct_2026": 2663,
+   "rank_oct_2026": 51,
+   "rank_rung2": 46,
+   "rung2": 2689,
+   "table_effect": 25
+  },
+  {
+   "colour_balance": 18,
+   "colour_effect": 0,
+   "colour_matched": 396,
+   "cumulative": {
+    "2020-12": -1,
+    "2021-12": 0,
+    "2022-12": 3,
+    "2023-12": 11,
+    "2024-12": 19,
+    "2025-12": 20,
+    "2026-10": 22
+   },
+   "difference": 22,
+   "difference_fide_marks": 24,
+   "favourite_share": 0.72,
+   "fide_id": 12923044,
+   "games": 504,
+   "layer0_replay": 2663,
+   "mean_gap": 94.2,
+   "oct_2026": 2662,
+   "rank_oct_2026": 52,
+   "rank_rung2": 51,
+   "rung2": 2684,
+   "table_effect": 22
+  },
+  {
+   "colour_balance": -5,
+   "colour_effect": 0,
+   "colour_matched": 301,
+   "cumulative": {
+    "2020-12": -1,
+    "2021-12": -1,
+    "2022-12": 10,
+    "2023-12": 9,
+    "2024-12": 12,
+    "2025-12": 12,
+    "2026-10": 18
+   },
+   "difference": 18,
+   "difference_fide_marks": 17,
+   "favourite_share": 0.625,
+   "fide_id": 13409301,
+   "games": 509,
+   "layer0_replay": 2662,
+   "mean_gap": 78.0,
+   "oct_2026": 2662,
+   "rank_oct_2026": 53,
+   "rank_rung2": 55,
+   "rung2": 2680,
+   "table_effect": 18
+  },
+  {
+   "colour_balance": 6,
+   "colour_effect": 1,
+   "colour_matched": 376,
+   "cumulative": {
+    "2020-12": 8,
+    "2021-12": 9,
+    "2022-12": 17,
+    "2023-12": 23,
+    "2024-12": 22,
+    "2025-12": 23,
+    "2026-10": 26
+   },
+   "difference": 26,
+   "difference_fide_marks": 26,
+   "favourite_share": 0.802,
+   "fide_id": 13306553,
+   "games": 567,
+   "layer0_replay": 2661,
+   "mean_gap": 113.6,
+   "oct_2026": 2661,
+   "rank_oct_2026": 54,
+   "rank_rung2": 48,
+   "rung2": 2687,
+   "table_effect": 25
+  },
+  {
+   "colour_balance": -5,
+   "colour_effect": -1,
+   "colour_matched": 97,
+   "cumulative": {
+    "2020-12": 0,
+    "2021-12": 1,
+    "2022-12": 6,
+    "2023-12": 11,
+    "2024-12": 14,
+    "2025-12": 16,
+    "2026-10": 14
+   },
+   "difference": 14,
+   "difference_fide_marks": 15,
+   "favourite_share": 0.626,
+   "fide_id": 2023970,
+   "games": 182,
+   "layer0_replay": 2659,
+   "mean_gap": 36.3,
+   "oct_2026": 2659,
+   "rank_oct_2026": 55,
+   "rank_rung2": 64,
+   "rung2": 2673,
+   "table_effect": 15
+  },
+  {
+   "colour_balance": 8,
+   "colour_effect": -2,
+   "colour_matched": 290,
+   "cumulative": {
+    "2020-12": 8,
+    "2021-12": 13,
+    "2022-12": 17,
+    "2023-12": 16,
+    "2024-12": 19,
+    "2025-12": 20,
+    "2026-10": 22
+   },
+   "difference": 22,
+   "difference_fide_marks": 23,
+   "favourite_share": 0.777,
+   "fide_id": 1118358,
+   "games": 364,
+   "layer0_replay": 2658,
+   "mean_gap": 80.1,
+   "oct_2026": 2658,
+   "rank_oct_2026": 56,
+   "rank_rung2": 54,
+   "rung2": 2680,
+   "table_effect": 24
+  },
+  {
+   "colour_balance": 4,
+   "colour_effect": -1,
+   "colour_matched": 100,
+   "cumulative": {
+    "2020-12": 0,
+    "2021-12": 5,
+    "2022-12": 9,
+    "2023-12": 14,
+    "2024-12": 17,
+    "2025-12": 12,
+    "2026-10": 13
+   },
+   "difference": 13,
+   "difference_fide_marks": 14,
+   "favourite_share": 0.781,
+   "fide_id": 2047640,
+   "games": 215,
+   "layer0_replay": 2656,
+   "mean_gap": 150.5,
+   "oct_2026": 2656,
+   "rank_oct_2026": 57,
+   "rank_rung2": 69,
+   "rung2": 2669,
+   "table_effect": 14
+  },
+  {
+   "colour_balance": -5,
+   "colour_effect": 3,
+   "colour_matched": 311,
+   "cumulative": {
+    "2020-12": -4,
+    "2021-12": -4,
+    "2022-12": 6,
+    "2023-12": 13,
+    "2024-12": 21,
+    "2025-12": 25,
+    "2026-10": 28
+   },
+   "difference": 28,
+   "difference_fide_marks": 28,
+   "favourite_share": 0.707,
+   "fide_id": 44155573,
+   "games": 567,
+   "layer0_replay": 2656,
+   "mean_gap": 93.3,
+   "oct_2026": 2656,
+   "rank_oct_2026": 58,
+   "rank_rung2": 52,
+   "rung2": 2684,
+   "table_effect": 25
+  },
+  {
+   "colour_balance": -2,
+   "colour_effect": 1,
+   "colour_matched": 378,
+   "cumulative": {
+    "2020-12": 5,
+    "2021-12": 7,
+    "2022-12": 17,
+    "2023-12": 19,
+    "2024-12": 22,
+    "2025-12": 22,
+    "2026-10": 25
+   },
+   "difference": 25,
+   "difference_fide_marks": 25,
+   "favourite_share": 0.749,
+   "fide_id": 1226380,
+   "games": 430,
+   "layer0_replay": 2654,
+   "mean_gap": 92.2,
+   "oct_2026": 2654,
+   "rank_oct_2026": 59,
+   "rank_rung2": 58,
+   "rung2": 2679,
+   "table_effect": 24
+  },
+  {
+   "colour_balance": -2,
+   "colour_effect": 1,
+   "colour_matched": 66,
+   "cumulative": {
+    "2020-12": 17,
+    "2021-12": 18,
+    "2022-12": 22,
+    "2023-12": 22,
+    "2024-12": 22,
+    "2025-12": 23,
+    "2026-10": 24
+   },
+   "difference": 24,
+   "difference_fide_marks": 26,
+   "favourite_share": 0.916,
+   "fide_id": 3805662,
+   "games": 368,
+   "layer0_replay": 2654,
+   "mean_gap": 217.4,
+   "oct_2026": 2654,
+   "rank_oct_2026": 60,
+   "rank_rung2": 59,
+   "rung2": 2678,
+   "table_effect": 23
+  },
+  {
+   "colour_balance": 0,
+   "colour_effect": 0,
+   "colour_matched": 0,
+   "cumulative": {
+    "2020-12": 0,
+    "2021-12": 0,
+    "2022-12": 0,
+    "2023-12": 0,
+    "2024-12": 2,
+    "2025-12": 2,
+    "2026-10": 5
+   },
+   "difference": 5,
+   "difference_fide_marks": 3,
+   "favourite_share": 1.0,
+   "fide_id": 4116992,
+   "games": 32,
+   "layer0_replay": 2654,
+   "mean_gap": 368.6,
+   "oct_2026": 2654,
+   "rank_oct_2026": 61,
+   "rank_rung2": 74,
+   "rung2": 2659,
+   "table_effect": 5
+  },
+  {
+   "colour_balance": 1,
+   "colour_effect": -1,
+   "colour_matched": 79,
+   "cumulative": {
+    "2020-12": -2,
+    "2021-12": 8,
+    "2022-12": 9,
+    "2023-12": 12,
+    "2024-12": 18,
+    "2025-12": 21,
+    "2026-10": 26
+   },
+   "difference": 26,
+   "difference_fide_marks": 23,
+   "favourite_share": 0.784,
+   "fide_id": 24126055,
+   "games": 232,
+   "layer0_replay": 2654,
+   "mean_gap": 96.9,
+   "oct_2026": 2654,
+   "rank_oct_2026": 62,
+   "rank_rung2": 57,
+   "rung2": 2680,
+   "table_effect": 27
+  },
+  {
+   "colour_balance": -4,
+   "colour_effect": 0,
+   "colour_matched": 144,
+   "cumulative": {
+    "2020-12": 7,
+    "2021-12": 13,
+    "2022-12": 18,
+    "2023-12": 23,
+    "2024-12": 28,
+    "2025-12": 27,
+    "2026-10": 27
+   },
+   "difference": 27,
+   "difference_fide_marks": 26,
+   "favourite_share": 0.859,
+   "fide_id": 24101605,
+   "games": 306,
+   "layer0_replay": 2653,
+   "mean_gap": 111.5,
+   "oct_2026": 2653,
+   "rank_oct_2026": 63,
+   "rank_rung2": 56,
+   "rung2": 2680,
+   "table_effect": 27
+  },
+  {
+   "colour_balance": -1,
+   "colour_effect": 0,
+   "colour_matched": 107,
+   "cumulative": {
+    "2020-12": 0,
+    "2021-12": 2,
+    "2022-12": 5,
+    "2023-12": 17,
+    "2024-12": 20,
+    "2025-12": 20,
+    "2026-10": 22
+   },
+   "difference": 22,
+   "difference_fide_marks": 20,
+   "favourite_share": 0.866,
+   "fide_id": 8601445,
+   "games": 187,
+   "layer0_replay": 2651,
+   "mean_gap": 146.6,
+   "oct_2026": 2651,
+   "rank_oct_2026": 64,
+   "rank_rung2": 65,
+   "rung2": 2673,
+   "table_effect": 22
+  },
+  {
+   "colour_balance": 12,
+   "colour_effect": -1,
+   "colour_matched": 108,
+   "cumulative": {
+    "2020-12": 1,
+    "2021-12": 8,
+    "2022-12": 9,
+    "2023-12": 9,
+    "2024-12": 9,
+    "2025-12": 12,
+    "2026-10": 22
+   },
+   "difference": 22,
+   "difference_fide_marks": 22,
+   "favourite_share": 0.92,
+   "fide_id": 14117908,
+   "games": 162,
+   "layer0_replay": 2651,
+   "mean_gap": 161.9,
+   "oct_2026": 2651,
+   "rank_oct_2026": 65,
+   "rank_rung2": 66,
+   "rung2": 2673,
+   "table_effect": 23
+  },
+  {
+   "colour_balance": -6,
+   "colour_effect": 1,
+   "colour_matched": 362,
+   "cumulative": {
+    "2020-12": 9,
+    "2021-12": 10,
+    "2022-12": 19,
+    "2023-12": 25,
+    "2024-12": 27,
+    "2025-12": 20,
+    "2026-10": 24
+   },
+   "difference": 24,
+   "difference_fide_marks": 23,
+   "favourite_share": 0.788,
+   "fide_id": 2285525,
+   "games": 495,
+   "layer0_replay": 2650,
+   "mean_gap": 112.6,
+   "oct_2026": 2650,
+   "rank_oct_2026": 66,
+   "rank_rung2": 62,
+   "rung2": 2674,
+   "table_effect": 23
+  },
+  {
+   "colour_balance": -3,
+   "colour_effect": -1,
+   "colour_matched": 245,
+   "cumulative": {
+    "2020-12": 5,
+    "2021-12": -1,
+    "2022-12": 3,
+    "2023-12": 12,
+    "2024-12": 14,
+    "2025-12": 20,
+    "2026-10": 20
+   },
+   "difference": 20,
+   "difference_fide_marks": 17,
+   "favourite_share": 0.668,
+   "fide_id": 14204223,
+   "games": 440,
+   "layer0_replay": 2649,
+   "mean_gap": 100.6,
+   "oct_2026": 2649,
+   "rank_oct_2026": 67,
+   "rank_rung2": 70,
+   "rung2": 2669,
+   "table_effect": 21
+  },
+  {
+   "colour_balance": 3,
+   "colour_effect": -1,
+   "colour_matched": 275,
+   "cumulative": {
+    "2020-12": 5,
+    "2021-12": 15,
+    "2022-12": 16,
+    "2023-12": 22,
+    "2024-12": 24,
+    "2025-12": 28,
+    "2026-10": 30
+   },
+   "difference": 30,
+   "difference_fide_marks": 33,
+   "favourite_share": 0.817,
+   "fide_id": 5007003,
+   "games": 361,
+   "layer0_replay": 2648,
+   "mean_gap": 76.9,
+   "oct_2026": 2648,
+   "rank_oct_2026": 68,
+   "rank_rung2": 60,
+   "rung2": 2678,
+   "table_effect": 31
+  },
+  {
+   "colour_balance": 1,
+   "colour_effect": 2,
+   "colour_matched": 351,
+   "cumulative": {
+    "2020-12": 5,
+    "2021-12": 15,
+    "2022-12": 22,
+    "2023-12": 22,
+    "2024-12": 22,
+    "2025-12": 24,
+    "2026-10": 26
+   },
+   "difference": 26,
+   "difference_fide_marks": 26,
+   "favourite_share": 0.819,
+   "fide_id": 13306766,
+   "games": 529,
+   "layer0_replay": 2648,
+   "mean_gap": 122.3,
+   "oct_2026": 2648,
+   "rank_oct_2026": 69,
+   "rank_rung2": 63,
+   "rung2": 2674,
+   "table_effect": 24
+  },
+  {
+   "colour_balance": 7,
+   "colour_effect": 1,
+   "colour_matched": 277,
+   "cumulative": {
+    "2020-12": 4,
+    "2021-12": -12,
+    "2022-12": 1,
+    "2023-12": 7,
+    "2024-12": 7,
+    "2025-12": 11,
+    "2026-10": 8
+   },
+   "difference": 8,
+   "difference_fide_marks": 6,
+   "favourite_share": 0.776,
+   "fide_id": 1510045,
+   "games": 513,
+   "layer0_replay": 2647,
+   "mean_gap": 222.8,
+   "oct_2026": 2647,
+   "rank_oct_2026": 70,
+   "rank_rung2": 82,
+   "rung2": 2655,
+   "table_effect": 7
+  },
+  {
+   "colour_balance": -2,
+   "colour_effect": 2,
+   "colour_matched": 234,
+   "cumulative": {
+    "2020-12": 7,
+    "2021-12": 8,
+    "2022-12": 16,
+    "2023-12": 20,
+    "2024-12": 22,
+    "2025-12": 25,
+    "2026-10": 28
+   },
+   "difference": 28,
+   "difference_fide_marks": 26,
+   "favourite_share": 0.831,
+   "fide_id": 5074452,
+   "games": 378,
+   "layer0_replay": 2647,
+   "mean_gap": 137.6,
+   "oct_2026": 2647,
+   "rank_oct_2026": 71,
+   "rank_rung2": 61,
+   "rung2": 2675,
+   "table_effect": 26
+  },
+  {
+   "colour_balance": -2,
+   "colour_effect": -2,
+   "colour_matched": 170,
+   "cumulative": {
+    "2020-12": 0,
+    "2021-12": 6,
+    "2022-12": 5,
+    "2023-12": 9,
+    "2024-12": 10,
+    "2025-12": 15,
+    "2026-10": 19
+   },
+   "difference": 19,
+   "difference_fide_marks": 18,
+   "favourite_share": 0.609,
+   "fide_id": 2004887,
+   "games": 304,
+   "layer0_replay": 2646,
+   "mean_gap": 51.3,
+   "oct_2026": 2646,
+   "rank_oct_2026": 72,
+   "rank_rung2": 72,
+   "rung2": 2665,
+   "table_effect": 21
+  },
+  {
+   "colour_balance": 3,
+   "colour_effect": 0,
+   "colour_matched": 239,
+   "cumulative": {
+    "2020-12": -1,
+    "2021-12": -1,
+    "2022-12": 11,
+    "2023-12": 19,
+    "2024-12": 21,
+    "2025-12": 20,
+    "2026-10": 21
+   },
+   "difference": 21,
+   "difference_fide_marks": 20,
+   "favourite_share": 0.757,
+   "fide_id": 5084423,
+   "games": 346,
+   "layer0_replay": 2646,
+   "mean_gap": 114.1,
+   "oct_2026": 2646,
+   "rank_oct_2026": 73,
+   "rank_rung2": 71,
+   "rung2": 2667,
+   "table_effect": 21
+  },
+  {
+   "colour_balance": 16,
+   "colour_effect": -1,
+   "colour_matched": 310,
+   "cumulative": {
+    "2020-12": -1,
+    "2021-12": 7,
+    "2022-12": 16,
+    "2023-12": 17,
+    "2024-12": 20,
+    "2025-12": 29,
+    "2026-10": 26
+   },
+   "difference": 26,
+   "difference_fide_marks": 27,
+   "favourite_share": 0.81,
+   "fide_id": 35093487,
+   "games": 483,
+   "layer0_replay": 2645,
+   "mean_gap": 127.8,
+   "oct_2026": 2645,
+   "rank_oct_2026": 74,
+   "rank_rung2": 68,
+   "rung2": 2671,
+   "table_effect": 27
+  },
+  {
+   "colour_balance": 0,
+   "colour_effect": 0,
+   "colour_matched": 262,
+   "cumulative": {
+    "2020-12": 2,
+    "2021-12": 5,
+    "2022-12": 11,
+    "2023-12": 16,
+    "2024-12": 15,
+    "2025-12": 16,
+    "2026-10": 16
+   },
+   "difference": 16,
+   "difference_fide_marks": 17,
+   "favourite_share": 0.706,
+   "fide_id": 13302507,
+   "games": 313,
+   "layer0_replay": 2642,
+   "mean_gap": 97.7,
+   "oct_2026": 2642,
+   "rank_oct_2026": 75,
+   "rank_rung2": 77,
+   "rung2": 2658,
+   "table_effect": 16
+  },
+  {
+   "colour_balance": 15,
+   "colour_effect": 0,
+   "colour_matched": 279,
+   "cumulative": {
+    "2020-12": 0,
+    "2021-12": -14,
+    "2022-12": 0,
+    "2023-12": -4,
+    "2024-12": 4,
+    "2025-12": 12,
+    "2026-10": 14
+   },
+   "difference": 14,
+   "difference_fide_marks": 16,
+   "favourite_share": 0.608,
+   "fide_id": 44507356,
+   "games": 421,
+   "layer0_replay": 2642,
+   "mean_gap": 78.5,
+   "oct_2026": 2642,
+   "rank_oct_2026": 76,
+   "rank_rung2": 81,
+   "rung2": 2656,
+   "table_effect": 14
+  },
+  {
+   "colour_balance": -2,
+   "colour_effect": -1,
+   "colour_matched": 92,
+   "cumulative": {
+    "2020-12": 1,
+    "2021-12": 6,
+    "2022-12": 6,
+    "2023-12": 8,
+    "2024-12": 12,
+    "2025-12": 15,
+    "2026-10": 16
+   },
+   "difference": 16,
+   "difference_fide_marks": 17,
+   "favourite_share": 0.72,
+   "fide_id": 2805677,
+   "games": 150,
+   "layer0_replay": 2641,
+   "mean_gap": 52.9,
+   "oct_2026": 2641,
+   "rank_oct_2026": 77,
+   "rank_rung2": 78,
+   "rung2": 2657,
+   "table_effect": 17
+  },
+  {
+   "colour_balance": 12,
+   "colour_effect": 2,
+   "colour_matched": 234,
+   "cumulative": {
+    "2020-12": 2,
+    "2021-12": 12,
+    "2022-12": 17,
+    "2023-12": 18,
+    "2024-12": 22,
+    "2025-12": 24,
+    "2026-10": 24
+   },
+   "difference": 24,
+   "difference_fide_marks": 23,
+   "favourite_share": 0.863,
+   "fide_id": 4135539,
+   "games": 315,
+   "layer0_replay": 2640,
+   "mean_gap": 151.8,
+   "oct_2026": 2640,
+   "rank_oct_2026": 78,
+   "rank_rung2": 73,
+   "rung2": 2664,
+   "table_effect": 22
+  },
+  {
+   "colour_balance": -1,
+   "colour_effect": -2,
+   "colour_matched": 271,
+   "cumulative": {
+    "2020-12": 0,
+    "2021-12": 14,
+    "2022-12": 9,
+    "2023-12": 8,
+    "2024-12": 18,
+    "2025-12": 18,
+    "2026-10": 17
+   },
+   "difference": 17,
+   "difference_fide_marks": 18,
+   "favourite_share": 0.7,
+   "fide_id": 4262875,
+   "games": 446,
+   "layer0_replay": 2639,
+   "mean_gap": 82.4,
+   "oct_2026": 2639,
+   "rank_oct_2026": 79,
+   "rank_rung2": 79,
+   "rung2": 2656,
+   "table_effect": 19
+  },
+  {
+   "colour_balance": 0,
+   "colour_effect": 0,
+   "colour_matched": 0,
+   "cumulative": {
+    "2020-12": 0,
+    "2021-12": 1,
+    "2022-12": 1,
+    "2023-12": 1,
+    "2024-12": 1,
+    "2025-12": 1,
+    "2026-10": 5
+   },
+   "difference": 5,
+   "difference_fide_marks": 5,
+   "favourite_share": 1.0,
+   "fide_id": 14101025,
+   "games": 13,
+   "layer0_replay": 2639,
+   "mean_gap": 183.8,
+   "oct_2026": 2639,
+   "rank_oct_2026": 80,
+   "rank_rung2": 99,
+   "rung2": 2644,
+   "table_effect": 5
+  },
+  {
+   "colour_balance": 2,
+   "colour_effect": 0,
+   "colour_matched": 274,
+   "cumulative": {
+    "2020-12": -1,
+    "2021-12": 14,
+    "2022-12": 9,
+    "2023-12": 14,
+    "2024-12": 20,
+    "2025-12": 19,
+    "2026-10": 18
+   },
+   "difference": 18,
+   "difference_fide_marks": 16,
+   "favourite_share": 0.69,
+   "fide_id": 13306677,
+   "games": 423,
+   "layer0_replay": 2638,
+   "mean_gap": 95.2,
+   "oct_2026": 2638,
+   "rank_oct_2026": 81,
+   "rank_rung2": 80,
+   "rung2": 2656,
+   "table_effect": 18
+  },
+  {
+   "colour_balance": 2,
+   "colour_effect": 0,
+   "colour_matched": 94,
+   "cumulative": {
+    "2020-12": 1,
+    "2021-12": 1,
+    "2022-12": 4,
+    "2023-12": 15,
+    "2024-12": 17,
+    "2025-12": 19,
+    "2026-10": 21
+   },
+   "difference": 21,
+   "difference_fide_marks": 22,
+   "favourite_share": 0.749,
+   "fide_id": 24125890,
+   "games": 251,
+   "layer0_replay": 2638,
+   "mean_gap": 109.4,
+   "oct_2026": 2638,
+   "rank_oct_2026": 82,
+   "rank_rung2": 76,
+   "rung2": 2659,
+   "table_effect": 21
+  },
+  {
+   "colour_balance": 6,
+   "colour_effect": -2,
+   "colour_matched": 50,
+   "cumulative": {
+    "2020-12": 3,
+    "2021-12": 9,
+    "2022-12": 9,
+    "2023-12": 10,
+    "2024-12": 12,
+    "2025-12": 12,
+    "2026-10": 14
+   },
+   "difference": 14,
+   "difference_fide_marks": 14,
+   "favourite_share": 0.894,
+   "fide_id": 4162722,
+   "games": 85,
+   "layer0_replay": 2637,
+   "mean_gap": 114.2,
+   "oct_2026": 2637,
+   "rank_oct_2026": 83,
+   "rank_rung2": 89,
+   "rung2": 2651,
+   "table_effect": 16
+  },
+  {
+   "colour_balance": 6,
+   "colour_effect": 0,
+   "colour_matched": 90,
+   "cumulative": {
+    "2020-12": 4,
+    "2021-12": 3,
+    "2022-12": 6,
+    "2023-12": 7,
+    "2024-12": 12,
+    "2025-12": 20,
+    "2026-10": 22
+   },
+   "difference": 22,
+   "difference_fide_marks": 20,
+   "favourite_share": 0.843,
+   "fide_id": 8603332,
+   "games": 197,
+   "layer0_replay": 2637,
+   "mean_gap": 118.0,
+   "oct_2026": 2637,
+   "rank_oct_2026": 84,
+   "rank_rung2": 75,
+   "rung2": 2659,
+   "table_effect": 22
+  },
+  {
+   "colour_balance": -2,
+   "colour_effect": 1,
+   "colour_matched": 66,
+   "cumulative": {
+    "2020-12": 1,
+    "2021-12": 0,
+    "2022-12": 9,
+    "2023-12": 4,
+    "2024-12": 7,
+    "2025-12": 10,
+    "2026-10": 11
+   },
+   "difference": 11,
+   "difference_fide_marks": 13,
+   "favourite_share": 0.664,
+   "fide_id": 13515110,
+   "games": 321,
+   "layer0_replay": 2636,
+   "mean_gap": 101.0,
+   "oct_2026": 2636,
+   "rank_oct_2026": 85,
+   "rank_rung2": 97,
+   "rung2": 2647,
+   "table_effect": 10
+  },
+  {
+   "colour_balance": 14,
+   "colour_effect": -1,
+   "colour_matched": 304,
+   "cumulative": {
+    "2020-12": -6,
+    "2021-12": 2,
+    "2022-12": 5,
+    "2023-12": -2,
+    "2024-12": 6,
+    "2025-12": 12,
+    "2026-10": 19
+   },
+   "difference": 19,
+   "difference_fide_marks": 20,
+   "favourite_share": 0.551,
+   "fide_id": 30920019,
+   "games": 546,
+   "layer0_replay": 2636,
+   "mean_gap": 44.9,
+   "oct_2026": 2636,
+   "rank_oct_2026": 86,
+   "rank_rung2": 83,
+   "rung2": 2655,
+   "table_effect": 20
+  },
+  {
+   "colour_balance": -5,
+   "colour_effect": 0,
+   "colour_matched": 139,
+   "cumulative": {
+    "2020-12": -1,
+    "2021-12": -7,
+    "2022-12": 11,
+    "2023-12": 15,
+    "2024-12": 3,
+    "2025-12": -10,
+    "2026-10": -1
+   },
+   "difference": -1,
+   "difference_fide_marks": -1,
+   "favourite_share": 0.957,
+   "fide_id": 1512668,
+   "games": 509,
+   "layer0_replay": 2633,
+   "mean_gap": 415.1,
+   "oct_2026": 2633,
+   "rank_oct_2026": 87,
+   "rank_rung2": 100,
+   "rung2": 2632,
+   "table_effect": -1
+  },
+  {
+   "colour_balance": 0,
+   "colour_effect": 1,
+   "colour_matched": 78,
+   "cumulative": {
+    "2020-12": -1,
+    "2021-12": 2,
+    "2022-12": 12,
+    "2023-12": 22,
+    "2024-12": 19,
+    "2025-12": 17,
+    "2026-10": 14
+   },
+   "difference": 14,
+   "difference_fide_marks": 16,
+   "favourite_share": 0.798,
+   "fide_id": 4107012,
+   "games": 460,
+   "layer0_replay": 2633,
+   "mean_gap": 180.5,
+   "oct_2026": 2633,
+   "rank_oct_2026": 88,
+   "rank_rung2": 96,
+   "rung2": 2647,
+   "table_effect": 13
+  },
+  {
+   "colour_balance": 5,
+   "colour_effect": -2,
+   "colour_matched": 215,
+   "cumulative": {
+    "2020-12": 4,
+    "2021-12": 10,
+    "2022-12": 14,
+    "2023-12": 14,
+    "2024-12": 20,
+    "2025-12": 20,
+    "2026-10": 18
+   },
+   "difference": 18,
+   "difference_fide_marks": 16,
+   "favourite_share": 0.788,
+   "fide_id": 13401653,
+   "games": 288,
+   "layer0_replay": 2632,
+   "mean_gap": 79.5,
+   "oct_2026": 2632,
+   "rank_oct_2026": 89,
+   "rank_rung2": 91,
+   "rung2": 2650,
+   "table_effect": 20
+  },
+  {
+   "colour_balance": -9,
+   "colour_effect": 0,
+   "colour_matched": 157,
+   "cumulative": {
+    "2020-12": 1,
+    "2021-12": 1,
+    "2022-12": 14,
+    "2023-12": 15,
+    "2024-12": 21,
+    "2025-12": 18,
+    "2026-10": 21
+   },
+   "difference": 21,
+   "difference_fide_marks": 23,
+   "favourite_share": 0.766,
+   "fide_id": 14103320,
+   "games": 222,
+   "layer0_replay": 2632,
+   "mean_gap": 90.4,
+   "oct_2026": 2632,
+   "rank_oct_2026": 90,
+   "rank_rung2": 86,
+   "rung2": 2653,
+   "table_effect": 21
+  },
+  {
+   "colour_balance": -1,
+   "colour_effect": 0,
+   "colour_matched": 233,
+   "cumulative": {
+    "2020-12": 6,
+    "2021-12": 12,
+    "2022-12": 19,
+    "2023-12": 17,
+    "2024-12": 18,
+    "2025-12": 18,
+    "2026-10": 20
+   },
+   "difference": 20,
+   "difference_fide_marks": 19,
+   "favourite_share": 0.798,
+   "fide_id": 2905540,
+   "games": 387,
+   "layer0_replay": 2631,
+   "mean_gap": 103.4,
+   "oct_2026": 2631,
+   "rank_oct_2026": 91,
+   "rank_rung2": 88,
+   "rung2": 2651,
+   "table_effect": 20
+  },
+  {
+   "colour_balance": 0,
+   "colour_effect": 0,
+   "colour_matched": 92,
+   "cumulative": {
+    "2020-12": 6,
+    "2021-12": 11,
+    "2022-12": 14,
+    "2023-12": 16,
+    "2024-12": 16,
+    "2025-12": 17,
+    "2026-10": 19
+   },
+   "difference": 19,
+   "difference_fide_marks": 19,
+   "favourite_share": 0.82,
+   "fide_id": 409561,
+   "games": 267,
+   "layer0_replay": 2630,
+   "mean_gap": 161.6,
+   "oct_2026": 2630,
+   "rank_oct_2026": 92,
+   "rank_rung2": 94,
+   "rung2": 2649,
+   "table_effect": 19
+  },
+  {
+   "colour_balance": 17,
+   "colour_effect": -2,
+   "colour_matched": 469,
+   "cumulative": {
+    "2020-12": 10,
+    "2021-12": 22,
+    "2022-12": 21,
+    "2023-12": 21,
+    "2024-12": 21,
+    "2025-12": 19,
+    "2026-10": 21
+   },
+   "difference": 21,
+   "difference_fide_marks": 21,
+   "favourite_share": 0.786,
+   "fide_id": 35028561,
+   "games": 905,
+   "layer0_replay": 2629,
+   "mean_gap": 132.5,
+   "oct_2026": 2629,
+   "rank_oct_2026": 93,
+   "rank_rung2": 93,
+   "rung2": 2650,
+   "table_effect": 23
+  },
+  {
+   "colour_balance": 1,
+   "colour_effect": -1,
+   "colour_matched": 65,
+   "cumulative": {
+    "2020-12": -1,
+    "2021-12": 8,
+    "2022-12": 13,
+    "2023-12": 15,
+    "2024-12": 20,
+    "2025-12": 25,
+    "2026-10": 26
+   },
+   "difference": 26,
+   "difference_fide_marks": 28,
+   "favourite_share": 0.898,
+   "fide_id": 4126025,
+   "games": 176,
+   "layer0_replay": 2628,
+   "mean_gap": 102.6,
+   "oct_2026": 2628,
+   "rank_oct_2026": 94,
+   "rank_rung2": 84,
+   "rung2": 2654,
+   "table_effect": 27
+  },
+  {
+   "colour_balance": -3,
+   "colour_effect": 2,
+   "colour_matched": 211,
+   "cumulative": {
+    "2020-12": 1,
+    "2021-12": 4,
+    "2022-12": 0,
+    "2023-12": 10,
+    "2024-12": 12,
+    "2025-12": 18,
+    "2026-10": 24
+   },
+   "difference": 24,
+   "difference_fide_marks": 24,
+   "favourite_share": 0.77,
+   "fide_id": 8608288,
+   "games": 378,
+   "layer0_replay": 2628,
+   "mean_gap": 131.1,
+   "oct_2026": 2628,
+   "rank_oct_2026": 95,
+   "rank_rung2": 87,
+   "rung2": 2652,
+   "table_effect": 22
+  },
+  {
+   "colour_balance": 2,
+   "colour_effect": 2,
+   "colour_matched": 330,
+   "cumulative": {
+    "2020-12": 4,
+    "2021-12": 4,
+    "2022-12": 4,
+    "2023-12": 14,
+    "2024-12": 18,
+    "2025-12": 19,
+    "2026-10": 25
+   },
+   "difference": 25,
+   "difference_fide_marks": 25,
+   "favourite_share": 0.754,
+   "fide_id": 14100010,
+   "games": 455,
+   "layer0_replay": 2628,
+   "mean_gap": 111.8,
+   "oct_2026": 2628,
+   "rank_oct_2026": 96,
+   "rank_rung2": 85,
+   "rung2": 2653,
+   "table_effect": 23
+  },
+  {
+   "colour_balance": 13,
+   "colour_effect": -2,
+   "colour_matched": 125,
+   "cumulative": {
+    "2020-12": 0,
+    "2021-12": -4,
+    "2022-12": -1,
+    "2023-12": 0,
+    "2024-12": 6,
+    "2025-12": 11,
+    "2026-10": 19
+   },
+   "difference": 19,
+   "difference_fide_marks": 21,
+   "favourite_share": 0.844,
+   "fide_id": 1000268,
+   "games": 244,
+   "layer0_replay": 2627,
+   "mean_gap": 170.3,
+   "oct_2026": 2627,
+   "rank_oct_2026": 97,
+   "rank_rung2": 98,
+   "rung2": 2646,
+   "table_effect": 21
+  },
+  {
+   "colour_balance": 7,
+   "colour_effect": 1,
+   "colour_matched": 385,
+   "cumulative": {
+    "2020-12": 8,
+    "2021-12": 2,
+    "2022-12": 10,
+    "2023-12": 12,
+    "2024-12": 18,
+    "2025-12": 21,
+    "2026-10": 23
+   },
+   "difference": 23,
+   "difference_fide_marks": 22,
+   "favourite_share": 0.712,
+   "fide_id": 1444948,
+   "games": 507,
+   "layer0_replay": 2627,
+   "mean_gap": 87.6,
+   "oct_2026": 2627,
+   "rank_oct_2026": 98,
+   "rank_rung2": 90,
+   "rung2": 2650,
+   "table_effect": 22
+  },
+  {
+   "colour_balance": 10,
+   "colour_effect": 0,
+   "colour_matched": 254,
+   "cumulative": {
+    "2020-12": 4,
+    "2021-12": 10,
+    "2022-12": 16,
+    "2023-12": 19,
+    "2024-12": 16,
+    "2025-12": 23,
+    "2026-10": 23
+   },
+   "difference": 23,
+   "difference_fide_marks": 24,
+   "favourite_share": 0.83,
+   "fide_id": 30901561,
+   "games": 678,
+   "layer0_replay": 2627,
+   "mean_gap": 162.0,
+   "oct_2026": 2627,
+   "rank_oct_2026": 99,
+   "rank_rung2": 92,
+   "rung2": 2650,
+   "table_effect": 23
+  },
+  {
+   "colour_balance": 10,
+   "colour_effect": 0,
+   "colour_matched": 458,
+   "cumulative": {
+    "2020-12": 5,
+    "2021-12": 6,
+    "2022-12": 17,
+    "2023-12": 19,
+    "2024-12": 17,
+    "2025-12": 16,
+    "2026-10": 22
+   },
+   "difference": 22,
+   "difference_fide_marks": 21,
+   "favourite_share": 0.772,
+   "fide_id": 2293307,
+   "games": 589,
+   "layer0_replay": 2626,
+   "mean_gap": 120.9,
+   "oct_2026": 2626,
+   "rank_oct_2026": 100,
+   "rank_rung2": 95,
+   "rung2": 2648,
+   "table_effect": 22
+  }
+ ],
+ "rank_100_rating": 2626,
+ "spec": "docs/specs/SPEC-TOP100_v1_0.md",
+ "validation": {
+  "cap_marks": 1558,
+  "capped_unresolved": 85,
+  "carried_differs": 101,
+  "change_without_games": 4,
+  "game_delta_differs": 1,
+  "games": 35621,
+  "k_differs": 2,
+  "mark_not_at_400": 1,
+  "missing_pages": 0,
+  "negative_half_periods": 167,
+  "opp_unresolved": 817,
+  "period_change_differs": 5,
+  "periods": 3685,
+  "several_beyond_400": {
+   "2017": {
+    "all": 76,
+    "left out: an opponent unidentified": 10
+   },
+   "2022": {
+    "left out: an opponent unidentified": 10,
+    "one, the greatest": 148
+   },
+   "2024": {
+    "all": 111,
+    "left out: an opponent unidentified": 20
+   },
+   "2025-10, below 2650": {
+    "all": 33,
+    "left out: an opponent unidentified": 6
+   },
+   "2025-10, from 2650": {
+    "none": 25
+   }
+  },
+  "total_shown_differs": 1,
+  "tournament_k_chg_differs": 1,
+  "tournaments": 4940
+ },
+ "validation_detail": {
+  "carried_differs": [
+   [
+    "12923044",
+    "2020-02",
+    "1"
+   ],
+   [
+    "12923044",
+    "2020-03",
+    "1"
+   ],
+   [
+    "12923044",
+    "2020-04",
+    "1"
+   ],
+   [
+    "12923044",
+    "2020-05",
+    "1"
+   ],
+   [
+    "12923044",
+    "2020-06",
+    "1"
+   ],
+   [
+    "12923044",
+    "2020-07",
+    "1"
+   ],
+   [
+    "12923044",
+    "2020-08",
+    "1"
+   ],
+   [
+    "12923044",
+    "2020-09",
+    "1"
+   ],
+   [
+    "12923044",
+    "2020-10",
+    "1"
+   ],
+   [
+    "12923044",
+    "2020-11",
+    "1"
+   ],
+   [
+    "12923044",
+    "2020-12",
+    "1"
+   ],
+   [
+    "12923044",
+    "2021-01",
+    "1"
+   ],
+   [
+    "12923044",
+    "2021-02",
+    "1"
+   ],
+   [
+    "12923044",
+    "2021-03",
+    "1"
+   ],
+   [
+    "12923044",
+    "2021-04",
+    "1"
+   ],
+   [
+    "12923044",
+    "2021-05",
+    "1"
+   ],
+   [
+    "12923044",
+    "2021-06",
+    "1"
+   ],
+   [
+    "12923044",
+    "2021-07",
+    "1"
+   ],
+   [
+    "12923044",
+    "2021-08",
+    "1"
+   ],
+   [
+    "12923044",
+    "2021-09",
+    "1"
+   ],
+   [
+    "12923044",
+    "2021-10",
+    "1"
+   ],
+   [
+    "12923044",
+    "2021-11",
+    "1"
+   ],
+   [
+    "12923044",
+    "2021-12",
+    "1"
+   ],
+   [
+    "12923044",
+    "2022-01",
+    "1"
+   ],
+   [
+    "12923044",
+    "2022-02",
+    "1"
+   ],
+   [
+    "12923044",
+    "2022-03",
+    "1"
+   ],
+   [
+    "12923044",
+    "2022-04",
+    "1"
+   ],
+   [
+    "12923044",
+    "2022-05",
+    "1"
+   ],
+   [
+    "35093487",
+    "2022-05",
+    "1"
+   ],
+   [
+    "12923044",
+    "2022-06",
+    "1"
+   ],
+   [
+    "12923044",
+    "2022-07",
+    "1"
+   ],
+   [
+    "12923044",
+    "2022-08",
+    "1"
+   ],
+   [
+    "12923044",
+    "2022-09",
+    "1"
+   ],
+   [
+    "12923044",
+    "2022-10",
+    "1"
+   ],
+   [
+    "12923044",
+    "2022-11",
+    "1"
+   ],
+   [
+    "12923044",
+    "2022-12",
+    "1"
+   ],
+   [
+    "44155573",
+    "2022-12",
+    "-1"
+   ],
+   [
+    "12923044",
+    "2023-01",
+    "1"
+   ],
+   [
+    "44155573",
+    "2023-01",
+    "-1"
+   ],
+   [
+    "12923044",
+    "2023-02",
+    "1"
+   ],
+   [
+    "44155573",
+    "2023-02",
+    "-1"
+   ],
+   [
+    "12923044",
+    "2023-03",
+    "1"
+   ],
+   [
+    "44155573",
+    "2023-03",
+    "-1"
+   ],
+   [
+    "12923044",
+    "2023-04",
+    "1"
+   ],
+   [
+    "44155573",
+    "2023-04",
+    "-1"
+   ],
+   [
+    "12923044",
+    "2023-05",
+    "1"
+   ],
+   [
+    "44155573",
+    "2023-05",
+    "-1"
+   ],
+   [
+    "12923044",
+    "2023-06",
+    "1"
+   ],
+   [
+    "44155573",
+    "2023-06",
+    "-1"
+   ],
+   [
+    "12923044",
+    "2023-07",
+    "1"
+   ],
+   [
+    "44155573",
+    "2023-07",
+    "-1"
+   ],
+   [
+    "12923044",
+    "2023-08",
+    "1"
+   ],
+   [
+    "44155573",
+    "2023-08",
+    "-1"
+   ],
+   [
+    "12923044",
+    "2023-09",
+    "1"
+   ],
+   [
+    "44155573",
+    "2023-09",
+    "-1"
+   ],
+   [
+    "12923044",
+    "2023-10",
+    "1"
+   ],
+   [
+    "44155573",
+    "2023-10",
+    "-1"
+   ],
+   [
+    "12923044",
+    "2023-11",
+    "1"
+   ],
+   [
+    "44155573",
+    "2023-11",
+    "-1"
+   ],
+   [
+    "12923044",
+    "2023-12",
+    "1"
+   ],
+   [
+    "44155573",
+    "2023-12",
+    "-1"
+   ],
+   [
+    "12923044",
+    "2024-01",
+    "1"
+   ],
+   [
+    "44155573",
+    "2024-01",
+    "-1"
+   ],
+   [
+    "12923044",
+    "2024-02",
+    "1"
+   ],
+   [
+    "44155573",
+    "2024-02",
+    "-1"
+   ],
+   [
+    "12923044",
+    "2024-03",
+    "1"
+   ],
+   [
+    "44155573",
+    "2024-03",
+    "-1"
+   ],
+   [
+    "12923044",
+    "2024-04",
+    "1"
+   ],
+   [
+    "2047640",
+    "2024-04",
+    "-1"
+   ],
+   [
+    "44155573",
+    "2024-04",
+    "-1"
+   ],
+   [
+    "4107012",
+    "2024-04",
+    "-1"
+   ],
+   [
+    "12923044",
+    "2024-05",
+    "1"
+   ],
+   [
+    "12923044",
+    "2024-06",
+    "1"
+   ],
+   [
+    "12923044",
+    "2024-07",
+    "1"
+   ],
+   [
+    "12923044",
+    "2024-08",
+    "1"
+   ],
+   [
+    "12923044",
+    "2024-09",
+    "1"
+   ],
+   [
+    "12923044",
+    "2024-10",
+    "1"
+   ],
+   [
+    "12923044",
+    "2024-11",
+    "1"
+   ],
+   [
+    "12923044",
+    "2024-12",
+    "1"
+   ],
+   [
+    "12923044",
+    "2025-01",
+    "1"
+   ],
+   [
+    "12923044",
+    "2025-02",
+    "1"
+   ],
+   [
+    "12923044",
+    "2025-03",
+    "1"
+   ],
+   [
+    "12923044",
+    "2025-04",
+    "1"
+   ],
+   [
+    "12923044",
+    "2025-05",
+    "1"
+   ],
+   [
+    "12923044",
+    "2025-06",
+    "1"
+   ],
+   [
+    "12923044",
+    "2025-07",
+    "1"
+   ],
+   [
+    "12923044",
+    "2025-08",
+    "1"
+   ],
+   [
+    "12923044",
+    "2025-09",
+    "1"
+   ],
+   [
+    "12923044",
+    "2025-10",
+    "1"
+   ],
+   [
+    "12923044",
+    "2025-11",
+    "1"
+   ],
+   [
+    "12923044",
+    "2025-12",
+    "1"
+   ],
+   [
+    "12923044",
+    "2026-01",
+    "1"
+   ],
+   [
+    "12923044",
+    "2026-02",
+    "1"
+   ],
+   [
+    "12923044",
+    "2026-03",
+    "1"
+   ],
+   [
+    "12923044",
+    "2026-04",
+    "1"
+   ],
+   [
+    "12923044",
+    "2026-05",
+    "1"
+   ],
+   [
+    "12923044",
+    "2026-06",
+    "1"
+   ],
+   [
+    "12923044",
+    "2026-07",
+    "1"
+   ],
+   [
+    "12923044",
+    "2026-08",
+    "1"
+   ],
+   [
+    "12923044",
+    "2026-09",
+    "1"
+   ],
+   [
+    "12923044",
+    "2026-10",
+    "1"
+   ]
+  ],
+  "change_without_games": [
+   [
+    "35093487",
+    "2022-06",
+    "1"
+   ],
+   [
+    "2047640",
+    "2024-04",
+    "1"
+   ],
+   [
+    "4107012",
+    "2024-04",
+    "1"
+   ],
+   [
+    "2047640",
+    "2024-05",
+    "-1"
+   ]
+  ],
+  "game_delta_differs": [
+   [
+    "30901561",
+    "2022-04",
+    "281141",
+    "0.08",
+    "0.03",
+    "True",
+    "550",
+    "2022",
+    "FIDE marked 2 of the favourite's games capped in the tournament; the 2022 text allows one upgrade"
+   ]
+  ],
+  "k_differs": [
+   [
+    "12923044",
+    "2020-02",
+    "222945",
+    "20",
+    "10",
+    "2019-12",
+    "20",
+    "the K of the list in force at the tournament's start (2019-12)"
+   ],
+   [
+    "44599790",
+    "2022-04",
+    "278512",
+    "40",
+    "20",
+    "2022-02",
+    "40",
+    "the K of the list in force at the tournament's start (2022-02)"
+   ]
+  ],
+  "mark_not_at_400": [
+   [
+    "4107012",
+    "2026-01",
+    "432332",
+    "350",
+    "0.11",
+    "True"
+   ]
+  ],
+  "missing_pages": [],
+  "negative_half_periods": [
+   [
+    "1118358",
+    "2020-02",
+    "-5",
+    "-5",
+    "-4",
+    "True"
+   ],
+   [
+    "1510045",
+    "2020-02",
+    "-6",
+    "-6",
+    "-5",
+    "True"
+   ],
+   [
+    "5074452",
+    "2020-02",
+    "-4",
+    "-4",
+    "-3",
+    "True"
+   ],
+   [
+    "2900084",
+    "2020-03",
+    "-3",
+    "-3",
+    "-2",
+    "True"
+   ],
+   [
+    "24133795",
+    "2020-03",
+    "-4",
+    "-4",
+    "-3",
+    "True"
+   ],
+   [
+    "8603677",
+    "2020-04",
+    "-14",
+    "-14",
+    "-13",
+    "True"
+   ],
+   [
+    "409561",
+    "2020-04",
+    "-8",
+    "-8",
+    "-7",
+    "True"
+   ],
+   [
+    "14205483",
+    "2020-10",
+    "-13",
+    "-13",
+    "-12",
+    "True"
+   ],
+   [
+    "24133795",
+    "2020-11",
+    "-21",
+    "-21",
+    "-20",
+    "True"
+   ],
+   [
+    "4158814",
+    "2020-12",
+    "-1",
+    "-1",
+    "0",
+    "True"
+   ],
+   [
+    "24175439",
+    "2021-01",
+    "-9",
+    "-9",
+    "-8",
+    "True"
+   ],
+   [
+    "1170546",
+    "2021-03",
+    "-14",
+    "-14",
+    "-13",
+    "True"
+   ],
+   [
+    "8603820",
+    "2021-06",
+    "-4",
+    "-4",
+    "-3",
+    "True"
+   ],
+   [
+    "14102951",
+    "2021-06",
+    "-1",
+    "-1",
+    "0",
+    "True"
+   ],
+   [
+    "14200244",
+    "2021-08",
+    "-1",
+    "-1",
+    "0",
+    "True"
+   ],
+   [
+    "14204118",
+    "2021-10",
+    "-2",
+    "-2",
+    "-1",
+    "True"
+   ],
+   [
+    "1118358",
+    "2021-10",
+    "-7",
+    "-7",
+    "-6",
+    "True"
+   ],
+   [
+    "13302507",
+    "2021-10",
+    "-4",
+    "-4",
+    "-3",
+    "True"
+   ],
+   [
+    "4158814",
+    "2021-11",
+    "-4",
+    "-4",
+    "-3",
+    "True"
+   ],
+   [
+    "14200244",
+    "2021-11",
+    "-2",
+    "-2",
+    "-1",
+    "True"
+   ],
+   [
+    "13306766",
+    "2021-11",
+    "-12",
+    "-12",
+    "-11",
+    "True"
+   ],
+   [
+    "8608288",
+    "2021-11",
+    "-5",
+    "-5",
+    "-4",
+    "True"
+   ],
+   [
+    "12539929",
+    "2021-12",
+    "-5",
+    "-5",
+    "-4",
+    "True"
+   ],
+   [
+    "13400924",
+    "2021-12",
+    "-10",
+    "-10",
+    "-9",
+    "True"
+   ],
+   [
+    "410608",
+    "2021-12",
+    "-2",
+    "-2",
+    "-1",
+    "True"
+   ],
+   [
+    "2047640",
+    "2021-12",
+    "-1",
+    "-1",
+    "0",
+    "True"
+   ],
+   [
+    "5007003",
+    "2021-12",
+    "-4",
+    "-4",
+    "-3",
+    "True"
+   ],
+   [
+    "4126025",
+    "2021-12",
+    "-9",
+    "-9",
+    "-8",
+    "True"
+   ],
+   [
+    "14103320",
+    "2022-01",
+    "-1",
+    "-1",
+    "0",
+    "False"
+   ],
+   [
+    "2293307",
+    "2022-01",
+    "-2",
+    "-2",
+    "-1",
+    "False"
+   ],
+   [
+    "12521213",
+    "2022-02",
+    "-20",
+    "-20",
+    "-19",
+    "False"
+   ],
+   [
+    "30920019",
+    "2022-02",
+    "-5",
+    "-5",
+    "-4",
+    "False"
+   ],
+   [
+    "2020009",
+    "2022-03",
+    "-11",
+    "-11",
+    "-10",
+    "False"
+   ],
+   [
+    "1170546",
+    "2022-03",
+    "-10",
+    "-10",
+    "-9",
+    "False"
+   ],
+   [
+    "1510045",
+    "2022-03",
+    "-7",
+    "-7",
+    "-6",
+    "False"
+   ],
+   [
+    "12940690",
+    "2022-04",
+    "-1",
+    "-1",
+    "0",
+    "False"
+   ],
+   [
+    "25060783",
+    "2022-04",
+    "-12",
+    "-12",
+    "-11",
+    "False"
+   ],
+   [
+    "1510045",
+    "2022-04",
+    "-3",
+    "-3",
+    "-2",
+    "False"
+   ],
+   [
+    "13302507",
+    "2022-05",
+    "-36",
+    "-36",
+    "-35",
+    "False"
+   ],
+   [
+    "1039784",
+    "2022-06",
+    "-13",
+    "-13",
+    "-12",
+    "False"
+   ],
+   [
+    "24175439",
+    "2022-06",
+    "-4",
+    "-4",
+    "-3",
+    "False"
+   ],
+   [
+    "13409301",
+    "2022-06",
+    "-29",
+    "-29",
+    "-28",
+    "False"
+   ],
+   [
+    "13401319",
+    "2022-08",
+    "-1",
+    "-1",
+    "0",
+    "False"
+   ],
+   [
+    "13401319",
+    "2022-09",
+    "-1",
+    "-1",
+    "0",
+    "False"
+   ],
+   [
+    "24651516",
+    "2022-09",
+    "-17",
+    "-17",
+    "-16",
+    "False"
+   ],
+   [
+    "2004887",
+    "2022-09",
+    "-8",
+    "-8",
+    "-7",
+    "False"
+   ],
+   [
+    "35093487",
+    "2022-09",
+    "-2",
+    "-2",
+    "-1",
+    "False"
+   ],
+   [
+    "8603332",
+    "2022-10",
+    "-11",
+    "-11",
+    "-10",
+    "False"
+   ],
+   [
+    "1512668",
+    "2022-10",
+    "-7",
+    "-7",
+    "-6",
+    "False"
+   ],
+   [
+    "35009192",
+    "2022-11",
+    "-10",
+    "-10",
+    "-9",
+    "False"
+   ],
+   [
+    "46616543",
+    "2022-11",
+    "-7",
+    "-7",
+    "-6",
+    "False"
+   ],
+   [
+    "2093596",
+    "2022-12",
+    "-1",
+    "-1",
+    "0",
+    "False"
+   ],
+   [
+    "35028561",
+    "2023-01",
+    "-5",
+    "-5",
+    "-4",
+    "False"
+   ],
+   [
+    "1444948",
+    "2023-01",
+    "-7",
+    "-7",
+    "-6",
+    "False"
+   ],
+   [
+    "35028561",
+    "2023-02",
+    "-20",
+    "-20",
+    "-19",
+    "False"
+   ],
+   [
+    "12521213",
+    "2023-03",
+    "-2",
+    "-2",
+    "-1",
+    "False"
+   ],
+   [
+    "13401319",
+    "2023-03",
+    "-2",
+    "-2",
+    "-1",
+    "False"
+   ],
+   [
+    "35028600",
+    "2023-03",
+    "-11",
+    "-11",
+    "-10",
+    "False"
+   ],
+   [
+    "1510045",
+    "2023-03",
+    "-7",
+    "-7",
+    "-6",
+    "False"
+   ],
+   [
+    "14100010",
+    "2023-04",
+    "-8",
+    "-8",
+    "-7",
+    "False"
+   ],
+   [
+    "24130737",
+    "2023-06",
+    "-4",
+    "-4",
+    "-3",
+    "False"
+   ],
+   [
+    "24101605",
+    "2023-06",
+    "-2",
+    "-2",
+    "-1",
+    "False"
+   ],
+   [
+    "14204223",
+    "2023-06",
+    "-3",
+    "-3",
+    "-2",
+    "False"
+   ],
+   [
+    "8601445",
+    "2023-07",
+    "-18",
+    "-18",
+    "-17",
+    "False"
+   ],
+   [
+    "24125890",
+    "2023-07",
+    "-6",
+    "-6",
+    "-5",
+    "False"
+   ],
+   [
+    "14203987",
+    "2023-08",
+    "-10",
+    "-10",
+    "-9",
+    "False"
+   ],
+   [
+    "13401653",
+    "2023-08",
+    "-3",
+    "-3",
+    "-2",
+    "False"
+   ],
+   [
+    "30901561",
+    "2023-08",
+    "-9",
+    "-9",
+    "-8",
+    "False"
+   ],
+   [
+    "2285525",
+    "2023-09",
+    "-24",
+    "-24",
+    "-23",
+    "False"
+   ],
+   [
+    "24651516",
+    "2023-10",
+    "-2",
+    "-2",
+    "-1",
+    "False"
+   ],
+   [
+    "2285525",
+    "2023-10",
+    "-16",
+    "-16",
+    "-15",
+    "False"
+   ],
+   [
+    "13300474",
+    "2023-11",
+    "-15",
+    "-15",
+    "-14",
+    "False"
+   ],
+   [
+    "2023970",
+    "2023-11",
+    "-3",
+    "-3",
+    "-2",
+    "False"
+   ],
+   [
+    "2047640",
+    "2023-11",
+    "-12",
+    "-12",
+    "-11",
+    "False"
+   ],
+   [
+    "24125890",
+    "2023-11",
+    "-14",
+    "-14",
+    "-13",
+    "False"
+   ],
+   [
+    "8603820",
+    "2023-12",
+    "-6",
+    "-6",
+    "-5",
+    "False"
+   ],
+   [
+    "410608",
+    "2023-12",
+    "-1",
+    "-1",
+    "0",
+    "False"
+   ],
+   [
+    "2047640",
+    "2023-12",
+    "-22",
+    "-22",
+    "-21",
+    "False"
+   ],
+   [
+    "4152956",
+    "2024-01",
+    "-18",
+    "-18",
+    "-17",
+    "False"
+   ],
+   [
+    "24125890",
+    "2024-01",
+    "-3",
+    "-3",
+    "-2",
+    "False"
+   ],
+   [
+    "1118358",
+    "2024-02",
+    "-8",
+    "-8",
+    "-7",
+    "False"
+   ],
+   [
+    "2047640",
+    "2024-03",
+    "-14",
+    "-14",
+    "-13",
+    "False"
+   ],
+   [
+    "14103320",
+    "2024-03",
+    "-1",
+    "-1",
+    "0",
+    "False"
+   ],
+   [
+    "24651516",
+    "2024-04",
+    "-6",
+    "-6",
+    "-5",
+    "False"
+   ],
+   [
+    "2285525",
+    "2024-05",
+    "-4",
+    "-4",
+    "-3",
+    "False"
+   ],
+   [
+    "14205483",
+    "2024-06",
+    "-16",
+    "-16",
+    "-15",
+    "False"
+   ],
+   [
+    "24126055",
+    "2024-06",
+    "-6",
+    "-6",
+    "-5",
+    "False"
+   ],
+   [
+    "4162722",
+    "2024-06",
+    "-8",
+    "-8",
+    "-7",
+    "False"
+   ],
+   [
+    "8603332",
+    "2024-06",
+    "-5",
+    "-5",
+    "-4",
+    "False"
+   ],
+   [
+    "30920019",
+    "2024-06",
+    "-7",
+    "-7",
+    "-6",
+    "False"
+   ],
+   [
+    "13400924",
+    "2024-07",
+    "-4",
+    "-4",
+    "-3",
+    "False"
+   ],
+   [
+    "24175439",
+    "2024-07",
+    "-6",
+    "-6",
+    "-5",
+    "False"
+   ],
+   [
+    "44155573",
+    "2024-07",
+    "-13",
+    "-13",
+    "-12",
+    "False"
+   ],
+   [
+    "24125890",
+    "2024-07",
+    "-3",
+    "-3",
+    "-2",
+    "False"
+   ],
+   [
+    "2020009",
+    "2024-08",
+    "-3",
+    "-3",
+    "-2",
+    "False"
+   ],
+   [
+    "8603677",
+    "2024-09",
+    "-9",
+    "-9",
+    "-8",
+    "False"
+   ],
+   [
+    "46616543",
+    "2024-09",
+    "-2",
+    "-2",
+    "-1",
+    "False"
+   ],
+   [
+    "5072786",
+    "2024-09",
+    "-5",
+    "-5",
+    "-4",
+    "False"
+   ],
+   [
+    "1510045",
+    "2024-10",
+    "-14",
+    "-14",
+    "-13",
+    "False"
+   ],
+   [
+    "1039784",
+    "2024-11",
+    "-10",
+    "-10",
+    "-9",
+    "False"
+   ],
+   [
+    "24133795",
+    "2024-11",
+    "-38",
+    "-38",
+    "-37",
+    "False"
+   ],
+   [
+    "8608288",
+    "2024-11",
+    "-10",
+    "-10",
+    "-9",
+    "False"
+   ],
+   [
+    "4262875",
+    "2024-12",
+    "-12",
+    "-12",
+    "-11",
+    "False"
+   ],
+   [
+    "1444948",
+    "2025-01",
+    "-2",
+    "-2",
+    "-1",
+    "False"
+   ],
+   [
+    "12573981",
+    "2025-02",
+    "-3",
+    "-3",
+    "-2",
+    "False"
+   ],
+   [
+    "24116068",
+    "2025-02",
+    "-3",
+    "-3",
+    "-2",
+    "False"
+   ],
+   [
+    "35093487",
+    "2025-02",
+    "-9",
+    "-9",
+    "-8",
+    "False"
+   ],
+   [
+    "4107012",
+    "2025-02",
+    "-6",
+    "-6",
+    "-5",
+    "False"
+   ],
+   [
+    "12573981",
+    "2025-03",
+    "-3",
+    "-3",
+    "-2",
+    "False"
+   ],
+   [
+    "738590",
+    "2025-03",
+    "-5",
+    "-5",
+    "-4",
+    "False"
+   ],
+   [
+    "1512668",
+    "2025-03",
+    "-1",
+    "-1",
+    "0",
+    "False"
+   ],
+   [
+    "12940690",
+    "2025-04",
+    "-1",
+    "-1",
+    "0",
+    "False"
+   ],
+   [
+    "35028600",
+    "2025-04",
+    "-12",
+    "-12",
+    "-11",
+    "False"
+   ],
+   [
+    "2285525",
+    "2025-04",
+    "-24",
+    "-24",
+    "-23",
+    "False"
+   ],
+   [
+    "5202213",
+    "2025-06",
+    "-6",
+    "-6",
+    "-5",
+    "False"
+   ],
+   [
+    "46616543",
+    "2025-06",
+    "-11",
+    "-11",
+    "-10",
+    "False"
+   ],
+   [
+    "12539929",
+    "2025-06",
+    "-15",
+    "-15",
+    "-14",
+    "False"
+   ],
+   [
+    "5074452",
+    "2025-06",
+    "-2",
+    "-2",
+    "-1",
+    "False"
+   ],
+   [
+    "8608288",
+    "2025-06",
+    "-12",
+    "-12",
+    "-11",
+    "False"
+   ],
+   [
+    "13306553",
+    "2025-07",
+    "-7",
+    "-7",
+    "-6",
+    "False"
+   ],
+   [
+    "5074452",
+    "2025-07",
+    "-6",
+    "-6",
+    "-5",
+    "False"
+   ],
+   [
+    "13302507",
+    "2025-07",
+    "-6",
+    "-6",
+    "-5",
+    "False"
+   ],
+   [
+    "24130737",
+    "2025-08",
+    "-8",
+    "-8",
+    "-7",
+    "False"
+   ],
+   [
+    "5072786",
+    "2025-08",
+    "-1",
+    "-1",
+    "0",
+    "False"
+   ],
+   [
+    "35093487",
+    "2025-08",
+    "-5",
+    "-5",
+    "-4",
+    "False"
+   ],
+   [
+    "14100010",
+    "2025-08",
+    "-18",
+    "-18",
+    "-17",
+    "False"
+   ],
+   [
+    "24116068",
+    "2025-09",
+    "-2",
+    "-2",
+    "-1",
+    "False"
+   ],
+   [
+    "1039784",
+    "2025-09",
+    "-5",
+    "-5",
+    "-4",
+    "False"
+   ],
+   [
+    "738590",
+    "2025-09",
+    "-5",
+    "-5",
+    "-4",
+    "False"
+   ],
+   [
+    "5007003",
+    "2025-09",
+    "-5",
+    "-5",
+    "-4",
+    "False"
+   ],
+   [
+    "35093487",
+    "2025-09",
+    "-18",
+    "-18",
+    "-17",
+    "False"
+   ],
+   [
+    "14100010",
+    "2025-09",
+    "-15",
+    "-15",
+    "-14",
+    "False"
+   ],
+   [
+    "1444948",
+    "2025-09",
+    "-4",
+    "-4",
+    "-3",
+    "False"
+   ],
+   [
+    "46616543",
+    "2025-10",
+    "-15",
+    "-15",
+    "-14",
+    "False"
+   ],
+   [
+    "8602883",
+    "2025-10",
+    "-7",
+    "-7",
+    "-6",
+    "False"
+   ],
+   [
+    "2023970",
+    "2025-10",
+    "-10",
+    "-10",
+    "-9",
+    "False"
+   ],
+   [
+    "14204223",
+    "2025-10",
+    "-5",
+    "-5",
+    "-4",
+    "False"
+   ],
+   [
+    "2004887",
+    "2025-10",
+    "-16",
+    "-16",
+    "-15",
+    "False"
+   ],
+   [
+    "35093487",
+    "2025-10",
+    "-17",
+    "-17",
+    "-16",
+    "False"
+   ],
+   [
+    "4126025",
+    "2025-10",
+    "-3",
+    "-3",
+    "-2",
+    "False"
+   ],
+   [
+    "1039784",
+    "2025-11",
+    "-4",
+    "-4",
+    "-3",
+    "False"
+   ],
+   [
+    "13409301",
+    "2025-11",
+    "-3",
+    "-3",
+    "-2",
+    "False"
+   ],
+   [
+    "13306553",
+    "2025-11",
+    "-1",
+    "-1",
+    "0",
+    "False"
+   ],
+   [
+    "2016192",
+    "2025-12",
+    "-3",
+    "-3",
+    "-2",
+    "False"
+   ],
+   [
+    "1444948",
+    "2025-12",
+    "-11",
+    "-11",
+    "-10",
+    "False"
+   ],
+   [
+    "25059530",
+    "2026-01",
+    "-3",
+    "-3",
+    "-2",
+    "False"
+   ],
+   [
+    "2004887",
+    "2026-01",
+    "-13",
+    "-13",
+    "-12",
+    "False"
+   ],
+   [
+    "4262875",
+    "2026-01",
+    "-4",
+    "-4",
+    "-3",
+    "False"
+   ],
+   [
+    "30920019",
+    "2026-01",
+    "-7",
+    "-7",
+    "-6",
+    "False"
+   ],
+   [
+    "5007003",
+    "2026-02",
+    "-3",
+    "-3",
+    "-2",
+    "False"
+   ],
+   [
+    "35028561",
+    "2026-02",
+    "-5",
+    "-5",
+    "-4",
+    "False"
+   ],
+   [
+    "13306766",
+    "2026-03",
+    "-3",
+    "-3",
+    "-2",
+    "False"
+   ],
+   [
+    "35028600",
+    "2026-04",
+    "-1",
+    "-1",
+    "0",
+    "False"
+   ],
+   [
+    "24651516",
+    "2026-04",
+    "-3",
+    "-3",
+    "-2",
+    "False"
+   ],
+   [
+    "24126055",
+    "2026-04",
+    "-18",
+    "-18",
+    "-17",
+    "False"
+   ],
+   [
+    "1444948",
+    "2026-04",
+    "-2",
+    "-2",
+    "-1",
+    "False"
+   ],
+   [
+    "1118358",
+    "2026-05",
+    "-12",
+    "-12",
+    "-11",
+    "False"
+   ],
+   [
+    "2056437",
+    "2026-06",
+    "-8",
+    "-8",
+    "-7",
+    "False"
+   ],
+   [
+    "4162722",
+    "2026-06",
+    "-12",
+    "-12",
+    "-11",
+    "False"
+   ],
+   [
+    "1512668",
+    "2026-06",
+    "-10",
+    "-10",
+    "-9",
+    "False"
+   ],
+   [
+    "14103320",
+    "2026-06",
+    "-6",
+    "-6",
+    "-5",
+    "False"
+   ],
+   [
+    "35009192",
+    "2026-07",
+    "-4",
+    "-4",
+    "-3",
+    "False"
+   ],
+   [
+    "623539",
+    "2026-07",
+    "-8",
+    "-8",
+    "-7",
+    "False"
+   ],
+   [
+    "8603405",
+    "2026-08",
+    "-1",
+    "-1",
+    "0",
+    "False"
+   ],
+   [
+    "14101025",
+    "2026-08",
+    "-1",
+    "-1",
+    "0",
+    "False"
+   ],
+   [
+    "13413937",
+    "2026-09",
+    "-4",
+    "-4",
+    "-3",
+    "False"
+   ],
+   [
+    "35009192",
+    "2026-10",
+    "-13",
+    "-13",
+    "-12",
+    "False"
+   ]
+  ],
+  "period_change_differs": [
+   [
+    "12923044",
+    "2020-02",
+    "0",
+    "1",
+    "1",
+    "0.90",
+    "0.90",
+    "the list differs from FIDE's own published calculation of the period"
+   ],
+   [
+    "35093487",
+    "2022-05",
+    "-9",
+    "-8",
+    "-9",
+    "-8.40",
+    "-8.40",
+    "rounded per tournament, not once per period"
+   ],
+   [
+    "44155573",
+    "2022-12",
+    "5",
+    "4",
+    "4",
+    "4.40",
+    "4.40",
+    "the list differs from FIDE's own published calculation of the period"
+   ],
+   [
+    "44155573",
+    "2024-05",
+    "-1",
+    "0",
+    "0",
+    "0.40",
+    "0.40",
+    "the list differs from FIDE's own published calculation of the period"
+   ],
+   [
+    "4107012",
+    "2024-05",
+    "24",
+    "25",
+    "25",
+    "25.00",
+    "25.00",
+    "the list differs from FIDE's own published calculation of the period"
+   ]
+  ],
+  "total_shown_differs": [
+   [
+    "30901561",
+    "2022-04",
+    "-7.60",
+    "-8.10"
+   ]
+  ],
+  "tournament_k_chg_differs": [
+   [
+    "30901561",
+    "2022-04",
+    "281141",
+    "-7.60",
+    "-8.10"
+   ]
+  ]
+ },
+ "window": {
+  "first": "2020-02",
+  "last": "2026-10",
+  "start_list": "2020-01"
+ }
+}
