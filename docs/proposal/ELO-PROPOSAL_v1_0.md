@@ -101,7 +101,7 @@ One core skill per player, with an offset, table and volatility per time control
    └──────────────────────────────────────────────────────────────────────────────┘
 ```
 
-**Layer 0, the reference engine**, is rung 1: an exact implementation of the FIDE Rating Regulations as amended 1 October 2025 [V 1] and of the Rapid and Blitz Rating Regulations [V 2] (`docs/specs/SPEC-L0_fide-reference-engine_v1_2.md`), verified against FIDE's published calculations [E0] (section 8); FIDE's online calculator is out of date (Appendix F).
+**Layer 0, the reference engine**, is rung 1: an exact implementation of the FIDE Rating Regulations as amended 1 October 2025 [V 1] and of the Rapid and Blitz Rating Regulations [V 2] (`docs/specs/SPEC-L0_fide-reference-engine_v1_3.md`), verified against FIDE's published calculations [E0] (section 8); FIDE's online calculator is out of date (Appendix F).
 
 **Layer 1, the model** [T2], gives each player a shared skill with an age-dependent drift and an offset per time control, refitted monthly on 36 months of games by Whole-History Rating's method [VP 11], with priors by age only, never federation, and a scale anchored to steadily active adults [VP 12] (`docs/specs/SPEC-L1_v1_0.md`). Its estimates of named players are for the QC only. **It never edits a published rating.**
 
