@@ -32,6 +32,10 @@ jobs:
         if: ${{ !cancelled() }}
         run: python tools/checks/check_freeze3c.py
 
+      - name: (a‴) Freeze 3d — every log-loss line read with the crossed interval, frozen files equal D-0016's manifest
+        if: ${{ !cancelled() }}
+        run: python tools/checks/check_freeze3d.py
+
       - name: (b) pytest
         if: ${{ !cancelled() }}
         run: |
