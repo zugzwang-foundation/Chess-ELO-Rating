@@ -21,7 +21,7 @@ import re
 import sys
 import zipfile
 from collections import Counter
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -29,6 +29,11 @@ ROOT = Path(__file__).resolve().parents[1]
 PROBE = ROOT / "data" / "raw" / "probe"
 SITE = ROOT / "data" / "raw" / "fide_site"
 FIDE_HOSTS = {"ratings.fide.com", "handbook.fide.com", "old.fide.com", "www.fide.com"}
+PROBE_END = "2026-10-11T10:54:42Z"         # the probe's last request (Phase 1); later phases reused the tool
+SESSION_MANIFESTS = {"probe tool": PROBE / "MANIFEST.tsv", "old lists": ROOT / "data" / "raw" / "fide_old" / "MANIFEST.tsv",
+                     "calculations": ROOT / "data" / "raw" / "fide_calculations_greats" / "MANIFEST.tsv"}
+OLD_FIRST_RUN_END = datetime(2026, 10, 11, 11, 6, 18)    # the old lists' first run logged its times before the wait
+IA_RAISED = datetime(2026, 10, 11, 11, 27, 39)   # the last request at one every four seconds; eight seconds from the next
 MONTHS = {m: i for i, m in enumerate(("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
                                        "Dec"), 1)}
 
@@ -57,8 +62,44 @@ def quote(key: str, start: str, end: str) -> str:
 
 
 def manifest() -> list[dict]:
+    """The probe's own requests (Phase 1, to PROBE_END): later phases used the same tool and manifest."""
     with (PROBE / "MANIFEST.tsv").open(encoding="utf-8") as fh:
-        return list(csv.DictReader(fh, delimiter="\t"))
+        return [r for r in csv.DictReader(fh, delimiter="\t") if r["fetched_utc"] <= PROBE_END]
+
+
+def session_politeness() -> dict:
+    """Every request of the session's fetch tools to ratings.fide.com and to the Internet Archive, from all their
+    manifests (ruling R75): the gaps between consecutive requests to each host, in whole seconds as logged at sending;
+    the old lists' first run, which logged each time before its wait, reconstructed as E20 §1 does (the send time of
+    request k is max(logged k, logged k-1 + 4 s)). Reported: the gaps under two seconds (the slips), and since each fix
+    the smallest gap and the gaps under the gap R75 asks (four seconds to ratings.fide.com, eight to the Internet
+    Archive)."""
+    rows = []
+    for tool, path in SESSION_MANIFESTS.items():
+        with path.open(encoding="utf-8") as fh:
+            for r in csv.DictReader(fh, delimiter="\t"):
+                rows.append((tool, urlparse(r["url"].split(" ")[0]).netloc,
+                             datetime.strptime(r["fetched_utc"], "%Y-%m-%dT%H:%M:%SZ")))
+    old = [i for i, (tool, _h, t) in enumerate(rows) if tool == "old lists" and t <= OLD_FIRST_RUN_END]
+    logged = [rows[i][2] for i in old]
+    for j, i in enumerate(old[1:], 1):                   # the send time, as E20 §1 reconstructs it
+        rows[i] = (rows[i][0], rows[i][1], max(logged[j], logged[j - 1] + timedelta(seconds=4)))
+    out = {}
+    for host, need, fixed in (("ratings.fide.com", 4, OLD_FIRST_RUN_END), ("web.archive.org", 8, IA_RAISED)):
+        seq = sorted((t, tool) for tool, h, t in rows if h == host)
+        gaps = [((b - a).total_seconds(), a, b, tb) for (a, _ta), (b, tb) in zip(seq, seq[1:])]
+        after = [g for g in gaps if g[1] > fixed]
+        out[host] = {
+            "requests": len(seq), "first": seq[0][0].strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "last": seq[-1][0].strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "by_tool": dict(Counter(tool for _t, tool in seq)),
+            "gaps_under_2s": [{"at": b.strftime("%Y-%m-%dT%H:%M:%SZ"), "seconds": g, "tool": tool}
+                              for g, _a, b, tool in gaps if g < 2],
+            "fixed_after": fixed.strftime("%Y-%m-%dT%H:%M:%SZ"), "gap_asked": need,
+            "smallest_gap_after_fix": min(g for g, *_r in after) if after else None,
+            "gaps_under_asked_after_fix": sum(1 for g, *_r in after if g < need),
+            "gaps_under_asked_after_fix_by_tool": dict(Counter(tool for g, _a, _b, tool in after if g < need))}
+    return out
 
 
 def fetched(key: str) -> dict:
@@ -233,8 +274,8 @@ OTHERS = [
     {"key": "olimpbase_lists", "name": "OlimpBase: History of Elo ratings 1971-2001 (Wojciech Bartelski)",
      "holds": "FIDE's rating lists from July 1971, transcribed from Chess Informant and other publications",
      "page": "olimpbase_copyright",
-     "anchors": ("OlimpBase lets anyone use its large archives free of charge.", "without citing the source."),
-     "footer": ("olimpbase_index", "© Free for non-commercial use only.", "Please cite the source."),
+     "anchors": ("OlimpBase lets anyone use its large archives free of charge.", "This is really not too much to ask I believe."),
+     "footer": ("olimpbase_index", "© Free for non-commercial use only.", "2003-2025 Wojciech Bartelski"),
      "status": "usable",
      "why": "free of charge, citing the source, non-commercial use only: this project's use is non-commercial analysis, "
             "cites the source and commits aggregates only"},
@@ -318,7 +359,7 @@ def others() -> list[dict]:
 def main() -> int:
     out = {"brief": "ELO-9, Phase 1: the data probe for the greats (no analysis)",
            "fetcher": "tools/data/fetch_probe.py", "fide": fide(), "olimpbase_lists": olimpbase_lists(),
-           "others": others(),
+           "others": others(), "session_politeness": session_politeness(),
            "probe_requests": {"count": len(manifest()), "first": manifest()[0]["fetched_utc"],
                               "last": manifest()[-1]["fetched_utc"]}}
     json.dump(out, sys.stdout, indent=1, sort_keys=True, ensure_ascii=False)

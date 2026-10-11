@@ -708,12 +708,12 @@
    "why": "no licence stated on the pages read; its data are taken from ChessBase's databases; not FIDE's ratings"
   },
   {
-   "footer_quote": "© Free for non-commercial use only. Please cite the source.",
+   "footer_quote": "© Free for non-commercial use only. Please cite the source. 2003-2025 Wojciech Bartelski",
    "holds": "FIDE's rating lists from July 1971, transcribed from Chess Informant and other publications",
    "key": "olimpbase_lists",
    "name": "OlimpBase: History of Elo ratings 1971-2001 (Wojciech Bartelski)",
    "page": "olimpbase_copyright",
-   "quote": "OlimpBase lets anyone use its large archives free of charge. Accordingly, you can also freely copy OlimpBase materials for use at your Web sites, either in altered form or unchanged. However, you are *not* allowed to do this without citing the source.",
+   "quote": "OlimpBase lets anyone use its large archives free of charge. Accordingly, you can also freely copy OlimpBase materials for use at your Web sites, either in altered form or unchanged. However, you are *not* allowed to do this without citing the source. It happened many, many times to me to see OlimpBase data copied without any written note on the source. This is really not too much to ask I believe.",
    "source": {
     "bytes": 1931,
     "fetched_utc": "2026-10-11T10:49:16Z",
@@ -914,5 +914,73 @@
   "count": 87,
   "first": "2026-10-11T10:37:05Z",
   "last": "2026-10-11T10:54:42Z"
+ },
+ "session_politeness": {
+  "ratings.fide.com": {
+   "by_tool": {
+    "calculations": 1771,
+    "old lists": 106,
+    "probe tool": 56
+   },
+   "first": "2026-10-11T10:37:05Z",
+   "fixed_after": "2026-10-11T11:06:18Z",
+   "gap_asked": 4,
+   "gaps_under_2s": [
+    {
+     "at": "2026-10-11T10:38:08Z",
+     "seconds": 1.0,
+     "tool": "probe tool"
+    },
+    {
+     "at": "2026-10-11T10:38:53Z",
+     "seconds": 1.0,
+     "tool": "probe tool"
+    },
+    {
+     "at": "2026-10-11T10:38:53Z",
+     "seconds": 0.0,
+     "tool": "probe tool"
+    },
+    {
+     "at": "2026-10-11T11:05:41Z",
+     "seconds": 1.0,
+     "tool": "old lists"
+    },
+    {
+     "at": "2026-10-11T11:05:46Z",
+     "seconds": 1.0,
+     "tool": "old lists"
+    },
+    {
+     "at": "2026-10-11T11:05:51Z",
+     "seconds": 1.0,
+     "tool": "old lists"
+    },
+    {
+     "at": "2026-10-11T11:05:56Z",
+     "seconds": 1.0,
+     "tool": "old lists"
+    }
+   ],
+   "gaps_under_asked_after_fix": 0,
+   "gaps_under_asked_after_fix_by_tool": {},
+   "last": "2026-10-11T14:13:01Z",
+   "requests": 1933,
+   "smallest_gap_after_fix": 4.0
+  },
+  "web.archive.org": {
+   "by_tool": {
+    "probe tool": 189
+   },
+   "first": "2026-10-11T10:39:30Z",
+   "fixed_after": "2026-10-11T11:27:39Z",
+   "gap_asked": 8,
+   "gaps_under_2s": [],
+   "gaps_under_asked_after_fix": 0,
+   "gaps_under_asked_after_fix_by_tool": {},
+   "last": "2026-10-11T12:16:19Z",
+   "requests": 189,
+   "smallest_gap_after_fix": 9.0
+  }
  }
 }

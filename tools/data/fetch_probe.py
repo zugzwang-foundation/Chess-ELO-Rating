@@ -6,7 +6,9 @@ and per-player calculations) and on what terms, and what every other candidate s
 says about its use. Politeness as the ELO-9 brief orders for FIDE's site, and the same for every other host: robots.txt
 respected (ratings.fide.com and handbook.fide.com publish none, HTTP 404 on 2026-10-10, cached under
 data/raw/fide_site/; for any other host the tool reads its robots.txt first, once, and skips a page it disallows for
-every user agent); one request at a time, at least DELAY seconds apart; every page cached once under data/raw/probe/
+every user agent); one request at a time, at least the gaps of tools/data/politeness.py apart (four seconds for FIDE's
+hosts, eight for the Internet Archive, three otherwise; R75, measured across runs and tools); every page cached once under
+data/raw/probe/
 and never fetched again; a page that is not there (HTTP 404 or 410) is recorded and the run goes on; on FIDE's hosts
 the first refusal (any other HTTP error, a timeout) stops the run and is recorded; on other hosts a refusal is recorded
 and the run goes on. Each request is logged in data/raw/probe/MANIFEST.tsv (key,
@@ -33,10 +35,11 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "tools" / "data"))
+import politeness  # noqa: E402  (R75: the gaps, across runs and tools)
+
 OUT = ROOT / "data" / "raw" / "probe"
 MAN = OUT / "MANIFEST.tsv"
-DELAY = 3.0
-HOST_DELAY = {"web.archive.org": 8.0}                    # the Internet Archive refused connections at one every 4 s
 UA = "Mozilla/5.0"
 FIDE_HOSTS = {"ratings.fide.com", "handbook.fide.com", "www.fide.com", "fide.com"}
 NO_ROBOTS = {"ratings.fide.com", "handbook.fide.com"}      # HTTP 404 on 2026-10-10, cached under data/raw/fide_site/
@@ -53,30 +56,11 @@ def log(key: str, url: str, stamp: str, status: str, body: bytes) -> None:
         fh.write(f"{key}\t{url}\t{stamp}\t{status}\t{len(body)}\t{digest}\n")
 
 
-def last_request(host: str) -> float:
-    """The UTC time of the last request to this host in the manifest, as epoch seconds (any earlier run included)."""
-    if not MAN.exists():
-        return 0.0
-    last = 0.0
-    for line in MAN.read_text(encoding="utf-8").splitlines()[1:]:
-        parts = line.split("\t")
-        if len(parts) > 2 and urlparse(parts[1].split(" ")[0]).netloc == host:
-            t = datetime.strptime(parts[2], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc).timestamp()
-            last = max(last, t)
-    return last
-
-
 def wait(host: str) -> None:
-    """At least the host's delay since the last request to the host, in this run or an earlier one (the manifest's times
-    have whole seconds, so one more second is added)."""
-    delay = HOST_DELAY.get(host, DELAY)
-    gap = time.monotonic() - _last.get(host, -1e9)
-    if gap < delay:
-        time.sleep(delay - gap)
-    since = time.time() - last_request(host)
-    if since < delay + 1:
-        time.sleep(delay + 1 - since)
-    _last[host] = time.monotonic()
+    """At least the host's gap (tools/data/politeness.py; R75) since the last request to the host, in this run or in any
+    manifest of the session's fetches (the Internet Archive refused connections at one request every four seconds)."""
+    politeness.wait(host, _last.get(host))
+    _last[host] = time.time()
 
 
 def get(url: str, headers: dict[str, str], form: bytes | None = None) -> tuple[str, bytes]:

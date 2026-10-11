@@ -75,6 +75,26 @@ def main() -> int:
     else:
         p("Every request to FIDE's site came at least two seconds after the one before.")
     p("")
+    sp = a["session_politeness"]
+    fide, ia = sp["ratings.fide.com"], sp["web.archive.org"]
+    slips = {}
+    for g in fide["gaps_under_2s"]:
+        slips.setdefault(g["tool"], []).append(g)
+    p("**Both slips of the session, and the gaps since** (ruling R75, `docs/decisions/D-0017_rulings-on-the-greats.md`: "
+      "at least four seconds between requests to ratings.fide.com and eight to the Internet Archive, measured across "
+      "runs; the fixes stand). Over every manifest of the session's fetch tools (the probe tool, the old lists, the "
+      f"greats' calculations), {fide['requests']:,} requests went to ratings.fide.com from {fide['first']} to "
+      f"{fide['last']}. Gaps under two seconds: "
+      + "; ".join(f"{len(v)} by the {tool} ({', '.join(x['at'][11:19] for x in v)} UTC)" for tool, v in slips.items())
+      + ": the first slip is the one above; the second came from the old lists' first run, whose tool logged each "
+        "request's time before its wait (the send times reconstructed as E20 §1 does). Since "
+      f"{fide['fixed_after'][11:19]} UTC the smallest gap to ratings.fide.com is {fide['smallest_gap_after_fix']:.0f} s "
+      f"as logged, and {fide['gaps_under_asked_after_fix']} gaps are under four seconds. The Internet Archive "
+      f"received {ia['requests']} requests; at one every four seconds it refused connections, and since "
+      f"{ia['fixed_after'][11:19]} UTC, the last request at that pace, the smallest gap is "
+      f"{ia['smallest_gap_after_fix']:.0f} s, with {ia['gaps_under_asked_after_fix']} under eight. Every tool now "
+      "takes its gaps from `tools/data/politeness.py`, across runs and tools.")
+    p("")
     p("## 2 FIDE's own sources")
     p("")
     p("### 2.1 The rating lists")
@@ -198,6 +218,12 @@ def main() -> int:
     p(f"Status \"usable\" for the lists rests on the terms quoted: {lst['why']}. The games are another matter: the same "
       "site credits ChessBase's database and the archives of TWIC's editor among their sources, and the brief excludes "
       "both without the operator's written permission.")
+    p("")
+    p("**How OlimpBase's lists are used** (ruling R77, `docs/decisions/D-0017_rulings-on-the-greats.md`). Its terms are "
+      "free use, citing the source, and non-commercial use only, while this repository's documents carry CC BY 4.0. As "
+      "with FIDE's ratings under R72, the repository keeps only figures derived from OlimpBase's transcription (ranks, "
+      "counts, dominance gaps, differences between systems, and per player the one peak SPEC-GREATS §4 names), each "
+      "credited to OlimpBase where it appears; its lists stay in the gitignored cache under `data/`.")
     p("")
     p("## 4 Period by period")
     p("")

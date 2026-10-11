@@ -1,0 +1,1771 @@
+{
+ "source": "FIDE's published per-player rating calculations (ratings.fide.com/calculations.phtml, data endpoint /a_indv_calculation.php), cached by tools/data/fetch_greats_calculations.py; FIDE's standard lists for the published change and the opponents' ratings",
+ "selection": "tools/data/assemble_greats_fixtures.py (R79: at most 30 player-periods, a fixed rule): for each rule, the first period in the order of (list, FIDE ID) that shows it in a tournament the neighbouring reading does not reproduce, the first period of each version, and the periods either side of 1 July 2009 and of 1 July 2014, among periods Layer 0 with the rules in force reproduces",
+ "list_values_note": "published_change, opponent_rating and printed_rating are single values quoted from FIDE's lists and calculations for verification; the lists themselves are not redistributed",
+ "missing": [],
+ "cases": [
+  {
+   "id": "F-G01",
+   "list": "2008-04",
+   "published_change": 2,
+   "sum": "2.40",
+   "ever_2400_before": true,
+   "tournaments": [
+    {
+     "start": "2007-12-26",
+     "ro": 2588,
+     "k": 10,
+     "k_chg": "3.30",
+     "games": [
+      {
+       "opponent_rating": 2205,
+       "printed_rating": 2238,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.11"
+      },
+      {
+       "opponent_rating": 2368,
+       "printed_rating": 2368,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.22"
+      },
+      {
+       "opponent_rating": 2546,
+       "printed_rating": 2546,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.06"
+      },
+      {
+       "opponent_rating": 2593,
+       "printed_rating": 2593,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.01"
+      },
+      {
+       "opponent_rating": 2342,
+       "printed_rating": 2342,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.31"
+      },
+      {
+       "opponent_rating": 2257,
+       "printed_rating": 2257,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.12"
+      },
+      {
+       "opponent_rating": 2522,
+       "printed_rating": 2522,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.09"
+      },
+      {
+       "opponent_rating": 2397,
+       "printed_rating": 2397,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.25"
+      },
+      {
+       "opponent_rating": 2645,
+       "printed_rating": 2645,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.08"
+      }
+     ]
+    },
+    {
+     "start": "2008-01-19",
+     "ro": 2594,
+     "k": 10,
+     "k_chg": "3.20",
+     "games": [
+      {
+       "opponent_rating": 2072,
+       "printed_rating": 2244,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.11"
+      },
+      {
+       "opponent_rating": 2219,
+       "printed_rating": 2244,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.11"
+      },
+      {
+       "opponent_rating": 2424,
+       "printed_rating": 2424,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.22"
+      },
+      {
+       "opponent_rating": 2094,
+       "printed_rating": 2244,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.11"
+      },
+      {
+       "opponent_rating": 2448,
+       "printed_rating": 2448,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.30"
+      },
+      {
+       "opponent_rating": 2575,
+       "printed_rating": 2575,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.03"
+      },
+      {
+       "opponent_rating": 2374,
+       "printed_rating": 2374,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.22"
+      },
+      {
+       "opponent_rating": 2491,
+       "printed_rating": 2491,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.14"
+      },
+      {
+       "opponent_rating": 2491,
+       "printed_rating": 2491,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.14"
+      }
+     ]
+    },
+    {
+     "start": "2008-02-16",
+     "ro": 2594,
+     "k": 10,
+     "k_chg": "-4.10",
+     "games": [
+      {
+       "opponent_rating": 2433,
+       "printed_rating": 2433,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.21"
+      },
+      {
+       "opponent_rating": 2441,
+       "printed_rating": 2441,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.20"
+      },
+      {
+       "opponent_rating": 2348,
+       "printed_rating": 2348,
+       "capped_mark": false,
+       "score": "0",
+       "chg": "-0.81"
+      },
+      {
+       "opponent_rating": 1950,
+       "printed_rating": 2244,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.11"
+      },
+      {
+       "opponent_rating": 2322,
+       "printed_rating": 2322,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.17"
+      },
+      {
+       "opponent_rating": 2318,
+       "printed_rating": 2318,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.17"
+      },
+      {
+       "opponent_rating": 2295,
+       "printed_rating": 2295,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.15"
+      },
+      {
+       "opponent_rating": 2489,
+       "printed_rating": 2489,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.14"
+      },
+      {
+       "opponent_rating": 2484,
+       "printed_rating": 2484,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.35"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-G02",
+   "list": "2009-09",
+   "published_change": 5,
+   "sum": "5.40",
+   "ever_2400_before": true,
+   "tournaments": [
+    {
+     "start": "2009-07-09",
+     "ro": 2561,
+     "k": 10,
+     "k_chg": "3.10",
+     "games": [
+      {
+       "opponent_rating": 2089,
+       "printed_rating": 2161,
+       "capped_mark": true,
+       "score": "1",
+       "chg": "0.08"
+      },
+      {
+       "opponent_rating": 2246,
+       "printed_rating": 2246,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.14"
+      },
+      {
+       "opponent_rating": 2281,
+       "printed_rating": 2281,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.16"
+      },
+      {
+       "opponent_rating": 2386,
+       "printed_rating": 2386,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.27"
+      },
+      {
+       "opponent_rating": 2268,
+       "printed_rating": 2268,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.15"
+      },
+      {
+       "opponent_rating": 2456,
+       "printed_rating": 2456,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.36"
+      },
+      {
+       "opponent_rating": 2527,
+       "printed_rating": 2527,
+       "capped_mark": false,
+       "score": "0",
+       "chg": "-0.55"
+      },
+      {
+       "opponent_rating": 2482,
+       "printed_rating": 2482,
+       "capped_mark": false,
+       "score": "0",
+       "chg": "-0.61"
+      },
+      {
+       "opponent_rating": 2422,
+       "printed_rating": 2422,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.31"
+      }
+     ]
+    },
+    {
+     "start": "2009-08-08",
+     "ro": 2561,
+     "k": 10,
+     "k_chg": "2.30",
+     "games": [
+      {
+       "opponent_rating": 2429,
+       "printed_rating": 2429,
+       "capped_mark": false,
+       "score": "0",
+       "chg": "-0.68"
+      },
+      {
+       "opponent_rating": 2471,
+       "printed_rating": 2471,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.38"
+      },
+      {
+       "opponent_rating": 2493,
+       "printed_rating": 2493,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.09"
+      },
+      {
+       "opponent_rating": 2444,
+       "printed_rating": 2444,
+       "capped_mark": false,
+       "score": "0",
+       "chg": "-0.66"
+      },
+      {
+       "opponent_rating": 2232,
+       "printed_rating": 2232,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.12"
+      },
+      {
+       "opponent_rating": 2403,
+       "printed_rating": 2403,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.21"
+      },
+      {
+       "opponent_rating": 2569,
+       "printed_rating": 2569,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.51"
+      },
+      {
+       "opponent_rating": 2527,
+       "printed_rating": 2527,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.45"
+      },
+      {
+       "opponent_rating": 2498,
+       "printed_rating": 2498,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.41"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-G03",
+   "list": "2009-09",
+   "published_change": 25,
+   "sum": "25.00",
+   "ever_2400_before": true,
+   "tournaments": [
+    {
+     "start": "2009-06-29",
+     "ro": 2701,
+     "k": 10,
+     "k_chg": "3.80",
+     "games": [
+      {
+       "opponent_rating": 2641,
+       "printed_rating": 2641,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.08"
+      },
+      {
+       "opponent_rating": 2669,
+       "printed_rating": 2669,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.46"
+      }
+     ]
+    },
+    {
+     "start": "2009-07-07",
+     "ro": 2710,
+     "k": 10,
+     "k_chg": "16.20",
+     "games": [
+      {
+       "opponent_rating": 2644,
+       "printed_rating": 2644,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.41"
+      },
+      {
+       "opponent_rating": 2703,
+       "printed_rating": 2703,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.49"
+      },
+      {
+       "opponent_rating": 2739,
+       "printed_rating": 2739,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.04"
+      },
+      {
+       "opponent_rating": 2693,
+       "printed_rating": 2693,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.48"
+      },
+      {
+       "opponent_rating": 2570,
+       "printed_rating": 2570,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.31"
+      },
+      {
+       "opponent_rating": 2727,
+       "printed_rating": 2727,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.02"
+      },
+      {
+       "opponent_rating": 2647,
+       "printed_rating": 2647,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.09"
+      },
+      {
+       "opponent_rating": 2716,
+       "printed_rating": 2716,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.01"
+      },
+      {
+       "opponent_rating": 2672,
+       "printed_rating": 2672,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.05"
+      }
+     ]
+    },
+    {
+     "start": "2009-08-13",
+     "ro": 2710,
+     "k": 10,
+     "k_chg": "5.00",
+     "games": [
+      {
+       "opponent_rating": 2124,
+       "printed_rating": 2310,
+       "capped_mark": true,
+       "score": "1",
+       "chg": "0.08"
+      },
+      {
+       "opponent_rating": 2177,
+       "printed_rating": 2310,
+       "capped_mark": true,
+       "score": "1",
+       "chg": "0.08"
+      },
+      {
+       "opponent_rating": 2199,
+       "printed_rating": 2310,
+       "capped_mark": true,
+       "score": "1",
+       "chg": "0.08"
+      },
+      {
+       "opponent_rating": 2102,
+       "printed_rating": 2310,
+       "capped_mark": true,
+       "score": "1",
+       "chg": "0.08"
+      },
+      {
+       "opponent_rating": 2133,
+       "printed_rating": 2310,
+       "capped_mark": true,
+       "score": "1",
+       "chg": "0.08"
+      },
+      {
+       "opponent_rating": 2339,
+       "printed_rating": 2339,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.10"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-G04",
+   "list": "2008-04",
+   "published_change": 57,
+   "sum": "57.00",
+   "ever_2400_before": false,
+   "tournaments": [
+    {
+     "start": "2007-12-01",
+     "ro": 2341,
+     "k": 15,
+     "k_chg": "2.10",
+     "games": [
+      {
+       "opponent_rating": 2118,
+       "printed_rating": 2118,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.28"
+      },
+      {
+       "opponent_rating": 2099,
+       "printed_rating": 2099,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.30"
+      },
+      {
+       "opponent_rating": 2080,
+       "printed_rating": 2080,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.18"
+      },
+      {
+       "opponent_rating": 2233,
+       "printed_rating": 2233,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.35"
+      },
+      {
+       "opponent_rating": 2230,
+       "printed_rating": 2230,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.35"
+      },
+      {
+       "opponent_rating": 2297,
+       "printed_rating": 2297,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.06"
+      },
+      {
+       "opponent_rating": 2355,
+       "printed_rating": 2355,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.02"
+      },
+      {
+       "opponent_rating": 2352,
+       "printed_rating": 2352,
+       "capped_mark": false,
+       "score": "0",
+       "chg": "-0.48"
+      },
+      {
+       "opponent_rating": 2238,
+       "printed_rating": 2238,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.36"
+      }
+     ]
+    },
+    {
+     "start": "2008-01-05",
+     "ro": 2344,
+     "k": 15,
+     "k_chg": "15.30",
+     "games": [
+      {
+       "opponent_rating": 1922,
+       "printed_rating": 1994,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.11"
+      },
+      {
+       "opponent_rating": 2069,
+       "printed_rating": 2069,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.17"
+      },
+      {
+       "opponent_rating": 2154,
+       "printed_rating": 2154,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.25"
+      },
+      {
+       "opponent_rating": 2332,
+       "printed_rating": 2332,
+       "capped_mark": false,
+       "score": "0",
+       "chg": "-0.52"
+      },
+      {
+       "opponent_rating": 2140,
+       "printed_rating": 2140,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.24"
+      },
+      {
+       "opponent_rating": 2185,
+       "printed_rating": 2185,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.29"
+      },
+      {
+       "opponent_rating": 2261,
+       "printed_rating": 2261,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.11"
+      },
+      {
+       "opponent_rating": 2069,
+       "printed_rating": 2069,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.17"
+      },
+      {
+       "opponent_rating": 2284,
+       "printed_rating": 2284,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.42"
+      }
+     ]
+    },
+    {
+     "start": "2008-01-28",
+     "ro": 2344,
+     "k": 15,
+     "k_chg": "39.60",
+     "games": [
+      {
+       "opponent_rating": 2045,
+       "printed_rating": 2045,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.15"
+      },
+      {
+       "opponent_rating": 2152,
+       "printed_rating": 2152,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.25"
+      },
+      {
+       "opponent_rating": 2171,
+       "printed_rating": 2171,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.27"
+      },
+      {
+       "opponent_rating": 2163,
+       "printed_rating": 2163,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.26"
+      },
+      {
+       "opponent_rating": 2325,
+       "printed_rating": 2325,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.47"
+      },
+      {
+       "opponent_rating": 2184,
+       "printed_rating": 2184,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.29"
+      },
+      {
+       "opponent_rating": 2351,
+       "printed_rating": 2351,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.51"
+      },
+      {
+       "opponent_rating": 2358,
+       "printed_rating": 2358,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.02"
+      },
+      {
+       "opponent_rating": 2288,
+       "printed_rating": 2288,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.42"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-G05",
+   "list": "2014-08",
+   "published_change": 16,
+   "sum": "15.80",
+   "ever_2400_before": true,
+   "tournaments": [
+    {
+     "start": "2014-06-25",
+     "ro": 2714,
+     "k": 10,
+     "k_chg": "11.50",
+     "games": [
+      {
+       "opponent_rating": 2603,
+       "printed_rating": 2603,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.35"
+      },
+      {
+       "opponent_rating": 2705,
+       "printed_rating": 2705,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.01"
+      },
+      {
+       "opponent_rating": 2693,
+       "printed_rating": 2693,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.03"
+      },
+      {
+       "opponent_rating": 2634,
+       "printed_rating": 2634,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.11"
+      },
+      {
+       "opponent_rating": 2723,
+       "printed_rating": 2723,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.01"
+      },
+      {
+       "opponent_rating": 2601,
+       "printed_rating": 2601,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.35"
+      },
+      {
+       "opponent_rating": 2675,
+       "printed_rating": 2675,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.45"
+      },
+      {
+       "opponent_rating": 2609,
+       "printed_rating": 2609,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.14"
+      },
+      {
+       "opponent_rating": 2550,
+       "printed_rating": 2550,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.28"
+      }
+     ]
+    },
+    {
+     "start": "2014-07-23",
+     "ro": 2726,
+     "k": 10,
+     "k_chg": "4.30",
+     "games": [
+      {
+       "opponent_rating": 2588,
+       "printed_rating": 2588,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.31"
+      },
+      {
+       "opponent_rating": 1954,
+       "printed_rating": 2326,
+       "capped_mark": true,
+       "score": "1",
+       "chg": "0.08"
+      },
+      {
+       "opponent_rating": 1949,
+       "printed_rating": 2326,
+       "capped_mark": true,
+       "score": "1",
+       "chg": "0.08"
+      },
+      {
+       "opponent_rating": 2698,
+       "printed_rating": 2698,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.04"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-G06",
+   "list": "2008-10",
+   "published_change": -1,
+   "sum": "-1.50",
+   "ever_2400_before": true,
+   "tournaments": [
+    {
+     "start": "2008-07-31",
+     "ro": 2720,
+     "k": 10,
+     "k_chg": "-12.30",
+     "games": [
+      {
+       "opponent_rating": 2709,
+       "printed_rating": 2709,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.02"
+      },
+      {
+       "opponent_rating": 2717,
+       "printed_rating": 2717,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.00"
+      },
+      {
+       "opponent_rating": 2738,
+       "printed_rating": 2738,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.03"
+      },
+      {
+       "opponent_rating": 2687,
+       "printed_rating": 2687,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.05"
+      },
+      {
+       "opponent_rating": 2723,
+       "printed_rating": 2723,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.00"
+      },
+      {
+       "opponent_rating": 2744,
+       "printed_rating": 2744,
+       "capped_mark": false,
+       "score": "0",
+       "chg": "-0.47"
+      },
+      {
+       "opponent_rating": 2728,
+       "printed_rating": 2728,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.01"
+      },
+      {
+       "opponent_rating": 2704,
+       "printed_rating": 2704,
+       "capped_mark": false,
+       "score": "0",
+       "chg": "-0.52"
+      },
+      {
+       "opponent_rating": 2646,
+       "printed_rating": 2646,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.10"
+      },
+      {
+       "opponent_rating": 2781,
+       "printed_rating": 2781,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.58"
+      },
+      {
+       "opponent_rating": 2737,
+       "printed_rating": 2737,
+       "capped_mark": false,
+       "score": "0",
+       "chg": "-0.48"
+      },
+      {
+       "opponent_rating": 2727,
+       "printed_rating": 2727,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.01"
+      },
+      {
+       "opponent_rating": 2556,
+       "printed_rating": 2556,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.22"
+      }
+     ]
+    },
+    {
+     "start": "2008-08-18",
+     "ro": 2720,
+     "k": 10,
+     "k_chg": "8.30",
+     "games": [
+      {
+       "opponent_rating": 2718,
+       "printed_rating": 2718,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.00"
+      },
+      {
+       "opponent_rating": 2781,
+       "printed_rating": 2781,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.08"
+      },
+      {
+       "opponent_rating": 2723,
+       "printed_rating": 2723,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.00"
+      },
+      {
+       "opponent_rating": 2741,
+       "printed_rating": 2741,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.03"
+      },
+      {
+       "opponent_rating": 2708,
+       "printed_rating": 2708,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.02"
+      },
+      {
+       "opponent_rating": 2742,
+       "printed_rating": 2742,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.53"
+      },
+      {
+       "opponent_rating": 2788,
+       "printed_rating": 2788,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.09"
+      },
+      {
+       "opponent_rating": 2741,
+       "printed_rating": 2741,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.03"
+      },
+      {
+       "opponent_rating": 2788,
+       "printed_rating": 2788,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.09"
+      }
+     ]
+    },
+    {
+     "start": "2008-09-03",
+     "ro": 2720,
+     "k": 10,
+     "k_chg": "2.50",
+     "games": [
+      {
+       "opponent_rating": 2699,
+       "printed_rating": 2699,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.47"
+      },
+      {
+       "opponent_rating": 2741,
+       "printed_rating": 2741,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.03"
+      },
+      {
+       "opponent_rating": 2680,
+       "printed_rating": 2680,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.06"
+      },
+      {
+       "opponent_rating": 2655,
+       "printed_rating": 2655,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.09"
+      },
+      {
+       "opponent_rating": 2650,
+       "printed_rating": 2650,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.10"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-G07",
+   "list": "2008-04",
+   "published_change": 15,
+   "sum": "15.00",
+   "ever_2400_before": true,
+   "tournaments": [
+    {
+     "start": "2008-01-12",
+     "ro": 2645,
+     "k": 10,
+     "k_chg": "15.00",
+     "games": [
+      {
+       "opponent_rating": 2664,
+       "printed_rating": 2664,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.03"
+      },
+      {
+       "opponent_rating": 2581,
+       "printed_rating": 2581,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.41"
+      },
+      {
+       "opponent_rating": 2527,
+       "printed_rating": 2527,
+       "capped_mark": false,
+       "score": "0",
+       "chg": "-0.66"
+      },
+      {
+       "opponent_rating": 2612,
+       "printed_rating": 2612,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.05"
+      },
+      {
+       "opponent_rating": 2625,
+       "printed_rating": 2625,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.03"
+      },
+      {
+       "opponent_rating": 2676,
+       "printed_rating": 2676,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.54"
+      },
+      {
+       "opponent_rating": 2424,
+       "printed_rating": 2424,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.28"
+      },
+      {
+       "opponent_rating": 2713,
+       "printed_rating": 2713,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.59"
+      },
+      {
+       "opponent_rating": 2677,
+       "printed_rating": 2677,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.04"
+      },
+      {
+       "opponent_rating": 2636,
+       "printed_rating": 2636,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.49"
+      },
+      {
+       "opponent_rating": 2573,
+       "printed_rating": 2573,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.40"
+      },
+      {
+       "opponent_rating": 2700,
+       "printed_rating": 2700,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.08"
+      },
+      {
+       "opponent_rating": 2600,
+       "printed_rating": 2600,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.06"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-G08",
+   "list": "2009-09",
+   "published_change": 22,
+   "sum": "21.60",
+   "ever_2400_before": true,
+   "tournaments": [
+    {
+     "start": "2009-08-08",
+     "ro": 2684,
+     "k": 10,
+     "k_chg": "21.60",
+     "games": [
+      {
+       "opponent_rating": 2575,
+       "printed_rating": 2575,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.35"
+      },
+      {
+       "opponent_rating": 2632,
+       "printed_rating": 2632,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.43"
+      },
+      {
+       "opponent_rating": 2655,
+       "printed_rating": 2655,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.46"
+      },
+      {
+       "opponent_rating": 2593,
+       "printed_rating": 2593,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.12"
+      },
+      {
+       "opponent_rating": 2655,
+       "printed_rating": 2655,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.04"
+      },
+      {
+       "opponent_rating": 2575,
+       "printed_rating": 2575,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.35"
+      },
+      {
+       "opponent_rating": 2632,
+       "printed_rating": 2632,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.07"
+      },
+      {
+       "opponent_rating": 2655,
+       "printed_rating": 2655,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.04"
+      },
+      {
+       "opponent_rating": 2593,
+       "printed_rating": 2593,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.38"
+      },
+      {
+       "opponent_rating": 2655,
+       "printed_rating": 2655,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.46"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-G09",
+   "list": "2014-08",
+   "published_change": 2,
+   "sum": "2.00",
+   "ever_2400_before": true,
+   "tournaments": [
+    {
+     "start": "2014-07-14",
+     "ro": 2766,
+     "k": 10,
+     "k_chg": "2.00",
+     "games": [
+      {
+       "opponent_rating": 2726,
+       "printed_rating": 2726,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.06"
+      },
+      {
+       "opponent_rating": 2698,
+       "printed_rating": 2698,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.09"
+      },
+      {
+       "opponent_rating": 2629,
+       "printed_rating": 2629,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.32"
+      },
+      {
+       "opponent_rating": 2750,
+       "printed_rating": 2750,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.48"
+      },
+      {
+       "opponent_rating": 2733,
+       "printed_rating": 2733,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.05"
+      },
+      {
+       "opponent_rating": 2726,
+       "printed_rating": 2726,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.06"
+      },
+      {
+       "opponent_rating": 2698,
+       "printed_rating": 2698,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.41"
+      },
+      {
+       "opponent_rating": 2629,
+       "printed_rating": 2629,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.18"
+      },
+      {
+       "opponent_rating": 2750,
+       "printed_rating": 2750,
+       "capped_mark": false,
+       "score": "0",
+       "chg": "-0.52"
+      },
+      {
+       "opponent_rating": 2733,
+       "printed_rating": 2733,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.05"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-G10",
+   "list": "2017-08",
+   "published_change": -2,
+   "sum": "-2.30",
+   "ever_2400_before": true,
+   "tournaments": [
+    {
+     "start": "2017-07-15",
+     "ro": 2791,
+     "k": 10,
+     "k_chg": "-2.30",
+     "games": [
+      {
+       "opponent_rating": 2736,
+       "printed_rating": 2736,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.08"
+      },
+      {
+       "opponent_rating": 2683,
+       "printed_rating": 2683,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.15"
+      },
+      {
+       "opponent_rating": 2642,
+       "printed_rating": 2642,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.20"
+      },
+      {
+       "opponent_rating": 2699,
+       "printed_rating": 2699,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.13"
+      },
+      {
+       "opponent_rating": 2812,
+       "printed_rating": 2812,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.03"
+      },
+      {
+       "opponent_rating": 2726,
+       "printed_rating": 2726,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.09"
+      },
+      {
+       "opponent_rating": 2712,
+       "printed_rating": 2712,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.39"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-G11",
+   "list": "2009-09",
+   "published_change": 25,
+   "sum": "25.00",
+   "ever_2400_before": true,
+   "tournaments": [
+    {
+     "start": "2009-06-29",
+     "ro": 2701,
+     "k": 10,
+     "k_chg": "3.80",
+     "games": [
+      {
+       "opponent_rating": 2641,
+       "printed_rating": 2641,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.08"
+      },
+      {
+       "opponent_rating": 2669,
+       "printed_rating": 2669,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.46"
+      }
+     ]
+    },
+    {
+     "start": "2009-07-07",
+     "ro": 2710,
+     "k": 10,
+     "k_chg": "16.20",
+     "games": [
+      {
+       "opponent_rating": 2644,
+       "printed_rating": 2644,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.41"
+      },
+      {
+       "opponent_rating": 2703,
+       "printed_rating": 2703,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.49"
+      },
+      {
+       "opponent_rating": 2739,
+       "printed_rating": 2739,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.04"
+      },
+      {
+       "opponent_rating": 2693,
+       "printed_rating": 2693,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.48"
+      },
+      {
+       "opponent_rating": 2570,
+       "printed_rating": 2570,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.31"
+      },
+      {
+       "opponent_rating": 2727,
+       "printed_rating": 2727,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.02"
+      },
+      {
+       "opponent_rating": 2647,
+       "printed_rating": 2647,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.09"
+      },
+      {
+       "opponent_rating": 2716,
+       "printed_rating": 2716,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.01"
+      },
+      {
+       "opponent_rating": 2672,
+       "printed_rating": 2672,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.05"
+      }
+     ]
+    },
+    {
+     "start": "2009-08-13",
+     "ro": 2710,
+     "k": 10,
+     "k_chg": "5.00",
+     "games": [
+      {
+       "opponent_rating": 2124,
+       "printed_rating": 2310,
+       "capped_mark": true,
+       "score": "1",
+       "chg": "0.08"
+      },
+      {
+       "opponent_rating": 2177,
+       "printed_rating": 2310,
+       "capped_mark": true,
+       "score": "1",
+       "chg": "0.08"
+      },
+      {
+       "opponent_rating": 2199,
+       "printed_rating": 2310,
+       "capped_mark": true,
+       "score": "1",
+       "chg": "0.08"
+      },
+      {
+       "opponent_rating": 2102,
+       "printed_rating": 2310,
+       "capped_mark": true,
+       "score": "1",
+       "chg": "0.08"
+      },
+      {
+       "opponent_rating": 2133,
+       "printed_rating": 2310,
+       "capped_mark": true,
+       "score": "1",
+       "chg": "0.08"
+      },
+      {
+       "opponent_rating": 2339,
+       "printed_rating": 2339,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.10"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-G12",
+   "list": "2009-09",
+   "published_change": 0,
+   "sum": "0.40",
+   "ever_2400_before": true,
+   "tournaments": [
+    {
+     "start": "2009-07-02",
+     "ro": 2772,
+     "k": 10,
+     "k_chg": "0.40",
+     "games": [
+      {
+       "opponent_rating": 2760,
+       "printed_rating": 2760,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.48"
+      },
+      {
+       "opponent_rating": 2756,
+       "printed_rating": 2756,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.02"
+      },
+      {
+       "opponent_rating": 2759,
+       "printed_rating": 2759,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.02"
+      },
+      {
+       "opponent_rating": 2721,
+       "printed_rating": 2721,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.07"
+      },
+      {
+       "opponent_rating": 2697,
+       "printed_rating": 2697,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.40"
+      },
+      {
+       "opponent_rating": 2760,
+       "printed_rating": 2760,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.02"
+      },
+      {
+       "opponent_rating": 2756,
+       "printed_rating": 2756,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.02"
+      },
+      {
+       "opponent_rating": 2759,
+       "printed_rating": 2759,
+       "capped_mark": false,
+       "score": "0",
+       "chg": "-0.52"
+      },
+      {
+       "opponent_rating": 2697,
+       "printed_rating": 2697,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.10"
+      },
+      {
+       "opponent_rating": 2721,
+       "printed_rating": 2721,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.07"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-G13",
+   "list": "2014-08",
+   "published_change": 2,
+   "sum": "2.30",
+   "ever_2400_before": true,
+   "tournaments": [
+    {
+     "start": "2014-06-28",
+     "ro": 2558,
+     "k": 10,
+     "k_chg": "2.30",
+     "games": [
+      {
+       "opponent_rating": 2344,
+       "printed_rating": 2344,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.23"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-G14",
+   "list": "2014-08",
+   "published_change": 12,
+   "sum": "12.00",
+   "ever_2400_before": true,
+   "tournaments": [
+    {
+     "start": "2014-07-12",
+     "ro": 2789,
+     "k": 10,
+     "k_chg": "12.00",
+     "games": [
+      {
+       "opponent_rating": 2616,
+       "printed_rating": 2616,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.27"
+      },
+      {
+       "opponent_rating": 2723,
+       "printed_rating": 2723,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.41"
+      },
+      {
+       "opponent_rating": 2705,
+       "printed_rating": 2705,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.12"
+      },
+      {
+       "opponent_rating": 2632,
+       "printed_rating": 2632,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.29"
+      },
+      {
+       "opponent_rating": 2777,
+       "printed_rating": 2777,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.02"
+      },
+      {
+       "opponent_rating": 2743,
+       "printed_rating": 2743,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.44"
+      },
+      {
+       "opponent_rating": 2737,
+       "printed_rating": 2737,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.07"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "player_periods": 13
+}
