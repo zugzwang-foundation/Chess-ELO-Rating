@@ -43,6 +43,6 @@ Above all, FIDE's tournament reports, which hold every rated game, under a data 
 
 ## A comparison fixed in advance
 
-For the 2026 U.S. Championships we fixed the comparison of today's rules and the new table, locked the code and amended it twice after round 1 (a review found the first table off at the top; then today's K), all before reading any result. Earlier versions stay beside it; its main figures depend on the pairings, not the results.
+For the 2026 U.S. Championships we fixed the comparison of today's rules and the new table, locked the code, amending it three times after round 1 (the first table was off at the top; today's K; a test of forecasts), all before reading any result. Earlier versions stay beside it; its main figures depend on the pairings, not the results.
 
 This is not a black box: a statistical model whose only power is to set the numbers in two public files, within published limits.
