@@ -48,9 +48,3 @@ again. The architect reviews the close-outs afterwards.
 - Commit messages use conventional prefixes: `chore:`, `docs:`, `feat:`, `fix:`, `test:`.
 - Session artefacts (logs, close-outs) live in the operator's `~/Downloads`, not here.
 - Update STATUS.md at every close-out.
-
-## Active session — ELO-HANDOVER
-After any compaction, and at every phase boundary, re-read
-~/Downloads/zz_ELO-HANDOVER_relay.md and the latest
-~/Downloads/zz_ELO-HANDOVER_session_*.md; resume from the first phase not
-marked DONE. Remove this section at close-out.
