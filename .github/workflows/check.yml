@@ -28,6 +28,10 @@ jobs:
         if: ${{ !cancelled() }}
         run: python tools/checks/check_freeze3b.py
 
+      - name: (a″) Freeze 3c — the forecast test's reading, frozen files equal D-0015's manifest
+        if: ${{ !cancelled() }}
+        run: python tools/checks/check_freeze3c.py
+
       - name: (b) pytest
         if: ${{ !cancelled() }}
         run: |

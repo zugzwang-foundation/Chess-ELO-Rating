@@ -18,7 +18,7 @@
     {"script": "analysis/us26_rung5_extract.py", "args": [], "output": "params/rung5_us2026.json", "needs_data": true},
     {"script": "analysis/e3_freeze2_record.py", "args": [], "output": "docs/evidence/E3_us-championship-2026.md", "needs_data": false},
     {"script": "analysis/us26_draw_rate_extract.py", "args": [], "output": "params/draw_rate_2026-10b.json", "needs_data": true},
-    {"script": "analysis/e13_us_championships_freeze3b.py", "args": [], "output": "docs/evidence/E13_us-championship-2026-freeze-3.md", "needs_data": false},
+    {"script": "analysis/e13_us_championships_freeze3c.py", "args": [], "output": "docs/evidence/E13_us-championship-2026-freeze-3.md", "needs_data": false},
     {"script": "analysis/e5_deflation_extract.py", "args": [], "output": "analysis/aggregates/E5_deflation.json", "needs_data": true},
     {"script": "analysis/e5_deflation_report.py", "args": [], "output": "docs/evidence/E5_deflation.md", "needs_data": false},
     {"script": "analysis/e4_community_report.py", "args": [], "output": "docs/evidence/E4_community-register.md", "needs_data": false},
@@ -55,7 +55,8 @@
     {"script": "analysis/e18_selfcal_extract.py", "args": [], "output": "analysis/aggregates/E18_selfcal.json", "needs_data": true},
     {"script": "analysis/e18_selfcal_report.py", "args": [], "output": "docs/evidence/E18_self-calibration.md", "needs_data": false},
     {"script": "analysis/e19_top100_selfcal_extract.py", "args": [], "output": "analysis/aggregates/E19_top100_selfcal.json", "needs_data": true},
-    {"script": "analysis/e19_top100_selfcal_report.py", "args": [], "output": "docs/evidence/E19_top100-selfcal.md", "needs_data": false}
+    {"script": "analysis/e19_top100_selfcal_report.py", "args": [], "output": "docs/evidence/E19_top100-selfcal.md", "needs_data": false},
+    {"script": "analysis/e19_top100_selfcal_report.py", "args": ["--appendix"], "output": "analysis/OUTPUT_E19_appendix.md", "needs_data": false}
   ],
-  "modules": ["analysis/e13_us_championships_freeze3.py", "analysis/e13_us_championships_freeze3a.py", "analysis/e3_us_championships.py", "analysis/fide_panel.py", "analysis/l1_common.py", "analysis/selfcal_fit.py", "analysis/table_v2_fit.py"]
+  "modules": ["analysis/e13_us_championships_freeze3.py", "analysis/e13_us_championships_freeze3a.py", "analysis/e13_us_championships_freeze3b.py", "analysis/e3_us_championships.py", "analysis/fide_panel.py", "analysis/l1_common.py", "analysis/selfcal_fit.py", "analysis/table_v2_fit.py"]
 }
