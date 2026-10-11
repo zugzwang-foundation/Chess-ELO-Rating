@@ -32,6 +32,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "tools" / "data"))
+import politeness  # noqa: E402  (R85: the project's User-Agent)
 RAW = ROOT / "data" / "raw" / "fide_calculations"
 LISTS = ROOT / "data" / "interim" / "fide" / "standard"
 MANIFEST = RAW / "MANIFEST_top100.tsv"
@@ -111,8 +113,8 @@ def fetch(path: str) -> int:
             if n:
                 time.sleep(DELAY)
             url = URL.format(id=pid, period=period)
-            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "X-Requested-With": "XMLHttpRequest",
-                                                       "Referer": REFERER.format(id=pid, period=period)})
+            req = urllib.request.Request(url, headers=politeness.headers(
+                {"X-Requested-With": "XMLHttpRequest", "Referer": REFERER.format(id=pid, period=period)}))
             stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
             try:
                 with urllib.request.urlopen(req, timeout=60) as resp:

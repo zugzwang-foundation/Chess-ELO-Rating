@@ -40,7 +40,7 @@ import politeness  # noqa: E402  (R75: the gaps, across runs and tools)
 
 OUT = ROOT / "data" / "raw" / "probe"
 MAN = OUT / "MANIFEST.tsv"
-UA = "Mozilla/5.0"
+UA = politeness.USER_AGENT        # R85 (D-0018): the project's User-Agent, with no email
 FIDE_HOSTS = {"ratings.fide.com", "handbook.fide.com", "www.fide.com", "fide.com"}
 NO_ROBOTS = {"ratings.fide.com", "handbook.fide.com"}      # HTTP 404 on 2026-10-10, cached under data/raw/fide_site/
 KEY = re.compile(r"^[A-Za-z0-9._-]+$")

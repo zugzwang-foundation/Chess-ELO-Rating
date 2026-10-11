@@ -33,6 +33,10 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+# R83 (docs/decisions/D-0018_rulings-on-elo-9-questions.md, a founder decision): the label every table or figure
+# derived from OlimpBase's transcription carries, and which this aggregate carries as its field "terms" (reading 11).
+OLIMPBASE_TERMS = ("Derived from OlimpBase's transcription of FIDE's lists; non-commercial use only; not covered by "
+                   "this repository's CC BY 4.0 or Apache-2.0 licences.")
 sys.path.insert(0, str(ROOT / "analysis"))
 import greats_select as gs  # noqa: E402  (SPEC-GREATS §2's lists, keys and activity rule)
 import probe_greats_extract as pg  # noqa: E402  (the session's requests and their gaps, R75)
@@ -224,7 +228,8 @@ def main() -> int:
            "printed_ties_at_third": [{"list": d, "name": r["name"], "printed_rank": int(r["rank"]),
                                       "selected": (r["id"] or f"name:{r['name']}") in keys}
                                      for d, top in sorted(printed.items())
-                                     for r in top if int(r["rank"]) > 3 and int(r["rating"]) == board[d]["third"]]}
+                                     for r in top if int(r["rank"]) > 3 and int(r["rating"]) == board[d]["third"]],
+           "terms": OLIMPBASE_TERMS}
     json.dump(out, sys.stdout, indent=1, sort_keys=True, ensure_ascii=False)
     sys.stdout.write("\n")
     return 0

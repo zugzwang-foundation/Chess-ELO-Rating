@@ -2,7 +2,9 @@
 least four seconds between requests to ratings.fide.com (and FIDE's other hosts) and at least eight to the Internet
 Archive, three to any other host, measured across runs and across tools from every manifest the session's fetch tools
 keep. A manifest logs a request's UTC time in whole seconds at sending, so a logged time plus one second bounds the
-request's true time from above. Python standard library only.
+request's true time from above. And the User-Agent with which every fetch tool outside the freezes identifies the
+project (ruling R85, docs/decisions/D-0018_rulings-on-elo-9-questions.md, a founder decision; no email): the frozen
+tools of Freeze 2 are not edited and keep their own. Python standard library only.
 """
 from __future__ import annotations
 
@@ -20,6 +22,12 @@ MANIFESTS = (ROOT / "data" / "raw" / "probe" / "MANIFEST.tsv",
 MIN_GAP = {"ratings.fide.com": 4.0, "handbook.fide.com": 4.0, "www.fide.com": 4.0, "fide.com": 4.0,
            "web.archive.org": 8.0}
 DEFAULT_GAP = 3.0
+USER_AGENT = "Zugzwang-Elo-research (+https://github.com/zugzwang-foundation/Chess-ELO-Rating)"     # R85
+
+
+def headers(extra: dict[str, str] | None = None) -> dict[str, str]:
+    """A request's headers: the project's User-Agent (R85), then any others the page itself sends."""
+    return {"User-Agent": USER_AGENT, **(extra or {})}
 
 
 def host_of(url: str) -> str:

@@ -1871,5 +1871,6 @@
  ],
  "selected": "analysis/aggregates/GREATS_players.json",
  "spec": "docs/specs/SPEC-GREATS_v1_0.md",
+ "terms": "Derived from OlimpBase's transcription of FIDE's lists; non-commercial use only; not covered by this repository's CC BY 4.0 or Apache-2.0 licences.",
  "window_months": 36
 }

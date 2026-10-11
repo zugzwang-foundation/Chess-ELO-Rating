@@ -620,5 +620,6 @@
    }
   ]
  },
- "rule": "ranked 1st to 3rd on any FIDE standard list from July 1971 to December 2019: OlimpBase's transcription of FIDE's lists to April 2000, ranks computed; FIDE's printed top lists from July 2000 where the Internet Archive keeps them, otherwise ranks computed from FIDE's full list; inactive players are not ranked (FIDE's flags and, from January 1999, FIDE's top-list rule)"
+ "rule": "ranked 1st to 3rd on any FIDE standard list from July 1971 to December 2019: OlimpBase's transcription of FIDE's lists to April 2000, ranks computed; FIDE's printed top lists from July 2000 where the Internet Archive keeps them, otherwise ranks computed from FIDE's full list; inactive players are not ranked (FIDE's flags and, from January 1999, FIDE's top-list rule)",
+ "terms": "Derived from OlimpBase's transcription of FIDE's lists; non-commercial use only; not covered by this repository's CC BY 4.0 or Apache-2.0 licences."
 }
