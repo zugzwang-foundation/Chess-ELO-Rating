@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """E18 extraction: the self-calibrating tables, the three-way test and the parameters over time (SPEC-SELFCAL v1.0;
-session ELO-8, Phase 3; needs data/).
+session ELO-8, Phase 3; needs data/; SPEC-SELFCAL v1.2, session ELO-9, Phase 0b, adds R69's sensitivity line).
 
 Builds E2's sample (standard) through E10's builder over every broadcast file on disk (2020-01 to 2026-09; no game dated
 after 2026-09-30), takes each year's window by SPEC-SELFCAL §4 (analysis/e18_coverage_extract.py's rule, checked against
@@ -15,7 +15,11 @@ its aggregate), and for every year with a window:
   - the three-way test (§7) on the year's games: table 8.1.2 as FIDE applied it (E2's three-outcome split with the
     window's draw rates), the first table kept frozen, the year's table; log-loss and Brier with month-block intervals,
     overall and by level band; calibration by level band and gap and by level band;
-  - the parameters over time (§8) with intervals from 2,000 parametric draws, beside table 8.1.2's values.
+  - the parameters over time (§8) with intervals from 2,000 parametric draws, beside table 8.1.2's values;
+  - beside the headline, never in it: a year whose table changed form is also fitted in the form in force before it,
+    within the caps (R68 applied to that year, D-0016 reading 6), and a year whose table sits on a cap is also fitted
+    without caps (R69's sensitivity line, D-0016 reading 10); each is forecast in the three-way test beside the year's
+    own table.
 Writes analysis/aggregates/E18_selfcal.json: counts, sums, fitted values and test results only. Python standard library
 only.
 
@@ -132,7 +136,7 @@ def holm(rows: list[dict]) -> int:
 
 
 PAIRS = (("year", "first"), ("year", "l0"), ("first", "l0"), ("year_prevform", "first"), ("year", "year_prevform"),
-         ("year_prevform", "l0"))
+         ("year_prevform", "l0"), ("year_uncapped", "first"), ("year_uncapped", "l0"), ("year_uncapped", "year"))
 
 
 def evaluate(tables: dict[str, dict], games: dict[str, list], rates: dict[int, float]) -> dict:
@@ -278,7 +282,7 @@ def main() -> int:
     wins = {str(y): cov.window(y, std_month) for y in cov.YEARS}
     assert wins == covg["windows"], "the windows differ from E18_coverage.json"
     years = [y for y in sorted(wins) if wins[y]["table"]]
-    out: dict = {"spec": "docs/specs/SPEC-SELFCAL_v1_1.md", "cutoff": meta, "table_years": years, "tables": {},
+    out: dict = {"spec": "docs/specs/SPEC-SELFCAL_v1_2.md", "cutoff": meta, "table_years": years, "tables": {},
                  "choice": {}, "confirmation": {}, "three_way": {}, "first_form": FIRST_FORM, "caps": CAPS,
                  "knot_cap": KNOT_CAP, "start": "Freeze 3's standard table (params/table_fit_2026-10b.yaml)"}
     prev = None
@@ -378,6 +382,7 @@ def main() -> int:
                                           "derived": derived({"form": prev["form"], "par": fk["par"]})}
             if f["on_bound"]:
                 fu = sf.fit(form, cells_w, start, None)          # the same form without caps, for comparison
+                fitted[f"{y}_uncapped"] = {"form": form, "par": fu["par"]}      # R69's sensitivity line
                 extra["uncapped"] = {"par": fu["par"], "se": fu["se"], "loglik": fu["loglik"],
                                      "derived": derived({"form": form, "par": fu["par"]})}
             out["choice"][y] = choice
@@ -402,6 +407,8 @@ def main() -> int:
         tables = {"l0": None, "first": fitted[first], "year": fitted[y]}
         if f"{y}_prevform" in fitted:
             tables["year_prevform"] = fitted[f"{y}_prevform"]
+        if f"{y}_uncapped" in fitted:
+            tables["year_uncapped"] = fitted[f"{y}_uncapped"]
         res, raw, braw = evaluate(tables, {m: games_by_month[m] for m in yr_months}, rates)
         res["draw_rates"] = {str(k): v for k, v in sorted(rates.items())}
         out["three_way"][y] = res
