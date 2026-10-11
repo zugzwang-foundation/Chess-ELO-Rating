@@ -19,7 +19,7 @@ AGG = ROOT / "analysis" / "aggregates" / "E17_top100.json"
 FIXED = "*Under this rule, with the same results — not anyone's true strength.*"
 BANNER = ("> **Superseded before any public use** (ruling R59, `docs/decisions/D-0014_forecast-test-and-rulings.md`). "
           "These figures use one table, Freeze 3's, fitted on broadcast games of October 2023 to September 2026, for every "
-          "year of the replay, and hold FIDE's K. The self-calibrating replay of session ELO-8, E19, in which each year's "
+          "year of the replay, and hold FIDE's K. The self-calibrating replay of session ELO-8 [E19], in which each year's "
           "table is fitted only on games played before that year and K follows FIDE's K rules on each system's own "
           "rating (R61), replaces them; E17 stays as the record of the frozen table.")
 GAP_ORDER = ("below −100", "−100 to −1", "0 to 99", "100 to 199", "200 to 299", "300 to 399", "400 or more")

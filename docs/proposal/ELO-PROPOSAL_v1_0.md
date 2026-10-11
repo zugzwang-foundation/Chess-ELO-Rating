@@ -473,7 +473,7 @@ Two findings from checking Layer 0 against FIDE, reported here for the QC; nothi
 
 ## Appendix G Today's top 100 under rung 2
 
-> **Superseded before any public use** (ruling R59, D-0014): one table, fitted on broadcast games of October 2023 to September 2026, serves every year of this replay, with FIDE's K. The self-calibrating replay, E19 (session ELO-8), in which each year's table is fitted only on games played before that year and K follows FIDE's rules on each system's own rating, replaces these figures.
+> **Superseded before any public use** (ruling R59, D-0014): one table, fitted on broadcast games of October 2023 to September 2026, serves every year of this replay, with FIDE's K. The self-calibrating replay of session ELO-8 [E19], in which each year's table is fitted only on games played before that year and K follows FIDE's rules on each system's own rating, replaces these figures.
 
 *Under this rule, with the same results — not anyone's true strength.*
 

@@ -24,8 +24,8 @@ FIXED = "*Under this rule, with the same results — not anyone's true strength.
 FAVOURITE_BANDS = ("0 to 99", "100 to 199", "200 to 299", "300 to 399")     # E17's gap bands below 400, as favourite
 UNDERDOG_BANDS = ("below −100", "−100 to −1")
 BANNER = ("> **Superseded before any public use** (ruling R59, D-0014): one table, fitted on broadcast games of October "
-          "2023 to September 2026, serves every year of this replay, with FIDE's K. The self-calibrating replay, E19 (session "
-          "ELO-8), in which each year's table is fitted only on games played before that year and K follows FIDE's rules on "
+          "2023 to September 2026, serves every year of this replay, with FIDE's K. The self-calibrating replay of session "
+          "ELO-8 [E19], in which each year's table is fitted only on games played before that year and K follows FIDE's rules on "
           "each system's own rating, replaces these figures.")
 
 
