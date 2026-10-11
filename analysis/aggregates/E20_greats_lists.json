@@ -3,8 +3,7 @@
   "fide_files_vs_histories": {
    "differ": [
     {
-     "file": "2315",
-     "history": "2356",
+     "history_minus_file": 41,
      "id": "1503014",
      "list": "2003-04"
     }
@@ -152,8 +151,76 @@
    "last": "2026-10"
   }
  },
+ "lists_missing_a_top3_player": [
+  {
+   "absent": "Kasparov, Garry",
+   "list": "1994-01",
+   "ranked_after": 1,
+   "ranked_before": 1,
+   "top3_on_the_list": [
+    [
+     "Karpov, Anatoly",
+     1
+    ],
+    [
+     "Anand, Viswanathan",
+     2
+    ],
+    [
+     "Shirov, Alexei",
+     2
+    ]
+   ]
+  },
+  {
+   "absent": "Kasparov, Garry",
+   "list": "1994-07",
+   "ranked_after": 1,
+   "ranked_before": 1,
+   "top3_on_the_list": [
+    [
+     "Karpov, Anatoly",
+     1
+    ],
+    [
+     "Shirov, Alexei",
+     2
+    ],
+    [
+     "Kramnik, Vladimir",
+     3
+    ]
+   ]
+  }
+ ],
  "players": [
   {
+   "absent_from_lists_in_span": [
+    "1976-01",
+    "1977-01",
+    "1978-01",
+    "1979-01",
+    "1980-01",
+    "1981-01",
+    "1981-07",
+    "1982-01",
+    "1982-07",
+    "1983-01",
+    "1983-07",
+    "1984-01",
+    "1984-07",
+    "1985-01",
+    "1985-07",
+    "1986-01",
+    "1986-07",
+    "1987-01",
+    "1987-07",
+    "1988-01",
+    "1988-07",
+    "1989-01",
+    "1989-07",
+    "2002-01"
+   ],
    "best_by_gap10": {
     "first": "1972-07",
     "last": "1975-01",
@@ -161,7 +228,9 @@
     "lists_at_1": 4,
     "mean": 160.0,
     "mean_gap10": 160.0,
-    "mean_gap2": 100.0
+    "mean_gap2": 100.0,
+    "median_window_mean": 156.9,
+    "windows": 2
    },
    "best_by_gap2": {
     "first": "1972-07",
@@ -170,7 +239,9 @@
     "lists_at_1": 4,
     "mean": 100.0,
     "mean_gap10": 160.0,
-    "mean_gap2": 100.0
+    "mean_gap2": 100.0,
+    "median_window_mean": 99.4,
+    "windows": 2
    },
    "federation": "USA",
    "fide_id": 2000016,
@@ -185,9 +256,12 @@
    "peak": 2785,
    "peak_lists": [
     "1972-07"
-   ]
+   ],
+   "top3_lists_shared_third": [],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "1979-01",
     "last": "1981-07",
@@ -195,7 +269,9 @@
     "lists_at_1": 0,
     "mean": 73.8,
     "mean_gap10": 73.8,
-    "mean_gap2": -2.5
+    "mean_gap2": -2.5,
+    "median_window_mean": -6.7,
+    "windows": 51
    },
    "best_by_gap2": {
     "first": "1976-01",
@@ -204,7 +280,9 @@
     "lists_at_1": 0,
     "mean": 0.0,
     "mean_gap10": 41.7,
-    "mean_gap2": 0.0
+    "mean_gap2": 0.0,
+    "median_window_mean": -113.3,
+    "windows": 51
    },
    "federation": "SUI",
    "fide_id": 1300016,
@@ -221,9 +299,14 @@
     "1979-01",
     "1980-01",
     "1981-07"
-   ]
+   ],
+   "top3_lists_shared_third": [
+    "1984-01"
+   ],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "1971-07",
     "last": "1974-05",
@@ -231,7 +314,9 @@
     "lists_at_1": 0,
     "mean": 41.2,
     "mean_gap10": 41.2,
-    "mean_gap2": -13.8
+    "mean_gap2": -13.8,
+    "median_window_mean": -39.2,
+    "windows": 44
    },
    "best_by_gap2": {
     "first": "1971-07",
@@ -240,7 +325,9 @@
     "lists_at_1": 0,
     "mean": -13.8,
     "mean_gap10": 41.2,
-    "mean_gap2": -13.8
+    "mean_gap2": -13.8,
+    "median_window_mean": -141.7,
+    "windows": 44
    },
    "federation": "RUS",
    "fide_id": 600024,
@@ -255,9 +342,15 @@
    "peak": 2690,
    "peak_lists": [
     "1971-07"
-   ]
+   ],
+   "top3_lists_shared_third": [
+    "1978-01",
+    "1979-01"
+   ],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "1975-01",
     "last": "1977-01",
@@ -265,7 +358,9 @@
     "lists_at_1": 0,
     "mean": 25.0,
     "mean_gap10": 25.0,
-    "mean_gap2": -31.7
+    "mean_gap2": -31.7,
+    "median_window_mean": 10.0,
+    "windows": 13
    },
    "best_by_gap2": {
     "first": "1976-01",
@@ -274,7 +369,9 @@
     "lists_at_1": 0,
     "mean": -26.7,
     "mean_gap10": 15.0,
-    "mean_gap2": -26.7
+    "mean_gap2": -26.7,
+    "median_window_mean": -43.8,
+    "windows": 13
    },
    "federation": "URS",
    "fide_id": null,
@@ -291,9 +388,15 @@
     "1972-07",
     "1975-01",
     "1977-01"
-   ]
+   ],
+   "top3_lists_shared_third": [
+    "1972-07",
+    "1976-01"
+   ],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "1975-01",
     "last": "1977-01",
@@ -301,7 +404,9 @@
     "lists_at_1": 0,
     "mean": 16.7,
     "mean_gap10": 16.7,
-    "mean_gap2": -40.0
+    "mean_gap2": -40.0,
+    "median_window_mean": -14.2,
+    "windows": 36
    },
    "best_by_gap2": {
     "first": "1976-01",
@@ -310,7 +415,9 @@
     "lists_at_1": 0,
     "mean": -35.0,
     "mean_gap10": 6.7,
-    "mean_gap2": -35.0
+    "mean_gap2": -35.0,
+    "median_window_mean": -103.3,
+    "windows": 36
    },
    "federation": "RUS",
    "fide_id": null,
@@ -326,9 +433,15 @@
    "peak_lists": [
     "1972-07",
     "1975-01"
-   ]
+   ],
+   "top3_lists_shared_third": [
+    "1972-07",
+    "1976-01"
+   ],
+   "top3_only_by_a_shared_third": true
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "1978-01",
     "last": "1980-01",
@@ -336,7 +449,9 @@
     "lists_at_1": 3,
     "mean": 106.7,
     "mean_gap10": 106.7,
-    "mean_gap2": 30.0
+    "mean_gap2": 30.0,
+    "median_window_mean": 80.0,
+    "windows": 63
    },
    "best_by_gap2": {
     "first": "1976-01",
@@ -345,7 +460,9 @@
     "lists_at_1": 3,
     "mean": 43.3,
     "mean_gap10": 85.0,
-    "mean_gap2": 43.3
+    "mean_gap2": 43.3,
+    "median_window_mean": -0.8,
+    "windows": 63
    },
    "federation": "RUS",
    "fide_id": 4100026,
@@ -360,9 +477,12 @@
    "peak": 2780,
    "peak_lists": [
     "1994-07"
-   ]
+   ],
+   "top3_lists_shared_third": [],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "1978-01",
     "last": "1980-01",
@@ -370,7 +490,9 @@
     "lists_at_1": 0,
     "mean": 36.7,
     "mean_gap10": 36.7,
-    "mean_gap2": -40.0
+    "mean_gap2": -40.0,
+    "median_window_mean": -5.8,
+    "windows": 30
    },
    "best_by_gap2": {
     "first": "1972-07",
@@ -379,7 +501,9 @@
     "lists_at_1": 0,
     "mean": -40.0,
     "mean_gap10": 20.0,
-    "mean_gap2": -40.0
+    "mean_gap2": -40.0,
+    "median_window_mean": -98.3,
+    "windows": 30
    },
    "federation": "LAT",
    "fide_id": null,
@@ -394,9 +518,27 @@
    "peak": 2705,
    "peak_lists": [
     "1980-01"
-   ]
+   ],
+   "top3_lists_shared_third": [],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [
+    "1983-01",
+    "1983-07",
+    "1984-01",
+    "1984-07",
+    "1985-01",
+    "1985-07",
+    "1986-01",
+    "1986-07",
+    "1987-01",
+    "1987-07",
+    "1988-01",
+    "1988-07",
+    "1989-01",
+    "1989-07"
+   ],
    "best_by_gap10": {
     "first": "1977-01",
     "last": "1979-01",
@@ -404,7 +546,9 @@
     "lists_at_1": 0,
     "mean": 11.7,
     "mean_gap10": 11.7,
-    "mean_gap2": -41.7
+    "mean_gap2": -41.7,
+    "median_window_mean": -35.8,
+    "windows": 21
    },
    "best_by_gap2": {
     "first": "1976-01",
@@ -413,7 +557,9 @@
     "lists_at_1": 0,
     "mean": -31.7,
     "mean_gap10": 10.0,
-    "mean_gap2": -31.7
+    "mean_gap2": -31.7,
+    "median_window_mean": -115.8,
+    "windows": 21
    },
    "federation": "BRA",
    "fide_id": 2100010,
@@ -428,9 +574,14 @@
    "peak": 2635,
    "peak_lists": [
     "1977-01"
-   ]
+   ],
+   "top3_lists_shared_third": [
+    "1978-01"
+   ],
+   "top3_only_by_a_shared_third": true
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "1979-01",
     "last": "1981-07",
@@ -438,7 +589,9 @@
     "lists_at_1": 0,
     "mean": 31.2,
     "mean_gap10": 31.2,
-    "mean_gap2": -45.0
+    "mean_gap2": -45.0,
+    "median_window_mean": -5.4,
+    "windows": 44
    },
    "best_by_gap2": {
     "first": "1976-01",
@@ -447,7 +600,9 @@
     "lists_at_1": 0,
     "mean": -33.3,
     "mean_gap10": 8.3,
-    "mean_gap2": -33.3
+    "mean_gap2": -33.3,
+    "median_window_mean": -107.9,
+    "windows": 44
    },
    "federation": "HUN",
    "fide_id": 700037,
@@ -462,9 +617,15 @@
    "peak": 2655,
    "peak_lists": [
     "1980-01"
-   ]
+   ],
+   "top3_lists_shared_third": [
+    "1978-01",
+    "1979-01"
+   ],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "1981-01",
     "last": "1983-07",
@@ -472,7 +633,9 @@
     "lists_at_1": 0,
     "mean": 19.2,
     "mean_gap10": 19.2,
-    "mean_gap2": -47.5
+    "mean_gap2": -47.5,
+    "median_window_mean": -24.0,
+    "windows": 44
    },
    "best_by_gap2": {
     "first": "1981-01",
@@ -481,7 +644,9 @@
     "lists_at_1": 0,
     "mean": -47.5,
     "mean_gap10": 19.2,
-    "mean_gap2": -47.5
+    "mean_gap2": -47.5,
+    "median_window_mean": -111.7,
+    "windows": 44
    },
    "federation": "GER",
    "fide_id": 4600010,
@@ -497,9 +662,12 @@
    "peak_lists": [
     "1981-07",
     "2002-10"
-   ]
+   ],
+   "top3_lists_shared_third": [],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "1984-01",
     "last": "1986-07",
@@ -507,7 +675,9 @@
     "lists_at_1": 0,
     "mean": 25.8,
     "mean_gap10": 25.8,
-    "mean_gap2": -66.7
+    "mean_gap2": -66.7,
+    "median_window_mean": -7.1,
+    "windows": 44
    },
    "best_by_gap2": {
     "first": "1980-01",
@@ -516,7 +686,9 @@
     "lists_at_1": 0,
     "mean": -55.0,
     "mean_gap10": 12.0,
-    "mean_gap2": -55.0
+    "mean_gap2": -55.0,
+    "median_window_mean": -92.1,
+    "windows": 44
    },
    "federation": "NED",
    "fide_id": 1000012,
@@ -531,9 +703,18 @@
    "peak": 2680,
    "peak_lists": [
     "1990-01"
-   ]
+   ],
+   "top3_lists_shared_third": [
+    "1985-07",
+    "1986-01"
+   ],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [
+    "1994-01",
+    "1994-07"
+   ],
    "best_by_gap10": {
     "first": "1989-01",
     "last": "1991-07",
@@ -541,7 +722,9 @@
     "lists_at_1": 6,
     "mean": 155.8,
     "mean_gap10": 155.8,
-    "mean_gap2": 49.2
+    "mean_gap2": 49.2,
+    "median_window_mean": 119.7,
+    "windows": 45
    },
    "best_by_gap2": {
     "first": "1990-07",
@@ -550,7 +733,9 @@
     "lists_at_1": 6,
     "mean": 64.2,
     "mean_gap10": 145.0,
-    "mean_gap2": 64.2
+    "mean_gap2": 64.2,
+    "median_window_mean": 36.8,
+    "windows": 45
    },
    "federation": "RUS",
    "fide_id": 4100018,
@@ -566,9 +751,12 @@
    "peak_lists": [
     "1999-07",
     "2000-01"
-   ]
+   ],
+   "top3_lists_shared_third": [],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "1982-01",
     "last": "1984-07",
@@ -576,7 +764,9 @@
     "lists_at_1": 0,
     "mean": 16.7,
     "mean_gap10": 16.7,
-    "mean_gap2": -60.0
+    "mean_gap2": -60.0,
+    "median_window_mean": -19.8,
+    "windows": 44
    },
    "best_by_gap2": {
     "first": "1976-01",
@@ -585,7 +775,9 @@
     "lists_at_1": 0,
     "mean": -46.7,
     "mean_gap10": -5.0,
-    "mean_gap2": -46.7
+    "mean_gap2": -46.7,
+    "median_window_mean": -117.1,
+    "windows": 44
    },
    "federation": "SRB",
    "fide_id": 900010,
@@ -601,9 +793,14 @@
    "peak_lists": [
     "1983-01",
     "1983-07"
-   ]
+   ],
+   "top3_lists_shared_third": [
+    "1984-01"
+   ],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "1987-07",
     "last": "1990-01",
@@ -611,7 +808,9 @@
     "lists_at_1": 0,
     "mean": 13.3,
     "mean_gap10": 13.3,
-    "mean_gap2": -90.8
+    "mean_gap2": -90.8,
+    "median_window_mean": -29.2,
+    "windows": 51
    },
    "best_by_gap2": {
     "first": "1980-01",
@@ -620,7 +819,9 @@
     "lists_at_1": 0,
     "mean": -64.0,
     "mean_gap10": 3.0,
-    "mean_gap2": -64.0
+    "mean_gap2": -64.0,
+    "median_window_mean": -107.5,
+    "windows": 51
    },
    "federation": "SLO",
    "fide_id": 14602377,
@@ -635,9 +836,14 @@
    "peak": 2710,
    "peak_lists": [
     "1997-07"
-   ]
+   ],
+   "top3_lists_shared_third": [
+    "1985-07"
+   ],
+   "top3_only_by_a_shared_third": true
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "1985-07",
     "last": "1988-01",
@@ -645,7 +851,9 @@
     "lists_at_1": 0,
     "mean": 22.5,
     "mean_gap10": 22.5,
-    "mean_gap2": -70.8
+    "mean_gap2": -70.8,
+    "median_window_mean": -17.5,
+    "windows": 37
    },
    "best_by_gap2": {
     "first": "1985-07",
@@ -654,7 +862,9 @@
     "lists_at_1": 0,
     "mean": -70.8,
     "mean_gap10": 22.5,
-    "mean_gap2": -70.8
+    "mean_gap2": -70.8,
+    "median_window_mean": -110.0,
+    "windows": 37
    },
    "federation": "GER",
    "fide_id": 4618777,
@@ -669,9 +879,18 @@
    "peak": 2680,
    "peak_lists": [
     "1995-07"
-   ]
+   ],
+   "top3_lists_shared_third": [
+    "1986-01",
+    "1987-01",
+    "1987-07"
+   ],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [
+    "2002-07"
+   ],
    "best_by_gap10": {
     "first": "1983-07",
     "last": "1986-01",
@@ -679,7 +898,9 @@
     "lists_at_1": 0,
     "mean": 20.0,
     "mean_gap10": 20.0,
-    "mean_gap2": -69.2
+    "mean_gap2": -69.2,
+    "median_window_mean": -40.0,
+    "windows": 44
    },
    "best_by_gap2": {
     "first": "1983-07",
@@ -688,7 +909,9 @@
     "lists_at_1": 0,
     "mean": -69.2,
     "mean_gap10": 20.0,
-    "mean_gap2": -69.2
+    "mean_gap2": -69.2,
+    "median_window_mean": -121.2,
+    "windows": 44
    },
    "federation": "ARM",
    "fide_id": 13300016,
@@ -703,9 +926,14 @@
    "peak": 2670,
    "peak_lists": [
     "2005-01"
-   ]
+   ],
+   "top3_lists_shared_third": [
+    "1986-01"
+   ],
+   "top3_only_by_a_shared_third": true
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "1986-01",
     "last": "1988-07",
@@ -713,7 +941,9 @@
     "lists_at_1": 0,
     "mean": 0.0,
     "mean_gap10": 0.0,
-    "mean_gap2": -94.2
+    "mean_gap2": -94.2,
+    "median_window_mean": -96.2,
+    "windows": 34
    },
    "best_by_gap2": {
     "first": "1986-01",
@@ -722,7 +952,9 @@
     "lists_at_1": 0,
     "mean": -94.2,
     "mean_gap10": 0.0,
-    "mean_gap2": -94.2
+    "mean_gap2": -94.2,
+    "median_window_mean": -172.5,
+    "windows": 34
    },
    "federation": "FRA",
    "fide_id": 627089,
@@ -737,9 +969,18 @@
    "peak": 2645,
    "peak_lists": [
     "1987-01"
-   ]
+   ],
+   "top3_lists_shared_third": [
+    "1987-01",
+    "1987-07"
+   ],
+   "top3_only_by_a_shared_third": true
   },
   {
+   "absent_from_lists_in_span": [
+    "1994-01",
+    "1994-07"
+   ],
    "best_by_gap10": {
     "first": "1987-07",
     "last": "1990-01",
@@ -747,7 +988,9 @@
     "lists_at_1": 0,
     "mean": 18.3,
     "mean_gap10": 18.3,
-    "mean_gap2": -85.8
+    "mean_gap2": -85.8,
+    "median_window_mean": -35.8,
+    "windows": 73
    },
    "best_by_gap2": {
     "first": "1991-01",
@@ -756,7 +999,9 @@
     "lists_at_1": 0,
     "mean": -68.3,
     "mean_gap10": 12.5,
-    "mean_gap2": -68.3
+    "mean_gap2": -68.3,
+    "median_window_mean": -118.0,
+    "windows": 73
    },
    "federation": "ENG",
    "fide_id": 400025,
@@ -771,9 +1016,16 @@
    "peak": 2712,
    "peak_lists": [
     "2004-04"
-   ]
+   ],
+   "top3_lists_shared_third": [
+    "1989-07"
+   ],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [
+    "2009-11"
+   ],
    "best_by_gap10": {
     "first": "1990-07",
     "last": "1993-01",
@@ -781,7 +1033,9 @@
     "lists_at_1": 0,
     "mean": 64.2,
     "mean_gap10": 64.2,
-    "mean_gap2": -16.7
+    "mean_gap2": -16.7,
+    "median_window_mean": -12.7,
+    "windows": 125
    },
    "best_by_gap2": {
     "first": "1991-07",
@@ -790,7 +1044,9 @@
     "lists_at_1": 0,
     "mean": -13.3,
     "mean_gap10": 60.0,
-    "mean_gap2": -13.3
+    "mean_gap2": -13.3,
+    "median_window_mean": -76.9,
+    "windows": 125
    },
    "federation": "UKR",
    "fide_id": 14100010,
@@ -805,9 +1061,16 @@
    "peak": 2787,
    "peak_lists": [
     "2007-10"
-   ]
+   ],
+   "top3_lists_shared_third": [
+    "1989-07",
+    "1990-07",
+    "1993-01"
+   ],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "1990-07",
     "last": "1993-01",
@@ -815,7 +1078,9 @@
     "lists_at_1": 0,
     "mean": 35.0,
     "mean_gap10": 35.0,
-    "mean_gap2": -45.8
+    "mean_gap2": -45.8,
+    "median_window_mean": -12.8,
+    "windows": 135
    },
    "best_by_gap2": {
     "first": "1990-07",
@@ -824,7 +1089,9 @@
     "lists_at_1": 0,
     "mean": -45.8,
     "mean_gap10": 35.0,
-    "mean_gap2": -45.8
+    "mean_gap2": -45.8,
+    "median_window_mean": -72.0,
+    "windows": 135
    },
    "federation": "ISR",
    "fide_id": 2805677,
@@ -841,9 +1108,14 @@
     "2013-11",
     "2013-12",
     "2014-01"
-   ]
+   ],
+   "top3_lists_shared_third": [
+    "1990-07"
+   ],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "1997-01",
     "last": "1999-07",
@@ -851,7 +1123,9 @@
     "lists_at_1": 0,
     "mean": 78.5,
     "mean_gap10": 78.5,
-    "mean_gap2": -4.2
+    "mean_gap2": -4.2,
+    "median_window_mean": 21.7,
+    "windows": 142
    },
    "best_by_gap2": {
     "first": "2006-04",
@@ -860,7 +1134,9 @@
     "lists_at_1": 5,
     "mean": 6.0,
     "mean_gap10": 54.5,
-    "mean_gap2": 6.0
+    "mean_gap2": 6.0,
+    "median_window_mean": -25.8,
+    "windows": 142
    },
    "federation": "IND",
    "fide_id": 5000017,
@@ -878,9 +1154,16 @@
     "2011-05",
     "2011-07",
     "2011-09"
-   ]
+   ],
+   "top3_lists_shared_third": [
+    "1993-01",
+    "1995-01",
+    "2015-12"
+   ],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "1992-07",
     "last": "1995-01",
@@ -888,7 +1171,9 @@
     "lists_at_1": 0,
     "mean": 40.8,
     "mean_gap10": 40.8,
-    "mean_gap2": -32.5
+    "mean_gap2": -32.5,
+    "median_window_mean": -14.9,
+    "windows": 104
    },
    "best_by_gap2": {
     "first": "1992-07",
@@ -897,7 +1182,9 @@
     "lists_at_1": 0,
     "mean": -32.5,
     "mean_gap10": 40.8,
-    "mean_gap2": -32.5
+    "mean_gap2": -32.5,
+    "median_window_mean": -81.1,
+    "windows": 104
    },
    "federation": "ESP",
    "fide_id": 2209390,
@@ -912,9 +1199,12 @@
    "peak": 2755,
    "peak_lists": [
     "2008-01"
-   ]
+   ],
+   "top3_lists_shared_third": [],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "2000-07",
     "last": "2003-04",
@@ -922,7 +1212,9 @@
     "lists_at_1": 0,
     "mean": 87.0,
     "mean_gap10": 87.0,
-    "mean_gap2": -1.7
+    "mean_gap2": -1.7,
+    "median_window_mean": 26.9,
+    "windows": 131
    },
    "best_by_gap2": {
     "first": "2001-04",
@@ -931,7 +1223,9 @@
     "lists_at_1": 0,
     "mean": 0.0,
     "mean_gap10": 85.2,
-    "mean_gap2": 0.0
+    "mean_gap2": 0.0,
+    "median_window_mean": -20.9,
+    "windows": 131
    },
    "federation": "RUS",
    "fide_id": 4101588,
@@ -946,9 +1240,17 @@
    "peak": 2817,
    "peak_lists": [
     "2016-10"
-   ]
+   ],
+   "top3_lists_shared_third": [
+    "1995-01",
+    "2015-12"
+   ],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [
+    "2002-01"
+   ],
    "best_by_gap10": {
     "first": "1993-01",
     "last": "1995-07",
@@ -956,7 +1258,9 @@
     "lists_at_1": 0,
     "mean": 21.7,
     "mean_gap10": 21.7,
-    "mean_gap2": -56.7
+    "mean_gap2": -56.7,
+    "median_window_mean": -12.9,
+    "windows": 34
    },
    "best_by_gap2": {
     "first": "1992-07",
@@ -965,7 +1269,9 @@
     "lists_at_1": 0,
     "mean": -52.5,
     "mean_gap10": 20.8,
-    "mean_gap2": -52.5
+    "mean_gap2": -52.5,
+    "median_window_mean": -105.5,
+    "windows": 34
    },
    "federation": "RUS",
    "fide_id": 4100069,
@@ -980,9 +1286,14 @@
    "peak": 2715,
    "peak_lists": [
     "1995-01"
-   ]
+   ],
+   "top3_lists_shared_third": [
+    "1995-01"
+   ],
+   "top3_only_by_a_shared_third": true
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "2004-10",
     "last": "2007-07",
@@ -990,7 +1301,9 @@
     "lists_at_1": 4,
     "mean": 57.6,
     "mean_gap10": 57.6,
-    "mean_gap2": 0.6
+    "mean_gap2": 0.6,
+    "median_window_mean": 14.3,
+    "windows": 134
    },
    "best_by_gap2": {
     "first": "2006-10",
@@ -999,7 +1312,9 @@
     "lists_at_1": 7,
     "mean": 4.4,
     "mean_gap10": 47.9,
-    "mean_gap2": 4.4
+    "mean_gap2": 4.4,
+    "median_window_mean": -41.6,
+    "windows": 134
    },
    "federation": "BUL",
    "fide_id": 2900084,
@@ -1016,9 +1331,14 @@
     "2015-07",
     "2015-08",
     "2015-09"
-   ]
+   ],
+   "top3_lists_shared_third": [],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [
+    "2002-07"
+   ],
    "best_by_gap10": {
     "first": "2011-07",
     "last": "2014-06",
@@ -1026,7 +1346,9 @@
     "lists_at_1": 0,
     "mean": 49.3,
     "mean_gap10": 49.3,
-    "mean_gap2": -1.4
+    "mean_gap2": -1.4,
+    "median_window_mean": 15.8,
+    "windows": 105
    },
    "best_by_gap2": {
     "first": "2011-09",
@@ -1035,7 +1357,9 @@
     "lists_at_1": 0,
     "mean": -1.0,
     "mean_gap10": 49.1,
-    "mean_gap2": -1.0
+    "mean_gap2": -1.0,
+    "median_window_mean": -25.5,
+    "windows": 105
    },
    "federation": "ARM",
    "fide_id": 13300474,
@@ -1050,9 +1374,12 @@
    "peak": 2830,
    "peak_lists": [
     "2014-03"
-   ]
+   ],
+   "top3_lists_shared_third": [],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "1999-01",
     "last": "2001-10",
@@ -1060,7 +1387,9 @@
     "lists_at_1": 0,
     "mean": 37.9,
     "mean_gap10": 37.9,
-    "mean_gap2": -41.6
+    "mean_gap2": -41.6,
+    "median_window_mean": -26.2,
+    "windows": 118
    },
    "best_by_gap2": {
     "first": "2006-07",
@@ -1069,7 +1398,9 @@
     "lists_at_1": 0,
     "mean": -22.6,
     "mean_gap10": 22.5,
-    "mean_gap2": -22.6
+    "mean_gap2": -22.6,
+    "median_window_mean": -82.2,
+    "windows": 118
    },
    "federation": "RUS",
    "fide_id": 4116992,
@@ -1084,9 +1415,12 @@
    "peak": 2788,
    "peak_lists": [
     "2008-07"
-   ]
+   ],
+   "top3_lists_shared_third": [],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "2012-09",
     "last": "2015-08",
@@ -1094,7 +1428,9 @@
     "lists_at_1": 36,
     "mean": 101.6,
     "mean_gap10": 101.6,
-    "mean_gap2": 52.7
+    "mean_gap2": 52.7,
+    "median_window_mean": 74.4,
+    "windows": 87
    },
    "best_by_gap2": {
     "first": "2012-12",
@@ -1103,7 +1439,9 @@
     "lists_at_1": 36,
     "mean": 53.7,
     "mean_gap10": 101.2,
-    "mean_gap2": 53.7
+    "mean_gap2": 53.7,
+    "median_window_mean": 33.2,
+    "windows": 87
    },
    "federation": "NOR",
    "fide_id": 1503014,
@@ -1119,9 +1457,12 @@
    "peak_lists": [
     "2014-05",
     "2019-08"
-   ]
+   ],
+   "top3_lists_shared_third": [],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "2017-01",
     "last": "2019-12",
@@ -1129,7 +1470,9 @@
     "lists_at_1": 0,
     "mean": 44.0,
     "mean_gap10": 44.0,
-    "mean_gap2": -3.3
+    "mean_gap2": -3.3,
+    "median_window_mean": 31.0,
+    "windows": 76
    },
    "best_by_gap2": {
     "first": "2016-11",
@@ -1138,7 +1481,9 @@
     "lists_at_1": 0,
     "mean": -3.3,
     "mean_gap10": 43.8,
-    "mean_gap2": -3.3
+    "mean_gap2": -3.3,
+    "median_window_mean": -11.7,
+    "windows": 76
    },
    "federation": "USA",
    "fide_id": 2020009,
@@ -1153,9 +1498,14 @@
    "peak": 2844,
    "peak_lists": [
     "2014-10"
-   ]
+   ],
+   "top3_lists_shared_third": [
+    "2017-12"
+   ],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "2013-11",
     "last": "2016-10",
@@ -1163,7 +1513,9 @@
     "lists_at_1": 0,
     "mean": 20.6,
     "mean_gap10": 20.6,
-    "mean_gap2": -24.2
+    "mean_gap2": -24.2,
+    "median_window_mean": 10.4,
+    "windows": 92
    },
    "best_by_gap2": {
     "first": "2015-03",
@@ -1172,7 +1524,9 @@
     "lists_at_1": 0,
     "mean": -20.2,
     "mean_gap10": 17.7,
-    "mean_gap2": -20.2
+    "mean_gap2": -20.2,
+    "median_window_mean": -38.3,
+    "windows": 92
    },
    "federation": "USA",
    "fide_id": 2016192,
@@ -1188,9 +1542,12 @@
    "peak_lists": [
     "2015-10",
     "2025-10"
-   ]
+   ],
+   "top3_lists_shared_third": [],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "2012-11",
     "last": "2015-10",
@@ -1198,7 +1555,9 @@
     "lists_at_1": 0,
     "mean": 17.3,
     "mean_gap10": 17.3,
-    "mean_gap2": -30.6
+    "mean_gap2": -30.6,
+    "median_window_mean": -5.6,
+    "windows": 118
    },
    "best_by_gap2": {
     "first": "2012-11",
@@ -1207,7 +1566,9 @@
     "lists_at_1": 0,
     "mean": -30.6,
     "mean_gap10": 17.3,
-    "mean_gap2": -30.6
+    "mean_gap2": -30.6,
+    "median_window_mean": -53.5,
+    "windows": 118
    },
    "federation": "RUS",
    "fide_id": 4126025,
@@ -1224,9 +1585,12 @@
     "2014-12",
     "2015-01",
     "2015-02"
-   ]
+   ],
+   "top3_lists_shared_third": [],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "2014-09",
     "last": "2017-08",
@@ -1234,7 +1598,9 @@
     "lists_at_1": 0,
     "mean": 8.1,
     "mean_gap10": 8.1,
-    "mean_gap2": -34.7
+    "mean_gap2": -34.7,
+    "median_window_mean": 2.8,
+    "windows": 68
    },
    "best_by_gap2": {
     "first": "2015-01",
@@ -1243,7 +1609,9 @@
     "lists_at_1": 0,
     "mean": -32.2,
     "mean_gap10": 6.0,
-    "mean_gap2": -32.2
+    "mean_gap2": -32.2,
+    "median_window_mean": -41.6,
+    "windows": 68
    },
    "federation": "NED",
    "fide_id": 24116068,
@@ -1260,9 +1628,12 @@
     "2015-10",
     "2016-01",
     "2016-02"
-   ]
+   ],
+   "top3_lists_shared_third": [],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "2016-02",
     "last": "2019-01",
@@ -1270,7 +1641,9 @@
     "lists_at_1": 0,
     "mean": 20.2,
     "mean_gap10": 20.2,
-    "mean_gap2": -22.5
+    "mean_gap2": -22.5,
+    "median_window_mean": -4.1,
+    "windows": 80
    },
    "best_by_gap2": {
     "first": "2015-11",
@@ -1279,7 +1652,9 @@
     "lists_at_1": 0,
     "mean": -20.6,
     "mean_gap10": 19.2,
-    "mean_gap2": -20.6
+    "mean_gap2": -20.6,
+    "median_window_mean": -48.4,
+    "windows": 80
    },
    "federation": "FRA",
    "fide_id": 623539,
@@ -1294,9 +1669,21 @@
    "peak": 2819,
    "peak_lists": [
     "2016-08"
-   ]
+   ],
+   "top3_lists_shared_third": [],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [
+    "2005-10",
+    "2006-01",
+    "2013-01",
+    "2013-02",
+    "2013-03",
+    "2013-04",
+    "2013-05",
+    "2013-06"
+   ],
    "best_by_gap10": {
     "first": "2015-11",
     "last": "2018-10",
@@ -1304,7 +1691,9 @@
     "lists_at_1": 0,
     "mean": 15.7,
     "mean_gap10": 15.7,
-    "mean_gap2": -24.2
+    "mean_gap2": -24.2,
+    "median_window_mean": 14.3,
+    "windows": 44
    },
    "best_by_gap2": {
     "first": "2015-04",
@@ -1313,7 +1702,9 @@
     "lists_at_1": 0,
     "mean": -22.6,
     "mean_gap10": 15.3,
-    "mean_gap2": -22.6
+    "mean_gap2": -22.6,
+    "median_window_mean": -31.2,
+    "windows": 44
    },
    "federation": "USA",
    "fide_id": 5202213,
@@ -1330,9 +1721,14 @@
     "2017-02",
     "2017-03",
     "2017-04"
-   ]
+   ],
+   "top3_lists_shared_third": [],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [
+    "2009-11"
+   ],
    "best_by_gap10": {
     "first": "2017-01",
     "last": "2019-12",
@@ -1340,7 +1736,9 @@
     "lists_at_1": 0,
     "mean": 21.4,
     "mean_gap10": 21.4,
-    "mean_gap2": -25.9
+    "mean_gap2": -25.9,
+    "median_window_mean": -8.9,
+    "windows": 81
    },
    "best_by_gap2": {
     "first": "2017-01",
@@ -1349,7 +1747,9 @@
     "lists_at_1": 0,
     "mean": -25.9,
     "mean_gap10": 21.4,
-    "mean_gap2": -25.9
+    "mean_gap2": -25.9,
+    "median_window_mean": -58.2,
+    "windows": 81
    },
    "federation": "AZE",
    "fide_id": 13401319,
@@ -1365,9 +1765,14 @@
    "peak_lists": [
     "2018-09",
     "2018-10"
-   ]
+   ],
+   "top3_lists_shared_third": [
+    "2017-12"
+   ],
+   "top3_only_by_a_shared_third": false
   },
   {
+   "absent_from_lists_in_span": [],
    "best_by_gap10": {
     "first": "2017-01",
     "last": "2019-12",
@@ -1375,7 +1780,9 @@
     "lists_at_1": 0,
     "mean": 19.5,
     "mean_gap10": 19.5,
-    "mean_gap2": -27.8
+    "mean_gap2": -27.8,
+    "median_window_mean": -10.8,
+    "windows": 62
    },
    "best_by_gap2": {
     "first": "2017-01",
@@ -1384,7 +1791,9 @@
     "lists_at_1": 0,
     "mean": -27.8,
     "mean_gap10": 19.5,
-    "mean_gap2": -27.8
+    "mean_gap2": -27.8,
+    "median_window_mean": -54.5,
+    "windows": 62
    },
    "federation": "CHN",
    "fide_id": 8603677,
@@ -1399,7 +1808,65 @@
    "peak": 2816,
    "peak_lists": [
     "2018-11"
-   ]
+   ],
+   "top3_lists_shared_third": [],
+   "top3_only_by_a_shared_third": false
+  }
+ ],
+ "printed_ties_at_third": [
+  {
+   "list": "2006-10",
+   "name": "Svidler, Peter",
+   "printed_rank": 4,
+   "selected": false
+  },
+  {
+   "list": "2008-10",
+   "name": "Carlsen, Magnus",
+   "printed_rank": 4,
+   "selected": true
+  },
+  {
+   "list": "2015-03",
+   "name": "Topalov, Veselin",
+   "printed_rank": 4,
+   "selected": true
+  },
+  {
+   "list": "2015-04",
+   "name": "Topalov, Veselin",
+   "printed_rank": 4,
+   "selected": true
+  },
+  {
+   "list": "2016-09",
+   "name": "Kramnik, Vladimir",
+   "printed_rank": 4,
+   "selected": true
+  },
+  {
+   "list": "2017-06",
+   "name": "Caruana, Fabiano",
+   "printed_rank": 4,
+   "selected": true
+  },
+  {
+   "list": "2017-10",
+   "name": "Caruana, Fabiano",
+   "printed_rank": 4,
+   "selected": true
+  },
+  {
+   "list": "2017-10",
+   "name": "Kramnik, Vladimir",
+   "printed_rank": 5,
+   "selected": true
+  },
+  {
+   "list": "2017-11",
+   "name": "Mamedyarov, Shakhriyar",
+   "printed_rank": 4,
+   "selected": true
   }
  ],
  "selected": "analysis/aggregates/GREATS_players.json",

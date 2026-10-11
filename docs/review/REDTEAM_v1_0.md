@@ -830,3 +830,270 @@ Correcting by band and 50-point gap instead turns E19's +11.9 into +11.2 (comput
   - Its fixtures carry no identifiers.
   - R-14a and R-22b stay NOT VERIFIED.
 - **Checks.** 637 tests pass and every reference resolves. The body has 4,498 words and the brief 898.
+
+## Addendum: session ELO-9, Phase 5 — D-0016, the data probe, SPEC-GREATS, E20 and Appendix I
+
+Status: REVIEW RECORD · Session ELO-9, Phase 5 · Date: 2026-10-11 · Reviewer: one subagent, read-only, briefed with the R-STAT and R-QC briefs together. It reviewed after Phases 0 to 4 had merged (main at 4c74425). It read:
+
+- `docs/decisions/D-0016_rulings-on-elo-8-questions.md` and `docs/decisions/D-0017_rulings-on-the-greats.md`;
+- the data probe, `docs/research/DATA-PROBE_greats.md`, with its scripts, its aggregate, `tools/data/fetch_probe.py` and `tools/data/politeness.py`;
+- `docs/specs/SPEC-GREATS_v1_0.md` with the selection script and its aggregate;
+- the rules record `docs/research/VERIFICATION_RATING-REGULATIONS-2001-2017.md` with its script;
+- E20 with its two extractions, its report, its aggregates, `src/layer0_greats/`, the fetch and fixture tools, the tests and the fixtures;
+- §11 of SPEC-L0 (then v1.3);
+- the proposal's Appendix I and front matter.
+
+The rulings R66–R79 were given as fixed, with points on the rulings themselves to be listed separately. It was told to read no result of either 2026 championship and to use no web access. It returned ten findings (six major, four minor), six points for the architect and a list of what it checked and found correct. Its report is reproduced verbatim below, after what the executor did with it.
+
+### Verification performed by the executor
+
+- **ELO9-QC-1 was checked on the cached pages before anything changed.** §10.53 of the 2007 text and §8.57 of the 2010 text stand in "Determining the rating change for a rated player", after K; a new player's Rn is rounded in §10.32 and §8.32. The 2003 text rounds the rated player's Rn in §10.66 ("Rn is rounded off to the nearest 1 or 0"). The rules record now transcribes all six clauses and the §8.5 heading, and its §5 says what they round.
+- **ELO9-STAT-1 was recomputed by the extraction** (`calibration` in `analysis/e20_greats_replay_extract.py`): on 9,372 games in which the player of the set was the favourite by 50 to 399 points at FIDE's own ratings, the favourite's mean residual is −0.009 (−0.017 to −0.001) under table 8.1.2 and +0.035 (+0.027 to +0.044) under the 2025 table, intervals clustered over the 29 players. In every level band from 2300 the 2025 table's residual is the larger, by 0.034 to 0.046. The reviewer's own selection gave 9,441 games and −0.008 and +0.036. The replay holds 8,436 and 936 game rows at levels of 2700–2799 and 2800 or more, as the reviewer found; the 2025 table's fit year held 539 and 9 such games [E18 §1].
+- **ELO9-STAT-2.** With every outside opponent 10 points lower or higher, the mean difference is +17.79 and +36.34: 0.93 points per point.
+- **ELO9-QC-2.** Of the 23 lists before July 2014 that hold a negative half point, 22 rounded every one towards +∞; on the list of January 2009, 3 of 3 went away from zero, and the same list holds one period whose published change is not a rounding of its sum.
+- **ELO9-STAT-3.** The six players in only through a shared 3rd place are Polugaevsky (July 1972, January 1976), Mecking (January 1978), Beliavsky (July 1985), Vaganian (January 1986), Sokolov (January and July 1987) and Salov (January 1995). On FIDE's printed lists, Svidler (October 2006) is the one player printed below 3rd on the 3rd's rating who is not among the 36. Kasparov, 1st on the lists before and after, is absent from the lists of January and July 1994, on which Karpov is 1st; Short is absent from the same two lists.
+- **ELO9-STAT-5.** The best windows are maxima over 2 (Fischer) to 87 (Carlsen) windows.
+- **ELO9-QC-4.** E20 did print `{rdg['R74']['thin_periods']:,}` in its brief, and check (a) passed because the committed page reproduced the slip.
+- **The checks after the fixes.**
+  - Every script that needs `data/` reproduces its committed output byte for byte (the selection, the probe, the rules record, both E20 extractions, the fixtures).
+  - (a) every other script reproduces its committed output, and Freezes 3a to 3d hold.
+  - (b) every test passes.
+  - (c) every reference resolves.
+  - (d) the body has 4,499 words and the brief 900.
+
+### Disposition
+
+**fixed** (where); points on the rulings themselves go to the architect (below); none of R66–R79 was reopened.
+
+| ID | Sev. | Topic | Status |
+|---|---|---|---|
+| ELO9-STAT-1 | major | the 2025 table misfits the games it is applied to | fixed: E20 §5 prints the check by level band with intervals clustered over players, the fit year's games at 2700–2799 and 2800 or more beside the replay's, and each player's game rows at 2800 or more; E20's brief, §5 and §7 and Appendix I say what the difference measures (the 2025 table's distance from 8.1.2 at these players' gaps, on games 8.1.2 already fits) and that the highest ratings rest most on the levels with least support; whether Appendix I keeps its headline goes to the architect |
+| ELO9-QC-1 | major | the 2007 and 2010 texts round the rated player's new rating | fixed: the rules record (passages and §5); SPEC-L0 v1.4 corrects F-H09; E20 §4.2, the era label, `src/layer0_greats/`'s docstrings and the tests; D-0017, a decision record, is not edited: the restated basis goes to the architect |
+| ELO9-STAT-2 | major | R58's approximation missing from Appendix I | fixed: Appendix I and E20's brief and §5 state that the outside opponents are held at FIDE's ratings, the range with them 10 points lower or higher, the pass-through of 0.93 points per point and that a replay of the whole pool needs FIDE's tournament reports |
+| ELO9-QC-2 | major | Appendix I dates FIDE's change of rounding to July 2014 and hides the January 2009 list | fixed: Appendix I and E20's brief give the rounding up to July 2018, the January 2009 exception and the change of November 2018; E20 §4.2 and F-H09 name the January 2009 list |
+| ELO9-STAT-3 | major | six players only through a tie, the change of tie rule in 2000, the two lists of 1994 | fixed: E20 §2 (notes on the selection), §7, the brief and Appendix I ("six of them only through a share of 3rd place"); SPEC-GREATS stays v1.0, its rule fixed (§9): the notes are the rule's consequences, reported in the evidence; one tie rule throughout would be a ruling, for the architect |
+| ELO9-QC-3 | major | FIDE's terms held to a laxer standard | fixed: DATA-PROBE §2.6 and a FIDE row in §3 judged by §3's standard (all rights reserved; used for analysis on the brief's instruction, cached locally, not redistributed; written permission not sought); E20's data paragraph and Appendix I reworded; the User-Agent and FIDE's permission go to the operator and the architect |
+| ELO9-QC-4 | minor | three slips | fixed: the missing f prefix, with a test that no generated page carries an unrendered placeholder; the April 2003 discrepancy committed as its size (41 points); the fixture README |
+| ELO9-STAT-4 | minor | validation and dating claims reach too far | fixed: "given FIDE's own inputs" (E20 §4.1, the brief, Appendix I); "in the greats' games"; the 44 capped games without a found rating under §5's table; the difference "on each player's last list", Korchnoi's being May 2016 |
+| ELO9-QC-5 | minor | the permission paragraph promises too much | fixed: Appendix I and E20 §6 keep the brief's statement that permission would allow the full study, with the limits the reviewer names (FIDE's calculations from 2008 only, no record of which games FIDE rated, a model's assumptions across eras); the test updated; SPEC-GREATS §7 keeps the brief's words |
+| ELO9-STAT-5 | minor | each best window is a maximum over different numbers of windows | fixed: E20 §3 prints the number of qualifying windows and the median window's mean gap; Appendix I's table gives the number; §3 and §7 note the five-point ratings before 1999 |
+
+### For the architect
+
+1. **R74's premise and scope** (the reviewer's points 1 to 3). The 2003, 2007 and 2010 texts round the rated player's new rating, and §8.57 of 2010 says "0.5 is rounded to 1": R74's outcome has a textual basis that D-0017 does not record, and only a superseding record can restate it. FIDE's lists rounded negative half points towards +∞ to the list of July 2018 (27 of 27) and away from zero from November 2018 (12 of 12); extending R74's reading to July 2018 would leave 9 thin periods instead of 36 (the run "towards +∞ throughout", 21, is 36 − 27 + 12). Decide also whether the list of January 2009 is a list-level exception or its periods stay thin.
+2. **The backward table's headline** (point 4). E20 now carries the calibration check, beyond SPEC-GREATS §6; R59's estimate of the table's own error at the top is not computed for E20. Should Appendix I keep "+27.0" as its headline?
+3. **Ties** (point 5). One tie rule throughout would change the selection, which SPEC-GREATS §9 bars after results without a ruling.
+4. **Terms** (point 6). Should FIDE's written permission be sought before E20 or Appendix I leaves the repository (R73)? R77 puts figures derived from OlimpBase under CC BY 4.0, which allows commercial reuse, while OlimpBase says "non-commercial use only": confirm, or mark those tables with the source's terms. And whether future fetches should name the project in their User-Agent is the operator's decision.
+
+### The reviewer's report (verbatim)
+
+The report is reproduced as returned, its section headings set one level lower to sit under this addendum.
+
+#### Red-team review, session ELO-9: D-0016, the data probe, SPEC-GREATS, E20 and Appendix I (R-STAT and R-QC)
+
+##### Findings
+
+###### ELO9-STAT-1 — major — The 2025 table misfits the games it is applied to, most of all at the top, and E20 does not say so
+
+**Location:** E20 "In brief" ("Under the 2025 table applied backwards"), §5 (closing paragraph), §7; Appendix I, "The replay, 2008–2019", and its table.
+
+**Problem:** E20 says the difference shows "what today's table would have made of the same results". It never checks the table against those results. I ran that check with E18's own measure: the favourite's residual S − E at the list's ratings, on gaps of 50–399. On the 9,441 replayed games in which one of the 29 was the favourite, table 8.1.2 gives −0.008 and the 2025 table +0.036 (computed from FIDE's pages; cluster SE over players 0.004 for each).
+- By level band, table 8.1.2 runs from −0.016 to −0.000. The 2025 table runs from +0.026 to +0.046.
+- At levels 2700–2750 the 2025 table expects a 100-point favourite to score 0.589. FIDE's table expects 0.64. The slope is 0.00105 a point (computed).
+- So the 0.044 between the two curves is worth about 40 points. The +27 mean, and Carlsen's +62, measure the 2025 table's distance from 8.1.2 at the gaps these players played. On these games, 8.1.2 fits better.
+- Being selected for success would raise both residuals by the same amount. It does not close the gap between them.
+
+The table also has little data where it matters:
+- It was fitted on games of March–December 2024. That window holds at most 9 games at levels of 2800 or more and 539 at 2700–2799 [E18 §1].
+- By FIDE's own ratings, the replay holds 936 and 8,436 of its 18,490 game rows at those levels, including 355 of Carlsen's 785 (computed). Under rung 2's higher ratings there would be more.
+- One standard error of the table's residual at 2700–2799 is 0.011 [E18 §3]. At this slope that is about 10 points.
+- E19 prints R59's estimate of the table's own error at the top. E20 prints none.
+
+**Fix:**
+- In E20 §5, print this check as a labelled diagnostic: by band, both tables, with a cluster interval over players. Also print the fit window's game counts at 2700+ and 2800+ beside the replay's.
+- In §5, §7 and Appendix I, say what the difference measures: the 2025 table's distance from 8.1.2 at these players' gaps, on games where 8.1.2 fits better.
+- Flag Carlsen's and Caruana's rows, and the 2945, as resting on the band with least support.
+
+###### ELO9-QC-1 — major — The rules record misreads the 2007 and 2010 texts: both round the rated player's new rating
+
+**Location:** VERIFICATION_RATING-REGULATIONS-2001-2017.md §5 (the row "Rounding of the change" and "What the texts leave open"). Also:
+- SPEC-L0 v1.3 §11, F-H09 ("no clause in the texts of October 2007 and June 2010");
+- E20 §4.2 ("The 2007 and 2010 texts have no rounding clause") and its table label "(no clause)";
+- the docstring of `src/layer0_greats/__init__.py`;
+- Appendix I.
+
+**Problem:** The record says §10.53 (2007) and §8.57 (2010) round "a new player's Rn". The cached archive pages that the script reads say otherwise:
+- A new player's Rn is rounded in §10.32 and §8.32, under "The Rating R n which is to be published for a previously unrated player". The 2010 wording is "0.5 is rounded up".
+- §10.53 and §8.57 sit inside "Determining the rating change for a rated player", directly after K.
+- §8.57 reads: "R n is rounded off to the nearest 1 or 0, 0.5 is rounded to 1."
+- Read as the rated player's new rating (a whole Ro plus the change), that means 0.5 towards +∞ for the change. FIDE's lists before July 2014 do exactly this in 73 of 78 half points.
+
+So the texts are not silent. The first reading departed from an existing clause, and the documents deny a textual basis that R74's outcome actually has.
+
+**Fix:**
+- Transcribe §10.3/§10.32, §8.3/§8.32 and the §10.5/§8.5 headings into the record.
+- Replace "no clause" with this reading, marked NOT VERIFIED.
+- Correct F-H09 in SPEC-L0's next version, with its decision record. Correct E20 §4.2, the module docstring and Appendix I.
+
+###### ELO9-STAT-2 — major — Appendix I drops R58's approximation, where it carries almost the whole result
+
+**Location:** Appendix I, "The replay, 2008–2019"; E20 "In brief" and §5's last paragraph.
+
+**Problem:**
+- Appendices G and H say that opponents outside the set are held at their published ratings, give R58's range, and note that a whole-pool replay needs FIDE's reports (the ELO7-STAT-2 fix). Appendix I says only "the greats end 2019 27.0 points above FIDE's ratings on average".
+- In E20, shifting outside opponents by ±10 moves the mean from +17.8 to +36.3. That is 0.93 a point (computed), against 0.82 in E17 and 0.43 in E19.
+- After twelve years the set sits at an equilibrium against opponents frozen at FIDE's ratings. In a whole-pool replay those 2600–2750 opponents would also move. E19 finds today's top 100 (down to 2626) +14.5 after only 22 months of tables, so a move larger than ±10 is plausible.
+- Carlsen's 2945 lies on this mixed scale.
+
+**Fix:**
+- In Appendix I, write "with every opponent outside the 29 held at FIDE's rating (R58) … +27.0 (+17.8 to +36.3 with them 10 points lower or higher)". Add Appendix H's line on the whole-pool replay.
+- In E20's brief and §5, add "against opponents held at FIDE's ratings" and the 0.93 pass-through.
+
+###### ELO9-QC-2 — major — Appendix I misdates FIDE's change of rounding and hides an exception confined to one list
+
+**Location:** Appendix I ("Before July 2014 FIDE rounded a half point towards +∞"); the status column of SPEC-L0 F-H09; E20 §4.2.
+
+**Problem:**
+1. The sentence implies a change at July 2014. FIDE's pages show every negative half point rounded towards +∞ up to the list of July 2018 (27 of 27), and away from zero from November 2018 (12 of 12) [E20 §4.2]. Of the 36 thin periods, 27 come from the reading kept from July 2014. The appendix does not say so.
+2. All three negative half points rounded away from zero before July 2014 are on one list, January 2009 (3 of 3). Every other list before July 2014 went towards +∞ (30 of 30; computed by rerunning the replay). E20 presents them as scattered exceptions.
+
+**Fix:**
+- Appendix I: "FIDE's lists rounded half points towards +∞ to July 2018 (73 of 78 before July 2014; 27 of 27 negative ones after), except the January 2009 list (3 of 3 away from zero), and away from zero from November 2018; 27 of Layer 0's 36 thin periods follow from the reading kept for July 2014–July 2018, which is left to the architect."
+- Add the January 2009 cluster to E20 §4.2 and to F-H09.
+
+###### ELO9-STAT-3 — major — Six of the 36 are in only through a tie for 3rd, under a tie rule that changes in 2000; two 1994 lists lack Kasparov
+
+**Location:** SPEC-GREATS §2; `analysis/greats_select.py`, `computed()` (`r >= third`); E20 §2, §3, §7; Appendix I, "Who".
+
+**Problem:** Computed with `greats_select`'s own functions.
+- **Tie-only players.** Six players owe their place only to a shared 3rd place, on lists rounded to 0 or 5 (OlimpBase: unrounded only from January 1999):
+  - Mecking (1978-01, three tied);
+  - Beliavsky (1985-07);
+  - Vaganian (1986-01, three tied);
+  - Salov (1995-01, three tied);
+  - Polugaevsky (1972-07, 1976-01);
+  - Sokolov (1987-01, 1987-07).
+- **The rule changes in 2000.** From July 2000 FIDE's printed tie-break decides. That excludes Svidler, tied 3rd with Kramnik on 2750 in October 2006, which is SPEC-GREATS §2's own example.
+- **Two 1994 lists.** Kasparov and Short are absent from OlimpBase's lists of January and July 1994, and present in July 1993 and January 1995. Those two lists:
+  - give Karpov 2 of his 14 lists at #1;
+  - give Shirov a best rank of 2 (3rd with Kasparov present);
+  - give Kramnik a first top-3 list (4th on 1994-07 with Kasparov present);
+  - lower the #2 inside Shirov's and Salov's best windows (July 1992–January 1995) and Ivanchuk's (July 1991–January 1994).
+
+None of this is stated anywhere.
+
+**Fix:**
+- Without changing the rule (SPEC-GREATS §9), list in SPEC-GREATS v1.1 and E20 §2 and §7: the six tie-only players, Svidler's exclusion, and what the two 1994 lists change.
+- In Appendix I, write "36 players, six only through a tie for 3rd on lists rounded to five points".
+
+###### ELO9-QC-3 — major — FIDE's terms are held to a laxer standard than every other source's, and the appendix tells FIDE otherwise
+
+**Location:** DATA-PROBE §2.6, §3, §4; the E20 header ("as the probe found them legitimately available"); Appendix I ("only what the data probe found legitimately available"); `tools/data/fetch_probe.py` (`UA = "Mozilla/5.0"`, `--ajax`), `fetch_greats_calculations.py`, `fetch_fide_old_lists.py`.
+
+**Problem:**
+- §3 marks PGN Mentor, Chessgames.com and 365Chess "needs permission" for "a copyright notice and no licence".
+- FIDE's footer goes further: "All Rights Reserved. No part of this site may be reproduced, stored in a retrieval system … without the written permission of FIDE".
+- §2.6 quotes that footer but gives FIDE no status. §4 then treats FIDE's calculations as usable.
+- The session stored 1,774 calculation pages and 83 list files.
+- The fetch tools send a generic browser User-Agent. For the calculations they also send the page's AJAX headers to endpoints which, in the tool's own words, "answer only the headers their own pages send".
+- [V 3]'s basis (analysis, no redistribution) may hold. But "legitimately available" claims more than FIDE's terms support.
+
+**Fix:**
+- Give FIDE a row in DATA-PROBE §3 by the same standard: rights reserved; storage needs written permission; used for analysis only, on the brief's instruction; not redistributed; permission not sought.
+- Use that wording for FIDE's data in E20 and Appendix I.
+- Have future fetches identify the project in the User-Agent, as the operator decides.
+
+###### ELO9-QC-4 — minor — Three slips in the generated pages and fixtures
+
+**Location:** E20 "In brief", "Rounding (§4.2, R74)"; `analysis/e20_greats_report.py` line 183; the E20 header; `tests/fixtures/fide_greats/README.md`.
+
+**Problem:**
+1. E20 prints `Thin periods: {rdg['R74']['thin_periods']:,} under R74's reading`, because line 183 lacks the `f` prefix. Check (a) passes because the committed page reproduces the bug.
+2. The header says every published rating committed is a peak. But §1 and `E20_greats_lists.json` commit two ratings of FIDE ID 1503014 for April 2003.
+3. The README calls F-G06 "every period … whose sum ends in exactly a half point". The fixture holds one period (2008-10).
+
+**Fix:**
+1. Add the `f`, regenerate (the page should then read 36), and add a test that generated pages contain no unrendered `{x[`-style placeholder.
+2. Keep only the size of the April 2003 discrepancy, or reword the header.
+3. Correct the README.
+
+###### ELO9-STAT-4 — minor — Validation and dating claims reach further than their basis
+
+**Location:** E20 "In brief", §4.1–§4.2, §5; Appendix I.
+
+**Problem:**
+1. "Reproduces FIDE's printed change in 18,490 of 18,490 games" takes FIDE's own Ro, opponent ratings and K. It tests the table and the cap rule only (ELO7-STAT-4 made the same point about E17).
+2. "FIDE's pages date the end of the 350-point rule" rests on the greats' games alone.
+3. In the 44 capped games whose opponent was not found, rung 2 has no 400-point rule and so reads the capped gap.
+4. Korchnoi's +24 is carried from November 2012. He appears on no list after May 2016, yet counts towards "end 2019 … 27.0 above". Without him the mean is +27.14 (computed).
+
+**Fix:**
+- Add "given FIDE's own inputs" and "in the greats' games".
+- State item 3 under §5's table.
+- Write "on each player's last list", or leave Korchnoi out of the end-2019 mean.
+
+###### ELO9-QC-5 — minor — "What permission would add" promises more than any game collection can deliver
+
+**Location:** Appendix I, last paragraph; E20 §6; SPEC-GREATS §7; `tests/test_e20_appendix.py`, which asserts the sentence.
+
+**Problem:** The appendix says "the full study becomes possible: every game of the greats' careers replayed under both systems … and the games that link one era's players to the next". But:
+- validation against FIDE is possible only from the April 2008 list (DATA-PROBE §5(iii));
+- FIDE's lists begin in 1971, and the rules before 2003 are not transcribed;
+- no collection marks which games FIDE rated;
+- Chessmetrics's data are ChessBase's (DATA-PROBE §3);
+- linking eras gives a comparison only under a model, which the fixed wording ("A rating measures strength against one's own era") disclaims.
+
+**Fix:** Replace the sentence with: "With permission, the replay could extend to the games those collections hold. FIDE's own calculations exist only from 2008, those collections do not record which games FIDE rated, and any comparison across eras would rest on a model's assumptions." Update the test, E20 §6 and SPEC-GREATS §7 to match.
+
+###### ELO9-STAT-5 — minor — Each best window is a maximum taken over very different numbers of windows
+
+**Location:** SPEC-GREATS §5; E20 §3 and "In brief"; Appendix I's first table.
+
+**Problem:** My own code for §5 reproduces E20's best windows exactly. Behind each maximum lie different numbers of qualifying windows: Fischer 2, Kasparov 45, Karpov 63, Carlsen 87 (computed).
+- A maximum over many overlapping windows drifts upward more.
+- A 1970s window holds 3–4 lists rounded to 5 points, so one list moves its mean by a third.
+- E20 discloses only the frequency of the lists.
+
+**Fix:** Print the number of qualifying windows and the median window's mean gap beside each best window. Note the 5-point rounding before 1999 in §3's caveat and in §7.
+
+##### For the architect
+
+1. **R74's premise.** D-0017 calls the 2007 and 2010 texts silent on rounding, and calls towards +∞ "the 2014 text read literally". §8.57 of 2010 ("0.5 is rounded to 1") supports the outcome directly (ELO9-QC-1). A superseding record could restate the basis; D-0017 itself cannot be edited.
+2. **R74's scope.** FIDE rounded towards +∞ to July 2018 (27 of 27) and away from zero after (12 of 12). Extending R74 to July 2018 would cut thin periods from 36 to 9. The third reading's count cross-checks this: 21 = 36 − 27 + 12. F-H07's reading of the 2017 words would then hold only from November 2018.
+3. **January 2009.** Decide whether this list is a list-level exception (3 of 3 away from zero, plus one period that is not a rounding at all), or whether its periods stay thin.
+4. **The backward table.** ELO9-STAT-1's calibration check, and R59's estimate for E20, both lie beyond SPEC-GREATS §6. Decide whether E20 carries them, and whether Appendix I keeps its +27.0 headline if it does.
+5. **Ties.** Ties before 2000 bring in six players; FIDE's tie-break after 2000 excludes Svidler. SPEC-GREATS §9 bars a rule change after results, so applying one tie rule throughout needs a ruling.
+6. **Terms.** Two questions:
+   - Should FIDE's written permission be sought before E20 or Appendix I leaves the repository (R73)?
+   - R77 puts OlimpBase-derived figures under CC BY 4.0, which allows commercial reuse, while OlimpBase says "non-commercial use only". Confirm this, or mark those tables as carrying the source's terms.
+
+##### Checked and correct
+
+- **Reproducibility.** Every greats aggregate reproduces byte for byte from local `data/`: the selection, the probe, the rules record, the lists (with the cache redirected to scratch) and the replay (three readings). E20, DATA-PROBE and the appendix reproduce from their scripts. The proposal's Appendix I equals `OUTPUT_E20_appendix.md`. All 671 tests pass, and the tree was left clean.
+- **Dominance**, recomputed independently:
+
+  | player | gap to #2 | gap to #10 | lists |
+  |---|---|---|---|
+  | Fischer | +100.0 | +160.0 | 4 |
+  | Kasparov | +64.2 | +145.0 | 6 |
+  | Carlsen | +53.7 | +101.2 | 36 |
+  | Karpov | +43.3 | +85.0 | 3 |
+  | Anand | +6.0 | +54.5 | 12 |
+
+- **Replay counts.** All of these agree with E20:
+  - 18,490 games with no mismatch; K reproduced in all 2,680 tournaments (the five at K 15 are two juniors' periods in 2008); 1,774 pages, none missing.
+  - Thin periods: 36 = 7 + 17 + 12 by era; 65 and 21 under the other two readings.
+  - Half points: 78 = 33 + 45, of which 73 and 46 reproduced; negative half points by year sum to 72 = 57 + 15.
+  - Mean difference +27.03 (table +27.31, colour −0.28); ±10 gives +17.79 and +36.34.
+  - The 350/400 switch falls between 28 June and 9 July 2009. Colour marks: 9,331 White + 9,159 Black.
+- **Sources.**
+  - OlimpBase against FIDE's 2001 files: 152,963 of 152,966 ratings equal.
+  - FIDE's raw files really do lack Mamedyarov and Ivanchuk (November 2009) and So (January–June 2013), checked by ID and by name.
+  - The 12 printed-versus-computed disagreements are 8 ties and 4 activity misfires in 2002–2004. All 12 fall on dates where the printed list decides, so the selection is unaffected.
+- **Rules.** Capped ratings are printed unmarked (Ro − 350) before July 2009 and with FIDE's mark after (0 unmarked, 542 marked). The 2007, 2010 and 2014 passages are transcribed verbatim, and their tables equal Layer 0's.
+- **Politeness and fixtures.**
+  - Since 11:06:18 UTC, no gap to ratings.fide.com is under 4 s (1,933 requests in all).
+  - Since 11:27:39 UTC, no gap to the Internet Archive is under 8 s.
+  - Both slips are recorded.
+  - R79's fixture has 13 player-periods and no names, IDs or events.
+  - The fixed wording stands above every table, and the OlimpBase credit is present where it is required.

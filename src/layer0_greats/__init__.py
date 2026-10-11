@@ -18,12 +18,15 @@ docs/research/VERIFICATION_RATING-REGULATIONS-2001-2017.md:
 
 Two readings the texts leave open are tested by the replay on FIDE's own calculations (E20 §4.2): the date the
 350-point rule became the 400-point rule (between the copies of October 2007 and June 2010; read as 1 July 2009, which
-FIDE's pages bear out), and the rounding of the period's change on the lists published before July 2014, for which the
-2007 and 2010 texts have no clause. The rules record first read it as the 2014 clause applied as E17 found FIDE's lists
-apply the same words of 2017, 0.5 away from zero; FIDE's pages contradict that reading, and ruling R74
-(docs/decisions/D-0017_rulings-on-the-greats.md; SPEC-L0 v1.3 §11, finding F-H09) adopts 0.5 towards +infinity, the
-2014 words read literally, for every list published before July 2014: the switch was made after partial pages had been
-seen, before the full replay. From the list of July 2014 the change is rounded 0.5 away from zero, as before. The
+FIDE's pages bear out), and the rounding of the period's change on the lists published before July 2014. The 2007 and
+2010 texts round the rated player's new rating, the old rating plus the change ("Rn is rounded off to the nearest 1 or
+0", §10.53 of 2007; "R n is rounded off to the nearest 1 or 0, 0.5 is rounded to 1", §8.57 of 2010), which with 0.5
+rounded up rounds the change with 0.5 towards +infinity. The rules record first described those clauses as rounding a
+new player's rating and read the lists before July 2014 as the 2014 clause applied as E17 found FIDE's lists apply the
+same words of 2017, 0.5 away from zero; FIDE's pages contradict that reading, ruling R74
+(docs/decisions/D-0017_rulings-on-the-greats.md; SPEC-L0 §11, finding F-H09) adopts 0.5 towards +infinity for every
+list published before July 2014 (the switch made after partial pages had been seen, before the full replay), and the
+session's review corrected the description of the texts (docs/review/REDTEAM_v1_0.md, ELO9-QC-1). From the list of July 2014 the change is rounded 0.5 away from zero, as before. The
 score-probability table of every version equals table 8.1.2 (the record, §5), so PD comes from Layer 0's table. A
 version applies to the tournaments that start on or after its date, and a rounding to the lists published on or after
 its date. Python standard library only.
@@ -85,8 +88,9 @@ def round_change_away(x: Decimal) -> int:
 
 
 def round_change_up(x: Decimal) -> int:
-    """0.5 towards +infinity whatever the sign: the words of §8.57 of 2014, "0.5 is rounded up ( whether the change is
-    positive or negative )", read literally; FIDE's lists before July 2014 follow it (R74, finding F-H09; E20 §4.2)."""
+    """0.5 towards +infinity whatever the sign: the new rating rounded with 0.5 up (§8.57 of 2010, "0.5 is rounded to
+    1"), and the words of §8.57 of 2014, "0.5 is rounded up ( whether the change is positive or negative )", read
+    literally; FIDE's lists before July 2014 follow it (R74, finding F-H09; E20 §4.2)."""
     return int((Decimal(x) + Decimal("0.5")).to_integral_value(rounding=ROUND_FLOOR))
 
 

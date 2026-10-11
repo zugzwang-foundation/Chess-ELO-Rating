@@ -182,12 +182,21 @@ def main() -> int:
     p(f"> {f['footer']}")
     p("")
     p("As before [V 3]: FIDE's data are analysed and never redistributed in bulk; only aggregates and differences are "
-      "committed (the brief; R72).")
+      "committed (the brief; R72). By the standard §3 applies to every other source, FIDE's footer reserves all rights "
+      "and asks for written permission to store its pages in any medium: FIDE's pages and files are used here on the "
+      "brief's instruction, for analysis only, cached locally (gitignored) and not redistributed, and FIDE's written "
+      "permission has not been sought (the review of session ELO-9, ELO9-QC-3; the row in §3).")
     p("")
-    p("## 3 Every other candidate source")
+    p("## 3 The terms of FIDE and of every other candidate source")
     p("")
     p("| source | holds | terms, verbatim | read | status | why |")
     p("|---|---|---|---|---|---|")
+    fs = f["footer_source"]
+    p(f"| FIDE (ratings.fide.com: the lists, the top lists, the histories, the calculations) | FIDE's own rating data "
+      f"(§2) | “{f['footer']}” | {fs['url']}, {fs['fetched_utc']}, HTTP {fs['status']} | **used for analysis on the "
+      "brief's instruction; written permission not sought** | all rights reserved; storing the pages needs FIDE's "
+      "written permission: the pages and files are cached locally (gitignored), analysed and never redistributed, only "
+      "aggregates and differences are committed (R72); seeking permission is the operator's decision (ELO9-QC-3) |")
     for o in others:
         q = o.get("quote")
         terms = ("“" + q + "”" + (f" ({o['translation']})" if o.get("translation") else "")) if q else "—"

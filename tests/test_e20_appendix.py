@@ -35,4 +35,5 @@ def test_the_appendix_states_the_limits_and_the_permission_route():
     assert "## Appendix I The greats, on FIDE's own data" in out
     assert "**TWIC and Chessmetrics were not used**" in out
     assert "With written permission from TWIC, ChessBase or Chessmetrics, the full study becomes possible" in out
+    assert "exist only from 2008" in out and "a model's assumptions" in out                 # ELO9-QC-5's limits
     assert "Lists to 2000: OlimpBase's transcription of FIDE's lists" in out          # R77, under the table using it
