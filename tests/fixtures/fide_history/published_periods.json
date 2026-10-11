@@ -1,0 +1,287 @@
+{
+ "source": "FIDE's published per-player rating calculations (ratings.fide.com/calculations.phtml, data endpoint /a_indv_calculation.php), cached by tools/data/fetch_top100_calculations.py; FIDE's monthly standard lists for the published change and the opponents' actual ratings",
+ "selection": "tools/data/assemble_history_fixtures.py: for each rule, the first period in the order of (list, FIDE ID) that shows it in a tournament the neighbouring reading does not reproduce, among periods Layer 0 with the rules in force reproduces",
+ "list_values_note": "published_change and opponent_rating are single values quoted from FIDE's lists and calculations for verification; the lists themselves are not redistributed",
+ "missing": [],
+ "cases": [
+  {
+   "id": "F-H01",
+   "fide_id": 409561,
+   "list": "2020-02",
+   "published_change": 2,
+   "sum": "2.40",
+   "tournaments": [
+    {
+     "event": 233680,
+     "start": "2020-01-11",
+     "ro": 2679,
+     "k": 10,
+     "k_chg": "2.40",
+     "games": [
+      {
+       "opponent_rating": 2217,
+       "capped_mark": true,
+       "score": "1",
+       "chg": "0.08"
+      },
+      {
+       "opponent_rating": 2392,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.16"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-H02",
+   "fide_id": 1118358,
+   "list": "2020-02",
+   "published_change": -5,
+   "sum": "-4.50",
+   "tournaments": [
+    {
+     "event": 230158,
+     "start": "2020-01-25",
+     "ro": 2725,
+     "k": 10,
+     "k_chg": "-4.50",
+     "games": [
+      {
+       "opponent_rating": 2501,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.28"
+      },
+      {
+       "opponent_rating": 2597,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.17"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-H03",
+   "fide_id": 409561,
+   "list": "2022-03",
+   "published_change": 1,
+   "sum": "1.40",
+   "tournaments": [
+    {
+     "event": 271238,
+     "start": "2022-02-12",
+     "ro": 2671,
+     "k": 10,
+     "k_chg": "1.40",
+     "games": [
+      {
+       "opponent_rating": 2188,
+       "capped_mark": true,
+       "score": "1",
+       "chg": "0.08"
+      },
+      {
+       "opponent_rating": 2227,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.06"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-H04",
+   "fide_id": 1226380,
+   "list": "2024-04",
+   "published_change": 2,
+   "sum": "1.50",
+   "tournaments": [
+    {
+     "event": 335994,
+     "start": "2024-03-15",
+     "ro": 2690,
+     "k": 10,
+     "k_chg": "1.50",
+     "games": [
+      {
+       "opponent_rating": 2142,
+       "capped_mark": true,
+       "score": "1",
+       "chg": "0.08"
+      },
+      {
+       "opponent_rating": 2355,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.38"
+      },
+      {
+       "opponent_rating": 2262,
+       "capped_mark": true,
+       "score": "1",
+       "chg": "0.08"
+      },
+      {
+       "opponent_rating": 2449,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.30"
+      },
+      {
+       "opponent_rating": 2375,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.14"
+      },
+      {
+       "opponent_rating": 2477,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.23"
+      },
+      {
+       "opponent_rating": 2551,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.19"
+      },
+      {
+       "opponent_rating": 2481,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.23"
+      },
+      {
+       "opponent_rating": 2506,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.26"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "F-H05",
+   "fide_id": 1226380,
+   "list": "2025-11",
+   "published_change": 0,
+   "sum": "-0.20",
+   "tournaments": [
+    {
+     "event": 445609,
+     "start": "2025-10-05",
+     "ro": 2655,
+     "k": 10,
+     "k_chg": "-3.80",
+     "games": [
+      {
+       "opponent_rating": 2370,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.34"
+      },
+      {
+       "opponent_rating": 2646,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.01"
+      },
+      {
+       "opponent_rating": 2759,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.14"
+      },
+      {
+       "opponent_rating": 2667,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.02"
+      },
+      {
+       "opponent_rating": 2664,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.01"
+      },
+      {
+       "opponent_rating": 2636,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.03"
+      },
+      {
+       "opponent_rating": 2624,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.04"
+      },
+      {
+       "opponent_rating": 2666,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.02"
+      },
+      {
+       "opponent_rating": 2544,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.15"
+      }
+     ]
+    },
+    {
+     "event": 440756,
+     "start": "2025-10-19",
+     "ro": 2655,
+     "k": 10,
+     "k_chg": "3.60",
+     "games": [
+      {
+       "opponent_rating": 2159,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.04"
+      },
+      {
+       "opponent_rating": 2350,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.36"
+      },
+      {
+       "opponent_rating": 2466,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.25"
+      },
+      {
+       "opponent_rating": 2679,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "0.03"
+      },
+      {
+       "opponent_rating": 2618,
+       "capped_mark": false,
+       "score": "0.5",
+       "chg": "-0.05"
+      },
+      {
+       "opponent_rating": 2621,
+       "capped_mark": false,
+       "score": "1",
+       "chg": "0.45"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
