@@ -52,9 +52,3 @@ again. The architect reviews the close-outs afterwards.
   session log."; resume from the first phase not marked DONE.
 - At every close-out, also copy every changed document into
   ~/Downloads/zz_ELO_PK_delta_ELO-N/ with a DELTA-MANIFEST.md (the operator's project knowledge).
-
-## Active session — ELO-10
-After any compaction, and at every phase boundary, re-read
-~/Downloads/zz_ELO-10_relay.md and the latest
-~/Downloads/zz_ELO-10_session_*.md; resume from the first phase not marked
-DONE. Remove this section at close-out.
