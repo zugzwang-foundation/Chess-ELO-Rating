@@ -1,0 +1,624 @@
+{
+ "lists": {
+  "by_source": {
+   "computed from FIDE's list": 23,
+   "computed from OlimpBase's list": 49,
+   "printed top list": 121
+  },
+  "computed_dates_from_2000_07": [
+   "2002-04",
+   "2003-07",
+   "2005-01",
+   "2005-04",
+   "2009-11",
+   "2010-09",
+   "2012-09",
+   "2013-02",
+   "2013-09",
+   "2013-10",
+   "2014-05",
+   "2015-06",
+   "2015-12",
+   "2016-12",
+   "2017-01",
+   "2017-05",
+   "2017-08",
+   "2017-12",
+   "2018-06",
+   "2018-08",
+   "2019-02",
+   "2019-08",
+   "2019-12"
+  ],
+  "dates": 193,
+  "excluded_supplementary": [
+   "1978-07",
+   "1979-07",
+   "1980-07"
+  ],
+  "first": "1971-07",
+  "last": "2019-12"
+ },
+ "players": [
+  {
+   "best_rank": 1,
+   "federation": "USA",
+   "fide_id": 2000016,
+   "first_top3": "1971-07",
+   "key": "2000016",
+   "last_top3": "1975-01",
+   "lists_rank1": 5,
+   "lists_top3": 5,
+   "name": "Fischer, Robert J"
+  },
+  {
+   "best_rank": 2,
+   "federation": "SUI",
+   "fide_id": 1300016,
+   "first_top3": "1971-07",
+   "key": "1300016",
+   "last_top3": "1984-01",
+   "lists_rank1": 0,
+   "lists_top3": 13,
+   "name": "Korchnoi, Viktor"
+  },
+  {
+   "best_rank": 2,
+   "federation": "RUS",
+   "fide_id": 600024,
+   "first_top3": "1971-07",
+   "key": "600024",
+   "last_top3": "1979-01",
+   "lists_rank1": 0,
+   "lists_top3": 4,
+   "name": "Spassky, Boris V."
+  },
+  {
+   "best_rank": 2,
+   "federation": "URS",
+   "fide_id": null,
+   "first_top3": "1972-07",
+   "key": "name:Petrosian, Tigran",
+   "last_top3": "1977-01",
+   "lists_rank1": 0,
+   "lists_top3": 3,
+   "name": "Petrosian, Tigran"
+  },
+  {
+   "best_rank": 3,
+   "federation": "RUS",
+   "fide_id": null,
+   "first_top3": "1972-07",
+   "key": "name:Polugaevsky, Lev",
+   "last_top3": "1976-01",
+   "lists_rank1": 0,
+   "lists_top3": 2,
+   "name": "Polugaevsky, Lev"
+  },
+  {
+   "best_rank": 1,
+   "federation": "RUS",
+   "fide_id": 4100026,
+   "first_top3": "1973-07",
+   "key": "4100026",
+   "last_top3": "1997-01",
+   "lists_rank1": 14,
+   "lists_top3": 41,
+   "name": "Karpov, Anatoly"
+  },
+  {
+   "best_rank": 2,
+   "federation": "LAT",
+   "fide_id": null,
+   "first_top3": "1973-07",
+   "key": "name:Tal, Mikhail N.",
+   "last_top3": "1980-01",
+   "lists_rank1": 0,
+   "lists_top3": 2,
+   "name": "Tal, Mikhail N."
+  },
+  {
+   "best_rank": 3,
+   "federation": "BRA",
+   "fide_id": 2100010,
+   "first_top3": "1978-01",
+   "key": "2100010",
+   "last_top3": "1978-01",
+   "lists_rank1": 0,
+   "lists_top3": 1,
+   "name": "Mecking, Henrique"
+  },
+  {
+   "best_rank": 2,
+   "federation": "HUN",
+   "fide_id": 700037,
+   "first_top3": "1978-01",
+   "key": "700037",
+   "last_top3": "1981-01",
+   "lists_rank1": 0,
+   "lists_top3": 3,
+   "name": "Portisch, Lajos"
+  },
+  {
+   "best_rank": 3,
+   "federation": "GER",
+   "fide_id": 4600010,
+   "first_top3": "1981-07",
+   "key": "4600010",
+   "last_top3": "1981-07",
+   "lists_rank1": 0,
+   "lists_top3": 1,
+   "name": "Huebner, Robert"
+  },
+  {
+   "best_rank": 2,
+   "federation": "NED",
+   "fide_id": 1000012,
+   "first_top3": "1982-01",
+   "key": "1000012",
+   "last_top3": "1990-01",
+   "lists_rank1": 0,
+   "lists_top3": 7,
+   "name": "Timman, Jan H"
+  },
+  {
+   "best_rank": 1,
+   "federation": "RUS",
+   "fide_id": 4100018,
+   "first_top3": "1982-07",
+   "key": "4100018",
+   "last_top3": "2006-01",
+   "lists_rank1": 53,
+   "lists_top3": 57,
+   "name": "Kasparov, Garry"
+  },
+  {
+   "best_rank": 3,
+   "federation": "SRB",
+   "fide_id": 900010,
+   "first_top3": "1983-01",
+   "key": "900010",
+   "last_top3": "1984-01",
+   "lists_rank1": 0,
+   "lists_top3": 3,
+   "name": "Ljubojevic, Ljubomir"
+  },
+  {
+   "best_rank": 3,
+   "federation": "SLO",
+   "fide_id": 14602377,
+   "first_top3": "1985-07",
+   "key": "14602377",
+   "last_top3": "1985-07",
+   "lists_rank1": 0,
+   "lists_top3": 1,
+   "name": "Beliavsky, Alexander G"
+  },
+  {
+   "best_rank": 3,
+   "federation": "GER",
+   "fide_id": 4618777,
+   "first_top3": "1986-01",
+   "key": "4618777",
+   "last_top3": "1987-07",
+   "lists_rank1": 0,
+   "lists_top3": 4,
+   "name": "Jussupow, Artur"
+  },
+  {
+   "best_rank": 3,
+   "federation": "ARM",
+   "fide_id": 13300016,
+   "first_top3": "1986-01",
+   "key": "13300016",
+   "last_top3": "1986-01",
+   "lists_rank1": 0,
+   "lists_top3": 1,
+   "name": "Vaganian, Rafael A"
+  },
+  {
+   "best_rank": 3,
+   "federation": "FRA",
+   "fide_id": 627089,
+   "first_top3": "1987-01",
+   "key": "627089",
+   "last_top3": "1987-07",
+   "lists_rank1": 0,
+   "lists_top3": 2,
+   "name": "Sokolov, Andrei"
+  },
+  {
+   "best_rank": 3,
+   "federation": "ENG",
+   "fide_id": 400025,
+   "first_top3": "1988-07",
+   "key": "400025",
+   "last_top3": "1989-07",
+   "lists_rank1": 0,
+   "lists_top3": 3,
+   "name": "Short, Nigel D"
+  },
+  {
+   "best_rank": 2,
+   "federation": "UKR",
+   "fide_id": 14100010,
+   "first_top3": "1989-07",
+   "key": "14100010",
+   "last_top3": "2009-01",
+   "lists_rank1": 0,
+   "lists_top3": 10,
+   "name": "Ivanchuk, Vassily"
+  },
+  {
+   "best_rank": 3,
+   "federation": "ISR",
+   "fide_id": 2805677,
+   "first_top3": "1990-07",
+   "key": "2805677",
+   "last_top3": "1991-01",
+   "lists_rank1": 0,
+   "lists_top3": 2,
+   "name": "Gelfand, Boris"
+  },
+  {
+   "best_rank": 1,
+   "federation": "IND",
+   "fide_id": 5000017,
+   "first_top3": "1993-01",
+   "key": "5000017",
+   "last_top3": "2015-12",
+   "lists_rank1": 8,
+   "lists_top3": 67,
+   "name": "Anand, Viswanathan"
+  },
+  {
+   "best_rank": 2,
+   "federation": "ESP",
+   "fide_id": 2209390,
+   "first_top3": "1994-01",
+   "key": "2209390",
+   "last_top3": "1994-07",
+   "lists_rank1": 0,
+   "lists_top3": 2,
+   "name": "Shirov, Alexei"
+  },
+  {
+   "best_rank": 1,
+   "federation": "RUS",
+   "fide_id": 4101588,
+   "first_top3": "1994-07",
+   "key": "4101588",
+   "last_top3": "2018-03",
+   "lists_rank1": 2,
+   "lists_top3": 77,
+   "name": "Kramnik, Vladimir"
+  },
+  {
+   "best_rank": 3,
+   "federation": "RUS",
+   "fide_id": 4100069,
+   "first_top3": "1995-01",
+   "key": "4100069",
+   "last_top3": "1995-01",
+   "lists_rank1": 0,
+   "lists_top3": 1,
+   "name": "Salov, Valery"
+  },
+  {
+   "best_rank": 1,
+   "federation": "BUL",
+   "fide_id": 2900084,
+   "first_top3": "2005-01",
+   "key": "2900084",
+   "last_top3": "2015-12",
+   "lists_rank1": 10,
+   "lists_top3": 31,
+   "name": "Topalov, Veselin"
+  },
+  {
+   "best_rank": 2,
+   "federation": "ARM",
+   "fide_id": 13300474,
+   "first_top3": "2006-04",
+   "key": "13300474",
+   "last_top3": "2017-12",
+   "lists_rank1": 0,
+   "lists_top3": 43,
+   "name": "Aronian, Levon"
+  },
+  {
+   "best_rank": 2,
+   "federation": "RUS",
+   "fide_id": 4116992,
+   "first_top3": "2008-04",
+   "key": "4116992",
+   "last_top3": "2008-10",
+   "lists_rank1": 0,
+   "lists_top3": 3,
+   "name": "Morozevich, Alexander"
+  },
+  {
+   "best_rank": 1,
+   "federation": "NOR",
+   "fide_id": 1503014,
+   "first_top3": "2009-04",
+   "key": "1503014",
+   "last_top3": "2019-12",
+   "lists_rank1": 102,
+   "lists_top3": 108,
+   "name": "Carlsen, Magnus"
+  },
+  {
+   "best_rank": 2,
+   "federation": "USA",
+   "fide_id": 2020009,
+   "first_top3": "2013-07",
+   "key": "2020009",
+   "last_top3": "2019-12",
+   "lists_rank1": 0,
+   "lists_top3": 51,
+   "name": "Caruana, Fabiano"
+  },
+  {
+   "best_rank": 2,
+   "federation": "USA",
+   "fide_id": 2016192,
+   "first_top3": "2014-01",
+   "key": "2016192",
+   "last_top3": "2015-10",
+   "lists_rank1": 0,
+   "lists_top3": 4,
+   "name": "Nakamura, Hikaru"
+  },
+  {
+   "best_rank": 3,
+   "federation": "RUS",
+   "fide_id": 4126025,
+   "first_top3": "2014-05",
+   "key": "4126025",
+   "last_top3": "2015-02",
+   "lists_rank1": 0,
+   "lists_top3": 6,
+   "name": "Grischuk, Alexander"
+  },
+  {
+   "best_rank": 3,
+   "federation": "NED",
+   "fide_id": 24116068,
+   "first_top3": "2016-01",
+   "key": "24116068",
+   "last_top3": "2016-02",
+   "lists_rank1": 0,
+   "lists_top3": 2,
+   "name": "Giri, Anish"
+  },
+  {
+   "best_rank": 2,
+   "federation": "FRA",
+   "fide_id": 623539,
+   "first_top3": "2016-08",
+   "key": "623539",
+   "last_top3": "2017-10",
+   "lists_rank1": 0,
+   "lists_top3": 5,
+   "name": "Vachier-Lagrave, Maxime"
+  },
+  {
+   "best_rank": 2,
+   "federation": "USA",
+   "fide_id": 5202213,
+   "first_top3": "2017-02",
+   "key": "5202213",
+   "last_top3": "2017-08",
+   "lists_rank1": 0,
+   "lists_top3": 7,
+   "name": "So, Wesley"
+  },
+  {
+   "best_rank": 2,
+   "federation": "AZE",
+   "fide_id": 13401319,
+   "first_top3": "2017-12",
+   "key": "13401319",
+   "last_top3": "2019-01",
+   "lists_rank1": 0,
+   "lists_top3": 14,
+   "name": "Mamedyarov, Shakhriyar"
+  },
+  {
+   "best_rank": 3,
+   "federation": "CHN",
+   "fide_id": 8603677,
+   "first_top3": "2019-02",
+   "key": "8603677",
+   "last_top3": "2019-12",
+   "lists_rank1": 0,
+   "lists_top3": 11,
+   "name": "Ding, Liren"
+  }
+ ],
+ "printed_vs_computed": {
+  "dates": 121,
+  "equal": 109,
+  "unequal": [
+   {
+    "computed": [
+     "400041",
+     "4100018",
+     "5000017"
+    ],
+    "equal": false,
+    "list": "2002-10",
+    "printed": [
+     "4100018",
+     "4101588",
+     "5000017"
+    ]
+   },
+   {
+    "computed": [
+     "2900084",
+     "4100018",
+     "5000017"
+    ],
+    "equal": false,
+    "list": "2003-01",
+    "printed": [
+     "4100018",
+     "4101588",
+     "5000017"
+    ]
+   },
+   {
+    "computed": [
+     "4102142",
+     "4116992",
+     "4126025"
+    ],
+    "equal": false,
+    "list": "2004-04",
+    "printed": [
+     "4100018",
+     "4101588",
+     "5000017"
+    ]
+   },
+   {
+    "computed": [
+     "4100018",
+     "4116992",
+     "5000017"
+    ],
+    "equal": false,
+    "list": "2004-07",
+    "printed": [
+     "4100018",
+     "4101588",
+     "5000017"
+    ]
+   },
+   {
+    "computed": [
+     "2900084",
+     "4101588",
+     "4102142",
+     "5000017"
+    ],
+    "equal": false,
+    "list": "2006-10",
+    "printed": [
+     "2900084",
+     "4101588",
+     "5000017"
+    ]
+   },
+   {
+    "computed": [
+     "14100010",
+     "1503014",
+     "2900084",
+     "4116992"
+    ],
+    "equal": false,
+    "list": "2008-10",
+    "printed": [
+     "14100010",
+     "2900084",
+     "4116992"
+    ]
+   },
+   {
+    "computed": [
+     "1503014",
+     "2016192",
+     "2020009",
+     "2900084"
+    ],
+    "equal": false,
+    "list": "2015-03",
+    "printed": [
+     "1503014",
+     "2016192",
+     "2020009"
+    ]
+   },
+   {
+    "computed": [
+     "1503014",
+     "2016192",
+     "2020009",
+     "2900084"
+    ],
+    "equal": false,
+    "list": "2015-04",
+    "printed": [
+     "1503014",
+     "2016192",
+     "2020009"
+    ]
+   },
+   {
+    "computed": [
+     "1503014",
+     "2020009",
+     "4101588",
+     "623539"
+    ],
+    "equal": false,
+    "list": "2016-09",
+    "printed": [
+     "1503014",
+     "2020009",
+     "623539"
+    ]
+   },
+   {
+    "computed": [
+     "1503014",
+     "2020009",
+     "4101588",
+     "5202213"
+    ],
+    "equal": false,
+    "list": "2017-06",
+    "printed": [
+     "1503014",
+     "4101588",
+     "5202213"
+    ]
+   },
+   {
+    "computed": [
+     "13300474",
+     "1503014",
+     "2020009",
+     "4101588",
+     "623539"
+    ],
+    "equal": false,
+    "list": "2017-10",
+    "printed": [
+     "13300474",
+     "1503014",
+     "623539"
+    ]
+   },
+   {
+    "computed": [
+     "13300474",
+     "13401319",
+     "1503014",
+     "2020009"
+    ],
+    "equal": false,
+    "list": "2017-11",
+    "printed": [
+     "13300474",
+     "1503014",
+     "2020009"
+    ]
+   }
+  ]
+ },
+ "rule": "ranked 1st to 3rd on any FIDE standard list from July 1971 to December 2019: OlimpBase's transcription of FIDE's lists to April 2000, ranks computed; FIDE's printed top lists from July 2000 where the Internet Archive keeps them, otherwise ranks computed from FIDE's full list; inactive players are not ranked (FIDE's flags and, from January 1999, FIDE's top-list rule)"
+}

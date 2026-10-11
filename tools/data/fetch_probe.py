@@ -36,6 +36,7 @@ ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "data" / "raw" / "probe"
 MAN = OUT / "MANIFEST.tsv"
 DELAY = 3.0
+HOST_DELAY = {"web.archive.org": 8.0}                    # the Internet Archive refused connections at one every 4 s
 UA = "Mozilla/5.0"
 FIDE_HOSTS = {"ratings.fide.com", "handbook.fide.com", "www.fide.com", "fide.com"}
 NO_ROBOTS = {"ratings.fide.com", "handbook.fide.com"}      # HTTP 404 on 2026-10-10, cached under data/raw/fide_site/
@@ -66,14 +67,15 @@ def last_request(host: str) -> float:
 
 
 def wait(host: str) -> None:
-    """At least DELAY seconds since the last request to the host, in this run or an earlier one (the manifest's times
+    """At least the host's delay since the last request to the host, in this run or an earlier one (the manifest's times
     have whole seconds, so one more second is added)."""
+    delay = HOST_DELAY.get(host, DELAY)
     gap = time.monotonic() - _last.get(host, -1e9)
-    if gap < DELAY:
-        time.sleep(DELAY - gap)
+    if gap < delay:
+        time.sleep(delay - gap)
     since = time.time() - last_request(host)
-    if since < DELAY + 1:
-        time.sleep(DELAY + 1 - since)
+    if since < delay + 1:
+        time.sleep(delay + 1 - since)
     _last[host] = time.monotonic()
 
 
@@ -128,7 +130,12 @@ def main(argv: list[str]) -> int:
         argv = argv[2:]
     if len(argv) % 2:
         raise SystemExit(__doc__)
-    seen = {line.split("\t", 1)[0] for line in MAN.read_text(encoding="utf-8").splitlines()[1:]} if MAN.exists() else set()
+    seen = set()                                  # keys answered (or refused by FIDE): never requested again; a request
+    if MAN.exists():                              # to another host that got no answer at all may be made once more
+        for line in MAN.read_text(encoding="utf-8").splitlines()[1:]:
+            k, u, _t, st = line.split("\t")[:4]
+            if not st.startswith("error") or urlparse(u.split(" ")[0]).netloc in FIDE_HOSTS:
+                seen.add(k)
     for key, url in zip(argv[::2], argv[1::2]):
         if not KEY.match(key):
             raise SystemExit(f"bad key {key!r}")
