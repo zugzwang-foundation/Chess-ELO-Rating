@@ -1,6 +1,7 @@
-"""E19 (SPEC-SELFCAL v1.0 §10; session ELO-8, Phase 4): the fixed wording above every table, and the aggregate holds what
-the deferred video session needs (the operator's addendum of 11 October 2026): each of the 100 players' rating on every
-list under both systems, by FIDE ID and name, the two systems equal before the first self-calibrating table."""
+"""E19 (SPEC-SELFCAL v1.0 §10, v1.2 §10; sessions ELO-8 and ELO-9): the fixed wording above every table, and the aggregate
+holds, for each of the 100 players on every list, only the difference between the two systems, by FIDE ID and name, zero
+before the first self-calibrating table (R72, D-0016): FIDE's published ratings are committed for October 2026 only, for
+E19 §2 and Appendix H; both systems' series stay in the local cache under data/."""
 import json
 from pathlib import Path
 
@@ -15,16 +16,16 @@ def test_every_table_carries_the_fixed_wording():
     assert "\n|" in text and tables_without_the_wording(text) == []
 
 
-def test_every_player_has_a_rating_on_every_list_under_both_systems():
+def test_every_player_has_only_the_difference_on_every_list():
     rows = AGG["players_table"]
     lists = sorted(AGG["by_list"])
     assert len(rows) == 100 and len(lists) == 82 and lists[0] == "2020-01" and lists[-1] == "2026-10"
     first = f"{AGG['first_table_year']}-01"
     for r in rows:
         assert r["name"] and r["federation"] and sorted(r["series"]) == lists
-        assert all(fide == sc for m, (fide, sc) in r["series"].items() if m < first)
-        assert r["series"]["2026-10"] == [r["oct_2026"], r["selfcal"]]
-        assert r["selfcal"] - r["oct_2026"] == r["difference"]
+        assert all(isinstance(d, int) for d in r["series"].values())          # R72: no published rating per list
+        assert all(d == 0 for m, d in r["series"].items() if m < first)
+        assert r["series"]["2026-10"] == r["difference"] == r["selfcal"] - r["oct_2026"]
 
 
 def test_the_validation_is_e17s():

@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""E18 report: the self-calibrating tables (SPEC-SELFCAL v1.0); writes docs/evidence/E18_self-calibration.md.
+"""E18 report: the self-calibrating tables (SPEC-SELFCAL v1.0, v1.2 from session ELO-9); writes
+docs/evidence/E18_self-calibration.md.
 
-Reads analysis/aggregates/E18_coverage.json (analysis/e18_coverage_extract.py, needs data/) and, once Phase 3 has run,
-analysis/aggregates/E18_selfcal.json (the yearly tables, the three-way test, the parameters over time). Python standard
-library only; deterministic.
+Reads analysis/aggregates/E18_coverage.json (analysis/e18_coverage_extract.py, needs data/), analysis/aggregates/
+E18_name_match.json (R70's counts, analysis/e18_name_match_extract.py, needs data/) and, once Phase 3 has run,
+analysis/aggregates/E18_selfcal.json (the yearly tables, the three-way test, the parameters over time, and the lines
+beside the headline that R68 and R69 ask for). Python standard library only; deterministic.
 
 Usage: python3 analysis/e18_selfcal_report.py > docs/evidence/E18_self-calibration.md
 """
@@ -19,7 +21,7 @@ P: list[str] = []
 p = P.append
 
 
-def coverage(c: dict) -> None:
+def coverage(c: dict, nm: dict | None) -> None:
     years = sorted(y for y in c["sample_by_year"]["standard"] if y >= "2020")
     arch = c["archive_by_year"]
     p("## 1 The games")
@@ -42,6 +44,28 @@ def coverage(c: dict) -> None:
     p(f"Games dated after 30 September 2026 dropped: {c['cutoff'].get('dropped_after_cutoff', 0)}. The sample is E2's, "
       "built with E2's functions through E10's builder over every archive file on disk (2020-01 to 2026-09).")
     p("")
+    if nm:
+        by = nm["by_year"]
+        tags = nm["player_tags_in_files"]
+        p("**Name matching (R70), a labelled sensitivity.** Ruling R70 allows the games of 2020 to 2023 that lack FIDE IDs "
+          "to be matched by name, only as a labelled sensitivity: a player matches when exactly one player on the FIDE list "
+          "in force has the same name, the same federation and a rating within "
+          f"{nm['rule']['elo_tolerance']} points of the game's Elo tag; a game counts when both players match, and "
+          "unmatched games are dropped. Counted on the archive's PGN headers, read again for these years "
+          f"({len(nm['files_read'])} files, {nm['files_read'][0]} to {nm['files_read'][-1]}):")
+        p("")
+        p("| year | games with a result, standard variant | without both FIDE IDs | of which with both Elo tags | "
+          "with both federation tags | matched by R70's rule |")
+        p("|---|---|---|---|---|---|")
+        for y, v in sorted(by.items()):
+            p(f"| {y} | {v['games']:,} | {v['without_both_fide_ids']:,} | {v['both_elo_tags']:,} | "
+              f"{v['both_federation_tags']:,} | {v['matched']:,} |")
+        p("")
+        p("The player tags these files carry are " + ", ".join(f"{k} ({n:,})" for k, n in sorted(tags.items()))
+          + ("; none names a federation or a country, so no game can match and every game is dropped: no window of "
+             "2023 or 2024 gains a game, no table results, and the three-way test and E19 gain no line. No looser match "
+             "is tried, since R70 allows none (D-0016, reading 11)." if nm["matched_games"] == 0 else "."))
+        p("")
     p("The standard sample by year and 100-point level band (the band of the two players' mean rating on the list in "
       "force):")
     p("")
@@ -72,7 +96,8 @@ def coverage(c: dict) -> None:
       f"self-calibrating replay of today's top 100 (E19) start in {first}: before it the self-calibrating system has no "
       "table of its own and uses table 8.1.2 as FIDE applies it (SPEC-SELFCAL W4). As the brief asks, this is said "
       "plainly: 2016 to 2019 could not be sourced legitimately, and the archive's games before 2023, and most before "
-      "March 2024, carry no FIDE ID.")
+      "March 2024, carry no FIDE ID" + (", nor a federation that would let R70's match identify their players."
+                                        if nm and nm["matched_games"] == 0 else "."))
     p("")
 
 
@@ -134,6 +159,16 @@ def tables(s: dict) -> None:
                if ch.get("made") else ch["reason"])
         p(f"| {y} | {tb['window'][0]} to {tb['window'][1]} | {tb['months']} | {tb['games']:,} | {form_text(tb['form'])} | "
           f"{how} |")
+    p("")
+    made = [y for y in years if s["choice"][y].get("made")]
+    p(f"**When a form is chosen (R68).** A table's form may be chosen only when its window holds at least 24 months of "
+      "games after the last rule change that moved ratings, and the parameters of the form in force may be refitted on "
+      f"10 months or more. The 10-month figure was set after the counts were known: SPEC-SELFCAL v1.0 set it once these "
+      f"windows' lengths ({', '.join(str(s['tables'][y]['months']) for y in years)} months) were fixed, and before any "
+      f"table was fitted; the first table, {years[0]}'s, exists only because of it. "
+      + (f"The {', '.join(made)} table's form was chosen under SPEC-SELFCAL v1.1's rule (10 months of training before 12 "
+         "test months), before the ruling; R68 applies from 2027 (D-0016, reading 6), so the headline keeps that table, "
+         "and §3 prints beside it the table in the form R68 keeps." if made else ""))
     p("")
     for y in years:
         ch = s["choice"][y]
@@ -257,11 +292,27 @@ def three_way(s: dict) -> None:
             pv = s["tables"][y]["previous_form"]["form"]
             dk, dkk = r["differences"]["year_prevform-first"], r["differences"]["year-year_prevform"]
             bk = r["differences_brier"]["year_prevform-first"]
-            p(f"**The chosen form, or the form kept.** Fitted in the form the first table has ({form_text(pv)}), as "
-              "SPEC-TABLE-FIT v1.2's 24 training months would have kept it (SPEC-SELFCAL §13), within the same caps, the "
-              f"{y} table beats the frozen first table by {sg(dk['mean'], 5)} ({sg(dk['lo'], 5)} to {sg(dk['hi'], 5)}) by "
-              f"log-loss and {sg(bk['mean'], 5)} ({sg(bk['lo'], 5)} to {sg(bk['hi'], 5)}) by the Brier score; the chosen "
-              f"form adds {sg(dkk['mean'], 5)} ({sg(dkk['lo'], 5)} to {sg(dkk['hi'], 5)}).")
+            dl = r["differences"]["year_prevform-l0"]
+            p(f"**R68 applied to {y}: the form kept** (beside the headline, not in it; D-0016, reading 6). R68 asks 24 "
+              f"months of games after the last rule change for a choice of form, and the {y} window holds "
+              f"{s['tables'][y]['months']}. Fitted in the form the first table has ({form_text(pv)}), within the same "
+              f"caps, the {y} table beats the frozen first table by {sg(dk['mean'], 5)} ({sg(dk['lo'], 5)} to "
+              f"{sg(dk['hi'], 5)}) by log-loss and {sg(bk['mean'], 5)} ({sg(bk['lo'], 5)} to {sg(bk['hi'], 5)}) by the "
+              f"Brier score, and table 8.1.2 by {sg(dl['mean'], 5)} ({sg(dl['lo'], 5)} to {sg(dl['hi'], 5)}) by "
+              f"log-loss; the chosen form adds {sg(dkk['mean'], 5)} ({sg(dkk['lo'], 5)} to {sg(dkk['hi'], 5)}).")
+            p("")
+        if "year_uncapped-first" in r["differences"]:
+            du, dul, duy = (r["differences"][k] for k in ("year_uncapped-first", "year_uncapped-l0", "year_uncapped-year"))
+            bu, buy = r["differences_brier"]["year_uncapped-first"], r["differences_brier"]["year_uncapped-year"]
+            held = sorted(s["tables"][y]["on_bound"])
+            p(f"**Sensitivity: {y}'s caps lifted (R69), not the headline.** The QC may lift the yearly caps for the first "
+              "refit after a rule change that moved ratings, by a recorded decision; none has been made, so the headline "
+              f"keeps them (SPEC-SELFCAL §6). Fitted in its chosen form without caps (§2: the {len(held)} parameters on a "
+              f"cap move freely), the {y} table beats the frozen first table by {sg(du['mean'], 5)} ({sg(du['lo'], 5)} to "
+              f"{sg(du['hi'], 5)}) by log-loss and {sg(bu['mean'], 5)} ({sg(bu['lo'], 5)} to {sg(bu['hi'], 5)}) by the "
+              f"Brier score, and table 8.1.2 by {sg(dul['mean'], 5)} ({sg(dul['lo'], 5)} to {sg(dul['hi'], 5)}) by "
+              f"log-loss; against the capped table, {sg(duy['mean'], 5)} ({sg(duy['lo'], 5)} to {sg(duy['hi'], 5)}) by "
+              f"log-loss and {sg(buy['mean'], 5)} ({sg(buy['lo'], 5)} to {sg(buy['hi'], 5)}) by the Brier score.")
             p("")
         p(f"**What the test can say.** One year decides it, and the frozen table was fitted on "
           f"{s['tables'][first]['months']} months against the year's {s['tables'][y]['months']}, so the test cannot tell "
@@ -377,10 +428,15 @@ def limits(s: dict) -> None:
     p(f"- **Two tables, not seven.** The data allow tables for {', '.join(years)} only (§1); the test of "
       "self-calibration rests on one year in which the year's table and the frozen first table differ.")
     p("- **Short windows.** The first table's window is ten months, cut at the March 2024 compression; the second's is "
-      "22. A window under 22 months makes no choice of form (SPEC-SELFCAL §5).")
-    p("- **The caps** bind the second table to within annex T7.1's yearly changes of the first, whatever the data say; "
-      "a parameter on a cap's bound is shown as such, beside the same form fitted without caps (§2, §4), and a quantity "
-      "that depends on one is given without an interval.")
+      "22. From 2027 a choice of form needs 24 months of games after the last rule change and a refit 10 (R68); the "
+      "10-month figure was set after the counts were known, and the 2026 choice was made under the earlier rule, with "
+      "R68's form beside it (§2, §3).")
+    p("- **The caps** bind the second table to within annex T7.1's yearly changes of the first, whatever the data say "
+      "(R69: they hold unless the QC lifts them, for the first refit after a rule change only, by a recorded decision); "
+      "a parameter on a cap's bound is shown as such, beside the same form fitted without caps (§2, §4), a quantity "
+      "that depends on one is given without an interval, and §3 tests the table with the caps lifted.")
+    p("- **No name matching.** R70 allows it only as a labelled sensitivity, and the games of 2020 to 2023 carry no "
+      "federation tag, so no game matches (§1).")
     p("- **More data, or refitting.** The frozen first table had ten months of games and the second table 22, so the "
       "three-way test cannot tell refitting from more data; it is consistent with self-calibration and cannot "
       "establish it (§3).")
@@ -401,15 +457,20 @@ def main() -> int:
     s_path = AGG / "E18_selfcal.json"
     p("# E18 — Self-calibrating tables: one table a year, each fitted only on the games before it")
     p("")
-    p("Status: DRAFT — evidence for the proposal, session ELO-8, under `docs/specs/SPEC-SELFCAL_v1_1.md` (written before "
-      "any yearly table was fitted). Generated by `analysis/e18_selfcal_report.py` from "
-      "`analysis/aggregates/E18_coverage.json`" + (" and `analysis/aggregates/E18_selfcal.json`" if s_path.exists() else "")
+    nm_path = AGG / "E18_name_match.json"
+    nm = json.loads(nm_path.read_text(encoding="utf-8")) if nm_path.exists() else None
+    p("Status: DRAFT — evidence for the proposal, session ELO-8, under `docs/specs/SPEC-SELFCAL_v1_2.md` (v1.0 written "
+      "before any yearly table was fitted; v1.2, session ELO-9, applies rulings R68 to R70 of "
+      "`docs/decisions/D-0016_rulings-on-elo-8-questions.md`: the line R68 asks for beside the headline, R69's "
+      "sensitivity with the caps lifted and R70's name matching). Generated by `analysis/e18_selfcal_report.py` from "
+      "`analysis/aggregates/E18_coverage.json`" + (", `analysis/aggregates/E18_name_match.json`" if nm else "")
+      + (" and `analysis/aggregates/E18_selfcal.json`" if s_path.exists() else "")
       + ", written from `data/` by the extraction scripts named there; do not edit by hand. Licence: CC BY 4.0 "
       "(`docs/LICENSE-docs.md`). Games: the Lichess broadcast archive (https://database.lichess.org/broadcast/), CC "
       "BY-SA 4.0, attributed; aggregates only [V 4]. Ratings: FIDE's monthly standard lists, analysed and never "
       "redistributed [V 3]. Every parameter is PROVISIONAL-FITTED.")
     p("")
-    coverage(c)
+    coverage(c, nm)
     if not s_path.exists():
         p("## 2 The yearly tables, the three-way test and the parameters over time")
         p("")

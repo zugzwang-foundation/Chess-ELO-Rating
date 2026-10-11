@@ -70,7 +70,7 @@
   }
  },
  "source": "Lichess broadcast archive (https://database.lichess.org/broadcast/, CC BY-SA 4.0), every monthly file on disk, 2020-01 to 2026-09; E2's sample rules through E10's builder",
- "spec": "docs/specs/SPEC-SELFCAL_v1_1.md",
+ "spec": "docs/specs/SPEC-SELFCAL_v1_2.md",
  "standard_by_month": {
   "2020-01": 12,
   "2021-11": 4,

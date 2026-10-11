@@ -1,0 +1,112 @@
+{
+ "by_year": {
+  "2020": {
+   "both_elo_tags": 6080,
+   "both_federation_tags": 0,
+   "games": 7131,
+   "matched": 0,
+   "without_both_fide_ids": 7115
+  },
+  "2021": {
+   "both_elo_tags": 55189,
+   "both_federation_tags": 0,
+   "games": 80354,
+   "matched": 0,
+   "without_both_fide_ids": 80343
+  },
+  "2022": {
+   "both_elo_tags": 62263,
+   "both_federation_tags": 0,
+   "games": 92699,
+   "matched": 0,
+   "without_both_fide_ids": 92487
+  },
+  "2023": {
+   "both_elo_tags": 52631,
+   "both_federation_tags": 0,
+   "games": 142135,
+   "matched": 0,
+   "without_both_fide_ids": 108446
+  }
+ },
+ "files_read": [
+  "2020-01",
+  "2020-02",
+  "2020-03",
+  "2020-04",
+  "2020-05",
+  "2020-06",
+  "2020-07",
+  "2020-08",
+  "2020-09",
+  "2020-10",
+  "2020-11",
+  "2020-12",
+  "2021-01",
+  "2021-02",
+  "2021-03",
+  "2021-04",
+  "2021-05",
+  "2021-06",
+  "2021-07",
+  "2021-08",
+  "2021-09",
+  "2021-10",
+  "2021-11",
+  "2021-12",
+  "2022-01",
+  "2022-02",
+  "2022-03",
+  "2022-04",
+  "2022-05",
+  "2022-06",
+  "2022-07",
+  "2022-08",
+  "2022-09",
+  "2022-10",
+  "2022-11",
+  "2022-12",
+  "2023-01",
+  "2023-02",
+  "2023-03",
+  "2023-04",
+  "2023-05",
+  "2023-06",
+  "2023-07",
+  "2023-08",
+  "2023-09",
+  "2023-10",
+  "2023-11",
+  "2023-12",
+  "2024-01",
+  "2024-02",
+  "2024-03",
+  "2024-07"
+ ],
+ "matched_games": 0,
+ "player_tags_in_files": {
+  "Black": 439630,
+  "BlackElo": 299595,
+  "BlackFideId": 90249,
+  "BlackTeam": 14408,
+  "BlackTitle": 122061,
+  "White": 439640,
+  "WhiteElo": 300146,
+  "WhiteFideId": 90336,
+  "WhiteTeam": 14432,
+  "WhiteTitle": 122901
+ },
+ "rule": {
+  "elo_tolerance": 10,
+  "federation_tags": "^(White|Black)(Fed|Federation|Country|Nation)$",
+  "match": "the one player on the standard list in force with the same name (E17's name key), the same federation and a rating within 10 points of the game's Elo tag; a game counts when both players match; unmatched games are dropped",
+  "ruling": "R70 (docs/decisions/D-0016_rulings-on-elo-8-questions.md)"
+ },
+ "tables": "none: no game matched, so no window of 2023 or 2024 gains a game and no table results",
+ "years": [
+  "2020",
+  "2021",
+  "2022",
+  "2023"
+ ]
+}

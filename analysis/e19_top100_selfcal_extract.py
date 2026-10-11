@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """E19 extraction: today's top 100 replayed under FIDE's rules and under the self-calibrating system (SPEC-SELFCAL v1.0
-§9, §10; session ELO-8, Phase 4; needs data/).
+§9, §10; session ELO-8, Phase 4; needs data/; SPEC-SELFCAL v1.2, session ELO-9, Phase 0b: the line R68 asks for and
+R72's aggregate).
 
 The same 100 players, games, pages and validation as E17 (analysis/e17_top100_extract.py, whose replay is run unchanged
 for Layer 0 and the validation), and a second replay in which rung 2 is self-calibrating: each tournament uses the table
@@ -12,9 +13,13 @@ printed K, and the self-calibrating K is the rule on the self-calibrating rating
 does not. Variants of the self-calibrating replay: the method (colours matched from the broadcast archive); without the
 colour term; every opponent outside the 100 rated 10 and 5 points lower and higher from the first table on (R58); each
 year's table corrected, at levels of 2300 or more, by its favourite's residual by level band on that year's games (E18
-§3; R59's bound). Writes analysis/aggregates/E19_top100_selfcal.json: the per-player figures SPEC-SELFCAL §10 defines,
-with names (R60) and each player's rating on every list under both systems (the operator's addendum of 11 October 2026),
-and aggregates; no year of birth and no page. Python standard library only.
+§3; R59's estimate, by level band and by band and gap); and, beside the headline, every table as the method has it
+except 2026's, which takes the form R68 keeps (form E with the draw tail, refitted within the caps: E18's
+"previous_form"; D-0016, reading 6). Writes analysis/aggregates/E19_top100_selfcal.json: the per-player figures
+SPEC-SELFCAL §10 defines, with names (R60), the October 2026 rating under both systems, and on every list only each
+player's difference between the two systems (R72); both systems' ratings on every list, which hold FIDE's published
+ratings, go to the local cache data/interim/top100/E19_series.json (gitignored), for the deferred video session; no year
+of birth and no page is committed. Python standard library only.
 
 Usage: python3 analysis/e19_top100_selfcal_extract.py > analysis/aggregates/E19_top100_selfcal.json
 """
@@ -41,7 +46,11 @@ from layer2 import guard_v2 as gv2  # noqa: E402
 
 E18 = json.loads((ROOT / "analysis" / "aggregates" / "E18_selfcal.json").read_text(encoding="utf-8"))
 TABLES = {int(y): {"form": t["form"], "par": t["par"]} for y, t in E18["tables"].items()}
+TABLES_R68 = {y: ({"form": E18["tables"][str(y)]["previous_form"]["form"],
+                   "par": E18["tables"][str(y)]["previous_form"]["par"]}
+                  if "previous_form" in E18["tables"][str(y)] else t) for y, t in TABLES.items()}   # R68 applied
 FIRST_TABLE = min(TABLES)
+CACHE = ROOT / "data" / "interim" / "top100" / "E19_series.json"   # R72: FIDE's published ratings, never committed
 RESID = {int(y): {int(mid): b["mean"] for mid, b in r["bands"]["year"].items() if int(mid) >= 2350}
          for y, r in E18["three_way"].items()}           # R59: the favourite's residual by band, levels of 2300 or more
 RESID_CELLS = {int(y): {(int(c["cell"].split("|")[0]), int(c["cell"].split("|")[1])): c["mean"]
@@ -49,7 +58,7 @@ RESID_CELLS = {int(y): {(int(c["cell"].split("|")[0]), int(c["cell"].split("|")[
                for y, r in E18["three_way"].items()}     # the same by band and 50-point gap, cells of 200 games or more
 GAP_BINS = ex.e2.BINS
 SHIFTS = ex.SHIFTS
-VARIANTS = ("sc", "sc_nc", "sc_bound", "sc_bound_cells") + tuple(f"sc_outside{s:+d}" for s in SHIFTS)
+VARIANTS = ("sc", "sc_nc", "sc_bound", "sc_bound_cells") + tuple(f"sc_outside{s:+d}" for s in SHIFTS) + ("sc_r68",)
 START, LAST, MONTHS = ex.START, ex.LAST, ex.MONTHS
 HISTORY = ex.ft.months("2015-02", LAST)                 # FIDE's lists on disk, for "ever 2300 / 2400" before 2020
 
@@ -170,7 +179,6 @@ def main() -> int:
             for tr in page["tournaments"]:
                 start = ex.d_of(tr["start"]) if tr["start"] else date.fromisoformat(f"{prev}-01")
                 m = ex.list_for_ro(lists, p, tr["ro"], tr["start"], t)
-                tab = TABLES.get(int(m[:4]))
                 opp_actual, opp_l0, opp_ids = [], [], []
                 for g in tr["games"]:                 # the opponents exactly as E17's replay reads them
                     oid = ex.resolve(g, tr["ro"], lists[m], index)
@@ -197,6 +205,7 @@ def main() -> int:
                     if kv != tr["k"]:
                         k_departs[v] += 1
                     own2 = tr["ro"] + ex.diff(SC[v], L0, p, m)
+                    tab = (TABLES_R68 if v == "sc_r68" else TABLES).get(int(m[:4]))
                     if tab is None:                   # before the first table: FIDE's rules on the system's ratings
                         opps2 = [r + (ex.diff(SC[v], L0, oid, m) if oid in top else 0) for r, oid in zip(opp_l0, opp_ids)]
                         ds = lh.deltas(own2, list(zip(opps2, [g["score"] for g in tr["games"]])), start)
@@ -235,10 +244,10 @@ def main() -> int:
             "fide_id": int(p), "name": names.get(p, ""), "federation": lists[LAST][p][3], "oct_2026": pub[p][LAST],
             "selfcal": pub[p][LAST] + d["sc"], "difference": d["sc"], "table_effect": d["sc_nc"],
             "colour_effect": d["sc"] - d["sc_nc"], "bound_difference": d["sc_bound"],
-            "e17_difference": d17[p]["difference"], "e17_rung2": d17[p]["rung2"],
+            "e17_difference": d17[p]["difference"], "e17_rung2": d17[p]["rung2"], "r68_difference": d["sc_r68"],
             "games_under_a_table": st["games_table"],
             "favourite_share_under_a_table": round(st["fav_table"] / st["games_table"], 3) if st["games_table"] else None,
-            "series": {m: [pub[p][m], pub[p][m] + SC["sc"][p][m] - L0[p][m]] for m in MONTHS}})
+            "series": {m: SC["sc"][p][m] - L0[p][m] for m in MONTHS}})            # R72: the difference only
     rank_pub = {r["fide_id"]: i + 1 for i, r in enumerate(sorted(players, key=lambda r: (-r["oct_2026"], r["fide_id"])))}
     rank_sc = {r["fide_id"]: i + 1 for i, r in enumerate(sorted(players, key=lambda r: (-r["selfcal"], r["fide_id"])))}
     for r in players:
@@ -268,7 +277,7 @@ def main() -> int:
                 "2700": sum(1 for p in ids if pub[p][LAST] + SC[v][p][LAST] - L0[p][LAST] >= 2700),
                 "2800": sum(1 for p in ids if pub[p][LAST] + SC[v][p][LAST] - L0[p][LAST] >= 2800)}
     out = {
-        "spec": "docs/specs/SPEC-SELFCAL_v1_1.md", "e18": "analysis/aggregates/E18_selfcal.json",
+        "spec": "docs/specs/SPEC-SELFCAL_v1_2.md", "e18": "analysis/aggregates/E18_selfcal.json",
         "window": {"start_list": START, "last": LAST}, "first_table_year": FIRST_TABLE,
         "tables_used": sorted(TABLES), "players": len(ids), "rank_100_rating": min(pub[p][LAST] for p in ids),
         "validation": val, "validation_equals_e17": True, "guard_applies": ex.GUARD_APPLIES,
@@ -279,11 +288,18 @@ def main() -> int:
         "bound_cells": summary("sc_bound_cells"),
         "bound_residuals": {str(y): {str(mid): r for mid, r in sorted(v.items())} for y, v in sorted(RESID.items())},
         "outside_shift": {str(s): summary(f"sc_outside{s:+d}") for s in SHIFTS},
+        "r68_2026": summary("sc_r68"),
+        "series": "each player's difference, self-calibrating minus FIDE's rules, on every list (R72); both systems' "
+                  "ratings stay in the local cache, data/interim/top100/E19_series.json, never committed",
         "e17_method": {"mean_difference": round(sum(r["difference"] for r in agg17["players_table"]) / len(ids), 2),
                        "2700": agg17["by_list"][LAST]["rung2"]["2700"], "2800": agg17["by_list"][LAST]["rung2"]["2800"]},
         "by_opponent": {k: {"games": b["games"], "points_per_player": round(float(b["points"]) / len(ids), 2) + 0.0}
                         for k, b in sorted(by_opp.items())},
         "players_table": players, "by_list": by_list, "by_year": years}
+    CACHE.parent.mkdir(parents=True, exist_ok=True)
+    CACHE.write_text(json.dumps({p: {"name": names.get(p, ""), "federation": lists[LAST][p][3],
+                                     "series": {m: [pub[p][m], pub[p][m] + SC["sc"][p][m] - L0[p][m]] for m in MONTHS}}
+                                 for p in ids}, indent=1, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8")
     json.dump(out, sys.stdout, indent=1, sort_keys=True, default=str, ensure_ascii=False)
     sys.stdout.write("\n")
     return 0

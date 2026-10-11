@@ -52,6 +52,7 @@
     {"script": "analysis/e17_summary_report.py", "args": [], "output": "docs/evidence/E17_summary.md", "needs_data": false},
     {"script": "analysis/e17_summary_report.py", "args": ["--appendix"], "output": "analysis/OUTPUT_E17_appendix.md", "needs_data": false},
     {"script": "analysis/e18_coverage_extract.py", "args": [], "output": "analysis/aggregates/E18_coverage.json", "needs_data": true},
+    {"script": "analysis/e18_name_match_extract.py", "args": [], "output": "analysis/aggregates/E18_name_match.json", "needs_data": true},
     {"script": "analysis/e18_selfcal_extract.py", "args": [], "output": "analysis/aggregates/E18_selfcal.json", "needs_data": true},
     {"script": "analysis/e18_selfcal_report.py", "args": [], "output": "docs/evidence/E18_self-calibration.md", "needs_data": false},
     {"script": "analysis/e19_top100_selfcal_extract.py", "args": [], "output": "analysis/aggregates/E19_top100_selfcal.json", "needs_data": true},

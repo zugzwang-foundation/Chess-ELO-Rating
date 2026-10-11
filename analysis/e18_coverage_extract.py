@@ -98,7 +98,7 @@ def main() -> int:
     first = next((y for y in YEARS if wins[str(y)]["table"]), None)
     out = {"source": "Lichess broadcast archive (https://database.lichess.org/broadcast/, CC BY-SA 4.0), every monthly "
                      f"file on disk, {FIRST_DATA} to {LAST_DATA}; E2's sample rules through E10's builder",
-           "spec": "docs/specs/SPEC-SELFCAL_v1_1.md", "cutoff": meta, "raw_counts": raw,
+           "spec": "docs/specs/SPEC-SELFCAL_v1_2.md", "cutoff": meta, "raw_counts": raw,
            "archive_by_year": {k: dict(sorted(v.items())) for k, v in by_year.items()},
            "sample_by_year": {tc: dict(sorted(v.items())) for tc, v in sample.items()},
            "standard_by_year_band": {y: {str(b): n for b, n in sorted(c.items())} for y, c in sorted(std_band.items())},
