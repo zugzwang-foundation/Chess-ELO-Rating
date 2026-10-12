@@ -5,7 +5,7 @@ The Zugzwang Authors · CC BY 4.0 · 2026-10-12. Contact: Hrishikesh, The Zugzwa
 
 ## What is wrong
 
-Since FIDE's March 2024 reform a second drain has closed: in 2023–24 players rated 1600–2399 lost 0.37 to 0.93 points a game beyond the expected-score table's error; since, at most 0.08 [E5]. What remains is the top: players rated 2200 or more lose 4 to 7 points a year on FIDE's lists, about what that error implies at their own levels [E5]. The table expects too much of favourites: by 0.02 to 0.05 points a game on 352,737 broadcast standard games [E2].
+Since FIDE's March 2024 reform a second drain has closed: in 2023–24 players rated 1600–2399 lost 0.37 to 0.93 points a game beyond the expected-score table's error; since, at most 0.08 [E5]. What remains is the top: players rated 2200 or more lose 4 to 7 points a year on FIDE's lists, about what that error implies at their own levels [E5]. On 352,737 broadcast standard games the table expects 0.02 to 0.05 points a game too much of favourites, which top players usually are [E2].
 
 Juniors improve faster than their ratings follow, so adults who play them lose points they should not: an adult rated 1900 who draws a junior listed at 1500 loses 8.4 points before rounding, however strong the junior is [V 1] [R 5]. And federations are priced differently: an independent study's directions hold on our sample [R 5] [E7].
 
@@ -17,7 +17,7 @@ Juniors improve faster than their ratings follow, so adults who play them lose p
 
 ## Seven steps, lowest risk first, with our verdict
 
-1. **The open replica.** Nothing changes in the rules; rating changes become checkable. *Recommended now, subject to a check against FIDE's 1 November list.*
+1. **The open replica.** Nothing changes in the rules. *Recommended now, subject to a check against FIDE's 1 November list.*
 2. **A better table**, self-calibrating (refitted each year on earlier games), with colour, draws and a slope that changes with level: an extra White pays much less, and the 400-point rule goes. Where strong players meet far weaker ones, a temporary guard lifts the favourite's expected score to today's table read without its 400-point cap, so farming does not pay there; against moderately weaker players the table still slightly favours the stronger. *Recommended now in standard: ready for a shadow list today, changing no official rating until a shadow year confirms it level by level on FIDE's data; rapid and blitz after a test on FIDE's games.*
 3. **Better starting ratings.** A newcomer's first rating uses all their games instead of two imaginary draws against 1800-rated players; age is used, nationality never. *Test on FIDE data, with step 6.*
 4. **K that follows certainty**: 40 for a newcomer, lower the more regularly you play, juniors included, and lower in a month with many games; no jumps at 30 games, 2300 or 2400; higher after years away. *Test on FIDE data, with step 2.*

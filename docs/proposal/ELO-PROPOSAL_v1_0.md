@@ -29,13 +29,15 @@ Since FIDE's March 2024 reform a second drain has closed: in 2023–24 players r
 
 On 352,737 broadcast standard games between rated players, the favourite scores below table 8.1.2's expectation in every 50-point gap bin from 50 to 449 points, by 0.022 at 50–99 rising to 0.054 at 350–399; in rapid the shortfall reaches 0.096 and in blitz 0.073 [E2] [E5]. A refitted table with colour and draws passes the calibration rules on held-out months where table 8.1.2 fails, though below 2000 the level-dependent fit misses more than the first [E2] [E11] [E16]. Self-calibrating, refitted each year on earlier games only, it beat table 8.1.2 in 2025 and 2026, by 0.002 a game in Brier score, and a fixed table in 2026, by 0.00009: consistent with self-calibration, not proof [E18].
 
-The favourite pays the error, and top players are usually favourites, so points move down the list, from players rated 2200 or more to those below. The top has shrunk (standard; active: a rated game in the twelve months to the list) [E5]:
+The favourite pays the error, and top players are usually favourites, so points move down the list. The top has shrunk (standard; active: a rated game in the twelve months to the list) [E5]:
 
 | list | October 2015 | October 2019 | October 2023 | October 2026 |
 |---|---|---|---|---|
 | active players rated 2600 or more | 225 | 242 | 195 | 150 |
 | rating of the 100th active player | 2654 | 2654 | 2642 | 2626 |
 | mean of the active top 100 | 2702.7 | 2700.8 | 2693.6 | 2680.5 |
+
+Since the March 2024 reform the active list's median still falls, 11 to 16 points a year, but only because entrants arrive below the players who stop; steadily active adults gain 2 to 3 points a year in standard [E5] [R 5].
 
 ### 2(b) Juniors drain the adults who meet them
 
@@ -105,7 +107,7 @@ One core skill per player, with an offset, table and volatility per time control
 
 **Layer 1, the model** [T2], gives each player a shared skill with an age-dependent drift and an offset per time control, refitted monthly on 36 months of games by Whole-History Rating's method [VP 11], with priors by age only, never federation, and a scale anchored to steadily active adults [VP 12] (`docs/specs/SPEC-L1_v1_0.md`). **It never edits a published rating.**
 
-**Layer 2, the published rating** [T4], is forward-only and Elo-style; the model reaches it only through the named, capped rungs of section 8. Each month Layer 0 produces the official list and Layer 2 a shadow list; the QC signs the parameter file.
+**Layer 2, the published rating** [T4], is forward-only and Elo-style; the model reaches it only through the named, capped rungs of section 8. Each month Layer 0 produces the official list and Layer 2 a shadow list.
 
 ---
 
@@ -324,7 +326,7 @@ The title and norm regulations keep their text: norm arithmetic uses table 1.4.9
 2. Do rungs 3 to 5 work for the juniors and newcomers below 2000 they are meant for? The TRF archive; broadcast games cover the strong end [E6].
 3. Are federation offsets stable and causal, or artefacts of who travels? The TRF archive and the selection test; rung 7 stays disabled until then [E7].
 4. Can rung 6 hold the level under a sustained junior wave? Under its twelve-month rule it fails in standard and blitz on broadcast months and in every month of a simulated wave, paying near its cap [E6] [E14]: a faster controller is for the FIDE-data test.
-5. What does rung 4's bound, the larger of C and 700 an event, do on the pool? The FIDE-data test and the shadow list.
+5. What does rung 4's bound per event do on the pool? The FIDE-data test and the shadow list.
 6. Is rounding once per period FIDE's practice? 56 of 58 periods reproduced, two one point off unexplained (SPEC-L0 v1.1); a check on FIDE's 1 November list decides rung 1.
 
 ---
