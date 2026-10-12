@@ -888,6 +888,13 @@ def appendix(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[
       "8.1.2, not anyone's strength; its figures, and the check of how the two tables fit these games, which cannot say "
       "which table fits the era, are in E20 §5 only.")
     q("")
+    q("**Earlier studies across eras.** Elo, in his book of 1978, estimated past strengths by fitting a smooth curve to "
+      "estimates from five-year periods, as TrueSkill Through Time describes it [VP 18] [VP 19]; Sonas's Chessmetrics "
+      "carries historical ratings back to 1843 [VP 17]; TrueSkill Through Time smoothed the skills of players over 150 "
+      "years of games from ChessBase's database and compared them across time [VP 18]. This appendix adds FIDE's own data "
+      "and calculations, replayed: the lists since 1971 and, from 2008, FIDE's own calculation of every game, reproduced "
+      "before any other table is applied. It does not attempt what those studies did, a measure of strength across eras.")
+    q("")
     q("**What permission would add.** With written permission from TWIC, ChessBase or Chessmetrics, the full study "
       "becomes possible: the replay could extend to the games those collections hold, across the greats' careers. FIDE's "
       "own calculations, against which a replay is checked, exist only from 2008; those collections do not record which "
