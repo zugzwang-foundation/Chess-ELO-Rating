@@ -6,14 +6,12 @@
   Reviews each session's close-out after its pull requests are merged.
 - **Claude Code** — executor. Produces exactly what the brief asks for, measures
   rather than asserts, merges its own pull requests after a green check, and leaves
-  a session log and close-out for every session.
+  a short close-out for every session.
 - **Hrishikesh** (operator, commits as "Zugzwang/world") — runs the sessions. Nothing
   is published, posted or announced without the operator.
 
 ## Hard rules
-1. **No engine code before a ratified spec.** Rating code is written only once the
-   Layer-0 specification in `docs/specs/` carries status RATIFIED. Until then this
-   repository contains documents only.
+1. **Rating code follows its specification in `docs/specs/`.**
 2. **Spelling is "Elo"**, a surname (Arpad Elo), never "ELO" or "elo". The repository
    name is the one tolerated exception (see D-0001).
 3. **Every empirical claim cites the evidence base: `docs/research/` and
@@ -36,19 +34,33 @@ The automated check (`.github/workflows/check.yml`) runs on every pull request; 
 executor merges (squash) only when it is green, and on a red check fixes and pushes
 again. The architect reviews the close-outs afterwards.
 
+## How we work
+- Code tests and the automatic checks stay: every number regenerates from its
+  committed script, references resolve, word limits hold.
+- Championship lock: the files of the freeze-3d manifest stay unchanged until the
+  2026 U.S. Championships comparison has run once, and no result of either event is
+  read before the last round. After that run the freeze checks retire; the tags stay
+  as history.
+- No new freezes or pre-registrations. An analysis says plainly what was decided
+  after seeing its data.
+- Decisions: one dated line each in `docs/DECISIONS.md`; D-0001 to D-0018 stay as
+  history.
+- Mistakes are fixed in place, with a dated line saying what changed.
+- One review of the proposal and brief before submission.
+- Versions are bumped with git mv, except that a version a frozen file reads stays
+  beside the new one (SPEC-L0 v1.4).
+- At every close-out, build ~/Downloads/zz_ELO_PK_full_<HEAD7>/ with a PK-MANIFEST.md,
+  as ELO-10b defined it (the operator's project knowledge).
+
 ## Layout
 - `docs/research/` research report and verification sweeps · `docs/evidence/` evidence
   reports ([E n]) · `docs/proposal/` proposal drafts · `docs/specs/` specifications ·
   `docs/decisions/` decision records · `docs/review/` red-team reviews.
 
 ## Conventions
-- Decision records: `docs/decisions/D-NNNN_slug.md`; never edited after the fact,
-  superseded by a new record.
 - Versioned documents: `NAME_vX_Y.md`; versions are bumped with git mv; history lives in git.
 - Commit messages use conventional prefixes: `chore:`, `docs:`, `feat:`, `fix:`, `test:`.
 - Session artefacts (logs, close-outs) live in the operator's `~/Downloads`, not here.
 - Update STATUS.md at every close-out.
 - After an interruption the operator sends "Continue ELO-N from the relay and the latest
   session log."; resume from the first phase not marked DONE.
-- At every close-out, also copy every changed document into
-  ~/Downloads/zz_ELO_PK_delta_ELO-N/ with a DELTA-MANIFEST.md (the operator's project knowledge).

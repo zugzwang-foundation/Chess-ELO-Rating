@@ -32,6 +32,8 @@ The text of each ruling is the brief's, transcribed: the brief's line breaks wit
 >
 > (iv) Disclosure: (ii) was set after FIDE's pages had been read in the full replay. E20 prints the thin periods and §5's comparison under D-0017's reading and under R80's; §5 uses R80's. SPEC-L0 v1.5 records (ii) and (iii) as findings, with two new fixtures chosen by R79's rule: the last period before the switch and the first after it whose sum ends in a negative half point, among the periods Layer 0 reproduces.
 
+Corrected 2026-10-12 (ELO-11): R80 (ii): whether FIDE's words changed in 2018 is NOT VERIFIED; the repository holds the 2014 text and the 2017 text as amended from 1 February 2021.
+
 ### R81 (ELO-9 Q2)
 
 > The greats' backward replay.
@@ -46,9 +48,13 @@ The text of each ruling is the brief's, transcribed: the brief's line breaks wit
 >
 > (v) No R59-style estimate is added: its correction at 2800 and above rests on a handful of games (E19 §3) and would move 936 game rows here (E20 §5). E20 §5 says so in one sentence.
 
+Corrected 2026-10-12 (ELO-11): R81 (ii): the caveat's premise held for only part of the sample; E20 §5 now gives the check split by when the players were chosen.
+
 ### R82 (ELO-9 Q3)
 
 > The 36 players fixed in SPEC-GREATS stand; no change after results (SPEC-GREATS §9). E20 and Appendix I state the asymmetry and its source. Before 2000 a shared place counts, since ratings before 1999 are multiples of five; six players are in only that way: Polugaevsky, Mecking, Beliavsky, Vaganian, Sokolov, Salov. From July 2000 FIDE's printed order decides; Svidler, 4th on the 3rd's rating in October 2006, is not among the 36.
+
+Corrected 2026-10-12 (ELO-11): R82: from July 2000 FIDE's printed order decides where a printed copy survives (121 of 144 lists); a shared place counts on the other 23.
 
 ### R83 (ELO-9 Q4; founder decision)
 
@@ -57,6 +63,8 @@ The text of each ruling is the brief's, transcribed: the brief's line breaks wit
 ### R84 (ELO-9 Q4; founder decision)
 
 > FIDE's written permission for the use of its pages and files will be requested by the operator, disclosing the use. Until FIDE answers nothing changes: FIDE's material is analysed from the local cache and only aggregates and differences are committed. DATA-PROBE §3's FIDE row says so, without any date.
+
+Corrected 2026-10-12 (ELO-11): R84: the repository also holds the material `docs/DECISIONS.md` item 6 lists.
 
 ### R85 (ELO-9 Q4; founder decision)
 
@@ -71,6 +79,8 @@ The text of each ruling is the brief's, transcribed: the brief's line breaks wit
 >   (2) the same rounding words were applied two ways: a period's negative half point went towards +∞ on the lists to July 2018 and away from zero from November 2018, before the 2022 text said "away from zero"; the list of January 2009 is the exception;
 >   (3) Carlsen, April 2003: FIDE's file and FIDE's own history differ by 41 points. The size only, with no view on which is right.
 >   Nothing is sent to FIDE (R14, R64).
+
+Corrected 2026-10-12 (ELO-11): R86 (2): which text was in force in 2018 is NOT VERIFIED.
 
 ### R87 (the handover's H3)
 
