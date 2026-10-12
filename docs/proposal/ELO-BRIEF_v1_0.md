@@ -1,48 +1,46 @@
 # Fixing the FIDE rating one step at a time: a brief
 
 **Status: DRAFT v1.0 — not for publication**
-The Zugzwang Authors · CC BY 4.0 · 2026-10-11. A plain-language summary of `docs/proposal/ELO-PROPOSAL_v1_0.md`; the mathematics is in `docs/proposal/ELO-TECHNICAL-ANNEX_v1_0.md`. Every number below is PROVISIONAL unless quoted from FIDE's rules [V 1], our evidence reports [E n] or the research report [R n].
+The Zugzwang Authors · CC BY 4.0 · 2026-10-12. A plain-language summary of `docs/proposal/ELO-PROPOSAL_v1_0.md`; the mathematics is in `docs/proposal/ELO-TECHNICAL-ANNEX_v1_0.md`. Every number below is PROVISIONAL unless quoted from FIDE's rules [V 1], our evidence reports [E n] or the research report [R n].
 
 ## What is wrong
 
-FIDE's expected-score table expects too much of favourites: by 2 to 5 percentage points in standard on broadcast games, almost 10 in rapid [E2] [E5]. The stronger player is usually the favourite, so points drain from the top: players rated 2400 or more lose 0.14 to 0.17 points a game this way, at least what the lists show them losing [E5].
+FIDE's expected-score table expects too much of favourites: by 2 to 5 percentage points in standard on broadcast games, almost 10 in rapid [E2] [E5]. Top players are usually favourites, so points drain from them: averaged over all levels, the error implies that players rated 2400 or more lose 0.14 to 0.17 points a game, about 7 to 10 a year; FIDE's lists show them losing 0.09 to 0.13 a game [E5].
 
 Juniors improve faster than their ratings follow, so adults who play them lose points they should not: an adult rated 1900 who draws a junior listed at 1500 loses 8.4 points before rounding, however strong the junior is [V 1] [R 5]. And federations are priced differently: an independent study's directions hold on our own sample [R 5] [E7].
 
-One worry has eased: since the 2024 reset, steadily active adults' ratings have stopped falling in standard and rapid [E5].
+One worry has eased: since March 2024, steadily active adults' published ratings have stopped falling in standard and rapid [E5].
 
 ## What we propose
 
-1. **An open replica of today's rules**: free code that reproduces FIDE's rating changes exactly, so anyone can rerun any list.
+1. **An open replica of today's rules**: free code that reproduces FIDE's published calculations, so anyone can check a rating change.
 2. **A model behind the scenes** that re-reads three years of games every month and learns what today's system assumes away: how fast juniors improve, what White is worth, how often players draw. It never changes a rating directly.
 3. **A familiar published rating**: you still gain or lose K × (score − expected score) per game, on today's scale, with the numbers from a yearly table and a monthly file, both public and signed by FIDE's Qualification Commission.
 
-## Seven steps, lowest risk first, each adoptable alone, with our verdict
+## Seven steps, lowest risk first, with our verdict
 
-1. **The open replica.** Nothing changes in the rules; the list becomes reproducible. *Recommended now, subject to a check on 1 November.*
-2. **A better table**, self-calibrating (refitted each year on earlier games), with colour, draws and a slope that changes with level: an extra White pays much less, and the 400-point rule goes. Where strong players meet far weaker ones, a temporary guard lifts the favourite's expected score towards today's, so farming does not pay there; against moderately weaker players the table still slightly favours the stronger. *Recommended now in standard: ready for a shadow list today, changing no official rating until a shadow year confirms it level by level on FIDE's data; rapid and blitz after a test on FIDE's games.*
-3. **Better starting ratings.** A newcomer's first rating uses all their games instead of two imaginary draws against 1800-rated players; age is used, nationality never. *Test on FIDE data.*
-4. **K that follows certainty**: 40 for a newcomer, lower the more regularly you play, and lower in a month with many games; no jumps at 30 games, 2300 or 2400; higher after years away. *Test on FIDE data.*
-5. **Fair games against juniors.** When the model is confident that a junior is stronger than their rating, the opponent's expected score uses a higher number for the junior: an adult who draws a junior listed at 1500 but playing like an 1850 loses 4 points instead of 8. The junior's own rating is computed as before. *Pilot.*
+1. **The open replica.** Nothing changes in the rules; rating changes become checkable. *Recommended now, subject to a check against FIDE's 1 November list.*
+2. **A better table**, self-calibrating (refitted each year on earlier games), with colour, draws and a slope that changes with level: an extra White pays much less, and the 400-point rule goes. Where strong players meet far weaker ones, a temporary guard lifts the favourite's expected score to today's table read without its 400-point cap, so farming does not pay there; against moderately weaker players the table still slightly favours the stronger. *Recommended now in standard: ready for a shadow list today, changing no official rating until a shadow year confirms it level by level on FIDE's data; rapid and blitz after a test on FIDE's games.*
+3. **Better starting ratings.** A newcomer's first rating uses all their games instead of two imaginary draws against 1800-rated players; age is used, nationality never. *Test on FIDE data, with step 6.*
+4. **K that follows certainty**: 40 for a newcomer, lower the more regularly you play, juniors included, and lower in a month with many games; no jumps at 30 games, 2300 or 2400; higher after years away. *Test on FIDE data, with step 2.*
+5. **Fair games against juniors.** When the model is confident that a junior is stronger than their rating, the opponent's expected score uses a higher number for the junior: with every step, an adult who draws a junior listed at 1500 but playing like an 1850 loses 4 points instead of 8. The junior's own rating is computed as before, so it still lags their strength. *Pilot.*
 6. **A small monthly adjustment.** If stable adults' ratings drift, active players get a small credit or deduction, at most 1.5 points a month, by how much they play. *Test on FIDE data.*
 7. **A federation adjustment, last.** The same for whole federations, switched off until FIDE's game records show the effect is real, not a matter of who travels. *Test on FIDE data.*
 
-Ideas first proposed by others: K from uncertainty (Glickman), the federation measure and an activity-linked bonus (Ghita), one strength across time controls (URS), junior additions (Chess Scotland), the shallower curve (Sonas).
+Ideas proposed earlier by others: K from uncertainty (Glickman), the federation measure and an activity-linked bonus (Ghita), one strength across time controls (URS), junior additions (Chess Scotland), the shallower curve (Sonas).
 
 ## What stays the same
 
-Ratings change only when you play. Nothing decays, nothing is rescaled, nothing published is edited. Every change can be checked with a calculator from public numbers; a monthly ledger shows where every point went. The title and norm rules are not touched: norms use their own table, which the new table does not replace [VT 1, 3].
+Ratings change only when you play. Nothing decays, nothing is rescaled, nothing published is edited. Every change can be checked with a calculator from public numbers; a monthly ledger shows where every point went. The title and norm rules are not touched, and norms keep their own table [VT 1, 3], though titles use ratings the steps change.
 
 ## How we test it
 
-Each step is tested against today's rules on the problem it targets and must not make predictions worse overall. The replica matches FIDE's published calculations; on broadcast games the new table passes its calibration tests and its guard makes farming lose, and the junior step removes most of adults' losses to juniors, unevenly by level [E0] [E6] [E11] [E12]. A simulated chess world with known true strengths shows today's rules draining the top [E14].
+Each step is tested against today's rules on the problem it targets and must not make predictions worse overall. The replica matches FIDE's published calculations; on broadcast games the new table passes its calibration tests, which can miss small errors, its guard stops farming paying, and the junior step removes most of adults' losses to juniors, unevenly by level [E0] [E6] [E11] [E12] [E16].
 
 ## What we ask of FIDE
 
-Above all, FIDE's tournament reports, which hold every rated game, under a data agreement: only they can test steps 3 to 7 for the whole pool, not just broadcast games. Also a review by the Qualification Commission with public comment, and a twelve-month shadow list before anything changes for anyone.
+Above all, FIDE's tournament reports, which hold every rated game, under a data agreement: only they can test steps 2 to 7 for the whole pool, not just broadcast games. Also a review by the Qualification Commission with public comment, and a twelve-month shadow list before anything changes for anyone. Federations are asked for nothing now; later, one volunteer federation would pilot the chosen steps on a domestic list.
 
-## A comparison fixed in advance
+## A comparison fixed before any result
 
-For the 2026 U.S. Championships we fixed the comparison of today's rules and the new table, locked the code, amending it four times after round 1 (the first table was off at the top; today's K; a forecast test, then its reading), all before reading any result. Earlier versions stay beside it; its main figures depend on the pairings, not the results.
-
-This is not a black box: a statistical model whose only power is to set the numbers in two public files, within published limits.
+For the 2026 U.S. Championships we fixed how today's rules and the new table would be compared, then amended it four times after round 1, always before reading any result. Its 132 games can illustrate the change, not test it.

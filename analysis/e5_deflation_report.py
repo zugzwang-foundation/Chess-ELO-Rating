@@ -121,6 +121,12 @@ def main() -> None:
       "Do not edit by hand. Licence: CC BY 4.0 (`docs/LICENSE-docs.md`). Ghita's book, *The Rating Revolution* (v1.0, February 2026) [R 5], "
       "is cited by page and paraphrased; none of its tables is reproduced. Every definition below is PROVISIONAL.")
     p()
+    p("Corrected 2026-10-12 (session ELO-12, review finding ELO12-STAT-1): section 5's implied drain takes the favourite's "
+      "residual by gap, pooled over all levels and years, and table 8.1.2's over-prediction is smaller where players rated "
+      "2400 or more play [E10 §5]. So at the top the implied figures overstate the table's share: the verdict, point 3 and "
+      "section 5's reading say so, and no longer call the over-prediction a property of the gap alone or the implied drain "
+      "at least the lists' decline. No figure changed.")
+    p()
 
     # ------------------------------------------------------------------ verdict
     t_rank100 = (top["2015-10"]["active_rank_100"], top["2026-10"]["active_rank_100"])
@@ -153,7 +159,7 @@ def main() -> None:
       f"({srng(anchor_post)} points a year) and rapid ({srng(rapid_anchor_post)}), after falling {rng(anchor_pre)} a year in standard from 2016 to "
       f"February 2024; blitz is still slightly negative ({sgl(blitz_anchor_post)}). What still slides is the top of the list: players rated 2200 "
       f"or more lose {rng([v for bn in top3 for v in band_post[bn]])} points a year; at 2400 and above that is about the transfer table 8.1.2's "
-      f"over-prediction of favourites implies, at 2200–2399 about {'a third' if share_low < 0.42 else 'half'} of it (section 5), and active 2600+ "
+      f"over-prediction of favourites implies when pooled over all levels (smaller at the top [E10 §5]), at 2200–2399 about {'a third' if share_low < 0.42 else 'half'} of it (section 5), and active 2600+ "
       f"players fell from {t_2600[0]} in 2015 to {t_2600[2]}. The median of the active list also keeps "
       f"falling, {rng(med_post)} points a year, but only because entrants arrive below the players who stop (continuing players gain), and that "
       "cross-sectional median is what Ghita's −26 and −16 a year measure.")
@@ -170,8 +176,9 @@ def main() -> None:
       f"year in the two windows of 2022–24 and {sgl(band_post['1600-1999'])} and {sgl(band_post['2000-2199'])} in the three since. It did not "
       f"relieve the top: 2200–2399 {sgl(band_pre2['2200-2399'])}, then {sgl(band_post['2200-2399'])}; 2400–2599 {sgl(band_pre2['2400-2599'])}, "
       f"then {sgl(band_post['2400-2599'])}; 2600+ {sgl(band_pre2['2600+'])}, then {sgl(band_post['2600+'])} (section 2).")
-    p(f"3. **Why the top keeps paying.** On broadcast games, table 8.1.2's over-prediction of the favourite [E2] alone costs players rated "
-      f"2400–2599 {abs(imp['2400-2599']):.2f} points a game and players rated 2600 or more {abs(imp['2600+']):.2f}, while the lists show them losing "
+    p(f"3. **Why the top keeps paying.** On broadcast games, table 8.1.2's over-prediction of the favourite [E2], pooled over all levels, costs "
+      f"players rated 2400–2599 {abs(imp['2400-2599']):.2f} points a game and players rated 2600 or more {abs(imp['2600+']):.2f} (less at their own "
+      f"levels [E10 §5]), while the lists show them losing "
       f"{abs(lpg['2400-2599']):.2f} and {abs(lpg['2600+']):.2f} a game in 2025–26 (section 5). Since 2024 the over-prediction's implied transfer has the "
       f"lists' sign in {agree_post} of {len(BANDS) * len(post_years)} band-years. It is a transfer down the list: a problem of spread, not of level.")
     p(f"4. **The elite.** Active players rated 2600 or more fell from {t_2600[0]} (October 2015) and {t_2600[1]} (January 2021) to "
@@ -427,10 +434,11 @@ def main() -> None:
         b_ = d["by_tc"]["blitz"]["mechanism"]["by_band_year"][f"{bn}|all"]
         p(f"| {bn} | {sg(r_['implied_per_game'], 3)} | {sg(r_['realised_per_game'], 3)} | {sg(b_['implied_per_game'], 3)} | {sg(b_['realised_per_game'], 3)} |")
     p()
-    p("Reading. The over-prediction is a property of the gap, not of the level: whoever is the favourite pays it. Because the higher-rated player is "
+    p("Reading. The over-prediction is measured here by the gap alone, pooled over all levels and years, and whoever is the favourite pays it; "
+      "it is smaller at the top [E10 §5], so there the implied drain overstates the table's share. Because the higher-rated player is "
       "usually the favourite, it moves points down the list, from 2200 and above to below 2000. Since 2024 the lists' change per game has the sign of "
-      "the implied transfer in every band, and at 2400 and above, where K is 10 for everyone, the implied drain per game is at least as large as the "
-      "lists' whole decline per game. In 2023 (the last pre-reform window) the bands from 1600 to 2399 lost far more on the lists than the "
+      "the implied transfer in every band, and at 2400 and above, where K is 10 for everyone, the implied drain per game, pooled over all levels, is "
+      "larger than the lists' whole decline per game. In 2023 (the last pre-reform window) the bands from 1600 to 2399 lost far more on the lists than the "
       "over-prediction implies: a second drain, which the reform closed. The broadcast sample is stronger and more international than the pool, so "
       "the sizes hold for broadcast events and are indicative for the pool.")
     p()
