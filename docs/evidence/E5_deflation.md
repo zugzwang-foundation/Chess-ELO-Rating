@@ -4,15 +4,17 @@ Status: REVIEW — evidence for the proposal (§1, §2, §10) and annex (T4.5, T
 
 Corrected 2026-10-12 (session ELO-12, review finding ELO12-STAT-1): section 5's implied drain takes the favourite's residual by gap, pooled over all levels and years, and table 8.1.2's over-prediction is smaller where players rated 2400 or more play [E10 §5]. So at the top the implied figures overstate the table's share: the verdict, point 3 and section 5's reading say so, and no longer call the over-prediction a property of the gap alone or the implied drain at least the lists' decline. No figure changed.
 
+Added 2026-10-12 (session ELO-13): section 5 makes the same calculation with the over-prediction measured at the game's own level, by 100-point level band (the mean of the two ratings, as E10 §5 bands it) and 50-point gap bin, in place of the gap bin's mean over all levels. The split by level band was chosen after seeing the data (E10 §5 and the review's finding); it was not registered in advance. The verdict, point 3 and section 5's reading give the figure for players rated 2400 or more beside the lists'. The extract now reads the broadcast files of 2023-01 to 2026-09 only, as in session ELO-4: the files of 2020 to 2022, added to the data folder later for E17, had stopped it reproducing its committed aggregate. No earlier figure changed.
+
 ## Verdict
 
-**In three sentences.** Since March 2024 the published ratings of steadily active adults have stopped falling in standard (+2 to +3 points a year) and rapid (+4 to +5), after falling 2 to 6 a year in standard from 2016 to February 2024; blitz is still slightly negative (-2, -1, -1). What still slides is the top of the list: players rated 2200 or more lose 5 to 8 points a year; at 2400 and above that is about the transfer table 8.1.2's over-prediction of favourites implies when pooled over all levels (smaller at the top [E10 §5]), at 2200–2399 about a third of it (section 5), and active 2600+ players fell from 225 in 2015 to 150. The median of the active list also keeps falling, 11 to 16 points a year, but only because entrants arrive below the players who stop (continuing players gain), and that cross-sectional median is what Ghita's −26 and −16 a year measure.
+**In three sentences.** Since March 2024 the published ratings of steadily active adults have stopped falling in standard (+2 to +3 points a year) and rapid (+4 to +5), after falling 2 to 6 a year in standard from 2016 to February 2024; blitz is still slightly negative (-2, -1, -1). What still slides is the top of the list: players rated 2200 or more lose 5 to 8 points a year; at 2400 and above that is about the transfer table 8.1.2's over-prediction of favourites implies at the players' own levels, while at 2200–2399 the transfer it implies averaged over all levels is about a third of the loss (section 5); and active 2600+ players fell from 225 in 2015 to 150. The median of the active list also keeps falling, 11 to 16 points a year, but only because entrants arrive below the players who stop (continuing players gain), and that cross-sectional median is what Ghita's −26 and −16 a year measure.
 
 **What is sliding, where, since when, by how much.**
 
 1. **The cross-section of the active list.** The median rating of players with a rated standard game in the last 12 months fell 25 to 53 points a year in the windows from 2016 to February 2024 (the pandemic window 2020–21 aside, when it rose) and 11 to 16 a year since March 2024. In all 10 windows in which it fell, the composition term (entrants rated below the players who stopped) is larger than the whole fall, while the median of the players present at both ends rose by 2 to 10 points (section 3). The statistic records who is on the list, not points lost by anyone.
 2. **The top of the list.** Every band from 1600 up has a negative median in every window since 2016. The reform relieved the middle: the medians of players rated 1600–1999 and 2000–2199 were -8, -8 and -10, -10 points a year in the two windows of 2022–24 and -3, -3, -3 and -3, -3, -3 in the three since. It did not relieve the top: 2200–2399 -9, -10, then -7, -6, -6; 2400–2599 -7, -7, then -6, -5, -6; 2600+ -7.5, -8, then -8, -7, -6.5 (section 2).
-3. **Why the top keeps paying.** On broadcast games, table 8.1.2's over-prediction of the favourite [E2], pooled over all levels, costs players rated 2400–2599 0.14 points a game and players rated 2600 or more 0.17 (less at their own levels [E10 §5]), while the lists show them losing 0.09 and 0.13 a game in 2025–26 (section 5). Since 2024 the over-prediction's implied transfer has the lists' sign in 18 of 18 band-years. It is a transfer down the list: a problem of spread, not of level.
+3. **Why the top keeps paying.** On broadcast games, table 8.1.2's over-prediction of the favourite [E2], measured at the players' own levels, costs players rated 2400–2599 0.10 points a game and players rated 2600 or more 0.13 (0.14 and 0.17 averaged over all levels), while the lists show them losing 0.09 and 0.13 a game in 2025–26 (section 5). Since 2024 the over-prediction's implied transfer has the lists' sign in 18 of 18 band-years measured either way. It is a transfer down the list: a problem of spread, not of level.
 4. **The elite.** Active players rated 2600 or more fell from 225 (October 2015) and 208 (January 2021) to 150 (October 2026); the 100th active player's rating fell from 2654 to 2626 (section 4).
 5. **Older and less active adults.** In 2025–26 players aged 46–64 and 65 or more had median changes of -9 and -14 points; adults aged 25–45 with 20 or more games gained 5 to 8 and those with fewer lost 2 to 5 (section 2). Ageing and activity sort these groups as much as the scale does; the lists cannot separate them.
 
@@ -252,7 +254,51 @@ By year (standard): implied change per game on broadcast games against the lists
 | 2400-2599 | -0.302 | -0.342 | -0.134 | -0.126 |
 | 2600+ | -0.320 | -0.468 | -0.225 | -0.248 |
 
-Reading. The over-prediction is measured here by the gap alone, pooled over all levels and years, and whoever is the favourite pays it; it is smaller at the top [E10 §5], so there the implied drain overstates the table's share. Because the higher-rated player is usually the favourite, it moves points down the list, from 2200 and above to below 2000. Since 2024 the lists' change per game has the sign of the implied transfer in every band, and at 2400 and above, where K is 10 for everyone, the implied drain per game, pooled over all levels, is larger than the lists' whole decline per game. In 2023 (the last pre-reform window) the bands from 1600 to 2399 lost far more on the lists than the over-prediction implies: a second drain, which the reform closed. The broadcast sample is stronger and more international than the pool, so the sizes hold for broadcast events and are indicative for the pool.
+**At the players' own levels** (added 2026-10-12, session ELO-13). The same calculation with the favourite's residual measured at the game's own level: the mean residual of the game's 100-point level band (the mean of the two ratings, as E10 §5 bands it) and 50-point gap bin, all years, in place of the gap bin's mean over all levels. The split by level band was chosen after seeing the data, E10 §5 having shown the over-prediction smaller where players rated 2400 or more play; it was not registered in advance. Standard, by the player's band, all years, with the lists as above (2025-03 to 2026-03):
+
+| band | broadcast player-games | implied per game, averaged over all levels | implied per game, at the players' own levels | lists: change per game | lists: games a year | at their own levels, per year | lists: mean change a year |
+|---|---|---|---|---|---|---|---|
+| <1600 | 38,381 | +0.789 | +0.656 | +1.405 | 15.5 | +10.2 | +21.8 |
+| 1600-1999 | 229,218 | +0.202 | +0.256 | +0.254 | 17.3 | +4.4 | +4.4 |
+| 2000-2199 | 150,255 | +0.068 | +0.101 | +0.030 | 22.5 | +2.3 | +0.7 |
+| 2200-2399 | 153,770 | -0.069 | -0.180 | -0.185 | 31.1 | -5.6 | -5.8 |
+| 2400-2599 | 108,183 | -0.138 | -0.101 | -0.087 | 49.2 | -4.9 | -4.3 |
+| 2600+ | 25,233 | -0.170 | -0.134 | -0.126 | 59.0 | -7.9 | -7.4 |
+
+By year, for the players rated 2400 or more: the implied change per game at their own levels against the lists' change per game in the matching window:
+
+| band | 2023: at own levels / lists | 2024: at own levels / lists | 2025: at own levels / lists | 2026: at own levels / lists |
+|---|---|---|---|---|
+| 2400-2599 | -0.048 / -0.173 | -0.104 / -0.148 | -0.101 / -0.087 | -0.117 / -0.095 |
+| 2600+ | -0.122 / -0.154 | -0.152 / -0.139 | -0.121 / -0.126 | -0.132 / -0.148 |
+
+The favourite's mean residual at levels of 2200 or more, by level band and gap (standard, all years; the favourite's games in the level band; a cell with fewer than 100 games shows its count in brackets), and averaged over all levels (the first table of this section); the aggregate holds every cell:
+
+| level band | games | 0–49 | 50–99 | 100–149 | 150–199 | 200–249 | 250–299 | 300–349 | 350–399 |
+|---|---|---|---|---|---|---|---|---|---|
+| 2200–2299 | 42,788 | -0.009 | -0.026 | -0.039 | -0.047 | -0.046 | -0.055 | -0.050 | -0.056 |
+| 2300–2399 | 41,417 | -0.003 | -0.021 | -0.025 | -0.030 | -0.029 | -0.036 | -0.022 | -0.039 |
+| 2400–2499 | 32,002 | -0.007 | -0.011 | -0.026 | -0.025 | -0.029 | -0.029 | -0.013 | -0.001 |
+| 2500–2599 | 16,370 | -0.016 | -0.022 | -0.036 | -0.032 | -0.027 | -0.018 | -0.022 | -0.127 (47) |
+| 2600–2699 | 7,015 | -0.016 | -0.042 | -0.022 | -0.026 | -0.015 | +0.011 (37) | -0.055 (32) | +0.100 (3) |
+| 2700–2799 | 1,785 | -0.012 | -0.049 | -0.056 | -0.028 (34) | -0.170 (9) | +0.180 (1) | — | — |
+| 2800 and above | 30 | +0.056 (16) | +0.012 (14) | — | — | — | — | — | — |
+| all levels | 352,520 | -0.006 | -0.022 | -0.031 | -0.039 | -0.040 | -0.047 | -0.043 | -0.054 |
+
+Rapid and blitz, all years, the implied change per game at the players' own levels (averaged over all levels in the table above):
+
+| band | rapid: at own levels | blitz: at own levels |
+|---|---|---|
+| <1600 | +0.826 | +0.938 |
+| 1600-1999 | +0.445 | +0.369 |
+| 2000-2199 | -0.065 | +0.008 |
+| 2200-2399 | -0.456 | -0.301 |
+| 2400-2599 | -0.359 | -0.132 |
+| 2600+ | -0.450 | -0.239 |
+
+At their own levels the over-prediction costs players rated 2400–2599 0.101 points a game and players rated 2600 or more 0.134, against 0.138 and 0.170 averaged over all levels and the lists' 0.087 and 0.126 in 2025–26: about 4.9 and 7.9 points a year at the lists' rate of play, against the lists' 4.3 and 7.4. Measured this way the implied drain at the top is about the lists' whole decline, where averaged over all levels it is larger; it has the lists' sign in all 6 of the top's band-years since 2024. In rapid the top's implied loss is larger at its own levels than averaged over all levels, in blitz about the same. Below 2400 the figures move too, most at 2200–2399 (-0.180 a game at its own levels against -0.069 averaged over all levels, the lists -0.185); the statements on the bands below 2400, in the verdict and on the second drain, use the figure averaged over all levels and are not re-read here.
+
+Reading. In the first tables of this section the over-prediction is measured by the gap alone, pooled over all levels and years, and whoever is the favourite pays it; it is smaller at the top [E10 §5], so there the pooled figure overstates the table's share: at 2400 and above, where K is 10 for everyone, the implied drain per game pooled over all levels is larger than the lists' whole decline per game, and at the players' own levels it is about the same (the tables above). Because the higher-rated player is usually the favourite, it moves points down the list, from 2200 and above to below 2000. Since 2024 the lists' change per game has the sign of the implied transfer in every band. In 2023 (the last pre-reform window) the bands from 1600 to 2399 lost far more on the lists than the over-prediction implies: a second drain, which the reform closed. The broadcast sample is stronger and more international than the pool, so the sizes hold for broadcast events and are indicative for the pool.
 
 ## 6 Ghita's figures: his definitions and our closest equivalents (1.4)
 
@@ -322,5 +368,6 @@ Nearly all of them show 6 or 8 games on the March list, and they come from many 
 - The lists carry no games. A change of published ratings is not a change of strength: a cohort can lose points because the scale moves, because its members age, or because they were over-rated. Separating these needs Layer 1 (Phase 3).
 - Banding on the starting rating carries regression to the mean; the variant banded a year earlier bounds it (section 2).
 - The broadcast sample is stronger and more international than the pool [E2]; the implied drain is exact for that sample and indicative for the pool. The formal test needs FIDE's game archive.
+- The figures at the players' own levels (section 5) rest on a split by level band chosen after seeing the data, and at the highest levels on cells of a few games.
 - Ghita's game extract is not public, so his Deflation Index and scale cannot be recomputed on his games; our equivalents use different games.
 - "Active" in the book is not fully specified; section 6 shows how much the readings matter.

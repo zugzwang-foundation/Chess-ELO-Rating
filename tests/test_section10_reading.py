@@ -1,5 +1,7 @@
 """Section 10's reading (session ELO-12): the paragraph after the forecast test's table, written before any result with
-its content fixed in advance (D-0015, reading 2; D-0016, R66), and the body's cap once its blanks are filled.
+its content fixed in advance (D-0015, reading 2; D-0016, R66), and the body's cap once its blanks are filled. Its order is
+D-0015's, restored in session ELO-13 (docs/DECISIONS.md, item 13): the fixed sentence, then directly the small-sample
+statement, then the log-loss lines.
 
 Nothing fills the blanks but the results session, by hand, from the values E13 prints once both 2026 events are complete
 (D-0012, item 4). Until then each blank counts one word in check (d); this test counts each at the most words its
@@ -19,6 +21,7 @@ import e13_us_championships_freeze3c as e13c  # noqa: E402  (E13's page script: 
 
 BLANK = re.compile(r"\{\{(US26_[A-Z0-9_]+)\}\}")
 LEAD = "**The reading, fixed in advance.**"
+SMALL = "As stated in advance, the sample is small and the difference may favour either column, or neither."
 CROSSED = ("US26_POOLED_LL_DIFF_CROSSED", "US26_POOLED_LL_DIFF_SHARED_CROSSED", "US26_POOLED_R3_LL_DIFF_CROSSED")
 
 
@@ -38,6 +41,16 @@ def _section10() -> str:
 
 def _paragraph() -> str:
     return next(x for x in _section10().split("\n") if x.startswith(LEAD))
+
+
+def _sentence_then(sentence: str, after: str) -> re.Pattern:
+    """One of D-0015's sentences with its numbers as compare_event_v3c prints them (d, lo, hi to four decimals),
+    followed directly by `after`."""
+    number = r"[+-]?\d+\.\d{4}"
+    pattern = re.escape(sentence)
+    for field in ("d", "lo", "hi"):
+        pattern = pattern.replace(re.escape("{" + field + "}"), number)
+    return re.compile(pattern + re.escape(" " + after))
 
 
 def _counted_lines(text: str) -> list[str]:
@@ -76,17 +89,19 @@ def test_the_paragraph_follows_the_forecast_tests_table_with_its_content_fixed_i
     para = _paragraph()
     assert sec.index(para) > sec.index("| fixed by the pairings: were (b′)'s forecasts exactly right")
     assert "{{US26_READING}}" not in TEXT
-    # the primary endpoint first, read with its interval over games and one of D-0015's three sentences
+    # the primary endpoint first, read with its interval over games and one of D-0015's three sentences, which the
+    # small-sample statement follows directly (D-0015, reading 2)
     lead = "The primary endpoint, the pooled Brier difference with its interval over games"
-    assert para.index(lead) < para.index("Every log-loss line")
+    assert para.index(lead) < para.index(SMALL) < para.index("Every log-loss line")
     if "{{US26_PRIMARY}}" in para:
-        assert "one of three sentences fixed in advance: {{US26_PRIMARY}} Every log-loss line" in para
+        assert f"one of three sentences fixed in advance: {{{{US26_PRIMARY}}}} {SMALL} Every log-loss line" in para
     else:
         assert sum(s.split("{d}")[0] in para for s in v3c.SENTENCES.values()) == 1
-    # every log-loss line with its crossed interval over players, then the small-sample statement
+        assert sum(bool(_sentence_then(s, f"{SMALL} Every log-loss line").search(para))
+                   for s in v3c.SENTENCES.values()) == 1
+    # then every log-loss line with its crossed interval over players (D-0016, R66)
     assert "Every log-loss line is read with its crossed interval over players" in para
     assert all(f"{{{{{b}}}}}" in para for b in CROSSED) or not BLANK.search(para)
-    assert para.index("Every log-loss line") < para.index("As stated in advance, the sample is small")
     # the pre-registration named; 132 games illustrate and cannot test
     assert "pre-registered before any result was read" in para
     assert para.endswith("132 games illustrate the rungs and cannot test them.")

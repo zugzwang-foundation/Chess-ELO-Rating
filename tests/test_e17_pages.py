@@ -1,5 +1,5 @@
 """E17's pages carry the ELO-7 brief's fixed wording above every table (session ELO-7, Phases 2 and 3): the evidence
-page, the one-page summary and the proposal's Appendix G.
+page, the one-page summary and the superseded Appendix G as its script writes it, kept on record.
 
 "Every table carries the fixed wording 'under this rule, with the same results — not anyone's true strength'": the last
 line of text before each table of each page must contain it."""

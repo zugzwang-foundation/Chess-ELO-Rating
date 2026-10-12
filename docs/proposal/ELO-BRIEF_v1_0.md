@@ -5,7 +5,7 @@ The Zugzwang Authors · CC BY 4.0 · 2026-10-12. A plain-language summary of `do
 
 ## What is wrong
 
-FIDE's expected-score table expects too much of favourites: by 2 to 5 percentage points in standard on broadcast games, almost 10 in rapid [E2] [E5]. Top players are usually favourites, so points drain from them: averaged over all levels, the error implies that players rated 2400 or more lose 0.14 to 0.17 points a game, about 7 to 10 a year; FIDE's lists show them losing 0.09 to 0.13 a game [E5].
+FIDE's expected-score table expects too much of the favourite: by 0.02 to 0.05 points a game on 352,737 broadcast standard games [E2]. Top players are usually favourites, so points drain from them: at their own levels, the error implies that players rated 2400 or more lose 0.10 to 0.13 points a game, about 5 to 8 a year; FIDE's lists show them losing 0.09 to 0.13 a game [E5].
 
 Juniors improve faster than their ratings follow, so adults who play them lose points they should not: an adult rated 1900 who draws a junior listed at 1500 loses 8.4 points before rounding, however strong the junior is [V 1] [R 5]. And federations are priced differently: an independent study's directions hold on our own sample [R 5] [E7].
 

@@ -50,8 +50,9 @@ again. The architect reviews the close-outs afterwards.
 - One review of the proposal and brief before submission.
 - Versions are bumped with git mv, except that a version a frozen file reads stays
   beside the new one (SPEC-L0 v1.4).
-- At every close-out, build ~/Downloads/zz_ELO_PK_full_<HEAD7>/ with a PK-MANIFEST.md,
-  as ELO-10b defined it (the operator's project knowledge).
+- At every close-out, the close-out goes to the operator's project knowledge. Build the
+  full folder ~/Downloads/zz_ELO_PK_full_<HEAD7>/ with a PK-MANIFEST.md only when the
+  relay asks for it (after substantial sessions).
 
 ## Layout
 - `docs/research/` research report and verification sweeps · `docs/evidence/` evidence

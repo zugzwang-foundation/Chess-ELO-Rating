@@ -32,7 +32,11 @@ What it measures (definitions stated again in the report; all PROVISIONAL):
     force (the E2 sample, SPEC-TABLE-FIT §1), FIDE's expected score from Layer 0,
     each player's K from that list, and the realised K(S - E) by the player's
     band and year; the part implied by the favourite's over-prediction alone,
-    K x (the mean residual of the game's 50-point gap bin, all years); Ghita's
+    K x (the mean residual of the game's 50-point gap bin, all years), and the
+    same with the residual measured at the game's own level, K x (the mean
+    residual of the game's 100-point level band, the mean of the two ratings as
+    E10 §5 bands it, and 50-point gap bin, all years): a split chosen after
+    seeing the data (E10 §5; session ELO-13), not registered in advance; Ghita's
     Deflation Index (sum E - sum S)/N x 100 from the favourite's side, domestic
     and cross-border (federations on the list in force); and the logistic scale
     S that minimises the squared error of the expected score.
@@ -40,7 +44,10 @@ What it measures (definitions stated again in the report; all PROVISIONAL):
     and absent in April, described in aggregate and excluded from A-E.
 
 Data cutoff (ELO-4): no broadcast game dated after 2026-09-30 is used, and no
-broadcast file later than 2026-09 is opened.
+broadcast file later than 2026-09 is opened. The archive is read as in session
+ELO-4, files 2023-01 to 2026-09: the files of 2020 to 2022, added to data/ in
+session ELO-7 for E17, are left out (session ELO-13), as
+analysis/us26_draw_rate_extract.py leaves them out for E11's sample.
 
 Usage: python3 analysis/e5_deflation_extract.py > analysis/aggregates/E5_deflation.json
 """
@@ -64,6 +71,7 @@ import layer0  # noqa: E402
 
 CUTOFF = date(2026, 9, 30)
 LAST_FILE = "2026-09"
+FIRST_FILE = "2023-01"          # the archive as E5 read it in session ELO-4
 TCS = ("standard", "rapid", "blitz")
 WINDOWS = [(f"{y}-02", f"{y + 1}-02") for y in range(2016, 2024)] + [
     ("2024-03", "2025-03"), ("2025-03", "2026-03"), ("2025-10", "2026-10")]
@@ -398,7 +406,13 @@ def broadcast_games() -> tuple[dict, dict[str, list[tuple]]]:
     for f in (ROOT / "data" / "interim" / "broadcast").glob("*.tsv"):
         if f.stem > LAST_FILE:
             raise SystemExit(f"refusing to read {f.name}: later than the ELO-4 data cutoff ({LAST_FILE})")
-    games, raw = e2.load_games()
+    games, _raw = e2.load_games()
+    games = [g for g in games if g.file_month >= FIRST_FILE]          # E2's loader unchanged; only the file filter
+    raw_games = 0
+    for f in sorted((ROOT / "data" / "interim" / "broadcast").glob("*.tsv")):
+        if f.stem >= FIRST_FILE:
+            with f.open() as fh:
+                raw_games += sum(1 for _ in fh) - 1                     # E2's raw count: every line after the header
     games, duplicates = e2.dedupe(games)
     after_cutoff = [g for g in games if e2.to_date(g.date_used) > CUTOFF]
     games = [g for g in games if e2.to_date(g.date_used) <= CUTOFF]
@@ -422,7 +436,7 @@ def broadcast_games() -> tuple[dict, dict[str, list[tuple]]]:
         score = 1.0 if g.result == "1-0" else 0.0 if g.result == "0-1" else 0.5
         by_tc[tc].append((e2.to_date(g.date_used), f"{start.year:04d}-{start.month:02d}", s0, g.tour,
                           g.white_fide_id, g.black_fide_id, score))
-    meta = {"raw_games": raw.get("games"), "duplicates_removed": duplicates,
+    meta = {"raw_games": raw_games, "duplicates_removed": duplicates,
             "dropped_after_cutoff": len(after_cutoff), "cutoff": CUTOFF.isoformat()}
     return meta, by_tc
 
@@ -477,6 +491,29 @@ def mechanism(pan: fp.Panel, games: list[tuple], batch_ids: set[str]) -> dict:
     by_band_year = {f"{b}|{y}": {"player_games": int(c[0]), "realised_per_game": round(c[1] / c[0], 4),
                                  "implied_per_game": round(c[2] / c[0], 4), "mean_k": round(c[3] / c[0], 2)}
                     for (b, y), c in sorted(cells.items(), key=lambda kv: (kv[0][0], str(kv[0][1])))}
+    # the same at the game's own level (session ELO-13): the favourite's mean residual by 100-point level band, the mean
+    # of the two ratings as E10 §5 bands it, and 50-point gap bin, all years, in place of the gap bin's mean over all
+    # levels; the split by level band was chosen after seeing E10 §5, not registered in advance
+    fav_lv: dict[tuple[int, int], list[float]] = {}
+    for _y, rw, rb, _kw, _kb, _fw, _fb, s, e0w in rows:
+        sf, ef = (s, e0w) if rw >= rb else (1 - s, 1 - e0w)
+        c = fav_lv.setdefault((e2.band100_mid((rw + rb) // 2), gap_bin(rw - rb)), [0, 0.0])
+        c[0] += 1
+        c[1] += sf - ef
+    m_lv = {key: c[1] / c[0] for key, c in fav_lv.items()}
+    cells_lv: dict[tuple, list[float]] = {}
+    for y, rw, rb, kw, kb, _fw, _fb, _s, _e0w in rows:
+        mk = m_lv[(e2.band100_mid((rw + rb) // 2), gap_bin(rw - rb))]
+        for r, k, is_fav in ((rw, kw, rw >= rb), (rb, kb, rb > rw)):
+            for key in ((band(r), y), (band(r), "all")):
+                c = cells_lv.setdefault(key, [0, 0.0])
+                c[0] += 1
+                c[1] += k * (mk if is_fav else -mk)
+    by_band_year_own_level = {f"{b}|{y}": {"player_games": int(c[0]), "implied_per_game": round(c[1] / c[0], 4)}
+                              for (b, y), c in sorted(cells_lv.items(), key=lambda kv: (kv[0][0], str(kv[0][1])))}
+    residual_by_level = {str(mid): {"games": [fav_lv.get((mid, k), [0])[0] for k in range(21)],
+                                    "residual": [round(m_lv[(mid, k)], 4) if (mid, k) in m_lv else None for k in range(21)]}
+                         for mid in sorted({key[0] for key in fav_lv})}
     # Ghita's Deflation Index from the favourite's side, by year, domestic / cross-border, by favourite's band
     di: dict[str, list[float]] = {}
     for y, rw, rb, _kw, _kb, fw, fb, s, e0w in rows:
@@ -515,6 +552,7 @@ def mechanism(pan: fp.Panel, games: list[tuple], batch_ids: set[str]) -> dict:
     scales["all"] = best_scale(rows)
     return {"games_used": len(rows), "skipped": dict(skipped), "favourite_residual_by_gap_bin": [round(x, 4) for x in m],
             "favourite_games_by_gap_bin": [c[0] for c in fav], "by_band_year": by_band_year,
+            "own_level": {"by_band_year": by_band_year_own_level, "favourite_residual_by_level_and_gap_bin": residual_by_level},
             "deflation_index": deflation_index, "logistic_scale_least_squares": scales,
             "games_by_year": dict(sorted(Counter(r[0] for r in rows).items()))}
 
