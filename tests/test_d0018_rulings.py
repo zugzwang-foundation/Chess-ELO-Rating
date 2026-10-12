@@ -98,7 +98,9 @@ def test_r82_the_tie_rules_asymmetry_and_its_source_are_stated():
         for t in not_in:
             assert (f"{t['name'].split(',')[0]}, printed {rep.ordinal(t['printed_rank'])} on the 3rd's rating in "
                     f"{rep.month(t['list'])}, is not among the {n}") in text
-        assert "R82" in text and "multiples of five" in text and "FIDE's printed order decides where a printed" in text
+        assert "multiples of five" in text and "FIDE's printed order decides where a printed" in text
+        # E20 names the ruling; the proposal's appendix says it in plain words (session ELO-12)
+        assert ("R82" if text is E20 else "with no change after results") in text
         # ELO10-STAT-3: from July 2000 a shared place still counts on the lists computed without a printed copy
         late = sorted({d for p in LISTS["players"] for d in p["top3_lists_shared_third"] if d >= "2000-07"})
         assert late and all(rep.month(d) in text for d in late)

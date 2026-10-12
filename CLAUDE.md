@@ -41,8 +41,9 @@ again. The architect reviews the close-outs afterwards.
   2026 U.S. Championships comparison has run once, and no result of either event is
   read before the last round. After that run the freeze checks retire; the tags stay
   as history.
-- No new freezes or pre-registrations. An analysis says plainly what was decided
-  after seeing its data.
+- No new freezes. Pre-registration only where the proposal promises it: the
+  championship comparison and the tests on FIDE's data. An analysis says plainly
+  what was decided after seeing its data.
 - Decisions: one dated line each in `docs/DECISIONS.md`; D-0001 to D-0018 stay as
   history.
 - Mistakes are fixed in place, with a dated line saying what changed.

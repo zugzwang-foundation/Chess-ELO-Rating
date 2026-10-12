@@ -2,6 +2,10 @@
 
 Status: DECIDED — the project's decision log from 12 October 2026: one dated line per decision, newest date first; the ten of 12 October 2026 stand in the order they were given, and a later decision takes the next number and goes on top. The decision records D-0001 to D-0018 in `docs/decisions/` stay as history; a mistake in one is fixed in place, with a dated line saying what changed.
 
+11. 2026-10-12 — No new freezes. Pre-registration only where the proposal promises it: the championship comparison and the tests on FIDE's data (session ELO-12): `CLAUDE.md`, "How we work".
+
+The ten decisions of 12 October 2026, in the order they were given:
+
 1. 2026-10-12 — Light mode adopted (founder): `CLAUDE.md`, "How we work".
 2. 2026-10-12 — The championship lock stays until the comparison has run once; then the freeze checks retire; the tags stay (founder).
 3. 2026-10-12 — Code tests and the automatic checks stay (founder).
