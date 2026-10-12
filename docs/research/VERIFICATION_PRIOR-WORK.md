@@ -1,5 +1,6 @@
 # Verification sweep — prior work (Ghita, Sonas, Glickman, URS, the Kaggle contests, WHR), 2026-10-10
 Status: VERIFICATION RECORD (primary-source reading). Session ELO-4, Phase 5. Author: The Zugzwang Authors. Licence: CC BY 4.0 (see `docs/LICENSE-docs.md`); quoted third-party text remains its owners' and is reproduced for verification only, in phrases of at most 15 words; everything else is paraphrase. Citation key: `[VP k]` is item k of this file. A record: never edited after the fact.
+Added 2026-10-12 (session ELO-11; `docs/DECISIONS.md`, item 10): items 13 to 19, read by the method of the last section, "Added 12 October 2026"; items 1 to 12 are unchanged.
 
 **Method.** The sweep was run by a research subagent of the executor, on the operator's machine, and reviewed by the executor against the fetched texts before commit; the raw files and conversions stayed in the session's temporary folder and are not committed. Every source was fetched (macOS, curl 8.7.1) with the prescribed command `curl -sS -L -A "Mozilla/5.0" -o <file> -w "%{http_code} %{size_download}\n" <url>`. The only addition was `-D <file>.headers`, so that the response headers and redirect chain were kept. The status and byte count reported are those of the final response after redirects. A wrapper script waited 2.5 s before every request, so at least 2 s passed between requests to any host. It ran `date -u +%Y-%m-%dT%H:%M:%SZ` immediately before each request and appended the timestamp, URL, status, bytes and local file to a fetch log. HTML was converted to text with a short script that uses the Python 3.9 standard-library `html.parser`. It drops script, style, noscript, svg and template content, drops head content except the title, and breaks lines at block elements. PDFs were converted with `pdftotext -layout` (poppler, `/opt/homebrew/bin/pdftotext`); one two-column slide was re-extracted with `-raw` to recover reading order. Text was split into pages at form feeds. Page numbers below are therefore PDF page (or slide) indices; where a document prints page numbers, they coincide. The subagent read every converted text; the executor checked against the texts the passages this record's users rely on most (items 1, 3, 4, 6, 9 and 12). Nothing below comes from a search snippet, a summary tool or memory. WebSearch was not used, because this session's search budget was already exhausted. The three URLs not given in the executor's instructions were taken either from the repository's own evidence base (`docs/evidence/E4_community-register.md`, entry CB10; `docs/research/ELO-RESEARCH_v1_0.md`, refs [60] and [63]) or from links in fetched pages; each was then fetched and read like the others. Two archived copies were tried (web.archive.org), one for each of two refused pages; this is stated under items 10 and 12. All raw files, text conversions, response headers and the three helper scripts were kept in that temporary folder. FIDE rules mentioned below are reported as the named author states them. None was checked against the FIDE Handbook in this sweep, so under hard rule 3 each is NOT VERIFIED as a FIDE rule.
 
@@ -17,6 +18,13 @@ Status: VERIFICATION RECORD (primary-source reading). Session ELO-4, Phase 5. Au
 | 10 | Kaggle 2011, Deloitte/FIDE Chess Rating Challenge | PARTLY VERIFIED (FIDE-prize winner and his system NOT VERIFIED: Kaggle blog HTTP 403, no archived copy; FIDE adoption not found; the chessmetrics index does not exist) | 2026-10-10T00:58:21Z |
 | 11 | Coulom, "Whole-History Rating" (WHR.pdf) | VERIFIED | 2026-10-10T01:00:31Z |
 | 12 | Glickman, US Chess ratings workshop, 18 Jul 2024 | VERIFIED from a web.archive.org copy (live URL HTTP 403, Cloudflare challenge) | 2026-10-10T01:01:01Z (archive 01:01:15Z) |
+| 13 | Sonas, "The Sonas Rating Formula – Better than Elo?", ChessBase, 22 Oct 2002 | VERIFIED from an archived copy of 24 Jul 2026 | 2026-10-12T06:20:20Z (index query 06:19:12Z) |
+| 14 | Sonas, "The Elo rating system – correcting the expectancy tables", ChessBase, 30 Mar 2011 | VERIFIED from an archived copy of 11 Apr 2026 | 2026-10-12T06:20:29Z (index query 06:19:21Z) |
+| 15 | "Should These Quantities Be Linear?", Gödel's Lost Letter and P=NP (rjlipton.com), 4 Aug 2023 | VERIFIED from an archived copy of 12 Dec 2025; byline NOT VERIFIED (the page prints none; the author is identified from the text as K. W. Regan) | 2026-10-12T06:20:38Z (index query 06:19:43Z) |
+| 16 | Regan and Haworth, "Intrinsic Chess Ratings", 18 May 2011 | VERIFIED from the paper; its venue NOT VERIFIED | 2026-10-12T06:23:07Z |
+| 17 | Sonas, Chessmetrics | VERIFIED from the pages the greats' probe cached (no new request) | 2026-10-11T10:47:26Z and 10:48:39Z |
+| 18 | Dangauthier, Herbrich, Minka and Graepel, "TrueSkill Through Time: Revisiting the History of Chess" | VERIFIED from the paper; its year NOT VERIFIED (the paper prints none) | 2026-10-12T06:23:12Z |
+| 19 | Elo, *The Rating of Chessplayers, Past and Present*, Arco, 1978 | VERIFIED as one catalogue record (Open Library, from the Library of Congress's record); the book itself not read | 2026-10-12T06:23:42Z |
 
 ---
 
@@ -285,3 +293,65 @@ Status: VERIFICATION RECORD (primary-source reading). Session ELO-4, Phase 5. Au
     - A proposed variance measure, built from tournament performance ratings over 3 years weighted by recency and games played, was submitted to "the EB" (abbreviation as on the slide) on 24 Feb 2024 (slides 10–23).
     - The FIDE-to-US-Chess conversion was re-fitted, effective 1 Mar 2024, after FIDE's compression (stated as Old + 0.4 × (2000 − Old)). New formulas: 932 + 0.564 × FIDE for FIDE ratings ≤ 2000, and 20 + 1.02 × FIDE above 2000. Separate youth-event formulas are also given (slides 24–28).
 - Not found in the text: the numeric trend of the stable-player mean (charts only); the definition or formula of the bonus threshold (only its value, 12, and the 2-point cut).
+
+---
+
+## Added 12 October 2026 (session ELO-11)
+
+**Method.** The executor fetched each source once with `tools/data/fetch_probe.py`, which takes its gaps and the project's User-Agent from `tools/data/politeness.py`: eight seconds between requests to the Internet Archive and three to any other host, measured across runs, with robots.txt read once per host before its first page. Each request is logged in the tool's manifest under `data/raw/probe/`, which is gitignored; nothing fetched is committed. The two ChessBase articles and the blog post were read through Internet Archive captures from before 1 October 2026, each chosen by one index query (`to=20260930`, the last capture with HTTP 200), and only the article's own text was read. PDFs were converted with `pdftotext -layout`. Chessmetrics was not fetched again: its pages, fetched on 11 October 2026 by the greats' data probe (`docs/research/DATA-PROBE_greats.md`), were read from the same cache. Quotations follow this file's rule of at most 15 words.
+
+## 13. Jeff Sonas, "The Sonas Rating Formula – Better than Elo?" (ChessBase, 22 October 2002) — VERIFIED from an archived copy
+- URL: https://en.chessbase.com/post/the-sonas-rating-formula-better-than-elo. Capture of 24 July 2026 (https://web.archive.org/web/20260724033704id_/https://en.chessbase.com/post/the-sonas-rating-formula-better-than-elo), fetched 2026-10-12T06:20:20Z, HTTP 200, 129,332 bytes.
+- Facts:
+  - Dated 10/22/2002 on the page; by Jeff Sonas.
+  - Data: about 266,000 games of 1994–2001 from Vladimir Perevertkin's collection, not FIDE's rated-game database.
+  - Suggestion #2: Elo's table "should be discarded, in favor of a simple linear model", with 35 rating points for White.
+  - "There is a consistent bias in Elo's table of numbers against the higher-rated player": a favourite's normal performance loses points.
+  - His other suggestions: K = 24, faster games counted at reduced weights, monthly lists.
+- Not in the text: any data from FIDE's own rated games.
+
+## 14. Jeff Sonas, "The Elo rating system – correcting the expectancy tables" (ChessBase, 30 March 2011) — VERIFIED from an archived copy
+- URL: https://en.chessbase.com/post/the-elo-rating-system-correcting-the-expectancy-tables, the research report's source 46. Capture of 11 April 2026 (https://web.archive.org/web/20260411114507id_/https://en.chessbase.com/post/the-elo-rating-system-correcting-the-expectancy-tables), fetched 2026-10-12T06:20:29Z, HTTP 200, 124,509 bytes.
+- Facts:
+  - Dated 3/30/2011 on the page; by Jeff Sonas, the first of a series; FIDE had sent him its historical datasets.
+  - Data: "1.54 million FIDE-rated games played between October 2007 and August 2010", virtually all that FIDE rated then.
+  - Favourites "are not scoring as well as their ratings say they should": the table is too steep in the middle.
+  - A rating difference of X is in strength "probably more like 0.83X": with each gap scaled by 5/6 and the 400-point rule dropped, the logistic curve matches the data.
+  - He sees no reason left for the 400-point rule, and traces his linear model of 2002 (item 13) to data limited to strong players.
+
+## 15. "Should These Quantities Be Linear?" (Gödel's Lost Letter and P=NP, rjlipton.com, 4 August 2023) — VERIFIED from an archived copy; byline NOT VERIFIED
+- URL: https://rjlipton.com/2023/08/04/should-these-quantities-be-linear/. Capture of 12 December 2025 (https://web.archive.org/web/20251212210145id_/https://rjlipton.com/2023/08/04/should-these-quantities-be-linear/), fetched 2026-10-12T06:20:38Z, HTTP 200, 34,968 bytes (gzip; 144,269 bytes decompressed).
+- **Author.** The archived page prints no author line. The text identifies its author: "my 2011 stem paper with the late Guy Haworth" (item 16) and his "Intrinsic Pereformance Ratings (IPRs)", so spelled; the author's replies in the comments are signed KWRegan. It is read here as Kenneth W. Regan's; the byline itself is NOT VERIFIED.
+- Facts:
+  - A response to Sonas's 2023 study and proposal (item 3), asking whether wider evidence supports it.
+  - For almost three years he has kept "a rough but much more accurate rendition of the FIDE rating system".
+  - Problems "in the realm above Elo 2000" are "left out of Sonas's prescriptions": older players lose points to juniors whose ratings lag their strength since the pandemic, a deflation whose correction is his second recommendation.
+  - He asks that Sonas's 2021–2023 charts be redone with his estimates, and that Glickman's treatment of rating uncertainty be used.
+
+## 16. Kenneth W. Regan and Guy McC. Haworth, "Intrinsic Chess Ratings" (18 May 2011) — VERIFIED from the paper
+- URL: https://cse.buffalo.edu/~regan/papers/pdf/ReHa11c.pdf, the first author's copy. Fetched 2026-10-12T06:23:07Z, HTTP 200, 105,235 bytes (robots.txt read first, 06:23:03Z, HTTP 200; the path allowed).
+- Facts:
+  - University at Buffalo and University of Reading; dated May 18, 2011.
+  - It rates strength "by the quality of moves played, rather than by the results of games", from evaluations by chess programs run to high depth.
+  - Regressions on games of players with known Elo ratings map ratings to the model's parameters; it finds little or no rating inflation over time.
+- Not in the text: where the paper was published (this copy names no venue): NOT VERIFIED.
+
+## 17. Jeff Sonas, Chessmetrics — VERIFIED from the cached pages
+- URL: http://www.chessmetrics.com. Not fetched again: the home page http://www.chessmetrics.com/cm/ (fetched 2026-10-11T10:47:26Z, HTTP 200, 7,585 bytes) and http://www.chessmetrics.com/cm/CM2/SourceData.asp (10:48:39Z, HTTP 200, 7,843 bytes), from the greats' probe.
+- Facts:
+  - The home page, signed by Jeff Sonas, offers historical ratings, estimating "the chess-playing strength of individual players throughout chess history".
+  - Source Data: nineteenth-century match and tournament records let him "have ratings going into 1843".
+
+## 18. Pierre Dangauthier, Ralf Herbrich, Tom Minka and Thore Graepel, "TrueSkill Through Time: Revisiting the History of Chess" — VERIFIED from the paper; year NOT VERIFIED
+- URL: https://www.herbrich.me/papers/ttt.pdf; the research report lists the same paper as its sources 10, 69 and 83. Fetched 2026-10-12T06:23:12Z, HTTP 200, 332,527 bytes (robots.txt HTTP 404, 06:23:08Z).
+- Facts:
+  - It extends TrueSkill to smooth skills "through time instead of filtering", models draws and fits player-specific draw margins.
+  - Data: ChessBase's database, 3,505,366 games between 206,059 players, 1850 to 2006.
+  - It compares players across time and finds that overall playing strength rose over 150 years.
+  - Earlier work, in its words: Elo fitted a smooth curve to estimates from five-year periods (citing his 1978 book, item 19); Chessmetrics (item 17) is a filter that "disregards information from future games"; Glicko; Edo.
+- Not in the text: a date or a venue; its one "2007" belongs to reference [6], the earlier TrueSkill paper. The year is NOT VERIFIED.
+
+## 19. Arpad E. Elo, *The Rating of Chessplayers, Past and Present* (Arco, 1978) — VERIFIED as a catalogue record
+- URL: https://openlibrary.org/isbn/0668047216.json, Open Library's edition record OL4734793M. Fetched 2026-10-12T06:23:42Z, HTTP 200, 1,242 bytes. A title search was not sent: openlibrary.org's robots.txt (06:23:12Z) disallows /search.
+- Facts: "The rating of chessplayers, past and present", "by Arpad E. Elo."; Arco Pub., New York, 1978; 206 pages; LCCN 78024077; OCLC 4504131; drawn from the Library of Congress's and Columbia's catalogue records.
+- Not read: the book itself.
