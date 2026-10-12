@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""E17 for readers: the one-page summary for the campaign, and the proposal's Appendix G.
+"""E17 for readers: the one-page summary for the campaign, and the superseded Appendix G, kept on record.
 
 Writes, from analysis/aggregates/E17_top100.json (written by analysis/e17_top100_extract.py under
 docs/specs/SPEC-TOP100_v1_0.md; the full evidence is docs/evidence/E17_top100-replay.md):
   - without arguments, docs/evidence/E17_summary.md, a one-page plain-language summary;
-  - with --appendix, analysis/OUTPUT_E17_appendix.md, Appendix G of the proposal ("Today's top 100 under rung 2"),
-    which the proposal carries verbatim (tests/test_e17_appendix.py checks that it does).
+  - with --appendix, analysis/OUTPUT_E17_appendix.md, the proposal's Appendix G ("Today's top 100 under rung 2")
+    until session ELO-13, kept on record; the proposal's Appendix G is now one line pointing to Appendix H [E19]
+    (docs/DECISIONS.md, item 16; tests/test_e17_appendix.py checks both).
 Every number is printed from the aggregate, and the fixed wording of the ELO-7 brief heads the page and every table.
 Python standard library only; deterministic.
 

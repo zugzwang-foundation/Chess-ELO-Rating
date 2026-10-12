@@ -104,7 +104,7 @@ def appendix(a: dict, s: dict) -> list[str]:
       f"estimates, neither a bound); {sgn(a['r68_2026']['mean_difference'], 1)} with the {last_y} table in the "
       f"form the 24-month rule keeps; {bl['selfcal']['2700']} and {bl['selfcal']['2800']} of the 100 at 2700 and 2800, against "
       f"{bl['published']['2700']} and {bl['published']['2800']} [E19]. E17's frozen table gave "
-      f"{sgn(e17['mean_difference'], 1)} over 2020–2026 (Appendix G); E19 supersedes it.")
+      f"{sgn(e17['mean_difference'], 1)} over 2020–2026 [E17 §3]; E19 supersedes it.")
     q("")
     q("The five largest differences and the five smallest, with every player tied at the cut, names beside FIDE IDs:")
     q("")

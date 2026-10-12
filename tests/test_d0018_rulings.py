@@ -145,7 +145,9 @@ def test_r86_appendix_f3_cites_e20_only():
             "from November 2018; which text was in force in 2018 is NOT VERIFIED; the 2022 text says \"away from "
             "zero\"; the list of January 2009 is the exception") in f3
     assert "The same rounding words were applied two ways" not in f3
-    assert "January 2009 is the exception" in f3 and "41 points" in f3 and "Nothing has been sent to FIDE" in f3
+    assert "January 2009 is the exception" in f3 and "41 points" in f3
+    # worded on 2026-10-12 so that it stays true after submission (session ELO-13)
+    assert "These findings reach FIDE with this proposal." in f3 and "Nothing has been sent to FIDE" not in prop
     assert "a date no text gives" in E20 and "before the text of 2022 said \"away from zero\"" in E20
 
 
