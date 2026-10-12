@@ -53,6 +53,12 @@ def rng2(vals: list[float]) -> str:
     return f"{a:.2f} to {b:.2f}"
 
 
+def rngw(vals: list[float]) -> str:
+    """'a to b' over magnitudes in whole points, halves rounded up, smallest first."""
+    a, b = (int(x + 0.5) for x in (min(abs(v) for v in vals), max(abs(v) for v in vals)))
+    return f"{a} to {b}" if a != b else f"{a}"
+
+
 def srng(vals: list[float]) -> str:
     """Signed range, lowest first: '+2 to +3', '-6 to -2'."""
     lo, hi = min(vals), max(vals)
@@ -178,6 +184,15 @@ def main() -> None:
       f"before the reform the second drain was {rng2(pre_gap)} points a game in the bands from 1600 to 2399, and it is at "
       f"most {abs(min(post_below)):.2f} since. No figure of the aggregate changed, and the extract was not rerun.")
     p()
+    p("Changed 2026-10-12 (session ELO-15): E5 compares before and after the March 2024 reform and cannot separate the reform "
+      "from anything else that changed in 2024, so the verdict speaks of timing, not cause: point 2 says what has happened since "
+      "the reform, not what it relieved, and the paragraph on the reform, retitled, keeps what the reform did on the March 2024 "
+      "list and gives the rest as what followed it, with that limit stated. The verdict's figure for the top names its measure, "
+      "the bands' medians since March 2024, and sets two figures "
+      "of section 5's table side by side, in whole points: the lists' mean loss a year in 2025–26 and the transfer the "
+      "over-prediction implies at the players' own levels and the lists' rate of play. No figure of the aggregate changed, "
+      "and the extract was not rerun.")
+    p()
 
     # ------------------------------------------------------------------ verdict
     t_rank100 = (top["2015-10"]["active_rank_100"], top["2026-10"]["active_rank_100"])
@@ -193,13 +208,22 @@ def main() -> None:
     blitz_anchor_post = [w["groups"]["anchor_e1"]["median"] for w in d["by_tc"]["blitz"]["longitudinal"] if w["start"] in POST]
     act_hi = [last[f"adult_games:{k}"]["median"] for k in ("20-49", "50+")]
     act_lo = [last[f"adult_games:{k}"]["median"] for k in ("1-4", "5-9", "10-19")]
+    # like for like (session ELO-15): the lists' mean change a year and the transfer implied a year at the lists' rate of play,
+    # both from section 5's table; the bands' medians since March 2024 are a different measure and are named as such
+    top_mean_py = [last[f"band:{bn}"]["mean"] for bn in top3]
+    top_imp_py = [imp_ol[bn] * gpy_last[bn] for bn in top3]
+    assert all(v < 0 for v in top_mean_py + top_imp_py)
+    # since the reform the middle loses less than in 2022-24, and the top still loses (timing, not cause: session ELO-15)
+    assert all(max(band_pre2[bn]) < min(band_post[bn]) for bn in ("1600-1999", "2000-2199"))
+    assert all(v < 0 for bn in top3 for v in band_post[bn])
     p("## Verdict")
     p()
     p(f"**In three sentences.** Since March 2024 the published ratings of steadily active adults have stopped falling in standard "
       f"({srng(anchor_post)} points a year) and rapid ({srng(rapid_anchor_post)}), after falling {rng(anchor_pre)} a year in standard from 2016 to "
       f"February 2024; blitz is still slightly negative ({sgl(blitz_anchor_post)}). What still slides is the top of the list: players rated 2200 "
-      f"or more lose {rng([v for bn in top3 for v in band_post[bn]])} points a year, about what table 8.1.2's over-prediction of favourites "
-      f"implies at the players' own levels (section 5); and active 2600+ "
+      f"or more lose {rng([v for bn in top3 for v in band_post[bn]])} points a year (the bands' medians since March 2024), and their mean loss "
+      f"in 2025–26, {rngw(top_mean_py)} points a year, is about the {rngw(top_imp_py)} that table 8.1.2's over-prediction of favourites "
+      f"implies at the players' own levels and the lists' rate of play (section 5); and active 2600+ "
       f"players fell from {t_2600[0]} in 2015 to {t_2600[2]}. The median of the active list also keeps "
       f"falling, {rng(med_post)} points a year, but only because entrants arrive below the players who stop (continuing players gain), and that "
       "cross-sectional median is what Ghita's −26 and −16 a year measure.")
@@ -211,10 +235,10 @@ def main() -> None:
       f"{rng(med_post)} a year since March 2024. In all {len(fall_windows)} windows in which it fell, the composition term (entrants rated below "
       f"the players who stopped) is larger than the whole fall, while the median of the players present at "
       f"both ends rose by {rng(within_all)} points (section 3). The statistic records who is on the list, not points lost by anyone.")
-    p(f"2. **The top of the list.** Every band from 1600 up has a negative median in every window since 2016. The reform relieved the middle: "
-      f"the medians of players rated 1600–1999 and 2000–2199 were {sgl(band_pre2['1600-1999'])} and {sgl(band_pre2['2000-2199'])} points a "
-      f"year in the two windows of 2022–24 and {sgl(band_post['1600-1999'])} and {sgl(band_post['2000-2199'])} in the three since. It did not "
-      f"relieve the top: 2200–2399 {sgl(band_pre2['2200-2399'])}, then {sgl(band_post['2200-2399'])}; 2400–2599 {sgl(band_pre2['2400-2599'])}, "
+    p(f"2. **The top of the list.** Every band from 1600 up has a negative median in every window since 2016. Since the reform the middle has "
+      f"lost less: the medians of players rated 1600–1999 and 2000–2199 were {sgl(band_pre2['1600-1999'])} and {sgl(band_pre2['2000-2199'])} points a "
+      f"year in the two windows of 2022–24 and {sgl(band_post['1600-1999'])} and {sgl(band_post['2000-2199'])} in the three since. The top "
+      f"still loses: 2200–2399 {sgl(band_pre2['2200-2399'])}, then {sgl(band_post['2200-2399'])}; 2400–2599 {sgl(band_pre2['2400-2599'])}, "
       f"then {sgl(band_post['2400-2599'])}; 2600+ {sgl(band_pre2['2600+'])}, then {sgl(band_post['2600+'])} (section 2).")
     p(f"3. **Why the top keeps paying.** On broadcast games, table 8.1.2's over-prediction of the favourite [E2], measured at the "
       f"players' own levels, costs players rated 2200–2399 {abs(imp_ol['2200-2399']):.2f} points a game, 2400–2599 "
@@ -238,12 +262,13 @@ def main() -> None:
       f"{abs(min(post_below)):.2f} points a game of the transfer implied at its own levels, or above it; only 2000–2199 stays below "
       f"it in all three years, by {rng2(post_gap['2000-2199'])}.")
     p()
-    p(f"**What the 2024 reform changed.** On the March 2024 list, {std_mar_share:.2f} % of standard players rated below 2000 with no game in that "
-      f"period moved by exactly round(0.4 × (2000 − R)), and {100 * mar['unchanged'] / mar['no_game_from_2000']:.2f} % of those rated 2000 or more "
-      f"did not move; rapid and blitz show the same (section 4). The SD of active adults' ratings fell from {sd[0]:.0f} to {sd[1]:.0f} points in one "
-      f"list and has stayed near {sd[2]:.0f}. The anchor cohort's drift turned from negative to positive. After it the second drain is at most "
-      f"{abs(min(post_below)):.2f} points a game in every band from 1600 to 2399, against {rng2(pre_gap)} in 2023–24, and the cross-sectional "
-      f"slide slowed because entrants now arrive higher (newcomers' median first rating 1272 in 2023, 1564 in 2025 [E1]).")
+    p(f"**The 2024 reform, and what followed it.** On the March 2024 list, {std_mar_share:.2f} % of standard players rated below 2000 with no game "
+      f"in that period moved by exactly round(0.4 × (2000 − R)), and {100 * mar['unchanged'] / mar['no_game_from_2000']:.2f} % of those rated 2000 "
+      f"or more did not move; rapid and blitz show the same (section 4). The SD of active adults' ratings fell from {sd[0]:.0f} to {sd[1]:.0f} points "
+      f"in one list and has stayed near {sd[2]:.0f}. After it the anchor cohort's drift turned from negative to positive; the second drain is at "
+      f"most {abs(min(post_below)):.2f} points a game in every band from 1600 to 2399, against {rng2(pre_gap)} in 2023–24; and the cross-sectional "
+      f"slide slowed because entrants now arrive higher (newcomers' median first rating 1272 in 2023, 1564 in 2025 [E1]). These are comparisons "
+      f"before and after: they cannot separate the reform from anything else that changed in 2024.")
     p()
     p("**What remains.** The table that over-predicts favourites is unchanged, so the top bands keep paying; the number of active 2600+ players keeps "
       "falling; the median of the active list keeps sliding by composition while continuing players gain; blitz has not turned. Deflation in the "

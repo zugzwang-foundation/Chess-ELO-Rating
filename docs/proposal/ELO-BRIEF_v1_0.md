@@ -5,11 +5,9 @@ The Zugzwang Authors · CC BY 4.0 · 2026-10-12. Contact: Hrishikesh, The Zugzwa
 
 ## What is wrong
 
-FIDE's expected-score table expects too much of the favourite: by 0.02 to 0.05 points a game on 352,737 broadcast standard games [E2]. Top players are usually favourites, so points drain from them: at their own levels, the error implies that players rated 2400 or more lose 0.10 to 0.13 points a game, about 5 to 8 a year; FIDE's lists show them losing 0.09 to 0.13 a game [E5].
+Since FIDE's March 2024 reform a second drain has closed: in 2023–24 players rated 1600–2399 lost 0.37 to 0.93 points a game beyond the expected-score table's error; since, at most 0.08 [E5]. What remains is the top: players rated 2200 or more lose 4 to 7 points a year on FIDE's lists, about what that error implies at their own levels [E5]. The table expects too much of favourites: by 0.02 to 0.05 points a game on 352,737 broadcast standard games [E2].
 
 Juniors improve faster than their ratings follow, so adults who play them lose points they should not: an adult rated 1900 who draws a junior listed at 1500 loses 8.4 points before rounding, however strong the junior is [V 1] [R 5]. And federations are priced differently: an independent study's directions hold on our sample [R 5] [E7].
-
-One worry has eased: since March 2024, steadily active adults' published ratings have stopped falling in standard and rapid [E5].
 
 ## What we propose
 
@@ -39,7 +37,7 @@ Each step is tested against today's rules on the problem it targets and must not
 
 ## What we ask of FIDE
 
-Above all, FIDE's tournament reports, which hold every rated game, under a data agreement: only they can test steps 2 to 7 for the whole pool. Also a review by the Qualification Commission with public comment, and a twelve-month shadow list before anything changes for anyone. Federations are asked for nothing now; later, one volunteer federation would pilot the chosen steps on a domestic list, run by the Zugzwang Foundation at no cost.
+Above all, FIDE's tournament reports, which hold every rated game, under a data agreement: only they can test steps 2 to 7 for the whole pool. Also a review by the Qualification Commission with public comment, and a twelve-month shadow list before anything changes for anyone. Federations are asked for nothing now; later, one volunteer federation would pilot the chosen steps on a domestic list. The Zugzwang Foundation computes both lists monthly, at no cost to FIDE or the federation.
 
 ## A comparison fixed before any result
 

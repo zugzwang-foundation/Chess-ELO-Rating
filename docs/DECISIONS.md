@@ -2,6 +2,12 @@
 
 Status: DECIDED — the project's decision log from 12 October 2026: one dated line per decision, newest date first; the ten of 12 October 2026 stand in the order they were given, and a later decision takes the next number and goes on top. The decision records D-0001 to D-0018 in `docs/decisions/` stay as history; a mistake in one is fixed in place, with a dated line saying what changed.
 
+22\. 2026-10-12 — E6's junior figures are from 2025-01 to 2026-09, after the March 2024 reform, and the proposal says so (founder): the 21 held-out months that annex T8.3's protocol fixed before E6 ran; no figure changes (session ELO-15): proposal summary, §2(b) and §8's rung 5 row; annex T4.6, T8.1 and T8's record of what has been run.
+
+21\. 2026-10-12 — Who runs what (founder): the Zugzwang Foundation computes the shadow list from stage 2 and the pilot federation's domestic list in stage 3, monthly, at no cost to FIDE or the federation, and either can run the open code themselves; this replaces item 18 (session ELO-15): proposal §13, "Who runs what", and one clause in the brief.
+
+20\. 2026-10-12 — The headline covers players rated 2200 or more, in two parts (founder): since the March 2024 reform the second drain is at most 0.08 a game; what remains at the top is about what table 8.1.2's over-prediction implies at the players' own levels; rung 2's line follows (session ELO-15): proposal summary and §2(a), the brief's "What is wrong", `docs/evidence/E5_deflation.md`.
+
 19\. 2026-10-12 — The contact named in the proposal (founder): "Hrishikesh, The Zugzwang Foundation", in the front matter of the proposal and of the brief; no email address (session ELO-14): `docs/proposal/ELO-PROPOSAL_v1_0.md`, `docs/proposal/ELO-BRIEF_v1_0.md`.
 
 18\. 2026-10-12 — The Zugzwang Foundation runs the pilot's shadow list at no cost (founder): during the pilot it maintains the open code and runs the shadow list each month, at no cost to FIDE or to the pilot federation; the code is open, so FIDE or the federation can run it themselves at any time; arbiters' tools do not change until FIDE adopts a step; the pilot federation shares its rated games under a data agreement and pays nothing (session ELO-14): proposal §13, "Who runs the pilot", and one clause in the brief.
