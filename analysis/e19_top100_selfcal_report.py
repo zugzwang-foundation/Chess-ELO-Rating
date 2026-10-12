@@ -61,7 +61,7 @@ def appendix(a: dict, s: dict) -> list[str]:
     q("")
     q(FIXED)
     q("")
-    q("Rung 2 as recommended is self-calibrating (R65): each year's table is refitted by SPEC-TABLE-FIT v1.2's rules on "
+    q("Rung 2 as recommended is self-calibrating: each year's table is refitted by SPEC-TABLE-FIT v1.2's rules on "
       "the games played before that year only, within annex T7.1's yearly caps, by a method fixed before any table was "
       "fitted (`docs/specs/SPEC-SELFCAL_v1_2.md`). Run back in time on the broadcast archive, the data allow "
       f"{WORDS.get(len(years), len(years))} tables: 2016–2019 could not be sourced legitimately, and the archive's games before 2023 carry no "
@@ -78,8 +78,8 @@ def appendix(a: dict, s: dict) -> list[str]:
       + ("earns its name" if verdict else "does not earn its name")
       + f" in {last_y}, the one year that can tell. The size is small: {abs(d32['mean']):.4f} nats a game, against "
       f"{abs(tw[last_y]['year-l0']['mean']):.3f} over table 8.1.2"
-      + (f", and {abs(tw[last_y]['year_prevform-first']['mean']):.4f} in the form ruling R68 keeps (a choice of form "
-         "needs 24 months of games after the last rule change; R68 applies from 2027, and the 10-month figure that "
+      + (f", and {abs(tw[last_y]['year_prevform-first']['mean']):.4f} in the form the 24-month rule keeps (a choice of "
+         "form needs 24 months of games after the last rule change; the rule applies from 2027, and the 10-month figure that "
          "allowed the 2026 choice was set after the counts were known)" if "year_prevform-first" in tw[last_y] else "")
       + f"; and with one year, against a frozen table fitted on {t25['months']} months to the year's {t26['months']}, "
       "the result is consistent with self-calibration and cannot establish it [E18 §3]. Table 8.1.2 expects a 100-point "
@@ -91,20 +91,19 @@ def appendix(a: dict, s: dict) -> list[str]:
       "[E18 §4].")
     q("")
     q(f"Today's top 100 replayed with these tables, FIDE's rules before {first}, and K by FIDE's rules on each system's "
-      "own rating (R61"
+      "own rating"
       + (", which changes no K here" if not a["k_departs_from_fide"] else "")
-      + f"): in October 2026 the self-calibrating system rates them {sgn(mt['mean_difference'], 1)} points higher on "
+      + f": in October 2026 the self-calibrating system rates them {sgn(mt['mean_difference'], 1)} points higher on "
       f"average than FIDE's rules ({sgn(mt['min'])} to {sgn(mt['max'])}); {sgn(sh['-10']['mean_difference'], 1)} to "
       f"{sgn(sh['10']['mean_difference'], 1)} with the opponents outside the 100 rated 10 points lower or higher from "
-      f"{first} (R58); {sgn(bd['mean_difference'], 1)} with each table's own residual at levels of 2300 or more "
-      f"removed by level band, and {sgn(a['bound_cells']['mean_difference'], 1)} by band and gap (R59's two "
-      f"estimates, neither a bound, R71); {sgn(a['r68_2026']['mean_difference'], 1)} with the {last_y} table in the "
-      f"form R68 keeps; {bl['selfcal']['2700']} and {bl['selfcal']['2800']} of the 100 at 2700 and 2800, against "
+      f"{first}; {sgn(bd['mean_difference'], 1)} with each table's own residual at levels of 2300 or more "
+      f"removed by level band, and {sgn(a['bound_cells']['mean_difference'], 1)} by band and gap (two "
+      f"estimates, neither a bound); {sgn(a['r68_2026']['mean_difference'], 1)} with the {last_y} table in the "
+      f"form the 24-month rule keeps; {bl['selfcal']['2700']} and {bl['selfcal']['2800']} of the 100 at 2700 and 2800, against "
       f"{bl['published']['2700']} and {bl['published']['2800']} [E19]. E17's frozen table gave "
-      f"{sgn(e17['mean_difference'], 1)} over 2020–2026 (Appendix G); E19 supersedes it (R59).")
+      f"{sgn(e17['mean_difference'], 1)} over 2020–2026 (Appendix G); E19 supersedes it.")
     q("")
-    q("The five largest differences and the five smallest, with every player tied at the cut, names beside FIDE IDs "
-      "(R60):")
+    q("The five largest differences and the five smallest, with every player tied at the cut, names beside FIDE IDs:")
     q("")
     q(FIXED)
     q("")
@@ -121,9 +120,9 @@ def appendix(a: dict, s: dict) -> list[str]:
     q(f"- Two tables only, so the test of self-calibration rests on {last_y}; the replay differs from FIDE's rules over "
       f"{sum(1 for m in a['by_list'] if m >= f'{first}-01')} lists, not E17's "
       f"{sum(1 for m in a['by_list'] if m > a['window']['start_list'])}.")
-    q("- Opponents outside the 100 keep their published ratings (R58's range above); a replay of the whole pool needs "
+    q("- Opponents outside the 100 keep their published ratings (the range above); a replay of the whole pool needs "
       "FIDE's tournament reports (section 9, stage 2).")
-    q("- The tables' own error at the top is estimated, not removed (R59's two estimates above, R71).")
+    q("- The tables' own error at the top is estimated, not removed (the two estimates above).")
     q("- A flatter table spreads ratings further apart at the top (annex T3.5): counts above 2700 and 2800 compare two "
       "scales as well as two rules.")
     q("- The tables are fitted on broadcast games, stronger and more international than the rated pool.")

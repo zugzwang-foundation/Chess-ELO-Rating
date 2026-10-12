@@ -92,12 +92,14 @@ def load() -> tuple[dict, dict, dict, dict, dict]:
     return sel, lists, rep, probe, e18
 
 
-def credit(probe: dict, terms: str) -> str:
-    """R77's credit and R83's label (D-0018): the line under every table that uses OlimpBase's lists."""
+def credit(probe: dict, terms: str, plain: bool = False) -> str:
+    """R77's credit and R83's label (D-0018): the line under every table that uses OlimpBase's lists; with plain, the
+    same without the rulings' numbers, for the proposal's appendix (session ELO-12)."""
     return (f"Lists to 2000: OlimpBase's transcription of FIDE's lists, by Wojciech Bartelski "
             f"({probe['olimpbase_lists']['summary']['url']}), used under its terms: free of charge, citing the source, "
-            "non-commercial use only (DATA-PROBE §3); only figures derived from it are kept here (R77). Under ruling R83, "
-            f"for the figures resting on those lists: {terms}")
+            "non-commercial use only (DATA-PROBE §3); only figures derived from it are kept here"
+            + (". For" if plain else " (R77). Under ruling R83, for")
+            + f" the figures resting on those lists: {terms}")
 
 
 def facts(sel: dict, lists: dict, rep: dict, e18: dict) -> dict:
@@ -811,15 +813,13 @@ def appendix(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[
     q("## Appendix I The greats, on FIDE's own data")
     q("")
     q("Outside the body's word count. From E20 (`docs/evidence/E20_greats.md`), under SPEC-GREATS v1.0, fixed before "
-      "any analysis, the rulings R74 to R79 (`docs/decisions/D-0017_rulings-on-the-greats.md`) and R80 to R84 "
-      "(`docs/decisions/D-0018_rulings-on-elo-9-questions.md`) and the sessions' reviews. Its headlines are the lead over "
-      "one's own era and the replay's validation and findings from FIDE's pages; the backward replay has none (R81). "
-      "Every table here, as in E20, reads:")
+      "any analysis, and the later decisions E20 lists. Its headlines are the lead over one's own era and the replay's "
+      "validation and findings from FIDE's pages; the backward replay has none. Every table here, as in E20, reads:")
     q("")
     q(FIXED)
     q("")
     q("**The data, and their limits.** The study uses FIDE's own data, for analysis only and not redistributed (FIDE "
-      "reserves all rights; its written permission is to be requested, and until FIDE answers nothing changes, R84; "
+      "reserves all rights; its written permission is to be requested, and until FIDE answers nothing changes; "
       "what is committed of it is aggregates and differences, single published ratings, and fixed samples of FIDE's "
       "calculations kept as test fixtures and quoted value by value for verification), and OlimpBase's transcription "
       "of FIDE's lists under its terms, "
@@ -837,7 +837,7 @@ def appendix(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[
       f"[E20 §2], from {surnames([x['name'] for x in sel['players'] if x['first_top3'] == first_list])} on the first "
       f"list ({month(first_list)}) to "
       f"{surnames([x['name'] for x in sel['players'] if x['first_top3'] == last_join])}, the last to join "
-      f"({month(last_join)}); they stand as SPEC-GREATS fixed them, with no change after results (R82). Its rule treats "
+      f"({month(last_join)}); they stand as SPEC-GREATS fixed them, with no change after results. Its rule treats "
       "ties in two ways: on the lists to April 2000, ranked by their ratings, a shared 3rd place counts, and before 1999 "
       f"the ratings are multiples of five, so {words(len(f['tie_only']))} players are in only that way "
       f"({surnames([x['name'] for x in f['tie_only']])}); from July 2000 FIDE's printed order decides where a printed "
@@ -862,7 +862,7 @@ def appendix(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[
         q(f"| {x['name']} | {month(b['first'])} – {month(b['last'])} | {b['lists']} | {sgn(b['mean_gap2'], 1)} | "
           f"{sgn(b['mean_gap10'], 1)} | {b['windows']} |")
     q("")
-    q(credit(probe, f['terms']))
+    q(credit(probe, f['terms'], plain=True))
     q("")
     q("A lead over one's contemporaries, on lists whose frequency and spread change with the era, and a maximum over a "
       "different number of windows for each player: not a ranking across eras.")
@@ -876,14 +876,14 @@ def appendix(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[
       "thin and carry FIDE's change. In the greats' games FIDE applied the 350-point rule to tournaments starting up to "
       f"{day(rd['last_start_with_350'])} and the 400-point rule from {day(rd['first_start_beyond_350'])}, a date no text "
       "gives. " + rounding_line(f) + "; Layer 0 rounds towards +∞ to October 2018 and away from zero from November 2018 "
-      "(R74 and R80, readings set after FIDE's pages had been seen: FIDE's own output shows towards +∞ to the list of "
+      "(readings set after FIDE's pages had been seen: FIDE's own output shows towards +∞ to the list of "
       "July 2018, and the list of the change is NOT VERIFIED), and the list of January 2009 keeps its periods thin.")
     q("")
     q(f"For the selection's figures of this paragraph (the {f['n_players']}, the {rep['players_replayed']} and the "
       f"{f['groups']['to_april_2000']['players']}): {f['terms']}")
     q("")
     q("E20 §5 also replays the same games under E18's 2025 table, **applied backwards, not fitted on that era**, with "
-      f"every opponent outside the {rep['players_replayed']} held at FIDE's rating (R58). It measures the distance "
+      f"every opponent outside the {rep['players_replayed']} held at FIDE's rating. It measures the distance "
       "between that table and table 8.1.2 at these players' gaps, on the same results, which FIDE rated with table "
       "8.1.2, not anyone's strength; its figures, and the check of how the two tables fit these games, which cannot say "
       "which table fits the era, are in E20 §5 only.")

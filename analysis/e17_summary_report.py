@@ -27,6 +27,11 @@ BANNER = ("> **Superseded before any public use** (ruling R59, D-0014): one tabl
           "2023 to September 2026, serves every year of this replay, with FIDE's K. The self-calibrating replay of session "
           "ELO-8 [E19], in which each year's table is fitted only on games played before that year and K follows FIDE's rules on "
           "each system's own rating, replaces these figures.")
+# The same in plain words, for the proposal's Appendix G (session ELO-12): the appendices carry no ruling, record or session.
+APPENDIX_BANNER = ("> **Superseded before any public use**: one table, fitted on broadcast games of October 2023 to "
+                   "September 2026, serves every year of this replay, with FIDE's K. The self-calibrating replay of "
+                   "Appendix H [E19], in which each year's table is fitted only on games played before that year and K "
+                   "follows FIDE's rules on each system's own rating, replaces these figures.")
 
 
 def sgn(x, d: int = 0) -> str:
@@ -162,7 +167,7 @@ def appendix(a: dict) -> list[str]:
     P = out.append
     P("## Appendix G Today's top 100 under rung 2")
     P("")
-    P(BANNER)
+    P(APPENDIX_BANNER)
     P("")
     P(FIXED)
     P("")
@@ -180,8 +185,8 @@ def appendix(a: dict) -> list[str]:
     P("")
     P(f"With the opponents outside the 100 held at their published ratings, in October 2026 the mean difference is "
       f"{sgn(f['mean_d'], 1)} points ({sgn(f['sh']['-10']['mean_difference'], 1)} to "
-      f"{sgn(f['sh']['10']['mean_difference'], 1)} with those opponents rated 10 points lower or higher under rung 2, "
-      f"R58; the table {sgn(f['mean_t'], 1)}, colour "
+      f"{sgn(f['sh']['10']['mean_difference'], 1)} with those opponents rated 10 points lower or higher under rung 2; "
+      f"the table {sgn(f['mean_t'], 1)}, colour "
       f"{sgn(f['mean_c'], 1)}), from {sgn(f['lo'])} to {sgn(f['hi'])}; {f['moved']} of the {n} change rank, by at most "
       f"{f['max_move']} places; under FIDE's rules {bl[last]['published']['2700']} are rated 2700 or more and "
       f"{bl[last]['published']['2800']} {'is' if bl[last]['published']['2800'] == 1 else 'are'} rated 2800 or more, "
@@ -195,7 +200,7 @@ def appendix(a: dict) -> list[str]:
       "first order, each point by which those opponents would on average be rated higher or lower moves the mean "
       f"difference by about {abs(f['sens']):.1f} points; rerun with them 5 or 10 points lower or higher at every date, the "
       f"mean is {sgn(f['sh']['-10']['mean_difference'], 1)}, {sgn(f['sh']['-5']['mean_difference'], 1)}, "
-      f"{sgn(f['sh']['5']['mean_difference'], 1)} and {sgn(f['sh']['10']['mean_difference'], 1)} (R58) [E17 §9], so the "
+      f"{sgn(f['sh']['5']['mean_difference'], 1)} and {sgn(f['sh']['10']['mean_difference'], 1)} [E17 §9], so the "
       "figures, and the counts above 2700 and 2800 most of all, rest on this approximation.")
     P("- The difference mixes FIDE's error with rung 2's: on held-out months the v2 table still expects too little of "
       "favourites at levels 2300 to 2499 [E16 §1, §5], and the replay cannot separate the two.")
