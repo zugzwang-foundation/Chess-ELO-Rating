@@ -1,7 +1,7 @@
 # Modernising the FIDE Elo Rating System: an exact reference implementation plus an explainable correction layer
 
 **Status: DRAFT v1.0 — not for publication**
-Author: The Zugzwang Authors · Licence: CC BY 4.0 (`docs/LICENSE-docs.md`), except figures labelled otherwise (Appendix I) · Date: 2026-10-12
+Author: The Zugzwang Authors · Contact: Hrishikesh, The Zugzwang Foundation · Licence: CC BY 4.0 (`docs/LICENSE-docs.md`), except figures labelled otherwise (Appendix I) · Date: 2026-10-12
 Audience: FIDE's Qualification Commission (QC) and the chess public. Plain language first; the mathematics is in the technical annex.
 Companion documents: the technical annex `docs/proposal/ELO-TECHNICAL-ANNEX_v1_0.md` (sections T1–T11), which holds every formula, proof sketch and worked example and is cross-referenced as [T n]; and a 900-word plain-language brief, `docs/proposal/ELO-BRIEF_v1_0.md`. The decisions behind this version are recorded in `docs/decisions/` and, from 12 October 2026, in `docs/DECISIONS.md`.
 
@@ -27,7 +27,7 @@ How to read the citations. `[R §x]` points to a section of the research report 
 
 On 352,737 broadcast standard games between rated players, the favourite scores below table 8.1.2's expectation in every 50-point gap bin from 50 to 449 points, by 0.022 at 50–99 rising to 0.054 at 350–399; in rapid the shortfall reaches 0.096 and in blitz 0.073 [E2] [E5]. A refitted table with colour and draws passes the calibration rules on held-out months where table 8.1.2 fails, though below 2000 the level-dependent fit misses more than the first [E2] [E11] [E16]. Self-calibrating, refitted each year on earlier games only, it beat table 8.1.2 in 2025 and 2026, by 0.002 a game in Brier score, and a fixed table in 2026, by 0.00009: consistent with self-calibration, not proof [E18].
 
-The favourite pays the error, and top players are usually favourites, so points move down the list, from 2200 and above to below 2000. At 2400 and above, where everyone's K is 10, the over-prediction at these players' own levels (by level band, a split chosen after seeing the data) implies a loss of 0.10 points a game for players rated 2400–2599 and 0.13 for 2600 and above; FIDE's lists show them losing 0.09 and 0.13 a game in 2025–26, about 4 and 7 points a year [E5]. The top has shrunk (standard; active: a rated game in the twelve months to the list) [E5]:
+The favourite pays the error, and top players are usually favourites, so points move down the list, from players rated 2200 or more to those below. At 2400 and above, where everyone's K is 10, the over-prediction at these players' own levels (by level band, a split chosen after seeing the data) implies a loss of 0.10 points a game for players rated 2400–2599 and 0.13 for 2600 and above; FIDE's lists show them losing 0.09 and 0.13 a game in 2025–26, about 4 and 7 points a year [E5]. The top has shrunk (standard; active: a rated game in the twelve months to the list) [E5]:
 
 | list | October 2015 | October 2019 | October 2023 | October 2026 |
 |---|---|---|---|---|
@@ -103,7 +103,7 @@ One core skill per player, with an offset, table and volatility per time control
 
 **Layer 0, the reference engine**, is rung 1: an exact implementation of the FIDE Rating Regulations as amended 1 October 2025 [V 1] and of the Rapid and Blitz Rating Regulations [V 2] (`docs/specs/SPEC-L0_fide-reference-engine_v1_5.md`), verified against FIDE's published calculations [E0] (section 8).
 
-**Layer 1, the model** [T2], gives each player a shared skill with an age-dependent drift and an offset per time control, refitted monthly on 36 months of games by Whole-History Rating's method [VP 11], with priors by age only, never federation, and a scale anchored to steadily active adults [VP 12] (`docs/specs/SPEC-L1_v1_0.md`). Its estimates of named players are for the QC only. **It never edits a published rating.**
+**Layer 1, the model** [T2], gives each player a shared skill with an age-dependent drift and an offset per time control, refitted monthly on 36 months of games by Whole-History Rating's method [VP 11], with priors by age only, never federation, and a scale anchored to steadily active adults [VP 12] (`docs/specs/SPEC-L1_v1_0.md`). **It never edits a published rating.**
 
 **Layer 2, the published rating** [T4], is forward-only and Elo-style; the model reaches it only through the named, capped rungs of section 8. Each month Layer 0 produces the official list and Layer 2 a shadow list; the QC signs the parameter file.
 
@@ -177,7 +177,7 @@ Seven rungs, lowest risk first, each adoptable alone, though rung 3 needs rung 6
 | 6 Monthly adjustment | A capped adjustment of either sign, accrual scaled by activity and ending three months after the last rated game | **TEST ON FIDE DATA** | Holds the simulated level and meets its twelve-month rule in 91 % of months, but in no month of a junior wave, where it pays near its cap [E14]; on broadcast months the rule is met in rapid, not in standard or blitz [E6] |
 | 7 Federation adjustment | The same per federation | **TEST ON FIDE DATA** (disabled) | Direction of Ghita's residuals confirmed [E7]; cannot reach an isolated federation in the simulator [E14]; the selection test needs FIDE's record |
 
-Rung 2 needs its shadow year because below 2000 it misses more than the first fitted table [E11] [E16]; the guard stays until the strict test lifts it; rapid and blitz are re-tested on FIDE's games, though on broadcast games the table passes the full rule in both. In the simulator rungs 2 to 6 together recover true strength best overall (error 100 points against 120), on an optimistic model proxy, but less well than today's rules for juniors and for players rated 1600–1999 [E14]. Appendix H replays today's top 100 under rung 2 [E19].
+Rung 2 needs its shadow year because below 2000 it misses more than the first fitted table [E11] [E16]; rapid and blitz are re-tested on FIDE's games, though on broadcast games the table passes the full rule in both. In the simulator rungs 2 to 6 together recover true strength best overall (error 100 points against 120), on an optimistic model proxy, but less well than today's rules for juniors and for players rated 1600–1999 [E14]. Appendix H replays today's top 100 under rung 2 [E19].
 
 ---
 
@@ -256,7 +256,7 @@ The 2026 U.S. Championship and U.S. Women's Championship (Saint Louis, 7 to 23 O
 
 ## 11 Proof plan
 
-**One baseline**: Layer 0, today's rules exactly; other systems are prior art (section 12). **Protocol**: rolling origin, fitting on months up to t and forecasting month t + 1; the match schedule is never a feature [R 9] [VP 10]. Each rung is scored on its targeted metric and on a do-no-harm check, against the thresholds below. **Data**: FIDE's monthly lists since February 2015 [V 3], analysed and never redistributed; the Lichess broadcast archive, CC BY-SA 4.0 [V 4], with its bias stated; online games are not evidence. **The simulator** (`docs/specs/SPEC-SIM_v1_0.md`) adds what no backtest can: known true strengths, ten simulated years a run, every rung on the same games as Layer 0, and adversaries; it was rerun with the table calibrated by level as the true model, rung 2 at today's K [E9] [E14].
+**One baseline**: Layer 0, today's rules exactly; other systems are prior art (section 12). **Protocol**: rolling origin, fitting on months up to t and forecasting month t + 1; the match schedule is never a feature [R 9] [VP 10]. Each rung is scored on its targeted metric and on a do-no-harm check, against the thresholds below. **Data**: FIDE's monthly lists since February 2015 [V 3], analysed and never redistributed; the Lichess broadcast archive, CC BY-SA 4.0 [V 4], with its bias stated; online games are not evidence. **The simulator** (`docs/specs/SPEC-SIM_v1_0.md`) adds what no backtest can: known true strengths, ten simulated years a run, every rung on the same games as Layer 0, and adversaries [E9] [E14].
 
 **Success criteria (PROVISIONAL; fixed in [T8] before each data source's tests, except rung 6's rule and rung 2's first guard, set after [E6]; the present guard's rule was fixed before the refit [E12]).**
 
@@ -278,7 +278,7 @@ The 2026 U.S. Championship and U.S. Women's Championship (Saint Louis, 7 to 23 O
 
 Much of this design was proposed first by others; the full comparison, with page references, is `docs/research/PRIOR-WORK_2026-10-10.md`.
 
-- **Ghita** (book of February 2026) diagnosed federation mispricing with a weighted, recursive cross-border index, whose direction our broadcast games confirm [E7], and proposed a monitored expectancy scale, an activity-linked bonus, safeguards with a sunset and a one-time reset for large federations ([R 5], pp. 49–59). We share the first three in other forms and do not reset: rungs 3 and 5 address the under-rated juniors his reset targets.
+- **Ghita** (book of February 2026) diagnosed federation mispricing, whose direction our broadcast games confirm [E7], and proposed a monitored expectancy scale, an activity-linked bonus, safeguards with a sunset and a one-time reset for large federations ([R 5], pp. 49–59). We share the first three in other forms and do not reset: rungs 3 and 5 address the under-rated juniors his reset targets.
 - **Sonas** argued in 2002 that the table is biased against favourites [VP 13] and measured it on FIDE's games in 2011 [VP 14]; in 2023 he judged a table change would not help the level, as his compression did [VP 3] [VP 5] [E5]. Rung 2 builds on his diagnosis, adding draws and colour by level, out-of-sample tests and yearly refits. **Regan**'s 2023 response raised deflation above 2000, the concern of sections 2(a) and 2(b) [VP 15]; his move-quality ratings are another approach: we use results only [VP 16].
 - **Chess Scotland's junior additions**, put to FIDE in the 2023 consultation, are rung 5's mechanism [VP 4]. **Glickman**: K from certainty is Glicko's idea [VP 6]; the anchor cohort follows US Chess's monitoring of stable players [VP 12]. **URS** combined time controls in one strength with age-based priors [VP 8]. **Whole-History Rating** is Layer 1's method [VP 11]. **Sonas** (2002) and **Elo++** (2010) put White's advantage in a rating system [VP 13] [VP 9].
 - **What this proposal adds**, checked against those sources: an open reproduction of FIDE's current calculation [E0]; each change tested alone against it, mostly under rules registered first [E2] [E6] [E8] [E10]; a table with colour and draws that passes calibration out of sample [E2], with slope by level [E11]; a model that reaches a forward-only rating only through named, capped channels; the deflation question split into level and composition [E5]; a simulator with adversaries [E9] [E14]; a points ledger; and a comparison pre-registered (section 10).
@@ -293,9 +293,11 @@ Much of this design was proposed first by others; the full comparison, with page
 
 **Ownership and process.** The QC signs the parameter file; the Council approves changes to caps or formula after public comment, with the 2023 consultation as the model [VP 4] [VP 5]. No published parameter moves by more than its annual cap; a fit on a boundary is a flag for the QC. Rollback follows a closed list of statistical triggers [T8]; the spread trigger is a QC review, not a rollback. Whether the QC may publish a table yearly without a Council decision is NOT VERIFIED [T11].
 
+**Who runs the pilot.** During the pilot, the Zugzwang Foundation maintains the open code and runs the shadow list each month, at no cost to FIDE or to the pilot federation. The code is open, so FIDE or the federation can run it themselves at any time. Arbiters' tools do not change until FIDE adopts a step. The pilot federation shares its rated games under a data agreement and pays nothing.
+
 **The properties the design guarantees** [T5]. P1 forward-only; P2 bounded change, at most K a game and, under rung 4, at most the larger of the table's constant C and 700 an event (C 954 to 1,327 in standard; script v2 §4), or 700 without it, as today, plus the capped adjustment; P3 continuity, no caps, clamps or bracket switches, the guard's blended edges and its stop apart; P4 unbiasedness where the table is calibrated, with one stated exception, the guard's region; P5 ledger completeness; P6 determinism.
 
-**Cliffs.** Today's rules switch at a 400-point gap below 2650, at 30 games, 2300 and 2400 for K, and through two hypothetical 1800 draws [V 1] [V 2]. What remains discrete is listed in [T5]: the table's bands, the publication grids, compensation's eligibility conditions, and the guard's blended edges and its stop at 735 points. In the simulator, farming gains 0.241 points a game over ordinary play under today's rules and 0.065 with rung 2; arranged junior–adult results create points under every ledger, over ten years 0.8 a game under today's rules against 1.7–3.1 with rungs 4, 5 or 2 to 6: the ledger shows them, and a per-player cap limits them in rung 5's pilot and rung 4's test, at a PROVISIONAL size [E14] [T6].
+**Cliffs.** Today's rules switch at a 400-point gap below 2650, at 30 games, 2300 and 2400 for K, and through two hypothetical 1800 draws [V 1] [V 2]. What remains discrete is listed in [T5]: the table's bands, the publication grids, compensation's eligibility conditions, and the guard's blended edges and its stop at 735 points. In the simulator, arranged junior–adult results create points under every ledger, over ten years 0.8 a game under today's rules against 1.7–3.1 with rungs 4, 5 or 2 to 6: the ledger shows them, and a per-player cap limits them in rung 5's pilot and rung 4's test, at a PROVISIONAL size [E14] [T6].
 
 **Monitoring.** Monthly and without names: improbable mutual results, gains from far weaker opponents, residuals by level and in the guard's region, points created per event and per player; flags go to the QC [T8].
 
@@ -318,7 +320,7 @@ The title and norm regulations keep their text: norm arithmetic uses table 1.4.9
 
 **Open questions**, with the step that answers each:
 
-1. Can the farming guard lapse, is the table calibrated in every level band (it misses below 2000 and at 2400–2499), and does rung 2 pass in rapid and blitz on the pool? FIDE's games, by level band and gap [E11] [E12]; the next fit follows SPEC-TABLE-FIT v1.2.
+1. Can the farming guard lapse, is the table calibrated in every level band (it misses below 2000 and at 2400–2499), and does rung 2 pass in rapid and blitz on the pool? FIDE's games, by level band and gap [E11] [E12].
 2. Do rungs 3 to 5 work for the juniors and newcomers below 2000 they are meant for? The TRF archive; broadcast games cover the strong end [E6].
 3. Are federation offsets stable and causal, or artefacts of who travels? The TRF archive and the selection test; rung 7 stays disabled until then [E7].
 4. Can rung 6 hold the level under a sustained junior wave? Under its twelve-month rule it fails in standard and blitz on broadcast months and in every month of a simulated wave, paying near its cap [E6] [E14]: a faster controller is for the FIDE-data test.

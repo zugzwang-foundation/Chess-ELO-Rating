@@ -113,6 +113,39 @@ def main() -> None:
     for tc in ("rapid", "blitz"):
         first_k40[tc] = next((x["list"] for x in e1[tc]["k_distribution"] if "40" in x["all"]), None)
 
+    # ------------------------------------------------------------------ the implied transfer by band (section 5)
+    # every band's figure is the transfer implied at the game's own level (section 1; session ELO-14); the figure averaged
+    # over all levels, the first calculation, stays beside it for comparison
+    imp = {b: bby[f"{b}|all"]["implied_per_game"] for b in BANDS}          # averaged over all levels
+    imp_ol = {b: oby[f"{b}|all"]["implied_per_game"] for b in BANDS}       # at the players' own levels
+    lpg = {b: list_per_game("2025-03", b) for b in BANDS}
+    top2 = ["2400-2599", "2600+"]
+    top3 = ["2200-2399", "2400-2599", "2600+"]
+    mid3 = ["1600-1999", "2000-2199", "2200-2399"]
+    low3 = ["<1600", "1600-1999", "2000-2199"]
+    post_years = ["2024", "2025", "2026"]
+    gpy_last = {b: last[f"band:{b}"]["games"] / last[f"band:{b}"]["n"] for b in BANDS}
+    ol_share = {b: imp_ol[b] * gpy_last[b] / last[f"band:{b}"]["mean"] for b in BANDS}
+    share_avg_low = imp["2200-2399"] * gpy_last["2200-2399"] / last["band:2200-2399"]["mean"]
+    # the verdict's "about": from 2200 up the transfer a year at the players' own levels is within a quarter of the lists' change
+    assert all(0.8 <= ol_share[b] <= 1.25 for b in top3), ol_share
+    assert all(imp_ol[b] < 0 and imp[b] < 0 and lpg[b] < 0 for b in top3)
+    assert all(imp_ol[b] > 0 for b in low3)               # down the list: from 2200 and above to the bands below
+    pre_list = [list_per_game("2023-02", bn) for bn in mid3]
+    pre_ol = [oby[f"{bn}|2023"]["implied_per_game"] for bn in mid3]
+    pre_gap = [a - b for a, b in zip(pre_list, pre_ol)]
+    assert all(v < 0 for v in pre_list) and all(v < 0 for v in pre_gap)
+    post_gap = {bn: [list_per_game(YEAR_WINDOW[y], bn) - oby[f"{bn}|{y}"]["implied_per_game"] for y in post_years]
+                for bn in BANDS}
+    post_below = [g for bn in mid3 for g in post_gap[bn] if g < 0]
+    assert [bn for bn in mid3 if all(g < 0 for g in post_gap[bn])] == ["2000-2199"], post_gap
+    # from 1600 up, since 2024, no band's lists fall further below the transfer at its own levels than the bands 1600-2399
+    assert min(g for bn in BANDS[1:] for g in post_gap[bn]) == min(post_below)
+    agree_post = sum(1 for bn in BANDS for y in post_years
+                     if (oby[f"{bn}|{y}"]["implied_per_game"] > 0) == ((list_per_game(YEAR_WINDOW[y], bn) or 0) > 0))
+    agree_post_av = sum(1 for bn in BANDS for y in post_years
+                        if (bby[f"{bn}|{y}"]["implied_per_game"] > 0) == ((list_per_game(YEAR_WINDOW[y], bn) or 0) > 0))
+
     # ------------------------------------------------------------------ header
     p("# E5 — The deflation question")
     p()
@@ -131,11 +164,19 @@ def main() -> None:
     p()
     p("Added 2026-10-12 (session ELO-13): section 5 makes the same calculation with the over-prediction measured at the "
       "game's own level, by 100-point level band (the mean of the two ratings, as E10 §5 bands it) and 50-point gap bin, in "
-      "place of the gap bin's mean over all levels. The split by level band was chosen after seeing the data (E10 §5 and the "
-      "review's finding); it was not registered in advance. The verdict, point 3 and section 5's reading give the figure for "
+      "place of the gap bin's mean over all levels. The verdict, point 3 and section 5's reading give the figure for "
       "players rated 2400 or more beside the lists'. The extract now reads the broadcast files of 2023-01 to 2026-09 only, "
       "as in session ELO-4: the files of 2020 to 2022, added to the data folder later for E17, had stopped it reproducing "
       "its committed aggregate. No earlier figure changed.")
+    p()
+    p(f"Changed 2026-10-12 (session ELO-14): every band's figure now uses the over-prediction at the game's own level, as "
+      f"session ELO-13 did for players rated 2400 or more. Section 1 defines it and says when its split by level band was "
+      f"chosen, which the note above, section 5 and the limits no longer repeat; section 5's tables give it first, with the "
+      f"figure averaged over all levels beside it for comparison. The verdict, its paragraphs on the second drain and on the reform, and "
+      f"section 5's reading are re-read on these figures: at 2200–2399 the transfer the over-prediction implies is about "
+      f"the band's whole loss since 2024, where averaged over all levels it was about {'a third' if share_avg_low < 0.42 else 'half'}; "
+      f"before the reform the second drain was {rng2(pre_gap)} points a game in the bands from 1600 to 2399, and it is at "
+      f"most {abs(min(post_below)):.2f} since. No figure of the aggregate changed, and the extract was not rerun.")
     p()
 
     # ------------------------------------------------------------------ verdict
@@ -143,40 +184,22 @@ def main() -> None:
     t_2600 = (top["2015-10"]["active_2600"], top["2021-01"]["active_2600"], top["2026-10"]["active_2600"])
     sd = (top["2024-02"]["active_adults_25_45"]["sd"], top["2024-03"]["active_adults_25_45"]["sd"],
           top["2026-10"]["active_adults_25_45"]["sd"])
-    imp = {b: bby[f"{b}|all"]["implied_per_game"] for b in BANDS}
-    imp_ol = {b: oby[f"{b}|all"]["implied_per_game"] for b in BANDS}
-    lpg = {b: list_per_game("2025-03", b) for b in BANDS}
-    top2 = ["2400-2599", "2600+"]
-    gpy_last = {b: last[f"band:{b}"]["games"] / last[f"band:{b}"]["n"] for b in BANDS}
-    ol_share = {b: imp_ol[b] * gpy_last[b] / last[f"band:{b}"]["mean"] for b in BANDS}
-    # the verdict's "about": at the top's own levels the implied transfer a year is within a quarter of the lists' change
-    assert all(0.8 <= ol_share[b] <= 1.25 for b in top2), ol_share
     std_mar_share = 100 * mar["equal_to_formula"] / mar["no_game_below_2000"]
     band_post = {bn: [L[s]["groups"][f"band:{bn}"]["median"] for s in POST] for bn in BANDS}
     band_pre2 = {bn: [L[s]["groups"][f"band:{bn}"]["median"] for s in ("2022-02", "2023-02")] for bn in BANDS}
-    top3 = ["2200-2399", "2400-2599", "2600+"]
-    mid2 = ["1600-1999", "2000-2199"]
     fall_windows = [s for s in PRE + POST if dec[s]["percentiles"]["p50"]["change"] < 0]
     comp_bigger = sum(1 for s in fall_windows if dec[s]["percentiles"]["p50"]["composition"] < dec[s]["percentiles"]["p50"]["change"])
     rapid_anchor_post = [w["groups"]["anchor_e1"]["median"] for w in d["by_tc"]["rapid"]["longitudinal"] if w["start"] in POST]
     blitz_anchor_post = [w["groups"]["anchor_e1"]["median"] for w in d["by_tc"]["blitz"]["longitudinal"] if w["start"] in POST]
-    post_years = ["2024", "2025", "2026"]
-    agree_post = sum(1 for bn in BANDS for y in post_years
-                     if (bby[f"{bn}|{y}"]["implied_per_game"] > 0) == ((list_per_game(YEAR_WINDOW[y], bn) or 0) > 0))
     act_hi = [last[f"adult_games:{k}"]["median"] for k in ("20-49", "50+")]
     act_lo = [last[f"adult_games:{k}"]["median"] for k in ("1-4", "5-9", "10-19")]
     p("## Verdict")
     p()
-    def implied_share(bn: str) -> float:
-        c, g = bby[f"{bn}|all"], last.get(f"band:{bn}", {})
-        return c["implied_per_game"] * g["games"] / g["n"] / g["mean"]
-    share_low = implied_share("2200-2399")
     p(f"**In three sentences.** Since March 2024 the published ratings of steadily active adults have stopped falling in standard "
       f"({srng(anchor_post)} points a year) and rapid ({srng(rapid_anchor_post)}), after falling {rng(anchor_pre)} a year in standard from 2016 to "
       f"February 2024; blitz is still slightly negative ({sgl(blitz_anchor_post)}). What still slides is the top of the list: players rated 2200 "
-      f"or more lose {rng([v for bn in top3 for v in band_post[bn]])} points a year; at 2400 and above that is about the transfer table 8.1.2's "
-      f"over-prediction of favourites implies at the players' own levels, while at 2200–2399 the transfer it implies averaged over all "
-      f"levels is about {'a third' if share_low < 0.42 else 'half'} of the loss (section 5); and active 2600+ "
+      f"or more lose {rng([v for bn in top3 for v in band_post[bn]])} points a year, about what table 8.1.2's over-prediction of favourites "
+      f"implies at the players' own levels (section 5); and active 2600+ "
       f"players fell from {t_2600[0]} in 2015 to {t_2600[2]}. The median of the active list also keeps "
       f"falling, {rng(med_post)} points a year, but only because entrants arrive below the players who stop (continuing players gain), and that "
       "cross-sectional median is what Ghita's −26 and −16 a year measure.")
@@ -193,15 +216,13 @@ def main() -> None:
       f"year in the two windows of 2022–24 and {sgl(band_post['1600-1999'])} and {sgl(band_post['2000-2199'])} in the three since. It did not "
       f"relieve the top: 2200–2399 {sgl(band_pre2['2200-2399'])}, then {sgl(band_post['2200-2399'])}; 2400–2599 {sgl(band_pre2['2400-2599'])}, "
       f"then {sgl(band_post['2400-2599'])}; 2600+ {sgl(band_pre2['2600+'])}, then {sgl(band_post['2600+'])} (section 2).")
-    agree_post_ol = sum(1 for bn in BANDS for y in post_years
-                        if (oby[f"{bn}|{y}"]["implied_per_game"] > 0) == ((list_per_game(YEAR_WINDOW[y], bn) or 0) > 0))
     p(f"3. **Why the top keeps paying.** On broadcast games, table 8.1.2's over-prediction of the favourite [E2], measured at the "
-      f"players' own levels, costs players rated 2400–2599 {abs(imp_ol['2400-2599']):.2f} points a game and players rated 2600 or more "
-      f"{abs(imp_ol['2600+']):.2f} ({abs(imp['2400-2599']):.2f} and {abs(imp['2600+']):.2f} averaged over all levels), while the lists show "
-      f"them losing {abs(lpg['2400-2599']):.2f} and {abs(lpg['2600+']):.2f} a game in 2025–26 (section 5). Since 2024 the over-prediction's "
-      f"implied transfer has the lists' sign in {agree_post} of {len(BANDS) * len(post_years)} band-years"
-      + (" measured either way" if agree_post_ol == agree_post else
-         f" averaged over all levels and in {agree_post_ol} at the players' own levels")
+      f"players' own levels, costs players rated 2200–2399 {abs(imp_ol['2200-2399']):.2f} points a game, 2400–2599 "
+      f"{abs(imp_ol['2400-2599']):.2f} and 2600 or more {abs(imp_ol['2600+']):.2f} ({abs(imp['2200-2399']):.2f}, "
+      f"{abs(imp['2400-2599']):.2f} and {abs(imp['2600+']):.2f} averaged over all levels), while the lists show them losing "
+      f"{abs(lpg['2200-2399']):.2f}, {abs(lpg['2400-2599']):.2f} and {abs(lpg['2600+']):.2f} a game in 2025–26 (section 5). Since 2024 "
+      f"the transfer it implies has the lists' sign in {agree_post} of {len(BANDS) * len(post_years)} band-years"
+      + ("" if agree_post_av == agree_post else f" ({agree_post_av} averaged over all levels)")
       + ". It is a transfer down the list: a problem of spread, not of level.")
     p(f"4. **The elite.** Active players rated 2600 or more fell from {t_2600[0]} (October 2015) and {t_2600[1]} (January 2021) to "
       f"{t_2600[2]} (October 2026); the 100th active player's rating fell from {t_rank100[0]} to {t_rank100[1]} (section 4).")
@@ -209,20 +230,20 @@ def main() -> None:
       f"{med(last['age:46-64'])} and {med(last['age:65+'])} points; adults aged 25–45 with 20 or more games gained {rng(act_hi)} and those with "
       f"fewer lost {rng(act_lo)} (section 2). Ageing and activity sort these groups as much as the scale does; the lists cannot separate them.")
     p()
-    mid_gap = [list_per_game(YEAR_WINDOW[y], bn) - bby[f"{bn}|{y}"]["implied_per_game"] for bn in mid2 for y in post_years]
-    top_gap = [list_per_game(YEAR_WINDOW[y], "2200-2399") - bby[f"2200-2399|{y}"]["implied_per_game"] for y in post_years]
-    p(f"**Before the reform there was a second drain.** In the 2023–24 window the bands from 1600 to 2399 lost "
-      f"{rng2([list_per_game('2023-02', bn) for bn in ['1600-1999', '2000-2199', '2200-2399']])} points a game on the lists, against an implied "
-      f"over-prediction transfer of {rng2([bby[bn + '|2023']['implied_per_game'] for bn in ['1600-1999', '2000-2199', '2200-2399']])} in their "
-      "favour (section 5): something else drained them, consistent with the research report's channel of under-rated newcomers and juniors [R 5] "
-      f"[R 39]. Since 2024 the 1600–2199 bands are within {abs(min(mid_gap)):.2f} points a game of the implied transfer or above it, while the "
-      f"2200–2399 band still loses {rng2([g for g in top_gap if g < 0])} a game more than the transfer implies.")
+    p(f"**Before the reform there was a second drain.** In the 2023–24 window the bands 1600–1999, 2000–2199 and 2200–2399 lost "
+      f"{abs(pre_list[0]):.2f}, {abs(pre_list[1]):.2f} and {abs(pre_list[2]):.2f} points a game on the lists, where the over-prediction "
+      f"at their own levels implies {sg(pre_ol[0], 2)}, {sg(pre_ol[1], 2)} and {sg(pre_ol[2], 2)} on 2023's few broadcast games "
+      f"(section 5): something else drained them, by {rng2(pre_gap)} points a game, consistent with the research report's channel of "
+      "under-rated newcomers and juniors [R 5] [R 39]. Since 2024 each of these bands is within "
+      f"{abs(min(post_below)):.2f} points a game of the transfer implied at its own levels, or above it; only 2000–2199 stays below "
+      f"it in all three years, by {rng2(post_gap['2000-2199'])}.")
     p()
     p(f"**What the 2024 reform changed.** On the March 2024 list, {std_mar_share:.2f} % of standard players rated below 2000 with no game in that "
       f"period moved by exactly round(0.4 × (2000 − R)), and {100 * mar['unchanged'] / mar['no_game_from_2000']:.2f} % of those rated 2000 or more "
       f"did not move; rapid and blitz show the same (section 4). The SD of active adults' ratings fell from {sd[0]:.0f} to {sd[1]:.0f} points in one "
-      f"list and has stayed near {sd[2]:.0f}. The anchor cohort's drift turned from negative to positive. The second drain closed below 2200 and narrowed "
-      f"above it, and the cross-sectional slide slowed because entrants now arrive higher (newcomers' median first rating 1272 in 2023, 1564 in 2025 [E1]).")
+      f"list and has stayed near {sd[2]:.0f}. The anchor cohort's drift turned from negative to positive. After it the second drain is at most "
+      f"{abs(min(post_below)):.2f} points a game in every band from 1600 to 2399, against {rng2(pre_gap)} in 2023–24, and the cross-sectional "
+      f"slide slowed because entrants now arrive higher (newcomers' median first rating 1272 in 2023, 1564 in 2025 [E1]).")
     p()
     p("**What remains.** The table that over-predicts favourites is unchanged, so the top bands keep paying; the number of active 2600+ players keeps "
       "falling; the median of the active list keeps sliding by composition while continuing players gain; blitz has not turned. Deflation in the "
@@ -271,6 +292,11 @@ def main() -> None:
       f"control in force at the tour's start, January 2023 to September 2026, duplicates removed. ELO-4 data cutoff: no game dated after "
       f"{d['broadcast']['cutoff']} ({d['broadcast']['dropped_after_cutoff']} dropped) and no file after 2026-09. K is each player's K on that list; "
       "FIDE's expected score is Layer 0's (`src/layer0`). Broadcast events are stronger and more international than the rated pool [E2].")
+    p("- **The over-prediction at the game's own level.** Section 5 measures table 8.1.2's over-prediction of the favourite at each "
+      "game's own level: the favourite's mean score minus FIDE's expected score in the game's 100-point level band (the mean of the two "
+      "ratings, as E10 §5 bands it) and 50-point gap bin, all years. Every band's figure in this report uses it; section 5 shows the gap "
+      "bin's mean over all levels, the first calculation, beside it. Measuring by level band was chosen after seeing the data, E10 §5 "
+      "having shown the over-prediction smaller where players rated 2400 or more play; it was not registered in advance.")
     p()
 
     # ------------------------------------------------------------------ 2 longitudinal
@@ -422,69 +448,11 @@ def main() -> None:
         p(f"| {tc} | " + " | ".join(sg(v, 3) for v in Mx["favourite_residual_by_gap_bin"][:12]) + " |")
     p(f"| standard games | " + " | ".join(n0(v) for v in nb[:12]) + " |")
     p()
-    p("For every player-game, the change FIDE's rules give, K × (S − E), and the part implied by the over-prediction alone: K times the bin's mean "
-      "residual, taken with a minus sign for the favourite and a plus sign for the underdog. Standard, by the player's band, all years; and the lists "
-      "(all players with a rated game in 2025-03 to 2026-03: mean change per game and games per player-year):")
-    p()
-    p("| band | broadcast player-games | mean K | implied per game | realised per game | lists: change per game | lists: games a year | implied per year | lists: mean change a year |")
-    p("|---|---|---|---|---|---|---|---|---|")
-    for bn in BANDS:
-        c = bby[f"{bn}|all"]
-        g = last.get(f"band:{bn}", {})
-        gpy = g["games"] / g["n"] if g.get("n") else None
-        p(f"| {bn} | {n0(c['player_games'])} | {c['mean_k']:.1f} | {sg(c['implied_per_game'], 3)} | {sg(c['realised_per_game'], 3)} | "
-          f"{sg(g.get('per_game'), 3)} | {gpy:.1f} | {sg(c['implied_per_game'] * gpy, 1)} | {sg(g.get('mean'), 1)} |")
-    p()
-    p("By year (standard): implied change per game on broadcast games against the lists' change per game in the matching window:")
-    p()
-    yrs = ["2023", "2024", "2025", "2026"]
-    p("| band | " + " | ".join(f"{y}: implied / lists" for y in yrs) + " |")
-    p("|---|" + "---|" * len(yrs))
-    for bn in BANDS:
-        cells = []
-        for y in yrs:
-            c = bby.get(f"{bn}|{y}")
-            cells.append(f"{sg(c['implied_per_game'], 3) if c else '—'} / {sg(list_per_game(YEAR_WINDOW[y], bn), 3)}")
-        p(f"| {bn} | " + " | ".join(cells) + " |")
-    p()
-    p("2023 has few broadcast games (the archive grows from 2024). Rapid and blitz, all years, implied against realised per game:")
-    p()
-    p("| band | rapid: implied | rapid: realised | blitz: implied | blitz: realised |")
-    p("|---|---|---|---|---|")
-    for bn in BANDS:
-        r_ = d["by_tc"]["rapid"]["mechanism"]["by_band_year"][f"{bn}|all"]
-        b_ = d["by_tc"]["blitz"]["mechanism"]["by_band_year"][f"{bn}|all"]
-        p(f"| {bn} | {sg(r_['implied_per_game'], 3)} | {sg(r_['realised_per_game'], 3)} | {sg(b_['implied_per_game'], 3)} | {sg(b_['realised_per_game'], 3)} |")
-    p()
-    # ---------------------------------------------------------------- at the players' own levels (session ELO-13)
-    p("**At the players' own levels** (added 2026-10-12, session ELO-13). The same calculation with the favourite's residual measured "
-      "at the game's own level: the mean residual of the game's 100-point level band (the mean of the two ratings, as E10 §5 bands it) "
-      "and 50-point gap bin, all years, in place of the gap bin's mean over all levels. The split by level band was chosen after "
-      "seeing the data, E10 §5 having shown the over-prediction smaller where players rated 2400 or more play; it was not registered "
-      "in advance. Standard, by the player's band, all years, with the lists as above (2025-03 to 2026-03):")
-    p()
-    p("| band | broadcast player-games | implied per game, averaged over all levels | implied per game, at the players' own levels | "
-      "lists: change per game | lists: games a year | at their own levels, per year | lists: mean change a year |")
-    p("|---|---|---|---|---|---|---|---|")
-    for bn in BANDS:
-        c, o, g = bby[f"{bn}|all"], oby[f"{bn}|all"], last[f"band:{bn}"]
-        p(f"| {bn} | {n0(o['player_games'])} | {sg(c['implied_per_game'], 3)} | {sg(o['implied_per_game'], 3)} | "
-          f"{sg(g['per_game'], 3)} | {gpy_last[bn]:.1f} | {sg(o['implied_per_game'] * gpy_last[bn], 1)} | {sg(g['mean'], 1)} |")
-    p()
-    p("By year, for the players rated 2400 or more: the implied change per game at their own levels against the lists' change per "
-      "game in the matching window:")
-    p()
-    p("| band | " + " | ".join(f"{y}: at own levels / lists" for y in yrs) + " |")
-    p("|---|" + "---|" * len(yrs))
-    for bn in top2:
-        p(f"| {bn} | " + " | ".join(f"{sg(oby[f'{bn}|{y}']['implied_per_game'], 3)} / {sg(list_per_game(YEAR_WINDOW[y], bn), 3)}"
-                                    for y in yrs) + " |")
-    p()
     R = OL["favourite_residual_by_level_and_gap_bin"]
     gaps = range(8)
-    p("The favourite's mean residual at levels of 2200 or more, by level band and gap (standard, all years; the favourite's "
-      "games in the level band; a cell with fewer than 100 games shows its count in brackets), and averaged over all levels "
-      "(the first table of this section); the aggregate holds every cell:")
+    p("The same at the game's own level (section 1), by level band and gap (standard, all years; the favourite's games in the level "
+      "band; a cell with fewer than 100 games shows its count in brackets), and averaged over all levels (the table above); the "
+      "aggregate holds every cell, to gaps of 1,000 or more:")
     p()
     p("| level band | games | " + " | ".join(f"{50 * k}–{50 * k + 49}" for k in gaps) + " |")
     p("|---|---|" + "---|" * len(gaps))
@@ -492,52 +460,92 @@ def main() -> None:
     def cell(res, n) -> str:
         return "—" if not n else sg(res, 3) if n >= 100 else f"{sg(res, 3)} ({n})"
     for mid in sorted(int(k) for k in R):
-        if mid < 2200:
-            continue
         r_ = R[str(mid)]
-        label = "2800 and above" if mid > 2800 else f"{mid - 50}–{mid + 49}"
+        label = "below 1500" if mid < 1500 else "2800 and above" if mid > 2800 else f"{mid - 50}–{mid + 49}"
         p(f"| {label} | {n0(sum(r_['games']))} | " + " | ".join(cell(r_["residual"][k], r_["games"][k]) for k in gaps) + " |")
     p(f"| all levels | {n0(sum(M['favourite_games_by_gap_bin']))} | "
       + " | ".join(sg(v, 3) for v in M["favourite_residual_by_gap_bin"][:8]) + " |")
     p()
-    p("Rapid and blitz, all years, the implied change per game at the players' own levels (averaged over all levels in the table above):")
+    p("For every player-game, the change FIDE's rules give, K × (S − E), and the part implied by the over-prediction alone: K times the "
+      "mean residual of the game's level band and gap bin, taken with a minus sign for the favourite and a plus sign for the underdog; "
+      "beside it, the same with the gap bin's mean over all levels. Standard, by the player's band, all years; and the lists (all players "
+      "with a rated game in 2025-03 to 2026-03: mean change per game and games per player-year):")
     p()
-    p("| band | rapid: at own levels | blitz: at own levels |")
-    p("|---|---|---|")
+    p("| band | broadcast player-games | mean K | implied per game, at own levels | implied per game, averaged over all levels | "
+      "realised per game | lists: change per game | lists: games a year | implied per year, at own levels | lists: mean change a year |")
+    p("|---|---|---|---|---|---|---|---|---|---|")
     for bn in BANDS:
-        r_ = d["by_tc"]["rapid"]["mechanism"]["own_level"]["by_band_year"][f"{bn}|all"]
-        b_ = d["by_tc"]["blitz"]["mechanism"]["own_level"]["by_band_year"][f"{bn}|all"]
-        p(f"| {bn} | {sg(r_['implied_per_game'], 3)} | {sg(b_['implied_per_game'], 3)} |")
+        c, o, g = bby[f"{bn}|all"], oby[f"{bn}|all"], last[f"band:{bn}"]
+        assert o["player_games"] == c["player_games"]
+        p(f"| {bn} | {n0(c['player_games'])} | {c['mean_k']:.1f} | {sg(o['implied_per_game'], 3)} | {sg(c['implied_per_game'], 3)} | "
+          f"{sg(c['realised_per_game'], 3)} | {sg(g['per_game'], 3)} | {gpy_last[bn]:.1f} | {sg(o['implied_per_game'] * gpy_last[bn], 1)} | "
+          f"{sg(g['mean'], 1)} |")
     p()
-    top_years_ol = sum(1 for bn in top2 for y in post_years if oby[f"{bn}|{y}"]["implied_per_game"] < 0
-                       and (list_per_game(YEAR_WINDOW[y], bn) or 0) < 0)
+    p("By year (standard): the implied change per game at the players' own levels and averaged over all levels, against the lists' "
+      "change per game in the matching window:")
+    p()
+    yrs = ["2023", "2024", "2025", "2026"]
+    p("| band | " + " | ".join(f"{y}: own levels / all levels / lists" for y in yrs) + " |")
+    p("|---|" + "---|" * len(yrs))
+    for bn in BANDS:
+        p(f"| {bn} | " + " | ".join(f"{sg(oby[f'{bn}|{y}']['implied_per_game'], 3)} / {sg(bby[f'{bn}|{y}']['implied_per_game'], 3)} / "
+                                    f"{sg(list_per_game(YEAR_WINDOW[y], bn), 3)}" for y in yrs) + " |")
+    p()
+    p("2023 has few broadcast games (the archive grows from 2024). Rapid and blitz, all years, the implied change per game at the players' "
+      "own levels and averaged over all levels, against the realised change:")
+    p()
+    p("| band | rapid: at own levels | rapid: averaged over all levels | rapid: realised | blitz: at own levels | "
+      "blitz: averaged over all levels | blitz: realised |")
+    p("|---|---|---|---|---|---|---|")
+    for bn in BANDS:
+        ro = d["by_tc"]["rapid"]["mechanism"]["own_level"]["by_band_year"][f"{bn}|all"]
+        ra = d["by_tc"]["rapid"]["mechanism"]["by_band_year"][f"{bn}|all"]
+        bo = d["by_tc"]["blitz"]["mechanism"]["own_level"]["by_band_year"][f"{bn}|all"]
+        ba = d["by_tc"]["blitz"]["mechanism"]["by_band_year"][f"{bn}|all"]
+        p(f"| {bn} | {sg(ro['implied_per_game'], 3)} | {sg(ra['implied_per_game'], 3)} | {sg(ra['realised_per_game'], 3)} | "
+          f"{sg(bo['implied_per_game'], 3)} | {sg(ba['implied_per_game'], 3)} | {sg(ba['realised_per_game'], 3)} |")
+    p()
     r_ol = {bn: d["by_tc"]["rapid"]["mechanism"]["own_level"]["by_band_year"][f"{bn}|all"]["implied_per_game"] for bn in top2}
     r_av = {bn: d["by_tc"]["rapid"]["mechanism"]["by_band_year"][f"{bn}|all"]["implied_per_game"] for bn in top2}
     b_ol = {bn: d["by_tc"]["blitz"]["mechanism"]["own_level"]["by_band_year"][f"{bn}|all"]["implied_per_game"] for bn in top2}
     b_av = {bn: d["by_tc"]["blitz"]["mechanism"]["by_band_year"][f"{bn}|all"]["implied_per_game"] for bn in top2}
     assert all(r_ol[b] < r_av[b] for b in top2) and all(abs(b_ol[b] - b_av[b]) < 0.02 for b in top2)
-    assert all(imp_ol[b] > imp[b] for b in top2)     # smaller losses at the top's own levels than averaged over all levels
-    p(f"At their own levels the over-prediction costs players rated 2400–2599 {abs(imp_ol['2400-2599']):.3f} points a game and players "
-      f"rated 2600 or more {abs(imp_ol['2600+']):.3f}, against {abs(imp['2400-2599']):.3f} and {abs(imp['2600+']):.3f} averaged over all "
-      f"levels and the lists' {abs(lpg['2400-2599']):.3f} and {abs(lpg['2600+']):.3f} in 2025–26: about "
-      f"{abs(imp_ol['2400-2599'] * gpy_last['2400-2599']):.1f} and {abs(imp_ol['2600+'] * gpy_last['2600+']):.1f} points a year at the lists' "
-      f"rate of play, against the lists' {abs(last['band:2400-2599']['mean']):.1f} and {abs(last['band:2600+']['mean']):.1f}. Measured this way "
-      f"the implied drain at the top is about the lists' whole decline, where averaged over all levels it is larger; it has the lists' sign "
-      + (f"in all {top_years_ol}" if top_years_ol == len(top2) * len(post_years) else f"in {top_years_ol} of {len(top2) * len(post_years)}")
-      + f" of the top's band-years since 2024. In rapid the top's implied loss is larger at "
-      f"its own levels than averaged over all levels, in blitz about the same. Below 2400 the figures move too, most at 2200–2399 "
-      f"({sg(imp_ol['2200-2399'], 3)} a game at its own levels against {sg(imp['2200-2399'], 3)} averaged over all levels, the lists "
-      f"{sg(lpg['2200-2399'], 3)}); the statements on the bands below 2400, in the verdict and on the second drain, use the figure averaged "
-      "over all levels and are not re-read here.")
+    # at their own levels players rated 2200-2399 pay more, and those rated 2400 or more less, than averaged over all levels
+    assert imp_ol["2200-2399"] < imp["2200-2399"] and all(imp_ol[b] > imp[b] for b in top2)
+    # below 2200: about the lists' gain at 1600-1999, less than half of it below 1600, more than it at 2000-2199
+    assert imp_ol["<1600"] < 0.5 * lpg["<1600"] and 0.8 <= imp_ol["1600-1999"] / lpg["1600-1999"] <= 1.25
+    assert imp_ol["2000-2199"] > lpg["2000-2199"] > 0
+    p(f"At their own levels the over-prediction costs players rated 2200–2399 {abs(imp_ol['2200-2399']):.3f} points a game, 2400–2599 "
+      f"{abs(imp_ol['2400-2599']):.3f} and 2600 or more {abs(imp_ol['2600+']):.3f}, against the lists' {abs(lpg['2200-2399']):.3f}, "
+      f"{abs(lpg['2400-2599']):.3f} and {abs(lpg['2600+']):.3f} in 2025–26: about {abs(imp_ol['2200-2399'] * gpy_last['2200-2399']):.1f}, "
+      f"{abs(imp_ol['2400-2599'] * gpy_last['2400-2599']):.1f} and {abs(imp_ol['2600+'] * gpy_last['2600+']):.1f} points a year at the "
+      f"lists' rate of play, against the lists' {abs(last['band:2200-2399']['mean']):.1f}, {abs(last['band:2400-2599']['mean']):.1f} and "
+      f"{abs(last['band:2600+']['mean']):.1f}. Averaged over all levels the same calculation gives {abs(imp['2200-2399']):.3f}, "
+      f"{abs(imp['2400-2599']):.3f} and {abs(imp['2600+']):.3f}. Below 2200 the transfer at the players' own levels is a gain of "
+      f"{imp_ol['<1600']:.3f}, {imp_ol['1600-1999']:.3f} and {imp_ol['2000-2199']:.3f} a game, against the lists' {lpg['<1600']:.3f}, "
+      f"{lpg['1600-1999']:.3f} and {lpg['2000-2199']:.3f}: about the lists' gain at 1600–1999, less than half of it below 1600 and more "
+      f"than it at 2000–2199. It has the lists' sign in {agree_post} of {len(BANDS) * len(post_years)} band-years since 2024 (the table by "
+      "year). In rapid the top's implied loss is larger at its own levels than averaged over all levels, in blitz about the same.")
     p()
-    p("Reading. In the first tables of this section the over-prediction is measured by the gap alone, pooled over all levels and years, and "
-      "whoever is the favourite pays it; it is smaller at the top [E10 §5], so there the pooled figure overstates the table's share: at 2400 "
-      "and above, where K is 10 for everyone, the implied drain per game pooled over all levels is larger than the lists' whole decline per "
-      "game, and at the players' own levels it is about the same (the tables above). Because the higher-rated player is "
-      "usually the favourite, it moves points down the list, from 2200 and above to below 2000. Since 2024 the lists' change per game has the "
-      "sign of the implied transfer in every band. In 2023 (the last pre-reform window) the bands from 1600 to 2399 lost far more on the lists than the "
-      "over-prediction implies: a second drain, which the reform closed. The broadcast sample is stronger and more international than the pool, so "
-      "the sizes hold for broadcast events and are indicative for the pool.")
+    # the over-prediction by level, gaps to 399: larger than its mean over all levels in most bins where the mean rating is
+    # 2000 to 2299, smaller in most where it is 2300 to 2499
+    larger = {mid: sum(1 for k in gaps if R[str(mid)]["games"][k] and R[str(mid)]["residual"][k] < bins[k]) for mid in (2050, 2150, 2250)}
+    smaller = {mid: sum(1 for k in gaps if R[str(mid)]["games"][k] and R[str(mid)]["residual"][k] > bins[k]) for mid in (2350, 2450)}
+    assert all(v > len(gaps) / 2 for v in [*larger.values(), *smaller.values()]), (larger, smaller)
+    av_share_top = {b: imp[b] * gpy_last[b] / last[f"band:{b}"]["mean"] for b in top2}
+    assert all(v > 1 for v in av_share_top.values()), av_share_top
+    p("Reading. The favourite pays the over-prediction, and the higher-rated player is usually the favourite, so it moves points down "
+      "the list: at the players' own levels, from players rated 2200 or more to those below. It is larger than its mean over all levels "
+      "in most gap bins where the two players' ratings average 2000 to 2299, and smaller where they average 2300 to 2499 (the second table "
+      "of this section); "
+      "measured at their own levels, players rated 2200–2399 pay more than averaged over all levels, and players rated 2400 or more less. "
+      "From 2200 up, where the lists lose points, the transfer a year at the players' own levels is about the lists' decline; averaged over "
+      f"all levels it is about {'a third' if share_avg_low < 0.42 else 'half'} of it at 2200–2399 and more than the whole of it at 2400 and "
+      "above, where K is 10 for everyone. Since 2024 the lists' change per game has the sign of the implied transfer in every band, and "
+      f"from 1600 up the lists are within {abs(min(post_below)):.2f} points a game of it, or above it. In 2023, the last window before the reform, "
+      "the bands from 1600 to 2399 lost far more on the lists than the over-prediction implies: a second drain, at most "
+      f"{abs(min(post_below)):.2f} points a game since. The broadcast sample is stronger and more international than the pool, so the sizes "
+      "hold for broadcast events and are indicative for the pool.")
     p()
 
     # ------------------------------------------------------------------ 6 Ghita
@@ -653,8 +661,11 @@ def main() -> None:
     p("- Banding on the starting rating carries regression to the mean; the variant banded a year earlier bounds it (section 2).")
     p("- The broadcast sample is stronger and more international than the pool [E2]; the implied drain is exact for that sample and indicative "
       "for the pool. The formal test needs FIDE's game archive.")
-    p("- The figures at the players' own levels (section 5) rest on a split by level band chosen after seeing the data, and at the "
-      "highest levels on cells of a few games.")
+    small = [(k, n) for r_ in R.values() for k, n in enumerate(r_["games"]) if 0 < n < 100]
+    p(f"- The over-prediction at the game's own level rests on cells of level band and gap, some of them small: in standard {len(small)} "
+      f"of the {sum(1 for r_ in R.values() for n in r_['games'] if n)} cells hold fewer than 100 games, "
+      f"{sum(1 for k, _n in small if k >= 8)} of them at gaps of 400 or more; together they hold "
+      f"{100 * sum(n for _k, n in small) / sum(sum(r_['games']) for r_ in R.values()):.2f} % of the games (section 5).")
     p("- Ghita's game extract is not public, so his Deflation Index and scale cannot be recomputed on his games; our equivalents use different games.")
     p("- \"Active\" in the book is not fully specified; section 6 shows how much the readings matter.")
     print("\n".join(P))
