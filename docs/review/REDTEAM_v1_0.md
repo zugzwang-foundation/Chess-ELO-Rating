@@ -878,6 +878,8 @@ The rulings R66–R79 were given as fixed, with points on the rulings themselves
 | ELO9-QC-5 | minor | the permission paragraph promises too much | fixed: Appendix I and E20 §6 keep the brief's statement that permission would allow the full study, with the limits the reviewer names (FIDE's calculations from 2008 only, no record of which games FIDE rated, a model's assumptions across eras); the test updated; SPEC-GREATS §7 keeps the brief's words |
 | ELO9-STAT-5 | minor | each best window is a maximum over different numbers of windows | fixed: E20 §3 prints the number of qualifying windows and the median window's mean gap; Appendix I's table gives the number; §3 and §7 note the five-point ratings before 1999 |
 
+2026-10-12 (session ELO-11): ELO9-STAT-1's wording "on games 8.1.2 already fits" no longer stands. E20 §5 reads the check by when the players were chosen, which reverses the order of the two tables for the 14 chosen only on the lists to April 2000, and E20 and Appendix I describe the comparison as made on the same results, which FIDE rated with table 8.1.2 (`docs/DECISIONS.md`, item 9).
+
 ### For the architect
 
 1. **R74's premise and scope** (the reviewer's points 1 to 3). The 2003, 2007 and 2010 texts round the rated player's new rating, and §8.57 of 2010 says "0.5 is rounded to 1": R74's outcome has a textual basis that D-0017 does not record, and only a superseding record can restate it. FIDE's lists rounded negative half points towards +∞ to the list of July 2018 (27 of 27) and away from zero from November 2018 (12 of 12); extending R74's reading to July 2018 would leave 9 thin periods instead of 36 (the run "towards +∞ throughout", 21, is 36 − 27 + 12). Decide also whether the list of January 2009 is a list-level exception or its periods stay thin.
@@ -1119,6 +1121,7 @@ The rulings R80–R89 were given as fixed, with points on the rulings themselves
   - the 15 others: 6,186 games; +0.0000 (−0.0084 to +0.0084) and +0.0445 (+0.0357 to +0.0533); +36.40.
   - The pooled check is unchanged: −0.0090 and +0.0353 on 9,372 games, which do include the thin periods' games.
 - **ELO10-QC-1.** The fixtures were counted by script. `tests/fixtures/` holds 1,346 game rows, of which 12 are the synthetic event's, so 1,334 are quoted from FIDE's pages: 79 + 5 + 923 in `fide_calculator/`, 231 in `fide_greats/`, 30 in `fide_history/` and 66 in `validation/`. It also holds 32 cases of FIDE's online calculator. F-N01 records a FIDE ID, a year of birth and an event.
+  - 2026-10-12 (session ELO-11): F-N01's FIDE ID, year of birth and event are now placeholders (`docs/DECISIONS.md`, item 7).
 - **ELO10-STAT-2.** E20 §4.2's readings table did carry each reading's mean difference and range.
 - **ELO10-QC-2.** By `selection_groups`, the 14 players hold 679 of the 1,765 player-periods replayed, 5,673 of the 18,355 games and 5 of the 9 thin periods. Their names are Beliavsky, Gelfand, Huebner, Jussupow, Karpov, Korchnoi, Ljubojevic, Mecking, Portisch, Shirov, Short, Sokolov, Timman and Vaganian.
 - **ELO10-QC-3.** This is session ELO-10's Phase 1 measurement: of Freeze 2's 89 entries, 83 equal E3's record and 6 differ.
