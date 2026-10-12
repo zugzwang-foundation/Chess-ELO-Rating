@@ -73,8 +73,11 @@ def appendix(a: dict, s: dict) -> list[str]:
     q("")
     q(f"Forecasting each year's games, the year's table beat table 8.1.2 as FIDE applied it in every year (log-loss "
       + ", ".join(f"{sgn(tw[y]['year-l0']['mean'], 4)} in {y}" for y in years)
-      + f", nats a game, intervals below zero), and in {last_y} it beat the first table kept frozen "
-      f"({sgn(d32['mean'], 5)}; {sgn(d32['lo'], 5)} to {sgn(d32['hi'], 5)}): self-calibration "
+      + ", nats a game, intervals below zero; in Brier score, which needs no draw model, "
+      + " and ".join(sgn(s["three_way"][y]["differences_brier"]["year-l0"]["mean"], 4) for y in years)
+      + f"), and in {last_y} it beat the first table kept frozen "
+      f"({sgn(d32['mean'], 5)}; {sgn(d32['lo'], 5)} to {sgn(d32['hi'], 5)}): by the verdict fixed in advance, "
+      "self-calibration "
       + ("earns its name" if verdict else "does not earn its name")
       + f" in {last_y}, the one year that can tell. The size is small: {abs(d32['mean']):.4f} nats a game, against "
       f"{abs(tw[last_y]['year-l0']['mean']):.3f} over table 8.1.2"

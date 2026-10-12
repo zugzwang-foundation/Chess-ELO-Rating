@@ -139,7 +139,7 @@ def test_r86_appendix_f3_cites_e20_only():
     prop = (ROOT / "docs" / "proposal" / "ELO-PROPOSAL_v1_0.md").read_text(encoding="utf-8")
     f3 = prop.split("**F.3 From the greats' replay, 2008–2019.**")[1].split("\n---\n")[0]
     assert set(re.findall(r"\[E(\d+)", f3)) == {"20"}
-    assert "28 June 2009" in f3 and "9 July 2009" in f3 and "a date no text gives" in f3
+    assert "28 June 2009" in f3 and "9 July 2009" in f3 and "a date no regulation text we read gives" in f3
     # R86 (2) as corrected on 2026-10-12 (docs/DECISIONS.md, item 9): which text was in force in 2018 is NOT VERIFIED
     assert ("FIDE's lists rounded a period's negative half point towards +∞ to the list of July 2018 and away from zero "
             "from November 2018; which text was in force in 2018 is NOT VERIFIED; the 2022 text says \"away from "

@@ -874,8 +874,8 @@ def appendix(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[
       "at each date reproduces FIDE's printed change "
       f"in {v['games'] - v['game_delta_differs']:,} of {v['games']:,} games; {s['thin_periods']:,} player-periods are "
       "thin and carry FIDE's change. In the greats' games FIDE applied the 350-point rule to tournaments starting up to "
-      f"{day(rd['last_start_with_350'])} and the 400-point rule from {day(rd['first_start_beyond_350'])}, a date no text "
-      "gives. " + rounding_line(f) + "; Layer 0 rounds towards +∞ to October 2018 and away from zero from November 2018 "
+      f"{day(rd['last_start_with_350'])} and the 400-point rule from {day(rd['first_start_beyond_350'])}, a date no "
+      "regulation text we read gives. " + rounding_line(f) + "; Layer 0 rounds towards +∞ to October 2018 and away from zero from November 2018 "
       "(readings set after FIDE's pages had been seen: FIDE's own output shows towards +∞ to the list of "
       "July 2018, and the list of the change is NOT VERIFIED), and the list of January 2009 keeps its periods thin.")
     q("")
