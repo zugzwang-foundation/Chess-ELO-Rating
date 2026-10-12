@@ -2,6 +2,12 @@
 
 Status: DECIDED — the project's decision log from 12 October 2026: one dated line per decision, newest date first; the ten of 12 October 2026 stand in the order they were given, and a later decision takes the next number and goes on top. The decision records D-0001 to D-0018 in `docs/decisions/` stay as history; a mistake in one is fixed in place, with a dated line saying what changed.
 
+19\. 2026-10-12 — The contact named in the proposal (founder): "Hrishikesh, The Zugzwang Foundation", in the front matter of the proposal and of the brief; no email address (session ELO-14): `docs/proposal/ELO-PROPOSAL_v1_0.md`, `docs/proposal/ELO-BRIEF_v1_0.md`.
+
+18\. 2026-10-12 — The Zugzwang Foundation runs the pilot's shadow list at no cost (founder): during the pilot it maintains the open code and runs the shadow list each month, at no cost to FIDE or to the pilot federation; the code is open, so FIDE or the federation can run it themselves at any time; arbiters' tools do not change until FIDE adopts a step; the pilot federation shares its rated games under a data agreement and pays nothing (session ELO-14): proposal §13, "Who runs the pilot", and one clause in the brief.
+
+17\. 2026-10-12 — E5 measures the over-prediction at the players' own levels throughout: every band's figure uses the game's 100-point level band and 50-point gap bin, as item 14 did for players rated 2400 or more, and the figure averaged over all levels stays beside it for comparison; the split by level band was chosen after seeing the data, not registered in advance; E5's verdict and its paragraph on the second drain are re-read on these figures (session ELO-14): `docs/evidence/E5_deflation.md`; proposal §2(a).
+
 16\. 2026-10-12 — Appendix G, the superseded replay of today's top 100, is replaced by one line pointing to the current replay, Appendix H (E19); its text stays on record as its script writes it, `analysis/OUTPUT_E17_appendix.md` (session ELO-13).
 
 15\. 2026-10-12 — The Brier score of the expected score is reported beside every log-loss criterion of the tests on FIDE's data, as a secondary measure; log-loss stays the main criterion; no figure changes (session ELO-13): proposal §11, annex T8.1 and T8.2.

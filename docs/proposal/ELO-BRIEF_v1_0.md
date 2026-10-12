@@ -1,13 +1,13 @@
 # Fixing the FIDE rating one step at a time: a brief
 
 **Status: DRAFT v1.0 — not for publication**
-The Zugzwang Authors · CC BY 4.0 · 2026-10-12. A plain-language summary of `docs/proposal/ELO-PROPOSAL_v1_0.md`; the mathematics is in `docs/proposal/ELO-TECHNICAL-ANNEX_v1_0.md`. Every number below is PROVISIONAL unless quoted from FIDE's rules [V 1], our evidence reports [E n] or the research report [R n].
+The Zugzwang Authors · CC BY 4.0 · 2026-10-12. Contact: Hrishikesh, The Zugzwang Foundation. A plain-language summary of `docs/proposal/ELO-PROPOSAL_v1_0.md`. Every number below is PROVISIONAL unless quoted from FIDE's rules [V 1], our evidence reports [E n] or the research report [R n].
 
 ## What is wrong
 
 FIDE's expected-score table expects too much of the favourite: by 0.02 to 0.05 points a game on 352,737 broadcast standard games [E2]. Top players are usually favourites, so points drain from them: at their own levels, the error implies that players rated 2400 or more lose 0.10 to 0.13 points a game, about 5 to 8 a year; FIDE's lists show them losing 0.09 to 0.13 a game [E5].
 
-Juniors improve faster than their ratings follow, so adults who play them lose points they should not: an adult rated 1900 who draws a junior listed at 1500 loses 8.4 points before rounding, however strong the junior is [V 1] [R 5]. And federations are priced differently: an independent study's directions hold on our own sample [R 5] [E7].
+Juniors improve faster than their ratings follow, so adults who play them lose points they should not: an adult rated 1900 who draws a junior listed at 1500 loses 8.4 points before rounding, however strong the junior is [V 1] [R 5]. And federations are priced differently: an independent study's directions hold on our sample [R 5] [E7].
 
 One worry has eased: since March 2024, steadily active adults' published ratings have stopped falling in standard and rapid [E5].
 
@@ -39,7 +39,7 @@ Each step is tested against today's rules on the problem it targets and must not
 
 ## What we ask of FIDE
 
-Above all, FIDE's tournament reports, which hold every rated game, under a data agreement: only they can test steps 2 to 7 for the whole pool, not just broadcast games. Also a review by the Qualification Commission with public comment, and a twelve-month shadow list before anything changes for anyone. Federations are asked for nothing now; later, one volunteer federation would pilot the chosen steps on a domestic list.
+Above all, FIDE's tournament reports, which hold every rated game, under a data agreement: only they can test steps 2 to 7 for the whole pool. Also a review by the Qualification Commission with public comment, and a twelve-month shadow list before anything changes for anyone. Federations are asked for nothing now; later, one volunteer federation would pilot the chosen steps on a domestic list, run by the Zugzwang Foundation at no cost.
 
 ## A comparison fixed before any result
 
