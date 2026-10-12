@@ -2,7 +2,8 @@
 R81 (the backward replay without a headline, its caveat and its figures in E20 §5 only), R82 (the tie rule's asymmetry
 stated), R83 (OlimpBase's label on every file holding figures derived from its transcription, and README's carve-out),
 R84 (FIDE's written permission to be requested, no date), R86 (Appendix F.3, from E20 only) and R87 (annex T1's guard
-row). Every check reads committed files only."""
+row), with R81 (ii) and (iv) and R86 (2) as corrected on 12 October 2026 (session ELO-11; docs/DECISIONS.md, item 9).
+Every check reads committed files only."""
 import json
 import re
 import sys
@@ -44,15 +45,30 @@ def test_r81_the_backward_replay_has_no_headline_and_its_figures_stay_in_section
     assert "The headlines are the lead over one's own era (§3) and the replay's validation and findings" in E20
     sec5 = _section(E20, 5)
     assert mean in sec5 and str(top) in sec5
-    o = REPLAY["calibration"]["overall"]
-    threshold = (o["table_812"]["mean"] + o["table_2025"]["mean"]) / 2
-    assert ("The players were chosen because they reached the top three, so their results run ahead of any forecast. "
-            f"That lifts both tables' residuals alike; a lift above {threshold:.3f} a game would reverse which table "
-            "sits nearer the results. Only an unselected sample of the era, which FIDE's tournament reports would "
-            "provide, can say which table fits it.") in sec5
-    assert ("Here a table fitted on games of March to December 2024 sits further from these 2008-2019 results than "
-            "FIDE's own. That is consistent with calibration changing between eras, with the table's thin support at "
-            "the top, or with a sample chosen for success; it proves none of them.") in sec5
+    # R81 (ii) and (iv) as corrected on 2026-10-12 (docs/DECISIONS.md, item 9): the check is read by when the players
+    # were chosen, with its figures from the aggregate; the threshold and the premise that the players' results run
+    # ahead of any forecast are gone, and nothing says that table 8.1.2 already fits these results
+    o, g, cg = REPLAY["calibration"]["overall"], REPLAY["selection_groups"], REPLAY["calibration"]["by_selection"]
+    early, late = cg["to_april_2000"], cg["from_july_2000"]
+    assert ("The players were chosen for reaching the top three, and the check depends on when. For the "
+            f"{g['to_april_2000']['players']} who reached it only on lists to April 2000, the 2025 table sits nearer their "
+            f"results ({rep.sgn(early['table_812']['mean'], 3)} under table 8.1.2, "
+            f"{rep.sgn(early['table_2025']['mean'], 3)} under the 2025 table); for the {g['from_july_2000']['players']} "
+            f"others, FIDE's table does ({rep.sgn(late['table_812']['mean'], 3)} and "
+            f"{rep.sgn(late['table_2025']['mean'], 3)}). Players chosen for success can score above any forecast around "
+            "the years they were chosen, and players past their peak can score below their ratings; this check cannot "
+            "separate the two, so it cannot say which table fits the era. Only an unselected sample of the era, which "
+            "FIDE's tournament reports would provide, can.") in sec5
+    assert abs(early["table_2025"]["mean"]) < abs(early["table_812"]["mean"])
+    assert abs(late["table_812"]["mean"]) < abs(late["table_2025"]["mean"])
+    assert (f"Pooled over all {o['players']} players, a table fitted on games of March to December 2024 sits further "
+            "from these 2008-2019 results than FIDE's own; split by when the players were chosen, the order reverses for "
+            f"the {g['to_april_2000']['players']}. That is consistent with calibration changing between eras, with the "
+            "table's thin support at the top, or with how the players were chosen; it proves none of them.") in sec5
+    assert (o["players"], g["to_april_2000"]["players"], g["from_july_2000"]["players"]) == (29, 14, 15)
+    for text in (E20, APPENDIX):
+        assert "run ahead of any forecast" not in text and "a lift above" not in text and "already fits" not in text
+        assert "on the same results, which FIDE rated with table 8.1.2" in text
     assert "No estimate of the table's own error at the top" in sec5 and "a handful of games (E19 §3)" in sec5
     # ELO10-STAT-2: the mean difference and range under each reading of the rounding appear in §5 only
     outside = E20.replace(sec5, "")
@@ -122,7 +138,11 @@ def test_r86_appendix_f3_cites_e20_only():
     f3 = prop.split("**F.3 From the greats' replay, 2008–2019.**")[1].split("\n---\n")[0]
     assert set(re.findall(r"\[E(\d+)", f3)) == {"20"}
     assert "28 June 2009" in f3 and "9 July 2009" in f3 and "a date no text gives" in f3
-    assert "towards +∞ on the lists to July 2018 and away from zero from November 2018" in f3
+    # R86 (2) as corrected on 2026-10-12 (docs/DECISIONS.md, item 9): which text was in force in 2018 is NOT VERIFIED
+    assert ("FIDE's lists rounded a period's negative half point towards +∞ to the list of July 2018 and away from zero "
+            "from November 2018; which text was in force in 2018 is NOT VERIFIED; the 2022 text says \"away from "
+            "zero\"; the list of January 2009 is the exception") in f3
+    assert "The same rounding words were applied two ways" not in f3
     assert "January 2009 is the exception" in f3 and "41 points" in f3 and "Nothing has been sent to FIDE" in f3
     assert "a date no text gives" in E20 and "before the text of 2022 said \"away from zero\"" in E20
 

@@ -4,7 +4,8 @@ GREATS_players.json, E20_greats_lists.json and E20_greats_replay.json (analysis/
 analysis/e20_greats_lists_extract.py and analysis/e20_greats_replay_extract.py, which need data/), under
 docs/specs/SPEC-GREATS_v1_0.md, with the rulings R74 to R79 (docs/decisions/D-0017_rulings-on-the-greats.md), the
 fixes of the ELO-9 review (docs/review/REDTEAM_v1_0.md) and ruling R80 (docs/decisions/D-0018_rulings-on-elo-9-
-questions.md); the OlimpBase page it credits is read from
+questions.md), with §5's reading of the calibration check corrected on 12 October 2026 (docs/DECISIONS.md, item 9);
+the OlimpBase page it credits is read from
 analysis/aggregates/PROBE_greats.json, and the 2025 table's fit window by level from analysis/aggregates/
 E18_coverage.json. Every table carries the fixed wording of SPEC-GREATS §1, the era caveat included, and every table
 that uses OlimpBase's lists a line crediting it (R77). Sessions ELO-9, Phases 3 and 5, and ELO-10, Phase 2. Python
@@ -165,26 +166,39 @@ def slips(host: dict) -> str:
     return "; ".join(f"{len(v)} by the {tool} ({', '.join(v)} UTC)" for tool, v in by_tool.items())
 
 
-def fits(cal: dict) -> str:
-    """What the calibration check says, from its numbers."""
-    a, b = cal["overall"]["table_812"]["mean"], cal["overall"]["table_2025"]["mean"]
-    if abs(a) < abs(b) and b > 0:
-        return ("the favourites' results sit nearer table 8.1.2 than the 2025 table, which expects less of them than they "
-                "scored")
-    return "the 2025 table sits at least as near the favourites' results as table 8.1.2"
+def by_selection(f: dict) -> str:
+    """How to read the calibration check, split by when SPEC-GREATS §2 chose the players (D-0018, R81 (ii), corrected
+    2026-10-12: the caveat's premise, that the players' results run ahead of any forecast, held for only part of the
+    sample). The words hold only while the 2025 table sits nearer the first group's results and table 8.1.2 nearer
+    the others'."""
+    g, cg = f["groups"], f["cal_groups"]
+    early, late = cg["to_april_2000"], cg["from_july_2000"]
+    a1, b1 = early["table_812"]["mean"], early["table_2025"]["mean"]
+    a2, b2 = late["table_812"]["mean"], late["table_2025"]["mean"]
+    if not (abs(b1) < abs(a1) and abs(a2) < abs(b2)):
+        raise SystemExit("the check's reading assumes the 2025 table nearer the players chosen to April 2000 and table "
+                         "8.1.2 nearer the others")
+    return ("The players were chosen for reaching the top three, and the check depends on when. For the "
+            f"{g['to_april_2000']['players']} who reached it only on lists to April 2000, the 2025 table sits nearer "
+            f"their results ({sgn(a1, 3)} under table 8.1.2, {sgn(b1, 3)} under the 2025 table); for the "
+            f"{g['from_july_2000']['players']} others, FIDE's table does ({sgn(a2, 3)} and {sgn(b2, 3)}). Players "
+            "chosen for success can score above any forecast around the years they were chosen, and players past their "
+            "peak can score below their ratings; this check cannot separate the two, so it cannot say which table fits "
+            "the era. Only an unselected sample of the era, which FIDE's tournament reports would provide, can.")
 
 
-def caveat(cal: dict) -> str:
-    """R81 (ii)'s caveat on the calibration check, its threshold the midpoint of the two mean residuals over every level
-    (D-0018, reading 8): a common lift of both residuals above it would put the 2025 table nearer the results."""
-    a, b = cal["overall"]["table_812"]["mean"], cal["overall"]["table_2025"]["mean"]
-    threshold = (a + b) / 2
-    if not (abs(a) < abs(b) and threshold > 0):
-        raise SystemExit("R81's caveat assumes table 8.1.2 sits nearer the results, with a positive midpoint")
-    return ("The players were chosen because they reached the top three, so their results run ahead of any forecast. "
-            f"That lifts both tables' residuals alike; a lift above {threshold:.3f} a game would reverse which table sits "
-            "nearer the results. Only an unselected sample of the era, which FIDE's tournament reports would provide, can "
-            "say which table fits it.")
+def pooled_and_split(f: dict) -> str:
+    """R81 (iv)'s sentence as corrected on 2026-10-12: the pooled order and its reversal for the players chosen on the
+    lists to April 2000."""
+    o, early = f["cal"]["overall"], f["cal_groups"]["to_april_2000"]
+    if not (abs(o["table_812"]["mean"]) < abs(o["table_2025"]["mean"])
+            and abs(early["table_2025"]["mean"]) < abs(early["table_812"]["mean"])):
+        raise SystemExit("the pooled sentence assumes table 8.1.2 nearer the pooled results and the order reversed for "
+                         "the players chosen to April 2000")
+    return (f"Pooled over all {o['players']} players, a table fitted on games of March to December 2024 sits further "
+            "from these 2008-2019 results than FIDE's own; split by when the players were chosen, the order reverses for "
+            f"the {f['groups']['to_april_2000']['players']}. That is consistent with calibration changing between eras, "
+            "with the table's thin support at the top, or with how the players were chosen; it proves none of them.")
 
 
 def rounding_line(f: dict) -> str:
@@ -239,6 +253,11 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
       "PROVISIONAL-FITTED, **applied backwards, not fitted on that era**; every other parameter met here is PROVISIONAL. "
       "Every published rating committed here is a single value named by SPEC-GREATS §4 and §6 (a peak); no list and no "
       "series is committed (R72, R77).")
+    p("")
+    p("Corrected 2026-10-12 (session ELO-11; `docs/DECISIONS.md`, item 9): §5 reads the check of how the two tables fit "
+      "these games by when the players were chosen, in place of a caveat whose premise held for only part of the sample; "
+      "§5, the brief below and the proposal's appendix describe the comparison as made on the same results, which FIDE "
+      "rated with table 8.1.2.")
     p("")
     p(FIXED)
     p("")
@@ -301,9 +320,10 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
       f"least {ia['smallest_gap_after_fix']:.0f} s since {ia['fixed_after'][11:19]} UTC.")
     p("- **The 2025 table applied backwards (§5), without a headline (R81).** §5 replays the same games under E18's 2025 "
       "table, **applied backwards, not fitted on that era**, with the opponents outside the set held at FIDE's ratings "
-      "(R58). It measures the distance between that table and table 8.1.2 at these players' gaps, on results 8.1.2 "
-      "already fits: not a correction found in these games, and not anyone's strength. Its figures, the check of how "
-      "the two tables fit these games and that check's caveat are in §5 only.")
+      "(R58). It measures the distance between that table and table 8.1.2 at these players' gaps, on the same results, "
+      "which FIDE rated with table 8.1.2: not a correction found in these games, and not anyone's strength. Its figures, "
+      "and the check of how the two tables fit these games, which depends on when the players were chosen and so cannot "
+      "say which table fits the era, are in §5 only.")
     p("- **The cross-era head-to-head (§6) is not attempted**: no legitimately usable game data link the eras.")
     p("")
     p(f"For the figures above that rest on the lists to 2000 (who, the lead over one's own era, the sources): "
@@ -634,8 +654,8 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
       "Opponents outside the set are held at FIDE's ratings (R58); a replay of the whole pool, in which they would move "
       "too, needs FIDE's tournament reports. The difference is rung 2 minus Layer 0 on each player's last list in the "
       "window; Layer 0 equals FIDE's published rating on every list it reproduces. What the comparison measures (R81): "
-      "the distance between the 2025 table and table 8.1.2 at these players' gaps, on results 8.1.2 already fits. Its "
-      "figures appear here only, and no headline of E20 or of the proposal's appendix carries them.")
+      "the distance between the 2025 table and table 8.1.2 at these players' gaps, on the same results, which FIDE rated "
+      "with table 8.1.2. Its figures appear here only, and no headline of E20 or of the proposal's appendix carries them.")
     p("")
     p(f"**First, how the table fits these games** (the review of session ELO-9, ELO9-STAT-1). On every game of FIDE's "
       f"{rep['pages']['read']:,} pages, the thin periods' included, in which the player of the set was the favourite by "
@@ -652,8 +672,6 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
         p(f"| {BAND.get(mid, mid)} | {x['games']:,} | {x['players']} | {ci(x['table_812'])} | {ci(x['table_2025'])} |")
     o = cal["overall"]
     p(f"| every level | {o['games']:,} | {o['players']} | {ci(o['table_812'])} | {ci(o['table_2025'])} |")
-    p("")
-    p(f"On these games, for the {o['players']} together, {fits(cal)}. " + caveat(cal))
     p("")
     g, cg = f["groups"], f["cal_groups"]
     p("The same check and the difference on the last list, by how SPEC-GREATS §2 selected the players (the review of "
@@ -673,18 +691,13 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
     p(f"| the {o['players']} together | {o['games']:,} | {ci(o['table_812'])} | {ci(o['table_2025'])} | "
       f"{sgn(s['mean_difference'], 2)} |")
     p("")
-    a812, b812 = cg["to_april_2000"]["table_812"]["mean"], cg["from_july_2000"]["table_812"]["mean"]
-    p("The selection's effect is not common to the sample: under table 8.1.2 the players chosen on the lists to April "
-      f"2000 score {sgn(a812, 3)} a game against its forecast and those chosen on a list from July 2000 {sgn(b812, 3)}, "
-      "so the order of the two tables on the players together depends on the mix of the two groups (ELO10-STAT-1).")
+    p(by_selection(f))
     p("")
     p(f"For the groups, which rest on the lists to 2000: {f['terms']}")
     p("")
     p("The difference below therefore measures how far the 2025 table sits from table 8.1.2 at the gaps these players "
-      "played, applied to results that 8.1.2 already fits; it is not a correction the table finds in these games. Here a "
-      "table fitted on games of March to December 2024 sits further from these 2008-2019 results than FIDE's own. That "
-      "is consistent with calibration changing between eras, with the table's thin support at the top, or with a sample "
-      f"chosen for success; it proves none of them. The table's fit window lies in {f['fit_year']}, whose standard games "
+      "played, applied to the same results, which FIDE rated with table 8.1.2; it is not a correction the table finds in "
+      f"these games. {pooled_and_split(f)} The table's fit window lies in {f['fit_year']}, whose standard games "
       f"with both players' FIDE IDs number {f['fit_2750']:,} at levels of 2700–2799 and {f['fit_2850']:,} at 2800 or "
       f"more [E18 §1]; the replay holds {f['rows_2750']:,} and {f['rows_2850']:,} game rows at those levels by FIDE's "
       f"ratings. Of the {f['rows_2850']:,} at 2800 or more, "
@@ -770,11 +783,13 @@ def report(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[st
       f"{num(f['pass_through'], 2)} points per point of theirs (§5), and a replay of the whole pool would move them too.")
     p("- The colour term uses FIDE's colour marks, NOT VERIFIED before 2020 (E17 checked them against the broadcast "
       "archive from 2020 only).")
-    p("- The 2025 table is applied backwards to an era it was not fitted on, and on these games, for the players "
-      "together, the favourites' results sit nearer table 8.1.2, an order that depends on the mix of players chosen "
-      "before and in the window and that a sample chosen for success could reverse (§5): the replay shows the rule's "
-      "effect on the same results, not a measure of anyone's strength, and not a comparison across eras; its fit window "
-      "holds few games at the top levels where the greats play.")
+    p("- The 2025 table is applied backwards to an era it was not fitted on, and how the two tables fit these games "
+      "depends on when the players were chosen: table 8.1.2 sits nearer the results of the "
+      f"{f['groups']['from_july_2000']['players']} chosen on a list from July 2000, the 2025 table nearer those of the "
+      f"{f['groups']['to_april_2000']['players']} chosen only on the lists to April 2000; the check cannot separate "
+      "selection for success from players past their peak, so it cannot say which table fits the era (§5). The replay "
+      "shows the rule's effect on the same results, not a measure of anyone's strength, and not a comparison across eras; "
+      "its fit window holds few games at the top levels where the greats play.")
     p("- Layer 0's rounding follows FIDE's output, towards +∞ to the list of July 2018, which R80 extends to October "
       "2018, and away from zero from November 2018 (R74 before July 2014, a reading changed after partial pages were "
       "seen; R80 from July 2014, set after the full replay had been read): the reading of the texts' Rn as the rated "
@@ -869,8 +884,9 @@ def appendix(sel: dict, lists: dict, rep: dict, probe: dict, e18: dict) -> list[
     q("")
     q("E20 §5 also replays the same games under E18's 2025 table, **applied backwards, not fitted on that era**, with "
       f"every opponent outside the {rep['players_replayed']} held at FIDE's rating (R58). It measures the distance "
-      "between that table and table 8.1.2 at these players' gaps, on results 8.1.2 already fits, not anyone's strength; "
-      "its figures, and the caveat on reading them, are in E20 §5 only.")
+      "between that table and table 8.1.2 at these players' gaps, on the same results, which FIDE rated with table "
+      "8.1.2, not anyone's strength; its figures, and the check of how the two tables fit these games, which cannot say "
+      "which table fits the era, are in E20 §5 only.")
     q("")
     q("**What permission would add.** With written permission from TWIC, ChessBase or Chessmetrics, the full study "
       "becomes possible: the replay could extend to the games those collections hold, across the greats' careers. FIDE's "

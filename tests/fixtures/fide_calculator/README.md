@@ -45,5 +45,6 @@ Each case carries the URL, the UTC time of the request and the response (verbati
 ## Privacy and licence
 
 - Only adults (born 2007 or earlier) are recorded. Opponents are identified by the rating FIDE used, never by name. Tournament names and places are as FIDE publishes them.
+- 2026-10-12: in `published_initial_rating.json` (F-N01), the FIDE ID, the year of birth and the event (its ID, name and dates, and the two URLs that carry an ID) are placeholders; the computation uses none of them (`docs/DECISIONS.md`, item 7).
 - Values quoted from the monthly lists are single values per player, recorded to check the calculations. The lists themselves are not committed or redistributed (`.gitignore`; FIDE's terms, `docs/research/VERIFICATION_2026-10-09.md`, item 3).
 - These files record facts returned by FIDE's public pages, for verification. They are part of `tests/`, so the code licence (Apache-2.0) covers the files; the FIDE content quoted in them remains FIDE's.
