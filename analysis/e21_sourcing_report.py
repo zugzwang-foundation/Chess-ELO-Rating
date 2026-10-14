@@ -204,6 +204,42 @@ def in_brief(d: Data) -> list[str]:
     ]
 
 
+def in_brief_d2(k: "Club") -> list[str]:
+    t, c = k.t0, k.c
+    ut, ctl, fx = t["unexplained_tests"], t["controls"], t["parser_fix"]
+    pp = t["printed_against_published"]
+    share = pp["games: the opponent's printed rating equals the list in force"] / pp[
+        "games: opponent identified on the list in force, uncapped"]
+    ft, wh, jn, nw, l0 = c["fair_table"], c["white"], c["juniors"], c["newcomers"], c["layer0"]
+    by812 = shown([ft["812"]["by_gap"][gb]["weighted"] for gb in CLUB_GAPS if gb in ft["812"]["by_gap"]])
+    edge = shown([wh["edge_every_game"]["812"][b]["weighted"] for b in CLUB_LEVELS if b in wh["edge_every_game"]["812"]])
+    ev = [x["edge"] for x in edge if "edge" in x]
+    spec = shown([jn["junior_specific"][b]["weighted"] for b in BELOW_2000_CLUB if b in jn["junior_specific"]])
+    sv = [x["mean"] for x in spec if "mean" in x]
+    every = nw.get("every age", {}).get("weighted", {})
+    r25 = t["rules"]["known"][5]
+    p_opp = t["rules"]["published_opponents"]
+    return [
+        "- **Decided after the brief (14 October; items 33 to 36).** No larger fetch and no request to FIDE: Tier 0 on "
+        f"the pages already held (§10) and a level-stratified sample of {n(c['pages']['planned'])} of FIDE's game "
+        "pages of 2025 (§11), its analyses fixed before it was fetched.",
+        f"- **Tier 0 (§10).** The extended parser reads all {n(t['pages'])} pilot pages. Of the "
+        f"{n(t['classes']['unexplained'])} list changes the pilot left unexplained, the known rules reproduce "
+        f"{ut['explained by a known rule']}, by a rounding that breaks "
+        f"{n(ctl.get('equal|' + r25 + '|applies', 0) - ctl.get('equal|' + r25 + '|reproduced', 0))} matching pages; "
+        f"the pages print the opponent's published rating in only {pct(share, 0)} of games, and the ratings as "
+        f"published reproduce {n(ctl.get('unexplained|' + p_opp + '|reproduced', 0))} of them; "
+        f"{n(t['remaining']['pages'])} stay NOT VERIFIED. The lists rated, as rated players, the "
+        f"{fx['their_pages_on_both_lists']} players whose pages print them unrated.",
+        f"- **The club-level sample (§11).** {n(c['pages']['read'])} pages, {n(c['pages']['rows']['game_rows'])} game "
+        f"rows; Layer 0 reproduces FIDE's change in {n(l0['game_change_equal'])} of {n(l0['games'])} games. Favourites "
+        f"score {vrange([x['mean'] for x in by812])} a game against "
+        f"table 8.1.2 by gap, the interval below zero in {sum(1 for x in by812 if side(x) == 'below')} of "
+        f"{len(by812)} bins; White's edge by level {vrange(ev)}; adults' junior-specific residual below 2000 "
+        f"{vrange(sv)}; newcomers' first year {c3(every)} against FIDE's expectation.",
+    ]
+
+
 def first_looks(d: Data) -> str:
     """The In brief's line on the pilot's first looks, from the same figures as §5.4."""
     fl = d.p["first_looks"]
@@ -745,6 +781,10 @@ def brief(d: Data) -> list[str]:
     return [
         "## 7 The brief: go, no-go, or a smaller run",
         "",
+        "**Decided (14 October; `docs/DECISIONS.md`, items 33 and 34).** Neither the full fetch nor the smaller run "
+        "below: the founder ran Tier 0 on the pages already held and the level-stratified club-level sample instead "
+        "(§10, §11), and no request went to FIDE. The brief stands as written for the record.",
+        "",
         "For the founder, in plain words. " + PILOT + " The yield below is FIDE's own count of games, from its lists, "
         "for the pages a fetch would request, with the pilot's shares applied; it is an extrapolation, labelled so, and "
         "its estimates (distinct and cross-border games) are given to the nearest hundred, the smaller run's to the "
@@ -864,6 +904,23 @@ def edits_section() -> list[str]:
         "cannot be shared.",
         "- Appendix H or E20's report: the greats' difference list by list (§2), if the appendix is to show it.",
         "",
+        "Added by session ELO-D2 (listed, not made):",
+        "",
+        "- §2(a) and the annex on the fair table (T3): the favourite's score against table 8.1.2 at club level (§11.3) "
+        "beside the broadcast games' [E2], so that the table's error is shown at the levels where most rated games are "
+        "played, not at the top only.",
+        "- Annex T8.2 and the ladder's rung 2: the fitted tables at club level (§11.3, §11.4): the 2025 "
+        "self-calibrating table and the v2 table, fitted on broadcast games, measured on the pool's own games, with "
+        "their colour term; what they mean for adopting the table below 2000 before a refit on FIDE's data.",
+        "- §2(c) or the annex on colour: White's edge at club level (§11.4) beside the broadcast games'.",
+        "- §2(b) or annex T4.6: adults' junior-specific residual at club level (§11.5) beside E6's broadcast figure.",
+        "- §2(b) or annex T4.7: newcomers' first-year results against FIDE's expectation by age (§11.6), beside the "
+        "climb of §3.3.",
+        "- Appendix F, the findings for FIDE's Qualification Commission: FIDE's per-player pages print ratings that "
+        "differ from its published lists in about a quarter of games, and print as unrated players whose games the "
+        "lists rated (§10); the lists and pages agree on neither, so a rating's history cannot be rebuilt from the "
+        "pages alone.",
+        "",
     ]
 
 
@@ -881,29 +938,550 @@ def limits_section() -> list[str]:
         "- The list changes that Layer 0 does not reproduce from the page (§5.2) are NOT VERIFIED.",
         "- The climbs of §3 are climbs, not proof of under-rating; players who stop playing leave the measure.",
         "- Whether fide.com redirects to www.fide.com (§1) is NOT VERIFIED.",
+        "- **Session ELO-D2.** The club-level sample holds one page per player and one year, 2025; its figures are "
+        "weighted to the frame by stratum, and games between two sampled players count on each page. Opponents are "
+        "identified by name, federation and a rating within 50 points (on the pilot's pages 97.6 % of rows), which is "
+        "NOT VERIFIED beyond the name. The ratings are those the pages print today, which differ from the lists as "
+        "published on about a quarter of games (§10.2). The fitted tables are applied as they stand, fitted on "
+        "broadcast games; none was refitted on these games.",
+        "- Why FIDE's pages and lists differ, and the list changes that neither a known rule nor the published ratings "
+        "reproduce (§10.2), are NOT VERIFIED.",
+        "",
+    ]
+
+
+# ------------------------------------------------------------------ session ELO-D2: Tier 0 and the club-level sample
+TABLES = (("812", "table 8.1.2"), ("selfcal", "the 2025 self-calibrating table"), ("v2", "the v2 table"))
+CLUB_GAPS = tuple(f"{lo}-{lo + 49}" for lo in range(0, 400, 50))
+AGE_ORDER = ("<12", "12-15", "16-19", "20-24", "25-45", "46-60", ">60")
+BELOW_2000_CLUB = ("1400-1599", "1600-1799", "1800-1999")
+AFTER_D2_PLAN = ("Its analyses were fixed before the sample was fetched (`docs/DECISIONS.md`, item 36); what was chosen "
+                 "after seeing the pilot, or after the plan, is labelled so (§11.8).")
+RO_CLASS = "a tournament's Ro is not the list before's"
+GAMES_CLASS = "the page's games are not the list's"
+HELD_CLASS = "not on both lists, or a tournament printed without K"
+
+
+class Club:
+    def __init__(self) -> None:
+        self.t0 = load("E21_tier0.json")
+        self.c = load("E21_club.json")
+        self.cp = load("E21_club_plan.json")
+        self.pilot = load("E21_club_pilot.json")
+
+
+def c3(s: dict, d: int = 3) -> str:
+    """A figure with its interval, or a dash below the 100 games a cell is shown from."""
+    if not s or s.get("games", 0) < 100 or "mean" not in s:
+        return "—"
+    return f"{sgn(s['mean'], d)} ({sgn(s['lo'], d)} to {sgn(s['hi'], d)})"
+
+
+def u3(s: dict, d: int = 3) -> str:
+    return sgn(s["mean"], d) if s and s.get("games", 0) >= 100 and "mean" in s else "—"
+
+
+def e3(s: dict, d: int = 3) -> str:
+    if not s or "edge" not in s or min(s.get("games_white", 0), s.get("games_black", 0)) < 100:
+        return "—"
+    return f"{sgn(s['edge'], d)} ({sgn(s['lo'], d)} to {sgn(s['hi'], d)})"
+
+
+def vrange(v: list[float], d: int = 3) -> str:
+    return f"{sgn(min(v), d)} to {sgn(max(v), d)}" if v else "—"
+
+
+def shown(cells: list[dict]) -> list[dict]:
+    """The cells a table shows: a mean from 100 games, an edge from 100 games each as White and as Black."""
+    return [c for c in cells if c and (c.get("games", 0) >= 100 and "mean" in c or
+                                       min(c.get("games_white", 0), c.get("games_black", 0)) >= 100 and "edge" in c)]
+
+
+def side(s: dict) -> str:
+    """Where a figure's interval lies: below zero, above it, or across it."""
+    if not s or "lo" not in s:
+        return "not settled"
+    return "below" if s["hi"] < 0 else "above" if s["lo"] > 0 else "not settled"
+
+
+def tier0_section(k: Club) -> list[str]:
+    t = k.t0
+    fx, cl, ut, rm, ctl, pp = (t["parser_fix"], t["classes"], t["unexplained_tests"], t["remaining"], t["controls"],
+                               t["printed_against_published"])
+    known, trunc, p_opp, p_all = (t["rules"]["known"], t["rules"]["truncation"], t["rules"]["published_opponents"],
+                                  t["rules"]["published_all"])
+    r23, r22b, r32, r0910, r12, r25 = known
+    unexp, eq = cl["unexplained"], cl["equal"]
+
+    def applies(c: str, rule: str) -> int:
+        return ctl.get(f"{c}|{rule}|applies", 0)
+
+    def got(c: str, rule: str) -> int:
+        return ctl.get(f"{c}|{rule}|reproduced", 0)
+
+    def row(rule: str, what: str) -> str:
+        return (f"| {rule} | {what} | {n(applies('unexplained', rule))} | {n(got('unexplained', rule))} | "
+                f"{n(applies('equal', rule))} | {n(applies('equal', rule) - got('equal', rule))} |")
+    games_id = pp["games: opponent identified on the list in force, uncapped"]
+    games_same = pp["games: the opponent's printed rating equals the list in force"]
+    tours = pp["tournaments"]
+    ro_same = pp["tournaments: Ro equals the player's rating on the list in force"]
+    oc = t["other_classes"]
+    ro_one, ro_fide = oc["Ro: one base for the page"], oc["Ro: published list equals FIDE's Ro plus the page's rounded total"]
+    k_note = ut.get("note: printed K not the list before's", 0)
+    moved_games = ut["note: games whose opponent's published rating differs"]
+    return [
+        "## 10 Tier 0: the parser fix and the list-change puzzle",
+        "",
+        "Session ELO-D2, on the pilot's 2,000 pages already held, with no new request (`docs/DECISIONS.md`, items 33 "
+        "and 34); `analysis/e21_tier0_extract.py` writes `analysis/aggregates/E21_tier0.json`. The regulations are "
+        "cited as SPEC-L0 v1.5 §3 transcribes them [V 1]. Nothing here is a claim about how FIDE computes: what the "
+        "pages and the lists do not show is NOT VERIFIED.",
+        "",
+        "### 10.1 The parser fix",
+        "",
+        f"- **The pages E17's parser rejects** ({fx['pages_with_a_tournament_printed_without_k']}, §5.1) each hold one "
+        f"tournament that FIDE prints with the player's Ro as 0 and without K: {fx['game_rows_printed_without_k']} "
+        "game rows, each with the change 0.00, and a performance figure in the summary row. The extended parser "
+        f"(`analysis/e21_club_common.py`) reads them and counts them apart; on the {n(t['read_by_e17'])} pages E17's "
+        f"parser reads it gives the same tournaments and the same marked games ({n(fx['game_rows'])} game rows in "
+        "all).",
+        f"- **The game row without a colour mark** ({fx['game_rows_unmarked']}, on {fx['pages_with_an_unmarked_row']} "
+        "page) is read as a game and left out of every measure that uses colour; with it Layer 0 reproduces its "
+        "tournament's K × sum and its page's total too.",
+        f"- **What the lists show for the {fx['their_pages_on_both_lists']} pages printed without K.** The player is on "
+        f"the list before the period and on the period's list in all {fx['their_pages_on_both_lists']}; the list counts "
+        f"the games in {fx['their_list_games_equal_every_row']} and shows a change in {fx['their_list_change_not_zero']}: "
+        "the lists rated these games, which the pages now print as a player's who is not rated. Recomputed as games of "
+        "a rated player with the rating and K of the list before (R-12 as SPEC-L0 reads it, its open question Q-12: "
+        "\"they are rated as a rated player with their current rating\"), "
+        f"{fx['their_list_change_reproduced_as_rated_with_the_list_befores_rating']} of the "
+        f"{fx['their_pages_on_both_lists']} published changes are reproduced exactly and "
+        f"{fx['their_list_change_within_7_points_so']} within 7 points. Why the pages print these players as unrated "
+        "is NOT VERIFIED.",
+        "",
+        "### 10.2 The list-change puzzle",
+        "",
+        f"Every page the pilot read, classified by FIDE's own inputs as §5.2 classifies it ({n(t['pages'])} pages, read "
+        "by the extended parser):",
+        "",
+        "| the published change (the period's list minus the list before) | pages |",
+        "|---|---|",
+        f"| equals the page's total rounded once | {n(eq)} |",
+        f"| differs, and a tournament's Ro is not the list before's | {n(cl[RO_CLASS])} |",
+        f"| differs, and the page holds more or fewer games than the list counts | {n(cl[GAMES_CLASS])} |",
+        f"| differs otherwise: the puzzle | {n(unexp)} |",
+        f"| a tournament printed with Ro 0 and without K (§10.1) | {n(cl[HELD_CLASS])} |",
+        "",
+        f"The puzzle's {n(unexp)} pages are E21's: {n(ut['by_one_point'])} of them by one point, {n(ut['k_40'])} of "
+        f"players with K = 40, {n(ut['juniors_or_newcomers'])} of juniors or newcomers (§11's groups), "
+        f"{n(ut['several_tournaments'])} with more than one tournament. Each rule recomputes the period's change as the "
+        "rule would have it; a page counts only when the change is then reproduced exactly. Beside it, its control: "
+        f"on how many of the {n(eq)} pages that already match the rule changes anything, and how many of those it "
+        "would then break.",
+        "",
+        "| rule | what it changes on the puzzle's pages | pages it changes | reproduced | matching pages it changes | of them broken |",
+        "|---|---|---|---|---|---|",
+        row(r23, f"would cap K on {ut.get('note: R-23 would cap K', 0)} page, whose printed K is already reduced"),
+        row(r22b, f"the printed K is not the list before's on {k_note} pages"),
+        row(r32, f"no page's change takes the player below 1400 "
+                 f"({ut.get('note: the change would take the player below 1400', 0)} pages)"),
+        row(r0910, f"{ut.get('note: tournaments outside the periods that may rate them', 0)} tournaments outside them"),
+        row(r12, f"{ut.get('note: games against an opponent not on the list in force', 0)} game against an opponent not "
+                 "on the list in force"),
+        row(r25, f"the pages with more than one tournament ({ut['several_tournaments']})"),
+        row(trunc, "every page; E21 noted that it would explain 40"),
+        row(p_opp, f"{n(moved_games)} games on {ut.get('note: pages with such a game', 0)} pages"),
+        "",
+        f"- **The known rules** reproduce {ut['explained by a known rule']} of the {n(unexp)} pages, all by rounding "
+        f"per tournament, which breaks {n(applies('equal', r25) - got('equal', r25))} of the "
+        f"{n(applies('equal', r25))} matching pages it changes: the lists round once per period, as SPEC-L0 has it "
+        f"(R-25, Q-1). Rounding towards zero, which no rule states, matches {n(got('unexplained', trunc))} and breaks "
+        f"{n(applies('equal', trunc) - got('equal', trunc))} of the {n(eq)}: its matches are pages one point off "
+        "towards zero.",
+        f"- **The ratings the pages print.** Over the pilot's pages, the opponent's rating FIDE prints equals the "
+        f"opponent's rating on the list in force, as published, in {n(games_same)} of {n(games_id)} games with an "
+        f"identified opponent and no mark of the 400-point rule ({pct(games_same / games_id)}); it differs by 1 to 5 "
+        f"points in {n(pp['games: within 5 points of it'])} and by 6 or more in "
+        f"{n(pp['games: 6 points or more from it'])}. The player's own Ro equals the list in force in {n(ro_same)} of "
+        f"{n(tours)} tournaments, differs by 1 to 5 in {n(pp['tournaments: Ro within 5 points of it'])} and by 6 or "
+        f"more in {n(pp['tournaments: Ro 6 points or more from it'])}.",
+        f"- **With the ratings as published** (decided after seeing the pilot): the opponents' reproduce "
+        f"{n(got('unexplained', p_opp))} of the puzzle's pages; the player's and the opponents' reproduce "
+        f"{n(got(RO_CLASS, p_all))} of the {n(cl[RO_CLASS])} pages whose Ro is not the list before's, where FIDE's own "
+        f"Ro plus the page's rounded total reproduces {n(ro_fide)} of the {n(ro_one)} pages with one Ro. But they also "
+        f"break {n(applies('equal', p_opp) - got('equal', p_opp))} of the {n(applies('equal', p_opp))} matching pages "
+        "they change: neither the ratings the pages print nor those the lists published reproduce every published "
+        f"change. A known rule or the published ratings reproduce {ut['explained by a known rule or the published ratings']} "
+        f"of the {n(unexp)}.",
+        f"- **What remains.** {n(rm['pages'])} of the {n(unexp)} pages are reproduced by neither: {n(rm['by_one_point'])} "
+        f"of them by one point, {n(rm['k_40'])} of players with K = 40, {n(rm['juniors_or_newcomers'])} of juniors or "
+        f"newcomers, {n(rm['with an opponent not identified'])} with an opponent the resolver does not identify. Why is "
+        "NOT VERIFIED.",
+        f"- **R-12 and the periods.** Leaving out games against an opponent not rated on the list in force reproduces "
+        f"{got(GAMES_CLASS, r12)} of the {plural(applies(GAMES_CLASS, r12), 'page', 'pages')} whose games differ from "
+        "the list's and that hold such a game. On {applies('equal', r0910)} matching pages the list counts a tournament that R-09 and "
+        "R-10 as SPEC-L0 reads them would not allow on that list (R-10's reading is NOT VERIFIED).",
+        "",
+        f"**In plain words.** The pages show FIDE's figures as FIDE's server returns them today (14 October 2026). "
+        "On about a quarter of the games they are not the figures of the lists as FIDE published them, by a few "
+        f"points as a rule. That reproduces more of the disagreements than any rule of the regulations does "
+        f"(with a known rule, {ut['explained by a known rule or the published ratings']} of the {n(unexp)}; a known "
+        f"rule alone, {ut['explained by a known rule']}), though not all of them and not without breaking "
+        "pages that matched; the pages do not say when or why a rating was changed. For the analyses of §11 the "
+        "ratings as printed are FIDE's own inputs, which Layer 0 reproduces game by game; §11.3 gives the fair table "
+        "with the "
+        "ratings as published beside them.",
+        "",
+    ]
+
+
+def club_section(k: Club) -> list[str]:
+    c, cp = k.c, k.cp
+    pol, lk, pg, l0 = c["politeness"], c["lock"], c["pages"], c["layer0"]
+    rows = pg["rows"]
+    ft, wh, jn, nw = c["fair_table"], c["white"], c["juniors"], c["newcomers"]
+    plan_pages = cp["allocation"]["pages"]
+    expected = cp["allocation"]["expected"]
+    th = c["thresholds"]
+    ident = rows["opponent_identified"]
+    statuses = ", ".join(f"{s}: {n(v)}" for s, v in sorted(pol["statuses"].items()))
+    strat = ["| stratum: level, October 2025 · group | pages planned | read | game rows |", "|---|---|---|---|"]
+    for st in STRATUM_ORDER:
+        b, g = st.split("|")
+        v = pg["by_stratum"].get(st, {})
+        strat.append(f"| {club_lvl(b)} · {GROUP_NAME[g]} | {n(plan_pages[st])} | {n(v.get('pages_read', 0))} | "
+                     f"{n(v.get('game_rows', 0))} |")
+    met = ["| level band | games on its pages | expected at the pilot's rates | threshold | games of adults against "
+           "juniors, by the adult's band | expected | threshold |", "|---|---|---|---|---|---|---|"]
+    for b in CLUB_LEVELS:
+        aj_t = th["adult_junior_games_by_adult_band"].get(b, 0)
+        met.append(f"| {club_lvl(b)} | {n(th['games_by_band'][b])} | {n(expected[f'games|{b}'])} | "
+                   f"{'5,000' if b != '2200+' else '—'} | {n(aj_t)} | {n(expected.get(f'adult_junior|{b}', 0))} | "
+                   f"{'1,000' if b in BELOW_2000_CLUB else '—'} |")
+    short = [club_lvl(b) for b in CLUB_LEVELS[:4] if th["games_by_band"][b] < 5000]
+    short_aj = [club_lvl(b) for b in BELOW_2000_CLUB if th["adult_junior_games_by_adult_band"].get(b, 0) < 1000]
+
+    # 11.3 the fair table
+    gap_rows = ["| gap | games | table 8.1.2 | unweighted | 2025 self-calibrating table | unweighted | v2 table | "
+                "unweighted |", "|---|---|---|---|---|---|---|---|"]
+    for gb in CLUB_GAPS:
+        s = {key: ft[key]["by_gap"].get(gb, {}) for key, _lab in TABLES}
+        gap_rows.append(f"| {gb.replace('-', '–')} | {n(s['812'].get('weighted', {}).get('games', 0))} | "
+                        + " | ".join(f"{c3(s[key].get('weighted'))} | {u3(s[key].get('unweighted'))}"
+                                     for key, _lab in TABLES) + " |")
+    lvl_rows = ["| level of the game | games | table 8.1.2 | 2025 self-calibrating table | v2 table |",
+                "|---|---|---|---|---|"]
+    for b in CLUB_LEVELS:
+        s = {key: ft[key]["by_level"].get(b, {}).get("weighted", {}) for key, _lab in TABLES}
+        lvl_rows.append(f"| {club_lvl(b)} | {n(s['812'].get('games', 0))} | "
+                        + " | ".join(c3(s[key]) for key, _lab in TABLES) + " |")
+    grid = ["| level of the game | " + " | ".join(gb.replace("-", "–") for gb in CLUB_GAPS) + " |",
+            "|---|" + "---|" * len(CLUB_GAPS)]
+    for b in CLUB_LEVELS:
+        cells = []
+        for gb in CLUB_GAPS:
+            s = ft["812"]["by_level_gap"].get(f"{b}|{gb}", {}).get("weighted", {})
+            cells.append(f"{u3(s)} ({n(s['games'])})" if s.get("games", 0) >= 100 else "—")
+        grid.append(f"| {club_lvl(b)} | " + " | ".join(cells) + " |")
+    ra = {key: ft[key]["rule_a"] for key, _lab in TABLES}
+    pub = c["fair_table_published_ratings"]
+    by812 = shown([ft["812"]["by_gap"][gb]["weighted"] for gb in CLUB_GAPS if gb in ft["812"]["by_gap"]])
+    below812 = sum(1 for s in by812 if side(s) == "below")
+
+    # 11.4 White
+    w_rows = ["| level of the game | games within 25 points | White's score | unweighted | White's score minus the "
+              "2025 self-calibrating table | minus the v2 table |", "|---|---|---|---|---|---|"]
+    for b in CLUB_LEVELS:
+        s = wh["near_equal_score"].get(b, {})
+        r1 = wh["near_equal_minus_table"]["selfcal"].get(b, {}).get("weighted", {})
+        r2 = wh["near_equal_minus_table"]["v2"].get(b, {}).get("weighted", {})
+        w_rows.append(f"| {club_lvl(b)} | {n(s.get('weighted', {}).get('games', 0))} | {c3(s.get('weighted'))} | "
+                      f"{u3(s.get('unweighted'))} | {c3(r1)} | {c3(r2)} |")
+    e_rows = ["| level of the game | games | White's edge under table 8.1.2 | left by the 2025 self-calibrating table | "
+              "left by the v2 table |", "|---|---|---|---|---|"]
+    for b in CLUB_LEVELS:
+        s = {key: wh["edge_every_game"][key].get(b, {}).get("weighted", {}) for key, _lab in TABLES}
+        g_ = s["812"].get("games_white", 0) + s["812"].get("games_black", 0)
+        e_rows.append(f"| {club_lvl(b)} | {n(g_)} | " + " | ".join(e3(s[key]) for key, _lab in TABLES) + " |")
+
+    # 11.5 juniors
+    j_rows = ["| adult's band | games against juniors | adults' score minus FIDE's expectation | unweighted | games "
+              "against adults | against adults | the matched control | junior-specific |",
+              "|---|---|---|---|---|---|---|---|"]
+    for b in CLUB_LEVELS:
+        a = jn["adults_against_juniors"].get(b, {})
+        aa = jn["adults_against_adults"].get(b, {})
+        mc = jn["matched_control"].get(b, {}).get("weighted", {})
+        sp = jn["junior_specific"].get(b, {}).get("weighted", {})
+        j_rows.append(f"| {club_lvl(b)} | {n(a.get('weighted', {}).get('games', 0))} | {c3(a.get('weighted'))} | "
+                      f"{u3(a.get('unweighted'))} | {n(aa.get('weighted', {}).get('games', 0))} | "
+                      f"{c3(aa.get('weighted'))} | {c3(mc)} | {c3(sp)} |")
+
+    # 11.6 newcomers
+    n_rows = ["| age when first rated | games in the first year | score minus FIDE's expectation | unweighted |",
+              "|---|---|---|---|"]
+    for a in AGE_ORDER + ("every age",):
+        s = nw.get(a, {})
+        n_rows.append(f"| {AGE_NAME.get(a, a)} | {n(s.get('weighted', {}).get('games', 0))} | {c3(s.get('weighted'))} | "
+                      f"{u3(s.get('unweighted'))} |")
+
+    # plain words
+    sp_below = [b for b in BELOW_2000_CLUB if side(jn["junior_specific"].get(b, {}).get("weighted", {})) == "below"]
+    edge812 = shown([wh["edge_every_game"]["812"][b]["weighted"] for b in CLUB_LEVELS
+                     if b in wh["edge_every_game"]["812"]])
+    edge_sc = shown([wh["edge_every_game"]["selfcal"][b]["weighted"] for b in CLUB_LEVELS
+                     if b in wh["edge_every_game"]["selfcal"]])
+    edge_v2 = shown([wh["edge_every_game"]["v2"][b]["weighted"] for b in CLUB_LEVELS if b in wh["edge_every_game"]["v2"]])
+    sc_gap = shown([ft["selfcal"]["by_gap"][gb]["weighted"] for gb in CLUB_GAPS if gb in ft["selfcal"]["by_gap"]])
+    v2_gap = shown([ft["v2"]["by_gap"][gb]["weighted"] for gb in CLUB_GAPS if gb in ft["v2"]["by_gap"]])
+
+    def count_side(cells: list[dict], where: str, key: str = "mean") -> int:
+        return sum(1 for s in cells if side(s) == where)
+
+    def rng(cells: list[dict], key: str = "mean") -> str:
+        v = [s[key] for s in cells if key in s]
+        return f"{sgn(min(v), 3)} to {sgn(max(v), 3)}" if v else "—"
+    every = nw.get("every age", {}).get("weighted", {})
+    away_sc = sum(1 for s in edge_sc if "lo" in s and side(s) != "not settled")
+    away_v2 = sum(1 for s in edge_v2 if "lo" in s and side(s) != "not settled")
+    e2 = load("E2_broadcast.json")["descriptive"]["standard"]
+    e2_res = [(v[1] - v[2]) / v[0] for k_, v in e2["by_gap_50"].items() if int(k_) < 400]
+    e2_white = [v[3] / v[2] for k_, v in e2["by_level_200"].items() if int(k_) < 2200]
+    n_bins, n_lv = len(by812), len(edge812)
+    above_e = sum(1 for s_ in edge812 if side(s_) == "above")
+    near = [wh["near_equal_score"][b]["weighted"] for b in CLUB_LEVELS if b in wh["near_equal_score"]]
+    near_v = [s_["mean"] for s_ in near if s_.get("games", 0) >= 100]
+    white_words = (
+        "- **White moves first.** "
+        + (f"White's edge under table 8.1.2, from every game, lies above zero in every one of the {n_lv} level bands"
+           if above_e == n_lv else
+           f"White's edge under table 8.1.2, from every game, lies above zero in {above_e} of the {n_lv} level bands"
+           + (" and is not settled in the others" if above_e else ""))
+        + f" ({rng(edge812, 'edge')} a game)"
+        + (f"; at most 25 points apart White scores {sgn(min(near_v), 3).lstrip('+')} to "
+           f"{sgn(max(near_v), 3).lstrip('+')} by level band, where the broadcast games give "
+           f"{num(min(e2_white), 3)} to {num(max(e2_white), 3)} below 2200 [E2]" if near_v else "")
+        + ". The fitted tables' colour term (about 35 points) leaves an edge of "
+        f"{rng(edge_sc, 'edge')} (the 2025 self-calibrating table) and {rng(edge_v2, 'edge')} (the v2 table), the "
+        f"interval away from zero in {away_sc} and {away_v2} of {n_lv} bands: "
+        + ("the colour term holds at club level within these intervals." if not (away_sc or away_v2) else
+           "where it lies away from zero the colour term does not fit that band (a positive edge left means the "
+           "term is too small, a negative one too large)."))
+    above_sc, above_v2 = count_side(sc_gap, "above"), count_side(v2_gap, "above")
+    below_sc, below_v2 = count_side(sc_gap, "below"), count_side(v2_gap, "below")
+    table_words = (
+        "- **The top drains: the fair table.** "
+        + (f"Favourites score below table 8.1.2 at club level, {rng(by812)} a game by gap from 0 to 399, the interval "
+           f"below zero in {below812} of the {n_bins} gap bins; on the broadcast games, mostly of strong players, the "
+           f"figure is {sgn(max(e2_res), 3)} to {sgn(min(e2_res), 3)} [E2]. "
+           if below812 else
+           f"Against table 8.1.2 the favourite's residual at club level is {rng(by812)} a game by gap from 0 to 399, "
+           f"the interval below zero in none of the {n_bins} gap bins; on the broadcast games it is "
+           f"{sgn(max(e2_res), 3)} to {sgn(min(e2_res), 3)} [E2]. ")
+        + ("So the table's over-prediction of favourites, which the proposal's fair table corrects, is not confined "
+           "to strong players. " if below812 * 2 > n_bins else
+           "The sample does not settle whether the table over-predicts favourites at club level. ")
+        + "The two fitted tables, fitted only on broadcast games, leave the favourite "
+        f"{rng(sc_gap)} (the 2025 self-calibrating table) and {rng(v2_gap)} (the v2 table) by gap, the interval above "
+        f"zero in {above_sc} and {above_v2} of {len(v2_gap)} bins and below it in {below_sc} and {below_v2}"
+        + ("; above zero, the favourite scores more than the fitted table expects: there the table, fitted on "
+           "stronger players' games, is too flat for club play. " if (above_sc or above_v2) else ". ")
+        + "What a table refitted on the pool's own games would give is for FIDE's data; the self-calibrating method "
+        "is consistent with self-calibration, not yet proven.")
+    nb = [b for b in AGE_ORDER if nw.get(b, {}).get("weighted", {}).get("games", 0) >= 100]
+    nb_below = [AGE_NAME[b] for b in nb if side(nw[b]["weighted"]) == "below"]
+    nb_above = [AGE_NAME[b] for b in nb if side(nw[b]["weighted"]) == "above"]
+    junior_words = (
+        "- **Fast improvers rated behind their strength.** "
+        + (f"Adults score below FIDE's expectation against juniors beyond what the table's own error at the same gap "
+           f"and colour explains in {len(sp_below)} of the {len(BELOW_2000_CLUB)} bands below 2000"
+           if sp_below else
+           "Below 2000 the adults' junior-specific residual is not settled in any band")
+        + ": junior-specific "
+        + "; ".join(f"{club_lvl(b)} {c3(jn['junior_specific'].get(b, {}).get('weighted', {}))}" for b in BELOW_2000_CLUB)
+        + ". Newcomers first rated from April 2024 score "
+        f"{c3(every)} against FIDE's expectation in their first year, every age pooled"
+        + (f"; below it at {', '.join(nb_below)}" if nb_below else "")
+        + (f"; above it at {', '.join(nb_above)}" if nb_above else "")
+        + " (§11.6). These are results against the expectation, not proof of strength: a junior who improves between "
+        "lists scores above a rating that has not yet caught up, which is the problem itself.")
+    pilot = k.pilot
+    pilot812 = shown([pilot["fair_table"]["812"]["by_gap"][gb]["weighted"] for gb in CLUB_GAPS
+                      if gb in pilot["fair_table"]["812"]["by_gap"]])
+    return [
+        "## 11 The club-level sample",
+        "",
+        "Session ELO-D2 (`docs/DECISIONS.md`, items 33 to 36): a level-stratified sample of FIDE's per-player game pages "
+        "of 2025, drawn and analysed as `docs/specs/SPEC-SOURCING_v1_1.md` fixes it. The plan, its allocation and its "
+        "analyses were committed (commit eed5127, 14:24 UTC on 14 October 2026) before the first page was requested "
+        f"(14:25 UTC); `analysis/e21_club_extract.py` writes `analysis/aggregates/E21_club.json`. {AFTER_D2_PLAN}",
+        "",
+        "### 11.1 What was fetched",
+        "",
+        f"- **Requests:** {n(pol['requests'])} to ratings.fide.com, from {pol['first']} to {pol['last']} ({statuses}; "
+        "the one 404 is robots.txt, which FIDE does not publish), logged in `data/fetch_log/ELO-D2.tsv`; one page "
+        f"every {num(pol['seconds_per_request'], 2)} s; the smallest gap between requests to FIDE's site "
+        f"{num(pol['smallest_gap'], 0)} s as logged, {pol['gaps_under_4']} under four; refusals: {pol['refusals']}"
+        + ("; no gap was doubled." if not pol["refusals"] else ".")
+        + f" {n(pg['planned'] - pol['calc_requests'])} pages of the plan were already in the pilot's cache and were "
+        "not fetched again.",
+        f"- **The lock:** rating periods requested {month(lk['periods_requested'][0])} to "
+        f"{month(lk['periods_requested'][1])}, {lk['periods_outside_2025']} outside 2025; URLs naming a 2026 U.S. "
+        f"Championship: {lk['urls_naming_a_2026_us_championship']}; cached pages naming one: "
+        f"{lk['cached_pages_naming_a_2026_us_championship']} of {n(lk['cached_pages_scanned'])}; hosts other than "
+        f"FIDE's: {'none' if not lk['hosts_outside_fide'] else ', '.join(lk['hosts_outside_fide'])}. No result of "
+        "either 2026 U.S. Championship was read.",
+        f"- **Against the plan:** {n(pg['read'])} of {n(pg['planned'])} pages read"
+        + (f" ({', '.join(f'{k_}: {v}' for k_, v in pg['errors'].items())})" if pg["errors"] else "") + ".",
+        "",
+        *strat,
+        "",
+        *met,
+        "",
+        ("All seven thresholds of the plan are met." if not short and not short_aj else
+         "Thresholds not met: " + ", ".join([f"games at {b}" for b in short] +
+                                            [f"adults against juniors at {b}" for b in short_aj]) + "."),
+        "",
+        "### 11.2 The pages and Layer 0",
+        "",
+        f"- **Game rows:** {n(rows['game_rows'])} in {n(rows['tournaments'])} tournaments; with a colour mark "
+        f"{n(rows['colour_mark'])}, with the opponent's federation {n(rows['opponent_federation'])}; under FIDE's mark "
+        f"of the 400-point rule {n(rows['capped'])}; printed without K {n(rows['printed_without_k'])} (in "
+        f"{n(rows['tournaments_printed_without_k'])} tournaments printed with Ro 0, left out of every measure).",
+        f"- **Opponents identified** (§4 of the plan): {n(ident)} of {n(rows['game_rows'])} "
+        f"({pct(ident / rows['game_rows'])}).",
+        f"- **Layer 0 against FIDE's printed figures**, with FIDE's own inputs and the rules in force at each "
+        f"tournament's start: each game's change {n(l0['game_change_equal'])} of {n(l0['games'])}; each tournament's "
+        f"K × sum {n(l0['tournament_k_sum_equal'])} of {n(l0['tournaments'])}; the page's total "
+        f"{n(l0['page_total_equal'])} of {n(l0['pages_with_a_rated_tournament'])}"
+        + (f"; misses: {n(l0.get('game_change_differs', 0))} games." if l0.get("game_change_differs") else
+           ". FIDE's printed change is reproduced on every game."),
+        "",
+        "### 11.3 The fair table at club level",
+        "",
+        "The favourite's score minus the table's expectation, games under 400 points apart, the two ratings as FIDE "
+        "prints them; the favourite is the higher-rated player, White at equal ratings (E2's rule). Weighted to the "
+        "frame, with the 95 % interval; the unweighted figure beside it. Neither fitted table was fitted on these games: "
+        "the 2025 self-calibrating table on broadcast games of March to December 2024 [E18], the v2 table on the 36 "
+        "months of broadcast games before each tournament's month [E11].",
+        "",
+        FIXED,
+        "",
+        *gap_rows,
+        "",
+        "By the level of the game, every gap pooled:",
+        "",
+        FIXED,
+        "",
+        *lvl_rows,
+        "",
+        "Table 8.1.2 by level and gap (weighted; games in brackets; cells of fewer than 100 games omitted):",
+        "",
+        FIXED,
+        "",
+        *grid,
+        "",
+        f"- **E11's rule (a)** on the cells of 200-point level band × 50-point gap with at least 1,000 games: table "
+        f"8.1.2 {ra['812']['weighted']['cells_outside']} of {ra['812']['weighted']['cells_tested']} cells outside "
+        f"±0.01 weighted ({ra['812']['unweighted']['cells_outside']} of {ra['812']['unweighted']['cells_tested']} "
+        f"unweighted); the 2025 self-calibrating table {ra['selfcal']['weighted']['cells_outside']} of "
+        f"{ra['selfcal']['weighted']['cells_tested']} ({ra['selfcal']['unweighted']['cells_outside']} of "
+        f"{ra['selfcal']['unweighted']['cells_tested']}); the v2 table {ra['v2']['weighted']['cells_outside']} of "
+        f"{ra['v2']['weighted']['cells_tested']} ({ra['v2']['unweighted']['cells_outside']} of "
+        f"{ra['v2']['unweighted']['cells_tested']}).",
+        "- **With the ratings as published** (a sensitivity added after the plan and before the sample's results "
+        "were read, once Tier 0 had shown that the pages' ratings differ from the lists'): the favourite's score minus "
+        "table 8.1.2 by gap, weighted: "
+        + "; ".join(f"{gb.replace('-', '–')} {u3(pub[gb]['weighted'])}" for gb in CLUB_GAPS if gb in pub) + ".",
+        "",
+        "### 11.4 White moves first",
+        "",
+        "White's score in games between players at most 25 points apart (E2's measure), and minus each fitted table's "
+        "expectation for White there; rows without a colour mark left out.",
+        "",
+        FIXED,
+        "",
+        *w_rows,
+        "",
+        "White's edge from every game of §11.3: half the difference of the mean residual as White and as Black, under "
+        "each table (under table 8.1.2 FIDE's printed change before K, as §5.4 measures it); a positive edge left by a "
+        "fitted table means its colour term is too small there, a negative one too large.",
+        "",
+        FIXED,
+        "",
+        *e_rows,
+        "",
+        "### 11.5 Juniors",
+        "",
+        "Adults' score minus FIDE's expectation, from the adult's side, on the adult's page or the junior's, by the "
+        "adult's band in the game (E6's measure; juniors as E6 defines them, list year minus year of birth at most 19). "
+        "The matched control is the adults' mean residual against adults at the same colour and 50-point gap, averaged "
+        "over the games against juniors; the junior-specific residual is the difference.",
+        "",
+        FIXED,
+        "",
+        *j_rows,
+        "",
+        "### 11.6 Newcomers",
+        "",
+        "Players first rated on a list from April 2024: their score minus FIDE's expectation on the sample's pages of "
+        "the 12 months after the first rating, by age when first rated. A negative figure means they scored less than "
+        "their ratings predicted: rated ahead of their results in that year; a positive one, behind them.",
+        "",
+        FIXED,
+        "",
+        *n_rows,
+        "",
+        "### 11.7 What it means for the four problems",
+        "",
+        "- **Countries priced differently.** Not measured here: the sample was drawn by level, not by federation, and "
+        "the targeted countries sample was not run (item 33).",
+        white_words,
+        table_words,
+        junior_words,
+        "",
+        "### 11.8 What was decided when",
+        "",
+        "- **Before the main fetch** (SPEC-SOURCING v1.1, committed before the first page was requested): the frame, "
+        "the strata, the allocation, and every analysis of §11.3 to §11.6, with its tables, measures and intervals.",
+        f"- **After seeing the pilot** (item 36): the extended parser, the opponent's resolver with its 50-point "
+        "tolerance, and the pilot's rates the allocation uses (SPEC-SOURCING v1.1 §4, §5); Tier 0's last test, the "
+        "ratings as published (§10.2).",
+        "- **After the plan, before the sample's results were read:** the fair table with the ratings as published "
+        "(§11.3), once Tier 0 had shown the pages' ratings differ from the lists'.",
+        f"- **The scripts were tested on the pilot's pages** before the sample's results were read "
+        "(`analysis/aggregates/E21_club_pilot.json`, the pilot post-stratified): the favourite's score minus table "
+        f"8.1.2 by gap {rng(pilot812)}, the direction of §11.3.",
         "",
     ]
 
 
 def e21(d: Data) -> str:
+    k = Club()
     head = [
-        "# E21 — Sourcing: the cheap sources, and a pilot of FIDE's game pages that decides the big fetch",
+        "# E21 — Sourcing: the cheap sources, a pilot of FIDE's game pages, and the club-level sample",
         "",
-        "Status: DRAFT — evidence for the founder's decision on a larger fetch, session ELO-D1 (14 October 2026), under "
-        "the founder's decisions of that day (`docs/DECISIONS.md`, items 24 to 32). Not for publication. Generated by "
-        "`analysis/e21_sourcing_report.py` from `analysis/aggregates/E20_greats_replay_by_list.json`, "
-        "`analysis/aggregates/E21_lists.json` and `analysis/aggregates/E21_pilot.json`, which "
-        "`analysis/e20_greats_replay_by_list_extract.py`, `analysis/e21_lists_extract.py` and "
-        "`analysis/e21_pilot_extract.py` write from `data/`; do not edit by hand. Licence: CC BY 4.0 "
-        "(`docs/LICENSE-docs.md`); quoted third-party text remains its owners'. Data: FIDE's own lists, per-player "
-        "calculation pages and tournament reports, used for analysis only, cached locally and never committed; FIDE "
-        "reserves all rights and its written permission is to be requested (`docs/research/SOURCES_v1_0.md`; "
-        "`docs/DECISIONS.md`, item 6). Ghita's book [R 5] is cited by page and paraphrased; Sonas's reports are quoted "
-        "briefly, by page. Every parameter met here is PROVISIONAL.",
+        "Status: REVIEW — evidence of sessions ELO-D1 (the cheap sources, the pilot and the go/no-go brief) and ELO-D2 "
+        "(Tier 0 and the club-level sample), both of 14 October 2026, under the founder's decisions of that day "
+        "(`docs/DECISIONS.md`, items 24 to 36). Generated by `analysis/e21_sourcing_report.py` from "
+        "`analysis/aggregates/E20_greats_replay_by_list.json`, `analysis/aggregates/E21_lists.json`, "
+        "`analysis/aggregates/E21_pilot.json`, `analysis/aggregates/E21_tier0.json`, "
+        "`analysis/aggregates/E21_club_plan.json`, `analysis/aggregates/E21_club.json` and "
+        "`analysis/aggregates/E21_club_pilot.json`, which `analysis/e20_greats_replay_by_list_extract.py`, "
+        "`analysis/e21_lists_extract.py`, `analysis/e21_pilot_extract.py`, `analysis/e21_tier0_extract.py`, "
+        "`analysis/e21_club_plan_extract.py` and `analysis/e21_club_extract.py` write from `data/`; do not edit by "
+        "hand. Licence: CC BY 4.0 (`docs/LICENSE-docs.md`); quoted third-party text remains its owners'. Data: FIDE's "
+        "own lists, per-player calculation pages and tournament reports, used for analysis only, cached locally, never "
+        "committed and, after this session's verification, deleted (`docs/DECISIONS.md`, item 35); FIDE reserves all "
+        "rights and its written permission is to be requested (`docs/research/SOURCES_v1_0.md`; `docs/DECISIONS.md`, "
+        "item 6). Ghita's book [R 5] is cited by page and paraphrased; Sonas's reports are quoted briefly, by page. "
+        "Every parameter met here is PROVISIONAL.",
         "",
         FIXED,
         "",
         *in_brief(d),
+        *in_brief_d2(k),
         "",
         *fetched(d),
         *greats(d),
@@ -914,6 +1492,8 @@ def e21(d: Data) -> str:
         *brief(d),
         *edits_section(),
         *limits_section(),
+        *tier0_section(k),
+        *club_section(k),
     ]
     return "\n".join(head).rstrip("\n") + "\n"
 

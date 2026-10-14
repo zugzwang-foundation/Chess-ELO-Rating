@@ -88,6 +88,72 @@ def published_total(key: tuple, pg: dict, ids: dict, lists: dict, own: bool) -> 
     return total, moved, moved_own
 
 
+R23, R22B, R32, R0910, R12, R25 = ("R-23: K × games capped at 700", "R-22b: the K of the list before",
+                                   "R-32: the floor of 1400", "R-09, R-10: the periods a tournament may be rated in",
+                                   "R-12: games against a player unrated when the event began",
+                                   "R-25: rounding per tournament")
+KNOWN = (R23, R22B, R32, R0910, R12, R25)
+TRUNC = "rounding towards zero (no rule states it)"
+PUBLISHED_OPP = "the opponents' ratings as published (after seeing the pilot)"
+PUBLISHED_ALL = "the player's and the opponents' ratings as published (after seeing the pilot)"
+
+
+def variants(key: tuple, pg: dict, prev: tuple, cur: tuple, per_t: list, total: Decimal, ids: dict,
+             lists: dict) -> tuple[dict, Counter]:
+    """The period's change, rounded, as each rule would have it on this page; None where the rule changes nothing."""
+    pid, period = key
+    n, k_prev = cur[1], prev[2]
+    notes = Counter()
+    v: dict = {}
+    k_cap = CAP // n if n and k_prev * n > CAP else k_prev
+    notes["R-23 would cap K"] += k_prev * n > CAP
+    notes["printed K below the list before's"] += any(t["k"] < k_prev for t, _x in per_t)
+    t23 = sum((Decimal(min(t["k"], k_cap)) * x for t, x in per_t), Decimal(0))
+    v[R23] = layer0.round_change(t23) if t23 != total else None
+    notes["printed K not the list before's"] += any(t["k"] != k_cap for t, _x in per_t)
+    t22 = sum((Decimal(k_cap) * x for t, x in per_t), Decimal(0))
+    v[R22B] = layer0.round_change(t22) if t22 != total else None
+    below = prev[0] + layer0.round_change(total) < FLOOR
+    notes["the change would take the player below 1400"] += below
+    v[R32] = FLOOR - prev[0] if below else None
+    keep = []
+    for t, x in per_t:
+        end = date.fromisoformat(t["end"]) if t["end"] else start_of(t, period)
+        if layer0.rules.earliest_rating_period(end) <= period <= layer0.rules.latest_rating_period(end):
+            keep.append((t, x))
+        else:
+            notes["tournaments outside the periods that may rate them"] += 1
+    v[R0910] = layer0.round_change(sum((Decimal(t["k"]) * x for t, x in keep), Decimal(0))) \
+        if len(keep) < len(per_t) else None
+    alt, dropped, unidentified = Decimal(0), 0, 0
+    for ti, t in enumerate(pg["tournaments"]):
+        if t["unrated"]:
+            continue
+        m0 = cc.list_in_force(t["start"], period)
+        kept = []
+        for gi, g in enumerate(t["games"]):
+            oid = ids[(key, ti, gi)]
+            unidentified += oid is None
+            if oid is not None and oid not in lists.get(m0, {}):
+                dropped += 1
+            else:
+                kept.append(g)
+        alt += Decimal(t["k"]) * change(t["ro"], kept, start_of(t, period))
+    notes["games against an opponent not on the list in force"] += dropped
+    notes["unidentified"] += unidentified
+    v[R12] = layer0.round_change(alt) if dropped else None
+    v[R25] = sum(layer0.round_change(Decimal(t["k"]) * x) for t, x in per_t) if len(per_t) > 1 else None
+    v[TRUNC] = round_down(total)
+    p_opp, moved, _o = published_total(key, pg, ids, lists, own=False)
+    notes["games whose opponent's published rating differs"] += moved
+    notes["pages with such a game"] += moved > 0
+    v[PUBLISHED_OPP] = layer0.round_change(p_opp) if moved else None
+    p_all, moved_all, own_moved = published_total(key, pg, ids, lists, own=True)
+    notes["own_moved"] += own_moved
+    v[PUBLISHED_ALL] = layer0.round_change(p_all) if (moved_all or own_moved) else None
+    return v, notes
+
+
 def main() -> int:
     plan = json.loads(fs.PLAN.read_text(encoding="utf-8"))
     sample = {(s["id"], s["period"]): s for s in plan["sample"]}
@@ -174,7 +240,7 @@ def main() -> int:
                 pr["games: 6 points or more from it"] += abs(pub - g["rating"]) > 5
     out["printed_against_published"] = dict(pr)
 
-    # 2. the puzzle
+    # 2. the puzzle: every rule's period change on every page, and the class it is tested on
     cls, tests, remain, controls = Counter(), Counter(), Counter(), Counter()
     other_counts = Counter()
     for key, pg in sorted(pages.items()):
@@ -185,143 +251,70 @@ def main() -> int:
             cls["not on both lists, or a tournament printed without K"] += 1
             continue
         per_t = [(t, change(t["ro"], t["games"], start_of(t, period))) for t in tours]
-        total = sum((Decimal(t["k"]) * s for t, s in per_t), Decimal(0))
+        total = sum((Decimal(t["k"]) * x for t, x in per_t), Decimal(0))
         published = cur[0] - prev[0]
         games = sum(len(t["games"]) for t in tours)
-        pub_opp, _m1, _o1 = published_total(key, pg, ids, lists, own=False)
-        pub_all, moved_g, moved_t = published_total(key, pg, ids, lists, own=True)
-        variants = {"rounding per tournament (R-25's alternative)":
-                    sum(layer0.round_change(Decimal(t["k"]) * x) for t, x in per_t),
-                    "rounding towards zero": round_down(total),
-                    "the opponents' ratings as published": layer0.round_change(pub_opp),
-                    "the ratings as published, the player's and the opponents'": layer0.round_change(pub_all)}
         if layer0.round_change(total) == published:
-            cls["equal"] += 1
-            for v, x in variants.items():
-                controls[f"equal pages it keeps: {v}"] += x == published
-            continue
-        for v, x in variants.items():
-            controls[f"pages of every other class it reproduces: {v}"] += x == published
-        if any(t["ro"] != prev[0] for t in tours):
-            cls["a tournament's Ro is not the list before's"] += 1
-            for v, x in variants.items():
-                controls[f"Ro pages it reproduces: {v}"] += x == published
-            other_counts["Ro: pages where the player's published rating differs from the page's Ro"] += moved_t > 0
+            c = "equal"
+        elif any(t["ro"] != prev[0] for t in tours):
+            c = "a tournament's Ro is not the list before's"
+        elif games != cur[1]:
+            c = "the page's games are not the list's"
+        else:
+            c = "unexplained"
+        cls[c] += 1
+        v, notes = variants(key, pg, prev, cur, per_t, total, ids, lists)
+        for rule, x in v.items():
+            if x is None:
+                continue
+            controls[f"{c}|{rule}|applies"] += 1
+            controls[f"{c}|{rule}|reproduced"] += x == published
+        if c == "a tournament's Ro is not the list before's":
             base = {t["ro"] for t in tours}
             if len(base) == 1:
                 other_counts["Ro: one base for the page"] += 1
                 other_counts["Ro: published list equals FIDE's Ro plus the page's rounded total"] += (
                     cur[0] == next(iter(base)) + layer0.round_change(total))
-            continue
-        if games != cur[1]:
-            cls["the page's games are not the list's"] += 1
-            for v, x in variants.items():
-                controls[f"games pages it reproduces: {v}"] += x == published
+            other_counts["Ro: pages where the player's published rating differs from the page's Ro"] += \
+                notes["own_moved"] > 0
+        if c == "the page's games are not the list's":
             other_counts["games: page more than list"] += games > cur[1]
             other_counts["games: page fewer than list"] += games < cur[1]
+        if c != "unexplained":
             continue
-        cls["unexplained"] += 1
         diff = published - layer0.round_change(total)
-        k_prev, n = prev[2], cur[1]
         junior = cc.is_junior(births.get(pid))
         newcomer = (first.get(pid) or "") >= fs.CLUB_NEWCOMER_FROM
         tests["pages"] += 1
         tests["by_one_point"] += abs(diff) == 1
-        tests["k_40"] += k_prev == 40
+        tests["k_40"] += prev[2] == 40
         tests["juniors_or_newcomers"] += junior or newcomer
         tests["published_above_the_page"] += diff > 0
         tests["several_tournaments"] += len(tours) > 1
-        explained = set()
-        # R-23: the cap on K x n
-        k_cap = CAP // n if k_prev * n > CAP else k_prev
-        tests["R-23 would cap K (K of the list before x games over 700)"] += k_prev * n > CAP
-        tests["R-23: printed K already below the list before's"] += any(t["k"] < k_prev for t in tours)
-        if layer0.round_change(sum((Decimal(min(t["k"], k_cap)) * s for t, s in per_t), Decimal(0))) == published:
-            explained.add("R-23")
-        # R-22b: the K of the list before instead of the K printed
-        tests["R-22b: printed K differs from the list before's"] += any(t["k"] != k_prev for t in tours)
-        if layer0.round_change(sum((Decimal(k_cap) * s for t, s in per_t), Decimal(0))) == published:
-            explained.add("R-22b")
-        # R-32: the floor
-        if prev[0] + layer0.round_change(total) < FLOOR:
-            tests["R-32: the page's change would take the player below 1400"] += 1
-            if cur[0] == FLOOR:
-                explained.add("R-32")
-        # R-09, R-10: tournaments outside the periods that may rate them
-        keep = []
-        for t, s in per_t:
-            end = date.fromisoformat(t["end"]) if t["end"] else start_of(t, period)
-            ok = layer0.rules.earliest_rating_period(end) <= period <= layer0.rules.latest_rating_period(end)
-            tests["R-09/R-10: tournaments outside the periods that may rate them"] += not ok
-            if ok:
-                keep.append((t, s))
-        if len(keep) < len(per_t) and layer0.round_change(
-                sum((Decimal(t["k"]) * s for t, s in keep), Decimal(0))) == published:
-            explained.add("R-09/R-10")
-        # R-12: games against a player not rated on the list in force at the event's start
-        alt, dropped = Decimal(0), 0
-        for ti, t in enumerate(pg["tournaments"]):
-            if t["unrated"]:
-                continue
-            m0 = cc.list_in_force(t["start"], period)
-            kept = []
-            for gi, g in enumerate(t["games"]):
-                oid = ids[(key, ti, gi)]
-                if oid is not None and oid not in lists.get(m0, {}):
-                    dropped += 1
-                else:
-                    kept.append(g)
-            alt += Decimal(t["k"]) * change(t["ro"], kept, start_of(t, period))
-        tests["R-12: games against an opponent not rated on the list in force"] += dropped
-        if dropped and layer0.round_change(alt) == published:
-            explained.add("R-12")
-        # R-25: rounding per tournament; rounding towards zero
-        if sum(layer0.round_change(Decimal(t["k"]) * s) for t, s in per_t) == published:
-            explained.add("R-25: per tournament")
-        if round_down(total) == published:
-            explained.add("rounding towards zero")
-        # after seeing the pilot: the opponents' ratings as published on the list in force
-        alt, moved = Decimal(0), 0
-        for ti, t in enumerate(pg["tournaments"]):
-            if t["unrated"]:
-                continue
-            m0 = cc.list_in_force(t["start"], period)
-            rows = []
-            for gi, g in enumerate(t["games"]):
-                oid = ids[(key, ti, gi)]
-                pub = lists.get(m0, {}).get(oid, (None,))[0] if oid else None
-                if pub is not None and not g["capped"] and pub != g["rating"]:
-                    moved += 1
-                    rows.append({**g, "rating": pub})
-                else:
-                    rows.append(g)
-            alt += Decimal(t["k"]) * change(t["ro"], rows, start_of(t, period))
-        tests["published ratings: games whose opponent's published rating differs from the printed"] += moved
-        tests["published ratings: pages with such a game"] += moved > 0
-        if moved and layer0.round_change(alt) == published:
-            explained.add("the opponents' ratings as published")
-        unidentified = sum(1 for ti, t in enumerate(pg["tournaments"]) for gi, _g in enumerate(t["games"])
-                           if ids[(key, ti, gi)] is None)
+        for k, x in notes.items():
+            tests[f"note: {k}"] += x
+        explained = {rule for rule, x in v.items() if x is not None and x == published}
         for r in sorted(explained):
             tests[f"explains: {r}"] += 1
-        known = explained - {"the opponents' ratings as published", "rounding towards zero"}
+        known = explained & set(KNOWN)
         tests["explained by a known rule"] += bool(known)
-        either = known | (explained & {"the opponents' ratings as published"})
+        either = known | (explained & {PUBLISHED_OPP})
         tests["explained by a known rule or the published ratings"] += bool(either)
         if not either:
-            remain["with an opponent not identified"] += unidentified > 0
-            remain["matched by rounding towards zero"] += "rounding towards zero" in explained
-            remain["after the published ratings, by one point"] += abs(published - layer0.round_change(alt)) == 1
             remain["pages"] += 1
             remain["by_one_point"] += abs(diff) == 1
-            remain["k_40"] += k_prev == 40
+            remain["k_40"] += prev[2] == 40
             remain["juniors_or_newcomers"] += junior or newcomer
             remain["published_above_the_page"] += diff > 0
+            remain["with an opponent not identified"] += notes["unidentified"] > 0
+            remain["matched by rounding towards zero"] += TRUNC in explained
     out["classes"] = dict(cls)
     out["other_classes"] = dict(other_counts)
     out["unexplained_tests"] = dict(tests)
     out["remaining"] = dict(remain)
     out["controls"] = dict(controls)
+    out["rules"] = {"known": list(KNOWN), "truncation": TRUNC, "published_opponents": PUBLISHED_OPP,
+                    "published_all": PUBLISHED_ALL}
     json.dump(out, sys.stdout, indent=1, sort_keys=True)
     sys.stdout.write("\n")
     return 0

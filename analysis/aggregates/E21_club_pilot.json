@@ -2,7 +2,8 @@
  "counts": {
   "control_rows": 3026,
   "junior_rows": 3390,
-  "newcomer_first_year_rows": 1788
+  "newcomer_first_year_rows": 1788,
+  "sensitivity_rows_with_a_published_rating_moved": 4181
  },
  "fair_table": {
   "812": {
@@ -2925,6 +2926,152 @@
      "cells_tested": 0,
      "outside": []
     }
+   }
+  }
+ },
+ "fair_table_published_ratings": {
+  "0-49": {
+   "unweighted": {
+    "games": 1680,
+    "hi": -0.0056,
+    "lo": -0.0443,
+    "mean": -0.0249,
+    "pages": 916,
+    "se": 0.00987
+   },
+   "weighted": {
+    "games": 1680,
+    "hi": -0.0099,
+    "lo": -0.0634,
+    "mean": -0.0367,
+    "pages": 916,
+    "se": 0.01364
+   }
+  },
+  "100-149": {
+   "unweighted": {
+    "games": 2051,
+    "hi": -0.0158,
+    "lo": -0.0516,
+    "mean": -0.0337,
+    "pages": 1111,
+    "se": 0.00915
+   },
+   "weighted": {
+    "games": 2051,
+    "hi": -0.002,
+    "lo": -0.0492,
+    "mean": -0.0256,
+    "pages": 1111,
+    "se": 0.01204
+   }
+  },
+  "150-199": {
+   "unweighted": {
+    "games": 1817,
+    "hi": -0.0173,
+    "lo": -0.0549,
+    "mean": -0.0361,
+    "pages": 1007,
+    "se": 0.00958
+   },
+   "weighted": {
+    "games": 1817,
+    "hi": -0.0033,
+    "lo": -0.0535,
+    "mean": -0.0284,
+    "pages": 1007,
+    "se": 0.01279
+   }
+  },
+  "200-249": {
+   "unweighted": {
+    "games": 1322,
+    "hi": -0.0066,
+    "lo": -0.0465,
+    "mean": -0.0266,
+    "pages": 808,
+    "se": 0.01018
+   },
+   "weighted": {
+    "games": 1322,
+    "hi": 0.0166,
+    "lo": -0.0406,
+    "mean": -0.012,
+    "pages": 808,
+    "se": 0.01459
+   }
+  },
+  "250-299": {
+   "unweighted": {
+    "games": 891,
+    "hi": -0.0242,
+    "lo": -0.0703,
+    "mean": -0.0473,
+    "pages": 621,
+    "se": 0.01175
+   },
+   "weighted": {
+    "games": 891,
+    "hi": 0.0165,
+    "lo": -0.0405,
+    "mean": -0.012,
+    "pages": 621,
+    "se": 0.01455
+   }
+  },
+  "300-349": {
+   "unweighted": {
+    "games": 625,
+    "hi": -0.0182,
+    "lo": -0.067,
+    "mean": -0.0426,
+    "pages": 475,
+    "se": 0.01245
+   },
+   "weighted": {
+    "games": 625,
+    "hi": 0.009,
+    "lo": -0.0473,
+    "mean": -0.0191,
+    "pages": 475,
+    "se": 0.01436
+   }
+  },
+  "350-399": {
+   "unweighted": {
+    "games": 451,
+    "hi": -0.0168,
+    "lo": -0.0704,
+    "mean": -0.0436,
+    "pages": 358,
+    "se": 0.01367
+   },
+   "weighted": {
+    "games": 451,
+    "hi": 0.0079,
+    "lo": -0.058,
+    "mean": -0.025,
+    "pages": 358,
+    "se": 0.01679
+   }
+  },
+  "50-99": {
+   "unweighted": {
+    "games": 1998,
+    "hi": -0.003,
+    "lo": -0.0398,
+    "mean": -0.0214,
+    "pages": 1093,
+    "se": 0.00938
+   },
+   "weighted": {
+    "games": 1998,
+    "hi": 0.0036,
+    "lo": -0.0481,
+    "mean": -0.0222,
+    "pages": 1093,
+    "se": 0.01319
    }
   }
  },

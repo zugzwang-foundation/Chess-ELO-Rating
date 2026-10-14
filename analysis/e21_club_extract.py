@@ -21,6 +21,9 @@ unweighted figure beside it (§7.5):
    50-point gap, by the adult's band.
 4. **Newcomers** (§7.4): first-year score minus FIDE's expectation of players first rated from April 2024, by age when
    first rated.
+5. **A sensitivity**, added after the plan and before the sample's results were read, once Tier 0 had shown that the
+   ratings FIDE's pages print often differ from the lists as published: the favourite's score minus table 8.1.2 by gap
+   with the player's and the identified opponent's ratings as published on the list in force.
 
 With --pilot the same analyses run on the pilot's 2,000 pages, each page post-stratified into the plan's strata (its
 weight: the stratum's frame players over the pilot's pages in it, times the player's 2025 pages): the test SPEC-SOURCING
@@ -207,6 +210,8 @@ def main() -> int:
     ids, how = cc.resolve_all(pages)
     months = sorted({fs.month_add("2025-12", -k) for k in range(0, 36)}, reverse=True)
     births = cc.births_of({i for i in ids.values() if i}, [fs.FRAME_LIST] + months)
+    lists = cc.read_lists(sorted({cc.list_in_force(t["start"], k[1]) for k, pg in pages.items()
+                                  for t in pg["tournaments"]}), {k[0] for k in pages} | {i for i in ids.values() if i})
     out: dict = {"label": "pilot pages, post-stratified (the test of the scripts)" if pilot else
                  "the club-level sample; analyses fixed in SPEC-SOURCING v1.1 §7 before the main fetch",
                  "fixed_line": "Under this rule, with the same results — not anyone's true strength."}
@@ -264,6 +269,7 @@ def main() -> int:
     ctrl_rows = []                    # (page, weight, colour, gap bin, residual) of adults against adults
     junior_rows = []                  # (page, weight, colour or None, gap bin, residual, adult's band)
     newc = defaultdict(Mean)
+    fav_pub = defaultdict(Mean)
     counts = Counter()
     for key, pg in pages.items():
         pid, period = key
@@ -321,6 +327,16 @@ def main() -> int:
                                 fav[k][gb].add(cl, w, r)
                                 fav[k][f"{level}|{gb}"].add(cl, w, r)
                                 fav_level[k][level].add(cl, w, r)
+                    # the sensitivity, on the same rows: the ratings as published on the list in force
+                    m0 = cc.list_in_force(t["start"], period)
+                    oid_ = ids[(key, ti, gi)]
+                    own_p = lists.get(m0, {}).get(pid, (own,))[0]
+                    opp_p = lists.get(m0, {}).get(oid_, (opp,))[0] if oid_ else opp
+                    gap_p = abs(own_p - opp_p)
+                    counts["sensitivity_rows_with_a_published_rating_moved"] += (own_p, opp_p) != (own, opp)
+                    if gap_p < 400 and own_p != opp_p:
+                        fsp = sc_ if own_p > opp_p else 1 - sc_
+                        fav_pub[gap_bin(gap_p)].add(cl, w, fsp - float(layer0.expected_score(gap_p)))
                     # White's edge from every game (§7.2), each table
                     if white is not None:
                         gw = (own - opp) if white else (opp - own)
@@ -385,6 +401,7 @@ def main() -> int:
                                         "unweighted": rule_a({c: fav[k][c] for c in cells_keys if c in fav[k]},
                                                              False)}}
                          for k in ("812", "selfcal", "v2")}
+    out["fair_table_published_ratings"] = table_out(fav_pub, GAPS)
     out["white"] = {"near_equal_score": table_out(white_near, LEVELS),
                     "near_equal_minus_table": {k: table_out(white_near_res[k], LEVELS) for k in ("selfcal", "v2")},
                     "edge_every_game": {k: {lv: edge[k][lv].both() for lv in LEVELS if edge[k][lv].by_page}
