@@ -2,6 +2,24 @@
 
 Status: DECIDED — the project's decision log from 12 October 2026: one dated line per decision, newest date first; the ten of 12 October 2026 stand in the order they were given, and a later decision takes the next number and goes on top. The decision records D-0001 to D-0018 in `docs/decisions/` stay as history; a mistake in one is fixed in place, with a dated line saying what changed.
 
+32\. 2026-10-14 — Every new analysis of the session is labelled as decided after seeing the data (founder) (session ELO-D1): `docs/evidence/E21_sourcing.md`, `docs/specs/SPEC-SOURCING_v1_0.md`.
+
+31\. 2026-10-14 — Sampled players' data never leave `data/` (founder): only totals by federation, level, age group and colour are committed, and no sampled player's name, FIDE ID or row; many sampled players are minors (session ELO-D1): `docs/evidence/E21_sourcing.md`, `docs/research/SOURCES_v1_0.md`.
+
+30\. 2026-10-14 — Left (founder): URS, which mixes standard, rapid and blitz and whose main use, the sizes of countries' offsets, the proposal keeps for FIDE's commission; Ghita's 2025 game extract, private to him; Chess-Results, whose data may not be copied without consent; The Week in Chess, ChessBase and the Lumbras Gigabase, elite-heavy (Ghita, p. 73); the Kaggle data of 2010–2011; FIDE's rapid and blitz lists (session ELO-D1): `docs/research/SOURCES_v1_0.md`.
+
+29\. 2026-10-14 — Not in this session: the large fetch of FIDE's per-player game pages; the founder decides it after the session's go/no-go brief (founder) (session ELO-D1): `docs/evidence/E21_sourcing.md` §7, `docs/specs/SPEC-SOURCING_v1_0.md` (DRAFT, pending).
+
+28\. 2026-10-14 — Taken: a probe of 20 of FIDE's tournament reports, of events that ended before 1 October 2026, none of a 2026 U.S. Championship (founder) (session ELO-D1): `docs/evidence/E21_sourcing.md` §6.
+
+27\. 2026-10-14 — Taken: a pilot of 2,000 of FIDE's per-player game pages of 2025 standard periods, drawn from the October 2025 list's active players of every federation with at least 1,000 rated players plus England, Scotland and Wales, at every level, juniors and newcomers oversampled (founder) (session ELO-D1): `tools/data/fetch_sourcing.py`, `docs/evidence/E21_sourcing.md` §5.
+
+26\. 2026-10-14 — Taken: FIDE's published Qualification Commission reports, cited (founder): Sonas's reports of July and October 2023 and January 2024, by page, with short quotations (session ELO-D1): `docs/evidence/E21_sourcing.md` §4.
+
+25\. 2026-10-14 — Taken: new analyses of FIDE's standard lists already held, totals only (founder): who plays the rated games, by K; juniors' climb against adults'; newcomers' first ratings against their ratings 12 and 24 months later, called a climb and not proof of under-rating (session ELO-D1): `docs/evidence/E21_sourcing.md` §3.
+
+24\. 2026-10-14 — Taken: the greats' month-by-month replay, from FIDE's pages already cached (founder): E20's replay rerun list by list, its year-end values equal to E20's (session ELO-D1): `analysis/aggregates/E20_greats_replay_by_list.json`, `docs/evidence/E21_sourcing.md` §2.
+
 23\. 2026-10-12 — §2(a)'s answer to the deflation figures restored, the brief's link restored, and annex T8's "at most 36 months" (founder): §2(a) again answers the deflation figures in Ghita's book (session ELO-15 cut the sentence in error, on the architect's relay): since the March 2024 reform the active list's median still falls, 11 to 16 points a year, but only because entrants arrive below the players who stop, and steadily active adults gain 2 to 3 points a year in standard; the brief says again that top players are usually favourites, so that it ties the table's error to the top's loss; E6's fits used at most 36 months, from the archive's first month 2023-01 (session ELO-15b): proposal §2(a), the brief's "What is wrong", annex T8's record of what has been run, `analysis/README.md`.
 
 22\. 2026-10-12 — E6's junior figures are from 2025-01 to 2026-09, after the March 2024 reform, and the proposal says so (founder): the 21 held-out months that annex T8.3's protocol fixed before E6 ran; no figure changes (session ELO-15): proposal summary, §2(b) and §8's rung 5 row; annex T4.6, T8.1 and T8's record of what has been run.

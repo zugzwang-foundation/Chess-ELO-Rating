@@ -43,7 +43,7 @@ def test_every_fetch_tool_outside_the_freezes_takes_its_user_agent_from_the_modu
     assert frozen == {"fetch_fide_calculations.py", "fetch_fide_lists.py", "fetch_lichess_broadcasts.py"}
     tools = sorted((ROOT / "tools" / "data").glob("fetch_*.py"))
     outside = [t for t in tools if t.name not in frozen]
-    assert len(outside) == 5
+    assert len(outside) == 6          # fetch_sourcing.py added in session ELO-D1 (14 October 2026)
     for t in outside:
         src = t.read_text(encoding="utf-8")
         ast.parse(src)
