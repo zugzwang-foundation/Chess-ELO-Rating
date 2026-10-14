@@ -37,6 +37,10 @@ politeness and parser, its requests logged to data/fetch_log/ELO-D2.tsv:
                        work through the queue as run does, calculation pages of 2025 periods only, and stop at
                        CLUB_CAP requests in the session's log; write the run's status to STATUS (outside the
                        repository) at the start, every hour and at the end, its last line COMPLETE when the queue is done
+  manifest             write data/raw/sourcing/MANIFEST: every cached calculation page of the two sessions, its link,
+                       period, fetch time, size and SHA-256 from the logs, each checked against the cached file
+  delete-pages         delete the cached calculation pages the manifest lists and verifies (docs/DECISIONS.md, item 35),
+                       nothing else, and print what remains
 
 Python standard library only.
 """
@@ -632,7 +636,64 @@ def write_status(path: Path, queue: str, t0: float, n: int, state: str) -> None:
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+MANIFEST = BASE / "MANIFEST"
+MANIFEST_LOGS = (("ELO-D1", ROOT / "data" / "fetch_log" / "ELO-D1.tsv"), ("ELO-D2", CLUB_LOG))
+
+
+def write_manifest() -> int:
+    """The local manifest of every cached calculation page of ELO-D1's pilot and of ELO-D2's run (the founder's
+    decision, docs/DECISIONS.md, item 35): the link, the period, the session and time of the fetch, the size and the
+    SHA-256 the log records, each checked against the cached file. Written before the pages are deleted, so that anyone
+    can fetch them again; it stays in data/ (gitignored), never committed."""
+    rows, bad = [], 0
+    for session, path in MANIFEST_LOGS:
+        with path.open(encoding="utf-8") as fh:
+            for r in csv.DictReader(fh, delimiter="\t"):
+                if not r["item"].startswith("calc ") or r["status"] != "200":
+                    continue
+                f = cached_path("calc", r["item"].split(" ", 1)[1])
+                ok = f.exists() and hashlib.sha256(f.read_bytes()).hexdigest() == r["sha256"]
+                bad += not ok
+                rows.append((r["fetched_utc"], session, r["url"], r["item"].split(":")[-1], r["bytes"], r["sha256"],
+                             "verified" if ok else "NOT VERIFIED"))
+    used = {line.strip() for q in (QUEUE, CLUB_QUEUE) if q.exists() for line in q.read_text().splitlines()}
+    with MANIFEST.open("w", encoding="utf-8") as fh:
+        fh.write("# FIDE's per-player calculation pages of ELO-D1's pilot and ELO-D2's club-level run, deleted after "
+                 "verification (docs/DECISIONS.md, item 35); each link re-fetches its page. Local only, never committed.\n")
+        fh.write("fetched_utc\tsession\turl\tperiod\tbytes\tsha256\tcheck\n")
+        for r in sorted(rows):
+            fh.write("\t".join(r) + "\n")
+    print(f"{len(rows)} pages in {MANIFEST.name}; checksum differs or file missing: {bad}; queue items "
+          f"covered: {len(used)}")
+    return 1 if bad else 0
+
+
+def delete_pages() -> int:
+    """Delete every cached calculation page the manifest lists and verifies, nothing else; print what remains."""
+    if not MANIFEST.exists():
+        raise SystemExit("no manifest: run mode manifest first")
+    gone = 0
+    with MANIFEST.open(encoding="utf-8") as fh:
+        rows = [r for r in csv.DictReader((x for x in fh if not x.startswith("#")), delimiter="\t")]
+    for r in rows:
+        if r["check"] != "verified":
+            raise SystemExit("the manifest holds a page not verified: nothing deleted")
+    for r in rows:
+        q = urllib.parse.parse_qs(urllib.parse.urlparse(r["url"]).query)
+        f = CALCS / f"{q['id_number'][0]}_{q['rating_period'][0][:7]}.html"
+        if f.exists():
+            f.unlink()
+            gone += 1
+    left = sorted(p.name for p in CALCS.glob("*")) if CALCS.exists() else []
+    print(f"deleted {gone} pages; left in {CALCS.name}/: {len(left)}")
+    return 0 if not left else 1
+
+
 if __name__ == "__main__":
+    if len(sys.argv) == 2 and sys.argv[1] == "manifest":
+        sys.exit(write_manifest())
+    if len(sys.argv) == 2 and sys.argv[1] == "delete-pages":
+        sys.exit(delete_pages())
     if len(sys.argv) >= 2 and sys.argv[1].startswith("club-"):
         LOG = CLUB_LOG
     if len(sys.argv) == 2 and sys.argv[1] == "club-robots":

@@ -196,3 +196,31 @@ def test_no_committed_aggregate_of_the_club_sample_names_or_identifies_a_player(
                 yield from keys(v)
     for k in keys(data):
         assert k.lower() not in ("id", "fide_id", "name", "names", "ids", "player", "players_list", "sample"), k
+
+
+def test_the_manifest_verifies_every_page_before_any_is_deleted(tmp_path, monkeypatch):
+    calcs = tmp_path / "calculations"
+    calcs.mkdir()
+    log = tmp_path / "ELO-D2.tsv"
+    rows = ["fetched_utc\thost\tpath\tstatus\tbytes\tsha256\turl\titem"]
+    import hashlib
+    for pid, period, body in (("1", "2025-01", b"a"), ("2", "2025-02", b"bb")):
+        (calcs / f"{pid}_{period}.html").write_bytes(body)
+        url = fs.CALC_URL.format(id=pid, period=period)
+        rows.append(f"2026-10-14T15:00:0{pid}Z\tratings.fide.com\t/x\t200\t{len(body)}\t"
+                    f"{hashlib.sha256(body).hexdigest()}\t{url}\tcalc {pid}:{period}")
+    log.write_text("\n".join(rows) + "\n", encoding="utf-8")
+    monkeypatch.setattr(fs, "CALCS", calcs)
+    monkeypatch.setattr(fs, "MANIFEST", tmp_path / "MANIFEST")
+    monkeypatch.setattr(fs, "MANIFEST_LOGS", (("ELO-D2", log),))
+    monkeypatch.setattr(fs, "QUEUE", tmp_path / "none")
+    monkeypatch.setattr(fs, "CLUB_QUEUE", tmp_path / "none")
+    (calcs / "2_2025-02.html").write_bytes(b"changed")            # a page that no longer matches its log
+    assert fs.write_manifest() == 1
+    with pytest.raises(SystemExit):
+        fs.delete_pages()                                         # nothing deleted while one page is not verified
+    assert len(list(calcs.glob("*.html"))) == 2
+    (calcs / "2_2025-02.html").write_bytes(b"bb")
+    assert fs.write_manifest() == 0
+    assert fs.delete_pages() == 0 and not list(calcs.glob("*"))
+    assert (tmp_path / "MANIFEST").read_text(encoding="utf-8").count("verified") == 2
