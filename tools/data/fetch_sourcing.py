@@ -365,8 +365,8 @@ def check_lock(kind: str, arg: str) -> None:
                              "a 2026 U.S. Championship")
 
 
-def next_item(done: set[str]) -> str | None:
-    for q in (QUEUE_PRIORITY, QUEUE_FILE[0]):
+def next_item(done: set[str], priority: bool = True) -> str | None:
+    for q in ((QUEUE_PRIORITY,) if priority else ()) + (QUEUE_FILE[0],):
         if q is None or not q.exists():
             continue
         for line in q.read_text(encoding="utf-8").splitlines():
@@ -392,7 +392,7 @@ def run(queue: str, club: bool = False, status: Path | None = None) -> int:
         if status and time.time() >= next_status:
             write_status(status, queue, t0, n, "running")
             next_status += 3600
-        line = next_item(done)
+        line = next_item(done, priority=not club)          # the club-level run reads its own queue only
         if line is None:
             break
         kind, arg = line.split(" ", 1)
