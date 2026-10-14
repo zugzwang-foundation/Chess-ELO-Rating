@@ -1,0 +1,8427 @@
+{
+ "fixed_line": "Under this rule, with the same results \u2014 not anyone's true strength.",
+ "juniors_climb": {
+  "by_age": {
+   "12-15": {
+    "hi": 39.5,
+    "lo": 37.5,
+    "mean": 38.5,
+    "median": 25,
+    "n": 27621,
+    "sd": 84.1
+   },
+   "16-19": {
+    "hi": 23.2,
+    "lo": 21.3,
+    "mean": 22.3,
+    "median": 13.0,
+    "n": 19436,
+    "sd": 66.4
+   },
+   "20-24": {
+    "hi": 12.2,
+    "lo": 10.8,
+    "mean": 11.5,
+    "median": 7.0,
+    "n": 14030,
+    "sd": 43.7
+   },
+   "25-45": {
+    "hi": -1.6,
+    "lo": -2.3,
+    "mean": -2.0,
+    "median": -3.0,
+    "n": 39276,
+    "sd": 37.7
+   },
+   "46-60": {
+    "hi": -9.1,
+    "lo": -9.9,
+    "mean": -9.5,
+    "median": -8,
+    "n": 29165,
+    "sd": 33.5
+   },
+   "<12": {
+    "hi": 39.8,
+    "lo": 36.6,
+    "mean": 38.2,
+    "median": 22,
+    "n": 12343,
+    "sd": 90.7
+   },
+   ">60": {
+    "hi": -14.4,
+    "lo": -15.1,
+    "mean": -14.7,
+    "median": -13.0,
+    "n": 29156,
+    "sd": 33.2
+   }
+  },
+  "by_age_level": {
+   "12-15|1400-1599": {
+    "hi": 34.7,
+    "lo": 32.2,
+    "mean": 33.5,
+    "median": 17.0,
+    "n": 14716,
+    "sd": 77.6
+   },
+   "12-15|1600-1799": {
+    "hi": 43.4,
+    "lo": 39.6,
+    "mean": 41.5,
+    "median": 31.0,
+    "n": 8550,
+    "sd": 89.1
+   },
+   "12-15|1800-1999": {
+    "hi": 56.5,
+    "lo": 50.0,
+    "mean": 53.2,
+    "median": 47.0,
+    "n": 3090,
+    "sd": 92.1
+   },
+   "12-15|2000-2199": {
+    "hi": 53.6,
+    "lo": 40.6,
+    "mean": 47.1,
+    "median": 40.5,
+    "n": 960,
+    "sd": 102.4
+   },
+   "12-15|2200-2399": {
+    "hi": 29.0,
+    "lo": 10.8,
+    "mean": 19.9,
+    "median": 25.5,
+    "n": 268,
+    "sd": 75.9
+   },
+   "12-15|2400+": {
+    "hi": 43.3,
+    "lo": 18.0,
+    "mean": 30.7,
+    "median": 39,
+    "n": 37,
+    "sd": 39.3
+   },
+   "16-19|1400-1599": {
+    "hi": 25.2,
+    "lo": 21.8,
+    "mean": 23.5,
+    "median": 11,
+    "n": 5399,
+    "sd": 63.7
+   },
+   "16-19|1600-1799": {
+    "hi": 24.7,
+    "lo": 21.7,
+    "mean": 23.2,
+    "median": 14.0,
+    "n": 7108,
+    "sd": 65.8
+   },
+   "16-19|1800-1999": {
+    "hi": 26.5,
+    "lo": 22.4,
+    "mean": 24.4,
+    "median": 16.0,
+    "n": 4298,
+    "sd": 68.7
+   },
+   "16-19|2000-2199": {
+    "hi": 22.0,
+    "lo": 15.1,
+    "mean": 18.6,
+    "median": 13,
+    "n": 1783,
+    "sd": 74.3
+   },
+   "16-19|2200-2399": {
+    "hi": 6.7,
+    "lo": -1.8,
+    "mean": 2.4,
+    "median": 2,
+    "n": 703,
+    "sd": 57.2
+   },
+   "16-19|2400+": {
+    "hi": 12.4,
+    "lo": 1.7,
+    "mean": 7.0,
+    "median": 9,
+    "n": 145,
+    "sd": 33.0
+   },
+   "20-24|1400-1599": {
+    "hi": 15.2,
+    "lo": 11.4,
+    "mean": 13.3,
+    "median": 6.0,
+    "n": 2406,
+    "sd": 48.4
+   },
+   "20-24|1600-1799": {
+    "hi": 12.2,
+    "lo": 9.7,
+    "mean": 11.0,
+    "median": 7,
+    "n": 4875,
+    "sd": 44.6
+   },
+   "20-24|1800-1999": {
+    "hi": 13.1,
+    "lo": 10.4,
+    "mean": 11.7,
+    "median": 8,
+    "n": 4025,
+    "sd": 42.6
+   },
+   "20-24|2000-2199": {
+    "hi": 15.4,
+    "lo": 11.6,
+    "mean": 13.5,
+    "median": 9.0,
+    "n": 1710,
+    "sd": 40.4
+   },
+   "20-24|2200-2399": {
+    "hi": 9.6,
+    "lo": 4.1,
+    "mean": 6.8,
+    "median": 3,
+    "n": 747,
+    "sd": 38.3
+   },
+   "20-24|2400+": {
+    "hi": 4.8,
+    "lo": -1.4,
+    "mean": 1.7,
+    "median": 0,
+    "n": 267,
+    "sd": 25.7
+   },
+   "25-45|1400-1599": {
+    "hi": 3.6,
+    "lo": 1.3,
+    "mean": 2.5,
+    "median": -3,
+    "n": 5425,
+    "sd": 43.7
+   },
+   "25-45|1600-1799": {
+    "hi": -1.7,
+    "lo": -3.1,
+    "mean": -2.4,
+    "median": -3.0,
+    "n": 12206,
+    "sd": 41.4
+   },
+   "25-45|1800-1999": {
+    "hi": -1.7,
+    "lo": -3.0,
+    "mean": -2.3,
+    "median": -2,
+    "n": 12481,
+    "sd": 35.5
+   },
+   "25-45|2000-2199": {
+    "hi": -1.1,
+    "lo": -2.7,
+    "mean": -1.9,
+    "median": -2,
+    "n": 5817,
+    "sd": 32.6
+   },
+   "25-45|2200-2399": {
+    "hi": -4.4,
+    "lo": -6.7,
+    "mean": -5.6,
+    "median": -5.0,
+    "n": 2436,
+    "sd": 29.2
+   },
+   "25-45|2400+": {
+    "hi": -6.5,
+    "lo": -9.2,
+    "mean": -7.8,
+    "median": -7,
+    "n": 911,
+    "sd": 20.4
+   },
+   "46-60|1400-1599": {
+    "hi": -4.3,
+    "lo": -6.7,
+    "mean": -5.5,
+    "median": -8,
+    "n": 4009,
+    "sd": 39.5
+   },
+   "46-60|1600-1799": {
+    "hi": -10.1,
+    "lo": -11.5,
+    "mean": -10.8,
+    "median": -9.0,
+    "n": 8832,
+    "sd": 35.5
+   },
+   "46-60|1800-1999": {
+    "hi": -8.7,
+    "lo": -10.0,
+    "mean": -9.4,
+    "median": -8.0,
+    "n": 10058,
+    "sd": 31.5
+   },
+   "46-60|2000-2199": {
+    "hi": -8.7,
+    "lo": -10.4,
+    "mean": -9.6,
+    "median": -7,
+    "n": 4569,
+    "sd": 30.4
+   },
+   "46-60|2200-2399": {
+    "hi": -11.8,
+    "lo": -14.4,
+    "mean": -13.1,
+    "median": -10,
+    "n": 1441,
+    "sd": 25.0
+   },
+   "46-60|2400+": {
+    "hi": -9.0,
+    "lo": -13.2,
+    "mean": -11.1,
+    "median": -8.5,
+    "n": 256,
+    "sd": 17.2
+   },
+   "<12|1400-1599": {
+    "hi": 38.6,
+    "lo": 35.1,
+    "mean": 36.9,
+    "median": 19,
+    "n": 9015,
+    "sd": 84.5
+   },
+   "<12|1600-1799": {
+    "hi": 40.7,
+    "lo": 32.9,
+    "mean": 36.8,
+    "median": 30,
+    "n": 2725,
+    "sd": 104.1
+   },
+   "<12|1800-1999": {
+    "hi": 72.5,
+    "lo": 53.3,
+    "mean": 62.9,
+    "median": 65.0,
+    "n": 506,
+    "sd": 110.1
+   },
+   "<12|2000-2199": {
+    "hi": 101.3,
+    "lo": 54.4,
+    "mean": 77.8,
+    "median": 62,
+    "n": 81,
+    "sd": 107.7
+   },
+   "<12|2200-2399": {
+    "hi": 66.3,
+    "lo": -21.5,
+    "mean": 22.4,
+    "median": 25,
+    "n": 15,
+    "sd": 86.8
+   },
+   "<12|2400+": {
+    "hi": 42.0,
+    "lo": 42.0,
+    "mean": 42.0,
+    "median": 42,
+    "n": 1,
+    "sd": 0.0
+   },
+   ">60|1400-1599": {
+    "hi": -11.7,
+    "lo": -13.8,
+    "mean": -12.8,
+    "median": -13,
+    "n": 4309,
+    "sd": 35.9
+   },
+   ">60|1600-1799": {
+    "hi": -15.6,
+    "lo": -16.9,
+    "mean": -16.2,
+    "median": -14,
+    "n": 10645,
+    "sd": 34.2
+   },
+   ">60|1800-1999": {
+    "hi": -13.5,
+    "lo": -14.7,
+    "mean": -14.1,
+    "median": -12.0,
+    "n": 10234,
+    "sd": 31.9
+   },
+   ">60|2000-2199": {
+    "hi": -12.7,
+    "lo": -14.8,
+    "mean": -13.8,
+    "median": -11,
+    "n": 3205,
+    "sd": 30.4
+   },
+   ">60|2200-2399": {
+    "hi": -16.0,
+    "lo": -20.5,
+    "mean": -18.3,
+    "median": -13.0,
+    "n": 686,
+    "sd": 30.1
+   },
+   ">60|2400+": {
+    "hi": -9.8,
+    "lo": -18.7,
+    "mean": -14.3,
+    "median": -8,
+    "n": 77,
+    "sd": 19.9
+   }
+  },
+  "federations": {
+   "by_federation": {
+    "ALG": {
+     "adults": 100,
+     "difference": 12.3,
+     "direction": "not settled",
+     "hi": 25.8,
+     "juniors": 143,
+     "lo": -1.3
+    },
+    "ARG": {
+     "adults": 578,
+     "difference": 32.4,
+     "direction": "juniors climb more",
+     "hi": 40.4,
+     "juniors": 449,
+     "lo": 24.4
+    },
+    "ARM": {
+     "adults": 90,
+     "difference": 38.4,
+     "direction": "juniors climb more",
+     "hi": 58.8,
+     "juniors": 419,
+     "lo": 18.0
+    },
+    "AUS": {
+     "adults": 267,
+     "difference": 26.4,
+     "direction": "juniors climb more",
+     "hi": 35.5,
+     "juniors": 595,
+     "lo": 17.4
+    },
+    "AUT": {
+     "adults": 594,
+     "difference": 31.7,
+     "direction": "juniors climb more",
+     "hi": 41.2,
+     "juniors": 359,
+     "lo": 22.2
+    },
+    "AZE": {
+     "adults": 127,
+     "difference": 31.8,
+     "direction": "juniors climb more",
+     "hi": 57.4,
+     "juniors": 454,
+     "lo": 6.1
+    },
+    "BAN": {
+     "adults": 308,
+     "difference": 14.9,
+     "direction": "not settled",
+     "hi": 30.6,
+     "juniors": 192,
+     "lo": -0.8
+    },
+    "BEL": {
+     "adults": 704,
+     "difference": 35.9,
+     "direction": "juniors climb more",
+     "hi": 43.4,
+     "juniors": 436,
+     "lo": 28.5
+    },
+    "BIH": {
+     "adults": 75,
+     "difference": 31.9,
+     "direction": "juniors climb more",
+     "hi": 55.4,
+     "juniors": 51,
+     "lo": 8.4
+    },
+    "BLR": {
+     "adults": 21,
+     "difference": 68.0,
+     "direction": "juniors climb more",
+     "hi": 90.0,
+     "juniors": 159,
+     "lo": 46.0
+    },
+    "BOL": {
+     "adults": 68,
+     "difference": 28.0,
+     "direction": "juniors climb more",
+     "hi": 41.1,
+     "juniors": 229,
+     "lo": 14.8
+    },
+    "BRA": {
+     "adults": 762,
+     "difference": 34.1,
+     "direction": "juniors climb more",
+     "hi": 41.6,
+     "juniors": 752,
+     "lo": 26.6
+    },
+    "BUL": {
+     "adults": 33,
+     "difference": 37.9,
+     "direction": "juniors climb more",
+     "hi": 57.8,
+     "juniors": 93,
+     "lo": 18.0
+    },
+    "CAN": {
+     "adults": 284,
+     "difference": 39.5,
+     "direction": "juniors climb more",
+     "hi": 48.7,
+     "juniors": 526,
+     "lo": 30.4
+    },
+    "CHI": {
+     "adults": 252,
+     "difference": 30.9,
+     "direction": "juniors climb more",
+     "hi": 41.8,
+     "juniors": 432,
+     "lo": 20.0
+    },
+    "CHN": {
+     "adults": 139,
+     "difference": 12.3,
+     "direction": "not settled",
+     "hi": 29.4,
+     "juniors": 476,
+     "lo": -4.9
+    },
+    "COL": {
+     "adults": 363,
+     "difference": 39.5,
+     "direction": "juniors climb more",
+     "hi": 49.0,
+     "juniors": 482,
+     "lo": 29.9
+    },
+    "CRC": {
+     "adults": 86,
+     "difference": 27.1,
+     "direction": "juniors climb more",
+     "hi": 41.6,
+     "juniors": 233,
+     "lo": 12.5
+    },
+    "CRO": {
+     "adults": 474,
+     "difference": 28.4,
+     "direction": "juniors climb more",
+     "hi": 38.8,
+     "juniors": 488,
+     "lo": 18.0
+    },
+    "CUB": {
+     "adults": 140,
+     "difference": 23.0,
+     "direction": "juniors climb more",
+     "hi": 40.8,
+     "juniors": 166,
+     "lo": 5.2
+    },
+    "CZE": {
+     "adults": 1106,
+     "difference": 37.5,
+     "direction": "juniors climb more",
+     "hi": 43.6,
+     "juniors": 1116,
+     "lo": 31.3
+    },
+    "DEN": {
+     "adults": 380,
+     "difference": 26.8,
+     "direction": "juniors climb more",
+     "hi": 39.3,
+     "juniors": 182,
+     "lo": 14.3
+    },
+    "DOM": {
+     "adults": 92,
+     "difference": 4.0,
+     "direction": "not settled",
+     "hi": 31.1,
+     "juniors": 39,
+     "lo": -23.1
+    },
+    "ECU": {
+     "adults": 46,
+     "difference": 44.9,
+     "direction": "juniors climb more",
+     "hi": 61.3,
+     "juniors": 261,
+     "lo": 28.5
+    },
+    "EGY": {
+     "adults": 195,
+     "difference": 11.9,
+     "direction": "not settled",
+     "hi": 38.1,
+     "juniors": 301,
+     "lo": -14.3
+    },
+    "ENG": {
+     "adults": 436,
+     "difference": 39.8,
+     "direction": "juniors climb more",
+     "hi": 47.9,
+     "juniors": 493,
+     "lo": 31.7
+    },
+    "ESP": {
+     "adults": 3709,
+     "difference": 31.4,
+     "direction": "juniors climb more",
+     "hi": 34.5,
+     "juniors": 3447,
+     "lo": 28.4
+    },
+    "FID": {
+     "adults": 125,
+     "difference": 44.9,
+     "direction": "juniors climb more",
+     "hi": 60.6,
+     "juniors": 358,
+     "lo": 29.2
+    },
+    "FIN": {
+     "adults": 163,
+     "difference": 32.1,
+     "direction": "juniors climb more",
+     "hi": 50.3,
+     "juniors": 63,
+     "lo": 13.9
+    },
+    "FRA": {
+     "adults": 3469,
+     "difference": 35.5,
+     "direction": "juniors climb more",
+     "hi": 38.9,
+     "juniors": 3637,
+     "lo": 32.1
+    },
+    "GEO": {
+     "adults": 53,
+     "difference": 36.9,
+     "direction": "juniors climb more",
+     "hi": 62.2,
+     "juniors": 95,
+     "lo": 11.6
+    },
+    "GER": {
+     "adults": 2750,
+     "difference": 31.3,
+     "direction": "juniors climb more",
+     "hi": 35.2,
+     "juniors": 2325,
+     "lo": 27.4
+    },
+    "GRE": {
+     "adults": 779,
+     "difference": 24.6,
+     "direction": "juniors climb more",
+     "hi": 31.0,
+     "juniors": 888,
+     "lo": 18.2
+    },
+    "HUN": {
+     "adults": 749,
+     "difference": 25.8,
+     "direction": "juniors climb more",
+     "hi": 32.5,
+     "juniors": 631,
+     "lo": 19.0
+    },
+    "INA": {
+     "adults": 56,
+     "difference": 49.8,
+     "direction": "juniors climb more",
+     "hi": 68.5,
+     "juniors": 91,
+     "lo": 31.2
+    },
+    "IND": {
+     "adults": 2344,
+     "difference": 37.8,
+     "direction": "juniors climb more",
+     "hi": 40.6,
+     "juniors": 7630,
+     "lo": 35.0
+    },
+    "IRI": {
+     "adults": 637,
+     "difference": 33.7,
+     "direction": "juniors climb more",
+     "hi": 38.6,
+     "juniors": 1587,
+     "lo": 28.7
+    },
+    "IRL": {
+     "adults": 164,
+     "difference": 26.4,
+     "direction": "juniors climb more",
+     "hi": 40.9,
+     "juniors": 153,
+     "lo": 11.9
+    },
+    "IRQ": {
+     "adults": 78,
+     "difference": 34.3,
+     "direction": "juniors climb more",
+     "hi": 54.1,
+     "juniors": 89,
+     "lo": 14.5
+    },
+    "ISR": {
+     "adults": 327,
+     "difference": 35.8,
+     "direction": "juniors climb more",
+     "hi": 46.6,
+     "juniors": 514,
+     "lo": 25.1
+    },
+    "ITA": {
+     "adults": 1493,
+     "difference": 30.2,
+     "direction": "juniors climb more",
+     "hi": 35.0,
+     "juniors": 1531,
+     "lo": 25.5
+    },
+    "KAZ": {
+     "adults": 125,
+     "difference": 53.0,
+     "direction": "juniors climb more",
+     "hi": 68.2,
+     "juniors": 1103,
+     "lo": 37.9
+    },
+    "KEN": {
+     "adults": 204,
+     "difference": 25.6,
+     "direction": "juniors climb more",
+     "hi": 37.9,
+     "juniors": 226,
+     "lo": 13.2
+    },
+    "KGZ": {
+     "adults": 33,
+     "difference": 16.4,
+     "direction": "not settled",
+     "hi": 40.0,
+     "juniors": 192,
+     "lo": -7.2
+    },
+    "KOR": {
+     "adults": 74,
+     "difference": 17.9,
+     "direction": "juniors climb more",
+     "hi": 31.4,
+     "juniors": 272,
+     "lo": 4.4
+    },
+    "LAT": {
+     "adults": 34,
+     "difference": 18.4,
+     "direction": "not settled",
+     "hi": 46.2,
+     "juniors": 71,
+     "lo": -9.3
+    },
+    "LTU": {
+     "adults": 74,
+     "difference": 30.2,
+     "direction": "juniors climb more",
+     "hi": 56.3,
+     "juniors": 164,
+     "lo": 4.2
+    },
+    "MAS": {
+     "adults": 124,
+     "difference": 31.3,
+     "direction": "juniors climb more",
+     "hi": 43.3,
+     "juniors": 573,
+     "lo": 19.3
+    },
+    "MEX": {
+     "adults": 492,
+     "difference": 24.0,
+     "direction": "juniors climb more",
+     "hi": 31.9,
+     "juniors": 759,
+     "lo": 16.2
+    },
+    "NED": {
+     "adults": 1080,
+     "difference": 26.6,
+     "direction": "juniors climb more",
+     "hi": 35.6,
+     "juniors": 336,
+     "lo": 17.7
+    },
+    "NEP": {
+     "adults": 74,
+     "difference": 10.3,
+     "direction": "not settled",
+     "hi": 26.4,
+     "juniors": 78,
+     "lo": -5.9
+    },
+    "NOR": {
+     "adults": 413,
+     "difference": 36.7,
+     "direction": "juniors climb more",
+     "hi": 44.9,
+     "juniors": 352,
+     "lo": 28.5
+    },
+    "PER": {
+     "adults": 162,
+     "difference": 20.6,
+     "direction": "juniors climb more",
+     "hi": 31.5,
+     "juniors": 804,
+     "lo": 9.7
+    },
+    "PHI": {
+     "adults": 167,
+     "difference": 30.4,
+     "direction": "juniors climb more",
+     "hi": 41.6,
+     "juniors": 654,
+     "lo": 19.2
+    },
+    "POL": {
+     "adults": 1301,
+     "difference": 38.3,
+     "direction": "juniors climb more",
+     "hi": 42.6,
+     "juniors": 2159,
+     "lo": 34.0
+    },
+    "POR": {
+     "adults": 275,
+     "difference": 29.7,
+     "direction": "juniors climb more",
+     "hi": 41.3,
+     "juniors": 251,
+     "lo": 18.1
+    },
+    "ROU": {
+     "adults": 245,
+     "difference": 40.2,
+     "direction": "juniors climb more",
+     "hi": 49.8,
+     "juniors": 847,
+     "lo": 30.5
+    },
+    "RSA": {
+     "adults": 257,
+     "difference": 14.8,
+     "direction": "juniors climb more",
+     "hi": 26.3,
+     "juniors": 588,
+     "lo": 3.4
+    },
+    "RUS": {
+     "adults": 674,
+     "difference": 39.6,
+     "direction": "juniors climb more",
+     "hi": 46.9,
+     "juniors": 3451,
+     "lo": 32.3
+    },
+    "SCO": {
+     "adults": 58,
+     "difference": 56.0,
+     "direction": "juniors climb more",
+     "hi": 79.8,
+     "juniors": 36,
+     "lo": 32.2
+    },
+    "SGP": {
+     "adults": 12,
+     "difference": 30.9,
+     "direction": "not settled",
+     "hi": 65.5,
+     "juniors": 200,
+     "lo": -3.7
+    },
+    "SLO": {
+     "adults": 131,
+     "difference": 49.4,
+     "direction": "juniors climb more",
+     "hi": 68.1,
+     "juniors": 98,
+     "lo": 30.7
+    },
+    "SRB": {
+     "adults": 601,
+     "difference": 33.3,
+     "direction": "juniors climb more",
+     "hi": 45.4,
+     "juniors": 412,
+     "lo": 21.2
+    },
+    "SRI": {
+     "adults": 209,
+     "difference": 20.5,
+     "direction": "juniors climb more",
+     "hi": 28.5,
+     "juniors": 1502,
+     "lo": 12.6
+    },
+    "SUI": {
+     "adults": 461,
+     "difference": 33.8,
+     "direction": "juniors climb more",
+     "hi": 43.8,
+     "juniors": 339,
+     "lo": 23.8
+    },
+    "SVK": {
+     "adults": 620,
+     "difference": 31.0,
+     "direction": "juniors climb more",
+     "hi": 38.2,
+     "juniors": 618,
+     "lo": 23.8
+    },
+    "SWE": {
+     "adults": 538,
+     "difference": 32.5,
+     "direction": "juniors climb more",
+     "hi": 41.3,
+     "juniors": 375,
+     "lo": 23.7
+    },
+    "TUR": {
+     "adults": 565,
+     "difference": 46.9,
+     "direction": "juniors climb more",
+     "hi": 52.6,
+     "juniors": 1609,
+     "lo": 41.2
+    },
+    "UKR": {
+     "adults": 226,
+     "difference": 45.7,
+     "direction": "juniors climb more",
+     "hi": 59.9,
+     "juniors": 634,
+     "lo": 31.4
+    },
+    "USA": {
+     "adults": 823,
+     "difference": 37.8,
+     "direction": "juniors climb more",
+     "hi": 43.0,
+     "juniors": 1842,
+     "lo": 32.5
+    },
+    "UZB": {
+     "adults": 51,
+     "difference": 51.8,
+     "direction": "juniors climb more",
+     "hi": 70.7,
+     "juniors": 399,
+     "lo": 32.9
+    },
+    "VEN": {
+     "adults": 172,
+     "difference": 22.8,
+     "direction": "juniors climb more",
+     "hi": 34.3,
+     "juniors": 378,
+     "lo": 11.4
+    },
+    "VIE": {
+     "adults": 102,
+     "difference": 32.6,
+     "direction": "juniors climb more",
+     "hi": 52.0,
+     "juniors": 575,
+     "lo": 13.2
+    },
+    "WLS": {
+     "adults": 23,
+     "difference": -1.0,
+     "direction": "not settled",
+     "hi": 28.4,
+     "juniors": 14,
+     "lo": -30.4
+    },
+    "ZAM": {
+     "adults": 212,
+     "difference": 40.6,
+     "direction": "juniors climb more",
+     "hi": 69.9,
+     "juniors": 40,
+     "lo": 11.3
+    }
+   },
+   "directions": {
+    "juniors climb more": 65,
+    "not settled": 10
+   },
+   "list": [
+    "ALG",
+    "ARG",
+    "ARM",
+    "AUS",
+    "AUT",
+    "AZE",
+    "BAN",
+    "BEL",
+    "BIH",
+    "BLR",
+    "BOL",
+    "BRA",
+    "BUL",
+    "CAN",
+    "CHI",
+    "CHN",
+    "COL",
+    "CRC",
+    "CRO",
+    "CUB",
+    "CZE",
+    "DEN",
+    "DOM",
+    "ECU",
+    "EGY",
+    "ENG",
+    "ESP",
+    "FID",
+    "FIN",
+    "FRA",
+    "GEO",
+    "GER",
+    "GRE",
+    "HUN",
+    "INA",
+    "IND",
+    "IRI",
+    "IRL",
+    "IRQ",
+    "ISR",
+    "ITA",
+    "KAZ",
+    "KEN",
+    "KGZ",
+    "KOR",
+    "LAT",
+    "LTU",
+    "MAS",
+    "MEX",
+    "NED",
+    "NEP",
+    "NOR",
+    "PER",
+    "PHI",
+    "POL",
+    "POR",
+    "ROU",
+    "RSA",
+    "RUS",
+    "SCO",
+    "SGP",
+    "SLO",
+    "SRB",
+    "SRI",
+    "SUI",
+    "SVK",
+    "SWE",
+    "TUR",
+    "UKR",
+    "USA",
+    "UZB",
+    "VEN",
+    "VIE",
+    "WLS",
+    "ZAM"
+   ]
+  },
+  "from": "2025-10",
+  "juniors_minus_adults_25_45_standardised": {
+   "12-15": {
+    "adults": 39276,
+    "difference": 38.3,
+    "direction": "juniors climb more",
+    "hi": 39.5,
+    "juniors": 27621,
+    "lo": 37.1
+   },
+   "16-19": {
+    "adults": 39276,
+    "difference": 23.4,
+    "direction": "juniors climb more",
+    "hi": 24.4,
+    "juniors": 19436,
+    "lo": 22.4
+   },
+   "<12": {
+    "adults": 38365,
+    "difference": 37.0,
+    "direction": "juniors climb more",
+    "hi": 38.8,
+    "juniors": 12342,
+    "lo": 35.2
+   },
+   "<20": {
+    "adults": 39276,
+    "difference": 33.2,
+    "direction": "juniors climb more",
+    "hi": 34.1,
+    "juniors": 59400,
+    "lo": 32.3
+   }
+  },
+  "players": 171027,
+  "to": "2026-10"
+ },
+ "k_shares": {
+  "by_k_of_the_list_before": {
+   "2015": {
+    "K=10": 134957,
+    "K=20": 846970,
+    "K=40": 746080,
+    "newly rated": 222895,
+    "player_games": 1950902,
+    "share K=10": 0.0692,
+    "share K=20": 0.4341,
+    "share K=40": 0.3824,
+    "share newly rated": 0.1143
+   },
+   "2016": {
+    "K=10": 163729,
+    "K=20": 1121208,
+    "K=40": 1063131,
+    "newly rated": 255855,
+    "player_games": 2603923,
+    "share K=10": 0.0629,
+    "share K=20": 0.4306,
+    "share K=40": 0.4083,
+    "share newly rated": 0.0983
+   },
+   "2017": {
+    "K=10": 171480,
+    "K=20": 1216747,
+    "K=40": 1144217,
+    "newly rated": 245875,
+    "player_games": 2778319,
+    "share K=10": 0.0617,
+    "share K=20": 0.4379,
+    "share K=40": 0.4118,
+    "share newly rated": 0.0885
+   },
+   "2018": {
+    "K=10": 169095,
+    "K=20": 1257390,
+    "K=40": 1218515,
+    "newly rated": 243822,
+    "other K": 15,
+    "player_games": 2888837,
+    "share K=10": 0.0585,
+    "share K=20": 0.4353,
+    "share K=40": 0.4218,
+    "share newly rated": 0.0844,
+    "share other K": 0.0
+   },
+   "2019": {
+    "K=10": 175664,
+    "K=20": 1296216,
+    "K=40": 1275324,
+    "newly rated": 257286,
+    "player_games": 3004490,
+    "share K=10": 0.0585,
+    "share K=20": 0.4314,
+    "share K=40": 0.4245,
+    "share newly rated": 0.0856
+   },
+   "2020": {
+    "K=10": 68155,
+    "K=20": 558349,
+    "K=40": 481110,
+    "newly rated": 87218,
+    "player_games": 1194832,
+    "share K=10": 0.057,
+    "share K=20": 0.4673,
+    "share K=40": 0.4027,
+    "share newly rated": 0.073
+   },
+   "2021": {
+    "K=10": 84238,
+    "K=20": 459386,
+    "K=40": 493203,
+    "newly rated": 100371,
+    "player_games": 1137198,
+    "share K=10": 0.0741,
+    "share K=20": 0.404,
+    "share K=40": 0.4337,
+    "share newly rated": 0.0883
+   },
+   "2022": {
+    "K=10": 141595,
+    "K=20": 1002005,
+    "K=40": 1009797,
+    "newly rated": 207836,
+    "player_games": 2361233,
+    "share K=10": 0.06,
+    "share K=20": 0.4244,
+    "share K=40": 0.4277,
+    "share newly rated": 0.088
+   },
+   "2023": {
+    "K=10": 155144,
+    "K=20": 1175329,
+    "K=40": 1239751,
+    "newly rated": 256018,
+    "player_games": 2826242,
+    "share K=10": 0.0549,
+    "share K=20": 0.4159,
+    "share K=40": 0.4387,
+    "share newly rated": 0.0906
+   },
+   "2024": {
+    "K=10": 157213,
+    "K=20": 1254369,
+    "K=40": 1386751,
+    "newly rated": 318688,
+    "other K": 67,
+    "player_games": 3117088,
+    "share K=10": 0.0504,
+    "share K=20": 0.4024,
+    "share K=40": 0.4449,
+    "share newly rated": 0.1022,
+    "share other K": 0.0
+   },
+   "2025": {
+    "K=10": 162193,
+    "K=20": 1389800,
+    "K=40": 1621749,
+    "newly rated": 357393,
+    "player_games": 3531135,
+    "share K=10": 0.0459,
+    "share K=20": 0.3936,
+    "share K=40": 0.4593,
+    "share newly rated": 0.1012
+   },
+   "2026": {
+    "K=10": 136299,
+    "K=20": 1220490,
+    "K=40": 1504139,
+    "newly rated": 446188,
+    "player_games": 3307116,
+    "share K=10": 0.0412,
+    "share K=20": 0.369,
+    "share K=40": 0.4548,
+    "share newly rated": 0.1349
+   }
+  },
+  "by_k_on_the_same_list": {
+   "2015": {
+    "K=10": 137201,
+    "K=20": 885424,
+    "K=40": 928277,
+    "player_games": 1950902,
+    "share K=10": 0.0703,
+    "share K=20": 0.4539,
+    "share K=40": 0.4758
+   },
+   "2016": {
+    "K=10": 165980,
+    "K=20": 1172590,
+    "K=40": 1265353,
+    "player_games": 2603923,
+    "share K=10": 0.0637,
+    "share K=20": 0.4503,
+    "share K=40": 0.4859
+   },
+   "2017": {
+    "K=10": 174001,
+    "K=20": 1270462,
+    "K=40": 1333856,
+    "player_games": 2778319,
+    "share K=10": 0.0626,
+    "share K=20": 0.4573,
+    "share K=40": 0.4801
+   },
+   "2018": {
+    "K=10": 171087,
+    "K=20": 1307570,
+    "K=40": 1410165,
+    "other K": 15,
+    "player_games": 2888837,
+    "share K=10": 0.0592,
+    "share K=20": 0.4526,
+    "share K=40": 0.4881,
+    "share other K": 0.0
+   },
+   "2019": {
+    "K=10": 177762,
+    "K=20": 1345682,
+    "K=40": 1481046,
+    "player_games": 3004490,
+    "share K=10": 0.0592,
+    "share K=20": 0.4479,
+    "share K=40": 0.4929
+   },
+   "2020": {
+    "K=10": 68748,
+    "K=20": 579396,
+    "K=40": 546688,
+    "player_games": 1194832,
+    "share K=10": 0.0575,
+    "share K=20": 0.4849,
+    "share K=40": 0.4575
+   },
+   "2021": {
+    "K=10": 85348,
+    "K=20": 473814,
+    "K=40": 578036,
+    "player_games": 1137198,
+    "share K=10": 0.0751,
+    "share K=20": 0.4167,
+    "share K=40": 0.5083
+   },
+   "2022": {
+    "K=10": 143564,
+    "K=20": 1035749,
+    "K=40": 1181920,
+    "player_games": 2361233,
+    "share K=10": 0.0608,
+    "share K=20": 0.4386,
+    "share K=40": 0.5006
+   },
+   "2023": {
+    "K=10": 157059,
+    "K=20": 1216311,
+    "K=40": 1452872,
+    "player_games": 2826242,
+    "share K=10": 0.0556,
+    "share K=20": 0.4304,
+    "share K=40": 0.5141
+   },
+   "2024": {
+    "K=10": 158810,
+    "K=20": 1298986,
+    "K=40": 1659212,
+    "other K": 80,
+    "player_games": 3117088,
+    "share K=10": 0.0509,
+    "share K=20": 0.4167,
+    "share K=40": 0.5323,
+    "share other K": 0.0
+   },
+   "2025": {
+    "K=10": 164003,
+    "K=20": 1438606,
+    "K=40": 1928526,
+    "player_games": 3531135,
+    "share K=10": 0.0464,
+    "share K=20": 0.4074,
+    "share K=40": 0.5461
+   },
+   "2026": {
+    "K=10": 138046,
+    "K=20": 1266751,
+    "K=40": 1902319,
+    "player_games": 3307116,
+    "share K=10": 0.0417,
+    "share K=20": 0.383,
+    "share K=40": 0.5752
+   }
+  },
+  "ghita_cited": {
+   "K=10": 0.046,
+   "K=40": 0.546,
+   "source": "Ghita, The Rating Revolution, p. 73"
+  },
+  "note": "player-games: each rated game counts once for each rated player in it; 2015 from March, 2026 to October"
+ },
+ "label": "decided after seeing the data (docs/DECISIONS.md, item 32); a climb, not proof of under-rating",
+ "lists": {
+  "count": 141,
+  "first": "2015-02",
+  "last": "2026-10"
+ },
+ "newcomers": {
+  "12": {
+   "all": {
+    "hi": -7.0,
+    "lo": -8.2,
+    "mean": -7.6,
+    "median": -13,
+    "n": 48763,
+    "sd": 71.1
+   },
+   "by_age": {
+    "12-15": {
+     "hi": -1.2,
+     "lo": -3.5,
+     "mean": -2.4,
+     "median": -10.0,
+     "n": 15324,
+     "sd": 75.4
+    },
+    "16-19": {
+     "hi": -3.8,
+     "lo": -7.2,
+     "mean": -5.5,
+     "median": -10.0,
+     "n": 5816,
+     "sd": 66.2
+    },
+    "20-24": {
+     "hi": -7.4,
+     "lo": -11.8,
+     "mean": -9.6,
+     "median": -11.0,
+     "n": 2908,
+     "sd": 60.0
+    },
+    "25-45": {
+     "hi": -15.1,
+     "lo": -17.8,
+     "mean": -16.4,
+     "median": -16.0,
+     "n": 7096,
+     "sd": 57.6
+    },
+    "46-60": {
+     "hi": -22.0,
+     "lo": -26.1,
+     "mean": -24.1,
+     "median": -21.5,
+     "n": 3210,
+     "sd": 58.7
+    },
+    "<12": {
+     "hi": 0.2,
+     "lo": -2.7,
+     "mean": -1.2,
+     "median": -10,
+     "n": 11911,
+     "sd": 80.5
+    },
+    ">60": {
+     "hi": -24.5,
+     "lo": -29.1,
+     "mean": -26.8,
+     "median": -23.0,
+     "n": 2416,
+     "sd": 58.0
+    }
+   },
+   "by_age_level": {
+    "12-15|1400-1599": {
+     "hi": 8.3,
+     "lo": 5.6,
+     "mean": 6.9,
+     "median": -5.0,
+     "n": 10648,
+     "sd": 70.3
+    },
+    "12-15|1600-1799": {
+     "hi": -18.9,
+     "lo": -23.7,
+     "mean": -21.3,
+     "median": -24.0,
+     "n": 4216,
+     "sd": 81.1
+    },
+    "12-15|1800-1999": {
+     "hi": -37.8,
+     "lo": -53.6,
+     "mean": -45.7,
+     "median": -38.0,
+     "n": 428,
+     "sd": 83.4
+    },
+    "12-15|2000-2199": {
+     "hi": -37.6,
+     "lo": -107.4,
+     "mean": -72.5,
+     "median": -71.0,
+     "n": 20,
+     "sd": 79.6
+    },
+    "12-15|2200-2399": {
+     "hi": -193.0,
+     "lo": -193.0,
+     "mean": -193.0,
+     "median": -193,
+     "n": 1,
+     "sd": 0.0
+    },
+    "12-15|below 1400": {
+     "hi": 150.5,
+     "lo": 82.0,
+     "mean": 116.3,
+     "median": 81,
+     "n": 11,
+     "sd": 57.9
+    },
+    "16-19|1400-1599": {
+     "hi": 9.5,
+     "lo": 4.6,
+     "mean": 7.1,
+     "median": -5.0,
+     "n": 2530,
+     "sd": 63.4
+    },
+    "16-19|1600-1799": {
+     "hi": -9.2,
+     "lo": -14.3,
+     "mean": -11.7,
+     "median": -14,
+     "n": 2611,
+     "sd": 65.6
+    },
+    "16-19|1800-1999": {
+     "hi": -21.9,
+     "lo": -32.4,
+     "mean": -27.2,
+     "median": -26.5,
+     "n": 636,
+     "sd": 67.7
+    },
+    "16-19|2000-2199": {
+     "hi": -24.7,
+     "lo": -79.5,
+     "mean": -52.1,
+     "median": -44.5,
+     "n": 38,
+     "sd": 86.3
+    },
+    "16-19|below 1400": {
+     "hi": 203.0,
+     "lo": 203.0,
+     "mean": 203.0,
+     "median": 203,
+     "n": 1,
+     "sd": 0.0
+    },
+    "20-24|1400-1599": {
+     "hi": 8.3,
+     "lo": 0.7,
+     "mean": 4.5,
+     "median": -4,
+     "n": 877,
+     "sd": 57.2
+    },
+    "20-24|1600-1799": {
+     "hi": -7.5,
+     "lo": -13.7,
+     "mean": -10.6,
+     "median": -10.0,
+     "n": 1462,
+     "sd": 60.0
+    },
+    "20-24|1800-1999": {
+     "hi": -22.3,
+     "lo": -31.9,
+     "mean": -27.1,
+     "median": -24,
+     "n": 531,
+     "sd": 56.6
+    },
+    "20-24|2000-2199": {
+     "hi": -23.9,
+     "lo": -75.9,
+     "mean": -49.9,
+     "median": -41.0,
+     "n": 38,
+     "sd": 81.8
+    },
+    "25-45|1400-1599": {
+     "hi": -1.6,
+     "lo": -6.1,
+     "mean": -3.9,
+     "median": -10,
+     "n": 2209,
+     "sd": 53.2
+    },
+    "25-45|1600-1799": {
+     "hi": -15.7,
+     "lo": -19.5,
+     "mean": -17.6,
+     "median": -16.0,
+     "n": 3486,
+     "sd": 56.9
+    },
+    "25-45|1800-1999": {
+     "hi": -29.7,
+     "lo": -36.4,
+     "mean": -33.1,
+     "median": -28.0,
+     "n": 1298,
+     "sd": 61.2
+    },
+    "25-45|2000-2199": {
+     "hi": -27.9,
+     "lo": -49.7,
+     "mean": -38.8,
+     "median": -33.5,
+     "n": 102,
+     "sd": 56.1
+    },
+    "25-45|below 1400": {
+     "hi": 191.0,
+     "lo": 191.0,
+     "mean": 191.0,
+     "median": 191,
+     "n": 1,
+     "sd": 0.0
+    },
+    "46-60|1400-1599": {
+     "hi": -10.7,
+     "lo": -17.2,
+     "mean": -13.9,
+     "median": -17.0,
+     "n": 1062,
+     "sd": 54.4
+    },
+    "46-60|1600-1799": {
+     "hi": -25.4,
+     "lo": -31.5,
+     "mean": -28.4,
+     "median": -24,
+     "n": 1525,
+     "sd": 60.3
+    },
+    "46-60|1800-1999": {
+     "hi": -25.0,
+     "lo": -34.5,
+     "mean": -29.8,
+     "median": -24.0,
+     "n": 580,
+     "sd": 58.4
+    },
+    "46-60|2000-2199": {
+     "hi": -21.5,
+     "lo": -66.1,
+     "mean": -43.8,
+     "median": -30,
+     "n": 43,
+     "sd": 74.6
+    },
+    "<12|1400-1599": {
+     "hi": 10.6,
+     "lo": 7.6,
+     "mean": 9.1,
+     "median": -4.0,
+     "n": 9674,
+     "sd": 75.7
+    },
+    "<12|1600-1799": {
+     "hi": -41.9,
+     "lo": -48.9,
+     "mean": -45.4,
+     "median": -46,
+     "n": 2127,
+     "sd": 83.0
+    },
+    "<12|1800-1999": {
+     "hi": -57.5,
+     "lo": -96.1,
+     "mean": -76.8,
+     "median": -77.0,
+     "n": 98,
+     "sd": 97.4
+    },
+    "<12|2000-2199": {
+     "hi": -218.0,
+     "lo": -218.0,
+     "mean": -218.0,
+     "median": -218,
+     "n": 1,
+     "sd": 0.0
+    },
+    "<12|below 1400": {
+     "hi": 191.6,
+     "lo": 95.1,
+     "mean": 143.4,
+     "median": 138,
+     "n": 11,
+     "sd": 81.6
+    },
+    ">60|1400-1599": {
+     "hi": -11.9,
+     "lo": -19.8,
+     "mean": -15.8,
+     "median": -18,
+     "n": 741,
+     "sd": 54.8
+    },
+    ">60|1600-1799": {
+     "hi": -27.3,
+     "lo": -33.8,
+     "mean": -30.6,
+     "median": -25,
+     "n": 1171,
+     "sd": 56.8
+    },
+    ">60|1800-1999": {
+     "hi": -28.1,
+     "lo": -39.4,
+     "mean": -33.7,
+     "median": -28.0,
+     "n": 472,
+     "sd": 62.8
+    },
+    ">60|2000-2199": {
+     "hi": -16.8,
+     "lo": -62.7,
+     "mean": -39.8,
+     "median": -26.0,
+     "n": 32,
+     "sd": 66.3
+    }
+   },
+   "by_federation": {
+    "ALG": {
+     "20 and over": {
+      "hi": 0.4,
+      "lo": -25.1,
+      "mean": -12.4,
+      "median": -9,
+      "n": 51,
+      "sd": 46.6
+     },
+     "all": {
+      "hi": 8.8,
+      "lo": -11.9,
+      "mean": -1.5,
+      "median": -8,
+      "n": 139,
+      "sd": 62.3
+     },
+     "under 20": {
+      "hi": 20.2,
+      "lo": -8.9,
+      "mean": 5.6,
+      "median": -6,
+      "n": 87,
+      "sd": 69.1
+     }
+    },
+    "ARG": {
+     "20 and over": {
+      "hi": -9.7,
+      "lo": -23.6,
+      "mean": -16.7,
+      "median": -16,
+      "n": 261,
+      "sd": 57.5
+     },
+     "all": {
+      "hi": -4.6,
+      "lo": -15.1,
+      "mean": -9.8,
+      "median": -13,
+      "n": 549,
+      "sd": 62.9
+     },
+     "under 20": {
+      "hi": 3.5,
+      "lo": -12.4,
+      "mean": -4.4,
+      "median": -11,
+      "n": 275,
+      "sd": 66.9
+     }
+    },
+    "ARM": {
+     "20 and over": {
+      "hi": 1.2,
+      "lo": -58.7,
+      "mean": -28.7,
+      "median": -38,
+      "n": 11,
+      "sd": 50.6
+     },
+     "all": {
+      "hi": 0.5,
+      "lo": -16.4,
+      "mean": -8.0,
+      "median": -15,
+      "n": 247,
+      "sd": 67.5
+     },
+     "under 20": {
+      "hi": 1.7,
+      "lo": -15.7,
+      "mean": -7.0,
+      "median": -15.0,
+      "n": 236,
+      "sd": 68.1
+     }
+    },
+    "AUS": {
+     "20 and over": {
+      "hi": -15.4,
+      "lo": -35.5,
+      "mean": -25.4,
+      "median": -22.0,
+      "n": 200,
+      "sd": 72.8
+     },
+     "all": {
+      "hi": -8.6,
+      "lo": -22.7,
+      "mean": -15.7,
+      "median": -21,
+      "n": 527,
+      "sd": 82.7
+     },
+     "under 20": {
+      "hi": -0.2,
+      "lo": -19.2,
+      "mean": -9.7,
+      "median": -19,
+      "n": 327,
+      "sd": 87.9
+     }
+    },
+    "AUT": {
+     "20 and over": {
+      "hi": -10.9,
+      "lo": -22.7,
+      "mean": -16.8,
+      "median": -15.0,
+      "n": 272,
+      "sd": 49.4
+     },
+     "all": {
+      "hi": 0.7,
+      "lo": -11.0,
+      "mean": -5.1,
+      "median": -10,
+      "n": 445,
+      "sd": 63.2
+     },
+     "under 20": {
+      "hi": 24.7,
+      "lo": 1.8,
+      "mean": 13.2,
+      "median": -4,
+      "n": 173,
+      "sd": 76.8
+     }
+    },
+    "AZE": {
+     "20 and over": {
+      "hi": 11.7,
+      "lo": -39.0,
+      "mean": -13.6,
+      "median": -25,
+      "n": 31,
+      "sd": 72.0
+     },
+     "all": {
+      "hi": 6.6,
+      "lo": -12.6,
+      "mean": -3.0,
+      "median": -13,
+      "n": 297,
+      "sd": 84.2
+     },
+     "under 20": {
+      "hi": 8.5,
+      "lo": -12.1,
+      "mean": -1.8,
+      "median": -11.0,
+      "n": 266,
+      "sd": 85.5
+     }
+    },
+    "BAN": {
+     "20 and over": {
+      "hi": -12.5,
+      "lo": -34.2,
+      "mean": -23.3,
+      "median": -26.0,
+      "n": 126,
+      "sd": 62.0
+     },
+     "all": {
+      "hi": -6.1,
+      "lo": -22.2,
+      "mean": -14.2,
+      "median": -19,
+      "n": 225,
+      "sd": 61.8
+     },
+     "under 20": {
+      "hi": 9.1,
+      "lo": -14.8,
+      "mean": -2.8,
+      "median": -12,
+      "n": 97,
+      "sd": 60.2
+     }
+    },
+    "BEL": {
+     "20 and over": {
+      "hi": -17.7,
+      "lo": -30.6,
+      "mean": -24.2,
+      "median": -18,
+      "n": 331,
+      "sd": 59.7
+     },
+     "all": {
+      "hi": -8.8,
+      "lo": -19.8,
+      "mean": -14.3,
+      "median": -16,
+      "n": 567,
+      "sd": 66.7
+     },
+     "under 20": {
+      "hi": 8.8,
+      "lo": -9.9,
+      "mean": -0.5,
+      "median": -6.5,
+      "n": 236,
+      "sd": 73.3
+     }
+    },
+    "BIH": {
+     "20 and over": {
+      "hi": 7.9,
+      "lo": -18.3,
+      "mean": -5.2,
+      "median": -8.0,
+      "n": 24,
+      "sd": 32.8
+     },
+     "all": {
+      "hi": 23.3,
+      "lo": -15.4,
+      "mean": 3.9,
+      "median": -6.5,
+      "n": 56,
+      "sd": 73.9
+     },
+     "under 20": {
+      "hi": 43.2,
+      "lo": -21.7,
+      "mean": 10.8,
+      "median": -3.5,
+      "n": 32,
+      "sd": 93.7
+     }
+    },
+    "BLR": {
+     "20 and over": {
+      "hi": 51.5,
+      "lo": -12.2,
+      "mean": 19.6,
+      "median": 21.5,
+      "n": 8,
+      "sd": 46.0
+     },
+     "all": {
+      "hi": 12.2,
+      "lo": -20.1,
+      "mean": -3.9,
+      "median": -6,
+      "n": 87,
+      "sd": 77.0
+     },
+     "under 20": {
+      "hi": 11.1,
+      "lo": -23.8,
+      "mean": -6.3,
+      "median": -10,
+      "n": 79,
+      "sd": 79.2
+     }
+    },
+    "BOL": {
+     "20 and over": {
+      "hi": 46.5,
+      "lo": -34.7,
+      "mean": 5.9,
+      "median": 8,
+      "n": 11,
+      "sd": 68.6
+     },
+     "all": {
+      "hi": 2.5,
+      "lo": -20.4,
+      "mean": -8.9,
+      "median": -13.0,
+      "n": 126,
+      "sd": 65.5
+     },
+     "under 20": {
+      "hi": 1.6,
+      "lo": -22.3,
+      "mean": -10.3,
+      "median": -14,
+      "n": 115,
+      "sd": 65.4
+     }
+    },
+    "BRA": {
+     "20 and over": {
+      "hi": -7.3,
+      "lo": -19.1,
+      "mean": -13.2,
+      "median": -10,
+      "n": 367,
+      "sd": 57.7
+     },
+     "all": {
+      "hi": -0.5,
+      "lo": -9.0,
+      "mean": -4.8,
+      "median": -9.0,
+      "n": 854,
+      "sd": 63.7
+     },
+     "under 20": {
+      "hi": 7.6,
+      "lo": -4.3,
+      "mean": 1.6,
+      "median": -8,
+      "n": 487,
+      "sd": 67.3
+     }
+    },
+    "BUL": {
+     "20 and over": {
+      "hi": 0.7,
+      "lo": -39.6,
+      "mean": -19.4,
+      "median": -14,
+      "n": 27,
+      "sd": 53.4
+     },
+     "all": {
+      "hi": 1.5,
+      "lo": -22.2,
+      "mean": -10.3,
+      "median": -15,
+      "n": 149,
+      "sd": 74.0
+     },
+     "under 20": {
+      "hi": 5.5,
+      "lo": -22.1,
+      "mean": -8.3,
+      "median": -15.5,
+      "n": 122,
+      "sd": 77.9
+     }
+    },
+    "CAN": {
+     "20 and over": {
+      "hi": -16.2,
+      "lo": -30.4,
+      "mean": -23.3,
+      "median": -21.0,
+      "n": 208,
+      "sd": 52.3
+     },
+     "all": {
+      "hi": -5.5,
+      "lo": -17.7,
+      "mean": -11.6,
+      "median": -13,
+      "n": 545,
+      "sd": 73.1
+     },
+     "under 20": {
+      "hi": 5.1,
+      "lo": -13.0,
+      "mean": -4.0,
+      "median": -9,
+      "n": 327,
+      "sd": 83.6
+     }
+    },
+    "CHI": {
+     "20 and over": {
+      "hi": -9.7,
+      "lo": -31.9,
+      "mean": -20.8,
+      "median": -18,
+      "n": 79,
+      "sd": 50.3
+     },
+     "all": {
+      "hi": 6.2,
+      "lo": -8.5,
+      "mean": -1.1,
+      "median": -9.0,
+      "n": 416,
+      "sd": 76.7
+     },
+     "under 20": {
+      "hi": 12.1,
+      "lo": -5.4,
+      "mean": 3.4,
+      "median": -3.5,
+      "n": 332,
+      "sd": 81.4
+     }
+    },
+    "CHN": {
+     "20 and over": {
+      "hi": 17.1,
+      "lo": -5.0,
+      "mean": 6.0,
+      "median": 2,
+      "n": 47,
+      "sd": 38.6
+     },
+     "all": {
+      "hi": 11.2,
+      "lo": -1.6,
+      "mean": 4.8,
+      "median": -4.0,
+      "n": 456,
+      "sd": 70.2
+     },
+     "under 20": {
+      "hi": 11.8,
+      "lo": -2.3,
+      "mean": 4.8,
+      "median": -5.0,
+      "n": 408,
+      "sd": 73.1
+     }
+    },
+    "COL": {
+     "20 and over": {
+      "hi": -3.0,
+      "lo": -23.7,
+      "mean": -13.3,
+      "median": -13.0,
+      "n": 92,
+      "sd": 50.6
+     },
+     "all": {
+      "hi": 2.0,
+      "lo": -12.5,
+      "mean": -5.3,
+      "median": -10,
+      "n": 341,
+      "sd": 68.3
+     },
+     "under 20": {
+      "hi": 6.8,
+      "lo": -11.5,
+      "mean": -2.3,
+      "median": -9,
+      "n": 249,
+      "sd": 73.6
+     }
+    },
+    "CRC": {
+     "20 and over": {
+      "hi": -6.8,
+      "lo": -47.6,
+      "mean": -27.2,
+      "median": -9.0,
+      "n": 48,
+      "sd": 72.2
+     },
+     "all": {
+      "hi": -2.6,
+      "lo": -23.7,
+      "mean": -13.1,
+      "median": -12.5,
+      "n": 194,
+      "sd": 75.1
+     },
+     "under 20": {
+      "hi": 3.8,
+      "lo": -20.8,
+      "mean": -8.5,
+      "median": -13.0,
+      "n": 146,
+      "sd": 75.8
+     }
+    },
+    "CRO": {
+     "20 and over": {
+      "hi": -8.1,
+      "lo": -23.4,
+      "mean": -15.8,
+      "median": -13.0,
+      "n": 134,
+      "sd": 45.3
+     },
+     "all": {
+      "hi": 4.7,
+      "lo": -10.0,
+      "mean": -2.6,
+      "median": -10.0,
+      "n": 362,
+      "sd": 71.5
+     },
+     "under 20": {
+      "hi": 15.7,
+      "lo": -5.6,
+      "mean": 5.1,
+      "median": -7.5,
+      "n": 228,
+      "sd": 82.2
+     }
+    },
+    "CUB": {
+     "20 and over": {
+      "hi": 17.5,
+      "lo": -46.4,
+      "mean": -14.5,
+      "median": -12,
+      "n": 23,
+      "sd": 78.1
+     },
+     "all": {
+      "hi": -10.1,
+      "lo": -40.7,
+      "mean": -25.4,
+      "median": -18,
+      "n": 131,
+      "sd": 89.4
+     },
+     "under 20": {
+      "hi": -10.4,
+      "lo": -45.1,
+      "mean": -27.8,
+      "median": -18.5,
+      "n": 108,
+      "sd": 91.8
+     }
+    },
+    "CZE": {
+     "20 and over": {
+      "hi": -4.9,
+      "lo": -18.6,
+      "mean": -11.8,
+      "median": -15.5,
+      "n": 216,
+      "sd": 51.5
+     },
+     "all": {
+      "hi": 4.9,
+      "lo": -7.0,
+      "mean": -1.1,
+      "median": -11,
+      "n": 655,
+      "sd": 77.7
+     },
+     "under 20": {
+      "hi": 12.4,
+      "lo": -4.0,
+      "mean": 4.2,
+      "median": -6,
+      "n": 439,
+      "sd": 87.4
+     }
+    },
+    "DEN": {
+     "20 and over": {
+      "hi": -3.7,
+      "lo": -24.4,
+      "mean": -14.1,
+      "median": -16.0,
+      "n": 196,
+      "sd": 73.8
+     },
+     "all": {
+      "hi": 0.2,
+      "lo": -18.5,
+      "mean": -9.2,
+      "median": -14.0,
+      "n": 290,
+      "sd": 81.1
+     },
+     "under 20": {
+      "hi": 20.1,
+      "lo": -18.0,
+      "mean": 1.0,
+      "median": -5.0,
+      "n": 94,
+      "sd": 94.2
+     }
+    },
+    "DOM": {
+     "20 and over": {
+      "hi": 9.3,
+      "lo": -38.9,
+      "mean": -14.8,
+      "median": -11.5,
+      "n": 36,
+      "sd": 73.8
+     },
+     "all": {
+      "hi": 2.4,
+      "lo": -29.4,
+      "mean": -13.5,
+      "median": -13,
+      "n": 85,
+      "sd": 74.7
+     },
+     "under 20": {
+      "hi": 8.2,
+      "lo": -35.1,
+      "mean": -13.5,
+      "median": -13.0,
+      "n": 48,
+      "sd": 76.6
+     }
+    },
+    "ECU": {
+     "20 and over": {
+      "hi": -4.6,
+      "lo": -56.0,
+      "mean": -30.3,
+      "median": -8,
+      "n": 17,
+      "sd": 54.1
+     },
+     "all": {
+      "hi": -0.6,
+      "lo": -21.8,
+      "mean": -11.2,
+      "median": -21,
+      "n": 187,
+      "sd": 73.7
+     },
+     "under 20": {
+      "hi": 1.8,
+      "lo": -20.9,
+      "mean": -9.6,
+      "median": -22,
+      "n": 169,
+      "sd": 75.4
+     }
+    },
+    "EGY": {
+     "20 and over": {
+      "hi": 5.8,
+      "lo": -13.6,
+      "mean": -3.9,
+      "median": -13,
+      "n": 119,
+      "sd": 54.0
+     },
+     "all": {
+      "hi": 5.2,
+      "lo": -9.3,
+      "mean": -2.0,
+      "median": -13.0,
+      "n": 288,
+      "sd": 62.6
+     },
+     "under 20": {
+      "hi": 9.6,
+      "lo": -10.9,
+      "mean": -0.7,
+      "median": -13,
+      "n": 169,
+      "sd": 68.1
+     }
+    },
+    "ENG": {
+     "20 and over": {
+      "hi": -2.6,
+      "lo": -13.3,
+      "mean": -8.0,
+      "median": -10.0,
+      "n": 380,
+      "sd": 53.2
+     },
+     "all": {
+      "hi": 5.3,
+      "lo": -5.3,
+      "mean": 0.0,
+      "median": -5,
+      "n": 615,
+      "sd": 67.3
+     },
+     "under 20": {
+      "hi": 23.7,
+      "lo": 2.2,
+      "mean": 13.0,
+      "median": 2,
+      "n": 235,
+      "sd": 83.9
+     }
+    },
+    "ESP": {
+     "20 and over": {
+      "hi": -21.8,
+      "lo": -28.1,
+      "mean": -25.0,
+      "median": -23,
+      "n": 1477,
+      "sd": 62.0
+     },
+     "all": {
+      "hi": -11.8,
+      "lo": -16.8,
+      "mean": -14.3,
+      "median": -18,
+      "n": 3153,
+      "sd": 72.0
+     },
+     "under 20": {
+      "hi": -1.2,
+      "lo": -8.7,
+      "mean": -4.9,
+      "median": -14.0,
+      "n": 1676,
+      "sd": 78.7
+     }
+    },
+    "FID": {
+     "20 and over": {
+      "hi": 16.1,
+      "lo": -25.6,
+      "mean": -4.8,
+      "median": -11,
+      "n": 61,
+      "sd": 83.1
+     },
+     "all": {
+      "hi": 23.3,
+      "lo": -5.6,
+      "mean": 8.9,
+      "median": -6,
+      "n": 145,
+      "sd": 88.9
+     },
+     "under 20": {
+      "hi": 40.6,
+      "lo": 2.0,
+      "mean": 21.3,
+      "median": -1,
+      "n": 83,
+      "sd": 89.6
+     }
+    },
+    "FIN": {
+     "20 and over": {
+      "hi": 5.6,
+      "lo": -15.4,
+      "mean": -4.9,
+      "median": -7.0,
+      "n": 70,
+      "sd": 44.7
+     },
+     "all": {
+      "hi": 11.6,
+      "lo": -9.3,
+      "mean": 1.1,
+      "median": -10,
+      "n": 117,
+      "sd": 57.6
+     },
+     "under 20": {
+      "hi": 30.8,
+      "lo": -10.5,
+      "mean": 10.1,
+      "median": -18,
+      "n": 47,
+      "sd": 72.3
+     }
+    },
+    "FRA": {
+     "20 and over": {
+      "hi": -20.8,
+      "lo": -26.6,
+      "mean": -23.7,
+      "median": -23.0,
+      "n": 1656,
+      "sd": 59.8
+     },
+     "all": {
+      "hi": -9.8,
+      "lo": -14.6,
+      "mean": -12.2,
+      "median": -16,
+      "n": 3517,
+      "sd": 73.2
+     },
+     "under 20": {
+      "hi": 1.7,
+      "lo": -5.8,
+      "mean": -2.0,
+      "median": -11.0,
+      "n": 1860,
+      "sd": 81.9
+     }
+    },
+    "GEO": {
+     "20 and over": {
+      "hi": 0.6,
+      "lo": -93.0,
+      "mean": -46.2,
+      "median": -36.5,
+      "n": 12,
+      "sd": 82.7
+     },
+     "all": {
+      "hi": 6.1,
+      "lo": -17.4,
+      "mean": -5.6,
+      "median": -8,
+      "n": 149,
+      "sd": 73.3
+     },
+     "under 20": {
+      "hi": 8.4,
+      "lo": -15.4,
+      "mean": -3.5,
+      "median": -8,
+      "n": 135,
+      "sd": 70.5
+     }
+    },
+    "GER": {
+     "20 and over": {
+      "hi": -8.5,
+      "lo": -15.2,
+      "mean": -11.8,
+      "median": -13.0,
+      "n": 1106,
+      "sd": 56.5
+     },
+     "all": {
+      "hi": -1.2,
+      "lo": -6.5,
+      "mean": -3.9,
+      "median": -8,
+      "n": 2233,
+      "sd": 63.1
+     },
+     "under 20": {
+      "hi": 7.9,
+      "lo": -0.0,
+      "mean": 3.9,
+      "median": 0,
+      "n": 1127,
+      "sd": 68.2
+     }
+    },
+    "GRE": {
+     "20 and over": {
+      "hi": -14.7,
+      "lo": -30.4,
+      "mean": -22.5,
+      "median": -21.0,
+      "n": 200,
+      "sd": 56.8
+     },
+     "all": {
+      "hi": -3.0,
+      "lo": -13.9,
+      "mean": -8.4,
+      "median": -14.0,
+      "n": 600,
+      "sd": 67.8
+     },
+     "under 20": {
+      "hi": 5.7,
+      "lo": -8.4,
+      "mean": -1.4,
+      "median": -9,
+      "n": 399,
+      "sd": 71.8
+     }
+    },
+    "HUN": {
+     "20 and over": {
+      "hi": 0.8,
+      "lo": -20.3,
+      "mean": -9.7,
+      "median": -18,
+      "n": 111,
+      "sd": 56.7
+     },
+     "all": {
+      "hi": 0.5,
+      "lo": -15.3,
+      "mean": -7.4,
+      "median": -14,
+      "n": 329,
+      "sd": 72.8
+     },
+     "under 20": {
+      "hi": 4.4,
+      "lo": -16.8,
+      "mean": -6.2,
+      "median": -12.5,
+      "n": 218,
+      "sd": 79.9
+     }
+    },
+    "INA": {
+     "20 and over": {
+      "hi": 7.1,
+      "lo": -19.7,
+      "mean": -6.3,
+      "median": -10,
+      "n": 59,
+      "sd": 52.5
+     },
+     "all": {
+      "hi": 11.4,
+      "lo": -7.8,
+      "mean": 1.8,
+      "median": -8.0,
+      "n": 132,
+      "sd": 56.3
+     },
+     "under 20": {
+      "hi": 21.9,
+      "lo": -5.1,
+      "mean": 8.4,
+      "median": -5,
+      "n": 73,
+      "sd": 58.8
+     }
+    },
+    "IND": {
+     "20 and over": {
+      "hi": -16.1,
+      "lo": -24.1,
+      "mean": -20.1,
+      "median": -20.0,
+      "n": 740,
+      "sd": 55.6
+     },
+     "all": {
+      "hi": -0.5,
+      "lo": -4.0,
+      "mean": -2.2,
+      "median": -11,
+      "n": 6039,
+      "sd": 69.1
+     },
+     "under 20": {
+      "hi": 2.2,
+      "lo": -1.6,
+      "mean": 0.3,
+      "median": -9,
+      "n": 5297,
+      "sd": 70.5
+     }
+    },
+    "IRI": {
+     "20 and over": {
+      "hi": -13.3,
+      "lo": -28.9,
+      "mean": -21.1,
+      "median": -20,
+      "n": 213,
+      "sd": 58.2
+     },
+     "all": {
+      "hi": -5.2,
+      "lo": -13.0,
+      "mean": -9.1,
+      "median": -13,
+      "n": 1137,
+      "sd": 67.4
+     },
+     "under 20": {
+      "hi": -1.9,
+      "lo": -10.8,
+      "mean": -6.3,
+      "median": -12.0,
+      "n": 918,
+      "sd": 69.1
+     }
+    },
+    "IRL": {
+     "20 and over": {
+      "hi": -15.6,
+      "lo": -31.9,
+      "mean": -23.8,
+      "median": -22,
+      "n": 159,
+      "sd": 52.2
+     },
+     "all": {
+      "hi": -5.8,
+      "lo": -21.8,
+      "mean": -13.8,
+      "median": -17.0,
+      "n": 258,
+      "sd": 65.4
+     },
+     "under 20": {
+      "hi": 18.0,
+      "lo": -13.5,
+      "mean": 2.3,
+      "median": -6,
+      "n": 99,
+      "sd": 80.1
+     }
+    },
+    "IRQ": {
+     "20 and over": {
+      "hi": 6.5,
+      "lo": -27.7,
+      "mean": -10.6,
+      "median": -6,
+      "n": 37,
+      "sd": 53.1
+     },
+     "all": {
+      "hi": 0.7,
+      "lo": -24.8,
+      "mean": -12.1,
+      "median": -13.5,
+      "n": 88,
+      "sd": 61.1
+     },
+     "under 20": {
+      "hi": 5.2,
+      "lo": -31.5,
+      "mean": -13.1,
+      "median": -16,
+      "n": 51,
+      "sd": 66.9
+     }
+    },
+    "ISR": {
+     "20 and over": {
+      "hi": -3.7,
+      "lo": -23.8,
+      "mean": -13.7,
+      "median": -13,
+      "n": 115,
+      "sd": 55.0
+     },
+     "all": {
+      "hi": 1.1,
+      "lo": -15.0,
+      "mean": -6.9,
+      "median": -14.5,
+      "n": 358,
+      "sd": 77.9
+     },
+     "under 20": {
+      "hi": 7.1,
+      "lo": -14.6,
+      "mean": -3.7,
+      "median": -16,
+      "n": 243,
+      "sd": 86.5
+     }
+    },
+    "ITA": {
+     "20 and over": {
+      "hi": -17.7,
+      "lo": -26.9,
+      "mean": -22.3,
+      "median": -19.0,
+      "n": 726,
+      "sd": 63.2
+     },
+     "all": {
+      "hi": -4.1,
+      "lo": -11.3,
+      "mean": -7.7,
+      "median": -12,
+      "n": 1633,
+      "sd": 74.3
+     },
+     "under 20": {
+      "hi": 9.3,
+      "lo": -1.2,
+      "mean": 4.1,
+      "median": -5,
+      "n": 907,
+      "sd": 80.2
+     }
+    },
+    "KAZ": {
+     "20 and over": {
+      "hi": -15.7,
+      "lo": -42.7,
+      "mean": -29.2,
+      "median": -32.0,
+      "n": 94,
+      "sd": 66.7
+     },
+     "all": {
+      "hi": -1.7,
+      "lo": -12.4,
+      "mean": -7.0,
+      "median": -14,
+      "n": 813,
+      "sd": 77.8
+     },
+     "under 20": {
+      "hi": 1.6,
+      "lo": -9.9,
+      "mean": -4.1,
+      "median": -8,
+      "n": 719,
+      "sd": 78.7
+     }
+    },
+    "KEN": {
+     "20 and over": {
+      "hi": -0.9,
+      "lo": -27.1,
+      "mean": -14.0,
+      "median": -14.0,
+      "n": 94,
+      "sd": 64.7
+     },
+     "all": {
+      "hi": -6.6,
+      "lo": -23.0,
+      "mean": -14.8,
+      "median": -19,
+      "n": 259,
+      "sd": 67.4
+     },
+     "under 20": {
+      "hi": -4.8,
+      "lo": -25.9,
+      "mean": -15.3,
+      "median": -21,
+      "n": 165,
+      "sd": 69.1
+     }
+    },
+    "KGZ": {
+     "20 and over": {
+      "hi": -3.4,
+      "lo": -87.7,
+      "mean": -45.6,
+      "median": -34.5,
+      "n": 18,
+      "sd": 91.3
+     },
+     "all": {
+      "hi": -7.3,
+      "lo": -35.5,
+      "mean": -21.4,
+      "median": -26.0,
+      "n": 110,
+      "sd": 75.4
+     },
+     "under 20": {
+      "hi": -2.1,
+      "lo": -31.3,
+      "mean": -16.7,
+      "median": -26.0,
+      "n": 92,
+      "sd": 71.6
+     }
+    },
+    "KOR": {
+     "20 and over": {
+      "hi": -5.6,
+      "lo": -30.6,
+      "mean": -18.1,
+      "median": -15.0,
+      "n": 68,
+      "sd": 52.7
+     },
+     "all": {
+      "hi": 0.5,
+      "lo": -19.9,
+      "mean": -9.7,
+      "median": -14.0,
+      "n": 280,
+      "sd": 86.8
+     },
+     "under 20": {
+      "hi": 5.8,
+      "lo": -19.8,
+      "mean": -7.0,
+      "median": -13.5,
+      "n": 212,
+      "sd": 95.2
+     }
+    },
+    "LAT": {
+     "20 and over": {
+      "hi": 5.4,
+      "lo": -48.6,
+      "mean": -21.6,
+      "median": -10,
+      "n": 15,
+      "sd": 53.4
+     },
+     "all": {
+      "hi": 14.7,
+      "lo": -16.8,
+      "mean": -1.0,
+      "median": -9,
+      "n": 121,
+      "sd": 88.5
+     },
+     "under 20": {
+      "hi": 19.4,
+      "lo": -15.7,
+      "mean": 1.9,
+      "median": -8.0,
+      "n": 106,
+      "sd": 92.2
+     }
+    },
+    "LTU": {
+     "20 and over": {
+      "hi": 18.0,
+      "lo": -41.0,
+      "mean": -11.5,
+      "median": -23.5,
+      "n": 22,
+      "sd": 70.6
+     },
+     "all": {
+      "hi": 5.7,
+      "lo": -26.1,
+      "mean": -10.2,
+      "median": -14,
+      "n": 81,
+      "sd": 73.1
+     },
+     "under 20": {
+      "hi": 9.3,
+      "lo": -28.7,
+      "mean": -9.7,
+      "median": -11,
+      "n": 59,
+      "sd": 74.6
+     }
+    },
+    "MAS": {
+     "20 and over": {
+      "hi": 13.7,
+      "lo": -19.0,
+      "mean": -2.7,
+      "median": -16,
+      "n": 55,
+      "sd": 61.8
+     },
+     "all": {
+      "hi": 2.0,
+      "lo": -12.4,
+      "mean": -5.2,
+      "median": -9,
+      "n": 369,
+      "sd": 70.4
+     },
+     "under 20": {
+      "hi": 2.7,
+      "lo": -13.3,
+      "mean": -5.3,
+      "median": -7.0,
+      "n": 312,
+      "sd": 71.9
+     }
+    },
+    "MEX": {
+     "20 and over": {
+      "hi": -10.2,
+      "lo": -23.9,
+      "mean": -17.0,
+      "median": -20.0,
+      "n": 240,
+      "sd": 53.9
+     },
+     "all": {
+      "hi": -6.8,
+      "lo": -15.6,
+      "mean": -11.2,
+      "median": -14,
+      "n": 735,
+      "sd": 60.6
+     },
+     "under 20": {
+      "hi": -2.8,
+      "lo": -14.0,
+      "mean": -8.4,
+      "median": -12,
+      "n": 495,
+      "sd": 63.4
+     }
+    },
+    "NED": {
+     "20 and over": {
+      "hi": -3.6,
+      "lo": -12.0,
+      "mean": -7.8,
+      "median": -9,
+      "n": 575,
+      "sd": 50.9
+     },
+     "all": {
+      "hi": 3.7,
+      "lo": -4.9,
+      "mean": -0.6,
+      "median": -4.0,
+      "n": 752,
+      "sd": 60.2
+     },
+     "under 20": {
+      "hi": 34.6,
+      "lo": 11.2,
+      "mean": 22.9,
+      "median": 18,
+      "n": 177,
+      "sd": 79.4
+     }
+    },
+    "NEP": {
+     "20 and over": {
+      "hi": 2.4,
+      "lo": -29.6,
+      "mean": -13.6,
+      "median": -9.5,
+      "n": 46,
+      "sd": 55.3
+     },
+     "all": {
+      "hi": -1.6,
+      "lo": -24.1,
+      "mean": -12.9,
+      "median": -11.5,
+      "n": 108,
+      "sd": 59.6
+     },
+     "under 20": {
+      "hi": 3.4,
+      "lo": -28.0,
+      "mean": -12.3,
+      "median": -16.5,
+      "n": 62,
+      "sd": 63.0
+     }
+    },
+    "NOR": {
+     "20 and over": {
+      "hi": -14.4,
+      "lo": -30.2,
+      "mean": -22.3,
+      "median": -25.5,
+      "n": 208,
+      "sd": 58.2
+     },
+     "all": {
+      "hi": -7.4,
+      "lo": -20.8,
+      "mean": -14.1,
+      "median": -18,
+      "n": 361,
+      "sd": 64.8
+     },
+     "under 20": {
+      "hi": 8.5,
+      "lo": -14.2,
+      "mean": -2.9,
+      "median": -8,
+      "n": 153,
+      "sd": 71.6
+     }
+    },
+    "PER": {
+     "20 and over": {
+      "hi": -12.0,
+      "lo": -35.9,
+      "mean": -23.9,
+      "median": -15.5,
+      "n": 76,
+      "sd": 53.2
+     },
+     "all": {
+      "hi": -5.5,
+      "lo": -18.0,
+      "mean": -11.7,
+      "median": -18,
+      "n": 583,
+      "sd": 77.2
+     },
+     "under 20": {
+      "hi": -2.9,
+      "lo": -16.9,
+      "mean": -9.9,
+      "median": -18,
+      "n": 507,
+      "sd": 80.1
+     }
+    },
+    "PHI": {
+     "20 and over": {
+      "hi": -11.4,
+      "lo": -30.7,
+      "mean": -21.0,
+      "median": -16,
+      "n": 115,
+      "sd": 53.0
+     },
+     "all": {
+      "hi": -5.5,
+      "lo": -15.8,
+      "mean": -10.6,
+      "median": -12,
+      "n": 541,
+      "sd": 61.4
+     },
+     "under 20": {
+      "hi": -1.5,
+      "lo": -13.7,
+      "mean": -7.6,
+      "median": -12.0,
+      "n": 416,
+      "sd": 63.7
+     }
+    },
+    "POL": {
+     "20 and over": {
+      "hi": -17.1,
+      "lo": -28.8,
+      "mean": -23.0,
+      "median": -21.0,
+      "n": 412,
+      "sd": 60.8
+     },
+     "all": {
+      "hi": -2.6,
+      "lo": -10.4,
+      "mean": -6.5,
+      "median": -11,
+      "n": 1503,
+      "sd": 76.9
+     },
+     "under 20": {
+      "hi": 4.6,
+      "lo": -5.1,
+      "mean": -0.2,
+      "median": -7,
+      "n": 1091,
+      "sd": 81.3
+     }
+    },
+    "POR": {
+     "20 and over": {
+      "hi": 3.6,
+      "lo": -15.7,
+      "mean": -6.1,
+      "median": -12.0,
+      "n": 106,
+      "sd": 50.6
+     },
+     "all": {
+      "hi": 0.5,
+      "lo": -16.2,
+      "mean": -7.8,
+      "median": -12,
+      "n": 233,
+      "sd": 64.9
+     },
+     "under 20": {
+      "hi": 3.7,
+      "lo": -22.4,
+      "mean": -9.3,
+      "median": -12,
+      "n": 127,
+      "sd": 74.9
+     }
+    },
+    "ROU": {
+     "20 and over": {
+      "hi": -8.4,
+      "lo": -33.4,
+      "mean": -20.9,
+      "median": -18,
+      "n": 99,
+      "sd": 63.3
+     },
+     "all": {
+      "hi": -2.0,
+      "lo": -15.7,
+      "mean": -8.8,
+      "median": -13.0,
+      "n": 470,
+      "sd": 75.9
+     },
+     "under 20": {
+      "hi": 2.4,
+      "lo": -13.6,
+      "mean": -5.6,
+      "median": -12,
+      "n": 371,
+      "sd": 78.7
+     }
+    },
+    "RSA": {
+     "20 and over": {
+      "hi": -2.7,
+      "lo": -21.4,
+      "mean": -12.0,
+      "median": -12.0,
+      "n": 184,
+      "sd": 65.0
+     },
+     "all": {
+      "hi": -10.8,
+      "lo": -21.9,
+      "mean": -16.4,
+      "median": -18,
+      "n": 661,
+      "sd": 72.8
+     },
+     "under 20": {
+      "hi": -11.3,
+      "lo": -24.9,
+      "mean": -18.1,
+      "median": -20.0,
+      "n": 474,
+      "sd": 75.4
+     }
+    },
+    "RUS": {
+     "20 and over": {
+      "hi": -23.0,
+      "lo": -44.1,
+      "mean": -33.6,
+      "median": -32,
+      "n": 163,
+      "sd": 68.8
+     },
+     "all": {
+      "hi": -6.6,
+      "lo": -13.3,
+      "mean": -10.0,
+      "median": -15.0,
+      "n": 1782,
+      "sd": 71.5
+     },
+     "under 20": {
+      "hi": -4.1,
+      "lo": -11.0,
+      "mean": -7.6,
+      "median": -14.0,
+      "n": 1618,
+      "sd": 71.4
+     }
+    },
+    "SCO": {
+     "20 and over": {
+      "hi": 0.1,
+      "lo": -28.8,
+      "mean": -14.3,
+      "median": -18.0,
+      "n": 72,
+      "sd": 62.5
+     },
+     "all": {
+      "hi": 11.0,
+      "lo": -15.0,
+      "mean": -2.0,
+      "median": -6,
+      "n": 105,
+      "sd": 68.0
+     },
+     "under 20": {
+      "hi": 49.7,
+      "lo": 0.1,
+      "mean": 24.9,
+      "median": 27,
+      "n": 33,
+      "sd": 72.6
+     }
+    },
+    "SGP": {
+     "20 and over": {
+      "hi": 20.4,
+      "lo": -32.4,
+      "mean": -6.0,
+      "median": -12,
+      "n": 15,
+      "sd": 52.2
+     },
+     "all": {
+      "hi": 17.6,
+      "lo": -10.2,
+      "mean": 3.7,
+      "median": -9,
+      "n": 127,
+      "sd": 79.8
+     },
+     "under 20": {
+      "hi": 20.4,
+      "lo": -10.4,
+      "mean": 5.0,
+      "median": -7.0,
+      "n": 112,
+      "sd": 82.9
+     }
+    },
+    "SLO": {
+     "20 and over": {
+      "hi": 5.8,
+      "lo": -30.9,
+      "mean": -12.5,
+      "median": -11.0,
+      "n": 22,
+      "sd": 43.9
+     },
+     "all": {
+      "hi": 37.2,
+      "lo": -1.7,
+      "mean": 17.8,
+      "median": -7,
+      "n": 85,
+      "sd": 91.4
+     },
+     "under 20": {
+      "hi": 53.3,
+      "lo": 3.4,
+      "mean": 28.3,
+      "median": 1,
+      "n": 63,
+      "sd": 101.1
+     }
+    },
+    "SRB": {
+     "20 and over": {
+      "hi": -0.9,
+      "lo": -17.3,
+      "mean": -9.1,
+      "median": -11,
+      "n": 149,
+      "sd": 50.9
+     },
+     "all": {
+      "hi": -4.1,
+      "lo": -18.0,
+      "mean": -11.1,
+      "median": -12,
+      "n": 345,
+      "sd": 66.2
+     },
+     "under 20": {
+      "hi": -1.9,
+      "lo": -23.2,
+      "mean": -12.6,
+      "median": -15.5,
+      "n": 196,
+      "sd": 75.9
+     }
+    },
+    "SRI": {
+     "20 and over": {
+      "hi": -11.8,
+      "lo": -29.6,
+      "mean": -20.7,
+      "median": -14,
+      "n": 71,
+      "sd": 38.3
+     },
+     "all": {
+      "hi": -4.2,
+      "lo": -11.8,
+      "mean": -8.0,
+      "median": -14,
+      "n": 1107,
+      "sd": 64.5
+     },
+     "under 20": {
+      "hi": -3.1,
+      "lo": -11.1,
+      "mean": -7.1,
+      "median": -14,
+      "n": 1033,
+      "sd": 65.9
+     }
+    },
+    "SUI": {
+     "20 and over": {
+      "hi": -9.9,
+      "lo": -24.0,
+      "mean": -16.9,
+      "median": -16.0,
+      "n": 250,
+      "sd": 56.7
+     },
+     "all": {
+      "hi": -1.6,
+      "lo": -13.9,
+      "mean": -7.8,
+      "median": -9.5,
+      "n": 418,
+      "sd": 64.3
+     },
+     "under 20": {
+      "hi": 16.8,
+      "lo": -5.1,
+      "mean": 5.9,
+      "median": -1.5,
+      "n": 168,
+      "sd": 72.3
+     }
+    },
+    "SVK": {
+     "20 and over": {
+      "hi": -10.2,
+      "lo": -28.3,
+      "mean": -19.3,
+      "median": -18.0,
+      "n": 130,
+      "sd": 52.7
+     },
+     "all": {
+      "hi": 0.5,
+      "lo": -13.0,
+      "mean": -6.3,
+      "median": -11,
+      "n": 459,
+      "sd": 74.1
+     },
+     "under 20": {
+      "hi": 7.6,
+      "lo": -9.8,
+      "mean": -1.1,
+      "median": -8,
+      "n": 329,
+      "sd": 80.4
+     }
+    },
+    "SWE": {
+     "20 and over": {
+      "hi": -16.8,
+      "lo": -30.4,
+      "mean": -23.6,
+      "median": -22.0,
+      "n": 292,
+      "sd": 59.5
+     },
+     "all": {
+      "hi": -13.9,
+      "lo": -25.9,
+      "mean": -19.9,
+      "median": -22,
+      "n": 503,
+      "sd": 69.1
+     },
+     "under 20": {
+      "hi": -3.9,
+      "lo": -25.6,
+      "mean": -14.8,
+      "median": -21,
+      "n": 211,
+      "sd": 80.4
+     }
+    },
+    "TUR": {
+     "20 and over": {
+      "hi": -13.2,
+      "lo": -32.8,
+      "mean": -23.0,
+      "median": -22.0,
+      "n": 124,
+      "sd": 55.6
+     },
+     "all": {
+      "hi": 3.7,
+      "lo": -6.6,
+      "mean": -1.4,
+      "median": -9.0,
+      "n": 888,
+      "sd": 78.3
+     },
+     "under 20": {
+      "hi": 7.7,
+      "lo": -3.7,
+      "mean": 2.0,
+      "median": -7,
+      "n": 763,
+      "sd": 80.9
+     }
+    },
+    "UKR": {
+     "20 and over": {
+      "hi": 1.8,
+      "lo": -28.4,
+      "mean": -13.3,
+      "median": -20,
+      "n": 55,
+      "sd": 57.1
+     },
+     "all": {
+      "hi": 7.1,
+      "lo": -8.4,
+      "mean": -0.7,
+      "median": -9.0,
+      "n": 328,
+      "sd": 71.5
+     },
+     "under 20": {
+      "hi": 10.7,
+      "lo": -6.9,
+      "mean": 1.9,
+      "median": -7.0,
+      "n": 272,
+      "sd": 74.0
+     }
+    },
+    "USA": {
+     "20 and over": {
+      "hi": -16.1,
+      "lo": -27.6,
+      "mean": -21.9,
+      "median": -20.0,
+      "n": 446,
+      "sd": 61.8
+     },
+     "all": {
+      "hi": -2.1,
+      "lo": -10.5,
+      "mean": -6.3,
+      "median": -8.0,
+      "n": 1430,
+      "sd": 81.0
+     },
+     "under 20": {
+      "hi": 6.2,
+      "lo": -4.7,
+      "mean": 0.8,
+      "median": -4,
+      "n": 983,
+      "sd": 87.5
+     }
+    },
+    "UZB": {
+     "20 and over": {
+      "hi": 21.6,
+      "lo": -9.3,
+      "mean": 6.2,
+      "median": 14.5,
+      "n": 20,
+      "sd": 35.4
+     },
+     "all": {
+      "hi": 21.7,
+      "lo": 1.3,
+      "mean": 11.5,
+      "median": -5,
+      "n": 241,
+      "sd": 80.8
+     },
+     "under 20": {
+      "hi": 23.0,
+      "lo": 1.0,
+      "mean": 12.0,
+      "median": -6,
+      "n": 221,
+      "sd": 83.7
+     }
+    },
+    "VEN": {
+     "20 and over": {
+      "hi": 20.1,
+      "lo": -30.9,
+      "mean": -5.4,
+      "median": -4,
+      "n": 31,
+      "sd": 72.5
+     },
+     "all": {
+      "hi": -9.9,
+      "lo": -27.2,
+      "mean": -18.5,
+      "median": -22.0,
+      "n": 234,
+      "sd": 67.6
+     },
+     "under 20": {
+      "hi": -10.8,
+      "lo": -29.2,
+      "mean": -20.0,
+      "median": -25.0,
+      "n": 202,
+      "sd": 66.5
+     }
+    },
+    "VIE": {
+     "20 and over": {
+      "hi": 11.0,
+      "lo": -42.6,
+      "mean": -15.8,
+      "median": -18.5,
+      "n": 38,
+      "sd": 84.3
+     },
+     "all": {
+      "hi": -2.5,
+      "lo": -17.1,
+      "mean": -9.8,
+      "median": -15,
+      "n": 379,
+      "sd": 72.7
+     },
+     "under 20": {
+      "hi": -1.5,
+      "lo": -16.7,
+      "mean": -9.1,
+      "median": -15,
+      "n": 341,
+      "sd": 71.4
+     }
+    },
+    "WLS": {
+     "20 and over": {
+      "hi": 8.8,
+      "lo": -34.9,
+      "mean": -13.1,
+      "median": -9,
+      "n": 29,
+      "sd": 60.0
+     },
+     "all": {
+      "hi": 0.9,
+      "lo": -30.0,
+      "mean": -14.6,
+      "median": -11,
+      "n": 49,
+      "sd": 55.2
+     },
+     "under 20": {
+      "hi": 5.6,
+      "lo": -39.6,
+      "mean": -17.0,
+      "median": -16,
+      "n": 19,
+      "sd": 50.3
+     }
+    },
+    "ZAM": {
+     "20 and over": {
+      "hi": -12.4,
+      "lo": -41.5,
+      "mean": -27.0,
+      "median": -27.5,
+      "n": 64,
+      "sd": 59.2
+     },
+     "all": {
+      "hi": -8.4,
+      "lo": -34.4,
+      "mean": -21.4,
+      "median": -27.5,
+      "n": 90,
+      "sd": 63.1
+     },
+     "under 20": {
+      "hi": 19.6,
+      "lo": -35.1,
+      "mean": -7.8,
+      "median": -25.0,
+      "n": 26,
+      "sd": 71.1
+     }
+    }
+   },
+   "by_level": {
+    "1400-1599": {
+     "hi": 6.2,
+     "lo": 4.5,
+     "mean": 5.3,
+     "median": -6.0,
+     "n": 27762,
+     "sd": 69.5
+    },
+    "1600-1799": {
+     "hi": -21.4,
+     "lo": -23.5,
+     "mean": -22.5,
+     "median": -21.0,
+     "n": 16634,
+     "sd": 69.9
+    },
+    "1800-1999": {
+     "hi": -31.1,
+     "lo": -35.2,
+     "mean": -33.1,
+     "median": -28.0,
+     "n": 4066,
+     "sd": 65.9
+    },
+    "2000-2199": {
+     "hi": -38.1,
+     "lo": -54.9,
+     "mean": -46.5,
+     "median": -36.5,
+     "n": 276,
+     "sd": 71.3
+    },
+    "2200-2399": {
+     "hi": -193.0,
+     "lo": -193.0,
+     "mean": -193.0,
+     "median": -193,
+     "n": 1,
+     "sd": 0.0
+    },
+    "below 1400": {
+     "hi": 163.4,
+     "lo": 107.4,
+     "mean": 135.4,
+     "median": 137.5,
+     "n": 24,
+     "sd": 69.9
+    }
+   },
+   "federation_directions": {
+    "falls": 37,
+    "not settled": 37,
+    "rises": 1
+   },
+   "first_lists": [
+    "2024-04",
+    "2025-10"
+   ],
+   "newcomers": 76199,
+   "played_in_between": 48763,
+   "still_listed": 70952
+  },
+  "12_same_cohort_as_24": {
+   "all": {
+    "hi": -3.2,
+    "lo": -5.3,
+    "mean": -4.3,
+    "median": -11.0,
+    "n": 17622,
+    "sd": 73.5
+   },
+   "by_age": {
+    "12-15": {
+     "hi": 2.9,
+     "lo": -1.0,
+     "mean": 1.0,
+     "median": -9,
+     "n": 5775,
+     "sd": 77.4
+    },
+    "16-19": {
+     "hi": 0.7,
+     "lo": -5.0,
+     "mean": -2.1,
+     "median": -8.0,
+     "n": 2172,
+     "sd": 67.6
+    },
+    "20-24": {
+     "hi": -3.0,
+     "lo": -10.6,
+     "mean": -6.8,
+     "median": -10.0,
+     "n": 1000,
+     "sd": 61.5
+    },
+    "25-45": {
+     "hi": -14.8,
+     "lo": -19.5,
+     "mean": -17.2,
+     "median": -15.0,
+     "n": 2416,
+     "sd": 59.3
+    },
+    "46-60": {
+     "hi": -19.0,
+     "lo": -25.8,
+     "mean": -22.4,
+     "median": -21,
+     "n": 1091,
+     "sd": 56.9
+    },
+    "<12": {
+     "hi": 6.5,
+     "lo": 1.5,
+     "mean": 4.0,
+     "median": -7,
+     "n": 4401,
+     "sd": 83.9
+    },
+    ">60": {
+     "hi": -24.1,
+     "lo": -32.1,
+     "mean": -28.1,
+     "median": -23,
+     "n": 745,
+     "sd": 56.0
+    }
+   },
+   "by_age_level": {
+    "12-15|1400-1599": {
+     "hi": 12.7,
+     "lo": 8.2,
+     "mean": 10.5,
+     "median": -3.0,
+     "n": 4002,
+     "sd": 72.9
+    },
+    "12-15|1600-1799": {
+     "hi": -14.3,
+     "lo": -22.4,
+     "mean": -18.3,
+     "median": -23,
+     "n": 1583,
+     "sd": 81.8
+    },
+    "12-15|1800-1999": {
+     "hi": -35.1,
+     "lo": -59.8,
+     "mean": -47.4,
+     "median": -39,
+     "n": 169,
+     "sd": 82.1
+    },
+    "12-15|2000-2199": {
+     "hi": -14.0,
+     "lo": -100.0,
+     "mean": -57.0,
+     "median": -37.0,
+     "n": 10,
+     "sd": 69.4
+    },
+    "12-15|below 1400": {
+     "hi": 150.5,
+     "lo": 82.0,
+     "mean": 116.3,
+     "median": 81,
+     "n": 11,
+     "sd": 57.9
+    },
+    "16-19|1400-1599": {
+     "hi": 16.2,
+     "lo": 8.0,
+     "mean": 12.1,
+     "median": -2,
+     "n": 953,
+     "sd": 64.8
+    },
+    "16-19|1600-1799": {
+     "hi": -7.6,
+     "lo": -16.2,
+     "mean": -11.9,
+     "median": -13,
+     "n": 945,
+     "sd": 66.9
+    },
+    "16-19|1800-1999": {
+     "hi": -9.3,
+     "lo": -26.1,
+     "mean": -17.7,
+     "median": -20.5,
+     "n": 254,
+     "sd": 68.2
+    },
+    "16-19|2000-2199": {
+     "hi": 0.5,
+     "lo": -66.7,
+     "mean": -33.1,
+     "median": -52,
+     "n": 19,
+     "sd": 74.8
+    },
+    "16-19|below 1400": {
+     "hi": 203.0,
+     "lo": 203.0,
+     "mean": 203.0,
+     "median": 203,
+     "n": 1,
+     "sd": 0.0
+    },
+    "20-24|1400-1599": {
+     "hi": 15.0,
+     "lo": 1.4,
+     "mean": 8.2,
+     "median": -3,
+     "n": 301,
+     "sd": 60.5
+    },
+    "20-24|1600-1799": {
+     "hi": -2.9,
+     "lo": -13.8,
+     "mean": -8.3,
+     "median": -9,
+     "n": 511,
+     "sd": 62.9
+    },
+    "20-24|1800-1999": {
+     "hi": -17.8,
+     "lo": -33.2,
+     "mean": -25.5,
+     "median": -27,
+     "n": 177,
+     "sd": 52.2
+    },
+    "20-24|2000-2199": {
+     "hi": -8.0,
+     "lo": -84.2,
+     "mean": -46.1,
+     "median": -41,
+     "n": 11,
+     "sd": 64.4
+    },
+    "25-45|1400-1599": {
+     "hi": 1.1,
+     "lo": -6.5,
+     "mean": -2.7,
+     "median": -9.5,
+     "n": 762,
+     "sd": 53.4
+    },
+    "25-45|1600-1799": {
+     "hi": -15.8,
+     "lo": -22.5,
+     "mean": -19.1,
+     "median": -16.0,
+     "n": 1168,
+     "sd": 58.5
+    },
+    "25-45|1800-1999": {
+     "hi": -29.1,
+     "lo": -41.1,
+     "mean": -35.1,
+     "median": -32.0,
+     "n": 448,
+     "sd": 64.6
+    },
+    "25-45|2000-2199": {
+     "hi": -25.1,
+     "lo": -59.3,
+     "mean": -42.2,
+     "median": -34,
+     "n": 37,
+     "sd": 53.1
+    },
+    "25-45|below 1400": {
+     "hi": 191.0,
+     "lo": 191.0,
+     "mean": 191.0,
+     "median": 191,
+     "n": 1,
+     "sd": 0.0
+    },
+    "46-60|1400-1599": {
+     "hi": -8.6,
+     "lo": -18.2,
+     "mean": -13.4,
+     "median": -16,
+     "n": 375,
+     "sd": 47.5
+    },
+    "46-60|1600-1799": {
+     "hi": -19.9,
+     "lo": -30.9,
+     "mean": -25.4,
+     "median": -22,
+     "n": 497,
+     "sd": 62.3
+    },
+    "46-60|1800-1999": {
+     "hi": -21.8,
+     "lo": -37.2,
+     "mean": -29.5,
+     "median": -23.0,
+     "n": 200,
+     "sd": 55.7
+    },
+    "46-60|2000-2199": {
+     "hi": -13.9,
+     "lo": -76.5,
+     "mean": -45.2,
+     "median": -39,
+     "n": 19,
+     "sd": 69.7
+    },
+    "<12|1400-1599": {
+     "hi": 17.1,
+     "lo": 11.9,
+     "mean": 14.5,
+     "median": 0,
+     "n": 3555,
+     "sd": 78.6
+    },
+    "<12|1600-1799": {
+     "hi": -35.2,
+     "lo": -47.4,
+     "mean": -41.3,
+     "median": -45,
+     "n": 795,
+     "sd": 87.5
+    },
+    "<12|1800-1999": {
+     "hi": -32.0,
+     "lo": -95.6,
+     "mean": -63.8,
+     "median": -56,
+     "n": 39,
+     "sd": 101.3
+    },
+    "<12|2000-2199": {
+     "hi": -218.0,
+     "lo": -218.0,
+     "mean": -218.0,
+     "median": -218,
+     "n": 1,
+     "sd": 0.0
+    },
+    "<12|below 1400": {
+     "hi": 191.6,
+     "lo": 95.1,
+     "mean": 143.4,
+     "median": 138,
+     "n": 11,
+     "sd": 81.6
+    },
+    ">60|1400-1599": {
+     "hi": -10.4,
+     "lo": -22.9,
+     "mean": -16.6,
+     "median": -18,
+     "n": 231,
+     "sd": 48.6
+    },
+    ">60|1600-1799": {
+     "hi": -26.3,
+     "lo": -37.8,
+     "mean": -32.1,
+     "median": -26.0,
+     "n": 358,
+     "sd": 55.8
+    },
+    ">60|1800-1999": {
+     "hi": -25.4,
+     "lo": -46.2,
+     "mean": -35.8,
+     "median": -25.5,
+     "n": 144,
+     "sd": 63.7
+    },
+    ">60|2000-2199": {
+     "hi": 0.8,
+     "lo": -77.4,
+     "mean": -38.3,
+     "median": -39.0,
+     "n": 12,
+     "sd": 69.1
+    }
+   },
+   "by_federation": {
+    "ALG": {
+     "20 and over": {
+      "hi": 17.1,
+      "lo": -20.9,
+      "mean": -1.9,
+      "median": 2,
+      "n": 15,
+      "sd": 37.6
+     },
+     "all": {
+      "hi": 28.5,
+      "lo": -10.7,
+      "mean": 8.9,
+      "median": 0.5,
+      "n": 62,
+      "sd": 78.6
+     },
+     "under 20": {
+      "hi": 37.5,
+      "lo": -12.7,
+      "mean": 12.4,
+      "median": -5,
+      "n": 47,
+      "sd": 87.9
+     }
+    },
+    "ARG": {
+     "20 and over": {
+      "hi": -4.4,
+      "lo": -31.9,
+      "mean": -18.1,
+      "median": -12,
+      "n": 89,
+      "sd": 66.2
+     },
+     "all": {
+      "hi": -0.1,
+      "lo": -20.9,
+      "mean": -10.5,
+      "median": -9.5,
+      "n": 168,
+      "sd": 68.8
+     },
+     "under 20": {
+      "hi": 13.7,
+      "lo": -18.9,
+      "mean": -2.6,
+      "median": -6,
+      "n": 73,
+      "sd": 71.0
+     }
+    },
+    "ARM": {
+     "20 and over": {
+      "hi": -9.1,
+      "lo": -70.5,
+      "mean": -39.8,
+      "median": -45,
+      "n": 5,
+      "sd": 35.1
+     },
+     "all": {
+      "hi": 14.5,
+      "lo": -13.8,
+      "mean": 0.4,
+      "median": -1.5,
+      "n": 84,
+      "sd": 66.3
+     },
+     "under 20": {
+      "hi": 17.7,
+      "lo": -11.9,
+      "mean": 2.9,
+      "median": 0,
+      "n": 79,
+      "sd": 67.2
+     }
+    },
+    "AUS": {
+     "20 and over": {
+      "hi": -19.0,
+      "lo": -44.6,
+      "mean": -31.8,
+      "median": -27,
+      "n": 99,
+      "sd": 65.1
+     },
+     "all": {
+      "hi": -6.2,
+      "lo": -26.6,
+      "mean": -16.4,
+      "median": -20,
+      "n": 215,
+      "sd": 76.4
+     },
+     "under 20": {
+      "hi": 11.8,
+      "lo": -18.4,
+      "mean": -3.3,
+      "median": -15.0,
+      "n": 116,
+      "sd": 83.0
+     }
+    },
+    "AUT": {
+     "20 and over": {
+      "hi": -4.2,
+      "lo": -23.9,
+      "mean": -14.1,
+      "median": -12.0,
+      "n": 80,
+      "sd": 44.9
+     },
+     "all": {
+      "hi": 12.9,
+      "lo": -6.8,
+      "mean": 3.1,
+      "median": -6.0,
+      "n": 156,
+      "sd": 62.7
+     },
+     "under 20": {
+      "hi": 37.7,
+      "lo": 4.7,
+      "mean": 21.2,
+      "median": 4.5,
+      "n": 76,
+      "sd": 73.3
+     }
+    },
+    "AZE": {
+     "20 and over": {
+      "hi": 41.0,
+      "lo": -55.5,
+      "mean": -7.2,
+      "median": -20.5,
+      "n": 14,
+      "sd": 92.1
+     },
+     "all": {
+      "hi": 11.2,
+      "lo": -17.9,
+      "mean": -3.3,
+      "median": -7,
+      "n": 125,
+      "sd": 83.0
+     },
+     "under 20": {
+      "hi": 12.4,
+      "lo": -18.1,
+      "mean": -2.8,
+      "median": -5,
+      "n": 111,
+      "sd": 82.2
+     }
+    },
+    "BAN": {
+     "20 and over": {
+      "hi": -8.1,
+      "lo": -44.9,
+      "mean": -26.5,
+      "median": -29.0,
+      "n": 14,
+      "sd": 35.1
+     },
+     "all": {
+      "hi": 14.8,
+      "lo": -20.1,
+      "mean": -2.7,
+      "median": -11,
+      "n": 51,
+      "sd": 63.5
+     },
+     "under 20": {
+      "hi": 28.8,
+      "lo": -16.1,
+      "mean": 6.3,
+      "median": 2,
+      "n": 37,
+      "sd": 69.7
+     }
+    },
+    "BEL": {
+     "20 and over": {
+      "hi": -14.2,
+      "lo": -35.2,
+      "mean": -24.7,
+      "median": -20,
+      "n": 85,
+      "sd": 49.4
+     },
+     "all": {
+      "hi": 2.2,
+      "lo": -17.1,
+      "mean": -7.5,
+      "median": -10.5,
+      "n": 180,
+      "sd": 66.0
+     },
+     "under 20": {
+      "hi": 23.0,
+      "lo": -7.2,
+      "mean": 7.9,
+      "median": -3,
+      "n": 95,
+      "sd": 75.0
+     }
+    },
+    "BIH": {
+     "20 and over": {
+      "hi": 24.7,
+      "lo": -44.7,
+      "mean": -10.0,
+      "median": -9.0,
+      "n": 8,
+      "sd": 50.0
+     },
+     "all": {
+      "hi": 42.2,
+      "lo": -36.8,
+      "mean": 2.7,
+      "median": -6,
+      "n": 19,
+      "sd": 87.8
+     },
+     "under 20": {
+      "hi": 76.4,
+      "lo": -52.6,
+      "mean": 11.9,
+      "median": -6,
+      "n": 11,
+      "sd": 109.2
+     }
+    },
+    "BLR": {
+     "20 and over": {
+      "hi": 162.5,
+      "lo": -84.5,
+      "mean": 39.0,
+      "median": 39.0,
+      "n": 2,
+      "sd": 89.1
+     },
+     "all": {
+      "hi": 37.2,
+      "lo": -14.5,
+      "mean": 11.3,
+      "median": -5.5,
+      "n": 36,
+      "sd": 79.1
+     },
+     "under 20": {
+      "hi": 36.5,
+      "lo": -17.1,
+      "mean": 9.7,
+      "median": -5.5,
+      "n": 34,
+      "sd": 79.7
+     }
+    },
+    "BOL": {
+     "20 and over": {
+      "hi": 51.9,
+      "lo": -52.5,
+      "mean": -0.3,
+      "median": 3.5,
+      "n": 6,
+      "sd": 65.2
+     },
+     "all": {
+      "hi": 23.8,
+      "lo": -17.0,
+      "mean": 3.4,
+      "median": -14,
+      "n": 49,
+      "sd": 72.9
+     },
+     "under 20": {
+      "hi": 26.2,
+      "lo": -18.4,
+      "mean": 3.9,
+      "median": -14,
+      "n": 43,
+      "sd": 74.6
+     }
+    },
+    "BRA": {
+     "20 and over": {
+      "hi": -0.4,
+      "lo": -23.4,
+      "mean": -11.9,
+      "median": -8,
+      "n": 109,
+      "sd": 61.2
+     },
+     "all": {
+      "hi": 9.9,
+      "lo": -6.4,
+      "mean": 1.8,
+      "median": -6.0,
+      "n": 272,
+      "sd": 68.6
+     },
+     "under 20": {
+      "hi": 22.0,
+      "lo": -0.1,
+      "mean": 10.9,
+      "median": -3,
+      "n": 163,
+      "sd": 71.9
+     }
+    },
+    "BUL": {
+     "20 and over": {
+      "hi": 27.1,
+      "lo": -24.2,
+      "mean": 1.5,
+      "median": 8,
+      "n": 15,
+      "sd": 50.6
+     },
+     "all": {
+      "hi": 21.2,
+      "lo": -19.8,
+      "mean": 0.7,
+      "median": -12,
+      "n": 55,
+      "sd": 77.6
+     },
+     "under 20": {
+      "hi": 27.2,
+      "lo": -26.2,
+      "mean": 0.5,
+      "median": -18.5,
+      "n": 40,
+      "sd": 86.1
+     }
+    },
+    "CAN": {
+     "20 and over": {
+      "hi": -9.5,
+      "lo": -30.6,
+      "mean": -20.1,
+      "median": -21,
+      "n": 65,
+      "sd": 43.4
+     },
+     "all": {
+      "hi": 8.8,
+      "lo": -14.0,
+      "mean": -2.6,
+      "median": -13.0,
+      "n": 194,
+      "sd": 81.0
+     },
+     "under 20": {
+      "hi": 22.9,
+      "lo": -9.9,
+      "mean": 6.5,
+      "median": -10,
+      "n": 127,
+      "sd": 94.1
+     }
+    },
+    "CHI": {
+     "20 and over": {
+      "hi": -5.1,
+      "lo": -40.0,
+      "mean": -22.5,
+      "median": -20,
+      "n": 33,
+      "sd": 51.0
+     },
+     "all": {
+      "hi": 17.1,
+      "lo": -6.8,
+      "mean": 5.1,
+      "median": -9.0,
+      "n": 168,
+      "sd": 79.1
+     },
+     "under 20": {
+      "hi": 26.6,
+      "lo": -1.9,
+      "mean": 12.3,
+      "median": 0,
+      "n": 133,
+      "sd": 83.9
+     }
+    },
+    "CHN": {
+     "20 and over": {
+      "hi": 38.0,
+      "lo": -16.7,
+      "mean": 10.6,
+      "median": 8.5,
+      "n": 14,
+      "sd": 52.2
+     },
+     "all": {
+      "hi": 32.5,
+      "lo": 2.1,
+      "mean": 17.3,
+      "median": 2,
+      "n": 127,
+      "sd": 87.4
+     },
+     "under 20": {
+      "hi": 34.9,
+      "lo": 1.4,
+      "mean": 18.2,
+      "median": 1,
+      "n": 113,
+      "sd": 90.9
+     }
+    },
+    "COL": {
+     "20 and over": {
+      "hi": 5.7,
+      "lo": -22.6,
+      "mean": -8.4,
+      "median": -3,
+      "n": 43,
+      "sd": 47.4
+     },
+     "all": {
+      "hi": 3.5,
+      "lo": -18.7,
+      "mean": -7.6,
+      "median": -10,
+      "n": 161,
+      "sd": 71.6
+     },
+     "under 20": {
+      "hi": 6.9,
+      "lo": -21.5,
+      "mean": -7.3,
+      "median": -10.5,
+      "n": 118,
+      "sd": 78.8
+     }
+    },
+    "CRC": {
+     "20 and over": {
+      "hi": 0.2,
+      "lo": -64.5,
+      "mean": -32.1,
+      "median": -18.0,
+      "n": 20,
+      "sd": 73.9
+     },
+     "all": {
+      "hi": 10.3,
+      "lo": -21.3,
+      "mean": -5.5,
+      "median": -3.0,
+      "n": 88,
+      "sd": 75.4
+     },
+     "under 20": {
+      "hi": 20.1,
+      "lo": -15.4,
+      "mean": 2.3,
+      "median": -1.5,
+      "n": 68,
+      "sd": 74.6
+     }
+    },
+    "CRO": {
+     "20 and over": {
+      "hi": 6.8,
+      "lo": -19.5,
+      "mean": -6.4,
+      "median": -7,
+      "n": 47,
+      "sd": 46.0
+     },
+     "all": {
+      "hi": 17.6,
+      "lo": -5.6,
+      "mean": 6.0,
+      "median": -8.0,
+      "n": 158,
+      "sd": 74.3
+     },
+     "under 20": {
+      "hi": 26.7,
+      "lo": -4.2,
+      "mean": 11.2,
+      "median": -8,
+      "n": 111,
+      "sd": 83.1
+     }
+    },
+    "CUB": {
+     "20 and over": {
+      "hi": 28.0,
+      "lo": -70.6,
+      "mean": -21.3,
+      "median": -36,
+      "n": 13,
+      "sd": 90.8
+     },
+     "all": {
+      "hi": -10.4,
+      "lo": -51.9,
+      "mean": -31.1,
+      "median": -27,
+      "n": 77,
+      "sd": 93.1
+     },
+     "under 20": {
+      "hi": -10.1,
+      "lo": -56.2,
+      "mean": -33.1,
+      "median": -23.5,
+      "n": 64,
+      "sd": 94.1
+     }
+    },
+    "CZE": {
+     "20 and over": {
+      "hi": 6.9,
+      "lo": -20.3,
+      "mean": -6.7,
+      "median": -16,
+      "n": 61,
+      "sd": 54.2
+     },
+     "all": {
+      "hi": 6.3,
+      "lo": -13.7,
+      "mean": -3.7,
+      "median": -16,
+      "n": 211,
+      "sd": 73.9
+     },
+     "under 20": {
+      "hi": 10.4,
+      "lo": -15.4,
+      "mean": -2.5,
+      "median": -15.5,
+      "n": 150,
+      "sd": 80.7
+     }
+    },
+    "DEN": {
+     "20 and over": {
+      "hi": 2.4,
+      "lo": -29.0,
+      "mean": -13.3,
+      "median": -10,
+      "n": 67,
+      "sd": 65.7
+     },
+     "all": {
+      "hi": -1.2,
+      "lo": -30.1,
+      "mean": -15.6,
+      "median": -17.5,
+      "n": 102,
+      "sd": 74.6
+     },
+     "under 20": {
+      "hi": 9.8,
+      "lo": -49.9,
+      "mean": -20.1,
+      "median": -44,
+      "n": 35,
+      "sd": 90.1
+     }
+    },
+    "DOM": {
+     "20 and over": {
+      "hi": 17.2,
+      "lo": -52.1,
+      "mean": -17.4,
+      "median": -1,
+      "n": 9,
+      "sd": 53.0
+     },
+     "all": {
+      "hi": 34.7,
+      "lo": -37.8,
+      "mean": -1.5,
+      "median": -5,
+      "n": 21,
+      "sd": 84.8
+     },
+     "under 20": {
+      "hi": 68.8,
+      "lo": -48.0,
+      "mean": 10.4,
+      "median": -20.0,
+      "n": 12,
+      "sd": 103.2
+     }
+    },
+    "ECU": {
+     "20 and over": {
+      "hi": 21.7,
+      "lo": -52.9,
+      "mean": -15.6,
+      "median": -7,
+      "n": 7,
+      "sd": 50.4
+     },
+     "all": {
+      "hi": 6.4,
+      "lo": -25.1,
+      "mean": -9.4,
+      "median": -11.0,
+      "n": 62,
+      "sd": 63.2
+     },
+     "under 20": {
+      "hi": 8.6,
+      "lo": -25.7,
+      "mean": -8.6,
+      "median": -16,
+      "n": 55,
+      "sd": 65.0
+     }
+    },
+    "EGY": {
+     "20 and over": {
+      "hi": 14.4,
+      "lo": -14.4,
+      "mean": -0.0,
+      "median": -11,
+      "n": 63,
+      "sd": 58.4
+     },
+     "all": {
+      "hi": 5.0,
+      "lo": -14.3,
+      "mean": -4.6,
+      "median": -12,
+      "n": 151,
+      "sd": 60.3
+     },
+     "under 20": {
+      "hi": 4.9,
+      "lo": -20.9,
+      "mean": -8.0,
+      "median": -12.5,
+      "n": 88,
+      "sd": 61.7
+     }
+    },
+    "ENG": {
+     "20 and over": {
+      "hi": 3.1,
+      "lo": -17.2,
+      "mean": -7.0,
+      "median": -10,
+      "n": 115,
+      "sd": 55.3
+     },
+     "all": {
+      "hi": 8.6,
+      "lo": -11.8,
+      "mean": -1.6,
+      "median": -10.0,
+      "n": 184,
+      "sd": 70.7
+     },
+     "under 20": {
+      "hi": 28.8,
+      "lo": -13.9,
+      "mean": 7.4,
+      "median": -10,
+      "n": 69,
+      "sd": 90.4
+     }
+    },
+    "ESP": {
+     "20 and over": {
+      "hi": -20.6,
+      "lo": -31.9,
+      "mean": -26.2,
+      "median": -24.5,
+      "n": 482,
+      "sd": 63.3
+     },
+     "all": {
+      "hi": -7.8,
+      "lo": -16.6,
+      "mean": -12.2,
+      "median": -18.0,
+      "n": 1094,
+      "sd": 74.3
+     },
+     "under 20": {
+      "hi": 5.2,
+      "lo": -7.5,
+      "mean": -1.1,
+      "median": -11.0,
+      "n": 612,
+      "sd": 80.2
+     }
+    },
+    "FID": {
+     "20 and over": {
+      "hi": 39.5,
+      "lo": -49.7,
+      "mean": -5.1,
+      "median": -21,
+      "n": 17,
+      "sd": 93.8
+     },
+     "all": {
+      "hi": 38.1,
+      "lo": -17.4,
+      "mean": 10.4,
+      "median": -9,
+      "n": 47,
+      "sd": 97.0
+     },
+     "under 20": {
+      "hi": 54.6,
+      "lo": -16.4,
+      "mean": 19.1,
+      "median": -5.5,
+      "n": 30,
+      "sd": 99.2
+     }
+    },
+    "FIN": {
+     "20 and over": {
+      "hi": 15.3,
+      "lo": -19.4,
+      "mean": -2.0,
+      "median": -8,
+      "n": 21,
+      "sd": 40.6
+     },
+     "all": {
+      "hi": 14.4,
+      "lo": -15.4,
+      "mean": -0.5,
+      "median": -14.0,
+      "n": 44,
+      "sd": 50.5
+     },
+     "under 20": {
+      "hi": 25.1,
+      "lo": -23.2,
+      "mean": 0.9,
+      "median": -17,
+      "n": 23,
+      "sd": 59.1
+     }
+    },
+    "FRA": {
+     "20 and over": {
+      "hi": -19.8,
+      "lo": -30.9,
+      "mean": -25.3,
+      "median": -24.5,
+      "n": 454,
+      "sd": 60.3
+     },
+     "all": {
+      "hi": -4.0,
+      "lo": -13.1,
+      "mean": -8.6,
+      "median": -16.0,
+      "n": 1060,
+      "sd": 76.1
+     },
+     "under 20": {
+      "hi": 10.7,
+      "lo": -2.7,
+      "mean": 4.0,
+      "median": -9.0,
+      "n": 606,
+      "sd": 83.9
+     }
+    },
+    "GEO": {
+     "20 and over": {
+      "hi": -31.3,
+      "lo": -164.3,
+      "mean": -97.8,
+      "median": -86,
+      "n": 5,
+      "sd": 75.9
+     },
+     "all": {
+      "hi": 24.1,
+      "lo": -11.2,
+      "mean": 6.4,
+      "median": 0,
+      "n": 65,
+      "sd": 72.7
+     },
+     "under 20": {
+      "hi": 32.1,
+      "lo": -1.8,
+      "mean": 15.1,
+      "median": 2,
+      "n": 59,
+      "sd": 66.5
+     }
+    },
+    "GER": {
+     "20 and over": {
+      "hi": -7.4,
+      "lo": -18.0,
+      "mean": -12.7,
+      "median": -13.0,
+      "n": 410,
+      "sd": 54.8
+     },
+     "all": {
+      "hi": 0.7,
+      "lo": -7.8,
+      "mean": -3.5,
+      "median": -5,
+      "n": 849,
+      "sd": 62.9
+     },
+     "under 20": {
+      "hi": 11.4,
+      "lo": -1.5,
+      "mean": 5.0,
+      "median": 1,
+      "n": 439,
+      "sd": 68.7
+     }
+    },
+    "GRE": {
+     "20 and over": {
+      "hi": -6.7,
+      "lo": -30.5,
+      "mean": -18.6,
+      "median": -20,
+      "n": 83,
+      "sd": 55.4
+     },
+     "all": {
+      "hi": 7.7,
+      "lo": -9.3,
+      "mean": -0.8,
+      "median": -5,
+      "n": 253,
+      "sd": 69.1
+     },
+     "under 20": {
+      "hi": 19.0,
+      "lo": -3.2,
+      "mean": 7.9,
+      "median": 2,
+      "n": 169,
+      "sd": 73.7
+     }
+    },
+    "HUN": {
+     "20 and over": {
+      "hi": 5.0,
+      "lo": -25.3,
+      "mean": -10.1,
+      "median": -8,
+      "n": 35,
+      "sd": 45.8
+     },
+     "all": {
+      "hi": 5.6,
+      "lo": -22.8,
+      "mean": -8.6,
+      "median": -11.5,
+      "n": 120,
+      "sd": 79.4
+     },
+     "under 20": {
+      "hi": 11.1,
+      "lo": -27.1,
+      "mean": -8.0,
+      "median": -14,
+      "n": 85,
+      "sd": 89.9
+     }
+    },
+    "INA": {
+     "20 and over": {
+      "hi": 38.0,
+      "lo": -38.6,
+      "mean": -0.3,
+      "median": -8,
+      "n": 15,
+      "sd": 75.7
+     },
+     "all": {
+      "hi": 35.7,
+      "lo": -9.1,
+      "mean": 13.3,
+      "median": -4.0,
+      "n": 44,
+      "sd": 75.7
+     },
+     "under 20": {
+      "hi": 48.0,
+      "lo": -7.4,
+      "mean": 20.3,
+      "median": 7,
+      "n": 29,
+      "sd": 76.1
+     }
+    },
+    "IND": {
+     "20 and over": {
+      "hi": -4.9,
+      "lo": -19.5,
+      "mean": -12.2,
+      "median": -14.0,
+      "n": 254,
+      "sd": 59.7
+     },
+     "all": {
+      "hi": 5.9,
+      "lo": -0.2,
+      "mean": 2.8,
+      "median": -8.0,
+      "n": 2054,
+      "sd": 70.2
+     },
+     "under 20": {
+      "hi": 8.2,
+      "lo": 1.7,
+      "mean": 5.0,
+      "median": -7.0,
+      "n": 1800,
+      "sd": 71.3
+     }
+    },
+    "IRI": {
+     "20 and over": {
+      "hi": -10.4,
+      "lo": -38.2,
+      "mean": -24.3,
+      "median": -22.0,
+      "n": 76,
+      "sd": 61.8
+     },
+     "all": {
+      "hi": -0.5,
+      "lo": -13.6,
+      "mean": -7.1,
+      "median": -15.0,
+      "n": 448,
+      "sd": 71.1
+     },
+     "under 20": {
+      "hi": 3.6,
+      "lo": -11.1,
+      "mean": -3.7,
+      "median": -14,
+      "n": 371,
+      "sd": 72.3
+     }
+    },
+    "IRL": {
+     "20 and over": {
+      "hi": -6.9,
+      "lo": -43.0,
+      "mean": -24.9,
+      "median": -24,
+      "n": 43,
+      "sd": 60.3
+     },
+     "all": {
+      "hi": -1.4,
+      "lo": -31.4,
+      "mean": -16.4,
+      "median": -18.5,
+      "n": 78,
+      "sd": 67.6
+     },
+     "under 20": {
+      "hi": 19.1,
+      "lo": -30.8,
+      "mean": -5.8,
+      "median": -6,
+      "n": 35,
+      "sd": 75.2
+     }
+    },
+    "IRQ": {
+     "20 and over": {
+      "hi": 37.2,
+      "lo": -47.7,
+      "mean": -5.2,
+      "median": -10.0,
+      "n": 12,
+      "sd": 75.0
+     },
+     "all": {
+      "hi": 10.9,
+      "lo": -32.1,
+      "mean": -10.6,
+      "median": -19,
+      "n": 31,
+      "sd": 61.1
+     },
+     "under 20": {
+      "hi": 9.6,
+      "lo": -37.6,
+      "mean": -14.0,
+      "median": -19,
+      "n": 19,
+      "sd": 52.6
+     }
+    },
+    "ISR": {
+     "20 and over": {
+      "hi": -7.3,
+      "lo": -36.9,
+      "mean": -22.1,
+      "median": -23.5,
+      "n": 52,
+      "sd": 54.5
+     },
+     "all": {
+      "hi": 2.6,
+      "lo": -20.9,
+      "mean": -9.2,
+      "median": -17.5,
+      "n": 148,
+      "sd": 73.2
+     },
+     "under 20": {
+      "hi": 14.0,
+      "lo": -18.3,
+      "mean": -2.2,
+      "median": -15.5,
+      "n": 96,
+      "sd": 80.9
+     }
+    },
+    "ITA": {
+     "20 and over": {
+      "hi": -12.9,
+      "lo": -27.0,
+      "mean": -19.9,
+      "median": -16.0,
+      "n": 280,
+      "sd": 60.2
+     },
+     "all": {
+      "hi": -0.9,
+      "lo": -11.8,
+      "mean": -6.3,
+      "median": -10.0,
+      "n": 672,
+      "sd": 72.5
+     },
+     "under 20": {
+      "hi": 11.2,
+      "lo": -4.4,
+      "mean": 3.4,
+      "median": -2.0,
+      "n": 392,
+      "sd": 78.8
+     }
+    },
+    "KAZ": {
+     "20 and over": {
+      "hi": 14.4,
+      "lo": -38.5,
+      "mean": -12.0,
+      "median": -13.0,
+      "n": 32,
+      "sd": 76.3
+     },
+     "all": {
+      "hi": 7.7,
+      "lo": -9.7,
+      "mean": -1.0,
+      "median": -5,
+      "n": 337,
+      "sd": 81.7
+     },
+     "under 20": {
+      "hi": 9.4,
+      "lo": -9.0,
+      "mean": 0.2,
+      "median": -4,
+      "n": 305,
+      "sd": 82.3
+     }
+    },
+    "KEN": {
+     "20 and over": {
+      "hi": 20.9,
+      "lo": -57.0,
+      "mean": -18.1,
+      "median": 8,
+      "n": 15,
+      "sd": 77.0
+     },
+     "all": {
+      "hi": 11.0,
+      "lo": -26.2,
+      "mean": -7.6,
+      "median": -15,
+      "n": 57,
+      "sd": 71.5
+     },
+     "under 20": {
+      "hi": 17.3,
+      "lo": -25.0,
+      "mean": -3.9,
+      "median": -16.0,
+      "n": 42,
+      "sd": 70.1
+     }
+    },
+    "KGZ": {
+     "20 and over": {
+      "hi": 4.9,
+      "lo": -109.3,
+      "mean": -52.2,
+      "median": -45,
+      "n": 5,
+      "sd": 65.1
+     },
+     "all": {
+      "hi": 7.1,
+      "lo": -45.2,
+      "mean": -19.1,
+      "median": -37,
+      "n": 39,
+      "sd": 83.3
+     },
+     "under 20": {
+      "hi": 14.5,
+      "lo": -42.9,
+      "mean": -14.2,
+      "median": -34.0,
+      "n": 34,
+      "sd": 85.4
+     }
+    },
+    "KOR": {
+     "20 and over": {
+      "hi": 6.1,
+      "lo": -34.1,
+      "mean": -14.0,
+      "median": -15.0,
+      "n": 18,
+      "sd": 43.5
+     },
+     "all": {
+      "hi": 26.4,
+      "lo": -10.8,
+      "mean": 7.8,
+      "median": -5.0,
+      "n": 96,
+      "sd": 92.9
+     },
+     "under 20": {
+      "hi": 35.1,
+      "lo": -9.4,
+      "mean": 12.8,
+      "median": 0.5,
+      "n": 78,
+      "sd": 100.4
+     }
+    },
+    "LAT": {
+     "20 and over": {
+      "hi": 17.1,
+      "lo": -26.4,
+      "mean": -4.6,
+      "median": -5.5,
+      "n": 8,
+      "sd": 31.4
+     },
+     "all": {
+      "hi": 52.9,
+      "lo": 4.6,
+      "mean": 28.7,
+      "median": 6,
+      "n": 51,
+      "sd": 88.0
+     },
+     "under 20": {
+      "hi": 63.0,
+      "lo": 6.9,
+      "mean": 35.0,
+      "median": 14,
+      "n": 43,
+      "sd": 93.9
+     }
+    },
+    "LTU": {
+     "20 and over": {
+      "hi": 43.7,
+      "lo": -68.3,
+      "mean": -12.3,
+      "median": -23.5,
+      "n": 10,
+      "sd": 90.3
+     },
+     "all": {
+      "hi": 29.0,
+      "lo": -25.3,
+      "mean": 1.9,
+      "median": -10.5,
+      "n": 34,
+      "sd": 80.8
+     },
+     "under 20": {
+      "hi": 38.9,
+      "lo": -23.3,
+      "mean": 7.8,
+      "median": -0.5,
+      "n": 24,
+      "sd": 77.8
+     }
+    },
+    "MAS": {
+     "20 and over": {
+      "hi": 42.4,
+      "lo": -30.6,
+      "mean": 5.9,
+      "median": -16,
+      "n": 19,
+      "sd": 81.3
+     },
+     "all": {
+      "hi": 6.5,
+      "lo": -15.9,
+      "mean": -4.7,
+      "median": -8,
+      "n": 127,
+      "sd": 64.4
+     },
+     "under 20": {
+      "hi": 5.0,
+      "lo": -18.1,
+      "mean": -6.5,
+      "median": -7.5,
+      "n": 108,
+      "sd": 61.2
+     }
+    },
+    "MEX": {
+     "20 and over": {
+      "hi": -13.7,
+      "lo": -33.4,
+      "mean": -23.5,
+      "median": -23.5,
+      "n": 122,
+      "sd": 55.4
+     },
+     "all": {
+      "hi": -7.3,
+      "lo": -20.8,
+      "mean": -14.0,
+      "median": -17.0,
+      "n": 334,
+      "sd": 63.0
+     },
+     "under 20": {
+      "hi": 0.4,
+      "lo": -17.5,
+      "mean": -8.6,
+      "median": -10.0,
+      "n": 212,
+      "sd": 66.4
+     }
+    },
+    "NED": {
+     "20 and over": {
+      "hi": 2.6,
+      "lo": -13.8,
+      "mean": -5.6,
+      "median": -7.5,
+      "n": 156,
+      "sd": 52.1
+     },
+     "all": {
+      "hi": 17.8,
+      "lo": 1.1,
+      "mean": 9.4,
+      "median": 0,
+      "n": 223,
+      "sd": 63.5
+     },
+     "under 20": {
+      "hi": 62.0,
+      "lo": 26.8,
+      "mean": 44.4,
+      "median": 35,
+      "n": 67,
+      "sd": 73.4
+     }
+    },
+    "NEP": {
+     "20 and over": {
+      "hi": 13.0,
+      "lo": -41.2,
+      "mean": -14.1,
+      "median": -13.0,
+      "n": 20,
+      "sd": 61.8
+     },
+     "all": {
+      "hi": -2.1,
+      "lo": -35.3,
+      "mean": -18.7,
+      "median": -21,
+      "n": 43,
+      "sd": 55.4
+     },
+     "under 20": {
+      "hi": -2.1,
+      "lo": -43.2,
+      "mean": -22.7,
+      "median": -28,
+      "n": 23,
+      "sd": 50.3
+     }
+    },
+    "NOR": {
+     "20 and over": {
+      "hi": -2.9,
+      "lo": -26.5,
+      "mean": -14.7,
+      "median": -23,
+      "n": 95,
+      "sd": 58.7
+     },
+     "all": {
+      "hi": -5.4,
+      "lo": -23.8,
+      "mean": -14.6,
+      "median": -18,
+      "n": 155,
+      "sd": 58.7
+     },
+     "under 20": {
+      "hi": 0.6,
+      "lo": -29.4,
+      "mean": -14.4,
+      "median": -12.0,
+      "n": 60,
+      "sd": 59.3
+     }
+    },
+    "PER": {
+     "20 and over": {
+      "hi": 16.9,
+      "lo": -20.6,
+      "mean": -1.9,
+      "median": -5,
+      "n": 27,
+      "sd": 49.6
+     },
+     "all": {
+      "hi": 9.7,
+      "lo": -8.3,
+      "mean": 0.7,
+      "median": -10,
+      "n": 271,
+      "sd": 75.6
+     },
+     "under 20": {
+      "hi": 10.7,
+      "lo": -8.8,
+      "mean": 1.0,
+      "median": -11.5,
+      "n": 244,
+      "sd": 78.0
+     }
+    },
+    "PHI": {
+     "20 and over": {
+      "hi": 6.8,
+      "lo": -24.9,
+      "mean": -9.0,
+      "median": -9,
+      "n": 23,
+      "sd": 38.8
+     },
+     "all": {
+      "hi": -0.9,
+      "lo": -23.6,
+      "mean": -12.3,
+      "median": -11,
+      "n": 135,
+      "sd": 67.3
+     },
+     "under 20": {
+      "hi": 0.1,
+      "lo": -27.0,
+      "mean": -13.4,
+      "median": -11.0,
+      "n": 110,
+      "sd": 72.4
+     }
+    },
+    "POL": {
+     "20 and over": {
+      "hi": -12.9,
+      "lo": -30.9,
+      "mean": -21.9,
+      "median": -23,
+      "n": 167,
+      "sd": 59.2
+     },
+     "all": {
+      "hi": 5.4,
+      "lo": -7.4,
+      "mean": -1.0,
+      "median": -8,
+      "n": 637,
+      "sd": 82.3
+     },
+     "under 20": {
+      "hi": 14.4,
+      "lo": -1.5,
+      "mean": 6.4,
+      "median": -3.0,
+      "n": 470,
+      "sd": 87.9
+     }
+    },
+    "POR": {
+     "20 and over": {
+      "hi": 3.6,
+      "lo": -29.8,
+      "mean": -13.1,
+      "median": -13,
+      "n": 29,
+      "sd": 45.9
+     },
+     "all": {
+      "hi": 7.1,
+      "lo": -24.3,
+      "mean": -8.6,
+      "median": -12,
+      "n": 73,
+      "sd": 68.5
+     },
+     "under 20": {
+      "hi": 18.2,
+      "lo": -29.4,
+      "mean": -5.6,
+      "median": -7.0,
+      "n": 44,
+      "sd": 80.4
+     }
+    },
+    "ROU": {
+     "20 and over": {
+      "hi": -1.0,
+      "lo": -37.0,
+      "mean": -19.0,
+      "median": -9,
+      "n": 37,
+      "sd": 55.9
+     },
+     "all": {
+      "hi": 3.9,
+      "lo": -17.0,
+      "mean": -6.5,
+      "median": -12,
+      "n": 171,
+      "sd": 69.9
+     },
+     "under 20": {
+      "hi": 9.3,
+      "lo": -15.4,
+      "mean": -3.1,
+      "median": -12.0,
+      "n": 134,
+      "sd": 73.0
+     }
+    },
+    "RSA": {
+     "20 and over": {
+      "hi": 5.6,
+      "lo": -28.2,
+      "mean": -11.3,
+      "median": -21,
+      "n": 55,
+      "sd": 64.0
+     },
+     "all": {
+      "hi": -11.5,
+      "lo": -31.2,
+      "mean": -21.3,
+      "median": -26,
+      "n": 217,
+      "sd": 74.2
+     },
+     "under 20": {
+      "hi": -12.9,
+      "lo": -36.7,
+      "mean": -24.8,
+      "median": -26.0,
+      "n": 162,
+      "sd": 77.3
+     }
+    },
+    "RUS": {
+     "20 and over": {
+      "hi": -26.6,
+      "lo": -58.8,
+      "mean": -42.7,
+      "median": -42,
+      "n": 69,
+      "sd": 68.2
+     },
+     "all": {
+      "hi": -4.3,
+      "lo": -15.0,
+      "mean": -9.6,
+      "median": -15.5,
+      "n": 770,
+      "sd": 75.4
+     },
+     "under 20": {
+      "hi": -0.8,
+      "lo": -12.0,
+      "mean": -6.4,
+      "median": -14,
+      "n": 701,
+      "sd": 75.3
+     }
+    },
+    "SCO": {
+     "20 and over": {
+      "hi": -13.5,
+      "lo": -61.2,
+      "mean": -37.4,
+      "median": -32,
+      "n": 25,
+      "sd": 60.9
+     },
+     "all": {
+      "hi": -0.8,
+      "lo": -48.7,
+      "mean": -24.8,
+      "median": -30.0,
+      "n": 36,
+      "sd": 73.3
+     },
+     "under 20": {
+      "hi": 58.7,
+      "lo": -50.8,
+      "mean": 3.9,
+      "median": 9,
+      "n": 11,
+      "sd": 92.6
+     }
+    },
+    "SGP": {
+     "20 and over": {
+      "hi": 56.4,
+      "lo": -72.0,
+      "mean": -7.8,
+      "median": 0,
+      "n": 5,
+      "sd": 73.3
+     },
+     "all": {
+      "hi": 30.9,
+      "lo": -17.2,
+      "mean": 6.8,
+      "median": 2.5,
+      "n": 48,
+      "sd": 85.1
+     },
+     "under 20": {
+      "hi": 34.5,
+      "lo": -17.5,
+      "mean": 8.5,
+      "median": 4,
+      "n": 43,
+      "sd": 86.9
+     }
+    },
+    "SLO": {
+     "20 and over": {
+      "hi": 11.9,
+      "lo": -50.1,
+      "mean": -19.1,
+      "median": -22.0,
+      "n": 8,
+      "sd": 44.7
+     },
+     "all": {
+      "hi": 80.4,
+      "lo": 9.4,
+      "mean": 44.9,
+      "median": 2,
+      "n": 41,
+      "sd": 116.0
+     },
+     "under 20": {
+      "hi": 102.4,
+      "lo": 18.5,
+      "mean": 60.4,
+      "median": 56,
+      "n": 33,
+      "sd": 122.9
+     }
+    },
+    "SRB": {
+     "20 and over": {
+      "hi": -3.6,
+      "lo": -34.1,
+      "mean": -18.8,
+      "median": -12,
+      "n": 51,
+      "sd": 55.5
+     },
+     "all": {
+      "hi": -0.2,
+      "lo": -26.2,
+      "mean": -13.2,
+      "median": -14,
+      "n": 135,
+      "sd": 77.1
+     },
+     "under 20": {
+      "hi": 9.0,
+      "lo": -28.6,
+      "mean": -9.8,
+      "median": -25.0,
+      "n": 84,
+      "sd": 87.8
+     }
+    },
+    "SRI": {
+     "20 and over": {
+      "hi": 6.0,
+      "lo": -23.2,
+      "mean": -8.6,
+      "median": -5,
+      "n": 25,
+      "sd": 37.3
+     },
+     "all": {
+      "hi": 13.2,
+      "lo": -0.2,
+      "mean": 6.5,
+      "median": -4.0,
+      "n": 352,
+      "sd": 63.9
+     },
+     "under 20": {
+      "hi": 14.7,
+      "lo": 0.5,
+      "mean": 7.6,
+      "median": -4.0,
+      "n": 326,
+      "sd": 65.5
+     }
+    },
+    "SUI": {
+     "20 and over": {
+      "hi": -5.7,
+      "lo": -34.8,
+      "mean": -20.2,
+      "median": -16,
+      "n": 67,
+      "sd": 60.8
+     },
+     "all": {
+      "hi": 0.6,
+      "lo": -22.6,
+      "mean": -11.0,
+      "median": -6.5,
+      "n": 132,
+      "sd": 68.1
+     },
+     "under 20": {
+      "hi": 16.5,
+      "lo": -19.6,
+      "mean": -1.5,
+      "median": 8,
+      "n": 65,
+      "sd": 74.2
+     }
+    },
+    "SVK": {
+     "20 and over": {
+      "hi": -4.3,
+      "lo": -28.0,
+      "mean": -16.1,
+      "median": -13,
+      "n": 41,
+      "sd": 38.8
+     },
+     "all": {
+      "hi": 14.1,
+      "lo": -10.6,
+      "mean": 1.7,
+      "median": -9,
+      "n": 159,
+      "sd": 79.4
+     },
+     "under 20": {
+      "hi": 23.9,
+      "lo": -8.0,
+      "mean": 8.0,
+      "median": -3.5,
+      "n": 118,
+      "sd": 88.6
+     }
+    },
+    "SWE": {
+     "20 and over": {
+      "hi": -1.7,
+      "lo": -31.0,
+      "mean": -16.4,
+      "median": -13.5,
+      "n": 78,
+      "sd": 66.0
+     },
+     "all": {
+      "hi": -0.1,
+      "lo": -25.2,
+      "mean": -12.7,
+      "median": -15.0,
+      "n": 150,
+      "sd": 78.4
+     },
+     "under 20": {
+      "hi": 12.1,
+      "lo": -29.5,
+      "mean": -8.7,
+      "median": -18.5,
+      "n": 72,
+      "sd": 90.2
+     }
+    },
+    "TUR": {
+     "20 and over": {
+      "hi": -3.2,
+      "lo": -28.5,
+      "mean": -15.8,
+      "median": -14,
+      "n": 57,
+      "sd": 48.8
+     },
+     "all": {
+      "hi": 15.0,
+      "lo": -2.4,
+      "mean": 6.3,
+      "median": -2,
+      "n": 355,
+      "sd": 83.6
+     },
+     "under 20": {
+      "hi": 20.6,
+      "lo": 0.6,
+      "mean": 10.6,
+      "median": 1.5,
+      "n": 298,
+      "sd": 88.1
+     }
+    },
+    "UKR": {
+     "20 and over": {
+      "hi": -17.6,
+      "lo": -45.3,
+      "mean": -31.4,
+      "median": -30,
+      "n": 27,
+      "sd": 36.8
+     },
+     "all": {
+      "hi": 6.7,
+      "lo": -14.2,
+      "mean": -3.7,
+      "median": -11.5,
+      "n": 154,
+      "sd": 66.4
+     },
+     "under 20": {
+      "hi": 14.3,
+      "lo": -10.0,
+      "mean": 2.1,
+      "median": -6,
+      "n": 127,
+      "sd": 69.8
+     }
+    },
+    "USA": {
+     "20 and over": {
+      "hi": -11.9,
+      "lo": -31.1,
+      "mean": -21.5,
+      "median": -19,
+      "n": 171,
+      "sd": 63.8
+     },
+     "all": {
+      "hi": 2.8,
+      "lo": -10.7,
+      "mean": -4.0,
+      "median": -9,
+      "n": 531,
+      "sd": 79.2
+     },
+     "under 20": {
+      "hi": 13.1,
+      "lo": -4.3,
+      "mean": 4.4,
+      "median": -5.5,
+      "n": 360,
+      "sd": 84.3
+     }
+    },
+    "UZB": {
+     "20 and over": {
+      "hi": 47.6,
+      "lo": -19.2,
+      "mean": 14.2,
+      "median": -1,
+      "n": 5,
+      "sd": 38.1
+     },
+     "all": {
+      "hi": 39.4,
+      "lo": -4.3,
+      "mean": 17.6,
+      "median": -5.0,
+      "n": 74,
+      "sd": 95.8
+     },
+     "under 20": {
+      "hi": 41.1,
+      "lo": -5.5,
+      "mean": 17.8,
+      "median": -6,
+      "n": 69,
+      "sd": 98.9
+     }
+    },
+    "VEN": {
+     "20 and over": {
+      "hi": 2.1,
+      "lo": -108.1,
+      "mean": -53.0,
+      "median": -39.5,
+      "n": 8,
+      "sd": 79.5
+     },
+     "all": {
+      "hi": -5.4,
+      "lo": -38.7,
+      "mean": -22.1,
+      "median": -24.0,
+      "n": 84,
+      "sd": 77.8
+     },
+     "under 20": {
+      "hi": 0.0,
+      "lo": -34.8,
+      "mean": -17.4,
+      "median": -22,
+      "n": 75,
+      "sd": 76.9
+     }
+    },
+    "VIE": {
+     "20 and over": {
+      "hi": 50.5,
+      "lo": -58.2,
+      "mean": -3.9,
+      "median": -22,
+      "n": 7,
+      "sd": 73.4
+     },
+     "all": {
+      "hi": 5.9,
+      "lo": -17.1,
+      "mean": -5.6,
+      "median": -15.0,
+      "n": 148,
+      "sd": 71.4
+     },
+     "under 20": {
+      "hi": 6.2,
+      "lo": -17.5,
+      "mean": -5.7,
+      "median": -14,
+      "n": 141,
+      "sd": 71.6
+     }
+    },
+    "WLS": {
+     "20 and over": {
+      "hi": -4.2,
+      "lo": -70.8,
+      "mean": -37.5,
+      "median": -31.5,
+      "n": 8,
+      "sd": 48.0
+     },
+     "all": {
+      "hi": -4.2,
+      "lo": -50.0,
+      "mean": -27.1,
+      "median": -17,
+      "n": 15,
+      "sd": 45.3
+     },
+     "under 20": {
+      "hi": 16.0,
+      "lo": -46.6,
+      "mean": -15.3,
+      "median": -14,
+      "n": 7,
+      "sd": 42.2
+     }
+    },
+    "ZAM": {
+     "20 and over": {
+      "hi": 30.1,
+      "lo": -45.2,
+      "mean": -7.6,
+      "median": -30.0,
+      "n": 14,
+      "sd": 71.9
+     },
+     "all": {
+      "hi": 37.8,
+      "lo": -29.0,
+      "mean": 4.4,
+      "median": -24.5,
+      "n": 22,
+      "sd": 80.0
+     },
+     "under 20": {
+      "hi": 90.5,
+      "lo": -39.7,
+      "mean": 25.4,
+      "median": -20.5,
+      "n": 8,
+      "sd": 93.9
+     }
+    }
+   },
+   "by_level": {
+    "1400-1599": {
+     "hi": 10.9,
+     "lo": 8.1,
+     "mean": 9.5,
+     "median": -4.0,
+     "n": 10186,
+     "sd": 71.8
+    },
+    "1600-1799": {
+     "hi": -19.3,
+     "lo": -22.9,
+     "mean": -21.1,
+     "median": -20,
+     "n": 5865,
+     "sd": 72.2
+    },
+    "1800-1999": {
+     "hi": -28.7,
+     "lo": -35.6,
+     "mean": -32.2,
+     "median": -28.0,
+     "n": 1438,
+     "sd": 66.8
+    },
+    "2000-2199": {
+     "hi": -31.8,
+     "lo": -56.4,
+     "mean": -44.1,
+     "median": -40,
+     "n": 109,
+     "sd": 65.4
+    },
+    "below 1400": {
+     "hi": 163.4,
+     "lo": 107.4,
+     "mean": 135.4,
+     "median": 137.5,
+     "n": 24,
+     "sd": 69.9
+    }
+   },
+   "federation_directions": {
+    "falls": 20,
+    "not settled": 51,
+    "rises": 4
+   },
+   "first_lists": [
+    "2024-04",
+    "2024-10"
+   ],
+   "newcomers": 29365,
+   "played_in_between": 17622,
+   "still_listed": 26929
+  },
+  "24": {
+   "all": {
+    "hi": 18.2,
+    "lo": 15.5,
+    "mean": 16.8,
+    "median": 0.0,
+    "n": 19672,
+    "sd": 99.3
+   },
+   "by_age": {
+    "12-15": {
+     "hi": 33.5,
+     "lo": 28.4,
+     "mean": 30.9,
+     "median": 9,
+     "n": 6295,
+     "sd": 104.9
+    },
+    "16-19": {
+     "hi": 13.6,
+     "lo": 6.8,
+     "mean": 10.2,
+     "median": -3,
+     "n": 2455,
+     "sd": 85.6
+    },
+    "20-24": {
+     "hi": 0.1,
+     "lo": -8.2,
+     "mean": -4.1,
+     "median": -10.0,
+     "n": 1166,
+     "sd": 72.6
+    },
+    "25-45": {
+     "hi": -14.5,
+     "lo": -19.6,
+     "mean": -17.1,
+     "median": -18.0,
+     "n": 2766,
+     "sd": 68.2
+    },
+    "46-60": {
+     "hi": -23.1,
+     "lo": -30.8,
+     "mean": -26.9,
+     "median": -24.0,
+     "n": 1224,
+     "sd": 68.6
+    },
+    "<12": {
+     "hi": 49.2,
+     "lo": 42.8,
+     "mean": 46.0,
+     "median": 28,
+     "n": 4915,
+     "sd": 114.0
+    },
+    ">60": {
+     "hi": -31.6,
+     "lo": -41.2,
+     "mean": -36.4,
+     "median": -30,
+     "n": 823,
+     "sd": 70.3
+    }
+   },
+   "by_age_level": {
+    "12-15|1400-1599": {
+     "hi": 42.6,
+     "lo": 36.7,
+     "mean": 39.7,
+     "median": 15.0,
+     "n": 4412,
+     "sd": 99.5
+    },
+    "12-15|1600-1799": {
+     "hi": 18.1,
+     "lo": 7.3,
+     "mean": 12.7,
+     "median": -4,
+     "n": 1679,
+     "sd": 112.3
+    },
+    "12-15|1800-1999": {
+     "hi": -4.2,
+     "lo": -37.2,
+     "mean": -20.7,
+     "median": -35.0,
+     "n": 178,
+     "sd": 112.3
+    },
+    "12-15|2000-2199": {
+     "hi": -27.1,
+     "lo": -126.5,
+     "mean": -76.8,
+     "median": -56.5,
+     "n": 10,
+     "sd": 80.2
+    },
+    "12-15|below 1400": {
+     "hi": 238.6,
+     "lo": 114.6,
+     "mean": 176.6,
+     "median": 139.0,
+     "n": 16,
+     "sd": 126.6
+    },
+    "16-19|1400-1599": {
+     "hi": 31.8,
+     "lo": 22.0,
+     "mean": 26.9,
+     "median": 5,
+     "n": 1115,
+     "sd": 84.0
+    },
+    "16-19|1600-1799": {
+     "hi": 3.8,
+     "lo": -6.3,
+     "mean": -1.2,
+     "median": -9.5,
+     "n": 1046,
+     "sd": 83.5
+    },
+    "16-19|1800-1999": {
+     "hi": -0.4,
+     "lo": -20.9,
+     "mean": -10.7,
+     "median": -11.0,
+     "n": 274,
+     "sd": 86.7
+    },
+    "16-19|2000-2199": {
+     "hi": -2.9,
+     "lo": -81.6,
+     "mean": -42.3,
+     "median": -29,
+     "n": 19,
+     "sd": 87.5
+    },
+    "16-19|below 1400": {
+     "hi": 162.0,
+     "lo": 162.0,
+     "mean": 162.0,
+     "median": 162,
+     "n": 1,
+     "sd": 0.0
+    },
+    "20-24|1400-1599": {
+     "hi": 21.0,
+     "lo": 5.7,
+     "mean": 13.4,
+     "median": -5.5,
+     "n": 358,
+     "sd": 73.4
+    },
+    "20-24|1600-1799": {
+     "hi": -0.1,
+     "lo": -11.8,
+     "mean": -5.9,
+     "median": -10,
+     "n": 589,
+     "sd": 72.5
+    },
+    "20-24|1800-1999": {
+     "hi": -16.9,
+     "lo": -33.8,
+     "mean": -25.3,
+     "median": -22,
+     "n": 207,
+     "sd": 62.0
+    },
+    "20-24|2000-2199": {
+     "hi": -13.0,
+     "lo": -118.0,
+     "mean": -65.5,
+     "median": -65.5,
+     "n": 12,
+     "sd": 92.8
+    },
+    "25-45|1400-1599": {
+     "hi": 5.7,
+     "lo": -2.6,
+     "mean": 1.5,
+     "median": -9,
+     "n": 869,
+     "sd": 62.3
+    },
+    "25-45|1600-1799": {
+     "hi": -15.9,
+     "lo": -22.9,
+     "mean": -19.4,
+     "median": -19.5,
+     "n": 1350,
+     "sd": 65.7
+    },
+    "25-45|1800-1999": {
+     "hi": -33.4,
+     "lo": -46.2,
+     "mean": -39.8,
+     "median": -35.0,
+     "n": 506,
+     "sd": 73.6
+    },
+    "25-45|2000-2199": {
+     "hi": -41.0,
+     "lo": -82.3,
+     "mean": -61.7,
+     "median": -59.5,
+     "n": 40,
+     "sd": 66.6
+    },
+    "25-45|below 1400": {
+     "hi": 310.0,
+     "lo": 310.0,
+     "mean": 310.0,
+     "median": 310,
+     "n": 1,
+     "sd": 0.0
+    },
+    "46-60|1400-1599": {
+     "hi": -7.1,
+     "lo": -18.5,
+     "mean": -12.8,
+     "median": -15.5,
+     "n": 418,
+     "sd": 59.5
+    },
+    "46-60|1600-1799": {
+     "hi": -24.3,
+     "lo": -35.8,
+     "mean": -30.1,
+     "median": -26,
+     "n": 569,
+     "sd": 70.3
+    },
+    "46-60|1800-1999": {
+     "hi": -33.5,
+     "lo": -53.4,
+     "mean": -43.5,
+     "median": -37,
+     "n": 213,
+     "sd": 74.0
+    },
+    "46-60|2000-2199": {
+     "hi": -32.5,
+     "lo": -92.7,
+     "mean": -62.6,
+     "median": -53.0,
+     "n": 22,
+     "sd": 72.0
+    },
+    "46-60|2200-2399": {
+     "hi": -33.0,
+     "lo": -33.0,
+     "mean": -33.0,
+     "median": -33,
+     "n": 1,
+     "sd": 0.0
+    },
+    "46-60|below 1400": {
+     "hi": 132.0,
+     "lo": 132.0,
+     "mean": 132.0,
+     "median": 132,
+     "n": 1,
+     "sd": 0.0
+    },
+    "<12|1400-1599": {
+     "hi": 59.1,
+     "lo": 52.4,
+     "mean": 55.7,
+     "median": 36,
+     "n": 4031,
+     "sd": 108.3
+    },
+    "<12|1600-1799": {
+     "hi": 9.7,
+     "lo": -7.4,
+     "mean": 1.2,
+     "median": -15.5,
+     "n": 830,
+     "sd": 125.1
+    },
+    "<12|1800-1999": {
+     "hi": 14.7,
+     "lo": -71.9,
+     "mean": -28.6,
+     "median": -37.5,
+     "n": 40,
+     "sd": 139.7
+    },
+    "<12|2000-2199": {
+     "hi": -457.0,
+     "lo": -457.0,
+     "mean": -457.0,
+     "median": -457,
+     "n": 1,
+     "sd": 0.0
+    },
+    "<12|below 1400": {
+     "hi": 235.3,
+     "lo": 108.7,
+     "mean": 172.0,
+     "median": 144,
+     "n": 13,
+     "sd": 116.5
+    },
+    ">60|1400-1599": {
+     "hi": -12.2,
+     "lo": -25.7,
+     "mean": -19.0,
+     "median": -22.5,
+     "n": 256,
+     "sd": 55.2
+    },
+    ">60|1600-1799": {
+     "hi": -36.2,
+     "lo": -50.4,
+     "mean": -43.3,
+     "median": -34.5,
+     "n": 394,
+     "sd": 72.2
+    },
+    ">60|1800-1999": {
+     "hi": -31.4,
+     "lo": -55.8,
+     "mean": -43.6,
+     "median": -33,
+     "n": 161,
+     "sd": 79.0
+    },
+    ">60|2000-2199": {
+     "hi": -28.2,
+     "lo": -138.8,
+     "mean": -83.5,
+     "median": -82.0,
+     "n": 12,
+     "sd": 97.7
+    }
+   },
+   "by_federation": {
+    "ALG": {
+     "20 and over": {
+      "hi": 28.9,
+      "lo": -7.5,
+      "mean": 10.7,
+      "median": 2.0,
+      "n": 22,
+      "sd": 43.5
+     },
+     "all": {
+      "hi": 36.7,
+      "lo": -3.3,
+      "mean": 16.7,
+      "median": -0.5,
+      "n": 74,
+      "sd": 87.7
+     },
+     "under 20": {
+      "hi": 46.7,
+      "lo": -8.2,
+      "mean": 19.2,
+      "median": -0.5,
+      "n": 52,
+      "sd": 101.0
+     }
+    },
+    "ARG": {
+     "20 and over": {
+      "hi": -0.1,
+      "lo": -29.8,
+      "mean": -15.0,
+      "median": -16.5,
+      "n": 94,
+      "sd": 73.6
+     },
+     "all": {
+      "hi": 11.1,
+      "lo": -13.1,
+      "mean": -1.0,
+      "median": -8.0,
+      "n": 180,
+      "sd": 83.0
+     },
+     "under 20": {
+      "hi": 34.9,
+      "lo": -4.4,
+      "mean": 15.2,
+      "median": 2.0,
+      "n": 80,
+      "sd": 89.6
+     }
+    },
+    "ARM": {
+     "20 and over": {
+      "hi": -42.8,
+      "lo": -166.8,
+      "mean": -104.8,
+      "median": -72,
+      "n": 5,
+      "sd": 70.7
+     },
+     "all": {
+      "hi": 71.0,
+      "lo": 28.9,
+      "mean": 50.0,
+      "median": 42,
+      "n": 99,
+      "sd": 106.9
+     },
+     "under 20": {
+      "hi": 78.9,
+      "lo": 37.5,
+      "mean": 58.2,
+      "median": 49.5,
+      "n": 94,
+      "sd": 102.3
+     }
+    },
+    "AUS": {
+     "20 and over": {
+      "hi": -17.8,
+      "lo": -46.7,
+      "mean": -32.2,
+      "median": -27,
+      "n": 103,
+      "sd": 75.0
+     },
+     "all": {
+      "hi": 15.0,
+      "lo": -10.5,
+      "mean": 2.3,
+      "median": -13,
+      "n": 233,
+      "sd": 99.5
+     },
+     "under 20": {
+      "hi": 48.1,
+      "lo": 11.0,
+      "mean": 29.6,
+      "median": -1.0,
+      "n": 130,
+      "sd": 107.9
+     }
+    },
+    "AUT": {
+     "20 and over": {
+      "hi": 7.8,
+      "lo": -21.7,
+      "mean": -7.0,
+      "median": -9,
+      "n": 89,
+      "sd": 70.8
+     },
+     "all": {
+      "hi": 44.7,
+      "lo": 11.8,
+      "mean": 28.3,
+      "median": 4.5,
+      "n": 174,
+      "sd": 110.5
+     },
+     "under 20": {
+      "hi": 93.0,
+      "lo": 37.3,
+      "mean": 65.1,
+      "median": 23,
+      "n": 85,
+      "sd": 131.1
+     }
+    },
+    "AZE": {
+     "20 and over": {
+      "hi": 40.1,
+      "lo": -68.8,
+      "mean": -14.3,
+      "median": -54,
+      "n": 15,
+      "sd": 107.6
+     },
+     "all": {
+      "hi": 52.5,
+      "lo": 16.9,
+      "mean": 34.7,
+      "median": 14,
+      "n": 137,
+      "sd": 106.4
+     },
+     "under 20": {
+      "hi": 59.4,
+      "lo": 22.1,
+      "mean": 40.7,
+      "median": 17.0,
+      "n": 122,
+      "sd": 105.1
+     }
+    },
+    "BAN": {
+     "20 and over": {
+      "hi": -9.2,
+      "lo": -52.4,
+      "mean": -30.8,
+      "median": -27,
+      "n": 23,
+      "sd": 52.8
+     },
+     "all": {
+      "hi": 30.4,
+      "lo": -15.7,
+      "mean": 7.4,
+      "median": -11.0,
+      "n": 64,
+      "sd": 94.1
+     },
+     "under 20": {
+      "hi": 61.0,
+      "lo": -3.5,
+      "mean": 28.8,
+      "median": 7,
+      "n": 41,
+      "sd": 105.3
+     }
+    },
+    "BEL": {
+     "20 and over": {
+      "hi": -15.5,
+      "lo": -43.4,
+      "mean": -29.4,
+      "median": -22.0,
+      "n": 90,
+      "sd": 67.5
+     },
+     "all": {
+      "hi": 25.8,
+      "lo": -1.9,
+      "mean": 11.9,
+      "median": -6.0,
+      "n": 188,
+      "sd": 96.9
+     },
+     "under 20": {
+      "hi": 70.5,
+      "lo": 29.3,
+      "mean": 49.9,
+      "median": 25.0,
+      "n": 98,
+      "sd": 104.2
+     }
+    },
+    "BIH": {
+     "20 and over": {
+      "hi": 27.1,
+      "lo": -50.3,
+      "mean": -11.6,
+      "median": -15.0,
+      "n": 10,
+      "sd": 62.5
+     },
+     "all": {
+      "hi": 70.5,
+      "lo": -19.4,
+      "mean": 25.5,
+      "median": 15.5,
+      "n": 22,
+      "sd": 107.6
+     },
+     "under 20": {
+      "hi": 129.4,
+      "lo": -16.4,
+      "mean": 56.5,
+      "median": 31.5,
+      "n": 12,
+      "sd": 128.8
+     }
+    },
+    "BLR": {
+     "20 and over": {
+      "hi": 99.7,
+      "lo": -75.7,
+      "mean": 12.0,
+      "median": -24,
+      "n": 3,
+      "sd": 77.5
+     },
+     "all": {
+      "hi": 72.4,
+      "lo": 15.9,
+      "mean": 44.1,
+      "median": 20,
+      "n": 41,
+      "sd": 92.2
+     },
+     "under 20": {
+      "hi": 76.5,
+      "lo": 16.9,
+      "mean": 46.7,
+      "median": 21.5,
+      "n": 38,
+      "sd": 93.7
+     }
+    },
+    "BOL": {
+     "20 and over": {
+      "hi": 34.2,
+      "lo": -65.6,
+      "mean": -15.7,
+      "median": -1.5,
+      "n": 6,
+      "sd": 62.4
+     },
+     "all": {
+      "hi": 25.8,
+      "lo": -18.3,
+      "mean": 3.8,
+      "median": 0.5,
+      "n": 54,
+      "sd": 82.8
+     },
+     "under 20": {
+      "hi": 30.3,
+      "lo": -17.9,
+      "mean": 6.2,
+      "median": 0.5,
+      "n": 48,
+      "sd": 85.2
+     }
+    },
+    "BRA": {
+     "20 and over": {
+      "hi": -2.6,
+      "lo": -25.9,
+      "mean": -14.3,
+      "median": -16,
+      "n": 129,
+      "sd": 67.5
+     },
+     "all": {
+      "hi": 20.8,
+      "lo": 1.0,
+      "mean": 10.9,
+      "median": -3,
+      "n": 309,
+      "sd": 88.9
+     },
+     "under 20": {
+      "hi": 43.1,
+      "lo": 14.6,
+      "mean": 28.9,
+      "median": 12.0,
+      "n": 180,
+      "sd": 97.7
+     }
+    },
+    "BUL": {
+     "20 and over": {
+      "hi": 33.0,
+      "lo": -11.7,
+      "mean": 10.6,
+      "median": 15.0,
+      "n": 16,
+      "sd": 45.6
+     },
+     "all": {
+      "hi": 45.6,
+      "lo": -2.4,
+      "mean": 21.6,
+      "median": 11,
+      "n": 59,
+      "sd": 94.2
+     },
+     "under 20": {
+      "hi": 57.7,
+      "lo": -6.3,
+      "mean": 25.7,
+      "median": 11,
+      "n": 43,
+      "sd": 107.0
+     }
+    },
+    "CAN": {
+     "20 and over": {
+      "hi": -14.3,
+      "lo": -42.9,
+      "mean": -28.6,
+      "median": -22,
+      "n": 71,
+      "sd": 61.4
+     },
+     "all": {
+      "hi": 28.9,
+      "lo": 0.7,
+      "mean": 14.8,
+      "median": -5,
+      "n": 209,
+      "sd": 104.0
+     },
+     "under 20": {
+      "hi": 58.0,
+      "lo": 19.3,
+      "mean": 38.7,
+      "median": 19,
+      "n": 135,
+      "sd": 114.8
+     }
+    },
+    "CHI": {
+     "20 and over": {
+      "hi": -1.5,
+      "lo": -51.9,
+      "mean": -26.7,
+      "median": -16.0,
+      "n": 36,
+      "sd": 77.2
+     },
+     "all": {
+      "hi": 43.4,
+      "lo": 12.1,
+      "mean": 27.8,
+      "median": 8,
+      "n": 175,
+      "sd": 105.7
+     },
+     "under 20": {
+      "hi": 60.9,
+      "lo": 24.7,
+      "mean": 42.8,
+      "median": 17,
+      "n": 137,
+      "sd": 108.2
+     }
+    },
+    "CHN": {
+     "20 and over": {
+      "hi": 56.6,
+      "lo": -12.3,
+      "mean": 22.2,
+      "median": 18,
+      "n": 17,
+      "sd": 72.4
+     },
+     "all": {
+      "hi": 70.3,
+      "lo": 34.9,
+      "mean": 52.6,
+      "median": 23.0,
+      "n": 164,
+      "sd": 115.6
+     },
+     "under 20": {
+      "hi": 75.4,
+      "lo": 36.9,
+      "mean": 56.2,
+      "median": 23,
+      "n": 147,
+      "sd": 119.3
+     }
+    },
+    "COL": {
+     "20 and over": {
+      "hi": 5.3,
+      "lo": -30.8,
+      "mean": -12.8,
+      "median": -17.5,
+      "n": 52,
+      "sd": 66.3
+     },
+     "all": {
+      "hi": 21.4,
+      "lo": -4.7,
+      "mean": 8.3,
+      "median": -4,
+      "n": 181,
+      "sd": 89.8
+     },
+     "under 20": {
+      "hi": 33.5,
+      "lo": 0.2,
+      "mean": 16.9,
+      "median": 2,
+      "n": 129,
+      "sd": 96.6
+     }
+    },
+    "CRC": {
+     "20 and over": {
+      "hi": 11.4,
+      "lo": -54.4,
+      "mean": -21.5,
+      "median": -2,
+      "n": 23,
+      "sd": 80.5
+     },
+     "all": {
+      "hi": 53.0,
+      "lo": 9.7,
+      "mean": 31.3,
+      "median": 13.0,
+      "n": 100,
+      "sd": 110.5
+     },
+     "under 20": {
+      "hi": 72.5,
+      "lo": 21.7,
+      "mean": 47.1,
+      "median": 32,
+      "n": 77,
+      "sd": 113.7
+     }
+    },
+    "CRO": {
+     "20 and over": {
+      "hi": 6.7,
+      "lo": -29.4,
+      "mean": -11.4,
+      "median": -19,
+      "n": 47,
+      "sd": 63.2
+     },
+     "all": {
+      "hi": 41.3,
+      "lo": 9.7,
+      "mean": 25.5,
+      "median": 3.0,
+      "n": 160,
+      "sd": 102.1
+     },
+     "under 20": {
+      "hi": 61.3,
+      "lo": 20.3,
+      "mean": 40.8,
+      "median": 21,
+      "n": 113,
+      "sd": 111.1
+     }
+    },
+    "CUB": {
+     "20 and over": {
+      "hi": 30.5,
+      "lo": -61.5,
+      "mean": -15.5,
+      "median": -16.0,
+      "n": 14,
+      "sd": 87.7
+     },
+     "all": {
+      "hi": 0.6,
+      "lo": -40.1,
+      "mean": -19.7,
+      "median": -19.0,
+      "n": 82,
+      "sd": 94.0
+     },
+     "under 20": {
+      "hi": 2.2,
+      "lo": -43.4,
+      "mean": -20.6,
+      "median": -20.5,
+      "n": 68,
+      "sd": 95.9
+     }
+    },
+    "CZE": {
+     "20 and over": {
+      "hi": 0.7,
+      "lo": -30.8,
+      "mean": -15.0,
+      "median": -25,
+      "n": 65,
+      "sd": 64.8
+     },
+     "all": {
+      "hi": 45.2,
+      "lo": 15.6,
+      "mean": 30.4,
+      "median": 6.0,
+      "n": 226,
+      "sd": 113.5
+     },
+     "under 20": {
+      "hi": 67.8,
+      "lo": 29.6,
+      "mean": 48.7,
+      "median": 26,
+      "n": 161,
+      "sd": 123.6
+     }
+    },
+    "DEN": {
+     "20 and over": {
+      "hi": -4.0,
+      "lo": -44.2,
+      "mean": -24.1,
+      "median": -24.5,
+      "n": 68,
+      "sd": 84.5
+     },
+     "all": {
+      "hi": 6.0,
+      "lo": -34.1,
+      "mean": -14.0,
+      "median": -24,
+      "n": 105,
+      "sd": 104.8
+     },
+     "under 20": {
+      "hi": 47.6,
+      "lo": -38.5,
+      "mean": 4.6,
+      "median": -18,
+      "n": 37,
+      "sd": 133.7
+     }
+    },
+    "DOM": {
+     "20 and over": {
+      "hi": 11.4,
+      "lo": -46.2,
+      "mean": -17.4,
+      "median": -22,
+      "n": 13,
+      "sd": 53.0
+     },
+     "all": {
+      "hi": 41.0,
+      "lo": -30.8,
+      "mean": 5.1,
+      "median": -14,
+      "n": 27,
+      "sd": 95.2
+     },
+     "under 20": {
+      "hi": 89.1,
+      "lo": -37.2,
+      "mean": 25.9,
+      "median": -5.0,
+      "n": 14,
+      "sd": 120.6
+     }
+    },
+    "ECU": {
+     "20 and over": {
+      "hi": 46.5,
+      "lo": -37.3,
+      "mean": 4.6,
+      "median": -4.5,
+      "n": 10,
+      "sd": 67.6
+     },
+     "all": {
+      "hi": 41.0,
+      "lo": -3.9,
+      "mean": 18.5,
+      "median": 11,
+      "n": 65,
+      "sd": 92.4
+     },
+     "under 20": {
+      "hi": 46.5,
+      "lo": -4.5,
+      "mean": 21.0,
+      "median": 17,
+      "n": 55,
+      "sd": 96.5
+     }
+    },
+    "EGY": {
+     "20 and over": {
+      "hi": 14.2,
+      "lo": -16.2,
+      "mean": -1.0,
+      "median": -8,
+      "n": 71,
+      "sd": 65.3
+     },
+     "all": {
+      "hi": 17.9,
+      "lo": -5.7,
+      "mean": 6.1,
+      "median": -8,
+      "n": 175,
+      "sd": 79.8
+     },
+     "under 20": {
+      "hi": 27.9,
+      "lo": -6.0,
+      "mean": 11.0,
+      "median": -7.5,
+      "n": 104,
+      "sd": 88.3
+     }
+    },
+    "ENG": {
+     "20 and over": {
+      "hi": 4.1,
+      "lo": -16.7,
+      "mean": -6.3,
+      "median": -13,
+      "n": 131,
+      "sd": 60.6
+     },
+     "all": {
+      "hi": 18.1,
+      "lo": -5.6,
+      "mean": 6.2,
+      "median": -10.5,
+      "n": 206,
+      "sd": 86.6
+     },
+     "under 20": {
+      "hi": 54.5,
+      "lo": 1.8,
+      "mean": 28.1,
+      "median": 8,
+      "n": 75,
+      "sd": 116.5
+     }
+    },
+    "ESP": {
+     "20 and over": {
+      "hi": -24.1,
+      "lo": -37.9,
+      "mean": -31.0,
+      "median": -27.5,
+      "n": 500,
+      "sd": 78.6
+     },
+     "all": {
+      "hi": 10.7,
+      "lo": -1.6,
+      "mean": 4.6,
+      "median": -10,
+      "n": 1143,
+      "sd": 105.7
+     },
+     "under 20": {
+      "hi": 41.1,
+      "lo": 23.3,
+      "mean": 32.2,
+      "median": 12,
+      "n": 643,
+      "sd": 115.5
+     }
+    },
+    "FID": {
+     "20 and over": {
+      "hi": 25.1,
+      "lo": -38.0,
+      "mean": -6.4,
+      "median": -22,
+      "n": 23,
+      "sd": 77.1
+     },
+     "all": {
+      "hi": 56.1,
+      "lo": -3.0,
+      "mean": 26.5,
+      "median": 5,
+      "n": 55,
+      "sd": 111.8
+     },
+     "under 20": {
+      "hi": 94.3,
+      "lo": 6.2,
+      "mean": 50.2,
+      "median": 42.5,
+      "n": 32,
+      "sd": 127.1
+     }
+    },
+    "FIN": {
+     "20 and over": {
+      "hi": 25.7,
+      "lo": -31.2,
+      "mean": -2.8,
+      "median": 4,
+      "n": 21,
+      "sd": 66.6
+     },
+     "all": {
+      "hi": 29.1,
+      "lo": -17.8,
+      "mean": 5.6,
+      "median": 2,
+      "n": 45,
+      "sd": 80.3
+     },
+     "under 20": {
+      "hi": 49.6,
+      "lo": -23.6,
+      "mean": 13.0,
+      "median": -11.0,
+      "n": 24,
+      "sd": 91.5
+     }
+    },
+    "FRA": {
+     "20 and over": {
+      "hi": -21.7,
+      "lo": -35.1,
+      "mean": -28.4,
+      "median": -30.0,
+      "n": 476,
+      "sd": 74.7
+     },
+     "all": {
+      "hi": 21.1,
+      "lo": 8.4,
+      "mean": 14.8,
+      "median": -5.0,
+      "n": 1122,
+      "sd": 108.8
+     },
+     "under 20": {
+      "hi": 55.7,
+      "lo": 37.4,
+      "mean": 46.6,
+      "median": 21.5,
+      "n": 646,
+      "sd": 118.5
+     }
+    },
+    "GEO": {
+     "20 and over": {
+      "hi": -26.4,
+      "lo": -164.3,
+      "mean": -95.3,
+      "median": -85.5,
+      "n": 6,
+      "sd": 86.1
+     },
+     "all": {
+      "hi": 53.3,
+      "lo": 7.9,
+      "mean": 30.6,
+      "median": 15,
+      "n": 77,
+      "sd": 101.6
+     },
+     "under 20": {
+      "hi": 64.3,
+      "lo": 19.0,
+      "mean": 41.6,
+      "median": 21.0,
+      "n": 70,
+      "sd": 96.6
+     }
+    },
+    "GER": {
+     "20 and over": {
+      "hi": -10.6,
+      "lo": -22.0,
+      "mean": -16.3,
+      "median": -15.5,
+      "n": 510,
+      "sd": 65.6
+     },
+     "all": {
+      "hi": 16.8,
+      "lo": 6.0,
+      "mean": 11.4,
+      "median": 2,
+      "n": 1023,
+      "sd": 88.4
+     },
+     "under 20": {
+      "hi": 47.6,
+      "lo": 30.5,
+      "mean": 39.0,
+      "median": 21,
+      "n": 513,
+      "sd": 98.9
+     }
+    },
+    "GRE": {
+     "20 and over": {
+      "hi": 2.5,
+      "lo": -26.7,
+      "mean": -12.1,
+      "median": -22,
+      "n": 91,
+      "sd": 70.9
+     },
+     "all": {
+      "hi": 38.2,
+      "lo": 14.7,
+      "mean": 26.4,
+      "median": 1.5,
+      "n": 290,
+      "sd": 102.2
+     },
+     "under 20": {
+      "hi": 59.7,
+      "lo": 29.2,
+      "mean": 44.4,
+      "median": 18.0,
+      "n": 198,
+      "sd": 109.5
+     }
+    },
+    "HUN": {
+     "20 and over": {
+      "hi": 11.8,
+      "lo": -23.0,
+      "mean": -5.6,
+      "median": -15.0,
+      "n": 38,
+      "sd": 54.7
+     },
+     "all": {
+      "hi": 39.9,
+      "lo": 4.3,
+      "mean": 22.1,
+      "median": -5,
+      "n": 129,
+      "sd": 103.2
+     },
+     "under 20": {
+      "hi": 57.5,
+      "lo": 9.9,
+      "mean": 33.7,
+      "median": 1,
+      "n": 91,
+      "sd": 116.0
+     }
+    },
+    "INA": {
+     "20 and over": {
+      "hi": 25.7,
+      "lo": -36.5,
+      "mean": -5.4,
+      "median": -8,
+      "n": 21,
+      "sd": 72.7
+     },
+     "all": {
+      "hi": 55.1,
+      "lo": 6.8,
+      "mean": 30.9,
+      "median": 19,
+      "n": 53,
+      "sd": 89.6
+     },
+     "under 20": {
+      "hi": 86.9,
+      "lo": 22.7,
+      "mean": 54.8,
+      "median": 39.5,
+      "n": 32,
+      "sd": 92.7
+     }
+    },
+    "IND": {
+     "20 and over": {
+      "hi": -5.1,
+      "lo": -19.7,
+      "mean": -12.4,
+      "median": -18.5,
+      "n": 324,
+      "sd": 66.8
+     },
+     "all": {
+      "hi": 33.9,
+      "lo": 26.3,
+      "mean": 30.1,
+      "median": 8,
+      "n": 2385,
+      "sd": 94.0
+     },
+     "under 20": {
+      "hi": 40.9,
+      "lo": 32.6,
+      "mean": 36.8,
+      "median": 15,
+      "n": 2061,
+      "sd": 95.9
+     }
+    },
+    "IRI": {
+     "20 and over": {
+      "hi": -11.6,
+      "lo": -38.6,
+      "mean": -25.1,
+      "median": -22.0,
+      "n": 86,
+      "sd": 63.9
+     },
+     "all": {
+      "hi": 16.0,
+      "lo": 0.6,
+      "mean": 8.3,
+      "median": -7.0,
+      "n": 506,
+      "sd": 88.4
+     },
+     "under 20": {
+      "hi": 23.7,
+      "lo": 6.3,
+      "mean": 15.0,
+      "median": -3,
+      "n": 419,
+      "sd": 91.2
+     }
+    },
+    "IRL": {
+     "20 and over": {
+      "hi": 1.5,
+      "lo": -41.5,
+      "mean": -20.0,
+      "median": -17,
+      "n": 45,
+      "sd": 73.7
+     },
+     "all": {
+      "hi": 17.0,
+      "lo": -21.6,
+      "mean": -2.3,
+      "median": -12.5,
+      "n": 80,
+      "sd": 88.1
+     },
+     "under 20": {
+      "hi": 53.7,
+      "lo": -12.7,
+      "mean": 20.5,
+      "median": 2,
+      "n": 35,
+      "sd": 100.2
+     }
+    },
+    "IRQ": {
+     "20 and over": {
+      "hi": 41.3,
+      "lo": -37.3,
+      "mean": 2.0,
+      "median": -1,
+      "n": 19,
+      "sd": 87.5
+     },
+     "all": {
+      "hi": 18.9,
+      "lo": -30.3,
+      "mean": -5.7,
+      "median": -16,
+      "n": 43,
+      "sd": 82.2
+     },
+     "under 20": {
+      "hi": 19.8,
+      "lo": -43.5,
+      "mean": -11.8,
+      "median": -21.0,
+      "n": 24,
+      "sd": 79.1
+     }
+    },
+    "ISR": {
+     "20 and over": {
+      "hi": -12.4,
+      "lo": -49.2,
+      "mean": -30.8,
+      "median": -29,
+      "n": 53,
+      "sd": 68.4
+     },
+     "all": {
+      "hi": 32.1,
+      "lo": -0.7,
+      "mean": 15.7,
+      "median": -6.0,
+      "n": 154,
+      "sd": 103.9
+     },
+     "under 20": {
+      "hi": 61.8,
+      "lo": 18.5,
+      "mean": 40.1,
+      "median": 12,
+      "n": 101,
+      "sd": 111.1
+     }
+    },
+    "ITA": {
+     "20 and over": {
+      "hi": -10.5,
+      "lo": -25.7,
+      "mean": -18.1,
+      "median": -14,
+      "n": 309,
+      "sd": 68.0
+     },
+     "all": {
+      "hi": 20.0,
+      "lo": 6.3,
+      "mean": 13.1,
+      "median": -3.5,
+      "n": 730,
+      "sd": 94.1
+     },
+     "under 20": {
+      "hi": 45.9,
+      "lo": 26.1,
+      "mean": 36.0,
+      "median": 20,
+      "n": 421,
+      "sd": 103.6
+     }
+    },
+    "KAZ": {
+     "20 and over": {
+      "hi": 9.4,
+      "lo": -41.4,
+      "mean": -16.0,
+      "median": -13.5,
+      "n": 40,
+      "sd": 82.1
+     },
+     "all": {
+      "hi": 32.5,
+      "lo": 11.9,
+      "mean": 22.2,
+      "median": 13.5,
+      "n": 372,
+      "sd": 101.2
+     },
+     "under 20": {
+      "hi": 37.9,
+      "lo": 15.8,
+      "mean": 26.9,
+      "median": 17,
+      "n": 331,
+      "sd": 102.5
+     }
+    },
+    "KEN": {
+     "20 and over": {
+      "hi": 24.7,
+      "lo": -71.8,
+      "mean": -23.6,
+      "median": -37.0,
+      "n": 16,
+      "sd": 98.5
+     },
+     "all": {
+      "hi": 47.6,
+      "lo": -10.3,
+      "mean": 18.6,
+      "median": -12.0,
+      "n": 60,
+      "sd": 114.5
+     },
+     "under 20": {
+      "hi": 68.6,
+      "lo": -0.6,
+      "mean": 34.0,
+      "median": -10.5,
+      "n": 44,
+      "sd": 117.1
+     }
+    },
+    "KGZ": {
+     "20 and over": {
+      "hi": 35.9,
+      "lo": -107.9,
+      "mean": -36.0,
+      "median": -45,
+      "n": 5,
+      "sd": 82.0
+     },
+     "all": {
+      "hi": 41.9,
+      "lo": -25.3,
+      "mean": 8.3,
+      "median": -7.0,
+      "n": 42,
+      "sd": 111.1
+     },
+     "under 20": {
+      "hi": 51.0,
+      "lo": -22.5,
+      "mean": 14.3,
+      "median": -5,
+      "n": 37,
+      "sd": 114.1
+     }
+    },
+    "KOR": {
+     "20 and over": {
+      "hi": 14.1,
+      "lo": -36.2,
+      "mean": -11.1,
+      "median": -18.5,
+      "n": 20,
+      "sd": 57.3
+     },
+     "all": {
+      "hi": 44.3,
+      "lo": 4.2,
+      "mean": 24.2,
+      "median": 1,
+      "n": 107,
+      "sd": 105.8
+     },
+     "under 20": {
+      "hi": 56.0,
+      "lo": 8.6,
+      "mean": 32.3,
+      "median": 18,
+      "n": 87,
+      "sd": 112.8
+     }
+    },
+    "LAT": {
+     "20 and over": {
+      "hi": 15.5,
+      "lo": -39.0,
+      "mean": -11.8,
+      "median": -11.0,
+      "n": 8,
+      "sd": 39.3
+     },
+     "all": {
+      "hi": 72.6,
+      "lo": 11.7,
+      "mean": 42.1,
+      "median": 17,
+      "n": 49,
+      "sd": 108.8
+     },
+     "under 20": {
+      "hi": 87.9,
+      "lo": 17.4,
+      "mean": 52.6,
+      "median": 57,
+      "n": 41,
+      "sd": 115.1
+     }
+    },
+    "LTU": {
+     "20 and over": {
+      "hi": 68.9,
+      "lo": -41.2,
+      "mean": 13.9,
+      "median": -4.5,
+      "n": 14,
+      "sd": 105.0
+     },
+     "all": {
+      "hi": 56.6,
+      "lo": -3.0,
+      "mean": 26.8,
+      "median": 1.0,
+      "n": 44,
+      "sd": 100.9
+     },
+     "under 20": {
+      "hi": 68.6,
+      "lo": -3.0,
+      "mean": 32.8,
+      "median": 1.0,
+      "n": 30,
+      "sd": 100.1
+     }
+    },
+    "MAS": {
+     "20 and over": {
+      "hi": 40.4,
+      "lo": -35.9,
+      "mean": 2.3,
+      "median": -13,
+      "n": 23,
+      "sd": 93.4
+     },
+     "all": {
+      "hi": 32.8,
+      "lo": 4.9,
+      "mean": 18.9,
+      "median": 3,
+      "n": 159,
+      "sd": 89.8
+     },
+     "under 20": {
+      "hi": 36.7,
+      "lo": 6.7,
+      "mean": 21.7,
+      "median": 9.0,
+      "n": 136,
+      "sd": 89.2
+     }
+    },
+    "MEX": {
+     "20 and over": {
+      "hi": -10.3,
+      "lo": -32.8,
+      "mean": -21.6,
+      "median": -21.5,
+      "n": 150,
+      "sd": 70.3
+     },
+     "all": {
+      "hi": 6.6,
+      "lo": -10.4,
+      "mean": -1.9,
+      "median": -11,
+      "n": 379,
+      "sd": 84.2
+     },
+     "under 20": {
+      "hi": 22.6,
+      "lo": -0.7,
+      "mean": 11.0,
+      "median": -3,
+      "n": 229,
+      "sd": 90.1
+     }
+    },
+    "NED": {
+     "20 and over": {
+      "hi": 2.0,
+      "lo": -19.0,
+      "mean": -8.5,
+      "median": -17.5,
+      "n": 166,
+      "sd": 68.9
+     },
+     "all": {
+      "hi": 32.0,
+      "lo": 6.9,
+      "mean": 19.4,
+      "median": -1.0,
+      "n": 234,
+      "sd": 98.2
+     },
+     "under 20": {
+      "hi": 117.0,
+      "lo": 58.4,
+      "mean": 87.7,
+      "median": 47.0,
+      "n": 68,
+      "sd": 123.2
+     }
+    },
+    "NEP": {
+     "20 and over": {
+      "hi": 13.4,
+      "lo": -36.7,
+      "mean": -11.6,
+      "median": -8,
+      "n": 27,
+      "sd": 66.4
+     },
+     "all": {
+      "hi": -2.4,
+      "lo": -36.3,
+      "mean": -19.3,
+      "median": -12,
+      "n": 61,
+      "sd": 67.5
+     },
+     "under 20": {
+      "hi": -2.3,
+      "lo": -48.6,
+      "mean": -25.4,
+      "median": -21.0,
+      "n": 34,
+      "sd": 68.8
+     }
+    },
+    "NOR": {
+     "20 and over": {
+      "hi": 0.7,
+      "lo": -27.6,
+      "mean": -13.4,
+      "median": -18.0,
+      "n": 98,
+      "sd": 71.6
+     },
+     "all": {
+      "hi": 13.3,
+      "lo": -12.6,
+      "mean": 0.3,
+      "median": -12.0,
+      "n": 158,
+      "sd": 83.3
+     },
+     "under 20": {
+      "hi": 47.1,
+      "lo": -1.4,
+      "mean": 22.9,
+      "median": 21.0,
+      "n": 60,
+      "sd": 95.9
+     }
+    },
+    "PER": {
+     "20 and over": {
+      "hi": 12.8,
+      "lo": -24.1,
+      "mean": -5.7,
+      "median": -8.0,
+      "n": 34,
+      "sd": 54.9
+     },
+     "all": {
+      "hi": 25.1,
+      "lo": 3.3,
+      "mean": 14.2,
+      "median": -6,
+      "n": 305,
+      "sd": 97.0
+     },
+     "under 20": {
+      "hi": 28.7,
+      "lo": 4.7,
+      "mean": 16.7,
+      "median": -5,
+      "n": 271,
+      "sd": 100.8
+     }
+    },
+    "PHI": {
+     "20 and over": {
+      "hi": 3.0,
+      "lo": -35.5,
+      "mean": -16.3,
+      "median": -8.5,
+      "n": 38,
+      "sd": 60.4
+     },
+     "all": {
+      "hi": 20.1,
+      "lo": -7.1,
+      "mean": 6.5,
+      "median": -4.0,
+      "n": 174,
+      "sd": 91.4
+     },
+     "under 20": {
+      "hi": 28.1,
+      "lo": -5.3,
+      "mean": 11.4,
+      "median": -3.5,
+      "n": 132,
+      "sd": 98.0
+     }
+    },
+    "POL": {
+     "20 and over": {
+      "hi": -13.5,
+      "lo": -32.5,
+      "mean": -23.0,
+      "median": -20,
+      "n": 185,
+      "sd": 66.0
+     },
+     "all": {
+      "hi": 35.1,
+      "lo": 18.4,
+      "mean": 26.7,
+      "median": 6.0,
+      "n": 696,
+      "sd": 112.3
+     },
+     "under 20": {
+      "hi": 55.1,
+      "lo": 34.3,
+      "mean": 44.7,
+      "median": 24,
+      "n": 511,
+      "sd": 120.0
+     }
+    },
+    "POR": {
+     "20 and over": {
+      "hi": 3.5,
+      "lo": -42.3,
+      "mean": -19.4,
+      "median": -9.5,
+      "n": 30,
+      "sd": 64.0
+     },
+     "all": {
+      "hi": 26.5,
+      "lo": -17.8,
+      "mean": 4.3,
+      "median": -7,
+      "n": 77,
+      "sd": 99.1
+     },
+     "under 20": {
+      "hi": 52.1,
+      "lo": -13.2,
+      "mean": 19.4,
+      "median": -1,
+      "n": 47,
+      "sd": 114.2
+     }
+    },
+    "ROU": {
+     "20 and over": {
+      "hi": -15.9,
+      "lo": -51.1,
+      "mean": -33.5,
+      "median": -18.0,
+      "n": 42,
+      "sd": 58.3
+     },
+     "all": {
+      "hi": 34.4,
+      "lo": 6.8,
+      "mean": 20.6,
+      "median": -1.0,
+      "n": 190,
+      "sd": 97.1
+     },
+     "under 20": {
+      "hi": 52.2,
+      "lo": 19.8,
+      "mean": 36.0,
+      "median": 12.5,
+      "n": 148,
+      "sd": 100.5
+     }
+    },
+    "RSA": {
+     "20 and over": {
+      "hi": 9.9,
+      "lo": -26.4,
+      "mean": -8.3,
+      "median": -15.0,
+      "n": 58,
+      "sd": 70.4
+     },
+     "all": {
+      "hi": 11.2,
+      "lo": -11.3,
+      "mean": -0.1,
+      "median": -7,
+      "n": 231,
+      "sd": 87.5
+     },
+     "under 20": {
+      "hi": 16.5,
+      "lo": -11.1,
+      "mean": 2.7,
+      "median": -2,
+      "n": 173,
+      "sd": 92.5
+     }
+    },
+    "RUS": {
+     "20 and over": {
+      "hi": -30.5,
+      "lo": -64.1,
+      "mean": -47.3,
+      "median": -40.5,
+      "n": 80,
+      "sd": 76.7
+     },
+     "all": {
+      "hi": 15.6,
+      "lo": 3.3,
+      "mean": 9.4,
+      "median": 0,
+      "n": 877,
+      "sd": 93.5
+     },
+     "under 20": {
+      "hi": 21.6,
+      "lo": 8.7,
+      "mean": 15.1,
+      "median": 3,
+      "n": 797,
+      "sd": 93.2
+     }
+    },
+    "SCO": {
+     "20 and over": {
+      "hi": -26.8,
+      "lo": -83.3,
+      "mean": -55.1,
+      "median": -39.0,
+      "n": 28,
+      "sd": 76.2
+     },
+     "all": {
+      "hi": 12.0,
+      "lo": -58.6,
+      "mean": -23.3,
+      "median": -33,
+      "n": 39,
+      "sd": 112.4
+     },
+     "under 20": {
+      "hi": 145.8,
+      "lo": -30.9,
+      "mean": 57.5,
+      "median": 48,
+      "n": 11,
+      "sd": 149.5
+     }
+    },
+    "SGP": {
+     "20 and over": {
+      "hi": 65.2,
+      "lo": -61.2,
+      "mean": 2.0,
+      "median": 0,
+      "n": 5,
+      "sd": 72.1
+     },
+     "all": {
+      "hi": 81.4,
+      "lo": 15.8,
+      "mean": 48.6,
+      "median": 38,
+      "n": 55,
+      "sd": 124.2
+     },
+     "under 20": {
+      "hi": 88.7,
+      "lo": 17.9,
+      "mean": 53.3,
+      "median": 45.0,
+      "n": 50,
+      "sd": 127.8
+     }
+    },
+    "SLO": {
+     "20 and over": {
+      "hi": 10.0,
+      "lo": -63.5,
+      "mean": -26.8,
+      "median": -27.0,
+      "n": 8,
+      "sd": 53.1
+     },
+     "all": {
+      "hi": 139.4,
+      "lo": 50.2,
+      "mean": 94.8,
+      "median": 37.0,
+      "n": 44,
+      "sd": 150.9
+     },
+     "under 20": {
+      "hi": 171.6,
+      "lo": 71.9,
+      "mean": 121.8,
+      "median": 77.0,
+      "n": 36,
+      "sd": 152.7
+     }
+    },
+    "SRB": {
+     "20 and over": {
+      "hi": -4.7,
+      "lo": -38.1,
+      "mean": -21.4,
+      "median": -16.0,
+      "n": 56,
+      "sd": 63.9
+     },
+     "all": {
+      "hi": 17.6,
+      "lo": -15.4,
+      "mean": 1.1,
+      "median": -12,
+      "n": 141,
+      "sd": 100.2
+     },
+     "under 20": {
+      "hi": 40.6,
+      "lo": -8.8,
+      "mean": 15.9,
+      "median": -5,
+      "n": 85,
+      "sd": 116.2
+     }
+    },
+    "SRI": {
+     "20 and over": {
+      "hi": 6.1,
+      "lo": -21.3,
+      "mean": -7.6,
+      "median": -8.0,
+      "n": 30,
+      "sd": 38.3
+     },
+     "all": {
+      "hi": 36.7,
+      "lo": 21.1,
+      "mean": 28.9,
+      "median": 11.5,
+      "n": 404,
+      "sd": 79.5
+     },
+     "under 20": {
+      "hi": 40.2,
+      "lo": 23.6,
+      "mean": 31.9,
+      "median": 15,
+      "n": 373,
+      "sd": 81.4
+     }
+    },
+    "SUI": {
+     "20 and over": {
+      "hi": -6.3,
+      "lo": -35.4,
+      "mean": -20.8,
+      "median": -12,
+      "n": 89,
+      "sd": 69.9
+     },
+     "all": {
+      "hi": 28.0,
+      "lo": -3.6,
+      "mean": 12.2,
+      "median": 4.0,
+      "n": 158,
+      "sd": 101.6
+     },
+     "under 20": {
+      "hi": 82.9,
+      "lo": 26.7,
+      "mean": 54.8,
+      "median": 45,
+      "n": 69,
+      "sd": 119.3
+     }
+    },
+    "SVK": {
+     "20 and over": {
+      "hi": -0.4,
+      "lo": -36.2,
+      "mean": -18.3,
+      "median": -20.0,
+      "n": 42,
+      "sd": 59.3
+     },
+     "all": {
+      "hi": 46.2,
+      "lo": 10.4,
+      "mean": 28.3,
+      "median": 9.0,
+      "n": 166,
+      "sd": 117.4
+     },
+     "under 20": {
+      "hi": 66.6,
+      "lo": 21.6,
+      "mean": 44.1,
+      "median": 18.0,
+      "n": 124,
+      "sd": 127.8
+     }
+    },
+    "SWE": {
+     "20 and over": {
+      "hi": 0.1,
+      "lo": -35.5,
+      "mean": -17.7,
+      "median": -16,
+      "n": 79,
+      "sd": 80.7
+     },
+     "all": {
+      "hi": 26.0,
+      "lo": -8.8,
+      "mean": 8.6,
+      "median": -9,
+      "n": 151,
+      "sd": 109.0
+     },
+     "under 20": {
+      "hi": 67.0,
+      "lo": 8.0,
+      "mean": 37.5,
+      "median": 11.0,
+      "n": 72,
+      "sd": 127.7
+     }
+    },
+    "TUR": {
+     "20 and over": {
+      "hi": -3.0,
+      "lo": -29.6,
+      "mean": -16.3,
+      "median": -14.0,
+      "n": 66,
+      "sd": 55.2
+     },
+     "all": {
+      "hi": 49.2,
+      "lo": 26.7,
+      "mean": 38.0,
+      "median": 19,
+      "n": 395,
+      "sd": 113.8
+     },
+     "under 20": {
+      "hi": 61.7,
+      "lo": 35.9,
+      "mean": 48.8,
+      "median": 23,
+      "n": 329,
+      "sd": 119.4
+     }
+    },
+    "UKR": {
+     "20 and over": {
+      "hi": 5.4,
+      "lo": -49.4,
+      "mean": -22.0,
+      "median": -17.0,
+      "n": 32,
+      "sd": 79.1
+     },
+     "all": {
+      "hi": 37.1,
+      "lo": 5.7,
+      "mean": 21.4,
+      "median": -5.0,
+      "n": 168,
+      "sd": 103.8
+     },
+     "under 20": {
+      "hi": 49.5,
+      "lo": 13.7,
+      "mean": 31.6,
+      "median": 5.5,
+      "n": 136,
+      "sd": 106.5
+     }
+    },
+    "USA": {
+     "20 and over": {
+      "hi": -17.4,
+      "lo": -36.8,
+      "mean": -27.1,
+      "median": -26,
+      "n": 197,
+      "sd": 69.4
+     },
+     "all": {
+      "hi": 21.9,
+      "lo": 4.4,
+      "mean": 13.2,
+      "median": -4.0,
+      "n": 570,
+      "sd": 106.5
+     },
+     "under 20": {
+      "hi": 46.2,
+      "lo": 22.7,
+      "mean": 34.4,
+      "median": 12,
+      "n": 373,
+      "sd": 116.1
+     }
+    },
+    "UZB": {
+     "20 and over": {
+      "hi": 97.9,
+      "lo": -30.9,
+      "mean": 33.5,
+      "median": 22.5,
+      "n": 8,
+      "sd": 93.0
+     },
+     "all": {
+      "hi": 101.2,
+      "lo": 46.5,
+      "mean": 73.9,
+      "median": 40.5,
+      "n": 86,
+      "sd": 129.4
+     },
+     "under 20": {
+      "hi": 107.4,
+      "lo": 48.6,
+      "mean": 78.0,
+      "median": 51.0,
+      "n": 78,
+      "sd": 132.4
+     }
+    },
+    "VEN": {
+     "20 and over": {
+      "hi": 2.7,
+      "lo": -86.7,
+      "mean": -42.0,
+      "median": -34.0,
+      "n": 10,
+      "sd": 72.1
+     },
+     "all": {
+      "hi": 28.1,
+      "lo": -15.3,
+      "mean": 6.4,
+      "median": -19.5,
+      "n": 96,
+      "sd": 108.6
+     },
+     "under 20": {
+      "hi": 37.2,
+      "lo": -9.8,
+      "mean": 13.7,
+      "median": -18,
+      "n": 85,
+      "sd": 110.6
+     }
+    },
+    "VIE": {
+     "20 and over": {
+      "hi": 56.0,
+      "lo": -40.2,
+      "mean": 7.9,
+      "median": -18,
+      "n": 9,
+      "sd": 73.6
+     },
+     "all": {
+      "hi": 42.9,
+      "lo": 12.0,
+      "mean": 27.5,
+      "median": 6.5,
+      "n": 166,
+      "sd": 101.6
+     },
+     "under 20": {
+      "hi": 44.7,
+      "lo": 12.5,
+      "mean": 28.6,
+      "median": 8,
+      "n": 157,
+      "sd": 103.0
+     }
+    },
+    "WLS": {
+     "20 and over": {
+      "hi": 3.8,
+      "lo": -72.5,
+      "mean": -34.3,
+      "median": -45,
+      "n": 9,
+      "sd": 58.4
+     },
+     "all": {
+      "hi": 8.4,
+      "lo": -59.3,
+      "mean": -25.5,
+      "median": -26,
+      "n": 17,
+      "sd": 71.2
+     },
+     "under 20": {
+      "hi": 44.4,
+      "lo": -75.4,
+      "mean": -15.5,
+      "median": -21.5,
+      "n": 8,
+      "sd": 86.5
+     }
+    },
+    "ZAM": {
+     "20 and over": {
+      "hi": 12.0,
+      "lo": -51.6,
+      "mean": -19.8,
+      "median": -36,
+      "n": 17,
+      "sd": 66.9
+     },
+     "all": {
+      "hi": 53.8,
+      "lo": -32.0,
+      "mean": 10.9,
+      "median": -28.5,
+      "n": 26,
+      "sd": 111.6
+     },
+     "under 20": {
+      "hi": 170.4,
+      "lo": -32.8,
+      "mean": 68.8,
+      "median": 2,
+      "n": 9,
+      "sd": 155.5
+     }
+    }
+   },
+   "by_level": {
+    "1400-1599": {
+     "hi": 38.9,
+     "lo": 35.3,
+     "mean": 37.1,
+     "median": 13,
+     "n": 11467,
+     "sd": 98.4
+    },
+    "1600-1799": {
+     "hi": -4.3,
+     "lo": -8.9,
+     "mean": -6.6,
+     "median": -14,
+     "n": 6467,
+     "sd": 93.9
+    },
+    "1800-1999": {
+     "hi": -27.0,
+     "lo": -35.2,
+     "mean": -31.1,
+     "median": -30,
+     "n": 1589,
+     "sd": 83.3
+    },
+    "2000-2199": {
+     "hi": -50.4,
+     "lo": -81.6,
+     "mean": -66.0,
+     "median": -54.5,
+     "n": 116,
+     "sd": 85.8
+    },
+    "2200-2399": {
+     "hi": -33.0,
+     "lo": -33.0,
+     "mean": -33.0,
+     "median": -33,
+     "n": 1,
+     "sd": 0.0
+    },
+    "below 1400": {
+     "hi": 217.6,
+     "lo": 136.6,
+     "mean": 177.1,
+     "median": 147.0,
+     "n": 32,
+     "sd": 116.9
+    }
+   },
+   "federation_directions": {
+    "falls": 1,
+    "not settled": 36,
+    "rises": 38
+   },
+   "first_lists": [
+    "2024-04",
+    "2024-10"
+   ],
+   "newcomers": 29365,
+   "played_in_between": 19672,
+   "still_listed": 27120
+  }
+ }
+}

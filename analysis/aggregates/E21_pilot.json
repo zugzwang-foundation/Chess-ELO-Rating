@@ -1,0 +1,4196 @@
+{
+ "cross_border": {
+  "by_federation": {
+   "ALG": {
+    "cross": 31,
+    "games": 157,
+    "share": 0.1975
+   },
+   "ARG": {
+    "cross": 15,
+    "games": 172,
+    "share": 0.0872
+   },
+   "ARM": {
+    "cross": 62,
+    "games": 187,
+    "share": 0.3316
+   },
+   "AUS": {
+    "cross": 31,
+    "games": 138,
+    "share": 0.2246
+   },
+   "AUT": {
+    "cross": 33,
+    "games": 106,
+    "share": 0.3113
+   },
+   "AZE": {
+    "cross": 52,
+    "games": 192,
+    "share": 0.2708
+   },
+   "BAN": {
+    "cross": 19,
+    "games": 191,
+    "share": 0.0995
+   },
+   "BEL": {
+    "cross": 30,
+    "games": 77,
+    "share": 0.3896
+   },
+   "BIH": {
+    "cross": 87,
+    "games": 167,
+    "share": 0.521
+   },
+   "BLR": {
+    "cross": 128,
+    "games": 239,
+    "share": 0.5356
+   },
+   "BOL": {
+    "cross": 16,
+    "games": 158,
+    "share": 0.1013
+   },
+   "BRA": {
+    "cross": 31,
+    "games": 188,
+    "share": 0.1649
+   },
+   "BUL": {
+    "cross": 80,
+    "games": 181,
+    "share": 0.442
+   },
+   "CAN": {
+    "cross": 43,
+    "games": 135,
+    "share": 0.3185
+   },
+   "CHI": {
+    "cross": 26,
+    "games": 207,
+    "share": 0.1256
+   },
+   "CHN": {
+    "cross": 83,
+    "games": 211,
+    "share": 0.3934
+   },
+   "COL": {
+    "cross": 28,
+    "games": 179,
+    "share": 0.1564
+   },
+   "CRC": {
+    "cross": 24,
+    "games": 171,
+    "share": 0.1404
+   },
+   "CRO": {
+    "cross": 31,
+    "games": 102,
+    "share": 0.3039
+   },
+   "CUB": {
+    "cross": 26,
+    "games": 201,
+    "share": 0.1294
+   },
+   "CZE": {
+    "cross": 14,
+    "games": 93,
+    "share": 0.1505
+   },
+   "DEN": {
+    "cross": 12,
+    "games": 65,
+    "share": 0.1846
+   },
+   "DOM": {
+    "cross": 11,
+    "games": 158,
+    "share": 0.0696
+   },
+   "ECU": {
+    "cross": 47,
+    "games": 197,
+    "share": 0.2386
+   },
+   "EGY": {
+    "cross": 11,
+    "games": 151,
+    "share": 0.0728
+   },
+   "ENG": {
+    "cross": 76,
+    "games": 173,
+    "share": 0.4393
+   },
+   "ESP": {
+    "cross": 9,
+    "games": 85,
+    "share": 0.1059
+   },
+   "FID": {
+    "cross": 188,
+    "games": 211,
+    "share": 0.891
+   },
+   "FIN": {
+    "cross": 17,
+    "games": 88,
+    "share": 0.1932
+   },
+   "FRA": {
+    "cross": 21,
+    "games": 90,
+    "share": 0.2333
+   },
+   "GEO": {
+    "cross": 88,
+    "games": 216,
+    "share": 0.4074
+   },
+   "GER": {
+    "cross": 41,
+    "games": 159,
+    "share": 0.2579
+   },
+   "GRE": {
+    "cross": 36,
+    "games": 120,
+    "share": 0.3
+   },
+   "HUN": {
+    "cross": 38,
+    "games": 94,
+    "share": 0.4043
+   },
+   "INA": {
+    "cross": 45,
+    "games": 175,
+    "share": 0.2571
+   },
+   "IND": {
+    "cross": 28,
+    "games": 223,
+    "share": 0.1256
+   },
+   "IRI": {
+    "cross": 33,
+    "games": 176,
+    "share": 0.1875
+   },
+   "IRL": {
+    "cross": 52,
+    "games": 95,
+    "share": 0.5474
+   },
+   "IRQ": {
+    "cross": 31,
+    "games": 154,
+    "share": 0.2013
+   },
+   "ISR": {
+    "cross": 32,
+    "games": 92,
+    "share": 0.3478
+   },
+   "ITA": {
+    "cross": 12,
+    "games": 122,
+    "share": 0.0984
+   },
+   "KAZ": {
+    "cross": 64,
+    "games": 200,
+    "share": 0.32
+   },
+   "KEN": {
+    "cross": 31,
+    "games": 166,
+    "share": 0.1867
+   },
+   "KGZ": {
+    "cross": 45,
+    "games": 213,
+    "share": 0.2113
+   },
+   "KOR": {
+    "cross": 33,
+    "games": 138,
+    "share": 0.2391
+   },
+   "LAT": {
+    "cross": 73,
+    "games": 179,
+    "share": 0.4078
+   },
+   "LTU": {
+    "cross": 62,
+    "games": 129,
+    "share": 0.4806
+   },
+   "MAS": {
+    "cross": 64,
+    "games": 164,
+    "share": 0.3902
+   },
+   "MEX": {
+    "cross": 38,
+    "games": 153,
+    "share": 0.2484
+   },
+   "NED": {
+    "cross": 29,
+    "games": 78,
+    "share": 0.3718
+   },
+   "NEP": {
+    "cross": 35,
+    "games": 140,
+    "share": 0.25
+   },
+   "NOR": {
+    "cross": 38,
+    "games": 119,
+    "share": 0.3193
+   },
+   "PER": {
+    "cross": 39,
+    "games": 146,
+    "share": 0.2671
+   },
+   "PHI": {
+    "cross": 45,
+    "games": 147,
+    "share": 0.3061
+   },
+   "POL": {
+    "cross": 49,
+    "games": 192,
+    "share": 0.2552
+   },
+   "POR": {
+    "cross": 10,
+    "games": 87,
+    "share": 0.1149
+   },
+   "ROU": {
+    "cross": 34,
+    "games": 145,
+    "share": 0.2345
+   },
+   "RSA": {
+    "cross": 41,
+    "games": 149,
+    "share": 0.2752
+   },
+   "RUS": {
+    "cross": 26,
+    "games": 214,
+    "share": 0.1215
+   },
+   "SCO": {
+    "cross": 46,
+    "games": 101,
+    "share": 0.4554
+   },
+   "SGP": {
+    "cross": 111,
+    "games": 181,
+    "share": 0.6133
+   },
+   "SLO": {
+    "cross": 52,
+    "games": 134,
+    "share": 0.3881
+   },
+   "SRB": {
+    "cross": 41,
+    "games": 148,
+    "share": 0.277
+   },
+   "SRI": {
+    "cross": 43,
+    "games": 205,
+    "share": 0.2098
+   },
+   "SUI": {
+    "cross": 34,
+    "games": 80,
+    "share": 0.425
+   },
+   "SVK": {
+    "cross": 42,
+    "games": 91,
+    "share": 0.4615
+   },
+   "SWE": {
+    "cross": 10,
+    "games": 69,
+    "share": 0.1449
+   },
+   "TUR": {
+    "cross": 28,
+    "games": 206,
+    "share": 0.1359
+   },
+   "UKR": {
+    "cross": 108,
+    "games": 150,
+    "share": 0.72
+   },
+   "USA": {
+    "cross": 51,
+    "games": 167,
+    "share": 0.3054
+   },
+   "UZB": {
+    "cross": 105,
+    "games": 261,
+    "share": 0.4023
+   },
+   "VEN": {
+    "cross": 32,
+    "games": 151,
+    "share": 0.2119
+   },
+   "VIE": {
+    "cross": 33,
+    "games": 217,
+    "share": 0.1521
+   },
+   "WLS": {
+    "cross": 70,
+    "games": 114,
+    "share": 0.614
+   },
+   "ZAM": {
+    "cross": 18,
+    "games": 171,
+    "share": 0.1053
+   }
+  },
+  "by_level": {
+   "1400-1599": {
+    "games": 2023,
+    "share": 0.1335
+   },
+   "1600-1799": {
+    "games": 2707,
+    "share": 0.143
+   },
+   "1800-1999": {
+    "games": 2682,
+    "share": 0.2196
+   },
+   "2000-2199": {
+    "games": 1777,
+    "share": 0.3371
+   },
+   "2200-2399": {
+    "games": 1342,
+    "share": 0.5268
+   },
+   "2400+": {
+    "games": 970,
+    "share": 0.7691
+   }
+  },
+  "weighted_share": 0.1674
+ },
+ "decided": "after seeing the pilot's first pages (docs/DECISIONS.md, item 32)",
+ "first_looks": {
+  "favourite_minus_table_812": {
+   "1400-1599|0-49": {
+    "games": 359,
+    "hi": 0.0403,
+    "lo": -0.0522,
+    "mean": -0.0059,
+    "pages": 213
+   },
+   "1400-1599|100-149": {
+    "games": 469,
+    "hi": 0.014,
+    "lo": -0.0622,
+    "mean": -0.0241,
+    "pages": 278
+   },
+   "1400-1599|150-199": {
+    "games": 317,
+    "hi": 0.0313,
+    "lo": -0.0627,
+    "mean": -0.0157,
+    "pages": 228
+   },
+   "1400-1599|200-299": {
+    "games": 198,
+    "hi": 0.0108,
+    "lo": -0.1041,
+    "mean": -0.0467,
+    "pages": 131
+   },
+   "1400-1599|300-399": {
+    "games": 21,
+    "hi": 0.1456,
+    "lo": -0.1227,
+    "mean": 0.0114,
+    "pages": 18
+   },
+   "1400-1599|50-99": {
+    "games": 503,
+    "hi": 0.0378,
+    "lo": -0.0388,
+    "mean": -0.0005,
+    "pages": 288
+   },
+   "1600-1799|0-49": {
+    "games": 425,
+    "hi": -0.0037,
+    "lo": -0.0807,
+    "mean": -0.0422,
+    "pages": 262
+   },
+   "1600-1799|100-149": {
+    "games": 569,
+    "hi": -0.0108,
+    "lo": -0.0778,
+    "mean": -0.0443,
+    "pages": 372
+   },
+   "1600-1799|150-199": {
+    "games": 528,
+    "hi": 0.0185,
+    "lo": -0.0477,
+    "mean": -0.0146,
+    "pages": 355
+   },
+   "1600-1799|200-299": {
+    "games": 766,
+    "hi": 0.0126,
+    "lo": -0.0389,
+    "mean": -0.0131,
+    "pages": 474
+   },
+   "1600-1799|300-399": {
+    "games": 396,
+    "hi": 0.0058,
+    "lo": -0.0515,
+    "mean": -0.0229,
+    "pages": 286
+   },
+   "1600-1799|50-99": {
+    "games": 495,
+    "hi": 0.0187,
+    "lo": -0.0594,
+    "mean": -0.0204,
+    "pages": 327
+   },
+   "1800-1999|0-49": {
+    "games": 399,
+    "hi": 0.0433,
+    "lo": -0.041,
+    "mean": 0.0012,
+    "pages": 229
+   },
+   "1800-1999|100-149": {
+    "games": 460,
+    "hi": -0.0028,
+    "lo": -0.0832,
+    "mean": -0.043,
+    "pages": 296
+   },
+   "1800-1999|150-199": {
+    "games": 437,
+    "hi": -0.0017,
+    "lo": -0.0793,
+    "mean": -0.0405,
+    "pages": 278
+   },
+   "1800-1999|200-299": {
+    "games": 556,
+    "hi": -0.0179,
+    "lo": -0.0806,
+    "mean": -0.0492,
+    "pages": 336
+   },
+   "1800-1999|300-399": {
+    "games": 281,
+    "hi": -0.0114,
+    "lo": -0.0872,
+    "mean": -0.0493,
+    "pages": 200
+   },
+   "1800-1999|50-99": {
+    "games": 425,
+    "hi": 0.026,
+    "lo": -0.0474,
+    "mean": -0.0107,
+    "pages": 268
+   },
+   "2000-2199|0-49": {
+    "games": 192,
+    "hi": 0.0039,
+    "lo": -0.1013,
+    "mean": -0.0487,
+    "pages": 111
+   },
+   "2000-2199|100-149": {
+    "games": 243,
+    "hi": -0.0295,
+    "lo": -0.1371,
+    "mean": -0.0833,
+    "pages": 154
+   },
+   "2000-2199|150-199": {
+    "games": 261,
+    "hi": -0.0296,
+    "lo": -0.126,
+    "mean": -0.0778,
+    "pages": 161
+   },
+   "2000-2199|200-299": {
+    "games": 384,
+    "hi": -0.0207,
+    "lo": -0.0929,
+    "mean": -0.0568,
+    "pages": 212
+   },
+   "2000-2199|300-399": {
+    "games": 237,
+    "hi": -0.03,
+    "lo": -0.1082,
+    "mean": -0.0691,
+    "pages": 155
+   },
+   "2000-2199|50-99": {
+    "games": 203,
+    "hi": -0.0396,
+    "lo": -0.1516,
+    "mean": -0.0956,
+    "pages": 128
+   },
+   "2200-2399|0-49": {
+    "games": 162,
+    "hi": 0.0267,
+    "lo": -0.0968,
+    "mean": -0.0351,
+    "pages": 82
+   },
+   "2200-2399|100-149": {
+    "games": 204,
+    "hi": 0.0585,
+    "lo": -0.0406,
+    "mean": 0.009,
+    "pages": 107
+   },
+   "2200-2399|150-199": {
+    "games": 187,
+    "hi": 0.014,
+    "lo": -0.1001,
+    "mean": -0.043,
+    "pages": 108
+   },
+   "2200-2399|200-299": {
+    "games": 248,
+    "hi": -0.0146,
+    "lo": -0.0897,
+    "mean": -0.0521,
+    "pages": 128
+   },
+   "2200-2399|300-399": {
+    "games": 135,
+    "hi": 0.0041,
+    "lo": -0.1016,
+    "mean": -0.0487,
+    "pages": 81
+   },
+   "2200-2399|50-99": {
+    "games": 221,
+    "hi": 0.0441,
+    "lo": -0.0539,
+    "mean": -0.0049,
+    "pages": 116
+   },
+   "2400+|0-49": {
+    "games": 120,
+    "hi": 0.024,
+    "lo": -0.114,
+    "mean": -0.045,
+    "pages": 51
+   },
+   "2400+|100-149": {
+    "games": 118,
+    "hi": 0.0495,
+    "lo": -0.0889,
+    "mean": -0.0197,
+    "pages": 55
+   },
+   "2400+|150-199": {
+    "games": 86,
+    "hi": 0.0594,
+    "lo": -0.1066,
+    "mean": -0.0236,
+    "pages": 45
+   },
+   "2400+|200-299": {
+    "games": 63,
+    "hi": 0.0572,
+    "lo": -0.108,
+    "mean": -0.0254,
+    "pages": 34
+   },
+   "2400+|300-399": {
+    "games": 13,
+    "hi": 0.1358,
+    "lo": -0.202,
+    "mean": -0.0331,
+    "pages": 10
+   },
+   "2400+|50-99": {
+    "games": 157,
+    "hi": 0.0499,
+    "lo": -0.0855,
+    "mean": -0.0178,
+    "pages": 65
+   },
+   "every level|0-49": {
+    "games": 1657,
+    "hi": -0.0043,
+    "lo": -0.044,
+    "mean": -0.0242,
+    "pages": 917
+   },
+   "every level|100-149": {
+    "games": 2063,
+    "hi": -0.0196,
+    "lo": -0.055,
+    "mean": -0.0373,
+    "pages": 1108
+   },
+   "every level|150-199": {
+    "games": 1816,
+    "hi": -0.0146,
+    "lo": -0.0524,
+    "mean": -0.0335,
+    "pages": 1012
+   },
+   "every level|200-299": {
+    "games": 2215,
+    "hi": -0.0224,
+    "lo": -0.0526,
+    "mean": -0.0375,
+    "pages": 1070
+   },
+   "every level|300-399": {
+    "games": 1083,
+    "hi": -0.0243,
+    "lo": -0.0607,
+    "mean": -0.0425,
+    "pages": 680
+   },
+   "every level|50-99": {
+    "games": 2004,
+    "hi": -0.0006,
+    "lo": -0.0375,
+    "mean": -0.019,
+    "pages": 1090
+   }
+  },
+  "results_by_age": {
+   "adult|adult|1400-1599": {
+    "games": 180,
+    "hi": 0.0255,
+    "lo": -0.0868,
+    "mean": -0.0307,
+    "pages": 91
+   },
+   "adult|adult|1600-1799": {
+    "games": 527,
+    "hi": -0.0166,
+    "lo": -0.0832,
+    "mean": -0.0499,
+    "pages": 199
+   },
+   "adult|adult|1800-1999": {
+    "games": 788,
+    "hi": 0.0309,
+    "lo": -0.0263,
+    "mean": 0.0023,
+    "pages": 248
+   },
+   "adult|adult|2000-2199": {
+    "games": 545,
+    "hi": 0.0265,
+    "lo": -0.0558,
+    "mean": -0.0147,
+    "pages": 152
+   },
+   "adult|adult|2200-2399": {
+    "games": 577,
+    "hi": 0.0246,
+    "lo": -0.041,
+    "mean": -0.0082,
+    "pages": 112
+   },
+   "adult|adult|2400+": {
+    "games": 515,
+    "hi": 0.0367,
+    "lo": -0.028,
+    "mean": 0.0043,
+    "pages": 71
+   },
+   "adult|adult|every level": {
+    "games": 3132,
+    "hi": 0.0016,
+    "lo": -0.0274,
+    "mean": -0.0129,
+    "pages": 873
+   },
+   "adult|junior|1400-1599": {
+    "games": 73,
+    "hi": -0.0829,
+    "lo": -0.2478,
+    "mean": -0.1653,
+    "pages": 44
+   },
+   "adult|junior|1600-1799": {
+    "games": 153,
+    "hi": -0.0754,
+    "lo": -0.2023,
+    "mean": -0.1388,
+    "pages": 99
+   },
+   "adult|junior|1800-1999": {
+    "games": 245,
+    "hi": -0.019,
+    "lo": -0.1295,
+    "mean": -0.0742,
+    "pages": 122
+   },
+   "adult|junior|2000-2199": {
+    "games": 164,
+    "hi": -0.0009,
+    "lo": -0.1248,
+    "mean": -0.0629,
+    "pages": 73
+   },
+   "adult|junior|2200-2399": {
+    "games": 164,
+    "hi": 0.0101,
+    "lo": -0.1028,
+    "mean": -0.0463,
+    "pages": 64
+   },
+   "adult|junior|2400+": {
+    "games": 146,
+    "hi": 0.0311,
+    "lo": -0.0625,
+    "mean": -0.0157,
+    "pages": 47
+   },
+   "adult|junior|every level": {
+    "games": 945,
+    "hi": -0.0508,
+    "lo": -0.1009,
+    "mean": -0.0759,
+    "pages": 449
+   },
+   "junior|adult|1400-1599": {
+    "games": 317,
+    "hi": 0.0074,
+    "lo": -0.0674,
+    "mean": -0.03,
+    "pages": 155
+   },
+   "junior|adult|1600-1799": {
+    "games": 383,
+    "hi": 0.1163,
+    "lo": 0.0316,
+    "mean": 0.0739,
+    "pages": 158
+   },
+   "junior|adult|1800-1999": {
+    "games": 428,
+    "hi": 0.1202,
+    "lo": 0.0391,
+    "mean": 0.0797,
+    "pages": 121
+   },
+   "junior|adult|2000-2199": {
+    "games": 378,
+    "hi": 0.0838,
+    "lo": 0.0084,
+    "mean": 0.0461,
+    "pages": 92
+   },
+   "junior|adult|2200-2399": {
+    "games": 277,
+    "hi": 0.0632,
+    "lo": -0.033,
+    "mean": 0.0151,
+    "pages": 46
+   },
+   "junior|adult|2400+": {
+    "games": 160,
+    "hi": 0.188,
+    "lo": 0.0147,
+    "mean": 0.1013,
+    "pages": 20
+   },
+   "junior|adult|every level": {
+    "games": 1943,
+    "hi": 0.0656,
+    "lo": 0.0278,
+    "mean": 0.0467,
+    "pages": 592
+   },
+   "junior|junior|1400-1599": {
+    "games": 554,
+    "hi": -0.0053,
+    "lo": -0.0741,
+    "mean": -0.0397,
+    "pages": 231
+   },
+   "junior|junior|1600-1799": {
+    "games": 660,
+    "hi": 0.0599,
+    "lo": -0.0041,
+    "mean": 0.0279,
+    "pages": 225
+   },
+   "junior|junior|1800-1999": {
+    "games": 509,
+    "hi": 0.0456,
+    "lo": -0.0185,
+    "mean": 0.0136,
+    "pages": 144
+   },
+   "junior|junior|2000-2199": {
+    "games": 333,
+    "hi": 0.0738,
+    "lo": -0.0171,
+    "mean": 0.0283,
+    "pages": 90
+   },
+   "junior|junior|2200-2399": {
+    "games": 201,
+    "hi": 0.0412,
+    "lo": -0.0666,
+    "mean": -0.0127,
+    "pages": 48
+   },
+   "junior|junior|2400+": {
+    "games": 101,
+    "hi": 0.1759,
+    "lo": -0.0442,
+    "mean": 0.0658,
+    "pages": 23
+   },
+   "junior|junior|every level": {
+    "games": 2358,
+    "hi": 0.0239,
+    "lo": -0.0097,
+    "mean": 0.0071,
+    "pages": 761
+   }
+  },
+  "white_edge_every_game": {
+   "1400-1599": {
+    "edge": 0.0169,
+    "games_black": 1022,
+    "games_white": 1001,
+    "hi": 0.0344,
+    "lo": -0.0005
+   },
+   "1600-1799": {
+    "edge": 0.0205,
+    "games_black": 1380,
+    "games_white": 1327,
+    "hi": 0.0367,
+    "lo": 0.0043
+   },
+   "1800-1999": {
+    "edge": 0.0234,
+    "games_black": 1335,
+    "games_white": 1347,
+    "hi": 0.039,
+    "lo": 0.0078
+   },
+   "2000-2199": {
+    "edge": 0.0341,
+    "games_black": 895,
+    "games_white": 882,
+    "hi": 0.0541,
+    "lo": 0.0142
+   },
+   "2200-2399": {
+    "edge": 0.0382,
+    "games_black": 669,
+    "games_white": 673,
+    "hi": 0.0594,
+    "lo": 0.017
+   },
+   "2400+": {
+    "edge": 0.0231,
+    "games_black": 477,
+    "games_white": 493,
+    "hi": 0.049,
+    "lo": -0.0028
+   }
+  },
+  "white_score_near_equal": {
+   "1400-1599": {
+    "games": 371,
+    "hi": 0.5762,
+    "lo": 0.4911,
+    "mean": 0.5337,
+    "pages": 218
+   },
+   "1600-1799": {
+    "games": 437,
+    "hi": 0.583,
+    "lo": 0.5017,
+    "mean": 0.5423,
+    "pages": 264
+   },
+   "1800-1999": {
+    "games": 412,
+    "hi": 0.5626,
+    "lo": 0.4836,
+    "mean": 0.5231,
+    "pages": 234
+   },
+   "2000-2199": {
+    "games": 197,
+    "hi": 0.5962,
+    "lo": 0.4901,
+    "mean": 0.5431,
+    "pages": 113
+   },
+   "2200-2399": {
+    "games": 168,
+    "hi": 0.5686,
+    "lo": 0.4552,
+    "mean": 0.5119,
+    "pages": 83
+   },
+   "2400+": {
+    "games": 123,
+    "hi": 0.5712,
+    "lo": 0.4775,
+    "mean": 0.5244,
+    "pages": 51
+   },
+   "within_points": 50
+  }
+ },
+ "fixed_line": "Under this rule, with the same results \u2014 not anyone's true strength.",
+ "full_fetch_2025": {
+  "by_federation": {
+   "ALG": {
+    "cross_border_player_games": 1000.0,
+    "distinct_games": 3700.0,
+    "pages": 1007,
+    "player_games": 5730,
+    "players": 407
+   },
+   "ARG": {
+    "cross_border_player_games": 2900.0,
+    "distinct_games": 23300.0,
+    "pages": 5742,
+    "player_games": 35964,
+    "players": 1983
+   },
+   "ARM": {
+    "cross_border_player_games": 4600.0,
+    "distinct_games": 10400.0,
+    "pages": 1946,
+    "player_games": 16005,
+    "players": 604
+   },
+   "AUS": {
+    "cross_border_player_games": 5400.0,
+    "distinct_games": 21400.0,
+    "pages": 6883,
+    "player_games": 33018,
+    "players": 1459
+   },
+   "AUT": {
+    "cross_border_player_games": 10600.0,
+    "distinct_games": 24400.0,
+    "pages": 12864,
+    "player_games": 37612,
+    "players": 2787
+   },
+   "AZE": {
+    "cross_border_player_games": 4600.0,
+    "distinct_games": 12600.0,
+    "pages": 2442,
+    "player_games": 19390,
+    "players": 753
+   },
+   "BAN": {
+    "cross_border_player_games": 1200.0,
+    "distinct_games": 11900.0,
+    "pages": 2877,
+    "player_games": 18374,
+    "players": 982
+   },
+   "BEL": {
+    "cross_border_player_games": 12700.0,
+    "distinct_games": 28100.0,
+    "pages": 15111,
+    "player_games": 43376,
+    "players": 2713
+   },
+   "BIH": {
+    "cross_border_player_games": 3100.0,
+    "distinct_games": 3600.0,
+    "pages": 885,
+    "player_games": 5633,
+    "players": 394
+   },
+   "BLR": {
+    "cross_border_player_games": 2600.0,
+    "distinct_games": 3600.0,
+    "pages": 621,
+    "player_games": 5527,
+    "players": 257
+   },
+   "BOL": {
+    "cross_border_player_games": 700.0,
+    "distinct_games": 5100.0,
+    "pages": 1246,
+    "player_games": 7875,
+    "players": 398
+   },
+   "BRA": {
+    "cross_border_player_games": 4200.0,
+    "distinct_games": 22900.0,
+    "pages": 6298,
+    "player_games": 35375,
+    "players": 2301
+   },
+   "BUL": {
+    "cross_border_player_games": 4400.0,
+    "distinct_games": 8300.0,
+    "pages": 1933,
+    "player_games": 12754,
+    "players": 627
+   },
+   "CAN": {
+    "cross_border_player_games": 7400.0,
+    "distinct_games": 17400.0,
+    "pages": 4658,
+    "player_games": 26912,
+    "players": 1286
+   },
+   "CHI": {
+    "cross_border_player_games": 2000.0,
+    "distinct_games": 14200.0,
+    "pages": 3497,
+    "player_games": 21883,
+    "players": 1067
+   },
+   "CHN": {
+    "cross_border_player_games": 8200.0,
+    "distinct_games": 12700.0,
+    "pages": 2314,
+    "player_games": 19646,
+    "players": 935
+   },
+   "COL": {
+    "cross_border_player_games": 2600.0,
+    "distinct_games": 13000.0,
+    "pages": 3201,
+    "player_games": 20030,
+    "players": 1196
+   },
+   "CRC": {
+    "cross_border_player_games": 700.0,
+    "distinct_games": 4400.0,
+    "pages": 1220,
+    "player_games": 6719,
+    "players": 397
+   },
+   "CRO": {
+    "cross_border_player_games": 8000.0,
+    "distinct_games": 20000.0,
+    "pages": 7873,
+    "player_games": 30891,
+    "players": 2217
+   },
+   "CUB": {
+    "cross_border_player_games": 1900.0,
+    "distinct_games": 10100.0,
+    "pages": 1906,
+    "player_games": 15591,
+    "players": 697
+   },
+   "CZE": {
+    "cross_border_player_games": 10200.0,
+    "distinct_games": 55100.0,
+    "pages": 26531,
+    "player_games": 85133,
+    "players": 5394
+   },
+   "DEN": {
+    "cross_border_player_games": 6000.0,
+    "distinct_games": 26500.0,
+    "pages": 12132,
+    "player_games": 40888,
+    "players": 2511
+   },
+   "DOM": {
+    "cross_border_player_games": 300.0,
+    "distinct_games": 3200.0,
+    "pages": 740,
+    "player_games": 4891,
+    "players": 282
+   },
+   "ECU": {
+    "cross_border_player_games": 1000.0,
+    "distinct_games": 4700.0,
+    "pages": 1136,
+    "player_games": 7280,
+    "players": 442
+   },
+   "EGY": {
+    "cross_border_player_games": 800.0,
+    "distinct_games": 7600.0,
+    "pages": 2086,
+    "player_games": 11667,
+    "players": 823
+   },
+   "ENG": {
+    "cross_border_player_games": 13100.0,
+    "distinct_games": 24200.0,
+    "pages": 7369,
+    "player_games": 37296,
+    "players": 2090
+   },
+   "ESP": {
+    "cross_border_player_games": 20700.0,
+    "distinct_games": 172600.0,
+    "pages": 71038,
+    "player_games": 266539,
+    "players": 17069
+   },
+   "FID": {
+    "cross_border_player_games": 21000.0,
+    "distinct_games": 15100.0,
+    "pages": 2759,
+    "player_games": 23389,
+    "players": 635
+   },
+   "FIN": {
+    "cross_border_player_games": 1800.0,
+    "distinct_games": 5500.0,
+    "pages": 2616,
+    "player_games": 8475,
+    "players": 696
+   },
+   "FRA": {
+    "cross_border_player_games": 35600.0,
+    "distinct_games": 159200.0,
+    "pages": 73309,
+    "player_games": 245866,
+    "players": 15107
+   },
+   "GEO": {
+    "cross_border_player_games": 4200.0,
+    "distinct_games": 6600.0,
+    "pages": 1274,
+    "player_games": 10116,
+    "players": 372
+   },
+   "GER": {
+    "cross_border_player_games": 44600.0,
+    "distinct_games": 117200.0,
+    "pages": 36159,
+    "player_games": 180952,
+    "players": 11956
+   },
+   "GRE": {
+    "cross_border_player_games": 9300.0,
+    "distinct_games": 27500.0,
+    "pages": 8467,
+    "player_games": 42519,
+    "players": 2687
+   },
+   "HUN": {
+    "cross_border_player_games": 12700.0,
+    "distinct_games": 32800.0,
+    "pages": 16211,
+    "player_games": 50707,
+    "players": 3138
+   },
+   "INA": {
+    "cross_border_player_games": 1100.0,
+    "distinct_games": 3200.0,
+    "pages": 682,
+    "player_games": 4955,
+    "players": 360
+   },
+   "IND": {
+    "cross_border_player_games": 32100.0,
+    "distinct_games": 196300.0,
+    "pages": 37122,
+    "player_games": 303094,
+    "players": 13017
+   },
+   "IRI": {
+    "cross_border_player_games": 6900.0,
+    "distinct_games": 38200.0,
+    "pages": 10745,
+    "player_games": 59027,
+    "players": 3660
+   },
+   "IRL": {
+    "cross_border_player_games": 6100.0,
+    "distinct_games": 8100.0,
+    "pages": 3295,
+    "player_games": 12507,
+    "players": 769
+   },
+   "IRQ": {
+    "cross_border_player_games": 800.0,
+    "distinct_games": 3000.0,
+    "pages": 691,
+    "player_games": 4585,
+    "players": 274
+   },
+   "ISR": {
+    "cross_border_player_games": 10300.0,
+    "distinct_games": 18200.0,
+    "pages": 7706,
+    "player_games": 28123,
+    "players": 1810
+   },
+   "ITA": {
+    "cross_border_player_games": 7000.0,
+    "distinct_games": 64100.0,
+    "pages": 19465,
+    "player_games": 99003,
+    "players": 6203
+   },
+   "KAZ": {
+    "cross_border_player_games": 9400.0,
+    "distinct_games": 29200.0,
+    "pages": 5345,
+    "player_games": 45066,
+    "players": 1648
+   },
+   "KEN": {
+    "cross_border_player_games": 1900.0,
+    "distinct_games": 7700.0,
+    "pages": 1925,
+    "player_games": 11872,
+    "players": 600
+   },
+   "KGZ": {
+    "cross_border_player_games": 1800.0,
+    "distinct_games": 5700.0,
+    "pages": 1092,
+    "player_games": 8824,
+    "players": 370
+   },
+   "KOR": {
+    "cross_border_player_games": 1300.0,
+    "distinct_games": 5700.0,
+    "pages": 1865,
+    "player_games": 8738,
+    "players": 438
+   },
+   "LAT": {
+    "cross_border_player_games": 3300.0,
+    "distinct_games": 5100.0,
+    "pages": 1169,
+    "player_games": 7835,
+    "players": 353
+   },
+   "LTU": {
+    "cross_border_player_games": 2600.0,
+    "distinct_games": 4900.0,
+    "pages": 1320,
+    "player_games": 7578,
+    "players": 434
+   },
+   "MAS": {
+    "cross_border_player_games": 3800.0,
+    "distinct_games": 8600.0,
+    "pages": 2110,
+    "player_games": 13247,
+    "players": 830
+   },
+   "MEX": {
+    "cross_border_player_games": 3800.0,
+    "distinct_games": 16800.0,
+    "pages": 4528,
+    "player_games": 25938,
+    "players": 1738
+   },
+   "NED": {
+    "cross_border_player_games": 10600.0,
+    "distinct_games": 31600.0,
+    "pages": 20175,
+    "player_games": 48818,
+    "players": 4081
+   },
+   "NEP": {
+    "cross_border_player_games": 900.0,
+    "distinct_games": 2800.0,
+    "pages": 685,
+    "player_games": 4253,
+    "players": 326
+   },
+   "NOR": {
+    "cross_border_player_games": 7700.0,
+    "distinct_games": 19700.0,
+    "pages": 7492,
+    "player_games": 30451,
+    "players": 1914
+   },
+   "PER": {
+    "cross_border_player_games": 5600.0,
+    "distinct_games": 18500.0,
+    "pages": 4386,
+    "player_games": 28540,
+    "players": 1409
+   },
+   "PHI": {
+    "cross_border_player_games": 3700.0,
+    "distinct_games": 9400.0,
+    "pages": 2666,
+    "player_games": 14573,
+    "players": 1085
+   },
+   "POL": {
+    "cross_border_player_games": 24800.0,
+    "distinct_games": 77900.0,
+    "pages": 19672,
+    "player_games": 120318,
+    "players": 5292
+   },
+   "POR": {
+    "cross_border_player_games": 1700.0,
+    "distinct_games": 9800.0,
+    "pages": 4031,
+    "player_games": 15144,
+    "players": 1062
+   },
+   "ROU": {
+    "cross_border_player_games": 7500.0,
+    "distinct_games": 26300.0,
+    "pages": 6206,
+    "player_games": 40669,
+    "players": 1821
+   },
+   "RSA": {
+    "cross_border_player_games": 3500.0,
+    "distinct_games": 11500.0,
+    "pages": 3292,
+    "player_games": 17817,
+    "players": 1286
+   },
+   "RUS": {
+    "cross_border_player_games": 7900.0,
+    "distinct_games": 64500.0,
+    "pages": 13527,
+    "player_games": 99661,
+    "players": 5604
+   },
+   "SCO": {
+    "cross_border_player_games": 2200.0,
+    "distinct_games": 3000.0,
+    "pages": 1186,
+    "player_games": 4673,
+    "players": 323
+   },
+   "SGP": {
+    "cross_border_player_games": 4000.0,
+    "distinct_games": 4500.0,
+    "pages": 963,
+    "player_games": 6985,
+    "players": 342
+   },
+   "SLO": {
+    "cross_border_player_games": 3600.0,
+    "distinct_games": 6700.0,
+    "pages": 1785,
+    "player_games": 10312,
+    "players": 629
+   },
+   "SRB": {
+    "cross_border_player_games": 10500.0,
+    "distinct_games": 27200.0,
+    "pages": 6841,
+    "player_games": 42002,
+    "players": 2656
+   },
+   "SRI": {
+    "cross_border_player_games": 4600.0,
+    "distinct_games": 24000.0,
+    "pages": 5975,
+    "player_games": 37108,
+    "players": 2143
+   },
+   "SUI": {
+    "cross_border_player_games": 10000.0,
+    "distinct_games": 19100.0,
+    "pages": 9829,
+    "player_games": 29558,
+    "players": 2032
+   },
+   "SVK": {
+    "cross_border_player_games": 14100.0,
+    "distinct_games": 26400.0,
+    "pages": 14256,
+    "player_games": 40756,
+    "players": 2904
+   },
+   "SWE": {
+    "cross_border_player_games": 6100.0,
+    "distinct_games": 27300.0,
+    "pages": 13045,
+    "player_games": 42082,
+    "players": 2735
+   },
+   "TUR": {
+    "cross_border_player_games": 7700.0,
+    "distinct_games": 40100.0,
+    "pages": 8253,
+    "player_games": 61921,
+    "players": 3095
+   },
+   "UKR": {
+    "cross_border_player_games": 18200.0,
+    "distinct_games": 16800.0,
+    "pages": 4007,
+    "player_games": 25917,
+    "players": 1223
+   },
+   "USA": {
+    "cross_border_player_games": 20600.0,
+    "distinct_games": 59700.0,
+    "pages": 15862,
+    "player_games": 92157,
+    "players": 4059
+   },
+   "UZB": {
+    "cross_border_player_games": 6300.0,
+    "distinct_games": 11300.0,
+    "pages": 2007,
+    "player_games": 17447,
+    "players": 604
+   },
+   "VEN": {
+    "cross_border_player_games": 2600.0,
+    "distinct_games": 9800.0,
+    "pages": 2598,
+    "player_games": 15071,
+    "players": 830
+   },
+   "VIE": {
+    "cross_border_player_games": 2300.0,
+    "distinct_games": 11800.0,
+    "pages": 2444,
+    "player_games": 18258,
+    "players": 792
+   },
+   "WLS": {
+    "cross_border_player_games": 2100.0,
+    "distinct_games": 2400.0,
+    "pages": 850,
+    "player_games": 3706,
+    "players": 218
+   },
+   "ZAM": {
+    "cross_border_player_games": 1400.0,
+    "distinct_games": 8000.0,
+    "pages": 1357,
+    "player_games": 12415,
+    "players": 424
+   }
+  },
+  "by_level": {
+   "1400-1599": {
+    "cross_border_player_games": 48000.0,
+    "distinct_games": 359000.0,
+    "pages": 129514,
+    "player_games": 554359,
+    "players": 46445
+   },
+   "1600-1799": {
+    "cross_border_player_games": 88700.0,
+    "distinct_games": 573600.0,
+    "pages": 191662,
+    "player_games": 885812,
+    "players": 53936
+   },
+   "1800-1999": {
+    "cross_border_player_games": 137200.0,
+    "distinct_games": 520200.0,
+    "pages": 173900,
+    "player_games": 803255,
+    "players": 42798
+   },
+   "2000-2199": {
+    "cross_border_player_games": 120200.0,
+    "distinct_games": 271600.0,
+    "pages": 81676,
+    "player_games": 419435,
+    "players": 17287
+   },
+   "2200-2399": {
+    "cross_border_player_games": 95400.0,
+    "distinct_games": 133900.0,
+    "pages": 32002,
+    "player_games": 206696,
+    "players": 5977
+   },
+   "2400+": {
+    "cross_border_player_games": 62600.0,
+    "distinct_games": 55300.0,
+    "pages": 10047,
+    "player_games": 85470,
+    "players": 1612
+   }
+  },
+  "cross_border_share_model": 0.1869,
+  "every_rated_player": {
+   "pages": 659583,
+   "player_games": 3173742
+  },
+  "frame": {
+   "cross_border_player_games": 552200.0,
+   "distinct_games": 1913600.0,
+   "pages": 618801,
+   "player_games": 2955027,
+   "players": 168055
+  },
+  "page_to_list_games_ratio": 1.0002,
+  "share_rows_with_opponent_also_in_frame": 0.7051
+ },
+ "label": "pilot",
+ "layer0": {
+  "game_change_equal": 11501,
+  "games": 11501,
+  "list_change_equal": 1458,
+  "list_differs_page_games_not_list_games": 20,
+  "list_differs_ro_not_previous_list": 340,
+  "list_differs_unexplained": 175,
+  "list_differs_unexplained_by_one": 128,
+  "list_differs_unexplained_junior_or_newcomer": 160,
+  "list_differs_unexplained_k40": 160,
+  "page_total_differs_a_row_unmarked": 1,
+  "page_total_equal": 1990,
+  "pages": 1993,
+  "pages_on_both_lists": 1993,
+  "pages_with_a_tournament": 1991,
+  "pages_without_a_tournament": 2,
+  "rules_by_tournament_start": {
+   "2024": 2043,
+   "2025-10": 334
+  },
+  "tournament_differs_a_row_unmarked": 1,
+  "tournament_k_sum_equal": 2376,
+  "tournaments": 2377
+ },
+ "lock": {
+  "cached_pages_naming_a_2026_us_championship": 0,
+  "cached_pages_scanned": 2020,
+  "latest_period_requested": "2025-12",
+  "latest_report_event_end": "2024-12-20",
+  "urls_naming_a_2026_us_championship": 0
+ },
+ "opponents": {
+  "games": 11501,
+  "opponent_identified": 8508,
+  "opponent_in_frame_with_that_period": 8109
+ },
+ "pages": {
+  "fetched": 2000,
+  "game_rows": {
+   "capped_mark": 640,
+   "colour_mark": 11501,
+   "n_printed": 11502,
+   "opponent_federation": 11501,
+   "opponent_rating": 11501,
+   "tournaments_games_equal_n": 2376
+  },
+  "games": 11501,
+  "games_per_page": {
+   "max": 27,
+   "mean": 5.77,
+   "median": 5,
+   "p90": 10
+  },
+  "games_per_page_by_level": {
+   "1400-1599": 4.31,
+   "1600-1799": 5.06,
+   "1800-1999": 5.92,
+   "2000-2199": 6.56,
+   "2200-2399": 7.99,
+   "2400+": 10.0
+  },
+  "page_against_list_games": {
+   "equal": 1949,
+   "games_on_lists": 11499,
+   "games_on_pages": 11501,
+   "page_fewer": 23,
+   "page_more": 21,
+   "pages": 1993
+  },
+  "parse_errors": {
+   "game rows printed without K": 7
+  },
+  "parsed": 1993,
+  "planned": 2000,
+  "requests": {
+   "bytes_per_page": 4493,
+   "calc": 2000,
+   "seconds_per_request": 5.02,
+   "statuses": {
+    "200": 2000
+   }
+  },
+  "tournaments": 2377,
+  "with_a_game": 1991
+ },
+ "plan": {
+  "cells": {
+   "ALG|1400-1599": {
+    "frame": 161,
+    "sampled": 8
+   },
+   "ALG|1600-1799": {
+    "frame": 144,
+    "sampled": 7
+   },
+   "ALG|1800-1999": {
+    "frame": 72,
+    "sampled": 6
+   },
+   "ALG|2000-2199": {
+    "frame": 25,
+    "sampled": 3
+   },
+   "ALG|2200-2399": {
+    "frame": 3,
+    "sampled": 1
+   },
+   "ALG|2400+": {
+    "frame": 2,
+    "sampled": 1
+   },
+   "ARG|1400-1599": {
+    "frame": 401,
+    "sampled": 6
+   },
+   "ARG|1600-1799": {
+    "frame": 743,
+    "sampled": 8
+   },
+   "ARG|1800-1999": {
+    "frame": 516,
+    "sampled": 6
+   },
+   "ARG|2000-2199": {
+    "frame": 218,
+    "sampled": 4
+   },
+   "ARG|2200-2399": {
+    "frame": 83,
+    "sampled": 2
+   },
+   "ARG|2400+": {
+    "frame": 22,
+    "sampled": 1
+   },
+   "ARM|1400-1599": {
+    "frame": 267,
+    "sampled": 8
+   },
+   "ARM|1600-1799": {
+    "frame": 123,
+    "sampled": 5
+   },
+   "ARM|1800-1999": {
+    "frame": 88,
+    "sampled": 5
+   },
+   "ARM|2000-2199": {
+    "frame": 52,
+    "sampled": 3
+   },
+   "ARM|2200-2399": {
+    "frame": 50,
+    "sampled": 3
+   },
+   "ARM|2400+": {
+    "frame": 24,
+    "sampled": 2
+   },
+   "AUS|1400-1599": {
+    "frame": 489,
+    "sampled": 7
+   },
+   "AUS|1600-1799": {
+    "frame": 575,
+    "sampled": 8
+   },
+   "AUS|1800-1999": {
+    "frame": 277,
+    "sampled": 6
+   },
+   "AUS|2000-2199": {
+    "frame": 83,
+    "sampled": 3
+   },
+   "AUS|2200-2399": {
+    "frame": 28,
+    "sampled": 2
+   },
+   "AUS|2400+": {
+    "frame": 7,
+    "sampled": 1
+   },
+   "AUT|1400-1599": {
+    "frame": 175,
+    "sampled": 3
+   },
+   "AUT|1600-1799": {
+    "frame": 784,
+    "sampled": 7
+   },
+   "AUT|1800-1999": {
+    "frame": 1206,
+    "sampled": 8
+   },
+   "AUT|2000-2199": {
+    "frame": 479,
+    "sampled": 5
+   },
+   "AUT|2200-2399": {
+    "frame": 118,
+    "sampled": 3
+   },
+   "AUT|2400+": {
+    "frame": 25,
+    "sampled": 1
+   },
+   "AZE|1400-1599": {
+    "frame": 323,
+    "sampled": 8
+   },
+   "AZE|1600-1799": {
+    "frame": 201,
+    "sampled": 6
+   },
+   "AZE|1800-1999": {
+    "frame": 105,
+    "sampled": 5
+   },
+   "AZE|2000-2199": {
+    "frame": 57,
+    "sampled": 3
+   },
+   "AZE|2200-2399": {
+    "frame": 39,
+    "sampled": 3
+   },
+   "AZE|2400+": {
+    "frame": 28,
+    "sampled": 2
+   },
+   "BAN|1400-1599": {
+    "frame": 183,
+    "sampled": 6
+   },
+   "BAN|1600-1799": {
+    "frame": 416,
+    "sampled": 8
+   },
+   "BAN|1800-1999": {
+    "frame": 323,
+    "sampled": 8
+   },
+   "BAN|2000-2199": {
+    "frame": 51,
+    "sampled": 3
+   },
+   "BAN|2200-2399": {
+    "frame": 8,
+    "sampled": 1
+   },
+   "BAN|2400+": {
+    "frame": 1,
+    "sampled": 1
+   },
+   "BEL|1400-1599": {
+    "frame": 517,
+    "sampled": 5
+   },
+   "BEL|1600-1799": {
+    "frame": 1071,
+    "sampled": 8
+   },
+   "BEL|1800-1999": {
+    "frame": 782,
+    "sampled": 7
+   },
+   "BEL|2000-2199": {
+    "frame": 263,
+    "sampled": 4
+   },
+   "BEL|2200-2399": {
+    "frame": 74,
+    "sampled": 2
+   },
+   "BEL|2400+": {
+    "frame": 6,
+    "sampled": 1
+   },
+   "BIH|1400-1599": {
+    "frame": 15,
+    "sampled": 2
+   },
+   "BIH|1600-1799": {
+    "frame": 57,
+    "sampled": 5
+   },
+   "BIH|1800-1999": {
+    "frame": 162,
+    "sampled": 8
+   },
+   "BIH|2000-2199": {
+    "frame": 111,
+    "sampled": 6
+   },
+   "BIH|2200-2399": {
+    "frame": 41,
+    "sampled": 3
+   },
+   "BIH|2400+": {
+    "frame": 8,
+    "sampled": 2
+   },
+   "BLR|1400-1599": {
+    "frame": 104,
+    "sampled": 7
+   },
+   "BLR|1600-1799": {
+    "frame": 75,
+    "sampled": 6
+   },
+   "BLR|1800-1999": {
+    "frame": 40,
+    "sampled": 5
+   },
+   "BLR|2000-2199": {
+    "frame": 20,
+    "sampled": 3
+   },
+   "BLR|2200-2399": {
+    "frame": 13,
+    "sampled": 3
+   },
+   "BLR|2400+": {
+    "frame": 5,
+    "sampled": 2
+   },
+   "BOL|1400-1599": {
+    "frame": 192,
+    "sampled": 9
+   },
+   "BOL|1600-1799": {
+    "frame": 124,
+    "sampled": 7
+   },
+   "BOL|1800-1999": {
+    "frame": 60,
+    "sampled": 5
+   },
+   "BOL|2000-2199": {
+    "frame": 16,
+    "sampled": 3
+   },
+   "BOL|2200-2399": {
+    "frame": 6,
+    "sampled": 2
+   },
+   "BRA|1400-1599": {
+    "frame": 440,
+    "sampled": 5
+   },
+   "BRA|1600-1799": {
+    "frame": 861,
+    "sampled": 8
+   },
+   "BRA|1800-1999": {
+    "frame": 716,
+    "sampled": 7
+   },
+   "BRA|2000-2199": {
+    "frame": 225,
+    "sampled": 4
+   },
+   "BRA|2200-2399": {
+    "frame": 48,
+    "sampled": 2
+   },
+   "BRA|2400+": {
+    "frame": 11,
+    "sampled": 1
+   },
+   "BUL|1400-1599": {
+    "frame": 192,
+    "sampled": 6
+   },
+   "BUL|1600-1799": {
+    "frame": 167,
+    "sampled": 6
+   },
+   "BUL|1800-1999": {
+    "frame": 136,
+    "sampled": 5
+   },
+   "BUL|2000-2199": {
+    "frame": 78,
+    "sampled": 4
+   },
+   "BUL|2200-2399": {
+    "frame": 38,
+    "sampled": 3
+   },
+   "BUL|2400+": {
+    "frame": 16,
+    "sampled": 2
+   },
+   "CAN|1400-1599": {
+    "frame": 252,
+    "sampled": 6
+   },
+   "CAN|1600-1799": {
+    "frame": 477,
+    "sampled": 8
+   },
+   "CAN|1800-1999": {
+    "frame": 370,
+    "sampled": 7
+   },
+   "CAN|2000-2199": {
+    "frame": 122,
+    "sampled": 3
+   },
+   "CAN|2200-2399": {
+    "frame": 54,
+    "sampled": 2
+   },
+   "CAN|2400+": {
+    "frame": 11,
+    "sampled": 1
+   },
+   "CHI|1400-1599": {
+    "frame": 401,
+    "sampled": 8
+   },
+   "CHI|1600-1799": {
+    "frame": 343,
+    "sampled": 7
+   },
+   "CHI|1800-1999": {
+    "frame": 212,
+    "sampled": 6
+   },
+   "CHI|2000-2199": {
+    "frame": 79,
+    "sampled": 3
+   },
+   "CHI|2200-2399": {
+    "frame": 29,
+    "sampled": 2
+   },
+   "CHI|2400+": {
+    "frame": 3,
+    "sampled": 1
+   },
+   "CHN|1400-1599": {
+    "frame": 190,
+    "sampled": 6
+   },
+   "CHN|1600-1799": {
+    "frame": 364,
+    "sampled": 7
+   },
+   "CHN|1800-1999": {
+    "frame": 154,
+    "sampled": 5
+   },
+   "CHN|2000-2199": {
+    "frame": 89,
+    "sampled": 3
+   },
+   "CHN|2200-2399": {
+    "frame": 73,
+    "sampled": 3
+   },
+   "CHN|2400+": {
+    "frame": 65,
+    "sampled": 3
+   },
+   "COL|1400-1599": {
+    "frame": 275,
+    "sampled": 6
+   },
+   "COL|1600-1799": {
+    "frame": 439,
+    "sampled": 7
+   },
+   "COL|1800-1999": {
+    "frame": 321,
+    "sampled": 7
+   },
+   "COL|2000-2199": {
+    "frame": 121,
+    "sampled": 4
+   },
+   "COL|2200-2399": {
+    "frame": 32,
+    "sampled": 2
+   },
+   "COL|2400+": {
+    "frame": 8,
+    "sampled": 1
+   },
+   "CRC|1400-1599": {
+    "frame": 217,
+    "sampled": 10
+   },
+   "CRC|1600-1799": {
+    "frame": 112,
+    "sampled": 7
+   },
+   "CRC|1800-1999": {
+    "frame": 46,
+    "sampled": 4
+   },
+   "CRC|2000-2199": {
+    "frame": 16,
+    "sampled": 3
+   },
+   "CRC|2200-2399": {
+    "frame": 6,
+    "sampled": 2
+   },
+   "CRO|1400-1599": {
+    "frame": 308,
+    "sampled": 4
+   },
+   "CRO|1600-1799": {
+    "frame": 632,
+    "sampled": 7
+   },
+   "CRO|1800-1999": {
+    "frame": 795,
+    "sampled": 7
+   },
+   "CRO|2000-2199": {
+    "frame": 345,
+    "sampled": 5
+   },
+   "CRO|2200-2399": {
+    "frame": 117,
+    "sampled": 3
+   },
+   "CRO|2400+": {
+    "frame": 20,
+    "sampled": 1
+   },
+   "CUB|1400-1599": {
+    "frame": 114,
+    "sampled": 4
+   },
+   "CUB|1600-1799": {
+    "frame": 149,
+    "sampled": 6
+   },
+   "CUB|1800-1999": {
+    "frame": 203,
+    "sampled": 6
+   },
+   "CUB|2000-2199": {
+    "frame": 139,
+    "sampled": 6
+   },
+   "CUB|2200-2399": {
+    "frame": 73,
+    "sampled": 3
+   },
+   "CUB|2400+": {
+    "frame": 19,
+    "sampled": 2
+   },
+   "CZE|1400-1599": {
+    "frame": 666,
+    "sampled": 4
+   },
+   "CZE|1600-1799": {
+    "frame": 1554,
+    "sampled": 7
+   },
+   "CZE|1800-1999": {
+    "frame": 2134,
+    "sampled": 8
+   },
+   "CZE|2000-2199": {
+    "frame": 795,
+    "sampled": 5
+   },
+   "CZE|2200-2399": {
+    "frame": 215,
+    "sampled": 2
+   },
+   "CZE|2400+": {
+    "frame": 30,
+    "sampled": 1
+   },
+   "DEN|1400-1599": {
+    "frame": 286,
+    "sampled": 4
+   },
+   "DEN|1600-1799": {
+    "frame": 819,
+    "sampled": 8
+   },
+   "DEN|1800-1999": {
+    "frame": 940,
+    "sampled": 8
+   },
+   "DEN|2000-2199": {
+    "frame": 363,
+    "sampled": 4
+   },
+   "DEN|2200-2399": {
+    "frame": 88,
+    "sampled": 2
+   },
+   "DEN|2400+": {
+    "frame": 15,
+    "sampled": 1
+   },
+   "DOM|1400-1599": {
+    "frame": 28,
+    "sampled": 4
+   },
+   "DOM|1600-1799": {
+    "frame": 91,
+    "sampled": 7
+   },
+   "DOM|1800-1999": {
+    "frame": 126,
+    "sampled": 8
+   },
+   "DOM|2000-2199": {
+    "frame": 30,
+    "sampled": 5
+   },
+   "DOM|2200-2399": {
+    "frame": 7,
+    "sampled": 2
+   },
+   "ECU|1400-1599": {
+    "frame": 235,
+    "sampled": 9
+   },
+   "ECU|1600-1799": {
+    "frame": 122,
+    "sampled": 7
+   },
+   "ECU|1800-1999": {
+    "frame": 52,
+    "sampled": 4
+   },
+   "ECU|2000-2199": {
+    "frame": 26,
+    "sampled": 3
+   },
+   "ECU|2200-2399": {
+    "frame": 6,
+    "sampled": 2
+   },
+   "ECU|2400+": {
+    "frame": 1,
+    "sampled": 1
+   },
+   "EGY|1400-1599": {
+    "frame": 228,
+    "sampled": 7
+   },
+   "EGY|1600-1799": {
+    "frame": 234,
+    "sampled": 7
+   },
+   "EGY|1800-1999": {
+    "frame": 220,
+    "sampled": 6
+   },
+   "EGY|2000-2199": {
+    "frame": 117,
+    "sampled": 4
+   },
+   "EGY|2200-2399": {
+    "frame": 20,
+    "sampled": 2
+   },
+   "EGY|2400+": {
+    "frame": 4,
+    "sampled": 1
+   },
+   "ENG|1400-1599": {
+    "frame": 262,
+    "sampled": 4
+   },
+   "ENG|1600-1799": {
+    "frame": 736,
+    "sampled": 7
+   },
+   "ENG|1800-1999": {
+    "frame": 678,
+    "sampled": 7
+   },
+   "ENG|2000-2199": {
+    "frame": 296,
+    "sampled": 5
+   },
+   "ENG|2200-2399": {
+    "frame": 90,
+    "sampled": 2
+   },
+   "ENG|2400+": {
+    "frame": 28,
+    "sampled": 2
+   },
+   "ESP|1400-1599": {
+    "frame": 3813,
+    "sampled": 6
+   },
+   "ESP|1600-1799": {
+    "frame": 6318,
+    "sampled": 7
+   },
+   "ESP|1800-1999": {
+    "frame": 4724,
+    "sampled": 7
+   },
+   "ESP|2000-2199": {
+    "frame": 1705,
+    "sampled": 4
+   },
+   "ESP|2200-2399": {
+    "frame": 436,
+    "sampled": 2
+   },
+   "ESP|2400+": {
+    "frame": 73,
+    "sampled": 1
+   },
+   "FID|1400-1599": {
+    "frame": 129,
+    "sampled": 5
+   },
+   "FID|1600-1799": {
+    "frame": 150,
+    "sampled": 6
+   },
+   "FID|1800-1999": {
+    "frame": 135,
+    "sampled": 5
+   },
+   "FID|2000-2199": {
+    "frame": 94,
+    "sampled": 4
+   },
+   "FID|2200-2399": {
+    "frame": 76,
+    "sampled": 3
+   },
+   "FID|2400+": {
+    "frame": 51,
+    "sampled": 3
+   },
+   "FIN|1400-1599": {
+    "frame": 31,
+    "sampled": 3
+   },
+   "FIN|1600-1799": {
+    "frame": 136,
+    "sampled": 5
+   },
+   "FIN|1800-1999": {
+    "frame": 277,
+    "sampled": 8
+   },
+   "FIN|2000-2199": {
+    "frame": 190,
+    "sampled": 7
+   },
+   "FIN|2200-2399": {
+    "frame": 56,
+    "sampled": 3
+   },
+   "FIN|2400+": {
+    "frame": 6,
+    "sampled": 1
+   },
+   "FRA|1400-1599": {
+    "frame": 4923,
+    "sampled": 7
+   },
+   "FRA|1600-1799": {
+    "frame": 5535,
+    "sampled": 8
+   },
+   "FRA|1800-1999": {
+    "frame": 3253,
+    "sampled": 6
+   },
+   "FRA|2000-2199": {
+    "frame": 1008,
+    "sampled": 3
+   },
+   "FRA|2200-2399": {
+    "frame": 322,
+    "sampled": 2
+   },
+   "FRA|2400+": {
+    "frame": 66,
+    "sampled": 1
+   },
+   "GEO|1400-1599": {
+    "frame": 149,
+    "sampled": 7
+   },
+   "GEO|1600-1799": {
+    "frame": 87,
+    "sampled": 6
+   },
+   "GEO|1800-1999": {
+    "frame": 55,
+    "sampled": 4
+   },
+   "GEO|2000-2199": {
+    "frame": 27,
+    "sampled": 3
+   },
+   "GEO|2200-2399": {
+    "frame": 31,
+    "sampled": 3
+   },
+   "GEO|2400+": {
+    "frame": 23,
+    "sampled": 3
+   },
+   "GER|1400-1599": {
+    "frame": 1006,
+    "sampled": 3
+   },
+   "GER|1600-1799": {
+    "frame": 3444,
+    "sampled": 7
+   },
+   "GER|1800-1999": {
+    "frame": 4301,
+    "sampled": 7
+   },
+   "GER|2000-2199": {
+    "frame": 2320,
+    "sampled": 5
+   },
+   "GER|2200-2399": {
+    "frame": 746,
+    "sampled": 3
+   },
+   "GER|2400+": {
+    "frame": 139,
+    "sampled": 2
+   },
+   "GRE|1400-1599": {
+    "frame": 963,
+    "sampled": 8
+   },
+   "GRE|1600-1799": {
+    "frame": 827,
+    "sampled": 8
+   },
+   "GRE|1800-1999": {
+    "frame": 565,
+    "sampled": 5
+   },
+   "GRE|2000-2199": {
+    "frame": 223,
+    "sampled": 3
+   },
+   "GRE|2200-2399": {
+    "frame": 87,
+    "sampled": 2
+   },
+   "GRE|2400+": {
+    "frame": 22,
+    "sampled": 1
+   },
+   "HUN|1400-1599": {
+    "frame": 413,
+    "sampled": 4
+   },
+   "HUN|1600-1799": {
+    "frame": 910,
+    "sampled": 6
+   },
+   "HUN|1800-1999": {
+    "frame": 1015,
+    "sampled": 7
+   },
+   "HUN|2000-2199": {
+    "frame": 554,
+    "sampled": 5
+   },
+   "HUN|2200-2399": {
+    "frame": 201,
+    "sampled": 3
+   },
+   "HUN|2400+": {
+    "frame": 45,
+    "sampled": 2
+   },
+   "INA|1400-1599": {
+    "frame": 38,
+    "sampled": 4
+   },
+   "INA|1600-1799": {
+    "frame": 112,
+    "sampled": 6
+   },
+   "INA|1800-1999": {
+    "frame": 106,
+    "sampled": 6
+   },
+   "INA|2000-2199": {
+    "frame": 65,
+    "sampled": 5
+   },
+   "INA|2200-2399": {
+    "frame": 33,
+    "sampled": 3
+   },
+   "INA|2400+": {
+    "frame": 6,
+    "sampled": 2
+   },
+   "IND|1400-1599": {
+    "frame": 8295,
+    "sampled": 11
+   },
+   "IND|1600-1799": {
+    "frame": 3097,
+    "sampled": 8
+   },
+   "IND|1800-1999": {
+    "frame": 963,
+    "sampled": 3
+   },
+   "IND|2000-2199": {
+    "frame": 353,
+    "sampled": 2
+   },
+   "IND|2200-2399": {
+    "frame": 208,
+    "sampled": 2
+   },
+   "IND|2400+": {
+    "frame": 101,
+    "sampled": 1
+   },
+   "IRI|1400-1599": {
+    "frame": 1619,
+    "sampled": 8
+   },
+   "IRI|1600-1799": {
+    "frame": 1209,
+    "sampled": 7
+   },
+   "IRI|1800-1999": {
+    "frame": 584,
+    "sampled": 6
+   },
+   "IRI|2000-2199": {
+    "frame": 177,
+    "sampled": 3
+   },
+   "IRI|2200-2399": {
+    "frame": 48,
+    "sampled": 2
+   },
+   "IRI|2400+": {
+    "frame": 23,
+    "sampled": 1
+   },
+   "IRL|1400-1599": {
+    "frame": 97,
+    "sampled": 4
+   },
+   "IRL|1600-1799": {
+    "frame": 335,
+    "sampled": 9
+   },
+   "IRL|1800-1999": {
+    "frame": 265,
+    "sampled": 8
+   },
+   "IRL|2000-2199": {
+    "frame": 49,
+    "sampled": 3
+   },
+   "IRL|2200-2399": {
+    "frame": 21,
+    "sampled": 2
+   },
+   "IRL|2400+": {
+    "frame": 2,
+    "sampled": 1
+   },
+   "IRQ|1400-1599": {
+    "frame": 54,
+    "sampled": 5
+   },
+   "IRQ|1600-1799": {
+    "frame": 99,
+    "sampled": 8
+   },
+   "IRQ|1800-1999": {
+    "frame": 94,
+    "sampled": 8
+   },
+   "IRQ|2000-2199": {
+    "frame": 22,
+    "sampled": 3
+   },
+   "IRQ|2200-2399": {
+    "frame": 5,
+    "sampled": 2
+   },
+   "ISR|1400-1599": {
+    "frame": 334,
+    "sampled": 5
+   },
+   "ISR|1600-1799": {
+    "frame": 581,
+    "sampled": 7
+   },
+   "ISR|1800-1999": {
+    "frame": 484,
+    "sampled": 6
+   },
+   "ISR|2000-2199": {
+    "frame": 239,
+    "sampled": 4
+   },
+   "ISR|2200-2399": {
+    "frame": 116,
+    "sampled": 3
+   },
+   "ISR|2400+": {
+    "frame": 56,
+    "sampled": 2
+   },
+   "ITA|1400-1599": {
+    "frame": 1579,
+    "sampled": 6
+   },
+   "ITA|1600-1799": {
+    "frame": 2384,
+    "sampled": 9
+   },
+   "ITA|1800-1999": {
+    "frame": 1555,
+    "sampled": 6
+   },
+   "ITA|2000-2199": {
+    "frame": 542,
+    "sampled": 3
+   },
+   "ITA|2200-2399": {
+    "frame": 118,
+    "sampled": 2
+   },
+   "ITA|2400+": {
+    "frame": 25,
+    "sampled": 1
+   },
+   "KAZ|1400-1599": {
+    "frame": 875,
+    "sampled": 9
+   },
+   "KAZ|1600-1799": {
+    "frame": 417,
+    "sampled": 7
+   },
+   "KAZ|1800-1999": {
+    "frame": 195,
+    "sampled": 4
+   },
+   "KAZ|2000-2199": {
+    "frame": 89,
+    "sampled": 3
+   },
+   "KAZ|2200-2399": {
+    "frame": 54,
+    "sampled": 2
+   },
+   "KAZ|2400+": {
+    "frame": 18,
+    "sampled": 2
+   },
+   "KEN|1400-1599": {
+    "frame": 277,
+    "sampled": 10
+   },
+   "KEN|1600-1799": {
+    "frame": 240,
+    "sampled": 9
+   },
+   "KEN|1800-1999": {
+    "frame": 79,
+    "sampled": 5
+   },
+   "KEN|2000-2199": {
+    "frame": 4,
+    "sampled": 2
+   },
+   "KGZ|1400-1599": {
+    "frame": 185,
+    "sampled": 10
+   },
+   "KGZ|1600-1799": {
+    "frame": 108,
+    "sampled": 8
+   },
+   "KGZ|1800-1999": {
+    "frame": 52,
+    "sampled": 4
+   },
+   "KGZ|2000-2199": {
+    "frame": 12,
+    "sampled": 2
+   },
+   "KGZ|2200-2399": {
+    "frame": 13,
+    "sampled": 2
+   },
+   "KOR|1400-1599": {
+    "frame": 222,
+    "sampled": 10
+   },
+   "KOR|1600-1799": {
+    "frame": 146,
+    "sampled": 8
+   },
+   "KOR|1800-1999": {
+    "frame": 57,
+    "sampled": 4
+   },
+   "KOR|2000-2199": {
+    "frame": 9,
+    "sampled": 2
+   },
+   "KOR|2200-2399": {
+    "frame": 3,
+    "sampled": 1
+   },
+   "KOR|2400+": {
+    "frame": 1,
+    "sampled": 1
+   },
+   "LAT|1400-1599": {
+    "frame": 152,
+    "sampled": 8
+   },
+   "LAT|1600-1799": {
+    "frame": 82,
+    "sampled": 6
+   },
+   "LAT|1800-1999": {
+    "frame": 61,
+    "sampled": 5
+   },
+   "LAT|2000-2199": {
+    "frame": 32,
+    "sampled": 3
+   },
+   "LAT|2200-2399": {
+    "frame": 22,
+    "sampled": 3
+   },
+   "LAT|2400+": {
+    "frame": 4,
+    "sampled": 1
+   },
+   "LTU|1400-1599": {
+    "frame": 121,
+    "sampled": 6
+   },
+   "LTU|1600-1799": {
+    "frame": 122,
+    "sampled": 6
+   },
+   "LTU|1800-1999": {
+    "frame": 101,
+    "sampled": 5
+   },
+   "LTU|2000-2199": {
+    "frame": 51,
+    "sampled": 4
+   },
+   "LTU|2200-2399": {
+    "frame": 32,
+    "sampled": 3
+   },
+   "LTU|2400+": {
+    "frame": 7,
+    "sampled": 2
+   },
+   "MAS|1400-1599": {
+    "frame": 400,
+    "sampled": 10
+   },
+   "MAS|1600-1799": {
+    "frame": 302,
+    "sampled": 8
+   },
+   "MAS|1800-1999": {
+    "frame": 88,
+    "sampled": 4
+   },
+   "MAS|2000-2199": {
+    "frame": 27,
+    "sampled": 2
+   },
+   "MAS|2200-2399": {
+    "frame": 9,
+    "sampled": 2
+   },
+   "MAS|2400+": {
+    "frame": 4,
+    "sampled": 1
+   },
+   "MEX|1400-1599": {
+    "frame": 420,
+    "sampled": 6
+   },
+   "MEX|1600-1799": {
+    "frame": 732,
+    "sampled": 9
+   },
+   "MEX|1800-1999": {
+    "frame": 411,
+    "sampled": 6
+   },
+   "MEX|2000-2199": {
+    "frame": 132,
+    "sampled": 3
+   },
+   "MEX|2200-2399": {
+    "frame": 35,
+    "sampled": 2
+   },
+   "MEX|2400+": {
+    "frame": 8,
+    "sampled": 1
+   },
+   "NED|1400-1599": {
+    "frame": 159,
+    "sampled": 2
+   },
+   "NED|1600-1799": {
+    "frame": 989,
+    "sampled": 6
+   },
+   "NED|1800-1999": {
+    "frame": 1875,
+    "sampled": 8
+   },
+   "NED|2000-2199": {
+    "frame": 785,
+    "sampled": 6
+   },
+   "NED|2200-2399": {
+    "frame": 220,
+    "sampled": 3
+   },
+   "NED|2400+": {
+    "frame": 53,
+    "sampled": 2
+   },
+   "NEP|1400-1599": {
+    "frame": 88,
+    "sampled": 8
+   },
+   "NEP|1600-1799": {
+    "frame": 169,
+    "sampled": 10
+   },
+   "NEP|1800-1999": {
+    "frame": 59,
+    "sampled": 5
+   },
+   "NEP|2000-2199": {
+    "frame": 8,
+    "sampled": 2
+   },
+   "NEP|2200-2399": {
+    "frame": 2,
+    "sampled": 1
+   },
+   "NOR|1400-1599": {
+    "frame": 496,
+    "sampled": 6
+   },
+   "NOR|1600-1799": {
+    "frame": 731,
+    "sampled": 8
+   },
+   "NOR|1800-1999": {
+    "frame": 437,
+    "sampled": 6
+   },
+   "NOR|2000-2199": {
+    "frame": 153,
+    "sampled": 3
+   },
+   "NOR|2200-2399": {
+    "frame": 73,
+    "sampled": 2
+   },
+   "NOR|2400+": {
+    "frame": 24,
+    "sampled": 2
+   },
+   "PER|1400-1599": {
+    "frame": 717,
+    "sampled": 10
+   },
+   "PER|1600-1799": {
+    "frame": 392,
+    "sampled": 7
+   },
+   "PER|1800-1999": {
+    "frame": 202,
+    "sampled": 4
+   },
+   "PER|2000-2199": {
+    "frame": 59,
+    "sampled": 3
+   },
+   "PER|2200-2399": {
+    "frame": 30,
+    "sampled": 2
+   },
+   "PER|2400+": {
+    "frame": 9,
+    "sampled": 1
+   },
+   "PHI|1400-1599": {
+    "frame": 319,
+    "sampled": 7
+   },
+   "PHI|1600-1799": {
+    "frame": 448,
+    "sampled": 8
+   },
+   "PHI|1800-1999": {
+    "frame": 197,
+    "sampled": 6
+   },
+   "PHI|2000-2199": {
+    "frame": 85,
+    "sampled": 3
+   },
+   "PHI|2200-2399": {
+    "frame": 30,
+    "sampled": 2
+   },
+   "PHI|2400+": {
+    "frame": 6,
+    "sampled": 1
+   },
+   "POL|1400-1599": {
+    "frame": 1969,
+    "sampled": 7
+   },
+   "POL|1600-1799": {
+    "frame": 1632,
+    "sampled": 7
+   },
+   "POL|1800-1999": {
+    "frame": 1017,
+    "sampled": 6
+   },
+   "POL|2000-2199": {
+    "frame": 428,
+    "sampled": 3
+   },
+   "POL|2200-2399": {
+    "frame": 186,
+    "sampled": 2
+   },
+   "POL|2400+": {
+    "frame": 60,
+    "sampled": 2
+   },
+   "POR|1400-1599": {
+    "frame": 263,
+    "sampled": 6
+   },
+   "POR|1600-1799": {
+    "frame": 393,
+    "sampled": 8
+   },
+   "POR|1800-1999": {
+    "frame": 287,
+    "sampled": 7
+   },
+   "POR|2000-2199": {
+    "frame": 87,
+    "sampled": 3
+   },
+   "POR|2200-2399": {
+    "frame": 26,
+    "sampled": 2
+   },
+   "POR|2400+": {
+    "frame": 6,
+    "sampled": 1
+   },
+   "ROU|1400-1599": {
+    "frame": 649,
+    "sampled": 7
+   },
+   "ROU|1600-1799": {
+    "frame": 577,
+    "sampled": 7
+   },
+   "ROU|1800-1999": {
+    "frame": 333,
+    "sampled": 5
+   },
+   "ROU|2000-2199": {
+    "frame": 152,
+    "sampled": 3
+   },
+   "ROU|2200-2399": {
+    "frame": 86,
+    "sampled": 3
+   },
+   "ROU|2400+": {
+    "frame": 24,
+    "sampled": 2
+   },
+   "RSA|1400-1599": {
+    "frame": 560,
+    "sampled": 9
+   },
+   "RSA|1600-1799": {
+    "frame": 520,
+    "sampled": 9
+   },
+   "RSA|1800-1999": {
+    "frame": 161,
+    "sampled": 4
+   },
+   "RSA|2000-2199": {
+    "frame": 31,
+    "sampled": 2
+   },
+   "RSA|2200-2399": {
+    "frame": 13,
+    "sampled": 2
+   },
+   "RSA|2400+": {
+    "frame": 1,
+    "sampled": 1
+   },
+   "RUS|1400-1599": {
+    "frame": 2378,
+    "sampled": 8
+   },
+   "RUS|1600-1799": {
+    "frame": 1527,
+    "sampled": 7
+   },
+   "RUS|1800-1999": {
+    "frame": 952,
+    "sampled": 5
+   },
+   "RUS|2000-2199": {
+    "frame": 470,
+    "sampled": 3
+   },
+   "RUS|2200-2399": {
+    "frame": 209,
+    "sampled": 2
+   },
+   "RUS|2400+": {
+    "frame": 68,
+    "sampled": 2
+   },
+   "SCO|1400-1599": {
+    "frame": 22,
+    "sampled": 3
+   },
+   "SCO|1600-1799": {
+    "frame": 102,
+    "sampled": 8
+   },
+   "SCO|1800-1999": {
+    "frame": 130,
+    "sampled": 8
+   },
+   "SCO|2000-2199": {
+    "frame": 53,
+    "sampled": 4
+   },
+   "SCO|2200-2399": {
+    "frame": 14,
+    "sampled": 2
+   },
+   "SCO|2400+": {
+    "frame": 2,
+    "sampled": 1
+   },
+   "SGP|1400-1599": {
+    "frame": 164,
+    "sampled": 8
+   },
+   "SGP|1600-1799": {
+    "frame": 100,
+    "sampled": 7
+   },
+   "SGP|1800-1999": {
+    "frame": 46,
+    "sampled": 5
+   },
+   "SGP|2000-2199": {
+    "frame": 21,
+    "sampled": 3
+   },
+   "SGP|2200-2399": {
+    "frame": 8,
+    "sampled": 2
+   },
+   "SGP|2400+": {
+    "frame": 3,
+    "sampled": 1
+   },
+   "SLO|1400-1599": {
+    "frame": 77,
+    "sampled": 4
+   },
+   "SLO|1600-1799": {
+    "frame": 145,
+    "sampled": 6
+   },
+   "SLO|1800-1999": {
+    "frame": 230,
+    "sampled": 7
+   },
+   "SLO|2000-2199": {
+    "frame": 97,
+    "sampled": 4
+   },
+   "SLO|2200-2399": {
+    "frame": 68,
+    "sampled": 3
+   },
+   "SLO|2400+": {
+    "frame": 12,
+    "sampled": 2
+   },
+   "SRB|1400-1599": {
+    "frame": 191,
+    "sampled": 3
+   },
+   "SRB|1600-1799": {
+    "frame": 537,
+    "sampled": 5
+   },
+   "SRB|1800-1999": {
+    "frame": 1077,
+    "sampled": 8
+   },
+   "SRB|2000-2199": {
+    "frame": 629,
+    "sampled": 6
+   },
+   "SRB|2200-2399": {
+    "frame": 185,
+    "sampled": 3
+   },
+   "SRB|2400+": {
+    "frame": 37,
+    "sampled": 2
+   },
+   "SRI|1400-1599": {
+    "frame": 1557,
+    "sampled": 13
+   },
+   "SRI|1600-1799": {
+    "frame": 425,
+    "sampled": 6
+   },
+   "SRI|1800-1999": {
+    "frame": 139,
+    "sampled": 4
+   },
+   "SRI|2000-2199": {
+    "frame": 19,
+    "sampled": 2
+   },
+   "SRI|2200-2399": {
+    "frame": 2,
+    "sampled": 1
+   },
+   "SRI|2400+": {
+    "frame": 1,
+    "sampled": 1
+   },
+   "SUI|1400-1599": {
+    "frame": 220,
+    "sampled": 4
+   },
+   "SUI|1600-1799": {
+    "frame": 630,
+    "sampled": 7
+   },
+   "SUI|1800-1999": {
+    "frame": 780,
+    "sampled": 7
+   },
+   "SUI|2000-2199": {
+    "frame": 295,
+    "sampled": 5
+   },
+   "SUI|2200-2399": {
+    "frame": 91,
+    "sampled": 3
+   },
+   "SUI|2400+": {
+    "frame": 16,
+    "sampled": 1
+   },
+   "SVK|1400-1599": {
+    "frame": 517,
+    "sampled": 6
+   },
+   "SVK|1600-1799": {
+    "frame": 1056,
+    "sampled": 7
+   },
+   "SVK|1800-1999": {
+    "frame": 922,
+    "sampled": 7
+   },
+   "SVK|2000-2199": {
+    "frame": 321,
+    "sampled": 4
+   },
+   "SVK|2200-2399": {
+    "frame": 73,
+    "sampled": 2
+   },
+   "SVK|2400+": {
+    "frame": 15,
+    "sampled": 1
+   },
+   "SWE|1400-1599": {
+    "frame": 360,
+    "sampled": 4
+   },
+   "SWE|1600-1799": {
+    "frame": 924,
+    "sampled": 8
+   },
+   "SWE|1800-1999": {
+    "frame": 907,
+    "sampled": 8
+   },
+   "SWE|2000-2199": {
+    "frame": 394,
+    "sampled": 4
+   },
+   "SWE|2200-2399": {
+    "frame": 120,
+    "sampled": 2
+   },
+   "SWE|2400+": {
+    "frame": 30,
+    "sampled": 1
+   },
+   "TUR|1400-1599": {
+    "frame": 1193,
+    "sampled": 8
+   },
+   "TUR|1600-1799": {
+    "frame": 1041,
+    "sampled": 7
+   },
+   "TUR|1800-1999": {
+    "frame": 560,
+    "sampled": 6
+   },
+   "TUR|2000-2199": {
+    "frame": 187,
+    "sampled": 3
+   },
+   "TUR|2200-2399": {
+    "frame": 88,
+    "sampled": 2
+   },
+   "TUR|2400+": {
+    "frame": 26,
+    "sampled": 1
+   },
+   "UKR|1400-1599": {
+    "frame": 205,
+    "sampled": 5
+   },
+   "UKR|1600-1799": {
+    "frame": 373,
+    "sampled": 6
+   },
+   "UKR|1800-1999": {
+    "frame": 298,
+    "sampled": 6
+   },
+   "UKR|2000-2199": {
+    "frame": 161,
+    "sampled": 4
+   },
+   "UKR|2200-2399": {
+    "frame": 124,
+    "sampled": 3
+   },
+   "UKR|2400+": {
+    "frame": 62,
+    "sampled": 3
+   },
+   "USA|1400-1599": {
+    "frame": 427,
+    "sampled": 4
+   },
+   "USA|1600-1799": {
+    "frame": 1545,
+    "sampled": 7
+   },
+   "USA|1800-1999": {
+    "frame": 1345,
+    "sampled": 7
+   },
+   "USA|2000-2199": {
+    "frame": 443,
+    "sampled": 4
+   },
+   "USA|2200-2399": {
+    "frame": 209,
+    "sampled": 3
+   },
+   "USA|2400+": {
+    "frame": 90,
+    "sampled": 2
+   },
+   "UZB|1400-1599": {
+    "frame": 255,
+    "sampled": 8
+   },
+   "UZB|1600-1799": {
+    "frame": 159,
+    "sampled": 6
+   },
+   "UZB|1800-1999": {
+    "frame": 104,
+    "sampled": 5
+   },
+   "UZB|2000-2199": {
+    "frame": 46,
+    "sampled": 3
+   },
+   "UZB|2200-2399": {
+    "frame": 25,
+    "sampled": 2
+   },
+   "UZB|2400+": {
+    "frame": 15,
+    "sampled": 2
+   },
+   "VEN|1400-1599": {
+    "frame": 269,
+    "sampled": 8
+   },
+   "VEN|1600-1799": {
+    "frame": 263,
+    "sampled": 8
+   },
+   "VEN|1800-1999": {
+    "frame": 192,
+    "sampled": 5
+   },
+   "VEN|2000-2199": {
+    "frame": 76,
+    "sampled": 3
+   },
+   "VEN|2200-2399": {
+    "frame": 28,
+    "sampled": 2
+   },
+   "VEN|2400+": {
+    "frame": 2,
+    "sampled": 1
+   },
+   "VIE|1400-1599": {
+    "frame": 300,
+    "sampled": 7
+   },
+   "VIE|1600-1799": {
+    "frame": 262,
+    "sampled": 7
+   },
+   "VIE|1800-1999": {
+    "frame": 138,
+    "sampled": 6
+   },
+   "VIE|2000-2199": {
+    "frame": 59,
+    "sampled": 3
+   },
+   "VIE|2200-2399": {
+    "frame": 22,
+    "sampled": 2
+   },
+   "VIE|2400+": {
+    "frame": 11,
+    "sampled": 2
+   },
+   "WLS|1400-1599": {
+    "frame": 35,
+    "sampled": 5
+   },
+   "WLS|1600-1799": {
+    "frame": 89,
+    "sampled": 8
+   },
+   "WLS|1800-1999": {
+    "frame": 70,
+    "sampled": 7
+   },
+   "WLS|2000-2199": {
+    "frame": 20,
+    "sampled": 4
+   },
+   "WLS|2200-2399": {
+    "frame": 4,
+    "sampled": 2
+   },
+   "ZAM|1400-1599": {
+    "frame": 39,
+    "sampled": 4
+   },
+   "ZAM|1600-1799": {
+    "frame": 121,
+    "sampled": 7
+   },
+   "ZAM|1800-1999": {
+    "frame": 186,
+    "sampled": 8
+   },
+   "ZAM|2000-2199": {
+    "frame": 68,
+    "sampled": 5
+   },
+   "ZAM|2200-2399": {
+    "frame": 10,
+    "sampled": 2
+   }
+  },
+  "federations": 75,
+  "frame_junior_or_newcomer": 78524,
+  "frame_list": "2025-10",
+  "frame_pages": 618801,
+  "frame_players": 168055,
+  "junior_born_from": 2007,
+  "newcomer_from": "2023-01",
+  "oversample": 3.0,
+  "per_federation": [
+   26,
+   27
+  ],
+  "sampled_by_level": {
+   "1400-1599": 475,
+   "1600-1799": 536,
+   "1800-1999": 453,
+   "2000-2199": 271,
+   "2200-2399": 168,
+   "2400+": 97
+  },
+  "sampled_junior": 1002,
+  "sampled_junior_or_newcomer": 1327,
+  "sampled_newcomer": 880
+ },
+ "politeness": {
+  "by_host": {
+   "fide.com": {
+    "first": "09:33:57Z",
+    "gaps_under_4": 0,
+    "last": "09:33:57Z",
+    "requests": 1,
+    "smallest_gap": null,
+    "statuses": {
+     "404": 1
+    }
+   },
+   "qc.fide.com": {
+    "first": "09:33:58Z",
+    "gaps_under_4": 0,
+    "last": "09:36:36Z",
+    "requests": 6,
+    "smallest_gap": 5.0,
+    "statuses": {
+     "200": 5,
+     "404": 1
+    }
+   },
+   "ratings.fide.com": {
+    "first": "09:33:54Z",
+    "gaps_under_4": 0,
+    "last": "12:25:44Z",
+    "requests": 2022,
+    "smallest_gap": 4.0,
+    "statuses": {
+     "200": 2021,
+     "404": 1
+    }
+   },
+   "www.fide.com": {
+    "first": "09:33:55Z",
+    "gaps_under_4": 0,
+    "last": "09:36:16Z",
+    "requests": 5,
+    "smallest_gap": 5.0,
+    "statuses": {
+     "200": 4,
+     "404": 1
+    }
+   }
+  },
+  "fide_site_from_0934": {
+   "gaps_under_4": 0,
+   "requests": 2030,
+   "smallest_gap": 4.0
+  },
+  "first": "2026-10-14T09:33:54Z",
+  "hosts_outside_fide": [],
+  "last": "2026-10-14T12:25:44Z",
+  "refusals": 0,
+  "requests_in_all": 2034,
+  "robots": {
+   "fide.com": "404",
+   "qc.fide.com": "404",
+   "ratings.fide.com": "404",
+   "www.fide.com": "404"
+  }
+ },
+ "probe": {
+  "colour_marks": 0,
+  "individual_games_given": 0,
+  "player_games_per_report_median": 214,
+  "player_ids_given_in_every_report": true,
+  "player_pages_linked": 1419,
+  "players_per_report": {
+   "max": 277,
+   "median": 57,
+   "min": 4,
+   "total": 1419
+  },
+  "reports": 20,
+  "requests": 20,
+  "statuses": {
+   "200": 20
+  }
+ },
+ "smaller_run": {
+  "by_federation": {
+   "ALG": {
+    "cross_border_per_page": 1.192,
+    "cross_border_player_games": 480.0,
+    "pages": 400,
+    "player_games": 2420.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "ARG": {
+    "cross_border_per_page": 0.556,
+    "cross_border_player_games": 300.0,
+    "pages": 540,
+    "player_games": 3440.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "ARM": {
+    "cross_border_per_page": 2.48,
+    "cross_border_player_games": 990.0,
+    "pages": 400,
+    "player_games": 2990.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "AUS": {
+    "cross_border_per_page": 1.148,
+    "cross_border_player_games": 460.0,
+    "pages": 400,
+    "player_games": 2040.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "AUT": {
+    "cross_border_per_page": 1.222,
+    "cross_border_player_games": 490.0,
+    "pages": 400,
+    "player_games": 1570.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "AZE": {
+    "cross_border_per_page": 2.0,
+    "cross_border_player_games": 800.0,
+    "pages": 400,
+    "player_games": 2950.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "BAN": {
+    "cross_border_per_page": 0.704,
+    "cross_border_player_games": 300.0,
+    "pages": 427,
+    "player_games": 3020.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "BEL": {
+    "cross_border_per_page": 1.111,
+    "cross_border_player_games": 440.0,
+    "pages": 400,
+    "player_games": 1140.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "BIH": {
+    "cross_border_per_page": 3.346,
+    "cross_border_player_games": 1340.0,
+    "pages": 400,
+    "player_games": 2570.0,
+    "reaches_1000": true,
+    "reaches_target": true
+   },
+   "BLR": {
+    "cross_border_per_page": 4.923,
+    "cross_border_player_games": 1970.0,
+    "pages": 400,
+    "player_games": 3680.0,
+    "reaches_1000": true,
+    "reaches_target": true
+   },
+   "BOL": {
+    "cross_border_per_page": 0.615,
+    "cross_border_player_games": 300.0,
+    "pages": 488,
+    "player_games": 2970.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "BRA": {
+    "cross_border_per_page": 1.148,
+    "cross_border_player_games": 460.0,
+    "pages": 400,
+    "player_games": 2790.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "BUL": {
+    "cross_border_per_page": 3.077,
+    "cross_border_player_games": 1230.0,
+    "pages": 400,
+    "player_games": 2780.0,
+    "reaches_1000": true,
+    "reaches_target": true
+   },
+   "CAN": {
+    "cross_border_per_page": 1.593,
+    "cross_border_player_games": 640.0,
+    "pages": 400,
+    "player_games": 2000.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "CHI": {
+    "cross_border_per_page": 0.963,
+    "cross_border_player_games": 390.0,
+    "pages": 400,
+    "player_games": 3070.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "CHN": {
+    "cross_border_per_page": 3.074,
+    "cross_border_player_games": 1230.0,
+    "pages": 400,
+    "player_games": 3130.0,
+    "reaches_1000": true,
+    "reaches_target": true
+   },
+   "COL": {
+    "cross_border_per_page": 1.037,
+    "cross_border_player_games": 410.0,
+    "pages": 400,
+    "player_games": 2650.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "CRC": {
+    "cross_border_per_page": 0.923,
+    "cross_border_player_games": 370.0,
+    "pages": 400,
+    "player_games": 2630.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "CRO": {
+    "cross_border_per_page": 1.148,
+    "cross_border_player_games": 460.0,
+    "pages": 400,
+    "player_games": 1510.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "CUB": {
+    "cross_border_per_page": 0.963,
+    "cross_border_player_games": 390.0,
+    "pages": 400,
+    "player_games": 2980.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "CZE": {
+    "cross_border_per_page": 0.519,
+    "cross_border_player_games": 300.0,
+    "pages": 579,
+    "player_games": 1990.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "DEN": {
+    "cross_border_per_page": 0.444,
+    "cross_border_player_games": 300.0,
+    "pages": 675,
+    "player_games": 1620.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "DOM": {
+    "cross_border_per_page": 0.423,
+    "cross_border_player_games": 300.0,
+    "pages": 710,
+    "player_games": 4310.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "ECU": {
+    "cross_border_per_page": 1.808,
+    "cross_border_player_games": 720.0,
+    "pages": 400,
+    "player_games": 3030.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "EGY": {
+    "cross_border_per_page": 0.407,
+    "cross_border_player_games": 300.0,
+    "pages": 737,
+    "player_games": 4120.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "ENG": {
+    "cross_border_per_page": 2.815,
+    "cross_border_player_games": 1130.0,
+    "pages": 400,
+    "player_games": 2560.0,
+    "reaches_1000": true,
+    "reaches_target": true
+   },
+   "ESP": {
+    "cross_border_per_page": 0.333,
+    "cross_border_player_games": 300.0,
+    "pages": 900,
+    "player_games": 2830.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "FID": {
+    "cross_border_per_page": 7.231,
+    "cross_border_player_games": 2890.0,
+    "pages": 400,
+    "player_games": 3250.0,
+    "reaches_1000": true,
+    "reaches_target": true
+   },
+   "FIN": {
+    "cross_border_per_page": 0.63,
+    "cross_border_player_games": 300.0,
+    "pages": 477,
+    "player_games": 1550.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "FRA": {
+    "cross_border_per_page": 0.778,
+    "cross_border_player_games": 310.0,
+    "pages": 400,
+    "player_games": 1330.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "GEO": {
+    "cross_border_per_page": 3.385,
+    "cross_border_player_games": 1350.0,
+    "pages": 400,
+    "player_games": 3320.0,
+    "reaches_1000": true,
+    "reaches_target": true
+   },
+   "GER": {
+    "cross_border_per_page": 1.519,
+    "cross_border_player_games": 610.0,
+    "pages": 400,
+    "player_games": 2360.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "GRE": {
+    "cross_border_per_page": 1.333,
+    "cross_border_player_games": 530.0,
+    "pages": 400,
+    "player_games": 1780.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "HUN": {
+    "cross_border_per_page": 1.407,
+    "cross_border_player_games": 560.0,
+    "pages": 400,
+    "player_games": 1390.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "INA": {
+    "cross_border_per_page": 1.731,
+    "cross_border_player_games": 690.0,
+    "pages": 400,
+    "player_games": 2690.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "IND": {
+    "cross_border_per_page": 1.037,
+    "cross_border_player_games": 410.0,
+    "pages": 400,
+    "player_games": 3300.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "IRI": {
+    "cross_border_per_page": 1.269,
+    "cross_border_player_games": 510.0,
+    "pages": 400,
+    "player_games": 2710.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "IRL": {
+    "cross_border_per_page": 1.926,
+    "cross_border_player_games": 770.0,
+    "pages": 400,
+    "player_games": 1410.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "IRQ": {
+    "cross_border_per_page": 1.192,
+    "cross_border_player_games": 480.0,
+    "pages": 400,
+    "player_games": 2370.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "ISR": {
+    "cross_border_per_page": 1.185,
+    "cross_border_player_games": 470.0,
+    "pages": 400,
+    "player_games": 1360.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "ITA": {
+    "cross_border_per_page": 0.462,
+    "cross_border_player_games": 300.0,
+    "pages": 650,
+    "player_games": 3050.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "KAZ": {
+    "cross_border_per_page": 2.37,
+    "cross_border_player_games": 950.0,
+    "pages": 400,
+    "player_games": 2960.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "KEN": {
+    "cross_border_per_page": 1.192,
+    "cross_border_player_games": 480.0,
+    "pages": 400,
+    "player_games": 2550.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "KGZ": {
+    "cross_border_per_page": 1.731,
+    "cross_border_player_games": 690.0,
+    "pages": 400,
+    "player_games": 3280.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "KOR": {
+    "cross_border_per_page": 1.269,
+    "cross_border_player_games": 510.0,
+    "pages": 400,
+    "player_games": 2120.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "LAT": {
+    "cross_border_per_page": 2.808,
+    "cross_border_player_games": 1120.0,
+    "pages": 400,
+    "player_games": 2750.0,
+    "reaches_1000": true,
+    "reaches_target": true
+   },
+   "LTU": {
+    "cross_border_per_page": 2.385,
+    "cross_border_player_games": 950.0,
+    "pages": 400,
+    "player_games": 1980.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "MAS": {
+    "cross_border_per_page": 2.37,
+    "cross_border_player_games": 950.0,
+    "pages": 400,
+    "player_games": 2430.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "MEX": {
+    "cross_border_per_page": 1.407,
+    "cross_border_player_games": 560.0,
+    "pages": 400,
+    "player_games": 2270.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "NED": {
+    "cross_border_per_page": 1.074,
+    "cross_border_player_games": 430.0,
+    "pages": 400,
+    "player_games": 1160.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "NEP": {
+    "cross_border_per_page": 1.346,
+    "cross_border_player_games": 540.0,
+    "pages": 400,
+    "player_games": 2150.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "NOR": {
+    "cross_border_per_page": 1.407,
+    "cross_border_player_games": 560.0,
+    "pages": 400,
+    "player_games": 1760.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "PER": {
+    "cross_border_per_page": 1.56,
+    "cross_border_player_games": 620.0,
+    "pages": 400,
+    "player_games": 2340.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "PHI": {
+    "cross_border_per_page": 1.667,
+    "cross_border_player_games": 670.0,
+    "pages": 400,
+    "player_games": 2180.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "POL": {
+    "cross_border_per_page": 1.815,
+    "cross_border_player_games": 730.0,
+    "pages": 400,
+    "player_games": 2840.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "POR": {
+    "cross_border_per_page": 0.37,
+    "cross_border_player_games": 300.0,
+    "pages": 810,
+    "player_games": 2610.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "ROU": {
+    "cross_border_per_page": 1.259,
+    "cross_border_player_games": 500.0,
+    "pages": 400,
+    "player_games": 2150.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "RSA": {
+    "cross_border_per_page": 1.519,
+    "cross_border_player_games": 610.0,
+    "pages": 400,
+    "player_games": 2210.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "RUS": {
+    "cross_border_per_page": 0.963,
+    "cross_border_player_games": 390.0,
+    "pages": 400,
+    "player_games": 3170.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "SCO": {
+    "cross_border_per_page": 1.769,
+    "cross_border_player_games": 710.0,
+    "pages": 400,
+    "player_games": 1550.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "SGP": {
+    "cross_border_per_page": 4.269,
+    "cross_border_player_games": 1710.0,
+    "pages": 400,
+    "player_games": 2780.0,
+    "reaches_1000": true,
+    "reaches_target": true
+   },
+   "SLO": {
+    "cross_border_per_page": 2.0,
+    "cross_border_player_games": 800.0,
+    "pages": 400,
+    "player_games": 2060.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "SRB": {
+    "cross_border_per_page": 1.519,
+    "cross_border_player_games": 610.0,
+    "pages": 400,
+    "player_games": 2190.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "SRI": {
+    "cross_border_per_page": 1.593,
+    "cross_border_player_games": 640.0,
+    "pages": 400,
+    "player_games": 3040.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "SUI": {
+    "cross_border_per_page": 1.259,
+    "cross_border_player_games": 500.0,
+    "pages": 400,
+    "player_games": 1190.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "SVK": {
+    "cross_border_per_page": 1.556,
+    "cross_border_player_games": 620.0,
+    "pages": 400,
+    "player_games": 1350.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "SWE": {
+    "cross_border_per_page": 0.37,
+    "cross_border_player_games": 300.0,
+    "pages": 810,
+    "player_games": 2070.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "TUR": {
+    "cross_border_per_page": 1.037,
+    "cross_border_player_games": 410.0,
+    "pages": 400,
+    "player_games": 3050.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "UKR": {
+    "cross_border_per_page": 4.0,
+    "cross_border_player_games": 1600.0,
+    "pages": 400,
+    "player_games": 2220.0,
+    "reaches_1000": true,
+    "reaches_target": true
+   },
+   "USA": {
+    "cross_border_per_page": 1.889,
+    "cross_border_player_games": 760.0,
+    "pages": 400,
+    "player_games": 2470.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "UZB": {
+    "cross_border_per_page": 4.038,
+    "cross_border_player_games": 1620.0,
+    "pages": 400,
+    "player_games": 4020.0,
+    "reaches_1000": true,
+    "reaches_target": true
+   },
+   "VEN": {
+    "cross_border_per_page": 1.185,
+    "cross_border_player_games": 470.0,
+    "pages": 400,
+    "player_games": 2240.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "VIE": {
+    "cross_border_per_page": 1.269,
+    "cross_border_player_games": 510.0,
+    "pages": 400,
+    "player_games": 3340.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   },
+   "WLS": {
+    "cross_border_per_page": 2.692,
+    "cross_border_player_games": 1080.0,
+    "pages": 400,
+    "player_games": 1750.0,
+    "reaches_1000": true,
+    "reaches_target": true
+   },
+   "ZAM": {
+    "cross_border_per_page": 0.692,
+    "cross_border_player_games": 300.0,
+    "pages": 434,
+    "player_games": 2850.0,
+    "reaches_1000": false,
+    "reaches_target": true
+   }
+  },
+  "cap_pages": 2000,
+  "cross_border_player_games": 51180.0,
+  "federations_reaching_1000": 12,
+  "federations_reaching_target": 75,
+  "floor_pages": 400,
+  "floors_tried": {
+   "200": {
+    "adult_junior_below_2000": [
+     745,
+     1588,
+     2746
+    ],
+    "pages": 22479
+   },
+   "300": {
+    "adult_junior_below_2000": [
+     926,
+     1969,
+     3324
+    ],
+    "pages": 26984
+   },
+   "400": {
+    "adult_junior_below_2000": [
+     1165,
+     2436,
+     4063
+    ],
+    "pages": 33037
+   }
+  },
+  "pages": 33037,
+  "player_games": 185740.0,
+  "target_adult_junior_games_per_level_below_2000": 1000,
+  "target_cross_border_games_per_federation": 300
+ },
+ "smaller_run_projection": {
+  "adult_junior_games_by_adult_level": {
+   "1400-1599": 1165,
+   "1600-1799": 2436,
+   "1800-1999": 4063,
+   "2000-2199": 2661,
+   "2200-2399": 2572,
+   "2400+": 2300
+  },
+  "calibration_cells_below_2000": 44,
+  "calibration_cells_with_1000": 39,
+  "calibration_smallest_cell": 30,
+  "white_near_equal_games_by_level": {
+   "1400-1599": 5951,
+   "1600-1799": 7248,
+   "1800-1999": 6907,
+   "2000-2199": 3187,
+   "2200-2399": 2657,
+   "2400+": 1948
+  }
+ }
+}
