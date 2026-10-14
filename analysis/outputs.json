@@ -71,6 +71,9 @@
     {"script": "analysis/e21_lists_extract.py", "args": [], "output": "analysis/aggregates/E21_lists.json", "needs_data": true},
     {"script": "analysis/e21_pilot_extract.py", "args": [], "output": "analysis/aggregates/E21_pilot.json", "needs_data": true},
     {"script": "analysis/e21_club_plan_extract.py", "args": [], "output": "analysis/aggregates/E21_club_plan.json", "needs_data": true},
+    {"script": "analysis/e21_tier0_extract.py", "args": [], "output": "analysis/aggregates/E21_tier0.json", "needs_data": true},
+    {"script": "analysis/e21_club_extract.py", "args": ["--pilot"], "output": "analysis/aggregates/E21_club_pilot.json", "needs_data": true},
+    {"script": "analysis/e21_club_extract.py", "args": [], "output": "analysis/aggregates/E21_club.json", "needs_data": true},
     {"script": "analysis/e21_sourcing_report.py", "args": [], "output": "docs/evidence/E21_sourcing.md", "needs_data": false},
     {"script": "analysis/e21_sourcing_report.py", "args": ["--spec"], "output": "docs/specs/SPEC-SOURCING_v1_1.md", "needs_data": false}
   ],
