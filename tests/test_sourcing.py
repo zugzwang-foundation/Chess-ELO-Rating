@@ -85,7 +85,7 @@ def _keys(x, path=""):
             yield from _keys(v, path + "[]")
 
 
-@pytest.mark.parametrize("name", ["E21_lists.json", "E21_pilot.json"])
+@pytest.mark.parametrize("name", ["E21_lists.json", "E21_pilot.json", "E21_club_plan.json"])
 def test_no_committed_aggregate_of_the_session_names_or_identifies_a_player(name):
     data = json.loads((AGG / name).read_text(encoding="utf-8"))
     for k in _keys(data):

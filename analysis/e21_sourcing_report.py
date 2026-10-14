@@ -2,14 +2,14 @@
 """E21 report: sourcing — the cheap sources, and a pilot of FIDE's per-player game pages that decides the big fetch
 (session ELO-D1). Writes docs/evidence/E21_sourcing.md from analysis/aggregates/E20_greats_replay_by_list.json,
 E21_lists.json and E21_pilot.json (analysis/e20_greats_replay_by_list_extract.py, analysis/e21_lists_extract.py and
-analysis/e21_pilot_extract.py, which need data/); with --spec, docs/specs/SPEC-SOURCING_v1_0.md, the draft plan of a
-larger fetch, from the same aggregates. Sonas's findings of §4 are quoted from his reports, by page, as the session read
+analysis/e21_pilot_extract.py, which need data/); with --spec, docs/specs/SPEC-SOURCING_v1_1.md, the plan of session
+ELO-D2's club-level sample, from analysis/aggregates/E21_club_plan.json (analysis/e21_club_plan_extract.py). Sonas's findings of §4 are quoted from his reports, by page, as the session read
 them (docs/research/SOURCES_v1_0.md); Ghita's book is cited by page and paraphrased. Every analysis here was chosen
 after its data had been seen and is labelled so (docs/DECISIONS.md, item 32). Python standard library only;
 deterministic.
 
 Usage: python3 analysis/e21_sourcing_report.py > docs/evidence/E21_sourcing.md
-       python3 analysis/e21_sourcing_report.py --spec > docs/specs/SPEC-SOURCING_v1_0.md
+       python3 analysis/e21_sourcing_report.py --spec > docs/specs/SPEC-SOURCING_v1_1.md
 """
 from __future__ import annotations
 
@@ -199,7 +199,8 @@ def in_brief(d: Data) -> list[str]:
         f"player's game page: an index of events, with no game and no colour.",
         f"- **The brief (§7).** A full fetch of 2025 is about {n(d.frame_pages)} requests, "
         f"{num(days(d.frame_pages, d.pace), 0)} days at the pilot's pace. The recommendation is a smaller run of about "
-        f"{n(d.small['pages'])} pages after FIDE has been asked, set out in `docs/specs/SPEC-SOURCING_v1_0.md`.",
+        f"{n(d.small['pages'])} pages after FIDE has been asked, set out in SPEC-SOURCING v1.0 (in git history; "
+        "`docs/specs/SPEC-SOURCING_v1_1.md` is now the club-level sample's plan).",
     ]
 
 
@@ -818,7 +819,8 @@ def brief(d: Data) -> list[str]:
            "Below 1,000, the floor for a headline, an offset gives a direction with its interval, not a ranking. ")
         + f"Drawn as the pilot was (every level band, juniors and newcomers "
         f"oversampled), the run serves the calibration below 2000 and the junior measure too. The plan is "
-        f"`docs/specs/SPEC-SOURCING_v1_0.md`; the floors tried: "
+        f"SPEC-SOURCING v1.0 (in git history; `docs/specs/SPEC-SOURCING_v1_1.md` is now the club-level sample's "
+        f"plan); the floors tried: "
         + "; ".join(f"{k} pages, {n(v['pages'])} requests, adults against juniors "
                     + ", ".join(n(x) for x in v["adult_junior_below_2000"])
                     for k, v in sorted(sm["floors_tried"].items(), key=lambda kv: int(kv[0]))) + ".",
@@ -916,135 +918,251 @@ def e21(d: Data) -> str:
     return "\n".join(head).rstrip("\n") + "\n"
 
 
-# ------------------------------------------------------------------ the draft plan
-def spec(d: Data) -> str:
-    sm, ff, p = d.small, d.ff, d.p
-    pj = p["smaller_run_projection"]
+# ------------------------------------------------------------------ the plan of the club-level sample (SPEC-SOURCING v1.1)
+STRATUM_ORDER = ("1400-1599|junior", "1400-1599|newcomer", "1400-1599|other", "1600-1799|junior", "1600-1799|newcomer",
+                 "1600-1799|other", "1800-1999|junior", "1800-1999|newcomer", "1800-1999|other", "2000-2199|junior",
+                 "2000-2199|newcomer", "2000-2199|other", "2200+|junior", "2200+|other")
+GROUP_NAME = {"junior": "juniors", "newcomer": "newcomers", "other": "others"}
+CLUB_LEVELS = ("1400-1599", "1600-1799", "1800-1999", "2000-2199", "2200+")
+
+
+def club_lvl(b: str) -> str:
+    return b.replace("-", "–").replace("2200+", "2200 or more")
+
+
+def spec() -> str:
+    cp = load("E21_club_plan.json")
+    fr, al, rule = cp["frame"], cp["allocation"], cp["rule"]
+    pages, ex_ = al["pages"], al["expected"]
+    tot = sum(pages.values())
+    opp = cp["pilot"]["opponents"]
+    ident = sum(v for k, v in opp.items() if k.startswith("identified"))
+    rows = sum(opp.values())
+    band_pages = {b: sum(v for s, v in pages.items() if s.startswith(b)) for b in CLUB_LEVELS}
+    table = ["| level, October 2025 | group | players | pages (2025 periods) | player-games | FIDE's games a page | "
+             "pages drawn |", "|---|---|---|---|---|---|---|"]
+    for s in STRATUM_ORDER:
+        b, g = s.split("|")
+        f = fr[s]
+        table.append(f"| {club_lvl(b)} | {GROUP_NAME[g]} | {n(f['players'])} | {n(f['pages'])} | "
+                     f"{n(f['player_games'])} | {num(al['games_per_page'][s], 2)} | {n(pages[s])} |")
+    ft = cp["frame_total"]
+    table.append(f"| every level | every group | {n(ft['players'])} | {n(ft['pages'])} | {n(ft['player_games'])} | "
+                 f"{num(ft['player_games'] / ft['pages'], 2)} | {n(tot)} |")
+    yld = ["| level band | pages drawn | games on them | threshold | games of adults against juniors, by the adult's band "
+           "| threshold |", "|---|---|---|---|---|---|"]
+    for b in CLUB_LEVELS:
+        aj = ex_.get(f"adult_junior|{b}")
+        yld.append(f"| {club_lvl(b)} | {n(band_pages[b])} | {n(ex_[f'games|{b}'])} | "
+                   f"{n(rule['target_games']) if b != '2200+' else '—'} | {n(aj) if aj is not None else '—'} | "
+                   f"{n(rule['target_adult_junior']) if b in ('1400-1599', '1600-1799', '1800-1999') else '—'} |")
+    ages = ("<12", "12-15", "16-19", "20-24", "25-45", "46-60", ">60")
+    short = [t for t, ok in al["thresholds_met"].items() if not ok]
     out = [
-        "# SPEC-SOURCING — a larger fetch of FIDE's per-player game pages: the draft plan",
+        "# SPEC-SOURCING — the club-level sample of FIDE's per-player game pages: the plan",
         "",
-        "Status: DRAFT — pending the founder's decision (`docs/DECISIONS.md`, item 29); nothing here is run until the "
-        "founder decides. Written in session ELO-D1 (14 October 2026) from the pilot's results; generated by "
-        "`analysis/e21_sourcing_report.py --spec` from the aggregates E21 uses, so that every number is the pilot's or "
-        "FIDE's lists'; do not edit by hand. Licence: CC BY 4.0 (`docs/LICENSE-docs.md`). The brief that this plan "
-        "serves, and the recommendation, are E21 §7 [E21]. Choices marked **pilot-informed** were set after the "
-        "pilot's pages had been seen.",
+        "Status: DRAFT — the plan of session ELO-D2 (14 October 2026), under the founder's decisions of that day "
+        "(`docs/DECISIONS.md`, items 33 to 36), committed before the main fetch; nothing in it was changed after the "
+        "fetch began. Generated by `analysis/e21_sourcing_report.py --spec` from "
+        "`analysis/aggregates/E21_club_plan.json`, which `analysis/e21_club_plan_extract.py` writes from FIDE's lists "
+        "and the pilot's pages in `data/`; do not edit by hand. Licence: CC BY 4.0 (`docs/LICENSE-docs.md`). Version "
+        "1.0 (session ELO-D1) was the draft plan of a larger fetch, the smaller run of about 33,000 pages that E21 §7 "
+        "recommends after FIDE has been asked; the founder ran instead the two tiers below, and no larger fetch and no "
+        "request to FIDE (items 33 and 34) [E21]. The pilot's rates and every choice marked **pilot-informed** were "
+        "set after the pilot's pages had been seen; the analyses of §7 are fixed here, before the main fetch (item 36). "
+        "Every parameter met here is PROVISIONAL.",
         "",
-        "## 1 What the fetch is for",
+        "## 1 What the sample is for",
         "",
-        "Rated games of the whole pool, with colours, the opponent's rating and federation, and FIDE's own change, at "
-        "the levels the broadcast archive misses: for E7's federation offsets, E2's and E11's calibration by gap, level "
-        "and colour, and E6's measure of adults' results against juniors (§8).",
+        "Most rated games are played below 2000: of the player-games of 2025 in the frame, "
+        f"{pct(sum(fr[s]['player_games'] for s in STRATUM_ORDER if not s.startswith(('2000', '2200'))) / ft['player_games'], 0)} "
+        "are those of players rated below 2000 on the October 2025 list, while the broadcast games behind the "
+        "proposal's fair expectation table sit at a typical 2113 [E2]. The sample turns the pilot's first looks (E21 "
+        "§5.4) into club-level findings on four questions: the fair table (the favourite's score against table 8.1.2, "
+        "and against the fitted tables, none fitted on these games), White's edge at equal ratings, adults' results "
+        "against juniors, and newcomers' first year. Tier 0, on the pages already held, settles what it can of the "
+        "pilot's list-change puzzle (§8).",
         "",
-        "## 2 The sampling frame",
+        "## 2 The frame",
         "",
-        f"- **Players:** the active players (no inactivity flag) of FIDE's October 2025 standard list, of every "
-        f"federation with at least 1,000 rated players on that list, plus England, Scotland and Wales "
-        f"({p['plan']['federations']} federations): {n(p['plan']['frame_players'])} players.",
-        f"- **Pages:** each 2025 standard rating period in which the player played a rated game and was rated on the "
-        f"list before: {n(d.frame_pages)} pages, {n(ff['frame']['player_games'])} player-games by FIDE's lists.",
-        "- **Not in the frame:** periods after the October 2026 list, events that ended on or after 1 October 2026 or "
-        "that name a 2026 U.S. Championship (the championship lock); rapid and blitz; a period in which the player "
-        "was not yet rated on the list before (the games that make a first rating).",
+        f"- **Players:** the pilot's frame: the active players (no inactivity flag) of FIDE's October 2025 standard "
+        f"list in E21's {cp['federations']} federations (every federation with at least 1,000 rated players on that "
+        f"list, plus England, Scotland and Wales): {n(ft['players'])} players.",
+        f"- **Pages:** each 2025 standard rating period in which the list shows games for the player and the player was "
+        f"rated on the list before: {n(ft['pages'])} pages, {n(ft['player_games'])} player-games by FIDE's lists.",
+        "- **Not in the frame:** any period outside 2025; rapid and blitz; a period in which the player was not yet "
+        "rated on the list before (the games that make a first rating).",
         "",
-        "## 3 Strata and sizes",
+        "## 3 Strata",
         "",
-        "- **Strata:** federation × level band (below 1400, 1400–1599, …, 2200–2399, 2400 or more, on the October "
-        "2025 list) × group (juniors born 2007 or later, or newcomers first rated 2023 or later; others).",
-        f"- **Sizes, the smaller run (pilot-informed):** per federation, the pages that bring "
-        f"{sm['target_cross_border_games_per_federation']} cross-border player-games on its own players' pages at the "
-        f"pilot's rate for that federation (E7's threshold), and at least {n(sm['floor_pages'])}, the smallest floor in "
-        f"steps of 100 at which the projected games of adults against juniors reach "
-        f"{n(sm['target_adult_junior_games_per_level_below_2000'])} in each level band below 2000; at most "
-        f"{n(sm['cap_pages'])}, never more than its 2025 pages: about "
-        f"{n(sm['pages'])} pages; {sm['federations_reaching_target']} of 75 federations reach "
-        f"{sm['target_cross_border_games_per_federation']} on their own pages and {sm['federations_reaching_1000']} "
-        f"reach 1,000 (E21 §7 gives each). Within a federation, as the pilot: every level band from the floor up, in "
-        f"proportion to the square root of the band's players, at least one page each, juniors and newcomers drawn three "
-        f"times as often as others; one page per player before any player gets a second.",
-        f"- **What the smaller run would bring** (pilot-informed, the pilot's rates scaled federation by federation): "
-        f"{n(sm['player_games'])} player-games, {n(sm['cross_border_player_games'])} of them cross-border; "
-        f"{pj['calibration_cells_with_1000']} of the {pj['calibration_cells_below_2000']} cells of 100-point level band "
-        f"× 50-point gap below 2000 that the rating floor allows with 1,000 games or more (the smallest "
-        f"{n(pj['calibration_smallest_cell'])}); games of adults against juniors by the adult's level band: "
-        + "; ".join(f"{lvl(b)} {n(v)}" for b, v in pj["adult_junior_games_by_adult_level"].items()) + "; games "
-        f"between players at most 50 points apart, by level: "
-        + "; ".join(f"{lvl(b)} {n(v)}" for b, v in pj["white_near_equal_games_by_level"].items()) + ".",
-        f"- **Sizes, the full fetch:** every frame page, {n(d.frame_pages)}.",
-        "- **Weights:** a page stands for the frame players of its stratum over the sampled ones, times the player's "
-        "2025 pages, as in the pilot.",
+        "- **Level:** the rating on the October 2025 list: 1400–1599, 1600–1799, 1800–1999, 2000–2199, and a small "
+        "stratum of 2200 or more, the anchor to the broadcast evidence.",
+        f"- **Group:** juniors as E6 defines them, list year minus year of birth at most {rule['junior_max_age']} "
+        f"(born 2006 or later); newcomers, first rated on a list from January 2023 (on none of FIDE's lists from "
+        f"February 2015 to December 2022), who are not juniors; others, adults with an older rating or without a year "
+        f"of birth (annex T2.2: no year of birth counts as an adult). At 2200 or more newcomers are too few to stand "
+        f"apart ({n(cp['newcomers_at_2200_or_more'])}) and are drawn with the others.",
+        "- **The draw:** in each stratum, players drawn without replacement, all with the same chance, across every "
+        "federation of the frame (the exponential race on fixed pseudo-random numbers of SHA-256, seed "
+        f"{rule['seed']}, as the pilot drew); each player's page a 2025 period drawn at random among the player's own; "
+        "one page per player. A page already in the cache (the pilot's) is not fetched again.",
         "",
-        "## 4 The route",
+        "## 4 Pages, the parser and the opponents",
         "",
-        "- **Per-player calculation pages** (`/a_indv_calculation.php`, as `tools/data/fetch_fide_calculations.py` "
-        "requests them, read by E17's parser): the only FIDE page that gives individual games with colours (E21 §5).",
-        "- **Tournament reports** as an index only (`/report.phtml`; pilot-informed, E21 §6): they give no game, but "
-        "every player's FIDE ID per event, so that opponents can be identified exactly and whole events taken where a "
-        "measure needs them. One request per event.",
-        f"- **The parser** (pilot-informed): E17's, extended to accept the game rows FIDE prints without K "
-        f"({plural(sum(p['pages']['parse_errors'].values()), 'page', 'pages')} of the pilot's {n(p['pages']['fetched'])}) "
-        f"and without a colour mark ({n(d.unmarked)} of the {n(p['pages']['game_rows']['n_printed'])} games on the "
-        f"pages read), each counted apart.",
-        "- **FIDE's tournament-report archive**, requested of FIDE by the proposal, replaces both if FIDE shares it.",
+        "- **The page:** FIDE's per-player calculation page (`/a_indv_calculation.php`, as "
+        "`tools/data/fetch_fide_calculations.py` requests it, with the same headers), fetched by "
+        "`tools/data/fetch_sourcing.py`, modes club-robots, club-plan and club-run.",
+        "- **The parser** (pilot-informed; `analysis/e21_club_common.py`): E17's, extended to read a tournament whose "
+        "player FIDE prints with Ro 0 and without K (the pilot's seven pages that E17's parser rejects) and a game row "
+        "printed without a colour mark, each counted apart. On every pilot page E17's parser reads, the extended parser "
+        "gives the same tournaments and the same marked games. A row without a colour mark counts as a game and is "
+        "left out of every measure that uses colour.",
+        f"- **The opponent** (pilot-informed): identified on FIDE's list in force at the tournament's start, as E21 "
+        f"does, by name and federation, with the rating FIDE prints within {rule['tolerance']} points (beyond it on the "
+        f"same side for a row FIDE marks under the 400-point rule), the nearest if several, else on the lists up to "
+        f"three months either side. On the pilot's pages it identifies {n(ident)} of {n(rows)} game rows "
+        f"({pct(ident / rows)}); E21's rule, which asks the exact rating, identified 8,508 of 11,501, because the "
+        "ratings FIDE prints on its pages today often differ by a few points from the lists as published. The "
+        "opponent's year of birth is read from FIDE's list.",
         "",
-        "## 5 Requests and pace",
+        "## 5 The allocation",
         "",
-        f"- One request per page; one process; at least four seconds after the last request to any host of fide.com, "
-        f"from an upper bound of its logged time; the pilot ran at one page every {num(d.pace, 2)} s "
-        f"(the pilot's pace; pilot-informed).",
-        f"- The smaller run: about {n(sm['pages'])} requests, {num(days(sm['pages'], d.pace), 1)} days without a pause "
-        f"at that pace. The full fetch: {n(d.frame_pages)} requests, {num(days(d.frame_pages, d.pace), 0)} days.",
-        "- Run in stretches the founder sets (for example a few hours a day), each logged, resumable from its queue; on "
-        "HTTP 429 or 5xx the gap doubles, three refusals in a row stop the run, a page that looks like a block stops it "
-        "at once, and the founder is told before anything restarts. The client is never disguised.",
+        f"- **Rule** (pilot-informed): {n(rule['anchor_pages'])} pages at 2200 or more, the anchor; "
+        f"{n(rule['total_pages'] - rule['anchor_pages'])} in the four bands from 1400 to 2199. Within each band the "
+        f"groups are drawn in proportion to their players, juniors and newcomers counted {rule['oversample']} times "
+        f"(the pilot's factor); the four bands' totals are set one page at a time, each to the band that adds most to "
+        f"the threshold furthest from being met. The thresholds: at least {n(rule['target_games'])} games on the pages "
+        f"of each band from 1400 to 2199, and at least {n(rule['target_adult_junior'])} games of adults against juniors "
+        "in each band below 2000, by the adult's band, counted from the adult's side on either player's page. "
+        "**At the pilot's rates:** FIDE's own games per page in each stratum (its lists) and the pilot's share of a "
+        "stratum's game rows that are games of adults against juniors, unweighted.",
+        f"- **Pages:** {n(tot)} in all, so that with one read of robots.txt and any retry the session stays within "
+        f"the hard cap of {n(rule['cap_requests'])} requests, which the tool enforces.",
         "",
-        "## 6 Deduplication",
+        *table,
         "",
-        f"- A game between two players whose pages are both fetched appears twice. In the pilot "
-        f"{pct(ff['share_rows_with_opponent_also_in_frame'], 0)} of game rows had an opponent who is a frame player "
-        f"with a page for the same period (pilot-informed); in a sample of pages the overlap is small, while in the full "
-        f"fetch each of those games appears twice.",
-        "- Key: the event, the two players' FIDE IDs (the opponent's from the event's report, or by name, federation "
-        "and rating on the list in force), the colours (White's page marks White) and the score; a pair that meets "
-        "twice in one event is kept twice only if both pages show it twice.",
-        "- Each measure counts a game once: E7 and E2/E11 per distinct game; E6 from the adult's side.",
+        "**What it should bring**, at the pilot's rates:",
         "",
-        "## 7 What counts as enough",
+        *yld,
         "",
-        "- **A federation's offset (E7):** at least 300 cross-border games for an estimate (E7's threshold), at least "
-        "1,000 for a headline (Ghita's floor, p. 65); reported as a direction with its interval.",
-        "- **Calibration (E2, E11):** cells of level band × 50-point gap with at least 1,000 games, E11's rule (a); "
-        "White's edge by 200-point level band from at least 1,000 games between players at most 50 points apart (E2 "
-        "uses 25).",
-        "- **The junior measure (E6):** at least 1,000 games of adults against juniors in each level band below 2000.",
+        ("All seven thresholds are met at the pilot's rates within the cap." if not short else
+         "Within the cap, the thresholds not met at the pilot's rates: " + ", ".join(short) + ".")
+        + " Games of newcomers first rated from April 2024 in their first year, by age when first rated: "
+        + "; ".join(f"{AGE_NAME[a]} {n(ex_.get(f'first_year|{a}', 0))}" for a in ages)
+        + ". Games between players at most 25 points apart, by the game's level: "
+        + "; ".join(f"{club_lvl(b)} {n(ex_.get(f'near_equal|{b}', 0))}" for b in CLUB_LEVELS) + ".",
         "",
-        "## 8 The analyses a run would do",
+        "## 6 Requests and pace",
         "",
-        "- **E7's offsets** on the run's cross-border games, weighted and recursive as E7 (and Ghita) compute them, by "
-        "federation, with intervals; compared, by direction only, with E7's broadcast offsets.",
-        "- **E2's and E11's calibration** of table 8.1.2 and of the fitted table by gap, level and colour, with their "
-        "rules, on the pool's games of 2025.",
-        "- **E6's junior measure:** adults' score minus expectation against juniors, against a matched control of adult "
-        "games at the same gaps, by level band.",
-        "- Each is labelled as decided after seeing the pilot's data; none is a test of a rung, which stays for FIDE's "
-        "data (the proposal's tests on FIDE's data).",
+        "- One process, the pilot's tool and headers, the project's User-Agent, never disguised; at least four seconds "
+        "after the last request to any host of fide.com, all of fide.com counted as one site, measured from an upper "
+        "bound of its logged time in this session's log and the pilot's; every page cached once.",
+        "- On HTTP 429 or 5xx, or a timeout, the gap doubles; three refusals in a row stop the run, and a page that "
+        "looks like a block stops it at once; the stop is recorded and nothing restarts on its own.",
+        f"- Every request logged in `data/fetch_log/ELO-D2.tsv` (UTC time, host, path, status, size, SHA-256); the run "
+        f"stops at {n(rule['cap_requests'])} requests in it. 2025 rating periods only; nothing whose name refers to a "
+        "2026 U.S. Championship; no broadcast file. At the pilot's pace, one page every 5.02 s, the run takes about "
+        f"{num(tot * 5.02 / 3600, 1)} hours.",
         "",
-        "## 9 Terms, privacy and the lock",
+        "## 7 The analyses, fixed before the main fetch",
         "",
-        "- FIDE's footer reserves storing its pages to its written permission; the request goes to FIDE before or with "
-        "any larger run (E21 §7). Pages stay in `data/` (gitignored); only totals by federation, level, age group and "
-        "colour are committed; no player's name, FIDE ID or row (`docs/DECISIONS.md`, item 31). Many of the players "
-        "are minors.",
-        "- The championship lock holds: no period after the October 2026 list, no event ended on or after 1 October "
-        "2026, nothing naming a 2026 U.S. Championship, no new broadcast file.",
+        "Each on the sample's pages, each figure with a 95 % interval clustered over pages, weighted to the frame "
+        "(§7.5) with the unweighted figure beside it; every rating comparison carries the line \"Under this rule, with "
+        "the same results — not anyone's true strength.\" A cell is shown from 100 games. None is a test of a rung, "
+        "which stays for FIDE's data.",
+        "",
+        "### 7.1 The fair table at club level",
+        "",
+        "- **Games:** every game row whose opponent's rating FIDE prints uncapped and whose gap is below 400, the two "
+        "ratings as FIDE prints them (the player's Ro and the opponent's rating); the favourite is the higher-rated "
+        "player, White at equal ratings (E2's rule); a row is one game from the sampled player's side.",
+        "- **Level of the game:** the mean of the two ratings, in E2's 200-point bands: 1400–1599, 1600–1799, "
+        "1800–1999, 2000–2199, 2200 or more. **Gap:** 50-point bins from 0–49 to 350–399.",
+        "- **E2's measure:** the favourite's score minus table 8.1.2's expectation (FIDE's PD) by gap, every level "
+        "pooled, and by level band × gap.",
+        "- **The fitted tables, none fitted on these games** (E11's and E18's held-out rules): the 2025 "
+        "self-calibrating table [E18], fitted on broadcast games of March to December 2024; and the v2 table [E11], "
+        "its rolling fit for the month in which the tournament started, fitted on the 36 months of broadcast games "
+        "before it (for a tournament that started before January 2025, January 2025's fit). Each with its colour term, "
+        "at the midpoint of the 100-point band of the game's mean rating, as E11 and E18 apply them; rows without a "
+        "colour mark left out. The favourite's residual under each by gap, by level band × gap, and pooled by level band.",
+        "- **E11's rule (a)**, on the cells of 200-point level band × 50-point gap with at least 1,000 games: a cell is "
+        "outside when its residual is significantly outside ±0.01 (one-sided test against the nearer bound, standard "
+        "error clustered over pages, Holm–Bonferroni across the cells of each table); the count of cells outside for "
+        "each table (E11's 100-point bands would hold too few games here).",
+        "",
+        "### 7.2 White moves first",
+        "",
+        "- **E2's measure:** White's score in games between players at most 25 points apart, by the game's level band; "
+        "rows without a colour mark left out.",
+        "- **The fitted tables' colour term:** at the same games, White's score minus each fitted table's expectation "
+        "for White (colour included), by level band; and, over every game of §7.1, White's edge left by each table: "
+        "half the difference of the mean residual as White and as Black. The same edge under table 8.1.2 (FIDE's "
+        "printed change before K), by level band, as E21 §5.4 measures it.",
+        "",
+        "### 7.3 Juniors",
+        "",
+        "- **E6's measure:** adults' score minus FIDE's expectation against juniors, and against adults at the same "
+        "gap, by the adult's band below 2000 (1400–1599, 1600–1799, 1800–1999; 2000–2199 and 2200 or more beside "
+        "them). Juniors and adults as E6 defines them (§3), the opponent's year of birth from FIDE's list once the "
+        "opponent is identified (§4); a game whose opponent is not identified is left out.",
+        "- **The adults' games against juniors**, from the adult's side, read on the adult's page or on the junior's: "
+        "on the adult's page the residual is FIDE's printed change before K, on the junior's its negative (table 8.1.2's "
+        "two columns sum to one), and the adult's band is that of the rating FIDE uses for the adult in the game. Rows "
+        "FIDE marks under the 400-point rule, and tournaments printed without K, are left out.",
+        "- **The matched control** (E6): every game of an adult against an adult read on an adult's page, from the "
+        "sampled adult's side, binned by colour and 50-point gap (own rating minus the opponent's); each game of an "
+        "adult against a junior is compared with the control's mean residual in its own bin, and the junior-specific "
+        "residual is the difference. Rows without a colour mark stay out of the control and of the difference.",
+        "",
+        "### 7.4 Newcomers",
+        "",
+        f"- **Players first rated on a list from April 2024** (E21 §3.3), on the sample's pages of periods within 12 "
+        "months after the first rating: score minus FIDE's expectation (the printed change before K), by age when "
+        "first rated (under 12, 12–15, 16–19, 20–24, 25–45, 46–60, over 60) and over every age. Positive means the "
+        "newcomers score more than FIDE's expectation from their ratings: rated behind their results in that year.",
+        "",
+        "### 7.5 Weights and intervals",
+        "",
+        "- **Weights:** a page stands for the frame players of its stratum over the sampled players of the stratum, "
+        "times the player's 2025 frame pages (its period was drawn at random among them), as in the pilot; a game row "
+        "carries its page's weight. The weighted figure is the frame's; the unweighted, beside it, is the sample's, in "
+        "which juniors and newcomers are drawn three times as often.",
+        "- **Intervals:** 95 %, the ratio estimator's linearised variance clustered over pages (one page per player); "
+        "games on two sampled pages are few and each counts on its own page.",
+        "",
+        "## 8 Tier 0: the pages already held",
+        "",
+        "- **The parser fix** (§4), on the pilot's 2,000 pages: the rows printed without K and the row without a "
+        "colour mark, counted.",
+        "- **The list-change puzzle:** on the pilot's pages whose published list change differs from the page's "
+        "rounded total, with the player's Ro equal to the list before and the page's games equal to the list's (E21 "
+        "§5.2), the known rules are tested first against the pages and the lists: the cap on K times the games of a "
+        "period (R-23), the rating floor (R-32), games rated in a later period (R-09, R-10), games against players "
+        "unrated when the event began (R-12), and rounding per tournament or once per period (R-25), each against "
+        "SPEC-L0 v1.5's citation of the regulations; then, decided after seeing the pilot, the ratings as published "
+        "instead of as FIDE's pages print them today. How many each explains, and what remains; nothing is claimed "
+        "about FIDE beyond what the pages and lists show, and what stays unexplained is NOT VERIFIED.",
+        "",
+        "## 9 Terms, privacy, deletion and the lock",
+        "",
+        "- FIDE's footer reserves storing its pages to its written permission (`docs/research/SOURCES_v1_0.md`); no "
+        "request is made to FIDE or to anyone in this session (item 34). Pages stay in `data/` (gitignored); only "
+        "totals by level, age group and colour, with their intervals, are committed: no sampled player's name, FIDE ID "
+        "or row. Many sampled players are minors.",
+        "- **Deletion** (item 35): once the session's analysis is verified, the raw pages of the pilot and of this run, "
+        "and every per-game file derived from them, are deleted; a local manifest, `data/raw/sourcing/MANIFEST`, keeps "
+        "each page's link, period and SHA-256, so that anyone can fetch it again. E17's and E20's caches are not "
+        "touched.",
+        "- **The lock:** 2025 rating periods only; nothing whose name refers to a 2026 U.S. Championship; no "
+        "broadcast-archive file; no result of either 2026 U.S. Championship read; the freeze-3d files unchanged.",
         "",
     ]
     return "\n".join(out).rstrip("\n") + "\n"
 
 
 def main() -> int:
-    d = Data()
-    sys.stdout.write(spec(d) if "--spec" in sys.argv[1:] else e21(d))
+    sys.stdout.write(spec() if "--spec" in sys.argv[1:] else e21(Data()))
     return 0
 
 

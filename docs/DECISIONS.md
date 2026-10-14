@@ -2,13 +2,21 @@
 
 Status: DECIDED — the project's decision log from 12 October 2026: one dated line per decision, newest date first; the ten of 12 October 2026 stand in the order they were given, and a later decision takes the next number and goes on top. The decision records D-0001 to D-0018 in `docs/decisions/` stay as history; a mistake in one is fixed in place, with a dated line saying what changed.
 
-32\. 2026-10-14 — Every new analysis of the session is labelled as decided after seeing the data (founder) (session ELO-D1): `docs/evidence/E21_sourcing.md`, `docs/specs/SPEC-SOURCING_v1_0.md`.
+36\. 2026-10-14 — Analyses chosen after seeing the pilot are labelled so; the club-level sample's analyses are fixed in its plan before the main fetch (founder) (session ELO-D2): `docs/specs/SPEC-SOURCING_v1_1.md` §7.
+
+35\. 2026-10-14 — Once the session's analysis is verified, the raw pages of ELO-D1's pilot and of this run, and every per-game file derived from them, are deleted; a local manifest of links, periods and checksums is kept so that anyone can fetch them again; E17's and E20's caches are not touched; only totals are committed (founder) (session ELO-D2): `docs/specs/SPEC-SOURCING_v1_1.md` §9.
+
+34\. 2026-10-14 — No request to FIDE or to anyone in this session (founder) (session ELO-D2).
+
+33\. 2026-10-14 — Run only Tier 0, the list-change puzzle and the parser fix on the pages already held, and Tier 1, a level-stratified sample of about 5,500 of FIDE's per-player game pages of 2025; not run: the targeted countries sample and any larger fetch (founder) (session ELO-D2). This settles item 29: SPEC-SOURCING v1.0's smaller run is not run, and the plan is bumped to `docs/specs/SPEC-SOURCING_v1_1.md`, the club-level sample's.
+
+32\. 2026-10-14 — Every new analysis of the session is labelled as decided after seeing the data (founder) (session ELO-D1): `docs/evidence/E21_sourcing.md`, SPEC-SOURCING v1.0 (bumped to `docs/specs/SPEC-SOURCING_v1_1.md` in session ELO-D2, item 33).
 
 31\. 2026-10-14 — Sampled players' data never leave `data/` (founder): only totals by federation, level, age group and colour are committed, and no sampled player's name, FIDE ID or row; many sampled players are minors (session ELO-D1): `docs/evidence/E21_sourcing.md`, `docs/research/SOURCES_v1_0.md`.
 
 30\. 2026-10-14 — Left (founder): URS, which mixes standard, rapid and blitz and whose main use, the sizes of countries' offsets, the proposal keeps for FIDE's commission; Ghita's 2025 game extract, private to him; Chess-Results, whose data may not be copied without consent; The Week in Chess, ChessBase and the Lumbras Gigabase, elite-heavy (Ghita, p. 73); the Kaggle data of 2010–2011; FIDE's rapid and blitz lists (session ELO-D1): `docs/research/SOURCES_v1_0.md`.
 
-29\. 2026-10-14 — Not in this session: the large fetch of FIDE's per-player game pages; the founder decides it after the session's go/no-go brief (founder) (session ELO-D1): `docs/evidence/E21_sourcing.md` §7, `docs/specs/SPEC-SOURCING_v1_0.md` (DRAFT, pending).
+29\. 2026-10-14 — Not in this session: the large fetch of FIDE's per-player game pages; the founder decides it after the session's go/no-go brief (founder) (session ELO-D1): `docs/evidence/E21_sourcing.md` §7, SPEC-SOURCING v1.0 (DRAFT, pending; bumped to `docs/specs/SPEC-SOURCING_v1_1.md` in session ELO-D2, item 33).
 
 28\. 2026-10-14 — Taken: a probe of 20 of FIDE's tournament reports, of events that ended before 1 October 2026, none of a 2026 U.S. Championship (founder) (session ELO-D1): `docs/evidence/E21_sourcing.md` §6.
 
