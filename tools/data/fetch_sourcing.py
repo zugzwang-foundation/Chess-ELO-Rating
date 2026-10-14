@@ -383,18 +383,18 @@ def next_item(done: set[str], priority: bool = True) -> str | None:
 QUEUE_FILE: list[Path | None] = [None]
 
 
-def run(queue: str, club: bool = False, status: Path | None = None) -> int:
+def run(queue: str, club: bool = False, status_file: Path | None = None) -> int:
     QUEUE_FILE[0] = Path(queue)
     CALCS.mkdir(parents=True, exist_ok=True)
     REPORTS.mkdir(parents=True, exist_ok=True)
     gap, refusals, streak, last, n, done = 4.0, 0, 0, None, 0, set()
     t0 = time.time()
     next_status = t0 + 3600
-    if status:
-        write_status(status, queue, t0, n, "running")
+    if status_file:
+        write_status(status_file, queue, t0, n, "running")
     while True:
-        if status and time.time() >= next_status:
-            write_status(status, queue, t0, n, "running")
+        if status_file and time.time() >= next_status:
+            write_status(status_file, queue, t0, n, "running")
             next_status += 3600
         line = next_item(done, priority=not club)          # the club-level run reads its own queue only
         if line is None:
@@ -410,8 +410,8 @@ def run(queue: str, club: bool = False, status: Path | None = None) -> int:
             check_lock_club(kind, arg)
             if requests_logged() >= CLUB_CAP:
                 print(f"STOP: the cap of {CLUB_CAP} requests in {LOG.name} is reached", flush=True)
-                if status:
-                    write_status(status, queue, t0, n, f"STOPPED: the cap of {CLUB_CAP} requests is reached")
+                if status_file:
+                    write_status(status_file, queue, t0, n, f"STOPPED: the cap of {CLUB_CAP} requests is reached")
                 return 1
         check_lock(kind, arg)
         if kind == "calc":
@@ -432,8 +432,8 @@ def run(queue: str, club: bool = False, status: Path | None = None) -> int:
         if status == 403 or (status == 200 and any(s in text for s in BLOCKED)):
             (BASE / f"refused_{kind}_{arg.replace(':', '_')}.html").write_bytes(body)
             print(f"STOP {line}: HTTP {status}, {len(body)} bytes, looks like a block, at {stamp}", flush=True)
-            if status:
-                write_status(status, queue, t0, n, f"STOPPED: HTTP {status} at {stamp}, a page that looks like a block")
+            if status_file:
+                write_status(status_file, queue, t0, n, f"STOPPED: HTTP {status} at {stamp}, a page that looks like a block")
             return 1
         if status is None or status == 429 or status >= 500:
             refusals += 1
@@ -442,8 +442,8 @@ def run(queue: str, club: bool = False, status: Path | None = None) -> int:
             print(f"REFUSED {line}: HTTP {status} at {stamp}; gap now {gap:.0f} s ({refusals} in a row)", flush=True)
             if refusals >= MAX_REFUSALS:
                 print(f"STOP: {refusals} refusals in a row; the route is stopped", flush=True)
-                if status:
-                    write_status(status, queue, t0, n, f"STOPPED: {refusals} refusals in a row, the last at {stamp}")
+                if status_file:
+                    write_status(status_file, queue, t0, n, f"STOPPED: {refusals} refusals in a row, the last at {stamp}")
                 return 1
             continue
         refusals = 0
@@ -460,8 +460,8 @@ def run(queue: str, club: bool = False, status: Path | None = None) -> int:
         if n % 50 == 0:
             print(f"{n} requests, last {line} at {stamp}, {(time.time() - t0) / n:.2f} s a request", flush=True)
     print(f"done: {n} requests in {time.time() - t0:.0f} s", flush=True)
-    if status:
-        write_status(status, queue, t0, n, "done")
+    if status_file:
+        write_status(status_file, queue, t0, n, "done")
     return 0
 
 
@@ -705,7 +705,7 @@ if __name__ == "__main__":
         CLUB_QUEUE.write_text("".join(f"calc {s['id']}:{s['period']}\n" for s in p["sample"]), encoding="utf-8")
         print(f"{len(p['sample'])} pages planned in {len(p['cells'])} strata -> {CLUB_QUEUE.relative_to(ROOT)}")
     elif len(sys.argv) == 4 and sys.argv[1] == "club-run":
-        sys.exit(run(sys.argv[2], club=True, status=Path(sys.argv[3]).expanduser()))
+        sys.exit(run(sys.argv[2], club=True, status_file=Path(sys.argv[3]).expanduser()))
     elif len(sys.argv) >= 2 and sys.argv[1] == "plan":
         p = plan()
         BASE.mkdir(parents=True, exist_ok=True)

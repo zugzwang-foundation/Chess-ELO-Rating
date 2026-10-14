@@ -224,3 +224,38 @@ def test_the_manifest_verifies_every_page_before_any_is_deleted(tmp_path, monkey
     assert fs.write_manifest() == 0
     assert fs.delete_pages() == 0 and not list(calcs.glob("*"))
     assert (tmp_path / "MANIFEST").read_text(encoding="utf-8").count("verified") == 2
+
+
+def test_the_club_run_writes_its_status_every_hour_and_completes(tmp_path, monkeypatch):
+    """Regression (ELO-D2, 15:25 UTC): the status file is written at the first hourly mark after pages were fetched,
+    and the run ends with COMPLETE. No connection: the request is replaced."""
+    calcs = tmp_path / "calculations"
+    queue = tmp_path / "queue.txt"
+    queue.write_text("calc 1:2025-01\ncalc 2:2025-02\n", encoding="utf-8")
+    log = tmp_path / "ELO-D2.tsv"
+    log.write_text("fetched_utc\thost\tpath\tstatus\tbytes\tsha256\turl\titem\n", encoding="utf-8")
+
+    class Clock:
+        t = 1_000_000.0
+
+        def time(self):
+            self.t += 2000.0                      # every call moves the clock on: the hourly mark is passed
+            return self.t
+
+        def sleep(self, s):
+            pass
+
+    def fake_request(url, item, gap, headers=None, last=None):
+        with log.open("a", encoding="utf-8") as fh:
+            fh.write(f"2026-10-14T15:00:00Z\tratings.fide.com\t/x\t200\t5\t-\t{url}\t{item}\n")
+        return 200, b"<tr bgcolor=#efefef></tr>", 0.0, "2026-10-14T15:00:00Z"
+    monkeypatch.setattr(fs, "CALCS", calcs)
+    monkeypatch.setattr(fs, "REPORTS", tmp_path / "reports")
+    monkeypatch.setattr(fs, "LOG", log)
+    monkeypatch.setattr(fs, "time", Clock())
+    monkeypatch.setattr(fs, "request", fake_request)
+    monkeypatch.setattr(fs, "allowed", lambda url: True)
+    status = tmp_path / "status.md"
+    assert fs.run(str(queue), club=True, status_file=status) == 0
+    text = status.read_text(encoding="utf-8")
+    assert "Pages done: 2 of 2" in text and text.rstrip().endswith("COMPLETE")
