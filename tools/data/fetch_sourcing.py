@@ -397,14 +397,14 @@ def run(queue: str, club: bool = False, status_file: Path | None = None) -> int:
     QUEUE_FILE[0] = Path(queue)
     CALCS.mkdir(parents=True, exist_ok=True)
     REPORTS.mkdir(parents=True, exist_ok=True)
-    gap, refusals, streak, last, n, done = 4.0, 0, 0, None, 0, set()
+    gap, refusals, streak, last, n, done, games = 4.0, 0, 0, None, 0, set(), 0
     t0 = time.time()
     next_status = t0 + 3600
     if status_file:
-        write_status(status_file, queue, t0, n, "running")
+        write_status(status_file, queue, t0, n, "running", games)
     while True:
         if status_file and time.time() >= next_status:
-            write_status(status_file, queue, t0, n, "running")
+            write_status(status_file, queue, t0, n, "running", games)
             next_status += 3600
         line = next_item(done, priority=not club)          # the club-level run reads its own queue only
         if line is None:
@@ -421,7 +421,7 @@ def run(queue: str, club: bool = False, status_file: Path | None = None) -> int:
             if requests_logged() >= CLUB_CAP:
                 print(f"STOP: the cap of {CLUB_CAP} requests in {LOG.name} is reached", flush=True)
                 if status_file:
-                    write_status(status_file, queue, t0, n, f"STOPPED: the cap of {CLUB_CAP} requests is reached")
+                    write_status(status_file, queue, t0, n, f"STOPPED: the cap of {CLUB_CAP} requests is reached", games)
                 return 1
         check_lock(kind, arg)
         if kind == "calc":
@@ -443,7 +443,7 @@ def run(queue: str, club: bool = False, status_file: Path | None = None) -> int:
             (BASE / f"refused_{kind}_{arg.replace(':', '_')}.html").write_bytes(body)
             print(f"STOP {line}: HTTP {status}, {len(body)} bytes, looks like a block, at {stamp}", flush=True)
             if status_file:
-                write_status(status_file, queue, t0, n, f"STOPPED: HTTP {status} at {stamp}, a page that looks like a block")
+                write_status(status_file, queue, t0, n, f"STOPPED: HTTP {status} at {stamp}, a page that looks like a block", games)
             return 1
         if status is None or status == 429 or status >= 500:
             refusals += 1
@@ -453,7 +453,7 @@ def run(queue: str, club: bool = False, status_file: Path | None = None) -> int:
             if refusals >= MAX_REFUSALS:
                 print(f"STOP: {refusals} refusals in a row; the route is stopped", flush=True)
                 if status_file:
-                    write_status(status_file, queue, t0, n, f"STOPPED: {refusals} refusals in a row, the last at {stamp}")
+                    write_status(status_file, queue, t0, n, f"STOPPED: {refusals} refusals in a row, the last at {stamp}", games)
                 return 1
             continue
         refusals = 0
@@ -463,6 +463,7 @@ def run(queue: str, club: bool = False, status_file: Path | None = None) -> int:
             print(f"NOTE {line}: HTTP {status} at {stamp}", flush=True)
             continue
         out.write_bytes(body)
+        games += body.count(b"<tr bgcolor=#efefef>")
         done.add(line)
         streak += 1
         if gap > 4.0 and streak >= 100:               # after 100 answers in a row the doubled gap is halved again
@@ -473,11 +474,11 @@ def run(queue: str, club: bool = False, status_file: Path | None = None) -> int:
     if left:                                          # never claim done with items left
         print(f"INCOMPLETE: {len(left)} items neither cached nor answered after {n} requests", flush=True)
         if status_file:
-            write_status(status_file, queue, t0, n, f"STOPPED: {len(left)} items neither cached nor answered")
+            write_status(status_file, queue, t0, n, f"STOPPED: {len(left)} items neither cached nor answered", games)
         return 1
     print(f"done: {n} requests in {time.time() - t0:.0f} s", flush=True)
     if status_file:
-        write_status(status_file, queue, t0, n, "done")
+        write_status(status_file, queue, t0, n, "done", games)
     return 0
 
 
@@ -615,18 +616,15 @@ def requests_logged() -> int:
         return max(0, sum(1 for _ in fh) - 1)
 
 
-def write_status(path: Path, queue: str, t0: float, n: int, state: str) -> None:
+def write_status(path: Path, queue: str, t0: float, n: int, state: str, games: int = 0) -> None:
     """The run's status for the operator: pages done, games on them, errors, the smallest gap between requests to
     FIDE's site in the session's log (whole seconds, as logged) and the estimated finish; COMPLETE as the last line
-    once the queue is done. Counts only: no player is named."""
+    once the queue is done. Counts only: no player is named. No cached page is read: on a loaded machine, reading
+    every page again each hour blocked the run for minutes (ELO-D2, 21:27 and 22:00 UTC)."""
     items = [x.strip() for x in Path(queue).read_text(encoding="utf-8").splitlines() if x.strip()]
     done = [x for x in items if cached_path(*x.split(" ", 1)).exists()]
     not_served = [x for x in items if x not in done and
                   list(BASE.glob(f"status*_{x.split(' ', 1)[0]}_{x.split(' ', 1)[1].replace(':', '_')}.html"))]
-    games = 0
-    for x in done:
-        text = cached_path(*x.split(" ", 1)).read_text(encoding="utf-8-sig", errors="replace")
-        games += len(re.findall(r'<tr bgcolor=#efefef>', text))
     rows = list(csv.DictReader(LOG.open(encoding="utf-8"), delimiter="\t")) if LOG.exists() else []
     stamps = sorted(datetime.strptime(r["fetched_utc"], "%Y-%m-%dT%H:%M:%SZ") for r in rows
                     if site_of(r["host"]) == "fide.com")
@@ -641,7 +639,8 @@ def write_status(path: Path, queue: str, t0: float, n: int, state: str) -> None:
              f"- State: {state}",
              f"- Pages done: {len(done):,} of {len(items):,} in the queue ({left:,} left"
              + (f"; not served: {len(not_served):,}" if not_served else "") + ")",
-             f"- Game rows on the pages done: {games:,}",
+             f"- Game rows on the pages fetched in this run: {games:,} (counted as each page arrives; no cached page "
+             "is read again)",
              f"- Requests in {LOG.name}: {len(rows):,} (cap {CLUB_CAP:,}); not HTTP 200: {errors}",
              f"- Smallest gap between requests to FIDE's site in the log: "
              f"{min(gaps):.0f} s; gaps under 4 s: {sum(1 for g in gaps if g < 4)}" if gaps else

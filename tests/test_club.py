@@ -258,7 +258,7 @@ def test_the_club_run_writes_its_status_every_hour_and_completes(tmp_path, monke
     status = tmp_path / "status.md"
     assert fs.run(str(queue), club=True, status_file=status) == 0
     text = status.read_text(encoding="utf-8")
-    assert "Pages done: 2 of 2" in text and text.rstrip().endswith("COMPLETE")
+    assert "Pages done: 2 of 2" in text and "fetched in this run: 2" in text and text.rstrip().endswith("COMPLETE")
 
 
 def test_the_run_never_claims_done_with_items_left(tmp_path, monkeypatch):
