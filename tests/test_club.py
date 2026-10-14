@@ -259,3 +259,22 @@ def test_the_club_run_writes_its_status_every_hour_and_completes(tmp_path, monke
     assert fs.run(str(queue), club=True, status_file=status) == 0
     text = status.read_text(encoding="utf-8")
     assert "Pages done: 2 of 2" in text and text.rstrip().endswith("COMPLETE")
+
+
+def test_the_run_never_claims_done_with_items_left(tmp_path, monkeypatch):
+    """Regression (ELO-D2, 21:39 UTC): the run's own queue is read, never skipped; an empty read raises, and a run that
+    leaves an item neither cached nor answered says so instead of done."""
+    queue = tmp_path / "queue.txt"
+    queue.write_text("calc 1:2025-12\n", encoding="utf-8")
+    monkeypatch.setattr(fs, "CALCS", tmp_path / "calculations")
+    fs.QUEUE_FILE[0] = queue
+    assert fs.next_item(set(), priority=False) == "calc 1:2025-12"
+    assert fs.next_item({"calc 1:2025-12"}, priority=False) is None
+    assert fs.unfinished(str(queue), set()) == ["calc 1:2025-12"]
+    assert fs.unfinished(str(queue), {"calc 1:2025-12"}) == []
+    queue.write_text("", encoding="utf-8")
+    with pytest.raises(RuntimeError):
+        fs.next_item(set(), priority=False)
+    queue.unlink()
+    with pytest.raises(FileNotFoundError):
+        fs.next_item(set(), priority=False)

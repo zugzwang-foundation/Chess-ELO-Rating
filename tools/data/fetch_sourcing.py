@@ -370,14 +370,24 @@ def check_lock(kind: str, arg: str) -> None:
 
 
 def next_item(done: set[str], priority: bool = True) -> str | None:
-    for q in ((QUEUE_PRIORITY,) if priority else ()) + (QUEUE_FILE[0],):
-        if q is None or not q.exists():
-            continue
-        for line in q.read_text(encoding="utf-8").splitlines():
+    """The first item of the priority queue (if it exists) and then of the run's own queue that is not done. The run's
+    own queue must be read: an error, or an empty read, raises rather than ending the run as if it were done (on
+    14 October 2026 a club-level run ended 505 items early, the cause not established)."""
+    if priority and QUEUE_PRIORITY.exists():
+        for line in QUEUE_PRIORITY.read_text(encoding="utf-8").splitlines():
             line = line.strip()
             if line and line not in done:
                 return line
-    return None
+    lines = [x.strip() for x in QUEUE_FILE[0].read_text(encoding="utf-8").splitlines() if x.strip()]
+    if not lines:
+        raise RuntimeError(f"the queue {QUEUE_FILE[0]} read empty")
+    return next((x for x in lines if x not in done), None)
+
+
+def unfinished(queue: str, done: set[str]) -> list[str]:
+    """The queue's items neither cached nor answered in this run (a page not served counts as answered)."""
+    items = [x.strip() for x in Path(queue).read_text(encoding="utf-8").splitlines() if x.strip()]
+    return [x for x in items if x not in done and not cached_path(*x.split(" ", 1)).exists()]
 
 
 QUEUE_FILE: list[Path | None] = [None]
@@ -459,6 +469,12 @@ def run(queue: str, club: bool = False, status_file: Path | None = None) -> int:
             gap, streak = max(4.0, gap / 2), 0
         if n % 50 == 0:
             print(f"{n} requests, last {line} at {stamp}, {(time.time() - t0) / n:.2f} s a request", flush=True)
+    left = unfinished(queue, done)
+    if left:                                          # never claim done with items left
+        print(f"INCOMPLETE: {len(left)} items neither cached nor answered after {n} requests", flush=True)
+        if status_file:
+            write_status(status_file, queue, t0, n, f"STOPPED: {len(left)} items neither cached nor answered")
+        return 1
     print(f"done: {n} requests in {time.time() - t0:.0f} s", flush=True)
     if status_file:
         write_status(status_file, queue, t0, n, "done")
@@ -605,6 +621,8 @@ def write_status(path: Path, queue: str, t0: float, n: int, state: str) -> None:
     once the queue is done. Counts only: no player is named."""
     items = [x.strip() for x in Path(queue).read_text(encoding="utf-8").splitlines() if x.strip()]
     done = [x for x in items if cached_path(*x.split(" ", 1)).exists()]
+    not_served = [x for x in items if x not in done and
+                  list(BASE.glob(f"status*_{x.split(' ', 1)[0]}_{x.split(' ', 1)[1].replace(':', '_')}.html"))]
     games = 0
     for x in done:
         text = cached_path(*x.split(" ", 1)).read_text(encoding="utf-8-sig", errors="replace")
@@ -615,13 +633,14 @@ def write_status(path: Path, queue: str, t0: float, n: int, state: str) -> None:
     gaps = [(b - a).total_seconds() for a, b in zip(stamps, stamps[1:])]
     errors = sum(1 for r in rows if r["status"] != "200")
     pace = (time.time() - t0) / n if n else None
-    left = len(items) - len(done)
+    left = len(items) - len(done) - len(not_served)
     eta = (datetime.now(timezone.utc).timestamp() + left * pace) if pace else None
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     lines = ["Status: DRAFT (session ELO-D2, the club-level fetch; counts only, no player named)", "",
              f"# ELO-D2 fetch status — {now}", "",
              f"- State: {state}",
-             f"- Pages done: {len(done):,} of {len(items):,} in the queue ({left:,} left)",
+             f"- Pages done: {len(done):,} of {len(items):,} in the queue ({left:,} left"
+             + (f"; not served: {len(not_served):,}" if not_served else "") + ")",
              f"- Game rows on the pages done: {games:,}",
              f"- Requests in {LOG.name}: {len(rows):,} (cap {CLUB_CAP:,}); not HTTP 200: {errors}",
              f"- Smallest gap between requests to FIDE's site in the log: "
