@@ -978,6 +978,9 @@ def limits_section() -> list[str]:
         "NOT VERIFIED beyond the name. The ratings are those the pages print today, which differ from the lists as "
         "published on about a quarter of games (§10.2). The fitted tables are applied as they stand, fitted on "
         "broadcast games; none was refitted on these games.",
+        "- **Computed once** (added in session ELO-15c, 15 October 2026). The club-level figures (§11) were computed "
+        "once, from pages since deleted (`docs/DECISIONS.md`, item 35); before the deletion, only Tier 0's extract was "
+        "re-run. The code and its tests are committed, so FIDE can recompute every figure on its own data.",
         "- Why FIDE's pages and lists differ, and the list changes that neither a known rule nor the published ratings "
         "reproduce (§10.2), are NOT VERIFIED.",
         "",
@@ -1176,7 +1179,7 @@ def tier0_section(k: Club) -> list[str]:
         "NOT VERIFIED.",
         f"- **R-12 and the periods.** Leaving out games against an opponent not rated on the list in force reproduces "
         f"{got(GAMES_CLASS, r12)} of the {plural(applies(GAMES_CLASS, r12), 'page', 'pages')} whose games differ from "
-        "the list's and that hold such a game. On {applies('equal', r0910)} matching pages the list counts a tournament that R-09 and "
+        f"the list's and that hold such a game. On {n(applies('equal', r0910))} matching pages the list counts a tournament that R-09 and "
         "R-10 as SPEC-L0 reads them would not allow on that list (R-10's reading is NOT VERIFIED).",
         "",
         f"**In plain words.** The pages show FIDE's figures as FIDE's server returns them today (14 October 2026). "
@@ -1568,6 +1571,9 @@ def e21(d: Data) -> str:
         "rights and its written permission is to be requested (`docs/research/SOURCES_v1_0.md`; `docs/DECISIONS.md`, "
         "item 6). Ghita's book [R 5] is cited by page and paraphrased; Sonas's reports are quoted briefly, by page. "
         "Every parameter met here is PROVISIONAL.",
+        "",
+        "Corrected 2026-10-15 (session ELO-15c): §10.2's last bullet printed its template instead of its number; it "
+        "now prints it (7). §9 says that the club-level figures were computed once. No figure changed.",
         "",
         FIXED,
         "",
