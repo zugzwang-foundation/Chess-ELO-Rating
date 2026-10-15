@@ -1028,6 +1028,13 @@ def u3(s: dict, d: int = 3) -> str:
     return sgn(s["mean"], d) if s and s.get("games", 0) >= 100 and "mean" in s else "—"
 
 
+def eu3(s: dict, d: int = 3) -> str:
+    """An unweighted edge, as a point figure, or a dash below 100 games of either colour."""
+    if not s or "edge" not in s or min(s.get("games_white", 0), s.get("games_black", 0)) < 100:
+        return "—"
+    return sgn(s["edge"], d)
+
+
 def e3(s: dict, d: int = 3) -> str:
     if not s or "edge" not in s or min(s.get("games_white", 0), s.get("games_black", 0)) < 100:
         return "—"
@@ -1244,12 +1251,13 @@ def club_section(k: Club) -> list[str]:
         gap_rows.append(f"| {gb.replace('-', '–')} | {n(s['812'].get('weighted', {}).get('games', 0))} | "
                         + " | ".join(f"{c3(s[key].get('weighted'))} | {u3(s[key].get('unweighted'))}"
                                      for key, _lab in TABLES) + " |")
-    lvl_rows = ["| level of the game | games | table 8.1.2 | 2025 self-calibrating table | v2 table |",
-                "|---|---|---|---|---|"]
+    lvl_rows = ["| level of the game | games | table 8.1.2 | unweighted | 2025 self-calibrating table | unweighted | "
+                "v2 table | unweighted |", "|---|---|---|---|---|---|---|---|"]
     for b in CLUB_LEVELS:
         s = {key: ft[key]["by_level"].get(b, {}).get("weighted", {}) for key, _lab in TABLES}
+        su = {key: ft[key]["by_level"].get(b, {}).get("unweighted", {}) for key, _lab in TABLES}
         lvl_rows.append(f"| {club_lvl(b)} | {n(s['812'].get('games', 0))} | "
-                        + " | ".join(c3(s[key]) for key, _lab in TABLES) + " |")
+                        + " | ".join(f"{c3(s[key])} | {u3(su[key])}" for key, _lab in TABLES) + " |")
     grid = ["| level of the game | " + " | ".join(gb.replace("-", "–") for gb in CLUB_GAPS) + " |",
             "|---|" + "---|" * len(CLUB_GAPS)]
     for b in CLUB_LEVELS:
@@ -1258,6 +1266,14 @@ def club_section(k: Club) -> list[str]:
             s = ft["812"]["by_level_gap"].get(f"{b}|{gb}", {}).get("weighted", {})
             cells.append(f"{u3(s)} ({n(s['games'])})" if s.get("games", 0) >= 100 else "—")
         grid.append(f"| {club_lvl(b)} | " + " | ".join(cells) + " |")
+    grid_u = ["| level of the game | " + " | ".join(gb.replace("-", "–") for gb in CLUB_GAPS) + " |",
+              "|---|" + "---|" * len(CLUB_GAPS)]
+    for b in CLUB_LEVELS:
+        cells = []
+        for gb in CLUB_GAPS:
+            s = ft["812"]["by_level_gap"].get(f"{b}|{gb}", {}).get("unweighted", {})
+            cells.append(f"{u3(s)} ({n(s['games'])})" if s.get("games", 0) >= 100 else "—")
+        grid_u.append(f"| {club_lvl(b)} | " + " | ".join(cells) + " |")
     ra = {key: ft[key]["rule_a"] for key, _lab in TABLES}
     pub = c["fair_table_published_ratings"]
     by812 = shown([ft["812"]["by_gap"][gb]["weighted"] for gb in CLUB_GAPS if gb in ft["812"]["by_gap"]])
@@ -1272,12 +1288,15 @@ def club_section(k: Club) -> list[str]:
         r2 = wh["near_equal_minus_table"]["v2"].get(b, {}).get("weighted", {})
         w_rows.append(f"| {club_lvl(b)} | {n(s.get('weighted', {}).get('games', 0))} | {c3(s.get('weighted'))} | "
                       f"{u3(s.get('unweighted'))} | {c3(r1)} | {c3(r2)} |")
-    e_rows = ["| level of the game | games | White's edge under table 8.1.2 | left by the 2025 self-calibrating table | "
-              "left by the v2 table |", "|---|---|---|---|---|"]
+    e_rows = ["| level of the game | games | White's edge under table 8.1.2 | unweighted | left by the 2025 "
+              "self-calibrating table | unweighted | left by the v2 table | unweighted |",
+              "|---|---|---|---|---|---|---|---|"]
     for b in CLUB_LEVELS:
         s = {key: wh["edge_every_game"][key].get(b, {}).get("weighted", {}) for key, _lab in TABLES}
+        su = {key: wh["edge_every_game"][key].get(b, {}).get("unweighted", {}) for key, _lab in TABLES}
         g_ = s["812"].get("games_white", 0) + s["812"].get("games_black", 0)
-        e_rows.append(f"| {club_lvl(b)} | {n(g_)} | " + " | ".join(e3(s[key]) for key, _lab in TABLES) + " |")
+        e_rows.append(f"| {club_lvl(b)} | {n(g_)} | "
+                      + " | ".join(f"{e3(s[key])} | {eu3(su[key])}" for key, _lab in TABLES) + " |")
 
     # 11.5 juniors
     j_rows = ["| adult's band | games against juniors | adults' score minus FIDE's expectation | unweighted | games "
@@ -1365,6 +1384,15 @@ def club_section(k: Club) -> list[str]:
         + (". From 2000 the fitted tables fit and table 8.1.2 does not; below 2000 the fitted tables err the other "
            "way, by about as much as table 8.1.2: the expectation that fits club play lies between the two. "
            if up_low["v2"] and all(side(x) == "not settled" for x in high["v2"]) else ". "))
+    lvu = {key: [ft[key]["by_level"].get(b, {}).get("unweighted", {}) for b in CLUB_LEVELS] for key, _lab in TABLES}
+    lowu = {key: [x for b, x in zip(CLUB_LEVELS, lvu[key]) if b in BELOW_2000_CLUB and "mean" in x] for key in lvu}
+    level_words += (
+        "Unweighted, in the sample, where juniors and newcomers count for more than in the pool, the favourite's "
+        f"residual by level is {rng([x for x in lvu['812'] if 'mean' in x])} under table 8.1.2, the interval below zero "
+        f"in {sum(1 for x in lvu['812'] if side(x) == 'below')} of {sum(1 for x in lvu['812'] if 'mean' in x)} bands; "
+        f"below 2000 it is {rng(lowu['selfcal'])} under the 2025 self-calibrating table and {rng(lowu['v2'])} under "
+        f"the v2 table, the interval above zero in {sum(1 for x in lowu['selfcal'] if side(x) == 'above')} and "
+        f"{sum(1 for x in lowu['v2'] if side(x) == 'above')} of {len(lowu['v2'])} bands (added in session ELO-15c). ")
     below_sc, below_v2 = count_side(sc_gap, "below"), count_side(v2_gap, "below")
     table_words = (
         "- **The top drains: the fair table.** "
@@ -1491,6 +1519,12 @@ def club_section(k: Club) -> list[str]:
         "",
         *grid,
         "",
+        "The same, unweighted (added in session ELO-15c, as the plan asks: SPEC-SOURCING v1.1 §7):",
+        "",
+        FIXED,
+        "",
+        *grid_u,
+        "",
         f"- **E11's rule (a)** on the cells of 200-point level band × 50-point gap with at least 1,000 games: table "
         f"8.1.2 {ra['812']['weighted']['cells_outside']} of {ra['812']['weighted']['cells_tested']} cells outside "
         f"±0.01 weighted ({ra['812']['unweighted']['cells_outside']} of {ra['812']['unweighted']['cells_tested']} "
@@ -1590,7 +1624,9 @@ def e21(d: Data) -> str:
         "Corrected 2026-10-15 (session ELO-15c): §10.2's last bullet printed its template instead of its number; it "
         "now prints it (7). §9 says that the club-level figures were computed once, and §11.7 gives White's score at "
         "equal ratings that the edge implies (one half plus the edge). §4 and §8 say which edits session ELO-15c made "
-        "in the proposal. No figure changed.",
+        "in the proposal. §11.3 and §11.4 print the unweighted figures beside the weighted ones by level, by level "
+        "and gap and for White's edge, as the plan asks (SPEC-SOURCING v1.1 §7), and §11.7 reads them; they were in "
+        "the committed aggregate. No figure changed.",
         "",
         FIXED,
         "",

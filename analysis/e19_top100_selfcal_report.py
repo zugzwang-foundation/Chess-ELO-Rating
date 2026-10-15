@@ -110,7 +110,7 @@ def appendix(a: dict, s: dict) -> list[str]:
     q("")
     q(FIXED)
     q("")
-    q("| | name | FIDE ID | FIDE's rules, October 2026 | self-calibrating | difference |")
+    q("| | name | FIDE ID | FIDE's published rating, October 2026 | self-calibrating | difference |")
     q("|---|---|---|---|---|---|")
     up = sorted(rows, key=lambda r: (-r["difference"], r["fide_id"]))
     down = sorted(rows, key=lambda r: (r["difference"], r["fide_id"]))
@@ -170,6 +170,9 @@ def main() -> int:
       "tables are PROVISIONAL-FITTED, each on broadcast games played before its year [E18]. It supersedes E17's figures "
       "(R59) [E17].")
     p("")
+    p("Relabelled 2026-10-15 (session ELO-15c): the column of FIDE's ratings in October 2026 reads \"FIDE's published "
+      "rating\", credited to FIDE, under the data rule (`docs/DECISIONS.md`, item 43). No figure changed.")
+    p("")
     p(FIXED)
     p("")
     p("**In brief.**")
@@ -221,7 +224,7 @@ def main() -> int:
     p("")
     p("## 2 Today's top 100 under the self-calibrating system")
     p("")
-    p("| rank | name | FIDE ID | federation | FIDE's rules, October 2026 | self-calibrating | difference | the table's "
+    p("| rank | name | FIDE ID | federation | FIDE's published rating, October 2026 | self-calibrating | difference | the table's "
       "effect | colour's effect | games under a table | share as favourite | E17's frozen table, difference | rank, "
       "self-calibrating |")
     p("|---|---|---|---|---|---|---|---|---|---|---|---|---|")

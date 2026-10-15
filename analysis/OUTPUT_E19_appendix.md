@@ -12,7 +12,7 @@ The five largest differences and the five smallest, with every player tied at th
 
 *Under this rule, with the same results — not anyone's true strength.*
 
-| | name | FIDE ID | FIDE's rules, October 2026 | self-calibrating | difference |
+| | name | FIDE ID | FIDE's published rating, October 2026 | self-calibrating | difference |
 |---|---|---|---|---|---|
 | largest | Erigaisi Arjun | 35009192 | 2746 | 2775 | +29 |
 | largest | Mamedyarov, Shakhriyar | 13401319 | 2710 | 2738 | +28 |

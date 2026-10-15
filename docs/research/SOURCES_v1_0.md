@@ -16,7 +16,7 @@ Status: DRAFT — research record, sessions ELO-D1 and ELO-D2 (14 October 2026),
 
 So FIDE publishes each player's game history to any visitor, and reserves storing it: as before (DATA-PROBE §2.6; `docs/DECISIONS.md`, item 6), FIDE's pages are analysed from a local cache that is never committed, and FIDE's written permission is to be requested. Many sampled players are minors: nothing that names or identifies a sampled player leaves `data/` (founder, 14 October; item 31).
 
-**The data rule** (`docs/DECISIONS.md`, item 43). Where this project's material shows a named player's FIDE rating, it is FIDE's published rating, credited to FIDE; no FIDE list file is published. FIDE IDs are committed only in the test fixtures that quote FIDE's published calculations, in the event files of the U.S. Championships and for the named players of today's top 100 and the greats; no sampled player's name or FIDE ID is committed.
+**The data rule** (`docs/DECISIONS.md`, item 43). Where this project's material shows a named player's FIDE rating, it is FIDE's published rating, credited to FIDE; no FIDE list file is published. FIDE IDs are committed only in the test fixtures that quote FIDE's published calculations and the evidence report printed from them, for the players of the U.S. Championships, in their event files and the reports printed from them, and for the named players of today's top 100 and the greats; no sampled player's name or FIDE ID is committed.
 
 ## 2 The ledger
 

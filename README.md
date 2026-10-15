@@ -29,7 +29,7 @@ It is "Elo": the system is named after Arpad Elo, a surname, not an acronym. The
 
 ## Data
 
-FIDE's own material is analysed from a local cache and never redistributed (`docs/DECISIONS.md`, items 6 and 43). No FIDE list file is published: what is committed of FIDE's data is aggregates and differences. Where this project's material shows a named player's FIDE rating, it is FIDE's published rating, credited to FIDE. FIDE IDs are committed only in the test fixtures that quote FIDE's published calculations (`tests/fixtures/`), in the event files of the U.S. Championships (`tools/events/`) and for the named players of today's top 100 and the greats; no sampled player's name or FIDE ID is committed. FIDE's written permission is to be requested for the analyses already made of its lists and calculations.
+FIDE's own material is analysed from a local cache and never redistributed (`docs/DECISIONS.md`, items 6 and 43). No FIDE list file is published: what is committed of FIDE's data is aggregates and differences. Where this project's material shows a named player's FIDE rating, it is FIDE's published rating, credited to FIDE. FIDE IDs are committed only in the test fixtures that quote FIDE's published calculations (`tests/fixtures/`) and the evidence report printed from them, for the players of the U.S. Championships, in their event files (`tools/events/`) and the reports printed from them, and for the named players of today's top 100 and the greats; no sampled player's name or FIDE ID is committed. FIDE's written permission is to be requested for the analyses already made of its lists and calculations.
 
 ## Licences
 
