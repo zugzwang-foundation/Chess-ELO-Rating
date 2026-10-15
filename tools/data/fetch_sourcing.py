@@ -27,6 +27,21 @@ Modes:
                        period (all of them ended before 1 October 2026; none of a 2026 U.S. Championship), in the SHA-256
                        order of "ELO-D1-report:EVENT", the first N, for the priority queue
 
+Session ELO-D2 (the club-level sample, docs/specs/SPEC-SOURCING_v1_1.md), with the same endpoint, headers, cache,
+politeness and parser, its requests logged to data/fetch_log/ELO-D2.tsv:
+  club-robots          fetch https://ratings.fide.com/robots.txt once more, logged in the session's log
+  club-plan            draw the sample from the frame with the allocation committed in
+                       analysis/aggregates/E21_club_plan.json (totals only) and write its queue,
+                       data/raw/sourcing/club_queue.txt, and its plan, data/raw/sourcing/club_plan.json (both local)
+  club-run QUEUE STATUS
+                       work through the queue as run does, calculation pages of 2025 periods only, and stop at
+                       CLUB_CAP requests in the session's log; write the run's status to STATUS (outside the
+                       repository) at the start, every hour and at the end, its last line COMPLETE when the queue is done
+  manifest             write data/raw/sourcing/MANIFEST: every cached calculation page of the two sessions, its link,
+                       period, fetch time, size and SHA-256 from the logs, each checked against the cached file
+  delete-pages         delete the cached calculation pages the manifest lists and verifies (docs/DECISIONS.md, item 35),
+                       nothing else, and print what remains
+
 Python standard library only.
 """
 from __future__ import annotations
@@ -354,28 +369,44 @@ def check_lock(kind: str, arg: str) -> None:
                              "a 2026 U.S. Championship")
 
 
-def next_item(done: set[str]) -> str | None:
-    for q in (QUEUE_PRIORITY, QUEUE_FILE[0]):
-        if q is None or not q.exists():
-            continue
-        for line in q.read_text(encoding="utf-8").splitlines():
+def next_item(done: set[str], priority: bool = True) -> str | None:
+    """The first item of the priority queue (if it exists) and then of the run's own queue that is not done. The run's
+    own queue must be read: an error, or an empty read, raises rather than ending the run as if it were done (on
+    14 October 2026 a club-level run ended 505 items early, the cause not established)."""
+    if priority and QUEUE_PRIORITY.exists():
+        for line in QUEUE_PRIORITY.read_text(encoding="utf-8").splitlines():
             line = line.strip()
             if line and line not in done:
                 return line
-    return None
+    lines = [x.strip() for x in QUEUE_FILE[0].read_text(encoding="utf-8").splitlines() if x.strip()]
+    if not lines:
+        raise RuntimeError(f"the queue {QUEUE_FILE[0]} read empty")
+    return next((x for x in lines if x not in done), None)
+
+
+def unfinished(queue: str, done: set[str]) -> list[str]:
+    """The queue's items neither cached nor answered in this run (a page not served counts as answered)."""
+    items = [x.strip() for x in Path(queue).read_text(encoding="utf-8").splitlines() if x.strip()]
+    return [x for x in items if x not in done and not cached_path(*x.split(" ", 1)).exists()]
 
 
 QUEUE_FILE: list[Path | None] = [None]
 
 
-def run(queue: str) -> int:
+def run(queue: str, club: bool = False, status_file: Path | None = None) -> int:
     QUEUE_FILE[0] = Path(queue)
     CALCS.mkdir(parents=True, exist_ok=True)
     REPORTS.mkdir(parents=True, exist_ok=True)
-    gap, refusals, streak, last, n, done = 4.0, 0, 0, None, 0, set()
+    gap, refusals, streak, last, n, done, games = 4.0, 0, 0, None, 0, set(), 0
     t0 = time.time()
+    next_status = t0 + 3600
+    if status_file:
+        write_status(status_file, queue, t0, n, "running", games)
     while True:
-        line = next_item(done)
+        if status_file and time.time() >= next_status:
+            write_status(status_file, queue, t0, n, "running", games)
+            next_status += 3600
+        line = next_item(done, priority=not club)          # the club-level run reads its own queue only
         if line is None:
             break
         kind, arg = line.split(" ", 1)
@@ -385,6 +416,13 @@ def run(queue: str) -> int:
         if out.exists():                              # cached once, never fetched again
             done.add(line)
             continue
+        if club:
+            check_lock_club(kind, arg)
+            if requests_logged() >= CLUB_CAP:
+                print(f"STOP: the cap of {CLUB_CAP} requests in {LOG.name} is reached", flush=True)
+                if status_file:
+                    write_status(status_file, queue, t0, n, f"STOPPED: the cap of {CLUB_CAP} requests is reached", games)
+                return 1
         check_lock(kind, arg)
         if kind == "calc":
             pid, period = arg.split(":")
@@ -404,6 +442,8 @@ def run(queue: str) -> int:
         if status == 403 or (status == 200 and any(s in text for s in BLOCKED)):
             (BASE / f"refused_{kind}_{arg.replace(':', '_')}.html").write_bytes(body)
             print(f"STOP {line}: HTTP {status}, {len(body)} bytes, looks like a block, at {stamp}", flush=True)
+            if status_file:
+                write_status(status_file, queue, t0, n, f"STOPPED: HTTP {status} at {stamp}, a page that looks like a block", games)
             return 1
         if status is None or status == 429 or status >= 500:
             refusals += 1
@@ -412,6 +452,8 @@ def run(queue: str) -> int:
             print(f"REFUSED {line}: HTTP {status} at {stamp}; gap now {gap:.0f} s ({refusals} in a row)", flush=True)
             if refusals >= MAX_REFUSALS:
                 print(f"STOP: {refusals} refusals in a row; the route is stopped", flush=True)
+                if status_file:
+                    write_status(status_file, queue, t0, n, f"STOPPED: {refusals} refusals in a row, the last at {stamp}", games)
                 return 1
             continue
         refusals = 0
@@ -421,13 +463,22 @@ def run(queue: str) -> int:
             print(f"NOTE {line}: HTTP {status} at {stamp}", flush=True)
             continue
         out.write_bytes(body)
+        games += body.count(b"<tr bgcolor=#efefef>")
         done.add(line)
         streak += 1
         if gap > 4.0 and streak >= 100:               # after 100 answers in a row the doubled gap is halved again
             gap, streak = max(4.0, gap / 2), 0
         if n % 50 == 0:
             print(f"{n} requests, last {line} at {stamp}, {(time.time() - t0) / n:.2f} s a request", flush=True)
+    left = unfinished(queue, done)
+    if left:                                          # never claim done with items left
+        print(f"INCOMPLETE: {len(left)} items neither cached nor answered after {n} requests", flush=True)
+        if status_file:
+            write_status(status_file, queue, t0, n, f"STOPPED: {len(left)} items neither cached nor answered", games)
+        return 1
     print(f"done: {n} requests in {time.time() - t0:.0f} s", flush=True)
+    if status_file:
+        write_status(status_file, queue, t0, n, "done", games)
     return 0
 
 
@@ -457,8 +508,223 @@ def report_events(n: int) -> None:
         print(f"report {e}")
 
 
+# ------------------------------------------------------------------ session ELO-D2: the club-level sample
+CLUB_LOG = ROOT / "data" / "fetch_log" / "ELO-D2.tsv"
+CLUB_PLAN = BASE / "club_plan.json"
+CLUB_QUEUE = BASE / "club_queue.txt"
+CLUB_ALLOCATION = ROOT / "analysis" / "aggregates" / "E21_club_plan.json"     # committed before the fetch, totals only
+CLUB_SEED = "ELO-D2"
+CLUB_YEAR = 2025                         # 2025 rating periods only (the ELO-D2 relay)
+CLUB_JUNIOR_MAX_AGE = 19                 # juniors as E6 defines them: list year minus year of birth at most 19
+CLUB_NEWCOMER_FROM = "2023-01"           # newcomers: first rated on a list from January 2023
+CLUB_BANDS = ((1400, 1600, "1400-1599"), (1600, 1800, "1600-1799"), (1800, 2000, "1800-1999"),
+              (2000, 2200, "2000-2199"), (2200, 9999, "2200+"))
+CLUB_GROUPS = ("junior", "newcomer", "other")
+CLUB_CAP = 5500                          # the hard cap on requests in the session's log
+
+
+def club_band(r: int) -> str | None:
+    """The level band of the October 2025 list's rating, or None below 1400."""
+    return next((lab for lo, hi, lab in CLUB_BANDS if lo <= r < hi), None)
+
+
+def club_group(birth_year: int, first: str | None, band: str) -> str:
+    """Junior (E6: list year minus year of birth at most 19), else newcomer (first rated from January 2023), else
+    other; at 2200 or more newcomers are too few to stand apart and are drawn with the others."""
+    if birth_year and CLUB_YEAR - birth_year <= CLUB_JUNIOR_MAX_AGE:
+        return "junior"
+    if first is not None and first >= CLUB_NEWCOMER_FROM and band != "2200+":
+        return "newcomer"
+    return "other"
+
+
+def first_rated() -> dict[str, str]:
+    """FIDE ID -> the first converted standard list (from February 2015) that rates the player."""
+    first: dict[str, str] = {}
+    for f in sorted(LISTS.glob("*.tsv")):
+        with f.open(encoding="utf-8") as fh:
+            next(fh)
+            for line in fh:
+                pid, r = line.split("\t", 2)[:2]
+                if r.isdigit() and pid not in first:
+                    first[pid] = f.stem
+    return first
+
+
+def club_frame() -> dict:
+    """The frame of SPEC-SOURCING v1.1 §2, as the pilot's: the October 2025 list's active players of the pilot's 75
+    federations (every federation with at least 1,000 rated players on that list, plus England, Scotland and Wales),
+    each with the 2025 periods in which the list shows games and the player was rated on the list before. Returns the
+    federations and, per stratum (level band, group), the players with their periods, first list and year of birth."""
+    frame_list = read_list(FRAME_LIST)
+    lists = {m: read_list(m) for m in [month_add(PERIODS[0], -1)] + PERIODS}
+    first = first_rated()
+    rated: dict[str, int] = defaultdict(int)
+    for _pid, (_r, _g, _k, _by, fed, _flag) in frame_list.items():
+        rated[fed] += 1
+    feds = sorted({f for f, n in rated.items() if n >= MIN_RATED} | set(ADDED_FEDS))
+    strata: dict[str, list] = defaultdict(list)
+    for pid, (r, _g, _k, by, fed, flag) in frame_list.items():
+        if fed not in feds or "i" in flag:
+            continue
+        periods = [p for p in PERIODS if pid in lists[p] and lists[p][pid][1] > 0 and pid in lists[month_add(p, -1)]]
+        band = club_band(r)
+        if not periods or band is None:
+            continue
+        group = club_group(by, first.get(pid), band)
+        strata[f"{band}|{group}"].append({"id": pid, "fed": fed, "periods": periods, "first": first.get(pid),
+                                          "birth": by or None,
+                                          "games": [lists[p][pid][1] for p in periods]})
+    return {"federations": feds, "strata": dict(strata)}
+
+
+def club_plan() -> dict:
+    """The sample: in each stratum, the committed number of players drawn without replacement, all with equal chance
+    (the exponential race on fixed pseudo-random numbers, seed ELO-D2), each with one of the player's 2025 periods
+    drawn at random among them; one page per player."""
+    alloc = json.loads(CLUB_ALLOCATION.read_text(encoding="utf-8"))["allocation"]["pages"]
+    fr = club_frame()
+    sample, cells = [], {}
+    for st in sorted(fr["strata"]):
+        pool = fr["strata"][st]
+        take = alloc.get(st, 0)
+        if take > len(pool):
+            raise SystemExit(f"stratum {st}: {take} pages allocated, {len(pool)} players in the frame")
+        order = sorted(pool, key=lambda p: (-math.log(u01(f"{CLUB_SEED}:{p['id']}")), p["id"]))
+        for p in order[:take]:
+            k = int(u01(f"{CLUB_SEED}-period:{p['id']}") * len(p["periods"]))
+            sample.append({"id": p["id"], "fed": p["fed"], "stratum": st, "period": p["periods"][k],
+                           "periods": len(p["periods"]), "first": p["first"], "birth": p["birth"]})
+        cells[st] = {"frame_players": len(pool), "frame_pages": sum(len(p["periods"]) for p in pool),
+                     "frame_player_games": sum(sum(p["games"]) for p in pool), "sampled": take}
+    sample.sort(key=lambda s: (s["period"], int(s["id"])))
+    return {"seed": CLUB_SEED, "frame_list": FRAME_LIST, "federations": fr["federations"], "cells": cells,
+            "sample": sample}
+
+
+def check_lock_club(kind: str, arg: str) -> None:
+    """The ELO-D2 lock: calculation pages of 2025 rating periods only."""
+    if kind != "calc" or not arg.split(":")[1].startswith(f"{CLUB_YEAR}-"):
+        raise SystemExit(f"refusing {kind} {arg}: the club-level run takes calculation pages of 2025 periods only")
+
+
+def requests_logged() -> int:
+    """Requests in the session's log so far."""
+    if not LOG.exists():
+        return 0
+    with LOG.open(encoding="utf-8") as fh:
+        return max(0, sum(1 for _ in fh) - 1)
+
+
+def write_status(path: Path, queue: str, t0: float, n: int, state: str, games: int = 0) -> None:
+    """The run's status for the operator: pages done, games on them, errors, the smallest gap between requests to
+    FIDE's site in the session's log (whole seconds, as logged) and the estimated finish; COMPLETE as the last line
+    once the queue is done. Counts only: no player is named. No cached page is read: on a loaded machine, reading
+    every page again each hour blocked the run for minutes (ELO-D2, 21:27 and 22:00 UTC)."""
+    items = [x.strip() for x in Path(queue).read_text(encoding="utf-8").splitlines() if x.strip()]
+    done = [x for x in items if cached_path(*x.split(" ", 1)).exists()]
+    not_served = [x for x in items if x not in done and
+                  list(BASE.glob(f"status*_{x.split(' ', 1)[0]}_{x.split(' ', 1)[1].replace(':', '_')}.html"))]
+    rows = list(csv.DictReader(LOG.open(encoding="utf-8"), delimiter="\t")) if LOG.exists() else []
+    stamps = sorted(datetime.strptime(r["fetched_utc"], "%Y-%m-%dT%H:%M:%SZ") for r in rows
+                    if site_of(r["host"]) == "fide.com")
+    gaps = [(b - a).total_seconds() for a, b in zip(stamps, stamps[1:])]
+    errors = sum(1 for r in rows if r["status"] != "200")
+    pace = (time.time() - t0) / n if n else None
+    left = len(items) - len(done) - len(not_served)
+    eta = (datetime.now(timezone.utc).timestamp() + left * pace) if pace else None
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    lines = ["Status: DRAFT (session ELO-D2, the club-level fetch; counts only, no player named)", "",
+             f"# ELO-D2 fetch status — {now}", "",
+             f"- State: {state}",
+             f"- Pages done: {len(done):,} of {len(items):,} in the queue ({left:,} left"
+             + (f"; not served: {len(not_served):,}" if not_served else "") + ")",
+             f"- Game rows on the pages fetched in this run: {games:,} (counted as each page arrives; no cached page "
+             "is read again)",
+             f"- Requests in {LOG.name}: {len(rows):,} (cap {CLUB_CAP:,}); not HTTP 200: {errors}",
+             f"- Smallest gap between requests to FIDE's site in the log: "
+             f"{min(gaps):.0f} s; gaps under 4 s: {sum(1 for g in gaps if g < 4)}" if gaps else
+             "- Smallest gap: — (fewer than two requests)",
+             f"- Pace this run: {pace:.2f} s a request" if pace else "- Pace this run: —",
+             "- Estimated finish: " + (datetime.fromtimestamp(eta, timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
+                                       if eta and left else "—")]
+    if state == "done" and not left:
+        lines.append("")
+        lines.append("COMPLETE")
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+MANIFEST = BASE / "MANIFEST"
+MANIFEST_LOGS = (("ELO-D1", ROOT / "data" / "fetch_log" / "ELO-D1.tsv"), ("ELO-D2", CLUB_LOG))
+
+
+def write_manifest() -> int:
+    """The local manifest of every cached calculation page of ELO-D1's pilot and of ELO-D2's run (the founder's
+    decision, docs/DECISIONS.md, item 35): the link, the period, the session and time of the fetch, the size and the
+    SHA-256 the log records, each checked against the cached file. Written before the pages are deleted, so that anyone
+    can fetch them again; it stays in data/ (gitignored), never committed."""
+    rows, bad = [], 0
+    for session, path in MANIFEST_LOGS:
+        with path.open(encoding="utf-8") as fh:
+            for r in csv.DictReader(fh, delimiter="\t"):
+                if not r["item"].startswith("calc ") or r["status"] != "200":
+                    continue
+                f = cached_path("calc", r["item"].split(" ", 1)[1])
+                ok = f.exists() and hashlib.sha256(f.read_bytes()).hexdigest() == r["sha256"]
+                bad += not ok
+                rows.append((r["fetched_utc"], session, r["url"], r["item"].split(":")[-1], r["bytes"], r["sha256"],
+                             "verified" if ok else "NOT VERIFIED"))
+    used = {line.strip() for q in (QUEUE, CLUB_QUEUE) if q.exists() for line in q.read_text().splitlines()}
+    with MANIFEST.open("w", encoding="utf-8") as fh:
+        fh.write("# FIDE's per-player calculation pages of ELO-D1's pilot and ELO-D2's club-level run, deleted after "
+                 "verification (docs/DECISIONS.md, item 35); each link re-fetches its page. Local only, never committed.\n")
+        fh.write("fetched_utc\tsession\turl\tperiod\tbytes\tsha256\tcheck\n")
+        for r in sorted(rows):
+            fh.write("\t".join(r) + "\n")
+    print(f"{len(rows)} pages in {MANIFEST.name}; checksum differs or file missing: {bad}; queue items "
+          f"covered: {len(used)}")
+    return 1 if bad else 0
+
+
+def delete_pages() -> int:
+    """Delete every cached calculation page the manifest lists and verifies, nothing else; print what remains."""
+    if not MANIFEST.exists():
+        raise SystemExit("no manifest: run mode manifest first")
+    gone = 0
+    with MANIFEST.open(encoding="utf-8") as fh:
+        rows = [r for r in csv.DictReader((x for x in fh if not x.startswith("#")), delimiter="\t")]
+    for r in rows:
+        if r["check"] != "verified":
+            raise SystemExit("the manifest holds a page not verified: nothing deleted")
+    for r in rows:
+        q = urllib.parse.parse_qs(urllib.parse.urlparse(r["url"]).query)
+        f = CALCS / f"{q['id_number'][0]}_{q['rating_period'][0][:7]}.html"
+        if f.exists():
+            f.unlink()
+            gone += 1
+    left = sorted(p.name for p in CALCS.glob("*")) if CALCS.exists() else []
+    print(f"deleted {gone} pages; left in {CALCS.name}/: {len(left)}")
+    return 0 if not left else 1
+
+
 if __name__ == "__main__":
-    if len(sys.argv) >= 2 and sys.argv[1] == "plan":
+    if len(sys.argv) == 2 and sys.argv[1] == "manifest":
+        sys.exit(write_manifest())
+    if len(sys.argv) == 2 and sys.argv[1] == "delete-pages":
+        sys.exit(delete_pages())
+    if len(sys.argv) >= 2 and sys.argv[1].startswith("club-"):
+        LOG = CLUB_LOG
+    if len(sys.argv) == 2 and sys.argv[1] == "club-robots":
+        sys.exit(robots("ratings.fide.com"))
+    elif len(sys.argv) == 2 and sys.argv[1] == "club-plan":
+        p = club_plan()
+        BASE.mkdir(parents=True, exist_ok=True)
+        CLUB_PLAN.write_text(json.dumps(p, indent=1, sort_keys=True), encoding="utf-8")
+        CLUB_QUEUE.write_text("".join(f"calc {s['id']}:{s['period']}\n" for s in p["sample"]), encoding="utf-8")
+        print(f"{len(p['sample'])} pages planned in {len(p['cells'])} strata -> {CLUB_QUEUE.relative_to(ROOT)}")
+    elif len(sys.argv) == 4 and sys.argv[1] == "club-run":
+        sys.exit(run(sys.argv[2], club=True, status_file=Path(sys.argv[3]).expanduser()))
+    elif len(sys.argv) >= 2 and sys.argv[1] == "plan":
         p = plan()
         BASE.mkdir(parents=True, exist_ok=True)
         PLAN.write_text(json.dumps(p, indent=1, sort_keys=True), encoding="utf-8")

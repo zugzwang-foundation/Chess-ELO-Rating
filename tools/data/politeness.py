@@ -19,7 +19,8 @@ MANIFESTS = (ROOT / "data" / "raw" / "probe" / "MANIFEST.tsv",
              ROOT / "data" / "raw" / "fide_old" / "MANIFEST.tsv",
              ROOT / "data" / "raw" / "fide_calculations_greats" / "MANIFEST.tsv",
              ROOT / "data" / "raw" / "fide_site" / "handbook" / "MANIFEST.tsv",
-             ROOT / "data" / "fetch_log" / "ELO-D1.tsv")           # session ELO-D1's log (tools/data/fetch_sourcing.py)
+             ROOT / "data" / "fetch_log" / "ELO-D1.tsv",           # session ELO-D1's log (tools/data/fetch_sourcing.py)
+             ROOT / "data" / "fetch_log" / "ELO-D2.tsv")           # session ELO-D2's log (the same tool)
 MIN_GAP = {"ratings.fide.com": 4.0, "handbook.fide.com": 4.0, "www.fide.com": 4.0, "fide.com": 4.0,
            "web.archive.org": 8.0}
 DEFAULT_GAP = 3.0
