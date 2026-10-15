@@ -16,6 +16,7 @@ from __future__ import annotations
 import json
 import math
 import sys
+from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -216,6 +217,10 @@ def in_brief_d2(k: "Club") -> list[str]:
     ev = [x["edge"] for x in edge if "edge" in x]
     spec = shown([jn["junior_specific"][b]["weighted"] for b in BELOW_2000_CLUB if b in jn["junior_specific"]])
     sv = [x["mean"] for x in spec if "mean" in x]
+    fit_low = [ft[key]["by_level"][b]["weighted"]["mean"] for key in ("selfcal", "v2") for b in BELOW_2000_CLUB
+               if b in ft[key]["by_level"]]
+    fit_high = [ft[key]["by_level"][b]["weighted"]["mean"] for key in ("selfcal", "v2") for b in CLUB_LEVELS
+                if b not in BELOW_2000_CLUB and b in ft[key]["by_level"]]
     every = nw.get("every age", {}).get("weighted", {})
     r25 = t["rules"]["known"][5]
     p_opp = t["rules"]["published_opponents"]
@@ -235,7 +240,9 @@ def in_brief_d2(k: "Club") -> list[str]:
         f"rows; Layer 0 reproduces FIDE's change in {n(l0['game_change_equal'])} of {n(l0['games'])} games. Favourites "
         f"score {vrange([x['mean'] for x in by812])} a game against "
         f"table 8.1.2 by gap, the interval below zero in {sum(1 for x in by812 if side(x) == 'below')} of "
-        f"{len(by812)} bins; White's edge by level {vrange(ev)}; adults' junior-specific residual below 2000 "
+        f"{len(by812)} bins, while the two fitted tables, fitted on broadcast games, leave favourites "
+        f"{vrange(fit_low)} by level below 2000 and {vrange(fit_high)} from 2000; White's edge by level {vrange(ev)}; "
+        f"adults' junior-specific residual below 2000 "
         f"{vrange(sv)}; newcomers' first year {c3(every)} against FIDE's expectation.",
     ]
 
@@ -904,23 +911,50 @@ def edits_section() -> list[str]:
         "cannot be shared.",
         "- Appendix H or E20's report: the greats' difference list by list (§2), if the appendix is to show it.",
         "",
+        *edits_d2(),
+        "",
+    ]
+
+
+def edits_d2() -> list[str]:
+    """Session ELO-D2's proposed edits, for after ELO-16 (listed, not made), with the figures that prompt them."""
+    c = load("E21_club.json")
+    t0 = load("E21_tier0.json")
+    e6 = load("E6_rungs.json")["rung5_control"]["junior_specific_layer0"]
+    ft, wh, jn, nw = c["fair_table"], c["white"], c["juniors"], c["newcomers"]
+
+    def by_level(key: str, low: bool) -> list[float]:
+        return [ft[key]["by_level"][b]["weighted"]["mean"] for b in CLUB_LEVELS
+                if (b in BELOW_2000_CLUB) == low and b in ft[key]["by_level"]]
+    edge = [wh["edge_every_game"]["812"][b]["weighted"]["edge"] for b in CLUB_LEVELS if b in wh["edge_every_game"]["812"]]
+    spec = [jn["junior_specific"][b]["weighted"]["mean"] for b in BELOW_2000_CLUB if b in jn["junior_specific"]]
+    pp = t0["printed_against_published"]
+    share = pp["games: the opponent's printed rating equals the list in force"] / pp[
+        "games: opponent identified on the list in force, uncapped"]
+    every = nw["every age"]["weighted"]
+    return [
         "Added by session ELO-D2 (listed, not made):",
         "",
-        "- §2(a) and the annex on the fair table (T3): the favourite's score against table 8.1.2 at club level (§11.3) "
-        "beside the broadcast games' [E2], so that the table's error is shown at the levels where most rated games are "
-        "played, not at the top only.",
-        "- Annex T8.2 and the ladder's rung 2: the fitted tables at club level (§11.3, §11.4): the 2025 "
-        "self-calibrating table and the v2 table, fitted on broadcast games, measured on the pool's own games, with "
-        "their colour term; what they mean for adopting the table below 2000 before a refit on FIDE's data.",
-        "- §2(c) or the annex on colour: White's edge at club level (§11.4) beside the broadcast games'.",
-        "- §2(b) or annex T4.6: adults' junior-specific residual at club level (§11.5) beside E6's broadcast figure.",
-        "- §2(b) or annex T4.7: newcomers' first-year results against FIDE's expectation by age (§11.6), beside the "
-        "climb of §3.3.",
-        "- Appendix F, the findings for FIDE's Qualification Commission: FIDE's per-player pages print ratings that "
-        "differ from its published lists in about a quarter of games, and print as unrated players whose games the "
-        "lists rated (§10); the lists and pages agree on neither, so a rating's history cannot be rebuilt from the "
-        "pages alone.",
-        "",
+        "- §2(a) and the annex on the fair table (T3): the table's error measured where most rated games are played. "
+        f"At club level favourites score {vrange(by_level('812', True))} a game against table 8.1.2 by level below 2000 "
+        f"and {vrange(by_level('812', False))} from 2000 (§11.3), beside the broadcast games' [E2].",
+        "- Rung 2 and annex T8.2: the fitted tables, fitted on broadcast games, fit from 2000 "
+        f"(the v2 table {vrange(by_level('v2', False))} by level) but leave favourites "
+        f"{vrange(by_level('v2', True))} below 2000 (the 2025 self-calibrating table "
+        f"{vrange(by_level('selfcal', True))}): below 2000 they over-correct about as much as table 8.1.2 errs. "
+        "Proposed: say that the table's evidence holds from 2000, and that below 2000 the table must be fitted on the "
+        "pool's own games (FIDE's data, which the proposal requests) before rung 2 is adopted there.",
+        f"- §2(c) or the annex on colour: White's edge at club level, {vrange(edge)} a game by level (§11.4), and the "
+        "fitted tables' colour term, slightly too large below 2000.",
+        f"- §2(b) or annex T4.6: adults' junior-specific residual at club level, {vrange(spec)} by band below 2000 "
+        f"(§11.5), beside E6's {sgn(e6['mean'], 3)} on broadcast games [E6]: the same drain where juniors play most.",
+        f"- §2(b) or annex T4.7 (rung 3): newcomers' first-year results, {c3(every)} against FIDE's expectation, every "
+        "age pooled, adults most below it (§11.6), beside the climb of §3.3: the first year does not show newcomers "
+        "rated behind their strength; any case for newcomer seeds rests on the later climb of the young.",
+        "- Appendix F, the findings for FIDE's Qualification Commission: FIDE's per-player pages print the opponent's "
+        f"published rating in {pct(share, 0)} of games and differ from the lists by a few points in most of the rest, "
+        "and print as unrated players whose games the lists rated (§10); a rating's history cannot be rebuilt exactly "
+        "from the pages alone.",
     ]
 
 
@@ -1002,6 +1036,28 @@ def side(s: dict) -> str:
     if not s or "lo" not in s:
         return "not settled"
     return "below" if s["hi"] < 0 else "above" if s["lo"] > 0 else "not settled"
+
+
+RUN_STOPS = (("15:25:16Z", "15:27:12Z"), ("21:39:55Z", "22:13:50Z"))   # the session log's two interruptions
+
+
+def interruptions(pol: dict) -> str:
+    """The run's two interruptions, as the session recorded them; each must be a gap of the log, or this fails."""
+    long_ = {(a, b): g for a, b, g in pol["gaps_of_a_minute_or_more"]}
+    for stop in RUN_STOPS:
+        if stop not in long_:
+            raise SystemExit(f"the log holds no gap from {stop[0]} to {stop[1]}")
+    other = [g for k, g in long_.items() if k not in RUN_STOPS]
+    return (f"The run stopped twice and resumed from its queue each time, cached pages not fetched again: at "
+            f"{RUN_STOPS[0][0][:-1]} UTC, after 720 pages, on a fault in the tool's own status file (the HTTP status "
+            "overwrote the file's name), fixed and tested before it resumed at "
+            f"{RUN_STOPS[0][1][:-1]} UTC; and at {RUN_STOPS[1][0][:-1]} UTC, under heavy load on the machine, when it "
+            "ended as if its queue were done with the 505 pages of December 2025 left. The cause of that end is not "
+            "established; the tool now reads its queue or fails, and never reports done with items left. A restart "
+            "at 21:59 UTC blocked in the status file before any request and was stopped; the run resumed at "
+            f"{RUN_STOPS[1][1][:-1]} UTC and completed the queue. Besides these two, "
+            f"{plural(len(other), 'gap', 'gaps')} of a minute or more, the longest {num(max(other), 0) if other else '—'} "
+            "s, while the machine was loaded.")
 
 
 def tier0_section(k: Club) -> list[str]:
@@ -1146,6 +1202,11 @@ def club_section(k: Club) -> list[str]:
     th = c["thresholds"]
     ident = rows["opponent_identified"]
     statuses = ", ".join(f"{s}: {n(v)}" for s, v in sorted(pol["statuses"].items()))
+    t_first = datetime.strptime(pol["first"], "%Y-%m-%dT%H:%M:%SZ")
+    t_last = datetime.strptime(pol["last"], "%Y-%m-%dT%H:%M:%SZ")
+    long_sum = sum(g for _a, _b, g in pol["gaps_of_a_minute_or_more"])
+    pace_out = (((t_last - t_first).total_seconds() - long_sum) /
+                (pol["requests"] - 1 - len(pol["gaps_of_a_minute_or_more"])))
     strat = ["| stratum: level, October 2025 · group | pages planned | read | game rows |", "|---|---|---|---|"]
     for st in STRATUM_ORDER:
         b, g = st.split("|")
@@ -1252,6 +1313,7 @@ def club_section(k: Club) -> list[str]:
     above_e = sum(1 for s_ in edge812 if side(s_) == "above")
     near = [wh["near_equal_score"][b]["weighted"] for b in CLUB_LEVELS if b in wh["near_equal_score"]]
     near_v = [s_["mean"] for s_ in near if s_.get("games", 0) >= 100]
+    half_w = [(s_["hi"] - s_["lo"]) / 2 for s_ in near if s_.get("games", 0) >= 100]
     white_words = (
         "- **White moves first.** "
         + (f"White's edge under table 8.1.2, from every game, lies above zero in every one of the {n_lv} level bands"
@@ -1260,15 +1322,31 @@ def club_section(k: Club) -> list[str]:
            + (" and is not settled in the others" if above_e else ""))
         + f" ({rng(edge812, 'edge')} a game)"
         + (f"; at most 25 points apart White scores {sgn(min(near_v), 3).lstrip('+')} to "
-           f"{sgn(max(near_v), 3).lstrip('+')} by level band, where the broadcast games give "
+           f"{sgn(max(near_v), 3).lstrip('+')} by level band, each on a few hundred games with an interval of "
+           f"±{num(min(half_w), 2)} to ±{num(max(half_w), 2)}, where the broadcast games give "
            f"{num(min(e2_white), 3)} to {num(max(e2_white), 3)} below 2200 [E2]" if near_v else "")
         + ". The fitted tables' colour term (about 35 points) leaves an edge of "
         f"{rng(edge_sc, 'edge')} (the 2025 self-calibrating table) and {rng(edge_v2, 'edge')} (the v2 table), the "
         f"interval away from zero in {away_sc} and {away_v2} of {n_lv} bands: "
         + ("the colour term holds at club level within these intervals." if not (away_sc or away_v2) else
-           "where it lies away from zero the colour term does not fit that band (a positive edge left means the "
-           "term is too small, a negative one too large)."))
+           ("where the interval lies away from zero the edge left is negative: there the colour term is too large, "
+            "White's edge at club level being smaller than the tables' 35 points."
+            if all(s_["edge"] < 0 for s_ in edge_sc + edge_v2 if side(s_) != "not settled") else
+            "where it lies away from zero the colour term does not fit that band (a positive edge left means the "
+            "term is too small, a negative one too large).")))
     above_sc, above_v2 = count_side(sc_gap, "above"), count_side(v2_gap, "above")
+    lv = {key: [ft[key]["by_level"].get(b, {}).get("weighted", {}) for b in CLUB_LEVELS] for key, _lab in TABLES}
+    low = {key: [x for b, x in zip(CLUB_LEVELS, lv[key]) if b in BELOW_2000_CLUB and "mean" in x] for key in lv}
+    high = {key: [x for b, x in zip(CLUB_LEVELS, lv[key]) if b not in BELOW_2000_CLUB and "mean" in x] for key in lv}
+    up_low = {key: sum(1 for x in low[key] if side(x) == "above") for key in lv}
+    level_words = (
+        f"By the level of the game, table 8.1.2 leaves the favourite {rng(low['812'])} below 2000 and "
+        f"{rng(high['812'])} from 2000; the 2025 self-calibrating table {rng(low['selfcal'])} below 2000 (the interval "
+        f"above zero in {up_low['selfcal']} of {len(low['selfcal'])} bands) and {rng(high['selfcal'])} from 2000; the "
+        f"v2 table {rng(low['v2'])} below 2000 ({up_low['v2']} of {len(low['v2'])}) and {rng(high['v2'])} from 2000"
+        + (". From 2000 the fitted tables fit and table 8.1.2 does not; below 2000 the fitted tables err the other "
+           "way, by about as much as table 8.1.2: the expectation that fits club play lies between the two. "
+           if up_low["v2"] and all(side(x) == "not settled" for x in high["v2"]) else ". "))
     below_sc, below_v2 = count_side(sc_gap, "below"), count_side(v2_gap, "below")
     table_words = (
         "- **The top drains: the fair table.** "
@@ -1287,6 +1365,7 @@ def club_section(k: Club) -> list[str]:
         f"zero in {above_sc} and {above_v2} of {len(v2_gap)} bins and below it in {below_sc} and {below_v2}"
         + ("; above zero, the favourite scores more than the fitted table expects: there the table, fitted on "
            "stronger players' games, is too flat for club play. " if (above_sc or above_v2) else ". ")
+        + level_words
         + "What a table refitted on the pool's own games would give is for FIDE's data; the self-calibrating method "
         "is consistent with self-calibration, not yet proven.")
     nb = [b for b in AGE_ORDER if nw.get(b, {}).get("weighted", {}).get("games", 0) >= 100]
@@ -1300,12 +1379,17 @@ def club_section(k: Club) -> list[str]:
            "Below 2000 the adults' junior-specific residual is not settled in any band")
         + ": junior-specific "
         + "; ".join(f"{club_lvl(b)} {c3(jn['junior_specific'].get(b, {}).get('weighted', {}))}" for b in BELOW_2000_CLUB)
-        + ". Newcomers first rated from April 2024 score "
+        + ". These are results against the expectation, not proof of strength: a junior who improves between lists "
+        "scores above a rating that has not yet caught up, which is the problem itself, and the adults lose those "
+        "points. Newcomers first rated from April 2024 score "
         f"{c3(every)} against FIDE's expectation in their first year, every age pooled"
         + (f"; below it at {', '.join(nb_below)}" if nb_below else "")
         + (f"; above it at {', '.join(nb_above)}" if nb_above else "")
-        + " (§11.6). These are results against the expectation, not proof of strength: a junior who improves between "
-        "lists scores above a rating that has not yet caught up, which is the problem itself.")
+        + (" (§11.6): in their first year newcomers' results sit, if anything, below their first ratings, most "
+           "clearly for adults; these pages do not show newcomers rated behind their strength in that year, which "
+           "the later climb of the young (§3.3) does not contradict." if side(every) == "below" else
+           " (§11.6): in their first year newcomers score above their first ratings, rated behind their results."
+           if side(every) == "above" else " (§11.6): not settled in their first year."))
     pilot = k.pilot
     pilot812 = shown([pilot["fair_table"]["812"]["by_gap"][gb]["weighted"] for gb in CLUB_GAPS
                       if gb in pilot["fair_table"]["812"]["by_gap"]])
@@ -1320,12 +1404,19 @@ def club_section(k: Club) -> list[str]:
         "### 11.1 What was fetched",
         "",
         f"- **Requests:** {n(pol['requests'])} to ratings.fide.com, from {pol['first']} to {pol['last']} ({statuses}; "
-        "the one 404 is robots.txt, which FIDE does not publish), logged in `data/fetch_log/ELO-D2.tsv`; one page "
-        f"every {num(pol['seconds_per_request'], 2)} s; the smallest gap between requests to FIDE's site "
-        f"{num(pol['smallest_gap'], 0)} s as logged, {pol['gaps_under_4']} under four; refusals: {pol['refusals']}"
-        + ("; no gap was doubled." if not pol["refusals"] else ".")
-        + f" {n(pg['planned'] - pol['calc_requests'])} pages of the plan were already in the pilot's cache and were "
-        "not fetched again.",
+        "the one 404 is robots.txt, which FIDE does not publish), logged in `data/fetch_log/ELO-D2.tsv`; one request "
+        f"every {num(pol['seconds_per_request'], 2)} s from the first to the last, {num(pace_out, 2)} s outside the "
+        f"{len(pol['gaps_of_a_minute_or_more'])} gaps of a minute or more; the smallest gap between requests to "
+        "FIDE's site "
+        f"{num(pol['smallest_gap'], 0)} s as logged, {pol['gaps_under_4']} under four. Refusals (HTTP 429 or 5xx): "
+        f"{pol['http_refusals']}; "
+        + (f"requests that ended without an answer (a network error): {pol['network_errors']}, at "
+           f"{', '.join(t_[11:] for t_ in pol['network_error_times'])}; the tool counts such an error as a refusal, so "
+           "the gap was doubled to eight seconds for the next 100 requests and the page was fetched on the next "
+           "attempt" if pol["network_errors"] else "no request ended without an answer, and no gap was doubled")
+        + ". " + interruptions(pol)
+        + f" {n(pg['planned'] - (pol['calc_requests'] - pol['refusals']))} pages of the plan were already in the "
+        "pilot's cache and were not fetched again.",
         f"- **The lock:** rating periods requested {month(lk['periods_requested'][0])} to "
         f"{month(lk['periods_requested'][1])}, {lk['periods_outside_2025']} outside 2025; URLs naming a 2026 U.S. "
         f"Championship: {lk['urls_naming_a_2026_us_championship']}; cached pages naming one: "

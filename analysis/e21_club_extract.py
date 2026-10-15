@@ -433,10 +433,20 @@ def politeness_and_lock(sample: list[dict]) -> tuple[dict, dict]:
     gaps = [(b - a).total_seconds() for a, b in zip(ts, ts[1:])]
     calc = [r for r in log if r["item"].startswith("calc ")]
     refused = [r for r in log if r["status"] == "429" or r["status"].startswith(("5", "error"))]
+    http_refused = [r for r in log if r["status"] == "429" or r["status"].startswith("5")]
+    errors = [r for r in log if r["status"].startswith("error")]
+    doubled = sum(1 for g in gaps if g >= 8)
     pol = {"requests": len(log), "calc_requests": len(calc), "hosts": dict(Counter(r["host"] for r in log)),
            "statuses": dict(Counter(r["status"] for r in log)), "first": log[0]["fetched_utc"] if log else None,
            "last": log[-1]["fetched_utc"] if log else None, "smallest_gap": min(gaps) if gaps else None,
            "gaps_under_4": sum(1 for g in gaps if g < 4), "refusals": len(refused),
+           "http_refusals": len(http_refused), "network_errors": len(errors),
+           "network_error_times": [r["fetched_utc"] for r in errors], "gaps_of_8_s_or_more": doubled,
+           "largest_gap": max(gaps) if gaps else None,
+           "largest_gap_from_to": ([ts[gaps.index(max(gaps))].strftime("%H:%M:%SZ"),
+                                    ts[gaps.index(max(gaps)) + 1].strftime("%H:%M:%SZ")] if gaps else None),
+           "gaps_of_a_minute_or_more": [[ts[i].strftime("%H:%M:%SZ"), ts[i + 1].strftime("%H:%M:%SZ"), g]
+                                        for i, g in enumerate(gaps) if g >= 60],
            "seconds_per_request": round((ts[-1] - ts[0]).total_seconds() / (len(ts) - 1), 2) if len(ts) > 1 else None,
            "bytes": sum(int(r["bytes"]) for r in log)}
     periods = sorted({re.search(r"rating_period=(\d{4}-\d\d)", r["url"]).group(1) for r in calc})
