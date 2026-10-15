@@ -547,6 +547,11 @@ def reports_section() -> list[str]:
         "the 200-point example (final, p. 2); the stable age band of 20 to 38 (supplemental, pp. 6–8); the first 15 games "
         "after a first rating (final, pp. 10–12). §8 lists them as proposed edits.",
         "",
+        "Since session ELO-15c (15 October 2026) the proposal cites the count of players rated 2600 or more (§2(a)), the "
+        "200-point example (annex T3.8) and the first 15 games after a first rating (§2(b), annex T4.7), each with its "
+        "period, and notes the Qualification Commission's decisions below (§8, annex T8.10, Appendix C); the count of "
+        "players rated 2200 or more and the stable age band are not cited.",
+        "",
         "The Qualification Commission's summary of its Congress meeting of 23 September 2026, posted on 12 October 2026, "
         "records decisions that bear on the problems (the full minutes, on Google Drive, were not fetched):",
         "",
@@ -955,6 +960,11 @@ def edits_d2() -> list[str]:
         f"published rating in {pct(share, 0)} of games and differ from the lists by a few points in most of the rest, "
         "and print as unrated players whose games the lists rated (§10); a rating's history cannot be rebuilt exactly "
         "from the pages alone.",
+        "",
+        "Made in session ELO-15c (15 October 2026; `docs/DECISIONS.md`, items 37 to 46): every edit above, in the "
+        "proposal's body, the annex and Appendix F, except two. The greats' difference list by list stays out of the "
+        "proposal (item 41); and the fitted tables' colour term below 2000 is stated as open, not as a finding (annex "
+        "T3.8), its interval lying away from zero in 2 of 5 bands.",
     ]
 
 
@@ -1323,7 +1333,12 @@ def club_section(k: Club) -> list[str]:
            if above_e == n_lv else
            f"White's edge under table 8.1.2, from every game, lies above zero in {above_e} of the {n_lv} level bands"
            + (" and is not settled in the others" if above_e else ""))
-        + f" ({rng(edge812, 'edge')} a game)"
+        + f" ({rng(edge812, 'edge')} a game"
+        + (f"; at equal ratings, one half plus the edge, White scores about "
+           f"{100 * (0.5 + min(s['edge'] for s in edge812 if 'edge' in s)):.0f} to "
+           f"{100 * (0.5 + max(s['edge'] for s in edge812 if 'edge' in s)):.0f} %"
+           if any('edge' in s for s in edge812) else "")
+        + ")"
         + (f"; at most 25 points apart White scores {sgn(min(near_v), 3).lstrip('+')} to "
            f"{sgn(max(near_v), 3).lstrip('+')} by level band, each on a few hundred games with an interval of "
            f"±{num(min(half_w), 2)} to ±{num(max(half_w), 2)}, where the broadcast games give "
@@ -1573,7 +1588,9 @@ def e21(d: Data) -> str:
         "Every parameter met here is PROVISIONAL.",
         "",
         "Corrected 2026-10-15 (session ELO-15c): §10.2's last bullet printed its template instead of its number; it "
-        "now prints it (7). §9 says that the club-level figures were computed once. No figure changed.",
+        "now prints it (7). §9 says that the club-level figures were computed once, and §11.7 gives White's score at "
+        "equal ratings that the edge implies (one half plus the edge). §4 and §8 say which edits session ELO-15c made "
+        "in the proposal. No figure changed.",
         "",
         FIXED,
         "",
