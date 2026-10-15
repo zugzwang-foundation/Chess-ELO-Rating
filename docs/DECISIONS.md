@@ -2,6 +2,26 @@
 
 Status: DECIDED — the project's decision log from 12 October 2026: one dated line per decision, newest date first; the ten of 12 October 2026 stand in the order they were given, and a later decision takes the next number and goes on top. The decision records D-0001 to D-0018 in `docs/decisions/` stay as history; a mistake in one is fixed in place, with a dated line saying what changed.
 
+46\. 2026-10-15 — Word caps kept, the body at most 4,500 words with section 10's blanks counted as filled and the brief at most 900: the new evidence replaces words, detail goes to the annex and appendices, and no verdict, condition, disclosure or required line is cut; every change since the review of 12 October is listed in STATUS and checked by a fresh-eyes review of the changed passages (founder) (session ELO-15c): `STATUS.md`, "Changed since the review of 12 October".
+
+45\. 2026-10-15 — SPEC-L0's open question Q-12 (the 7 pages printed with Ro 0 and no K, whose games the lists rated) and the R-09/R-10 observation of E21 §10.2 are recorded for session ELO-17; no specification change now (founder) (session ELO-15c): `STATUS.md`, Next.
+
+44\. 2026-10-15 — The probe's 20 tournament reports are deleted, each first checked against its logged SHA-256 and read no further, and listed in the local manifest; commit eed5127, the club-level sample's plan, which the squash-merge left outside main's history, is tagged elo-d2-plan (founder) (session ELO-15c): `tools/data/fetch_sourcing.py` (mode delete-reports), `docs/research/SOURCES_v1_0.md` §5.
+
+43\. 2026-10-15 — The data rule: where this project's material shows a named player's FIDE rating, it is FIDE's published rating, credited to FIDE; no FIDE list file is published; FIDE IDs are committed only in the test fixtures quoting FIDE's published calculations and the report printed from them, for the players of the U.S. Championships (their event files and the reports printed from them) and for the named players of today's top 100 and the greats; section 9's request for FIDE's written permission stays (founder) (session ELO-15c): proposal Appendix I, annex T8.6, `README.md`, `docs/research/SOURCES_v1_0.md`.
+
+42\. 2026-10-15 — One sentence on the Qualification Commission's decisions of 23 September 2026 (summary posted 12 October 2026) beside rungs 4 and 5: a proposal to allow K = 40 for non-junior players rejected; reporting standard non-team events every 60 days rather than 30 accepted, subject to agreement from FIDE's Ratings Office; the annex lists the four relevant decisions and Appendix C the source (founder) (session ELO-15c): proposal §8, annex T8.10, Appendix C.
+
+41\. 2026-10-15 — ELO-D1's proposed edits adopted, every figure of Sonas's with its period, before FIDE's regulations of 1 March 2024; the greats' differences list by list stay out of the proposal (founder) (session ELO-15c): proposal §2(a), §2(b), §8; annex T3.8, T4.6, T4.7, T8.6.
+
+40\. 2026-10-15 — Appendix F gains the finding on FIDE's game pages against its lists, descriptive and dated (pages read 14 October 2026), with no claim about why (founder) (session ELO-15c): proposal Appendix F.4.
+
+39\. 2026-10-15 — Newcomers are never said to be rated behind their strength: the documents give their first year slightly below their ratings and the young's later climb, consistent with improvement; rung 3 keeps TEST ON FIDE DATA, its problem restated; "fast improvers" rests on juniors (founder) (session ELO-15c): proposal §2(b), §6, §8; annex T4.7, T8.1, T8.10.
+
+38\. 2026-10-15 — Rung 1's criterion, decided after E21 §10: every game and tournament sum FIDE prints is reproduced from FIDE's printed inputs; a list change that differs from FIDE's own page is reported to FIDE (Appendix F), not counted against the replica; the check on FIDE's 1 November list applies it (founder) (session ELO-15c): proposal §1, §8, §11; annex T8.1, T8.10.
+
+37\. 2026-10-15 — Rung 2: RECOMMENDED NOW in standard from 2000, in games whose level, the mean of the two published ratings, is 2000 or more, where the table fitted on broadcast games fits FIDE's own 2025 games; below 2000 the table, colour term included, is refitted on FIDE's own games before it applies there, because there it overshoots about as much as table 8.1.2 errs (E21 §11); the shadow year stays; this settles the review's question 7 (ELO6-STAT-1) (founder) (session ELO-15c): proposal §1, §2(a), §8, §15; annex T3.8, T8.2, T8.10; the brief.
+
 36\. 2026-10-14 — Analyses chosen after seeing the pilot are labelled so; the club-level sample's analyses are fixed in its plan before the main fetch (founder) (session ELO-D2): `docs/specs/SPEC-SOURCING_v1_1.md` §7.
 
 35\. 2026-10-14 — Once the session's analysis is verified, the raw pages of ELO-D1's pilot and of this run, and every per-game file derived from them, are deleted; a local manifest of links, periods and checksums is kept so that anyone can fetch them again; E17's and E20's caches are not touched; only totals are committed (founder) (session ELO-D2): `docs/specs/SPEC-SOURCING_v1_1.md` §9.

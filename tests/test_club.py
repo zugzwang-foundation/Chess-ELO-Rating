@@ -226,6 +226,45 @@ def test_the_manifest_verifies_every_page_before_any_is_deleted(tmp_path, monkey
     assert (tmp_path / "MANIFEST").read_text(encoding="utf-8").count("verified") == 2
 
 
+def test_the_probes_reports_are_verified_listed_and_only_then_deleted(tmp_path, monkeypatch):
+    """Session ELO-15c (docs/DECISIONS.md, item 44): each report is checked against the SHA-256 ELO-D1's log records;
+    while one differs nothing is deleted; once all match they are appended to the manifest and deleted, and the
+    calculation pages' deletion still reads only its own rows."""
+    import hashlib
+    reports, calcs = tmp_path / "reports", tmp_path / "calculations"
+    reports.mkdir()
+    calcs.mkdir()
+    log = tmp_path / "ELO-D1.tsv"
+    rows = ["fetched_utc\thost\tpath\tstatus\tbytes\tsha256\turl\titem"]
+    for ev, body in (("111", b"r1"), ("222", b"r22")):
+        (reports / f"{ev}.html").write_bytes(body)
+        rows.append(f"2026-10-14T10:00:0{ev[0]}Z\tratings.fide.com\t/report.phtml\t200\t{len(body)}\t"
+                    f"{hashlib.sha256(body).hexdigest()}\t{fs.REPORT_URL.format(event=ev)}\treport {ev}")
+    rows.append("2026-10-14T10:00:09Z\tratings.fide.com\t/x\t200\t1\t-\thttps://ratings.fide.com/x\tcalc 9:2025-01")
+    log.write_text("\n".join(rows) + "\n", encoding="utf-8")
+    manifest = tmp_path / "MANIFEST"
+    manifest.write_text("# pages\nfetched_utc\tsession\turl\tperiod\tbytes\tsha256\tcheck\n"
+                        f"2026-10-14T15:00:01Z\tELO-D2\t{fs.CALC_URL.format(id='1', period='2025-01')}\t2025-01\t1\t"
+                        f"{hashlib.sha256(b'a').hexdigest()}\tverified\n", encoding="utf-8")
+    monkeypatch.setattr(fs, "REPORTS", reports)
+    monkeypatch.setattr(fs, "CALCS", calcs)
+    monkeypatch.setattr(fs, "LOG", log)
+    monkeypatch.setattr(fs, "MANIFEST", manifest)
+    (reports / "222.html").write_bytes(b"changed")                  # a report that no longer matches its log
+    with pytest.raises(SystemExit):
+        fs.delete_reports()
+    assert len(list(reports.glob("*.html"))) == 2 and "report.phtml" not in manifest.read_text(encoding="utf-8")
+    (reports / "222.html").write_bytes(b"r22")
+    assert fs.delete_reports() == 0 and not list(reports.glob("*"))
+    text = manifest.read_text(encoding="utf-8")
+    assert text.count("report.phtml") == 2 and text.count("\treport\t") == 2 and fs.REPORTS_NOTE in text
+    with pytest.raises(SystemExit):
+        fs.delete_reports()                                         # a second run: the reports are gone, nothing to verify
+    assert manifest.read_text(encoding="utf-8").count("report.phtml") == 2
+    (calcs / "1_2025-01.html").write_bytes(b"a")
+    assert fs.delete_pages() == 0 and not list(calcs.glob("*"))     # the report rows do not reach delete_pages
+
+
 def test_the_club_run_writes_its_status_every_hour_and_completes(tmp_path, monkeypatch):
     """Regression (ELO-D2, 15:25 UTC): the status file is written at the first hourly mark after pages were fetched,
     and the run ends with COMPLETE. No connection: the request is replaced."""

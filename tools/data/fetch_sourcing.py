@@ -42,6 +42,11 @@ politeness and parser, its requests logged to data/fetch_log/ELO-D2.tsv:
   delete-pages         delete the cached calculation pages the manifest lists and verifies (docs/DECISIONS.md, item 35),
                        nothing else, and print what remains
 
+Session ELO-15c (15 October 2026), the founder's decision on the probe (docs/DECISIONS.md, item 44):
+  delete-reports       check each of the probe's cached tournament reports against the SHA-256 that ELO-D1's log
+                       records, reading it no further than that checksum; append the verified reports to the manifest;
+                       then delete them, nothing else, and print what remains
+
 Python standard library only.
 """
 from __future__ import annotations
@@ -692,7 +697,8 @@ def delete_pages() -> int:
         raise SystemExit("no manifest: run mode manifest first")
     gone = 0
     with MANIFEST.open(encoding="utf-8") as fh:
-        rows = [r for r in csv.DictReader((x for x in fh if not x.startswith("#")), delimiter="\t")]
+        rows = [r for r in csv.DictReader((x for x in fh if not x.startswith("#")), delimiter="\t")
+                if "a_indv_calculation" in r["url"]]     # the calculation pages; the probe's reports are listed apart
     for r in rows:
         if r["check"] != "verified":
             raise SystemExit("the manifest holds a page not verified: nothing deleted")
@@ -707,11 +713,51 @@ def delete_pages() -> int:
     return 0 if not left else 1
 
 
+REPORTS_NOTE = ("# FIDE's tournament reports of ELO-D1's probe, deleted after verification (docs/DECISIONS.md, item 44); "
+                "each link re-fetches its report; the period column reads \"report\".\n")
+
+
+def delete_reports() -> int:
+    """Delete the probe's cached tournament reports (the founder, 15 October 2026; docs/DECISIONS.md, item 44). Each is
+    first checked against the SHA-256 that ELO-D1's log records for it, read no further than that checksum; if any is
+    missing or differs, nothing is deleted. The verified reports are appended to the manifest (link, fetch time, size
+    and SHA-256), so that anyone can fetch them again; nothing else in data/ is read or deleted."""
+    if not MANIFEST.exists():
+        raise SystemExit("no manifest: run mode manifest first")
+    verified, bad = [], 0
+    with LOG.open(encoding="utf-8") as fh:
+        for r in csv.DictReader(fh, delimiter="\t"):
+            if not r["item"].startswith("report ") or r["status"] != "200":
+                continue
+            f = cached_path("report", r["item"].split(" ", 1)[1])
+            if f.exists() and hashlib.sha256(f.read_bytes()).hexdigest() == r["sha256"]:
+                verified.append((r, f))
+            else:
+                bad += 1
+    if bad:
+        raise SystemExit(f"{bad} report(s) missing or differing from the log: nothing deleted")
+    listed = MANIFEST.read_text(encoding="utf-8")
+    with MANIFEST.open("a", encoding="utf-8") as fh:
+        if REPORTS_NOTE not in listed:
+            fh.write(REPORTS_NOTE)
+        for r, _ in verified:
+            if f"\t{r['url']}\t" not in listed:
+                fh.write("\t".join((r["fetched_utc"], "ELO-D1", r["url"], "report", r["bytes"], r["sha256"],
+                                    "verified")) + "\n")
+    for _, f in verified:
+        f.unlink()
+    left = sorted(p.name for p in REPORTS.glob("*")) if REPORTS.exists() else []
+    print(f"verified, listed and deleted {len(verified)} reports; left in {REPORTS.name}/: {len(left)}")
+    return 0 if not left else 1
+
+
 if __name__ == "__main__":
     if len(sys.argv) == 2 and sys.argv[1] == "manifest":
         sys.exit(write_manifest())
     if len(sys.argv) == 2 and sys.argv[1] == "delete-pages":
         sys.exit(delete_pages())
+    if len(sys.argv) == 2 and sys.argv[1] == "delete-reports":
+        sys.exit(delete_reports())
     if len(sys.argv) >= 2 and sys.argv[1].startswith("club-"):
         LOG = CLUB_LOG
     if len(sys.argv) == 2 and sys.argv[1] == "club-robots":

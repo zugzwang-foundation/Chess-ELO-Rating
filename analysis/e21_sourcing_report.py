@@ -547,6 +547,11 @@ def reports_section() -> list[str]:
         "the 200-point example (final, p. 2); the stable age band of 20 to 38 (supplemental, pp. 6–8); the first 15 games "
         "after a first rating (final, pp. 10–12). §8 lists them as proposed edits.",
         "",
+        "Since session ELO-15c (15 October 2026) the proposal cites the count of players rated 2600 or more (§2(a)), the "
+        "200-point example (annex T3.8) and the first 15 games after a first rating (§2(b), annex T4.7), each with its "
+        "period, and notes the Qualification Commission's decisions below (§8, annex T8.10, Appendix C); the count of "
+        "players rated 2200 or more and the stable age band are not cited.",
+        "",
         "The Qualification Commission's summary of its Congress meeting of 23 September 2026, posted on 12 October 2026, "
         "records decisions that bear on the problems (the full minutes, on Google Drive, were not fetched):",
         "",
@@ -955,6 +960,11 @@ def edits_d2() -> list[str]:
         f"published rating in {pct(share, 0)} of games and differ from the lists by a few points in most of the rest, "
         "and print as unrated players whose games the lists rated (§10); a rating's history cannot be rebuilt exactly "
         "from the pages alone.",
+        "",
+        "Made in session ELO-15c (15 October 2026; `docs/DECISIONS.md`, items 37 to 46): every edit above, in the "
+        "proposal's body, the annex and Appendix F, except two. The greats' difference list by list stays out of the "
+        "proposal (item 41); and the fitted tables' colour term below 2000 is stated as open, not as a finding (annex "
+        "T3.8), its interval lying away from zero in 2 of 5 bands.",
     ]
 
 
@@ -978,6 +988,9 @@ def limits_section() -> list[str]:
         "NOT VERIFIED beyond the name. The ratings are those the pages print today, which differ from the lists as "
         "published on about a quarter of games (§10.2). The fitted tables are applied as they stand, fitted on "
         "broadcast games; none was refitted on these games.",
+        "- **Computed once** (added in session ELO-15c, 15 October 2026). The club-level figures (§11) were computed "
+        "once, from pages since deleted (`docs/DECISIONS.md`, item 35); before the deletion, only Tier 0's extract was "
+        "re-run. The code and its tests are committed, so FIDE can recompute every figure on its own data.",
         "- Why FIDE's pages and lists differ, and the list changes that neither a known rule nor the published ratings "
         "reproduce (§10.2), are NOT VERIFIED.",
         "",
@@ -1013,6 +1026,13 @@ def c3(s: dict, d: int = 3) -> str:
 
 def u3(s: dict, d: int = 3) -> str:
     return sgn(s["mean"], d) if s and s.get("games", 0) >= 100 and "mean" in s else "—"
+
+
+def eu3(s: dict, d: int = 3) -> str:
+    """An unweighted edge, as a point figure, or a dash below 100 games of either colour."""
+    if not s or "edge" not in s or min(s.get("games_white", 0), s.get("games_black", 0)) < 100:
+        return "—"
+    return sgn(s["edge"], d)
 
 
 def e3(s: dict, d: int = 3) -> str:
@@ -1176,7 +1196,7 @@ def tier0_section(k: Club) -> list[str]:
         "NOT VERIFIED.",
         f"- **R-12 and the periods.** Leaving out games against an opponent not rated on the list in force reproduces "
         f"{got(GAMES_CLASS, r12)} of the {plural(applies(GAMES_CLASS, r12), 'page', 'pages')} whose games differ from "
-        "the list's and that hold such a game. On {applies('equal', r0910)} matching pages the list counts a tournament that R-09 and "
+        f"the list's and that hold such a game. On {n(applies('equal', r0910))} matching pages the list counts a tournament that R-09 and "
         "R-10 as SPEC-L0 reads them would not allow on that list (R-10's reading is NOT VERIFIED).",
         "",
         f"**In plain words.** The pages show FIDE's figures as FIDE's server returns them today (14 October 2026). "
@@ -1231,12 +1251,13 @@ def club_section(k: Club) -> list[str]:
         gap_rows.append(f"| {gb.replace('-', '–')} | {n(s['812'].get('weighted', {}).get('games', 0))} | "
                         + " | ".join(f"{c3(s[key].get('weighted'))} | {u3(s[key].get('unweighted'))}"
                                      for key, _lab in TABLES) + " |")
-    lvl_rows = ["| level of the game | games | table 8.1.2 | 2025 self-calibrating table | v2 table |",
-                "|---|---|---|---|---|"]
+    lvl_rows = ["| level of the game | games | table 8.1.2 | unweighted | 2025 self-calibrating table | unweighted | "
+                "v2 table | unweighted |", "|---|---|---|---|---|---|---|---|"]
     for b in CLUB_LEVELS:
         s = {key: ft[key]["by_level"].get(b, {}).get("weighted", {}) for key, _lab in TABLES}
+        su = {key: ft[key]["by_level"].get(b, {}).get("unweighted", {}) for key, _lab in TABLES}
         lvl_rows.append(f"| {club_lvl(b)} | {n(s['812'].get('games', 0))} | "
-                        + " | ".join(c3(s[key]) for key, _lab in TABLES) + " |")
+                        + " | ".join(f"{c3(s[key])} | {u3(su[key])}" for key, _lab in TABLES) + " |")
     grid = ["| level of the game | " + " | ".join(gb.replace("-", "–") for gb in CLUB_GAPS) + " |",
             "|---|" + "---|" * len(CLUB_GAPS)]
     for b in CLUB_LEVELS:
@@ -1245,6 +1266,14 @@ def club_section(k: Club) -> list[str]:
             s = ft["812"]["by_level_gap"].get(f"{b}|{gb}", {}).get("weighted", {})
             cells.append(f"{u3(s)} ({n(s['games'])})" if s.get("games", 0) >= 100 else "—")
         grid.append(f"| {club_lvl(b)} | " + " | ".join(cells) + " |")
+    grid_u = ["| level of the game | " + " | ".join(gb.replace("-", "–") for gb in CLUB_GAPS) + " |",
+              "|---|" + "---|" * len(CLUB_GAPS)]
+    for b in CLUB_LEVELS:
+        cells = []
+        for gb in CLUB_GAPS:
+            s = ft["812"]["by_level_gap"].get(f"{b}|{gb}", {}).get("unweighted", {})
+            cells.append(f"{u3(s)} ({n(s['games'])})" if s.get("games", 0) >= 100 else "—")
+        grid_u.append(f"| {club_lvl(b)} | " + " | ".join(cells) + " |")
     ra = {key: ft[key]["rule_a"] for key, _lab in TABLES}
     pub = c["fair_table_published_ratings"]
     by812 = shown([ft["812"]["by_gap"][gb]["weighted"] for gb in CLUB_GAPS if gb in ft["812"]["by_gap"]])
@@ -1259,12 +1288,15 @@ def club_section(k: Club) -> list[str]:
         r2 = wh["near_equal_minus_table"]["v2"].get(b, {}).get("weighted", {})
         w_rows.append(f"| {club_lvl(b)} | {n(s.get('weighted', {}).get('games', 0))} | {c3(s.get('weighted'))} | "
                       f"{u3(s.get('unweighted'))} | {c3(r1)} | {c3(r2)} |")
-    e_rows = ["| level of the game | games | White's edge under table 8.1.2 | left by the 2025 self-calibrating table | "
-              "left by the v2 table |", "|---|---|---|---|---|"]
+    e_rows = ["| level of the game | games | White's edge under table 8.1.2 | unweighted | left by the 2025 "
+              "self-calibrating table | unweighted | left by the v2 table | unweighted |",
+              "|---|---|---|---|---|---|---|---|"]
     for b in CLUB_LEVELS:
         s = {key: wh["edge_every_game"][key].get(b, {}).get("weighted", {}) for key, _lab in TABLES}
+        su = {key: wh["edge_every_game"][key].get(b, {}).get("unweighted", {}) for key, _lab in TABLES}
         g_ = s["812"].get("games_white", 0) + s["812"].get("games_black", 0)
-        e_rows.append(f"| {club_lvl(b)} | {n(g_)} | " + " | ".join(e3(s[key]) for key, _lab in TABLES) + " |")
+        e_rows.append(f"| {club_lvl(b)} | {n(g_)} | "
+                      + " | ".join(f"{e3(s[key])} | {eu3(su[key])}" for key, _lab in TABLES) + " |")
 
     # 11.5 juniors
     j_rows = ["| adult's band | games against juniors | adults' score minus FIDE's expectation | unweighted | games "
@@ -1320,7 +1352,12 @@ def club_section(k: Club) -> list[str]:
            if above_e == n_lv else
            f"White's edge under table 8.1.2, from every game, lies above zero in {above_e} of the {n_lv} level bands"
            + (" and is not settled in the others" if above_e else ""))
-        + f" ({rng(edge812, 'edge')} a game)"
+        + f" ({rng(edge812, 'edge')} a game"
+        + (f"; at equal ratings, one half plus the edge, White scores about "
+           f"{100 * (0.5 + min(s['edge'] for s in edge812 if 'edge' in s)):.0f} to "
+           f"{100 * (0.5 + max(s['edge'] for s in edge812 if 'edge' in s)):.0f} %"
+           if any('edge' in s for s in edge812) else "")
+        + ")"
         + (f"; at most 25 points apart White scores {sgn(min(near_v), 3).lstrip('+')} to "
            f"{sgn(max(near_v), 3).lstrip('+')} by level band, each on a few hundred games with an interval of "
            f"±{num(min(half_w), 2)} to ±{num(max(half_w), 2)}, where the broadcast games give "
@@ -1347,6 +1384,15 @@ def club_section(k: Club) -> list[str]:
         + (". From 2000 the fitted tables fit and table 8.1.2 does not; below 2000 the fitted tables err the other "
            "way, by about as much as table 8.1.2: the expectation that fits club play lies between the two. "
            if up_low["v2"] and all(side(x) == "not settled" for x in high["v2"]) else ". "))
+    lvu = {key: [ft[key]["by_level"].get(b, {}).get("unweighted", {}) for b in CLUB_LEVELS] for key, _lab in TABLES}
+    lowu = {key: [x for b, x in zip(CLUB_LEVELS, lvu[key]) if b in BELOW_2000_CLUB and "mean" in x] for key in lvu}
+    level_words += (
+        "Unweighted, in the sample, where juniors and newcomers count for more than in the pool, the favourite's "
+        f"residual by level is {rng([x for x in lvu['812'] if 'mean' in x])} under table 8.1.2, the interval below zero "
+        f"in {sum(1 for x in lvu['812'] if side(x) == 'below')} of {sum(1 for x in lvu['812'] if 'mean' in x)} bands; "
+        f"below 2000 it is {rng(lowu['selfcal'])} under the 2025 self-calibrating table and {rng(lowu['v2'])} under "
+        f"the v2 table, the interval above zero in {sum(1 for x in lowu['selfcal'] if side(x) == 'above')} and "
+        f"{sum(1 for x in lowu['v2'] if side(x) == 'above')} of {len(lowu['v2'])} bands (added in session ELO-15c). ")
     below_sc, below_v2 = count_side(sc_gap, "below"), count_side(v2_gap, "below")
     table_words = (
         "- **The top drains: the fair table.** "
@@ -1473,6 +1519,12 @@ def club_section(k: Club) -> list[str]:
         "",
         *grid,
         "",
+        "The same, unweighted (added in session ELO-15c, as the plan asks: SPEC-SOURCING v1.1 §7):",
+        "",
+        FIXED,
+        "",
+        *grid_u,
+        "",
         f"- **E11's rule (a)** on the cells of 200-point level band × 50-point gap with at least 1,000 games: table "
         f"8.1.2 {ra['812']['weighted']['cells_outside']} of {ra['812']['weighted']['cells_tested']} cells outside "
         f"±0.01 weighted ({ra['812']['unweighted']['cells_outside']} of {ra['812']['unweighted']['cells_tested']} "
@@ -1568,6 +1620,13 @@ def e21(d: Data) -> str:
         "rights and its written permission is to be requested (`docs/research/SOURCES_v1_0.md`; `docs/DECISIONS.md`, "
         "item 6). Ghita's book [R 5] is cited by page and paraphrased; Sonas's reports are quoted briefly, by page. "
         "Every parameter met here is PROVISIONAL.",
+        "",
+        "Corrected 2026-10-15 (session ELO-15c): §10.2's last bullet printed its template instead of its number; it "
+        "now prints it (7). §9 says that the club-level figures were computed once, and §11.7 gives White's score at "
+        "equal ratings that the edge implies (one half plus the edge). §4 and §8 say which edits session ELO-15c made "
+        "in the proposal. §11.3 and §11.4 print the unweighted figures beside the weighted ones by level, by level "
+        "and gap and for White's edge, as the plan asks (SPEC-SOURCING v1.1 §7), and §11.7 reads them; they were in "
+        "the committed aggregate. No figure changed.",
         "",
         FIXED,
         "",

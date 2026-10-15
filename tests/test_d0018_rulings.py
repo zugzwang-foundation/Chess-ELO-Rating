@@ -137,7 +137,8 @@ def test_r84_fides_permission_is_to_be_requested_and_the_row_gives_no_date():
 
 def test_r86_appendix_f3_cites_e20_only():
     prop = (ROOT / "docs" / "proposal" / "ELO-PROPOSAL_v1_0.md").read_text(encoding="utf-8")
-    f3 = prop.split("**F.3 From the greats' replay, 2008–2019.**")[1].split("\n---\n")[0]
+    rest = prop.split("**F.3 From the greats' replay, 2008–2019.**")[1].split("\n---\n")[0]
+    f3 = rest.split("\n**F.4 ")[0]                     # F.4, FIDE's pages against its lists, added in session ELO-15c
     assert set(re.findall(r"\[E(\d+)", f3)) == {"20"}
     assert "28 June 2009" in f3 and "9 July 2009" in f3 and "a date no regulation text we read gives" in f3
     # R86 (2) as corrected on 2026-10-12 (docs/DECISIONS.md, item 9): which text was in force in 2018 is NOT VERIFIED
@@ -147,7 +148,7 @@ def test_r86_appendix_f3_cites_e20_only():
     assert "The same rounding words were applied two ways" not in f3
     assert "January 2009 is the exception" in f3 and "41 points" in f3
     # worded on 2026-10-12 so that it stays true after submission (session ELO-13)
-    assert "These findings reach FIDE with this proposal." in f3 and "Nothing has been sent to FIDE" not in prop
+    assert "These findings reach FIDE with this proposal." in rest and "Nothing has been sent to FIDE" not in prop
     assert "a date no text gives" in E20 and "before the text of 2022 said \"away from zero\"" in E20
 
 
